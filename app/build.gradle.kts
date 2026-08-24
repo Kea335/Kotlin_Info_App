@@ -1,8 +1,18 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
+
+// İmza acarları repoda saxlanılmır — keystore.properties .gitignore-dadır.
+val imzaFayli = rootProject.file("keystore.properties")
+val imza = Properties().apply {
+    if (imzaFayli.exists()) FileInputStream(imzaFayli).use { load(it) }
+}
+val imzaVar = imzaFayli.exists() && imza.getProperty("storeFile") != null
 
 android {
     namespace = "az.kotlinaz.app"
@@ -16,10 +26,29 @@ android {
         versionName = "1.0.0"
     }
 
+    signingConfigs {
+        if (imzaVar) {
+            create("release") {
+                storeFile = rootProject.file(imza.getProperty("storeFile"))
+                storePassword = imza.getProperty("storePassword")
+                keyAlias = imza.getProperty("keyAlias")
+                keyPassword = imza.getProperty("keyPassword")
+
+                // minSdk 24 olduğu üçün köhnə JAR imzasına ehtiyac yoxdur;
+                // v3 açar rotasiyasını mümkün edir.
+                enableV1Signing = false
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            if (imzaVar) signingConfig = signingConfigs.getByName("release")
         }
     }
 

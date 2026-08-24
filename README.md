@@ -79,6 +79,39 @@ APK: `app/build/outputs/apk/debug/app-debug.apk`
 
 Tələblər: JDK 17 (Android Studio-nun `jbr` qovluğu işləyir), Android SDK 37.
 
+### İmzalı release
+
+`keystore.properties` faylı repoda **yoxdur** — imza açarları heç vaxt commit
+edilmir. Öz açarını yarat:
+
+```bash
+keytool -genkeypair -v -keystore kotlinaz-release.jks -alias kotlinaz -keyalg RSA -keysize 4096 -validity 10000
+```
+
+Sonra layihənin kökündə `keystore.properties` yarat:
+
+```properties
+storeFile=kotlinaz-release.jks
+storePassword=...
+keyAlias=kotlinaz
+keyPassword=...
+```
+
+```bash
+./gradlew assembleRelease
+```
+
+APK: `app/build/outputs/apk/release/app-release.apk` (≈1.9 MB)
+
+Fayl yoxdursa release yenə qurulur, sadəcə imzasız qalır. Release qurulusunda
+R8 minifikasiyası və resurs təmizlənməsi aktivdir; `proguard-rules.pro`
+kotlinx-serialization üçün lazımi `keep` qaydalarını saxlayır — onlarsız JSON
+oxunuşu sınır.
+
+> **Diqqət:** `kotlinaz-release.jks` tətbiqin imza kimliyidir. Google Play-ə
+> yükləndikdən sonra bütün yeniləmələr məhz bu açarla imzalanmalıdır. Faylı və
+> parolları itirsən, tətbiqi yeniləmək mümkün olmayacaq.
+
 | Alət | Versiya |
 |---|---|
 | Gradle | 9.5.0 |
