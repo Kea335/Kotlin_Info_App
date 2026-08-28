@@ -74,7 +74,10 @@ private fun FlowChips(
 ) {
     Layout(content = content, modifier = modifier) { measurables, constraints ->
         val bosluq = aralik.roundToPx()
-        val maxEn = constraints.maxWidth
+        // Valideyn eni məhdudlaşdırmasa (məsələn üfüqi sürüşən sıra),
+        // constraints.maxWidth sonsuzdur və layout() ilə ölçü kimi verilə bilməz.
+        // Belə halda çiplər tək sətirdə qalır.
+        val maxEn = if (constraints.hasBoundedWidth) constraints.maxWidth else Int.MAX_VALUE
         val yerlesdirilmis = measurables.map { it.measure(constraints.copy(minWidth = 0)) }
 
         var x = 0
@@ -93,7 +96,9 @@ private fun FlowChips(
             setirHundurluyu = max(setirHundurluyu, p.height)
         }
 
-        layout(maxEn, y + setirHundurluyu) {
+        // Sonsuz enli halda faktiki tutulan eni veririk.
+        val netEn = if (constraints.hasBoundedWidth) maxEn else (x - bosluq).coerceAtLeast(0)
+        layout(netEn, y + setirHundurluyu) {
             yerlesdirilmis.forEachIndexed { i, p ->
                 p.placeRelative(movqeler[i].first, movqeler[i].second)
             }
@@ -375,8 +380,12 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
         DemoCode(kod)
         Spacer(Modifier.height(11.dp))
 
-        // Addım-addım aralıq nəticələr
+        // Addım-addım aralıq nəticələr.
+        // `Column` inline composable-dır, ona görə aşağıdakı blok elə burada,
+        // sıra ilə icra olunur — `cari` DemoScreen-ə çatanda artıq son dəyərdir.
         var cari: Any = COL_BASE
+        // Terminal əməliyyatdan (sum, count, …) sonra zəncir davam edə bilməz:
+        // nəticə artıq siyahı deyil.
         var bitdi = false
         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
             ChainStep("listOf(…)", colFmt(COL_BASE), aktiv = true)
@@ -441,7 +450,10 @@ private fun whenQiymetlendir(xam: String): WhenNetice {
             else -> WhenNetice(5, "Böyük rəqəm: $num")
         }
     }
-    if (Regex("^-?\\d+\\.\\d+$").matches(v)) return WhenNetice(4, "Bu bir Double-dir")
+    // DÜZƏLİŞ: onluq ədəd əvvəllər 4-cü budağı — yəni `is String` budağını —
+    // işıqlandırırdı, halbuki 3.14 String deyil. Həqiqi `when`-də Double heç bir
+    // yuxarıdakı şərtə uymur və `else` budağına (indeks 5) düşür.
+    if (Regex("^-?\\d+\\.\\d+$").matches(v)) return WhenNetice(5, "Böyük rəqəm: $v")
     return WhenNetice(4, "Bu bir String-dir: uzunluq ${v.length}")
 }
 
@@ -588,6 +600,8 @@ private val CORO_TASKS = listOf(
     CoroTask("faylOxuma", 800)
 )
 
+// Animasiya real vaxtdan 1.6 dəfə sürətli gedir — 3300 ms-lik gözləmə
+// ekranda darıxdırıcı olmasın deyə.
 private const val CORO_SPEED = 1.6f
 
 private const val CORO_KOD_ARDICIL =
@@ -615,6 +629,8 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
     var kecen by remember { mutableFloatStateOf(0f) }
     var bitmis by remember { mutableStateOf(false) }
 
+    // Hər tapşırığın başlama anı: paraleldə hamısı 0-da, ardıcılda
+    // əvvəlkilərin cəmindən sonra.
     val baslangiclar = remember(paralel) {
         if (paralel) CORO_TASKS.map { 0 }
         else {
@@ -626,7 +642,8 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
         if (paralel) CORO_TASKS.maxOf { it.dur } else CORO_TASKS.sumOf { it.dur }
     }
 
-    // Animasiya dövrü — kadr saatı ilə
+    // Animasiya dövrü — kadr saatı ilə. Açarlar `isleyir` və `paralel`-dir:
+    // rejim dəyişəndə köhnə dövr ləğv olunur.
     LaunchedEffect(isleyir, paralel) {
         if (!isleyir) return@LaunchedEffect
         var baslangic = -1L

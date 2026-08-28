@@ -1,5 +1,6 @@
 package az.kotlinaz.app.data.model
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
@@ -12,8 +13,11 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 /** Sətir daxili mətn parçası: adi mətn, qalın, kod, keçid və s. */
 @Serializable
 data class Span(
+    /** Parçanın növü — aşağıdakı sabitlərdən biri. */
     val k: String,
+    /** Mətnin özü. `br` növündə boş olur. */
     val v: String = "",
+    /** Yalnız `link` növündə: `#null-safety` kimi daxili ünvan. */
     val href: String? = null
 ) {
     companion object {
@@ -28,6 +32,15 @@ data class Span(
     }
 }
 
+/**
+ * Bütün blok tiplərinin ortaq atası.
+ *
+ * JSON-da hansı blok olduğu `"t"` sahəsi ilə bildirilir (`{"t":"code", …}`).
+ * Defolt ad `"type"`-dır; `@JsonClassDiscriminator` onu qısaldır — 144 kod
+ * bloku və yüzlərlə paraqrafda bu, aktivin ölçüsündə nəzərəçarpan fərqdir.
+ * Annotasiya hələ eksperimentaldır, ona görə açıq `@OptIn` lazımdır.
+ */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @JsonClassDiscriminator("t")
 sealed interface Block
@@ -138,12 +151,15 @@ data object Divider : Block
 
 @Serializable
 data class Section(
+    /** Saytdakı `id` — daxili keçidlər (`#null-safety`) bura işarə edir. */
     val id: String,
+    /** 0-dan başlayan sıra nömrəsi; siyahıdakı mövqe ilə eynidir. */
     val index: Int,
     val title: String,
     val heading: String = "",
     val group: String = "",
     val kicker: String = "",
+    /** `"playground"` | `"exercises"` | `"quiz"` — xüsusi davranışlı bölmələr. */
     val special: String? = null,
     val blocks: List<Block> = emptyList()
 )
@@ -156,27 +172,38 @@ data class Content(
 
 /* ---------- Çalışmalar ---------- */
 
+/** Nəzəri çalışma — çoxvariantlı sual, tam oflayn yoxlanılır. */
 @Serializable
 data class TheoryExercise(
     val id: String,
     val no: Int,
+    /** `junior` | `middle` | `senior` — bax [Level]. */
     val level: String,
     val q: String,
     val code: String? = null,
     val opts: List<String> = emptyList(),
+    /** Düzgün variantın indeksi (0-dan). */
     val a: Int,
     val exp: String
 )
 
+/**
+ * Praktiki çalışma — kod yazılır və nəticə [gozlenilen] ilə tutuşdurulur.
+ * Yoxlama internet tələb edir; qalan hər şey (tapşırıq, ipucu, model həll)
+ * oflayn əlçatandır.
+ */
 @Serializable
 data class PracticeExercise(
     val id: String,
     val no: Int,
     val level: String,
     val tapsiriq: String,
+    /** Redaktorda açılan başlanğıc kod. */
     val starter: String,
+    /** Gözlənilən konsol çıxışı — müqayisə normallaşdırıldıqdan sonra gedir. */
     val gozlenilen: String,
     val ipucu: String? = null,
+    /** Model həll — «Model həll» düyməsi bunu redaktora yükləyir. */
     val hell: String
 )
 
@@ -184,6 +211,7 @@ data class PracticeExercise(
 data class ExerciseTopic(
     val id: String,
     val title: String,
+    /** Uyğun dərs bölməsi; JSON-da yoxdursa mövzunun öz id-si götürülür. */
     val sectionId: String = id,
     val nezeri: List<TheoryExercise> = emptyList(),
     val praktiki: List<PracticeExercise> = emptyList()
@@ -230,12 +258,14 @@ data class SearchIndex(val docs: List<SearchDoc> = emptyList())
 
 /* ---------- Səviyyə ---------- */
 
+/** Çalışma səviyyələri — JSON-dakı `level` sahəsinin qarşılığı. */
 enum class Level(val id: String, val label: String) {
     JUNIOR("junior", "Junior"),
     MIDDLE("middle", "Middle"),
     SENIOR("senior", "Senior");
 
     companion object {
+        /** Naməlum dəyər gəlsə çökmürük — ən aşağı səviyyə götürülür. */
         fun from(id: String): Level = entries.firstOrNull { it.id == id } ?: JUNIOR
     }
 }

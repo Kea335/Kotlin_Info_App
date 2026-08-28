@@ -43,6 +43,8 @@ private val BUILTIN_TYPES = setOf(
     "Dispatchers", "Channel", "Mutex", "Number", "Enum", "Function"
 )
 
+// Punktuasiya və operator simvolları. Ardıcıl gələnlər tək parça kimi
+// rənglənir — `?:`, `!!`, `->`, `==` bölünmür.
 private const val PUNCT = "{}()[];,.:?!<>=+-*/%&|^~"
 
 private fun Char.isIdentStart() = this == '_' || this.isLetter()
@@ -65,6 +67,9 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
         if (style == null) append(text) else withStyle(style) { append(text) }
     }
 
+    // Əl ilə yazılmış leksik analiz: mətn əvvəldən sona bir dəfə gəzilir,
+    // hər addımda ən uzun uyğun parça götürülüb rənglənir. Regex yığını
+    // işlədilmir — uzun kod bloklarında bu üsul həm sürətli, həm proqnozludur.
     var i = 0
     val n = src.length
 
@@ -95,7 +100,7 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
             continue
         }
 
-        // --- Üç dırnaqlı mətn
+        // --- Üç dırnaqlı mətn (raw string) — içindəki hər şey mətndir
         if (ch == '"' && i + 2 < n && src[i + 1] == '"' && src[i + 2] == '"') {
             val start = i
             i += 3
@@ -105,11 +110,15 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
             continue
         }
 
-        // --- Adi mətn " ... " (şablon ifadələri ayrıca rənglənir)
+        // --- Adi mətn " ... "
+        // Şablon ifadələri ($ad, ${…}) ayrıca rənglənir, ona görə mətnin
+        // rənglənməmiş hissələri `buf`-da yığılır və şablona rast gələndə
+        // yığılan hissə boşaldılır.
         if (ch == '"') {
             i++
             val buf = StringBuilder("\"")
             while (i < n && src[i] != '"') {
+                // Qaçırılmış simvol: \\" mətni bitirmir.
                 if (src[i] == '\\') {
                     buf.append(src[i])
                     if (i + 1 < n) buf.append(src[i + 1])
@@ -120,6 +129,8 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
                     if (buf.isNotEmpty()) { add(strStyle, buf.toString()); buf.setLength(0) }
                     val ts = i
                     i++
+                    // ${…} formasında mötərizələr sayılır (iç-içə ola bilər);
+                    // $ad formasında isə sadəcə ad hissəsi götürülür.
                     if (i < n && src[i] == '{') {
                         var br = 1
                         i++
@@ -164,14 +175,17 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
             continue
         }
 
-        // --- Rəqəm
+        // --- Rəqəm: 42, 0xFF, 1_000_000, 3.14e-5, 42L, 1.5f
         if (ch.isDigit()) {
             val start = i
             while (i < n) {
                 val d = src[i]
                 val uygun = d.isDigit() || d in "abcdefABCDEFxXbBoO_.eE+-"
                 if (!uygun) break
+                // +/- yalnız eksponentin içində rəqəmin hissəsidir (1e-5);
+                // əks halda operatordur və rəqəm burada bitir.
                 if ((d == '+' || d == '-') && (i == 0 || src[i - 1] !in "eE")) break
+                // Nöqtədən sonra rəqəm yoxdursa bu, üzv müraciətidir: 1.plus(2)
                 if (d == '.' && (i + 1 >= n || !src[i + 1].isDigit())) break
                 i++
             }
@@ -186,6 +200,8 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
             while (i < n && src[i].isIdentPart()) i++
             val word = src.substring(start, i)
 
+            // Növbəti mənalı simvola baxırıq: mötərizədirsə, bu ad funksiya
+            // çağırışıdır. Aradakı boşluqlar atlanır — `println (x)` da tutulsun.
             var j = i
             while (j < n && (src[j] == ' ' || src[j] == '\t')) j++
             val nextCh = if (j < n) src[j] else ' '
@@ -221,6 +237,7 @@ fun highlightKotlin(src: String, c: KotlinAzColors): AnnotatedString = buildAnno
  * `highlightKotlin` yalnız üslub əlavə edir — simvolların sırası və sayı
  * dəyişmir, ona görə kursor mövqeləri birbaşa uyğun gəlir (Identity).
  */
+// Redaktorlarda (kod meydanı, praktiki çalışma) işlədilir.
 fun kotlinVisualTransformation(c: KotlinAzColors): VisualTransformation =
     VisualTransformation { text ->
         TransformedText(highlightKotlin(text.text, c), OffsetMapping.Identity)
@@ -239,7 +256,10 @@ fun rememberHighlighted(code: String): AnnotatedString {
     return remember(code, colors) { highlightKotlin(code, colors) }
 }
 
-/** Konsol çıxışı üçün sadə rəngləmə — xəta sətirlərini fərqləndirir. */
+/**
+ * Konsol çıxışı üçün sadə rəngləmə — xəta sətirlərini fərqləndirir.
+ * Yığın izinin («at MainKt.main») sətirləri də xəta sayılır.
+ */
 fun highlightOutput(text: String, ok: Color, err: Color): AnnotatedString = buildAnnotatedString {
     text.lineSequence().forEachIndexed { index, line ->
         if (index > 0) append('\n')

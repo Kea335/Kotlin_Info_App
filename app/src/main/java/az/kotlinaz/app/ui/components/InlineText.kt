@@ -33,6 +33,8 @@ fun spansToAnnotated(
     val c = KAz.colors
     val kodStyle = SpanStyle(
         fontFamily = FontFamily.Monospace,
+        // `em` — valideyn mətnin ölçüsünə nisbətdə. `sp` yazılsaydı, kod
+        // parçası başlıqda da, adi mətndə də eyni ölçüdə görünərdi.
         fontSize = 0.88.em,
         color = c.accent,
         background = c.accentSoft
@@ -58,6 +60,8 @@ fun spansToAnnotated(
 
                 Span.CODE -> withStyle(kodStyle) { append(s.v) }
 
+                // Klaviatura düyməsi — ətrafına boşluq qoyulur ki, fon
+                // «düymə» kimi görünsün (CSS-dəki padding-in qarşılığı).
                 Span.KBD -> withStyle(kbdStyle) { append(" " + s.v + " ") }
 
                 // Saytdakı qradient mətn — mobil oxunaqlığı üçün vurğu rəngi
@@ -65,6 +69,9 @@ fun spansToAnnotated(
                     SpanStyle(color = c.accent, fontWeight = FontWeight.Bold)
                 ) { append(s.v) }
 
+                // Keçidlər sayt daxilidir (`#bolme-id`). `LinkAnnotation.Clickable`
+                // toxunuşu Compose-un mətn sistemi ilə idarə edir — ayrıca
+                // klik sahəsi yaratmağa ehtiyac qalmır.
                 Span.LINK -> {
                     val href = s.href.orEmpty()
                     withLink(
@@ -75,6 +82,7 @@ fun spansToAnnotated(
                     ) { append(s.v) }
                 }
 
+                // `t` və naməlum növlər — sadəcə mətn kimi.
                 else -> append(s.v)
             }
         }
@@ -93,6 +101,8 @@ fun SpansText(
     Text(
         text = spansToAnnotated(spans, onLink),
         modifier = modifier,
+        // lineHeight ayrıca verilibsə üslubu onunla əvəzləyirik; verilməyibsə
+        // tipoqrafiyadakı dəyər olduğu kimi qalır.
         style = if (lineHeight != TextUnit.Unspecified) style.copy(lineHeight = lineHeight) else style
     )
 }

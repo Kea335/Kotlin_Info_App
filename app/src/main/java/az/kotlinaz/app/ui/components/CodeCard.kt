@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -27,7 +28,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.OpenInNew
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -64,6 +65,9 @@ fun CodeCard(
     val c = KAz.colors
     val context = LocalContext.current
     val bildir = LocalBildiris.current
+    // Nəticə paneli əvvəlcə bağlıdır. `remember(code)` — kart yeni koda
+    // təkrar işlədiləndə (LazyColumn elementləri təkrar istifadə olunur)
+    // köhnə kartın açıq vəziyyəti yenisinə keçməsin deyə.
     var neticeGorunur by remember(code) { mutableStateOf(false) }
 
     Column(
@@ -100,6 +104,9 @@ fun CodeCard(
                 modifier = Modifier.weight(1f)
             )
 
+            // «İşlə» yalnız nəticəsi olan nümunələrdə görünür. Nəticə məzmunla
+            // birlikdə gəlir, ona görə düymə oflayn da işləyir — heç nə icra olunmur,
+            // sadəcə hazır çıxış açılır.
             if (output != null) {
                 KodDuymesi(
                     ikon = Icons.Outlined.PlayArrow,
@@ -110,7 +117,8 @@ fun CodeCard(
             }
 
             if (onOpenInPlayground != null) {
-                KodDuymesi(ikon = Icons.Outlined.OpenInNew, etiket = "Meydan") {
+                // AutoMirrored variant: sağdan-sola dillərdə ikon da güzgülənir.
+                KodDuymesi(ikon = Icons.AutoMirrored.Outlined.OpenInNew, etiket = "Meydan") {
                     onOpenInPlayground(code)
                 }
                 Spacer(Modifier.width(6.dp))
@@ -126,6 +134,8 @@ fun CodeCard(
         }
 
         // ---- Kod ----
+        // Rəngləmə kod və tema dəyişməyincə keşdə qalır; uzun blokda
+        // hər yenidən qurulmada təkrar hesablanmasın.
         val rengli = rememberHighlighted(code)
         Box(
             Modifier
@@ -161,7 +171,9 @@ fun CodeCard(
                     color = c.textFaint,
                     fontWeight = FontWeight.SemiBold
                 )
-                Spacer(Modifier.width(4.dp))
+                // DÜZƏLİŞ: bu Column-un içindədir, ona görə width() heç bir
+                // şaquli boşluq yaratmırdı — «Nəticə» yazısı çıxışa yapışırdı.
+                Spacer(Modifier.height(4.dp))
                 Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
                     Text(
                         text = highlightOutput(output.orEmpty(), c.ok, c.err),

@@ -21,7 +21,11 @@ import java.nio.charset.StandardCharsets
 
 private const val BASE = "https://api.kotlinlang.org/api"
 
-/** Sınanmış versiyalar — birincisi işləməsə növbətisinə keçilir. */
+/**
+ * Sınanmış kompilyator versiyaları. Xidmət ünvandakı versiyanı seçir;
+ * biri dəstəklənməsə (server 400/404 qaytarsa) növbətisinə keçilir.
+ * Şəbəkə xətasında isə keçid ETMİRİK — bax [KotlinCompiler.isle].
+ */
 private val VERSIYALAR = listOf("2.1.20", "2.1.0", "2.0.20")
 
 @Serializable
@@ -94,6 +98,11 @@ class KotlinCompiler(private val context: Context) {
         encodeDefaults = true
     }
 
+    /**
+     * Şəbəkə var-yoxdur. Yalnız sürətli ilkin yoxlamadır — «şəbəkə var, amma
+     * internet yoxdur» halını tutmur, onu artıq sorğunun özü aşkarlayır.
+     * ACCESS_NETWORK_STATE icazəsi manifestdə məhz bunun üçündür.
+     */
     fun internetVar(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
             ?: return false
@@ -113,7 +122,16 @@ class KotlinCompiler(private val context: Context) {
         for (versiya in VERSIYALAR) {
             when (val n = sorgu(versiya, govde)) {
                 is Cavab.Ugur -> return@withContext oxu(n.body)
-                is Cavab.Xeta -> sonXeta = n.mesaj
+
+                // Bu versiya dəstəklənmir — növbətisini sınamağın mənası var.
+                is Cavab.Desteklenmir -> sonXeta = n.mesaj
+
+                // DÜZƏLİŞ: əvvəllər HƏR cür uğursuzluq növbəti versiyanı
+                // sınamağa aparırdı. Bağlantı kəsiləndə (captive portal, VPN,
+                // ölü şəbəkə) bu, 3 × 15 saniyə gözləmə demək idi — istifadəçi
+                // təxminən 45 saniyə fırlanğıca baxırdı. Şəbəkə xətasında
+                // versiyanı dəyişmək kömək etmir, ona görə dərhal qayıdırıq.
+                is Cavab.Xeta -> return@withContext RunResult.Failed(n.mesaj)
             }
         }
         RunResult.Failed(sonXeta)
@@ -121,6 +139,11 @@ class KotlinCompiler(private val context: Context) {
 
     private sealed interface Cavab {
         data class Ugur(val body: String) : Cavab
+
+        /** Server sorğunu rədd etdi — versiya dəstəklənmir kimi qiymətləndirilir. */
+        data class Desteklenmir(val mesaj: String) : Cavab
+
+        /** Şəbəkə və ya server nasazlığı — versiya dəyişmək kömək etməz. */
         data class Xeta(val mesaj: String) : Cavab
     }
 
@@ -130,6 +153,8 @@ class KotlinCompiler(private val context: Context) {
             val url = URL("$BASE/$versiya/compiler/run?filename=File.kt")
             conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
+                // Qoşulma qısa, oxuma uzun: kompilyasiya + icra server tərəfdə
+                // bəzən 10-20 saniyə çəkir, ona görə readTimeout böyükdür.
                 connectTimeout = 15_000
                 readTimeout = 60_000
                 doOutput = true
@@ -143,10 +168,15 @@ class KotlinCompiler(private val context: Context) {
                 val body = conn.inputStream.bufferedReader(StandardCharsets.UTF_8)
                     .use(BufferedReader::readText)
                 Cavab.Ugur(body)
+            } else if (kod == 400 || kod == 404 || kod == 410) {
+                // Ünvandakı versiya tanınmadı — siyahıdakı növbətisini sınamağa dəyər.
+                Cavab.Desteklenmir("Server $kod cavabı qaytardı (versiya $versiya)")
             } else {
+                // 5xx və digərləri: problem versiyada deyil.
                 Cavab.Xeta("Server $kod cavabı qaytardı")
             }
         } catch (e: Exception) {
+            // Timeout, DNS, TLS, kəsilmiş bağlantı — hamısı buraya düşür.
             Cavab.Xeta(e.message ?: e.javaClass.simpleName)
         } finally {
             conn?.disconnect()
@@ -156,6 +186,8 @@ class KotlinCompiler(private val context: Context) {
     private fun oxu(body: String): RunResult = try {
         val cavab = json.decodeFromString<ApiResponse>(body)
 
+        // Xidmət xəbərdarlıqları da `errors` içində qaytarır — yalnız ERROR
+        // səviyyəsi kompilyasiyanı sındırır, WARNING göstərilmir.
         val xetalar = cavab.errors.values.flatten()
             .filter { it.severity.equals("ERROR", ignoreCase = true) }
             .map { e ->
@@ -179,7 +211,14 @@ class KotlinCompiler(private val context: Context) {
         RunResult.Failed("Cavab oxunmadı: ${e.message}")
     }
 
-    /** `<outStream>` və `<errStream>` etiketlərini açır. */
+    /**
+     * `<outStream>` və `<errStream>` etiketlərini açır.
+     *
+     * Xidmət etiketlərin içindəki mətni HTML kimi qaçırmır (yoxlanılıb:
+     * `println("a & b <tag>")` cavabda olduğu kimi gəlir), ona görə burada
+     * heç bir entity açılışı EDİLMİR — əks halda çıxışdakı həqiqi `&lt;`
+     * mətni pozulardı.
+     */
     private fun cixisiAyir(xam: String): String {
         if (xam.isBlank()) return ""
         val netice = StringBuilder()
@@ -195,6 +234,8 @@ class KotlinCompiler(private val context: Context) {
  * Nəticə müqayisəsi — saytdakı `normallasdir()` funksiyası ilə eynidir:
  * sətir sonlarını birləşdirir, sağdakı boşluqları və kənar boş sətirləri atır.
  */
+// Müqayisə qaydası saytdakı `normallasdir()` ilə hərfi-hərfinə eyni olmalıdır,
+// yoxsa saytda keçən həll tətbiqdə keçməzdi.
 fun neticeniNormallasdir(s: String?): String =
     (s ?: "")
         .replace("\r\n", "\n")

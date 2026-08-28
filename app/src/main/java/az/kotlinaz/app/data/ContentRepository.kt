@@ -20,10 +20,14 @@ import kotlinx.serialization.json.Json
 class ContentRepository(private val context: Context) {
 
     private val json = Json {
+        // Aktivlərə yeni sahə əlavə olunsa köhnə model onu sadəcə atsın —
+        // məzmun boru xətti (tools/build-content.js) modeldən irəli gedə bilər.
         ignoreUnknownKeys = true
         isLenient = true
     }
 
+    // İki ekran eyni anda eyni aktivi istəyə bilər (məsələn dərs və axtarış).
+    // Kilid olmasa hər ikisi eyni faylı ayrı-ayrı oxuyub parse edərdi.
     private val kilid = Mutex()
 
     private var contentCache: Content? = null
@@ -32,10 +36,14 @@ class ContentRepository(private val context: Context) {
     private var playgroundCache: PlaygroundData? = null
     private var searchCache: SearchIndex? = null
 
+    // Fayl oxunuşu — IO sapında.
     private suspend fun oxu(ad: String): String = withContext(Dispatchers.IO) {
         context.assets.open(ad).bufferedReader().use { it.readText() }
     }
 
+    // Nümunə oxu: keşdə varsa dərhal qaytarılır, yoxdursa parse edilir.
+    // Parse CPU işidir, ona görə Dispatchers.Default — UI sapı bloklanmasın.
+    // 183 KB JSON-un açılışı bir neçə yüz millisaniyə çəkir.
     suspend fun content(): Content = kilid.withLock {
         contentCache ?: withContext(Dispatchers.Default) {
             json.decodeFromString<Content>(oxu("content.json"))
@@ -45,6 +53,8 @@ class ContentRepository(private val context: Context) {
     suspend fun sections(): List<Section> = content().sections
 
     suspend fun section(id: String): Section? = sections().firstOrNull { it.id == id }
+
+    // Aşağıdakılar eyni nümunə üzrədir — hər aktiv öz keşi ilə.
 
     suspend fun exercises(): ExerciseBank = kilid.withLock {
         exercisesCache ?: withContext(Dispatchers.Default) {
