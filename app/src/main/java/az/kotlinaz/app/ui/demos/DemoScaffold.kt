@@ -114,7 +114,10 @@ fun DemoChip(
     )
 }
 
-/** Çipləri sətirlərə bölüb göstərir (FlowRow əvəzi — sadə və proqnozlu). */
+/**
+ * Çipləri bir sətirdə, üfüqi sürüşmə ilə göstərir.
+ * Sətirlərə sarınan variant üçün DemoHost.kt-dakı `FlowChips` işlədilir.
+ */
 @Composable
 fun ChipRow(
     modifier: Modifier = Modifier,
@@ -153,6 +156,8 @@ fun DemoScreen(
             )
             Spacer(Modifier.height(5.dp))
         }
+        // Konsol çıxışı sətir sonuna görə bölünmür (softWrap = false);
+        // uzun sətir üfüqi sürüşmə ilə oxunur — real terminal kimi.
         Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
             Text(
                 text = metn,
@@ -165,6 +170,7 @@ fun DemoScreen(
     }
 }
 
+/** Rəngsiz mətn üçün rahatlıq nüsxəsi. */
 @Composable
 fun DemoScreen(metn: String, modifier: Modifier = Modifier, basliq: String? = null) =
     DemoScreen(AnnotatedString(metn), modifier, basliq)
@@ -211,12 +217,13 @@ fun DemoField(
             .border(1.dp, c.border, RoundedCornerShape(10.dp))
             .padding(horizontal = 12.dp, vertical = 11.dp)
     ) {
+        // BasicTextField-in placeholder dəstəyi yoxdur — altda mətn kimi qoyulur.
         if (value.isEmpty() && placeholder.isNotEmpty()) {
             Text(
                 text = placeholder,
                 color = c.textFaint,
                 fontFamily = FontFamily.Monospace,
-                fontSize = 14.sp
+                fontSize = (14 * KAz.codeScale).sp
             )
         }
         BasicTextField(
@@ -225,7 +232,7 @@ fun DemoField(
             textStyle = LocalTextStyle.current.copy(
                 color = c.text,
                 fontFamily = FontFamily.Monospace,
-                fontSize = 14.sp
+                fontSize = (14 * KAz.codeScale).sp
             ),
             cursorBrush = SolidColor(c.accent),
             singleLine = true,

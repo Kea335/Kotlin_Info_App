@@ -10,6 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import az.kotlinaz.app.data.ThemeMode
+import az.kotlinaz.app.data.model.Level
 
 /* ============================================================
    Rənglər saytın css/style.css faylından birbaşa götürülüb.
@@ -27,10 +29,22 @@ val KPurple = Color(0xFF7F52FF)
 val KMagenta = Color(0xFFC711E1)
 val KOrange = Color(0xFFE44857)
 
-/** Saytdakı `--k-grad` qradienti. */
+/**
+ * Saytdakı `--k-grad` qradienti — Kotlin loqosunun üç rəngi.
+ * `get()` ilə hər müraciətdə yenidən qurulur, çünki `linearGradient` ölçüyə
+ * uyğunlaşan Brush qaytarır və onu qlobal `val` kimi paylaşmaq düzgün deyil.
+ */
 val KotlinBrush: Brush
     get() = Brush.linearGradient(listOf(KPurple, KMagenta, KOrange))
 
+/**
+ * Tətbiqin öz rəng dəsti. Material3-ün `ColorScheme`-i saytın palitrasını
+ * tam ifadə etmir (sintaksis rəngləri, iki fərqli «batıq» fon və s.),
+ * ona görə paralel dəst saxlanılır və `KAz.colors` ilə oxunur.
+ *
+ * `@Immutable` Compose-a dəyişməzliyə söz verir — rənglər dəyişmədikcə
+ * bu dəsti oxuyan composable-lar yenidən qurulmur.
+ */
 @Immutable
 data class KotlinAzColors(
     val bg: Color,
@@ -108,12 +122,22 @@ private val QaranliqRengler = KotlinAzColors(
     synPunc = Color(0xFF9A9AB4)
 )
 
+// `staticCompositionLocalOf` — dəyər nadir hallarda dəyişir (yalnız tema
+// dəyişəndə). Belə halda `compositionLocalOf`-dan fərqli olaraq oxu yerləri
+// izlənmir, əvəzində bütün alt ağac yenidən qurulur: bu daha ucuzdur.
 val LocalKotlinAzColors: ProvidableCompositionLocal<KotlinAzColors> =
     staticCompositionLocalOf { AciqRengler }
 
-/** Kod bloklarının şrift ölçüsü — istifadəçi tənzimləməsi. */
+/**
+ * Yazı ölçüsü katsayısı — istifadəçi tənzimləməsi («Yazı şrifti»).
+ * Həm adi mətnə (tipoqrafiya), həm də kod bloklarına eyni nisbətdə təsir edir.
+ */
 val LocalCodeScale: ProvidableCompositionLocal<Float> = staticCompositionLocalOf { 1f }
 
+/** Redaktorda söz tamamlama zolağı açıqdırmı — tənzimləmələrdən idarə olunur. */
+val LocalKodTamamlama: ProvidableCompositionLocal<Boolean> = staticCompositionLocalOf { true }
+
+/** Qısa müraciət: `KAz.colors.accent`, `KAz.codeScale`. */
 object KAz {
     val colors: KotlinAzColors
         @Composable @ReadOnlyComposable get() = LocalKotlinAzColors.current
@@ -122,6 +146,21 @@ object KAz {
         @Composable @ReadOnlyComposable get() = LocalCodeScale.current
 }
 
+/**
+ * Səviyyə nişanlarının rəngi — çalışmalarda, dərslərdə, testdə və
+ * tənzimləmələrdə eyni olsun deyə tək yerdə saxlanılır.
+ */
+@Composable
+@ReadOnlyComposable
+fun seviyyeRengi(lv: Level): Color = when (lv) {
+    Level.JUNIOR -> KAz.colors.ok
+    Level.MIDDLE -> KAz.colors.warn
+    Level.SENIOR -> KAz.colors.err
+}
+
+// Material3 komponentləri (AlertDialog, Switch, Snackbar, NavigationBar…)
+// öz sxemindən rəng götürür — onu da eyni palitradan doldururuq ki,
+// hazır komponentlər saytın rəngləri ilə uyuşsun.
 private fun m3Light(c: KotlinAzColors) = lightColorScheme(
     primary = c.accent,
     onPrimary = Color.White,
@@ -160,41 +199,66 @@ private fun m3Dark(c: KotlinAzColors) = darkColorScheme(
     onError = Color(0xFF3B0A12)
 )
 
-private val Tipoqrafiya = Typography(
-    displaySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.ExtraBold, fontSize = 30.sp, lineHeight = 38.sp),
-    headlineMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 24.sp, lineHeight = 32.sp),
-    headlineSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 20.sp, lineHeight = 28.sp),
-    titleLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 18.sp, lineHeight = 25.sp),
-    titleMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, lineHeight = 22.sp),
-    titleSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 14.sp, lineHeight = 20.sp),
-    bodyLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 16.sp, lineHeight = 26.sp),
-    bodyMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 14.5.sp, lineHeight = 23.sp),
-    bodySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 13.sp, lineHeight = 19.sp),
-    labelLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 14.sp),
-    labelMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium, fontSize = 12.5.sp),
-    labelSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium, fontSize = 11.sp)
-)
+/**
+ * Tipoqrafiya ölçü katsayısı ilə qurulur.
+ *
+ * DÜZƏLİŞ: əvvəllər «şrift ölçüsü» tənzimləməsi YALNIZ kod bloklarına təsir
+ * edirdi — düymələrə basanda ekranda demək olar heç nə dəyişmirdi. İndi
+ * katsayı bütün mətn üslublarına vurulur, ona görə seçim bütün tətbiqdə
+ * görünür.
+ */
+private fun tipoqrafiya(k: Float): Typography {
+    val sans = FontFamily.SansSerif
+    fun st(olcu: Float, setir: Float, ceki: FontWeight? = null) = TextStyle(
+        fontFamily = sans,
+        fontWeight = ceki,
+        fontSize = (olcu * k).sp,
+        lineHeight = (setir * k).sp
+    )
+    return Typography(
+        displaySmall = st(30f, 38f, FontWeight.ExtraBold),
+        headlineMedium = st(24f, 32f, FontWeight.Bold),
+        headlineSmall = st(20f, 28f, FontWeight.Bold),
+        titleLarge = st(18f, 25f, FontWeight.Bold),
+        titleMedium = st(16f, 22f, FontWeight.SemiBold),
+        titleSmall = st(14f, 20f, FontWeight.SemiBold),
+        bodyLarge = st(16f, 26f),
+        bodyMedium = st(14.5f, 23f),
+        bodySmall = st(13f, 19f),
+        labelLarge = st(14f, 20f, FontWeight.SemiBold),
+        labelMedium = st(12.5f, 17f, FontWeight.Medium),
+        labelSmall = st(11f, 15f, FontWeight.Medium)
+    )
+}
 
 @Composable
 fun KotlinAzTheme(
     mode: ThemeMode = ThemeMode.SYSTEM,
-    codeScale: Float = 1f,
+    /** «Yazı şrifti» tənzimləməsi: 0.88 kiçik, 1.0 normal, 1.15 böyük. */
+    yaziOlcusu: Float = 1f,
+    kodTamamlama: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    // «Sistem» seçilibsə cihazın rejimi izlənir; digər hallarda istifadəçinin
+    // seçimi cihaz tənzimləməsini üstələyir.
     val dark = when (mode) {
         ThemeMode.SYSTEM -> isSystemInDarkTheme()
         ThemeMode.LIGHT -> false
         ThemeMode.DARK -> true
     }
     val rengler = if (dark) QaranliqRengler else AciqRengler
+    // Ölçü nadir hallarda dəyişir — hər yenidən qurulmada 12 TextStyle
+    // yaratmağın mənası yoxdur.
+    val tipo = remember(yaziOlcusu) { tipoqrafiya(yaziOlcusu) }
 
     CompositionLocalProvider(
         LocalKotlinAzColors provides rengler,
-        LocalCodeScale provides codeScale
+        LocalCodeScale provides yaziOlcusu,
+        LocalKodTamamlama provides kodTamamlama
     ) {
         MaterialTheme(
             colorScheme = if (dark) m3Dark(rengler) else m3Light(rengler),
-            typography = Tipoqrafiya,
+            typography = tipo,
             content = content
         )
     }

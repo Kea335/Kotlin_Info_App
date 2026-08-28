@@ -7,6 +7,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -103,7 +104,7 @@ fun BlockView(
             modifier = modifier.padding(vertical = 6.dp),
             style = if (block.lead) {
                 MaterialTheme.typography.bodyLarge.copy(
-                    fontSize = 17.sp,
+                    fontSize = (17 * KAz.codeScale).sp,
                     lineHeight = 28.sp,
                     color = c.textDim
                 )
@@ -197,7 +198,7 @@ private fun CalloutView(block: Callout, modifier: Modifier = Modifier) {
             .padding(14.dp)
     ) {
         if (block.ico.isNotBlank()) {
-            Text(text = block.ico, fontSize = 19.sp)
+            Text(text = block.ico, fontSize = (19 * KAz.codeScale).sp)
             Spacer(Modifier.width(11.dp))
         }
         Column(Modifier.weight(1f)) {
@@ -237,7 +238,7 @@ private fun CardGridView(block: CardGrid, modifier: Modifier = Modifier) {
                     .padding(14.dp)
             ) {
                 if (kart.ico.isNotBlank()) {
-                    Text(text = kart.ico, fontSize = 22.sp)
+                    Text(text = kart.ico, fontSize = (22 * KAz.codeScale).sp)
                     Spacer(Modifier.height(6.dp))
                 }
                 if (kart.title.isNotBlank()) {
@@ -266,6 +267,8 @@ private fun TableView(block: TableBlock, modifier: Modifier = Modifier) {
         block.rows.firstOrNull()?.size ?: 0
     ).coerceAtLeast(1)
 
+    // Mobil ekranda cədvəl sığmır, ona görə sabit sütun eni + üfüqi sürüşmə.
+    // Sütun çoxaldıqca en azalır ki, ekranda daha çox sütun görünsün.
     val sutunEni = when (sutunSayi) {
         1 -> 320.dp
         2 -> 180.dp
@@ -287,6 +290,7 @@ private fun TableView(block: TableBlock, modifier: Modifier = Modifier) {
                     setir.forEachIndexed { i, hucre ->
                         TableCell(
                             spans = hucre,
+                            // Birinci sütun adətən «ad» sütunudur — bir az geniş.
                             width = if (i == 0 && sutunSayi > 1) sutunEni + 24.dp else sutunEni,
                             bold = true
                         )
@@ -297,6 +301,7 @@ private fun TableView(block: TableBlock, modifier: Modifier = Modifier) {
 
             block.rows.forEachIndexed { index, setir ->
                 Row(
+                    // Növbələşən sətir fonu — uzun cədvəldə sətri izləmək asan olsun.
                     Modifier.background(
                         if (index % 2 == 1) c.bgSunken.copy(alpha = 0.45f) else Color.Transparent
                     )
@@ -373,7 +378,13 @@ private fun TimelineView(block: Timeline, modifier: Modifier = Modifier) {
     val c = KAz.colors
     Column(modifier.padding(vertical = 8.dp)) {
         block.items.forEachIndexed { index, item ->
-            Row(Modifier.fillMaxWidth()) {
+            // DÜZƏLİŞ: birləşdirici xəttin hündürlüyü əvvəllər sabit idi
+            // (təsvir varsa 92.dp, yoxsa 34.dp). Mətn uzun olanda xətt çatmır,
+            // qısa olanda isə növbəti nöqtənin altından çıxırdı.
+            // height(IntrinsicSize.Min) sətrin hündürlüyünü sağdakı məzmuna
+            // bərabərləşdirir, xətt isə weight(1f) ilə qalan boşluğu doldurur —
+            // yəni hər hansı uzunluqda düzgün oturur.
+            Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
                 // Xətt və nöqtə
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -384,11 +395,12 @@ private fun TimelineView(block: Timeline, modifier: Modifier = Modifier) {
                             .size(11.dp)
                             .background(KotlinBrush, CircleShape)
                     )
+                    // Sonuncu elementdən sonra xətt çəkilmir.
                     if (index != block.items.lastIndex) {
                         Box(
                             Modifier
                                 .width(2.dp)
-                                .height(if (item.desc.isEmpty()) 34.dp else 92.dp)
+                                .weight(1f)
                                 .background(c.border)
                         )
                     }
@@ -431,6 +443,8 @@ private fun TimelineView(block: Timeline, modifier: Modifier = Modifier) {
 @Composable
 private fun TabsView(block: TabsBlock, modifier: Modifier = Modifier) {
     val c = KAz.colors
+    // `remember(block)` — LazyColumn elementi başqa tab blokuna təkrar
+    // işlədiləndə seçim sıfırlansın deyə.
     var secili by remember(block) { mutableIntStateOf(0) }
 
     Column(modifier.padding(vertical = 8.dp)) {
@@ -462,6 +476,7 @@ private fun TabsView(block: TabsBlock, modifier: Modifier = Modifier) {
             }
         }
 
+        // getOrNull: tab sayı azalsa belə indeks daşmasın.
         block.tabs.getOrNull(secili)?.let { Blocks(it.blocks) }
     }
 }
@@ -516,6 +531,7 @@ private fun HeroView(block: Hero, modifier: Modifier = Modifier) {
 
         if (block.stats.isNotEmpty()) {
             Spacer(Modifier.height(15.dp))
+            // Mobil ekran üçün statistikalar 2 sütuna bölünür.
             block.stats.chunked(2).forEach { cut ->
                 Row(
                     Modifier.fillMaxWidth().padding(bottom = 9.dp),
@@ -542,6 +558,7 @@ private fun HeroView(block: Hero, modifier: Modifier = Modifier) {
                             )
                         }
                     }
+                    // Tək qalan statistika bütün eni tutmasın deyə boş yer.
                     if (cut.size == 1) Spacer(Modifier.weight(1f))
                 }
             }
@@ -574,7 +591,7 @@ private fun AksiyaKarti(
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = ikon, fontSize = 20.sp)
+            Text(text = ikon, fontSize = (20 * KAz.codeScale).sp)
             Spacer(Modifier.width(9.dp))
             Text(
                 text = basliq,

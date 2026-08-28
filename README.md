@@ -14,13 +14,13 @@ düyməsi bağlantı tələb edir.
 
 | Bölmə | Məzmun | Oflayn? |
 |---|---|---|
-| Dərslər | 32 bölmə, qruplara ayrılmış, oxuma tərəqqisi ilə | ✅ |
+| Dərslər | 32 bölmə, səviyyə (Junior/Middle/Senior) və mənimsəmə tərəqqisi ilə | ✅ |
 | Kod nümunələri | 144 blok — sintaksis rəngləməsi və hazır nəticələrlə | ✅ |
 | İnteraktiv nümayişlər | Tip çıxarışı, null-safety, kolleksiya zənciri, `when`, scope funksiyaları, coroutine vizualizatoru | ✅ |
 | Çalışmalar | 25 mövzu × (25 nəzəri + 25 praktiki) = 1250 | ✅ (yoxlama istisna) |
-| Bilik testi | 15 sual, qarışıq sırada, izahlarla | ✅ |
+| Bilik testi | Junior / Middle / Senior / Qarışıq rejimləri, hər turda 15 təsadüfi sual | ✅ |
 | Axtarış | Bütün bölmələr üzrə tam mətn axtarışı | ✅ |
-| Kod meydanı | 10 nümunə, redaktor, real icra | ❌ internet lazımdır |
+| Kod meydanı | Boş redaktor + 10 nümunə, söz tamamlama, real icra | ❌ internet lazımdır |
 
 ---
 
@@ -35,7 +35,7 @@ tools/                        məzmun boru xətti (Node.js)
 app/src/main/assets/          oflayn məzmun (≈840 KB)
   content.json                32 bölmə, bloklara ayrılmış
   exercises.json              1250 çalışma
-  quiz.json                   15 sual
+  quiz.json                   15 ümumi sual (qarışıq rejimin hovuzuna əlavə olunur)
   playground.json             10 nümunə kod
   search.json                 axtarış indeksi
 
@@ -44,6 +44,7 @@ app/src/main/java/az/kotlinaz/app/
   ui/theme/                   saytın rəng palitrası (açıq + qaranlıq)
   ui/highlight/               Kotlin sintaksis rəngləyicisi
   ui/components/              blok renderi (paraqraf, kod, cədvəl, callout, …)
+  ui/editor/                  kod redaktoru və söz tamamlama lüğəti
   ui/demos/                   6 interaktiv nümayiş
   ui/screens/                 dərslər, çalışmalar, test, meydan, axtarış, tənzimləmə
 ```

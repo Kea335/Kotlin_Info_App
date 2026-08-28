@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -39,36 +41,275 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import az.kotlinaz.app.data.model.ExerciseTopic
+import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.data.model.QuizQuestion
 import az.kotlinaz.app.ui.demos.DemoCode
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
+import az.kotlinaz.app.ui.theme.seviyyeRengi
+
+/** Bir turdakı sual sayı. Hovuz daha kiçikdirsə, olduğu qədər sual verilir. */
+const val QUIZ_SUAL_SAYI = 15
 
 /**
- * Bilik testi — 15 sual, hər dəfə qarışıq sırada.
+ * Testin rejimi.
+ *
+ * Səviyyə rejimləri sualları çalışma bankının nəzəri hissəsindən götürür —
+ * orada hər sualın `level` sahəsi var. «Qarışıq» isə həm bankı, həm də
+ * quiz.json-dakı ümumi sualları birləşdirir.
+ */
+enum class QuizRejimi(val id: String, val label: String, val seviyye: Level?) {
+    JUNIOR("junior", "Junior", Level.JUNIOR),
+    MIDDLE("middle", "Middle", Level.MIDDLE),
+    SENIOR("senior", "Senior", Level.SENIOR),
+    QARISIQ("qarisiq", "Qarışıq", null);
+
+    val izah: String
+        get() = when (this) {
+            JUNIOR -> "Sintaksis, dəyişənlər, şərtlər, dövrlər — başlanğıc suallar."
+            MIDDLE -> "Kolleksiyalar, lambda, OYP, null təhlükəsizliyi."
+            SENIOR -> "Generics, korutinlər, delegatlar, incə detallar."
+            QARISIQ -> "Bütün səviyyələrdən təsadüfi seçim — əsl imtahan."
+        }
+}
+
+/**
+ * Bilik testi — səviyyə üzrə bölünmüş, hər dəfə təsadüfi sıra ilə.
  * Tam oflayn işləyir.
  */
 @Composable
 fun QuizScreen(
     questions: List<QuizQuestion>,
-    rekord: Int,
+    topics: List<ExerciseTopic>,
+    rekordlar: Map<String, Int>,
     modifier: Modifier = Modifier,
-    onBitdi: (Int) -> Unit
+    onBitdi: (String, Int) -> Unit
+) {
+    // Rejim üzrə sual hovuzları — məzmun dəyişməyincə bir dəfə qurulur.
+    val hovuzlar = remember(questions, topics) { hovuzlariQur(questions, topics) }
+
+    // null = rejim seçimi ekranı.
+    var rejim by remember { mutableStateOf<QuizRejimi?>(null) }
+
+    val secilen = rejim
+    if (secilen == null) {
+        RejimSecimi(
+            hovuzlar = hovuzlar,
+            rekordlar = rekordlar,
+            modifier = modifier,
+            onSec = { rejim = it }
+        )
+    } else {
+        QuizTuru(
+            rejim = secilen,
+            hovuz = hovuzlar[secilen].orEmpty(),
+            rekord = rekordlar[secilen.id] ?: 0,
+            modifier = modifier,
+            onBitdi = { bal -> onBitdi(secilen.id, bal) },
+            onRejimiDeyis = { rejim = null }
+        )
+    }
+}
+
+/* ============================================================
+   Sual hovuzları
+   ============================================================ */
+
+private fun hovuzlariQur(
+    questions: List<QuizQuestion>,
+    topics: List<ExerciseTopic>
+): Map<QuizRejimi, List<QuizQuestion>> {
+    // Bankdakı nəzəri çalışmalar səviyyəyə görə qruplaşdırılır.
+    val seviyyeUzre = mutableMapOf<Level, MutableList<QuizQuestion>>()
+    topics.forEach { t ->
+        t.nezeri.forEach { e ->
+            // Nəzəri çalışma testin sual formatına birbaşa uyğun gəlir; yalnız
+            // id-yə önlük əlavə olunur ki, quiz.json-dakılarla qarışmasın.
+            seviyyeUzre.getOrPut(Level.from(e.level)) { mutableListOf() }.add(
+                QuizQuestion(
+                    id = "q-${e.id}",
+                    q = e.q,
+                    code = e.code,
+                    opts = e.opts,
+                    a = e.a,
+                    exp = e.exp
+                )
+            )
+        }
+    }
+
+    return QuizRejimi.entries.associateWith { r ->
+        when (val lv = r.seviyye) {
+            // Qarışıq: quiz.json-dakı ümumi suallar + bütün bank.
+            null -> questions + seviyyeUzre.values.flatten()
+            else -> seviyyeUzre[lv].orEmpty()
+        }
+    }
+}
+
+/* ============================================================
+   Rejim seçimi
+   ============================================================ */
+
+@Composable
+private fun RejimSecimi(
+    hovuzlar: Map<QuizRejimi, List<QuizQuestion>>,
+    rekordlar: Map<String, Int>,
+    modifier: Modifier = Modifier,
+    onSec: (QuizRejimi) -> Unit
 ) {
     val c = KAz.colors
-    var tur by remember { mutableIntStateOf(0) }
-    val siralama = remember(questions, tur) { questions.indices.shuffled() }
 
-    var index by remember(tur) { mutableIntStateOf(0) }
-    var bal by remember(tur) { mutableIntStateOf(0) }
-    var secim by remember(tur, index) { mutableStateOf<Int?>(null) }
-    var bitdi by remember(tur) { mutableStateOf(false) }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
+        verticalArrangement = Arrangement.spacedBy(9.dp)
+    ) {
+        item(key = "basliq") {
+            Column {
+                Text(
+                    text = "Səviyyəni seç",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = c.text
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "Hər turda $QUIZ_SUAL_SAYI sual təsadüfi seçilir — " +
+                        "eyni rejimi təkrar oynasan suallar dəyişir.",
+                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
+                    color = c.textDim
+                )
+                Spacer(Modifier.height(6.dp))
+            }
+        }
 
-    val umumi = questions.size
+        QuizRejimi.entries.forEach { r ->
+            item(key = r.id) {
+                RejimKarti(
+                    rejim = r,
+                    hovuzOlcusu = hovuzlar[r]?.size ?: 0,
+                    rekord = rekordlar[r.id] ?: 0,
+                    onClick = { onSec(r) }
+                )
+            }
+        }
 
+        item { Spacer(Modifier.height(24.dp)) }
+    }
+}
+
+@Composable
+private fun rejimRengi(rejim: QuizRejimi): Color =
+    rejim.seviyye?.let { seviyyeRengi(it) } ?: KAz.colors.accent
+
+@Composable
+private fun RejimKarti(
+    rejim: QuizRejimi,
+    hovuzOlcusu: Int,
+    rekord: Int,
+    onClick: () -> Unit
+) {
+    val c = KAz.colors
+    val reng = rejimRengi(rejim)
+    val bos = hovuzOlcusu == 0
+
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(c.bgElev)
+            .border(1.dp, reng.copy(alpha = 0.35f), RoundedCornerShape(14.dp))
+            .then(if (bos) Modifier else Modifier.clickable(onClick = onClick))
+            .padding(15.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.size(7.dp).clip(CircleShape).background(reng))
+                Spacer(Modifier.width(7.dp))
+                Text(
+                    text = rejim.label,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = c.text
+                )
+            }
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = rejim.izah,
+                style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
+                color = c.textDim
+            )
+            Spacer(Modifier.height(6.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Nisan("$hovuzOlcusu sual", c.textFaint)
+                if (rekord > 0) {
+                    Nisan("rekord $rekord/$QUIZ_SUAL_SAYI", reng)
+                }
+            }
+        }
+        Spacer(Modifier.width(10.dp))
+        Icon(
+            Icons.AutoMirrored.Outlined.ArrowForward,
+            contentDescription = null,
+            tint = if (bos) c.border else reng,
+            modifier = Modifier.size(19.dp)
+        )
+    }
+}
+
+@Composable
+private fun Nisan(metn: String, reng: Color) {
+    Text(
+        text = metn,
+        modifier = Modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(reng.copy(alpha = 0.12f))
+            .padding(horizontal = 7.dp, vertical = 3.dp),
+        style = MaterialTheme.typography.labelSmall,
+        color = reng
+    )
+}
+
+/* ============================================================
+   Turun özü
+   ============================================================ */
+
+@Composable
+private fun QuizTuru(
+    rejim: QuizRejimi,
+    hovuz: List<QuizQuestion>,
+    rekord: Int,
+    modifier: Modifier = Modifier,
+    onBitdi: (Int) -> Unit,
+    onRejimiDeyis: () -> Unit
+) {
+    val c = KAz.colors
+
+    // `tur` — neçənci dəfə oynanılır. «Yenidən başla» onu artırır və bununla
+    // aşağıdakı bütün `remember`-lər sıfırlanır: suallar yenidən seçilir, bal,
+    // indeks və seçim təzələnir.
+    var tur by remember(rejim) { mutableIntStateOf(0) }
+
+    // Hovuzdan təsadüfi 15 sual — hər turda yeni dəst.
+    val suallar = remember(hovuz, tur) { hovuz.shuffled().take(QUIZ_SUAL_SAYI) }
+
+    var index by remember(rejim, tur) { mutableIntStateOf(0) }
+    var bal by remember(rejim, tur) { mutableIntStateOf(0) }
+    // Seçim həm turdan, həm indeksdən asılıdır: növbəti suala keçəndə sıfırlanır.
+    var secim by remember(rejim, tur, index) { mutableStateOf<Int?>(null) }
+    var bitdi by remember(rejim, tur) { mutableStateOf(false) }
+
+    val umumi = suallar.size
+
+    // Nəticə yalnız bir dəfə yazılır — `bitdi` false→true keçidində.
     LaunchedEffect(bitdi) {
         if (bitdi) onBitdi(bal)
     }
+
+    // Sistemin «geri» jesti turdan çıxıb rejim seçiminə qaytarır — əks halda
+    // istifadəçi Test bölməsindən tamam çıxmalı olurdu.
+    BackHandler { onRejimiDeyis() }
 
     if (umumi == 0) return
 
@@ -78,15 +319,34 @@ fun QuizScreen(
     ) {
         if (bitdi) {
             item(key = "netice") {
-                NeticeEkrani(bal = bal, umumi = umumi, rekord = rekord) { tur++ }
+                NeticeEkrani(
+                    rejim = rejim,
+                    bal = bal,
+                    umumi = umumi,
+                    rekord = rekord,
+                    onYeniden = { tur++ },
+                    onRejimiDeyis = onRejimiDeyis
+                )
             }
             return@LazyColumn
         }
 
-        val sual = questions[siralama[index]]
+        val sual = suallar[index.coerceIn(0, umumi - 1)]
 
         item(key = "meta") {
+            Text(
+                text = "‹  Səviyyəni dəyiş",
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable(onClick = onRejimiDeyis)
+                    .padding(horizontal = 6.dp, vertical = 4.dp),
+                style = MaterialTheme.typography.labelSmall,
+                color = c.textFaint
+            )
+            Spacer(Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
+                Nisan(rejim.label, rejimRengi(rejim))
+                Spacer(Modifier.width(8.dp))
                 Text(
                     text = "Sual ${index + 1} / $umumi",
                     style = MaterialTheme.typography.labelMedium,
@@ -158,6 +418,8 @@ fun QuizScreen(
                         .clip(RoundedCornerShape(11.dp))
                         .background(fon)
                         .border(1.dp, cerceve, RoundedCornerShape(11.dp))
+                        // Cavab verildikdən sonra variantlar kilidlənir —
+                        // ikinci toxunuş balı təkrar artıra bilməsin.
                         .clickable(enabled = !cavabVerilib) {
                             secim = i
                             if (i == sual.a) bal++
@@ -238,14 +500,22 @@ fun QuizScreen(
 }
 
 @Composable
-private fun NeticeEkrani(bal: Int, umumi: Int, rekord: Int, onYeniden: () -> Unit) {
+private fun NeticeEkrani(
+    rejim: QuizRejimi,
+    bal: Int,
+    umumi: Int,
+    rekord: Int,
+    onYeniden: () -> Unit,
+    onRejimiDeyis: () -> Unit
+) {
     val c = KAz.colors
+    // Tam ədəd bölməsi — faiz aşağıya yuvarlanır (14/15 → 93%).
     val faiz = if (umumi == 0) 0 else (bal * 100 / umumi)
 
     val rey = when {
-        faiz >= 90 -> "Mükəmməl! Kotlin-i çox yaxşı bilirsən."
+        faiz >= 90 -> "Mükəmməl! Bu səviyyəni yaxşı bilirsən."
         faiz >= 70 -> "Yaxşı nəticə! Bir neçə mövzunu təkrarlamaq kifayətdir."
-        faiz >= 50 -> "Pis deyil. Null təhlükəsizliyi və kolleksiyalar bölmələrinə qayıt."
+        faiz >= 50 -> "Pis deyil. Səhv verdiyin mövzuların dərslərinə qayıt."
         else -> "Başlanğıc üçün normaldır — mövzuları yenidən oxu və təkrar sına."
     }
 
@@ -258,9 +528,11 @@ private fun NeticeEkrani(bal: Int, umumi: Int, rekord: Int, onYeniden: () -> Uni
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Nisan(rejim.label, rejimRengi(rejim))
+        Spacer(Modifier.height(10.dp))
         Text(
             text = "$faiz%",
-            style = MaterialTheme.typography.displaySmall.copy(fontSize = 46.sp),
+            style = MaterialTheme.typography.displaySmall.copy(fontSize = (46 * KAz.codeScale).sp),
             color = c.accent,
             fontWeight = FontWeight.ExtraBold
         )
@@ -281,7 +553,7 @@ private fun NeticeEkrani(bal: Int, umumi: Int, rekord: Int, onYeniden: () -> Uni
         if (rekord > 0) {
             Spacer(Modifier.height(12.dp))
             Text(
-                text = "Ən yaxşı nəticən: $rekord / $umumi",
+                text = "${rejim.label} rekordun: $rekord / $umumi",
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(c.bgSunken)
@@ -296,12 +568,30 @@ private fun NeticeEkrani(bal: Int, umumi: Int, rekord: Int, onYeniden: () -> Uni
         Text(
             text = "Yenidən başla",
             modifier = Modifier
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(11.dp))
                 .background(KotlinBrush)
                 .clickable(onClick = onYeniden)
-                .padding(horizontal = 26.dp, vertical = 12.dp),
+                .padding(vertical = 12.dp),
             style = MaterialTheme.typography.labelLarge,
-            color = Color.White
+            color = Color.White,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = "Səviyyəni dəyiş",
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(11.dp))
+                .background(c.bgSunken)
+                .border(1.dp, c.border, RoundedCornerShape(11.dp))
+                .clickable(onClick = onRejimiDeyis)
+                .padding(vertical = 12.dp),
+            style = MaterialTheme.typography.labelLarge,
+            color = c.textDim,
+            textAlign = TextAlign.Center
         )
     }
 }

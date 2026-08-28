@@ -43,9 +43,9 @@ fun ExercisesScreen(
     modifier: Modifier = Modifier,
     onTopic: (String) -> Unit
 ) {
-    val c = KAz.colors
-
+    // Ümumi tərəqqi: bütün mövzuların nəzəri + praktiki çalışmaları.
     val umumiCalisma = topics.sumOf { it.nezeri.size + it.praktiki.size }
+    // Həll edilənlər DataStore-dakı id çoxluğu ilə tutuşdurulur.
     val hellSayi = topics.sumOf { t ->
         (t.nezeri.count { hellEdilmis.contains(it.id) }) +
             (t.praktiki.count { hellEdilmis.contains(it.id) })
@@ -208,6 +208,6 @@ private fun Etiket(metn: String, reng: androidx.compose.ui.graphics.Color) {
             .padding(horizontal = 7.dp, vertical = 3.dp),
         style = MaterialTheme.typography.labelSmall,
         color = reng,
-        fontSize = 10.5.sp
+        fontSize = (10.5f * KAz.codeScale).sp
     )
 }

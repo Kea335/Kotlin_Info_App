@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.screens
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -12,9 +15,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,30 +34,42 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
+import az.kotlinaz.app.data.model.Level
+import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.theme.KAz
+import az.kotlinaz.app.ui.theme.seviyyeRengi
+
+/** Müəllifin GitHub səhifəsi. */
+private const val GITHUB = "https://github.com/Kea335"
 
 @Composable
 fun SettingsScreen(
     tema: ThemeMode,
     sriftOlcusu: Int,
-    oxunanSayi: Int,
-    bolmeSayi: Int,
-    hellSayi: Int,
-    calismaSayi: Int,
-    quizRekord: Int,
+    kodTamamlama: Boolean,
+    tereqqi: Tereqqi,
+    /** Bilik testinin rejim üzrə rekordları. */
+    quizRekordlari: Map<String, Int>,
     modifier: Modifier = Modifier,
     onTema: (ThemeMode) -> Unit,
     onSrift: (Int) -> Unit,
+    onTamamlama: (Boolean) -> Unit,
     onOxumaSifirla: () -> Unit,
     onCalismaSifirla: () -> Unit,
     onHamisiSifirla: () -> Unit
 ) {
     val c = KAz.colors
+    val context = LocalContext.current
+    val bildir = LocalBildiris.current
+    // Hansı sıfırlama təsdiqlənir: "oxuma" | "calisma" | "hamisi" | null (pəncərə bağlı).
     var tesdiq by remember { mutableStateOf<String?>(null) }
 
     LazyColumn(
@@ -76,7 +98,7 @@ fun SettingsScreen(
                 Spacer(Modifier.height(14.dp))
 
                 Text(
-                    text = "Kod şrifti",
+                    text = "Yazı şrifti",
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
@@ -90,22 +112,95 @@ fun SettingsScreen(
                         ) { onSrift(i) }
                     }
                 }
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "Seçim bütün tətbiqə təsir edir — dərs mətni, düymələr " +
+                        "və kod blokları birlikdə böyüyüb kiçilir.",
+                    style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
+                    color = c.textFaint
+                )
+            }
+        }
+
+        item {
+            Bolum("Redaktor") {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(
+                            text = "Kod tamamlama",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = c.text
+                        )
+                        Spacer(Modifier.height(3.dp))
+                        Text(
+                            text = "Kod yazarkən sözün üstündə təkliflər çıxır: «pri» " +
+                                "yazanda print/println, «va» yazanda val/var. " +
+                                "Kod meydanında və praktiki çalışmalarda işləyir.",
+                            style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
+                            color = c.textDim
+                        )
+                    }
+                    Spacer(Modifier.width(10.dp))
+                    Switch(
+                        checked = kodTamamlama,
+                        onCheckedChange = onTamamlama,
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.White,
+                            checkedTrackColor = c.accent,
+                            uncheckedTrackColor = c.bgSunken,
+                            uncheckedBorderColor = c.border
+                        )
+                    )
+                }
             }
         }
 
         item {
             Bolum("Tərəqqi") {
-                Setir("Oxunan bölmələr", "$oxunanSayi / $bolmeSayi")
-                Setir("Həll edilən çalışmalar", "$hellSayi / $calismaSayi")
-                Setir("Bilik testi rekordu", if (quizRekord > 0) "$quizRekord / 15" else "—")
+                Setir("Səviyyən", tereqqi.seviyye.label, vurgu = seviyyeRengi(tereqqi.seviyye))
+                Setir(
+                    "Tamamlanmış dərslər",
+                    "${tereqqi.tamamlananDers} / ${tereqqi.umumiDers}"
+                )
+                Level.entries.forEach { lv ->
+                    val say = tereqqi.say(lv)
+                    Setir("${lv.label} çalışmalar", "${say.hell} / ${say.umumi}")
+                }
+
+                Spacer(Modifier.height(10.dp))
+                Text(
+                    text = "Dərs yalnız ona bağlı çalışmaların hamısı düzgün həll " +
+                        "ediləndə tamamlanmış sayılır.",
+                    style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
+                    color = c.textFaint
+                )
 
                 Spacer(Modifier.height(13.dp))
 
-                Sifirla("Oxuma tərəqqisini sıfırla") { tesdiq = "oxuma" }
+                Sifirla("Dərs təsdiqlərini sıfırla") { tesdiq = "oxuma" }
                 Spacer(Modifier.height(7.dp))
                 Sifirla("Çalışma tərəqqisini sıfırla") { tesdiq = "calisma" }
                 Spacer(Modifier.height(7.dp))
                 Sifirla("Hər şeyi sıfırla", tehlukeli = true) { tesdiq = "hamisi" }
+            }
+        }
+
+        item {
+            Bolum("Bilik testi rekordları") {
+                val varmi = QuizRejimi.entries.any { (quizRekordlari[it.id] ?: 0) > 0 }
+                if (!varmi) {
+                    Text(
+                        text = "Hələ test verməmisən. Test bölməsində Junior, Middle, " +
+                            "Senior və Qarışıq rejimləri var.",
+                        style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
+                        color = c.textDim
+                    )
+                } else {
+                    QuizRejimi.entries.forEach { r ->
+                        val rekord = quizRekordlari[r.id] ?: 0
+                        Setir(r.label, if (rekord > 0) "$rekord / $QUIZ_SUAL_SAYI" else "—")
+                    }
+                }
             }
         }
 
@@ -127,12 +222,48 @@ fun SettingsScreen(
         item {
             Bolum("Mənbə") {
                 Text(
-                    text = "Məzmun KotlinAZ saytından götürülüb:\n" +
-                        "hasanhome.tail0685ef.ts.net\n" +
-                        "github.com/Kea335/Kotlin_Info_Web",
+                    text = "Məzmun KotlinAZ saytından götürülüb.",
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                     color = c.textDim
                 )
+                Spacer(Modifier.height(10.dp))
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(c.bgSunken)
+                        .border(1.dp, c.border, RoundedCornerShape(10.dp))
+                        .clickable {
+                            // Brauzer tapılmasa çökməmək üçün: xəbərdarlıq verilir.
+                            val niyyet = Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB))
+                            try {
+                                context.startActivity(niyyet)
+                            } catch (_: ActivityNotFoundException) {
+                                bildir("Brauzer tapılmadı")
+                            }
+                        }
+                        .padding(horizontal = 12.dp, vertical = 11.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(Modifier.weight(1f)) {
+                        Text(
+                            text = "GitHub",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = c.textFaint
+                        )
+                        Text(
+                            text = "github.com/Kea335",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = c.accent
+                        )
+                    }
+                    Icon(
+                        Icons.AutoMirrored.Outlined.OpenInNew,
+                        contentDescription = null,
+                        tint = c.accent,
+                        modifier = Modifier.size(17.dp)
+                    )
+                }
                 Spacer(Modifier.height(9.dp))
                 Text(
                     text = "KotlinAZ · v1.0.0",
@@ -145,22 +276,24 @@ fun SettingsScreen(
         item { Spacer(Modifier.height(24.dp)) }
     }
 
-    // Təsdiq pəncərəsi
+    // Təsdiq pəncərəsi — sıfırlama geri qaytarıla bilmir, ona görə əvvəlcə soruşulur.
     if (tesdiq != null) {
         val (basliq, metn, emel) = when (tesdiq) {
             "oxuma" -> Triple(
-                "Oxuma tərəqqisi silinsin?",
-                "Oxunmuş bölmələrin işarəsi silinəcək. Məzmuna toxunulmur.",
+                "Dərs təsdiqləri silinsin?",
+                "Çalışması olmayan bölmələrdə verdiyin «Oxudum» təsdiqləri silinəcək. " +
+                    "Çalışmalardan gələn mənimsəməyə toxunulmur.",
                 onOxumaSifirla
             )
             "calisma" -> Triple(
                 "Çalışma tərəqqisi silinsin?",
-                "Həll edilmiş çalışmaların işarəsi silinəcək.",
+                "Həll edilmiş çalışmaların işarəsi silinəcək — dərslərin mənimsəməsi " +
+                    "və səviyyən də sıfırlanacaq.",
                 onCalismaSifirla
             )
             else -> Triple(
                 "Hər şey silinsin?",
-                "Oxuma tərəqqisi, çalışmalar və test rekordu — hamısı sıfırlanacaq.",
+                "Dərs təsdiqləri, çalışmalar və test rekordları — hamısı sıfırlanacaq.",
                 onHamisiSifirla
             )
         }
@@ -239,7 +372,7 @@ private fun Secim(
 }
 
 @Composable
-private fun Setir(acar: String, deyer: String) {
+private fun Setir(acar: String, deyer: String, vurgu: Color? = null) {
     val c = KAz.colors
     Row(
         Modifier.fillMaxWidth().padding(vertical = 5.dp),
@@ -254,7 +387,7 @@ private fun Setir(acar: String, deyer: String) {
         Text(
             text = deyer,
             style = MaterialTheme.typography.labelMedium,
-            color = c.text,
+            color = vurgu ?: c.text,
             fontWeight = FontWeight.Bold
         )
     }

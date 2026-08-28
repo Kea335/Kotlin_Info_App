@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,7 +20,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,11 +37,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import az.kotlinaz.app.data.KotlinCompiler
@@ -52,11 +50,14 @@ import az.kotlinaz.app.data.model.PlaygroundPreset
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoChip
-import az.kotlinaz.app.ui.highlight.rememberKotlinTransformation
+import az.kotlinaz.app.ui.editor.KodRedaktoru
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 import kotlinx.coroutines.launch
 
+// Ekranın nəticə panelinin vəziyyəti. Sealed interface seçilib ki, `when`
+// bütün halları məcburi əhatə etsin — yeni hal əlavə olunanda kompilyator
+// unudulmuş yerləri göstərir.
 private sealed interface MeydanVeziyyeti {
     data object Bos : MeydanVeziyyeti
     data object Isleyir : MeydanVeziyyeti
@@ -64,6 +65,9 @@ private sealed interface MeydanVeziyyeti {
     data class Xetalar(val basliq: String, val metn: String) : MeydanVeziyyeti
     data object Oflayn : MeydanVeziyyeti
 }
+
+/** Boş redaktorun başlanğıc kodu — kursor gövdənin içində durur. */
+private const val BOS_KOD = "fun main() {\n    \n}"
 
 /**
  * Kod meydanı — tətbiqin YEGANƏ internet tələb edən hissəsi.
@@ -83,16 +87,26 @@ fun PlaygroundScreen(
     val context = LocalContext.current
     val bildir = LocalBildiris.current
 
-    var kod by remember { mutableStateOf(presets.firstOrNull()?.code ?: "fun main() {\n    println(\"Salam!\")\n}") }
+    // Redaktorun vəziyyəti `MutableState` kimi saxlanılır və olduğu kimi
+    // KodRedaktoru-ya verilir: hər hərf yalnız redaktoru yeniləyir, bu ekranın
+    // qalan hissəsi (çiplər, düymələr, nəticə paneli) yenidən qurulmur.
+    val kod = remember { mutableStateOf(TextFieldValue(BOS_KOD, TextRange(BOS_KOD.length - 2))) }
     var veziyyet by remember { mutableStateOf<MeydanVeziyyeti>(MeydanVeziyyeti.Bos) }
-    var seciliPreset by remember { mutableStateOf(presets.firstOrNull()?.id) }
+    // null = boş redaktor («Kod meydanı» çipi seçilidir).
+    var seciliPreset by remember { mutableStateOf<String?>(null) }
 
-    // Kod kartından gələn kod
+    fun kodQoy(yeni: String) {
+        kod.value = TextFieldValue(yeni, TextRange(yeni.length))
+        veziyyet = MeydanVeziyyeti.Bos
+    }
+
+    // Kod kartındakı «Meydan» düyməsindən gələn kod. Alındıqdan sonra
+    // `onXariciKodAlindi()` onu ViewModel-də təmizləyir — əks halda ekrana
+    // hər qayıdışda istifadəçinin yazdığı kod yenidən əvəzlənərdi.
     LaunchedEffect(xariciKod) {
         if (xariciKod != null) {
-            kod = xariciKod
+            kodQoy(xariciKod)
             seciliPreset = null
-            veziyyet = MeydanVeziyyeti.Bos
             onXariciKodAlindi()
         }
     }
@@ -122,64 +136,42 @@ fun PlaygroundScreen(
             Spacer(Modifier.height(13.dp))
         }
 
-        if (presets.isNotEmpty()) {
-            item(key = "numuneler") {
-                Text(
-                    text = "Nümunələr",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = c.textFaint,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Spacer(Modifier.height(7.dp))
-                Row(
-                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-                    horizontalArrangement = Arrangement.spacedBy(7.dp)
-                ) {
-                    presets.forEach { p ->
-                        DemoChip(etiket = p.label, aktiv = p.id == seciliPreset) {
-                            kod = p.code
-                            seciliPreset = p.id
-                            veziyyet = MeydanVeziyyeti.Bos
-                        }
-                    }
-                    DemoChip(etiket = "Boş redaktor", aktiv = seciliPreset == null) {
-                        kod = "fun main() {\n    \n}"
-                        seciliPreset = null
-                        veziyyet = MeydanVeziyyeti.Bos
+        item(key = "numuneler") {
+            Text(
+                text = "Başlanğıc",
+                style = MaterialTheme.typography.labelSmall,
+                color = c.textFaint,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(Modifier.height(7.dp))
+            Row(
+                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                // Boş redaktor ƏN QABAQDA: meydana gələn adam əvvəlcə öz kodunu
+                // yazmaq istəyir, hazır nümunə ikinci addımdır.
+                DemoChip(etiket = "Kod meydanı", aktiv = seciliPreset == null) {
+                    // Kursor dərhal `main` gövdəsinin içinə qoyulur —
+                    // istifadəçi çipdən sonra birbaşa yazmağa başlaya bilsin.
+                    kod.value = TextFieldValue(BOS_KOD, TextRange(BOS_KOD.length - 2))
+                    veziyyet = MeydanVeziyyeti.Bos
+                    seciliPreset = null
+                }
+                presets.forEach { p ->
+                    DemoChip(etiket = p.label, aktiv = p.id == seciliPreset) {
+                        kodQoy(p.code)
+                        seciliPreset = p.id
                     }
                 }
-                Spacer(Modifier.height(13.dp))
             }
+            Spacer(Modifier.height(13.dp))
         }
 
         item(key = "redaktor") {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(13.dp))
-                    .background(c.bgCode)
-                    .border(1.dp, c.borderStrong, RoundedCornerShape(13.dp))
-            ) {
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .background(c.bgSunken)
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                        listOf(Color(0xFFFF5F57), Color(0xFFFEBC2E), Color(0xFF28C840)).forEach {
-                            Box(Modifier.size(9.dp).background(it.copy(alpha = 0.85f), CircleShape))
-                        }
-                    }
-                    Spacer(Modifier.width(10.dp))
-                    Text(
-                        text = "Main.kt",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = c.textDim,
-                        fontFamily = FontFamily.Monospace,
-                        modifier = Modifier.weight(1f)
-                    )
+            KodRedaktoru(
+                kod = kod,
+                minHundurluk = 210.dp,
+                basliqSagi = {
                     Icon(
                         Icons.Outlined.ContentCopy,
                         contentDescription = "Kopyala",
@@ -187,29 +179,12 @@ fun PlaygroundScreen(
                         modifier = Modifier
                             .size(16.dp)
                             .clickable {
-                                kopyala(context, kod)
+                                kopyala(context, kod.value.text)
                                 bildir("Kod kopyalandı")
                             }
                     )
                 }
-
-                BasicTextField(
-                    value = kod,
-                    onValueChange = { kod = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 210.dp)
-                        .padding(13.dp),
-                    textStyle = TextStyle(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = (13 * KAz.codeScale).sp,
-                        lineHeight = (21 * KAz.codeScale).sp,
-                        color = c.text
-                    ),
-                    visualTransformation = rememberKotlinTransformation(),
-                    cursorBrush = SolidColor(c.accent)
-                )
-            }
+            )
 
             Spacer(Modifier.height(11.dp))
 
@@ -219,10 +194,13 @@ fun PlaygroundScreen(
                     modifier = Modifier
                         .clip(RoundedCornerShape(11.dp))
                         .background(KotlinBrush)
+                        // İcra gedərkən düymə kilidlənir — eyni kodu paralel
+                        // iki dəfə serverə göndərməyin mənası yoxdur.
                         .clickable(enabled = veziyyet !is MeydanVeziyyeti.Isleyir) {
                             veziyyet = MeydanVeziyyeti.Isleyir
                             scope.launch {
-                                veziyyet = when (val r = compiler.isle(kod)) {
+                                // Kod yalnız BURADA oxunur — yazı zamanı deyil.
+                                veziyyet = when (val r = compiler.isle(kod.value.text)) {
                                     is RunResult.Ok ->
                                         MeydanVeziyyeti.Cixis(
                                             r.output.ifBlank { "(çıxış yoxdur)" }
@@ -253,6 +231,8 @@ fun PlaygroundScreen(
                     color = Color.White
                 )
 
+                // Yalnız nəticə panelini bağlayır; redaktordakı koda toxunmur.
+                // Kodu silmək üçün yuxarıdakı «Kod meydanı» çipi var.
                 Text(
                     text = "Təmizlə",
                     modifier = Modifier

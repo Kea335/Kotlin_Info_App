@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,7 +20,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
@@ -42,10 +40,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import az.kotlinaz.app.data.KotlinCompiler
@@ -58,9 +55,10 @@ import az.kotlinaz.app.data.neticeniNormallasdir
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoCode
-import az.kotlinaz.app.ui.highlight.rememberKotlinTransformation
+import az.kotlinaz.app.ui.editor.KodRedaktoru
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
+import az.kotlinaz.app.ui.theme.seviyyeRengi
 import kotlinx.coroutines.launch
 
 private enum class Rejim(val etiket: String) { NEZERI("Nəzəri"), PRAKTIKI("Praktiki") }
@@ -69,7 +67,7 @@ private enum class Rejim(val etiket: String) { NEZERI("Nəzəri"), PRAKTIKI("Pra
  * Çalışma mühərriki — saytdakı js/practice.js faylının qarşılığı.
  *
  * Nəzəri çalışmalar tam oflayn işləyir. Praktiki çalışmalarda tapşırıq,
- * başlanğıc kod, ipucu, gözlənilən nəticə və model həll də oflayndır;
+ * başlanğıc kod, ipucu, gözlənilən nəticə və cavab da oflayndır;
  * yalnız «Yoxla» düyməsi kodu real kompilyatorda işlətmək üçün
  * internet tələb edir.
  */
@@ -82,10 +80,13 @@ fun ExercisePlayerScreen(
     onHellIsaretle: (String) -> Unit
 ) {
     val c = KAz.colors
+    // Bütün vəziyyət mövzuya bağlıdır: başqa mövzuya keçəndə sıfırlanır.
     var rejim by remember(topic.id) { mutableStateOf(Rejim.NEZERI) }
+    // null = «Hamısı» (səviyyə filtri yoxdur).
     var seviyye by remember(topic.id) { mutableStateOf<Level?>(null) }
     var index by remember(topic.id) { mutableIntStateOf(0) }
 
+    // Filtrlənmiş siyahılar — filtr dəyişməyincə yenidən hesablanmır.
     val nezeriSiyahi = remember(topic.id, seviyye) {
         topic.nezeri.filter { seviyye == null || it.level == seviyye?.id }
     }
@@ -93,6 +94,8 @@ fun ExercisePlayerScreen(
         topic.praktiki.filter { seviyye == null || it.level == seviyye?.id }
     }
     val say = if (rejim == Rejim.NEZERI) nezeriSiyahi.size else praktikiSiyahi.size
+    // Təhlükəsiz indeks: filtr siyahını qısaltsa belə diapazondan çıxmır.
+    // (`index` çipləri basanda 0-a qaytarılır, bu isə ikinci qorunma qatıdır.)
     val cariIndex = index.coerceIn(0, (say - 1).coerceAtLeast(0))
 
     LazyColumn(
@@ -116,6 +119,9 @@ fun ExercisePlayerScreen(
                                     if (aktiv) c.accent.copy(alpha = 0.5f) else c.border,
                                     RoundedCornerShape(10.dp)
                                 )
+                                // Rejim dəyişəndə indeks sıfırlanır — 40-cı
+                                // nəzəri çalışmadan 40-cı praktikiyə tullanmaq
+                                // gözlənilməz olardı.
                                 .clickable { rejim = r; index = 0 }
                                 .padding(vertical = 9.dp),
                             style = MaterialTheme.typography.labelLarge,
@@ -253,6 +259,7 @@ private fun NezeriKart(
     onDuzgun: () -> Unit
 ) {
     val c = KAz.colors
+    // Seçim çalışmaya bağlıdır: növbəti çalışmaya keçəndə təmizlənir.
     var secim by remember(calisma.id) { mutableStateOf<Int?>(null) }
 
     Column {
@@ -297,6 +304,9 @@ private fun NezeriKart(
                     .clip(RoundedCornerShape(11.dp))
                     .background(fon)
                     .border(1.dp, cerceve, RoundedCornerShape(11.dp))
+                    // Cavab verildikdən sonra kilidlənir. Düzgün cavab dərhal
+                    // «həll edilib» kimi yazılır — nəzəri çalışmada yoxlama tam
+                    // oflayndır, serverə ehtiyac yoxdur.
                     .clickable(enabled = !cavabVerilib) {
                         secim = i
                         if (i == calisma.a) onDuzgun()
@@ -381,10 +391,15 @@ private fun PraktikiKart(
     val context = androidx.compose.ui.platform.LocalContext.current
     val bildir = LocalBildiris.current
 
-    var kod by remember(calisma.id) { mutableStateOf(calisma.starter) }
+    // Redaktorun məzmunu. Çalışma dəyişəndə başlanğıc koda qayıdır.
+    // `MutableState` olduğu kimi redaktora ötürülür — yazı zamanı yalnız
+    // redaktor yenidən qurulur, kartın qalanı yerində qalır.
+    val kod = remember(calisma.id) { mutableStateOf(TextFieldValue(calisma.starter)) }
     var veziyyet by remember(calisma.id) { mutableStateOf<YoxlamaVeziyyeti>(YoxlamaVeziyyeti.Bos) }
     var ipucuGorunur by remember(calisma.id) { mutableStateOf(false) }
     var hellGorunur by remember(calisma.id) { mutableStateOf(false) }
+    // «Cavab» düyməsinə basılıb, amma hələ təsdiqlənməyib.
+    var cavabSorusulur by remember(calisma.id) { mutableStateOf(false) }
 
     Column {
         SeviyyeNisani(calisma.level)
@@ -398,7 +413,8 @@ private fun PraktikiKart(
 
         Spacer(Modifier.height(12.dp))
 
-        // Gözlənilən nəticə — oflayn mövcuddur
+        // Gözlənilən nəticə oflayn mövcuddur: internet olmasa da istifadəçi
+        // nəyə çatmalı olduğunu bilir.
         Column(
             Modifier
                 .fillMaxWidth()
@@ -417,8 +433,8 @@ private fun PraktikiKart(
                 Text(
                     text = calisma.gozlenilen,
                     fontFamily = FontFamily.Monospace,
-                    fontSize = 13.sp,
-                    lineHeight = 20.sp,
+                    fontSize = (13 * KAz.codeScale).sp,
+                    lineHeight = (20 * KAz.codeScale).sp,
                     color = c.ok,
                     softWrap = false
                 )
@@ -427,8 +443,8 @@ private fun PraktikiKart(
 
         Spacer(Modifier.height(12.dp))
 
-        // Redaktor
-        KodRedaktoru(kod = kod, onChange = { kod = it })
+        // Redaktor — tamamlama zolağı ilə (tənzimləmələrdən söndürülə bilər)
+        KodRedaktoru(kod = kod, minHundurluk = 150.dp)
 
         Spacer(Modifier.height(10.dp))
 
@@ -442,8 +458,11 @@ private fun PraktikiKart(
                     .clickable(enabled = veziyyet !is YoxlamaVeziyyeti.Isleyir) {
                         veziyyet = YoxlamaVeziyyeti.Isleyir
                         scope.launch {
-                            veziyyet = when (val r = compiler.isle(kod)) {
+                            veziyyet = when (val r = compiler.isle(kod.value.text)) {
                                 is RunResult.Ok -> {
+                                    // Hər iki tərəf eyni qaydada normallaşdırılır
+                                    // (sağdakı boşluqlar, kənar boş sətirlər atılır),
+                                    // yoxsa görünməyən boşluq düzgün həlli sındırardı.
                                     val alinan = neticeniNormallasdir(r.output)
                                     val gozlenilen = neticeniNormallasdir(calisma.gozlenilen)
                                     if (alinan == gozlenilen) {
@@ -472,9 +491,12 @@ private fun PraktikiKart(
             )
 
             KicikDuyme("İpucu") { ipucuGorunur = true }
-            KicikDuyme("Model həll") { hellGorunur = true; kod = calisma.hell }
+            // Cavab birbaşa açılmır: əvvəlcə xəbərdarlıq çıxır, çünki hazır
+            // həlli oxumaq öyrənməni əvəz etmir. Təsdiqdən sonra kod redaktora
+            // yüklənir və yazdığının üstünü yazır — geri qaytarmaq üçün «Sıfırla».
+            KicikDuyme("Cavab") { cavabSorusulur = true }
             KicikDuyme("Sıfırla") {
-                kod = calisma.starter
+                kod.value = TextFieldValue(calisma.starter)
                 veziyyet = YoxlamaVeziyyeti.Bos
                 hellGorunur = false
             }
@@ -484,9 +506,12 @@ private fun PraktikiKart(
 
         Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
             KicikDuyme("Kodu kopyala") {
-                kopyala(context, kod)
+                kopyala(context, kod.value.text)
                 bildir("Kod kopyalandı")
             }
+            // Oflayn yol: internet olmayanda «Yoxla» işləmir, ona görə
+            // istifadəçi özü müqayisə edib əl ilə işarələyə bilir.
+            // Artıq işarələnibsə düymə göstərilmir.
             if (!hellOlunub) {
                 KicikDuyme("Həll etdim") {
                     onDuzgun()
@@ -522,15 +547,57 @@ private fun PraktikiKart(
 
         if (hellGorunur) {
             Spacer(Modifier.height(11.dp))
-            Text(
-                text = "Model həll redaktora yükləndi",
-                style = MaterialTheme.typography.labelSmall,
-                color = c.textFaint
-            )
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(c.warn.copy(alpha = 0.08f))
+                    .border(1.dp, c.warn.copy(alpha = 0.28f), RoundedCornerShape(10.dp))
+                    .padding(11.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Cavab redaktora yükləndi — oxuduqdan sonra «Sıfırla» ilə " +
+                        "başlanğıca qayıt və özün yazmağı sına.",
+                    style = MaterialTheme.typography.labelSmall.copy(lineHeight = 17.sp),
+                    color = c.warn
+                )
+            }
         }
 
         Spacer(Modifier.height(12.dp))
         YoxlamaNeticesi(veziyyet)
+    }
+
+    // Cavab təsdiq pəncərəsi. Hazır həlli görmək çalışmanın mənasını itirir,
+    // ona görə bir addım aralıq qoyulur — səhvən basmaq da mümkündür.
+    if (cavabSorusulur) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { cavabSorusulur = false },
+            title = { Text("Cavaba baxmaq istəyirsən?") },
+            text = {
+                Text(
+                    "Hazır cavabı oxumaq öyrənməni əvəz etmir — əvvəlcə «İpucu» ilə " +
+                        "bir də cəhd et. Cavabı görsən, bu tapşırığı özün tapmaq " +
+                        "şansını itirirsən."
+                )
+            },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    kod.value = TextFieldValue(calisma.hell)
+                    hellGorunur = true
+                    cavabSorusulur = false
+                }) { Text("Yenə də göstər", color = c.warn) }
+            },
+            dismissButton = {
+                androidx.compose.material3.TextButton(onClick = { cavabSorusulur = false }) {
+                    Text("Özüm sınayım")
+                }
+            },
+            containerColor = c.bgElev,
+            titleContentColor = c.text,
+            textContentColor = c.textDim
+        )
     }
 }
 
@@ -601,7 +668,7 @@ private fun YoxlamaNeticesi(veziyyet: YoxlamaVeziyyeti) {
             Text(
                 text = "Kodun işlədilməsi üçün bağlantı lazımdır — Kotlin kompilyatoru " +
                     "JetBrains serverlərindədir. Bağlantısız da işləyə bilərsən: " +
-                    "«Model həll» düyməsi ilə düzgün həlli aç və öz kodunla müqayisə et, " +
+                    "«Cavab» düyməsi ilə düzgün həlli aç və öz kodunla müqayisə et, " +
                     "sonra «Həll etdim» ilə işarələ.",
                 style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                 color = c.textDim
@@ -640,64 +707,10 @@ private fun KonsolMetni(metn: String, reng: Color) {
         Text(
             text = metn,
             fontFamily = FontFamily.Monospace,
-            fontSize = 12.5.sp,
-            lineHeight = 19.sp,
+            fontSize = (12.5f * KAz.codeScale).sp,
+            lineHeight = (19 * KAz.codeScale).sp,
             color = reng,
             softWrap = false
-        )
-    }
-}
-
-/* ============================================================
-   Kod redaktoru
-   ============================================================ */
-
-@Composable
-private fun KodRedaktoru(kod: String, onChange: (String) -> Unit) {
-    val c = KAz.colors
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(c.bgCode)
-            .border(1.dp, c.borderStrong, RoundedCornerShape(12.dp))
-    ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .background(c.bgSunken)
-                .padding(horizontal = 12.dp, vertical = 7.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Main.kt",
-                style = MaterialTheme.typography.labelSmall,
-                color = c.textDim,
-                fontFamily = FontFamily.Monospace,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = "${kod.lines().size} sətir",
-                style = MaterialTheme.typography.labelSmall,
-                color = c.textFaint
-            )
-        }
-
-        BasicTextField(
-            value = kod,
-            onValueChange = onChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 150.dp)
-                .padding(12.dp),
-            textStyle = TextStyle(
-                fontFamily = FontFamily.Monospace,
-                fontSize = (13 * KAz.codeScale).sp,
-                lineHeight = (21 * KAz.codeScale).sp,
-                color = c.text
-            ),
-            visualTransformation = rememberKotlinTransformation(),
-            cursorBrush = SolidColor(c.accent)
         )
     }
 }
@@ -710,11 +723,7 @@ private fun KodRedaktoru(kod: String, onChange: (String) -> Unit) {
 private fun SeviyyeNisani(level: String) {
     val c = KAz.colors
     val lv = Level.from(level)
-    val reng = when (lv) {
-        Level.JUNIOR -> c.ok
-        Level.MIDDLE -> c.warn
-        Level.SENIOR -> c.err
-    }
+    val reng = seviyyeRengi(lv)
     Text(
         text = lv.label,
         modifier = Modifier

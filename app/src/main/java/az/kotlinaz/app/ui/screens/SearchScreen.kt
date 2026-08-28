@@ -26,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +54,14 @@ fun SearchScreen(
     val c = KAz.colors
     var sorgu by remember { mutableStateOf("") }
     val fokus = remember { FocusRequester() }
+
+    // DÜZƏLİŞ: FocusRequester yaradılıb sahəyə bağlanmışdı, amma heç vaxt
+    // requestFocus() çağırılmırdı — yəni axtarış ekranı açılanda kursor da,
+    // klaviatura da gəlmirdi, istifadəçi əlavə bir dəfə toxunmalı olurdu.
+    LaunchedEffect(Unit) { fokus.requestFocus() }
+
+    // Nəticələr sorğu dəyişəndə yenidən hesablanır. Axtarış oflayn indeksdə,
+    // əvvəlcədən kiçik hərfə salınmış mətndə gedir (bax: AppViewModel.axtar).
     val neticeler = remember(sorgu) { axtar(sorgu) }
 
     Column(modifier.fillMaxSize()) {
@@ -75,6 +84,7 @@ fun SearchScreen(
             )
             Spacer(Modifier.width(10.dp))
             Box(Modifier.weight(1f)) {
+                // BasicTextField-in öz placeholder-i yoxdur — altda mətn kimi qoyulur.
                 if (sorgu.isEmpty()) {
                     Text(
                         text = "Sənəddə axtar…",
@@ -88,7 +98,7 @@ fun SearchScreen(
                     singleLine = true,
                     textStyle = TextStyle(
                         color = c.text,
-                        fontSize = 15.sp
+                        fontSize = (15 * KAz.codeScale).sp
                     ),
                     cursorBrush = SolidColor(c.accent),
                     modifier = Modifier
@@ -141,7 +151,7 @@ fun SearchScreen(
                             text = n.group.uppercase(),
                             style = MaterialTheme.typography.labelSmall,
                             color = c.textFaint,
-                            fontSize = 10.sp
+                            fontSize = (10 * KAz.codeScale).sp
                         )
                         Text(
                             text = n.title,
