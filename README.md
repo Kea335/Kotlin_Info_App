@@ -115,8 +115,8 @@ oxunuşu sınır.
 
 | Alət | Versiya |
 |---|---|
-| Gradle | 9.5.0 |
-| Android Gradle Plugin | 9.3.1 |
+| Gradle | 9.6.0 |
+| Android Gradle Plugin | 9.4.0 |
 | Kotlin | 2.4.10 (AGP-nin daxili dəstəyi) |
 | Compose BOM | 2026.08.00 |
 | minSdk / targetSdk | 24 / 37 |
