@@ -41,7 +41,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import az.kotlinaz.app.ui.SearchNetice
+import az.kotlinaz.app.data.SearchNetice
 import az.kotlinaz.app.ui.theme.KAz
 
 /** Oflayn tam mətn axtarışı — bütün 32 bölmə üzrə. */

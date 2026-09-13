@@ -3,8 +3,10 @@ package az.kotlinaz.app.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import az.kotlinaz.app.data.AxtarisMotoru
 import az.kotlinaz.app.data.ContentRepository
 import az.kotlinaz.app.data.KotlinCompiler
+import az.kotlinaz.app.data.SearchNetice
 import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
@@ -109,10 +111,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 _presets.value = repo.playground().presets
                 _searchDocs.value = repo.searchIndex().docs
 
-                // Axtarış üçün kiçik hərfli surət — bir dəfə, burada.
-                kicikIndeks = _searchDocs.value.map {
-                    AxtarisSened(it, it.title.lowercase(), it.text.lowercase())
-                }
+                // Axtarış indeksi bir dəfə, burada qurulur. Dil teqi hələlik
+                // sabit «az»-dır; dil seçimi gələndə seçilmiş dildən gələcək.
+                axtarisMotoru = AxtarisMotoru(_searchDocs.value, dilTeqi = "az")
             } catch (e: Exception) {
                 _yukleneXetasi.value = e.message ?: e.javaClass.simpleName
             } finally {
@@ -159,61 +160,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /* ---------- Oflayn axtarış ---------- */
 
-    // Axtarış indeksi ~120 KB mətndir. Əvvəllər hər hərf yazılanda bütün 32 sənəd
-    // yenidən lowercase() edilirdi — hər vuruşda onlarla KB artıq yaddaş və UI
-    // sapında lüzumsuz iş. İndi kiçik hərfli variant bir dəfə, sənədlər gələndə
-    // hazırlanır; `axtar()` yalnız hazır sətirlərdə axtarır.
-    private data class AxtarisSened(
-        val doc: SearchDoc,
-        val basliqKicik: String,
-        val metnKicik: String
-    )
+    // Axtarışın özü AxtarisMotoru-dadır (saf sinif, testdən çağırıla bilir).
+    // Burada yalnız istinad saxlanılır; sənədlər oxunana qədər null-dır.
+    private var axtarisMotoru: AxtarisMotoru? = null
 
-    // İndeks `init` blokunda, sənədlər oxunan kimi bir dəfə qurulur.
-    private var kicikIndeks: List<AxtarisSened> = emptyList()
-
-    fun axtar(sorgu: String): List<SearchNetice> {
-        val q = sorgu.trim().lowercase()
-        // Bir hərflik sorğu bütün sənədləri qaytarardı — mənasızdır.
-        if (q.length < 2) return emptyList()
-
-        return kicikIndeks.mapNotNull { (doc, basliqKicik, metnKicik) ->
-            val basliqda = basliqKicik.contains(q)
-            val yer = metnKicik.indexOf(q)
-            // Nə başlıqda, nə mətndə varsa — bu sənəd nəticəyə düşmür.
-            if (!basliqda && yer < 0) return@mapNotNull null
-
-            // Tapılan yerin ətrafından parça kəsilir: 60 simvol öncə, 90 sonra.
-            val parca = if (yer >= 0) {
-                val bas = (yer - 60).coerceAtLeast(0)
-                val son = (yer + q.length + 90).coerceAtMost(doc.text.length)
-                buildString {
-                    if (bas > 0) append("…")
-                    append(doc.text.substring(bas, son).trim())
-                    if (son < doc.text.length) append("…")
-                }
-            } else {
-                doc.text.take(140)
-            }
-
-            SearchNetice(
-                id = doc.id,
-                title = doc.title,
-                group = doc.group,
-                parca = parca,
-                // Başlıqda tapılanlar 0 bal alır və yuxarı qalxır; mətndə
-                // tapılanlar 1. sortedBy sabitdir, ona görə bərabər ballılar
-                // sənəd sırasını (yəni dərs sırasını) saxlayır.
-                bal = if (basliqda) 0 else 1
-            )
-        }.sortedBy { it.bal }
-    }
+    fun axtar(sorgu: String): List<SearchNetice> =
+        axtarisMotoru?.axtar(sorgu).orEmpty()
 }
-
-data class SearchNetice(
-    val id: String,
-    val title: String,
-    val group: String,
-    val parca: String,
-    val bal: Int
-)
