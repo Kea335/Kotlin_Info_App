@@ -97,6 +97,9 @@ T5.1 ─→ T5.2, T5.3, T5.4
 
 Release qapısı: [`RELEASE-GATE.md`](RELEASE-GATE.md)
 
+Kopyalanmaq üçün hazır promptlar: [`PROMPTS.md`](PROMPTS.md) — hər task üçün
+bir blok, yeni sessiyaya yapışdırılmaq üçün.
+
 ## Tam audit
 
 Tapıntıların izahı, GPT sənədinə münasibət və vaxt qrafiki:
