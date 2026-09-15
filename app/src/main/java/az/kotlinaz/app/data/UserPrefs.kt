@@ -173,7 +173,7 @@ data class KompilyatorKesi(val versiyalar: List<KompilyatorVersiyasi>, val vaxt:
 
 /* ---------- «açar=dəyər;…» sətir formatı ---------- */
 
-private fun xeriteAc(xam: String?): Map<String, Int> {
+internal fun xeriteAc(xam: String?): Map<String, Int> {
     if (xam.isNullOrBlank()) return emptyMap()
     // Zədəli sətir (əl ilə redaktə, yarımçıq yazı) tətbiqi çökdürməməlidir —
     // oxunmayan cütlər sadəcə atılır.
@@ -185,7 +185,7 @@ private fun xeriteAc(xam: String?): Map<String, Int> {
     }.toMap()
 }
 
-private fun xeriteYaz(xerite: Map<String, Int>): String =
+internal fun xeriteYaz(xerite: Map<String, Int>): String =
     xerite.entries.joinToString(";") { "${it.key}=${it.value}" }
 
 enum class ThemeMode(val id: String, val label: String) {

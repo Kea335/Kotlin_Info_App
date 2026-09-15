@@ -64,6 +64,20 @@ android {
         buildConfig = true
     }
 
+    testOptions {
+        unitTests {
+            // Testlər saf JVM kodunu yoxlayır — Android resursları lazım deyil.
+            isIncludeAndroidResources = false
+        }
+    }
+
+    sourceSets {
+        // Aktivlər (content.json, exercises.json…) unit testdən oxunsun deyə (T1.2).
+        getByName("test") {
+            resources.srcDir("src/main/assets")
+        }
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -90,4 +104,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     debugImplementation(libs.androidx.ui.tooling)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

@@ -116,7 +116,7 @@ fun QuizScreen(
    Sual hovuzları
    ============================================================ */
 
-private fun hovuzlariQur(
+internal fun hovuzlariQur(
     questions: List<QuizQuestion>,
     topics: List<ExerciseTopic>
 ): Map<QuizRejimi, List<QuizQuestion>> {
