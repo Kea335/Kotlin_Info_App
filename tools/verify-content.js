@@ -161,6 +161,8 @@ ex.topics.forEach((t) => {
     if (!x.starter) exProblem.push(x.id + ': baslangic kodu yoxdur');
     if (!x.hell) exProblem.push(x.id + ': model hell yoxdur');
     if (typeof x.gozlenilen !== 'string' || !x.gozlenilen.length) exProblem.push(x.id + ': gozlenilen netice yoxdur');
+    // T0.4: başlanğıc kodu həllə bərabərdirsə istifadəçi heç nə yazmadan «Yoxla» keçir.
+    if (x.starter && x.hell && x.starter.trim() === x.hell.trim()) exProblem.push(x.id + ': baslangic kodu hell ile eynidir');
   });
 });
 
