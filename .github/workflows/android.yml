@@ -1,0 +1,62 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+# Eyni branch-a ard-arda push gələndə köhnə run ləğv olunur.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # gradle/gradle-daemon-jvm.properties daemon üçün JDK 25 tələb edir.
+      # 17 qurulsa Gradle foojay-dan özü JDK endirməyə çalışır — yavaş və kövrək.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Gradle keşini (asılılıqlar, konfiqurasiya) özü idarə edir.
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Məzmun yoxlaması
+        run: node tools/verify-content.js --assets-only
+
+      - name: Unit testlər
+        run: ./gradlew test --stacktrace
+
+      - name: Lint
+        run: ./gradlew lint
+
+      - name: Debug build
+        run: ./gradlew assembleDebug
+
+      - name: Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Test və lint hesabatları
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+          if-no-files-found: ignore

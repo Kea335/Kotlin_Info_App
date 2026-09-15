@@ -4,6 +4,7 @@
    köçdüyünü yoxlayır. İtən parçaları siyahılayır.
 
    İşlətmək:  node tools/verify-content.js
+              node tools/verify-content.js --assets-only   (sayt olmadan, CI)
    ============================================================ */
 'use strict';
 
@@ -111,14 +112,19 @@ function bloklardanMetn(blocks, topla) {
 
 /* ---------- 3. Muqayise ---------- */
 
+// --assets-only: sayt repo-su olmayan mühitdə (CI) yalnız aktivlərin öz
+// bütövlüyü yoxlanılır — saytla müqayisə (1–3-cü bölmələr) atlanılır.
+const YALNIZ_AKTIV = process.argv.includes('--assets-only');
+
 const content = JSON.parse(fs.readFileSync(path.join(AKTIV, 'content.json'), 'utf8'));
-const gozlenilen = saytParcalari();
+const gozlenilen = YALNIZ_AKTIV ? {} : saytParcalari();
 
 let umumi = 0;
 let itən = 0;
 const problemler = [];
 
 content.sections.forEach((s) => {
+  if (YALNIZ_AKTIV) return;
   // Bolme basligi ve nomresi bloklarda yox, metadatadadir
   const topla = [s.title, s.heading, s.kicker, s.group];
   bloklardanMetn(s.blocks, topla);
@@ -139,9 +145,13 @@ content.sections.forEach((s) => {
 console.log('KotlinAZ mezmun dogrulamasi');
 console.log('');
 console.log('Bolme sayi        : ' + content.sections.length);
-console.log('Yoxlanan parca    : ' + umumi);
-console.log('Itən parca        : ' + itən);
-console.log('Ortu              : ' + (umumi ? ((umumi - itən) / umumi * 100).toFixed(2) : '0') + '%');
+if (YALNIZ_AKTIV) {
+  console.log('Yalniz aktivler rejimi — saytla muqayise atlanildi.');
+} else {
+  console.log('Yoxlanan parca    : ' + umumi);
+  console.log('Itən parca        : ' + itən);
+  console.log('Ortu              : ' + (umumi ? ((umumi - itən) / umumi * 100).toFixed(2) : '0') + '%');
+}
 
 /* ---------- 4. Calismalar ve quiz butovlugu ---------- */
 

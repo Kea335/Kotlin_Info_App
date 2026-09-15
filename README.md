@@ -1,5 +1,7 @@
 # KotlinAZ — Android tətbiqi
 
+[![Android CI](https://github.com/Kea335/Kotlin_Info_App/actions/workflows/android.yml/badge.svg)](https://github.com/Kea335/Kotlin_Info_App/actions/workflows/android.yml)
+
 [KotlinAZ](https://github.com/Kea335/Kotlin_Info_Web) saytının nativ Android
 qarşılığı. Bütün məzmun — 32 bölmə, 144 kod nümunəsi, 6 interaktiv nümayiş,
 1250 çalışma və bilik testi — tətbiqin içindədir və **internet olmadan işləyir**.
@@ -78,7 +80,21 @@ Sayt başqa yerdədirsə: `KOTLINAZ_WEB=C:/yol/kotlinweb node tools/build-conten
 
 APK: `app/build/outputs/apk/debug/app-debug.apk`
 
-Tələblər: JDK 17 (Android Studio-nun `jbr` qovluğu işləyir), Android SDK 37.
+Tələblər: **JDK 25** (Android Studio-nun `jbr` qovluğu işləyir), Android SDK 37.
+Kod Java 17-yə hədəflənir, amma `gradle/gradle-daemon-jvm.properties` Gradle
+daemon-u üçün JDK 25 tələb edir — başqa JDK ilə Gradle onu foojay-dan özü
+endirməyə çalışır.
+
+Testlər və məzmun yoxlaması:
+
+```bash
+./gradlew test                                # JVM unit testləri
+node tools/verify-content.js --assets-only    # aktivlərin bütövlüyü (sayt olmadan)
+```
+
+CI (`.github/workflows/android.yml`) hər push və PR-da eyni addımları
+işlədir: məzmun yoxlaması → test → lint → debug build; APK artifact kimi
+yüklənir.
 
 ### İmzalı release
 
