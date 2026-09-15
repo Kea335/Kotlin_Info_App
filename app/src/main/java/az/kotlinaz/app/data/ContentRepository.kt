@@ -52,8 +52,6 @@ class ContentRepository(private val context: Context) {
 
     suspend fun sections(): List<Section> = content().sections
 
-    suspend fun section(id: String): Section? = sections().firstOrNull { it.id == id }
-
     // Aşağıdakılar eyni nümunə üzrədir — hər aktiv öz keşi ilə.
 
     suspend fun exercises(): ExerciseBank = kilid.withLock {

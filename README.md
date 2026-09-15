@@ -137,3 +137,5 @@ həlli aç, öz kodunla müqayisə et, «Həll etdim» ilə işarələ.
 ## Mənbə
 
 Məzmun müəllifi: [Kea335/Kotlin_Info_Web](https://github.com/Kea335/Kotlin_Info_Web)
+
+Lisenziya: MIT — bax [LICENSE](LICENSE).

@@ -59,6 +59,9 @@ android {
 
     buildFeatures {
         compose = true
+        // Tənzimləmələrdəki versiya sətri BuildConfig.VERSION_NAME-dən gəlir
+        // (AGP 9-da defolt söndürülüb).
+        buildConfig = true
     }
 
     packaging {
@@ -84,7 +87,6 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.webkit)
     implementation(libs.kotlinx.serialization.json)
 
     debugImplementation(libs.androidx.ui.tooling)

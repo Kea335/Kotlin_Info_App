@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import az.kotlinaz.app.BuildConfig
 import az.kotlinaz.app.data.KompilyatorVersiyalari
 import az.kotlinaz.app.data.KompilyatorVeziyyeti
 import az.kotlinaz.app.data.Tereqqi
@@ -293,7 +294,7 @@ fun SettingsScreen(
                 }
                 Spacer(Modifier.height(9.dp))
                 Text(
-                    text = "KotlinAZ · v1.0.0",
+                    text = "KotlinAZ · v${BuildConfig.VERSION_NAME}",
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
