@@ -78,6 +78,8 @@ private const val BOS_KOD = "fun main() {\n    \n}"
 fun PlaygroundScreen(
     presets: List<PlaygroundPreset>,
     compiler: KotlinCompiler,
+    /** Sorğularda işlədilən Kotlin versiyası — xəbərdarlıq zolağında göstərilir. */
+    kompilyatorVersiyasi: String,
     xariciKod: String?,
     modifier: Modifier = Modifier,
     onXariciKodAlindi: () -> Unit
@@ -126,12 +128,22 @@ fun PlaygroundScreen(
             ) {
                 Box(Modifier.size(7.dp).background(KotlinBrush, CircleShape))
                 Spacer(Modifier.width(9.dp))
-                Text(
-                    text = "Bu bölmə internet tələb edir — kod JetBrains serverlərində " +
-                        "kompilyasiya olunur. Tətbiqin qalan hissəsi tam oflayn işləyir.",
-                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
-                    color = c.textDim
-                )
+                Column {
+                    Text(
+                        text = "Bu bölmə internet tələb edir — kod JetBrains serverlərində " +
+                            "kompilyasiya olunur. Tətbiqin qalan hissəsi tam oflayn işləyir.",
+                        style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
+                        color = c.textDim
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    // İstifadəçi hansı versiyada yazdığını bilməlidir: məsələn
+                    // `when` guard sintaksisi 2.1-də xəta verir, 2.4-də işləyir.
+                    Text(
+                        text = "Kompilyator: Kotlin $kompilyatorVersiyasi",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = c.textFaint
+                    )
+                }
             }
             Spacer(Modifier.height(13.dp))
         }

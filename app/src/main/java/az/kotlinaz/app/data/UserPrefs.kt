@@ -6,10 +6,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 // Bütün tətbiq üçün TƏK DataStore nüsxəsi. `by preferencesDataStore` genişlənmə
@@ -40,6 +42,14 @@ class UserPrefs(private val context: Context) {
          * disk sxemi dəyişmir.
          */
         val QUIZ_REKORDLARI = stringPreferencesKey("quiz_rekordlari")
+        /**
+         * Kompilyator versiyalarının keşi — `api.kotlinlang.org/versions`
+         * cavabı, [KompilyatorVersiyalari.keseYaz] formatında. Tərəqqi deyil,
+         * ona görə sıfırlamalarda toxunulmur.
+         */
+        val KOMPILYATOR_VERSIYALARI = stringPreferencesKey("compiler_versions")
+        /** Keşin yazıldığı an, epoch ms — 24 saatdan köhnədirsə yenilənir. */
+        val KOMPILYATOR_VERSIYALARI_VAXTI = longPreferencesKey("compiler_versions_ts")
     }
 
     val tema: Flow<ThemeMode> = context.dataStore.data.map {
@@ -124,6 +134,28 @@ class UserPrefs(private val context: Context) {
         context.dataStore.edit { it.remove(Acar.HELL) }
     }
 
+    /**
+     * Kompilyator versiyalarının keşi — bir dəfəlik oxunuş, axın deyil:
+     * [KotlinCompiler] onu yalnız sorğudan əvvəl soruşur. Açar yoxdursa və ya
+     * sətir tam zədəlidirsə null; disk oxunmasa da null — keşsiz qalmaq
+     * çökməkdən yaxşıdır.
+     */
+    suspend fun kompilyatorKesi(): KompilyatorKesi? = try {
+        val p = context.dataStore.data.first()
+        val versiyalar = KompilyatorVersiyalari.kesdenOxu(p[Acar.KOMPILYATOR_VERSIYALARI])
+        val vaxt = p[Acar.KOMPILYATOR_VERSIYALARI_VAXTI]
+        if (versiyalar.isEmpty() || vaxt == null) null else KompilyatorKesi(versiyalar, vaxt)
+    } catch (_: Exception) {
+        null
+    }
+
+    suspend fun kompilyatorKesiniYaz(versiyalar: List<KompilyatorVersiyasi>, vaxt: Long) {
+        context.dataStore.edit { p ->
+            p[Acar.KOMPILYATOR_VERSIYALARI] = KompilyatorVersiyalari.keseYaz(versiyalar)
+            p[Acar.KOMPILYATOR_VERSIYALARI_VAXTI] = vaxt
+        }
+    }
+
     /** Tərəqqinin hamısı silinir; tema və şrift ölçüsü toxunulmadan qalır. */
     suspend fun hamisiniSifirla() {
         context.dataStore.edit { p ->
@@ -135,6 +167,9 @@ class UserPrefs(private val context: Context) {
         }
     }
 }
+
+/** Diskdəki kompilyator versiyaları və yazıldığı an (epoch ms). */
+data class KompilyatorKesi(val versiyalar: List<KompilyatorVersiyasi>, val vaxt: Long)
 
 /* ---------- «açar=dəyər;…» sətir formatı ---------- */
 

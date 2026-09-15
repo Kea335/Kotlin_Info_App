@@ -29,7 +29,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repo = ContentRepository(app)
     private val prefs = UserPrefs(app)
-    val compiler = KotlinCompiler(app)
+    // prefs kompilyatora versiya siyahısının keşi üçün lazımdır.
+    val compiler = KotlinCompiler(app, prefs)
 
     private val _sections = MutableStateFlow<List<Section>>(emptyList())
     val sections: StateFlow<List<Section>> = _sections.asStateFlow()
@@ -114,6 +115,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 // Axtarış indeksi bir dəfə, burada qurulur. Dil teqi hələlik
                 // sabit «az»-dır; dil seçimi gələndə seçilmiş dildən gələcək.
                 axtarisMotoru = AxtarisMotoru(_searchDocs.value, dilTeqi = "az")
+
+                // Kompilyator versiyasının keşi diskdən oxunur (şəbəkəsiz) —
+                // Tənzimləmələr ilk açılışdan düzgün nömrəni göstərsin.
+                compiler.hazirla()
             } catch (e: Exception) {
                 _yukleneXetasi.value = e.message ?: e.javaClass.simpleName
             } finally {

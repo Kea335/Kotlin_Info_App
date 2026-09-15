@@ -114,6 +114,7 @@ fun AppRoot(vm: AppViewModel) {
     // Bölmə mənimsəməsi və səviyyə — çalışmalardan hesablanır, tək mənbədən gəlir.
     val tereqqi by vm.tereqqi.collectAsStateWithLifecycle()
     val meydanKodu by vm.meydanKodu.collectAsStateWithLifecycle()
+    val kompilyator by vm.compiler.veziyyet.collectAsStateWithLifecycle()
 
     val yukleneXetasi by vm.yukleneXetasi.collectAsStateWithLifecycle()
 
@@ -363,6 +364,7 @@ fun AppRoot(vm: AppViewModel) {
                     PlaygroundScreen(
                         presets = presets,
                         compiler = vm.compiler,
+                        kompilyatorVersiyasi = kompilyator.versiya,
                         xariciKod = meydanKodu,
                         onXariciKodAlindi = { vm.meydanKodunuTemizle() }
                     )
@@ -382,6 +384,7 @@ fun AppRoot(vm: AppViewModel) {
                         kodTamamlama = tamamlama,
                         tereqqi = tereqqi,
                         quizRekordlari = quizRekordlari,
+                        kompilyator = kompilyator,
                         onTema = { vm.temaSec(it) },
                         onSrift = { vm.sriftSec(it) },
                         onTamamlama = { vm.tamamlamaSec(it) },

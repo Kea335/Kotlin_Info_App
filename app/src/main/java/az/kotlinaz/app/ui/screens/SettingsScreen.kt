@@ -40,6 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import az.kotlinaz.app.data.KompilyatorVersiyalari
+import az.kotlinaz.app.data.KompilyatorVeziyyeti
 import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.model.Level
@@ -58,6 +60,8 @@ fun SettingsScreen(
     tereqqi: Tereqqi,
     /** Bilik testinin rejim üzrə rekordları. */
     quizRekordlari: Map<String, Int>,
+    /** Kod icrasında işlədilən Kotlin versiyası. */
+    kompilyator: KompilyatorVeziyyeti,
     modifier: Modifier = Modifier,
     onTema: (ThemeMode) -> Unit,
     onSrift: (Int) -> Unit,
@@ -216,6 +220,29 @@ fun SettingsScreen(
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                     color = c.textDim
                 )
+
+                Spacer(Modifier.height(8.dp))
+                Setir("Kompilyator", "Kotlin ${kompilyator.versiya}")
+
+                // Boz qeyd yalnız deyiləsi söz olanda: tətbiqin öz versiyası
+                // serverdə yoxdursa, ya da siyahı hələ serverdən yoxlanılmayıbsa.
+                val qeyd = when {
+                    kompilyator.tetbiqdenFerqli ->
+                        "Tətbiq Kotlin ${KompilyatorVersiyalari.TETBIQIN} ilə qurulub; " +
+                            "server bu versiyanı təklif etmədiyi üçün kod " +
+                            "${kompilyator.versiya} versiyasında icra olunur."
+                    !kompilyator.serverden ->
+                        "Versiya siyahısı ilk icrada serverdən yoxlanılır."
+                    else -> null
+                }
+                if (qeyd != null) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = qeyd,
+                        style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
+                        color = c.textFaint
+                    )
+                }
             }
         }
 

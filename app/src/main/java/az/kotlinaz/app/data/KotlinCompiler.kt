@@ -4,6 +4,11 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -21,12 +26,11 @@ import java.nio.charset.StandardCharsets
 
 private const val BASE = "https://api.kotlinlang.org/api"
 
-/**
- * Sınanmış kompilyator versiyaları. Xidmət ünvandakı versiyanı seçir;
- * biri dəstəklənməsə (server 400/404 qaytarsa) növbətisinə keçilir.
- * Şəbəkə xətasında isə keçid ETMİRİK — bax [KotlinCompiler.isle].
- */
-private val VERSIYALAR = listOf("2.1.20", "2.1.0", "2.0.20")
+/** Serverin elan etdiyi versiya siyahısı — `[{"version":"2.4.20","latestStable":true},…]`. */
+private const val VERSIYALAR_URL = "https://api.kotlinlang.org/versions"
+
+/** Versiya siyahısının keşi bu qədər yaşayır; sonra ilk sorğudan əvvəl yenilənir. */
+private const val KES_MUDDETI_MS = 24L * 60 * 60 * 1000
 
 @Serializable
 private data class ApiFile(
@@ -88,7 +92,29 @@ sealed interface RunResult {
     data class Failed(val message: String) : RunResult
 }
 
-class KotlinCompiler(private val context: Context) {
+/**
+ * Kompilyatorun aktiv versiyası — Kod meydanında və Tənzimləmələrdə göstərilir.
+ *
+ * Serverin HANSI versiyanı işlətdiyi cavabdan bilinmir: nə başlıqda, nə
+ * gövdədə versiya sahəsi var (yoxlanılıb: `Apigw-Requestid`-dən başqa heç nə
+ * gəlmir). Ona görə «yönləndirmə» yalnız siyahıdan çıxarılır — tətbiqin öz
+ * versiyası siyahıda yoxdursa, kod başqa versiyada icra olunur və bunu
+ * istifadəçiyə deyirik.
+ */
+data class KompilyatorVeziyyeti(
+    /** Sorğularda işlədilən Kotlin versiyası. */
+    val versiya: String,
+    /** true — siyahı serverdən (və ya onun keşindən) gəlib; false — ehtiyat siyahı. */
+    val serverden: Boolean
+) {
+    /** Tətbiqin qurulduğu versiyadan fərqlidir — dərslərdəki sintaksis tam üst-üstə düşməyə bilər. */
+    val tetbiqdenFerqli: Boolean get() = versiya != KompilyatorVersiyalari.TETBIQIN
+}
+
+class KotlinCompiler(
+    private val context: Context,
+    private val prefs: UserPrefs
+) {
 
     // encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
     // defolt dəyərli olduqları üçün sorğudan düşür və server sandbox-u çökür.
@@ -96,6 +122,89 @@ class KotlinCompiler(private val context: Context) {
         ignoreUnknownKeys = true
         isLenient = true
         encodeDefaults = true
+    }
+
+    // Siyahı hələ oxunmayıbsa ehtiyat siyahının birincisi göstərilir —
+    // tətbiqin öz versiyasıdır, bu gün serverdə də var.
+    private val _veziyyet = MutableStateFlow(
+        KompilyatorVeziyyeti(KompilyatorVersiyalari.EHTIYAT.first(), serverden = false)
+    )
+    val veziyyet: StateFlow<KompilyatorVeziyyeti> = _veziyyet.asStateFlow()
+
+    // Diskdən bir dəfə oxunur, sonra yaddaşda qalır. Mutex: Meydan və çalışma
+    // ekranı eyni anda sorğu göndərsə siyahı iki dəfə yüklənməsin.
+    private var kes: KompilyatorKesi? = null
+    private val kesKilidi = Mutex()
+
+    /**
+     * Başlanğıcda çağırılır — yalnız diski oxuyur, şəbəkəyə ÇIXMIR: tətbiq
+     * oflayn-birincidir, ilk şəbəkə sorğusu istifadəçinin «İşlə» düyməsindən
+     * gəlməlidir. Keş köhnə olsa da göstərmək üçün ehtiyat siyahıdan yaxşıdır;
+     * təzələnmə onsuz da ilk icradan əvvəl olur.
+     */
+    suspend fun hazirla() = withContext(Dispatchers.IO) {
+        kesKilidi.withLock {
+            val diskdeki = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
+            diskdeki?.let { veziyyetiYenile(it.versiyalar) }
+        }
+    }
+
+    /**
+     * Sınanacaq versiyalar, sıra ilə. Keş 24 saatdan təzədirsə şəbəkəyə
+     * çıxılmır; köhnədirsə `/versions` oxunub keşlənir; o da alınmasa köhnə
+     * keş, keş də yoxdursa [KompilyatorVersiyalari.EHTIYAT] işlədilir.
+     */
+    private suspend fun versiyalar(): List<String> = kesKilidi.withLock {
+        val indi = System.currentTimeMillis()
+        val movcud = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
+
+        // Gələcəkdəki vaxt damğası (saat geri çəkilib) da köhnə sayılır.
+        val siyahi = if (movcud != null && (indi - movcud.vaxt) in 0 until KES_MUDDETI_MS) {
+            movcud.versiyalar
+        } else {
+            val yeni = versiyalariYukle()
+            if (yeni.isNotEmpty()) {
+                kes = KompilyatorKesi(yeni, indi)
+                prefs.kompilyatorKesiniYaz(yeni, indi)
+                yeni
+            } else {
+                movcud?.versiyalar
+            }
+        }
+
+        veziyyetiYenile(siyahi)
+        KompilyatorVersiyalari.namizedler(siyahi)
+    }
+
+    private fun veziyyetiYenile(siyahi: List<KompilyatorVersiyasi>?) {
+        val secilmis = siyahi?.let { KompilyatorVersiyalari.sec(it) }
+        _veziyyet.value = if (secilmis != null) {
+            KompilyatorVeziyyeti(secilmis, serverden = true)
+        } else {
+            KompilyatorVeziyyeti(KompilyatorVersiyalari.EHTIYAT.first(), serverden = false)
+        }
+    }
+
+    /** `GET /versions`. Hər cür uğursuzluqda boş siyahı — çağıran ehtiyata keçir. */
+    private fun versiyalariYukle(): List<KompilyatorVersiyasi> {
+        var conn: HttpURLConnection? = null
+        return try {
+            conn = (URL(VERSIYALAR_URL).openConnection() as HttpURLConnection).apply {
+                requestMethod = "GET"
+                // Kiçik JSON-dur — icra sorğusundakı 60 s oxuma vaxtı burada artıqdır.
+                connectTimeout = 15_000
+                readTimeout = 15_000
+                setRequestProperty("Accept", "application/json")
+            }
+            if (conn.responseCode !in 200..299) return emptyList()
+            val body = conn.inputStream.bufferedReader(StandardCharsets.UTF_8)
+                .use(BufferedReader::readText)
+            KompilyatorVersiyalari.cavabdanOxu(body)
+        } catch (_: Exception) {
+            emptyList()
+        } finally {
+            conn?.disconnect()
+        }
     }
 
     /**
@@ -119,9 +228,15 @@ class KotlinCompiler(private val context: Context) {
         )
 
         var sonXeta = "Naməlum xəta"
-        for (versiya in VERSIYALAR) {
+        for (versiya in versiyalar()) {
             when (val n = sorgu(versiya, govde)) {
-                is Cavab.Ugur -> return@withContext oxu(n.body)
+                is Cavab.Ugur -> {
+                    // Ehtiyat namizəd işlədisə ekranda da o görünməlidir.
+                    if (_veziyyet.value.versiya != versiya) {
+                        _veziyyet.value = _veziyyet.value.copy(versiya = versiya)
+                    }
+                    return@withContext oxu(n.body)
+                }
 
                 // Bu versiya dəstəklənmir — növbətisini sınamağın mənası var.
                 is Cavab.Desteklenmir -> sonXeta = n.mesaj
