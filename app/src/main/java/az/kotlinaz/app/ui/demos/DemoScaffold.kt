@@ -89,8 +89,8 @@ fun DemoCard(
 @Composable
 fun DemoChip(
     etiket: String,
-    aktiv: Boolean = false,
     modifier: Modifier = Modifier,
+    aktiv: Boolean = false,
     onClick: () -> Unit
 ) {
     val c = KAz.colors
@@ -264,7 +264,7 @@ fun DemoFact(acar: String, deyer: String, modifier: Modifier = Modifier) {
 
 /** İzah mətni — «Nə baş verdi?» blokları. */
 @Composable
-fun DemoNote(metn: String, basliq: String? = null, modifier: Modifier = Modifier) {
+fun DemoNote(metn: String, modifier: Modifier = Modifier, basliq: String? = null) {
     val c = KAz.colors
     Column(modifier.fillMaxWidth()) {
         if (basliq != null) {
@@ -289,8 +289,8 @@ fun DemoNote(metn: String, basliq: String? = null, modifier: Modifier = Modifier
 fun DemoToggleRow(
     etiket: String,
     checked: Boolean,
-    sagMetn: String? = null,
     modifier: Modifier = Modifier,
+    sagMetn: String? = null,
     onCheckedChange: (Boolean) -> Unit
 ) {
     val c = KAz.colors

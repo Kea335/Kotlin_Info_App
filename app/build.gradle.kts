@@ -64,6 +64,20 @@ android {
         buildConfig = true
     }
 
+    lint {
+        // Mövcud xəbərdarlıqlar baseline-dadır; yalnız YENİ tapıntılar build-i sındırır.
+        // Baseline-ı yeniləmək: ./gradlew updateLintBaseline
+        baseline = file("lint-baseline.xml")
+        abortOnError = true
+        warningsAsErrors = true
+        checkDependencies = true
+
+        // «Yeni versiya var» yoxlamaları vaxta bağlıdır: hər yeni release-də
+        // mesaj dəyişir və baseline köhnəlir. Asılılıqlar bilərəkdən,
+        // ayrıca PR-la yenilənir — bu qaydalar CI qapısına aid deyil.
+        disable += setOf("GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion")
+    }
+
     testOptions {
         unitTests {
             // Testlər saf JVM kodunu yoxlayır — Android resursları lazım deyil.

@@ -2,7 +2,6 @@ package az.kotlinaz.app.ui.screens
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -40,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import az.kotlinaz.app.BuildConfig
 import az.kotlinaz.app.data.KompilyatorVersiyalari
 import az.kotlinaz.app.data.KompilyatorVeziyyeti
@@ -263,7 +263,7 @@ fun SettingsScreen(
                         .border(1.dp, c.border, RoundedCornerShape(10.dp))
                         .clickable {
                             // Brauzer tapılmasa çökməmək üçün: xəbərdarlıq verilir.
-                            val niyyet = Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB))
+                            val niyyet = Intent(Intent.ACTION_VIEW, GITHUB.toUri())
                             try {
                                 context.startActivity(niyyet)
                             } catch (_: ActivityNotFoundException) {

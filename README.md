@@ -89,8 +89,14 @@ Testlər və məzmun yoxlaması:
 
 ```bash
 ./gradlew test                                # JVM unit testləri
+./gradlew lint                                # Android Lint — yeni xəbərdarlıq = xəta
 node tools/verify-content.js --assets-only    # aktivlərin bütövlüyü (sayt olmadan)
 ```
+
+Lint `app/lint-baseline.xml`-ə görə işləyir (hazırda boşdur): baseline-da
+olmayan hər tapıntı, xəbərdarlıq da olsa, build-i sındırır. Lokalda
+`local.properties`-də `sdk.dir` yolundakı `:` `\:` kimi yazılmalıdır
+(`sdk.dir=C\:/…`), yoxsa lint `PropertyEscape` xətası verir.
 
 CI (`.github/workflows/android.yml`) hər push və PR-da eyni addımları
 işlədir: məzmun yoxlaması → test → lint → debug build; APK artifact kimi
