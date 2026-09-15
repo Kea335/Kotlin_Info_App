@@ -14,17 +14,24 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
 /**
+ * Aktivlərin JSON konfiqurasiyası. Fayl səviyyəsindədir ki, smoke testlər
+ * (T1.2) tətbiqin işlətdiyi EYNİ nüsxə ilə decode etsin — ayrıca qurulmuş
+ * `Json` real davranışı yoxlamazdı.
+ */
+internal val AktivJson = Json {
+    // Aktivlərə yeni sahə əlavə olunsa köhnə model onu sadəcə atsın —
+    // məzmun boru xətti (tools/build-content.js) modeldən irəli gedə bilər.
+    ignoreUnknownKeys = true
+    isLenient = true
+}
+
+/**
  * Bütün məzmun tətbiqin daxilindədir — şəbəkə tələb olunmur.
  * Aktivlər ilk müraciətdə oxunur və yaddaşda saxlanılır.
  */
 class ContentRepository(private val context: Context) {
 
-    private val json = Json {
-        // Aktivlərə yeni sahə əlavə olunsa köhnə model onu sadəcə atsın —
-        // məzmun boru xətti (tools/build-content.js) modeldən irəli gedə bilər.
-        ignoreUnknownKeys = true
-        isLenient = true
-    }
+    private val json = AktivJson
 
     // İki ekran eyni anda eyni aktivi istəyə bilər (məsələn dərs və axtarış).
     // Kilid olmasa hər ikisi eyni faylı ayrı-ayrı oxuyub parse edərdi.
