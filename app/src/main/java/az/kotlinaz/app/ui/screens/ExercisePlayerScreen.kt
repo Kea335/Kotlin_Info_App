@@ -31,10 +31,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,16 +40,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import az.kotlinaz.app.data.KotlinCompiler
-import az.kotlinaz.app.data.RunResult
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.data.model.PracticeExercise
 import az.kotlinaz.app.data.model.TheoryExercise
-import az.kotlinaz.app.data.neticeniNormallasdir
+import az.kotlinaz.app.ui.ExerciseViewModel
+import az.kotlinaz.app.ui.Rejim
+import az.kotlinaz.app.ui.YoxlamaVeziyyeti
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoCode
@@ -59,9 +57,6 @@ import az.kotlinaz.app.ui.editor.KodRedaktoru
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 import az.kotlinaz.app.ui.theme.seviyyeRengi
-import kotlinx.coroutines.launch
-
-private enum class Rejim(val etiket: String) { NEZERI("Nəzəri"), PRAKTIKI("Praktiki") }
 
 /**
  * Çalışma mühərriki — saytdakı js/practice.js faylının qarşılığı.
@@ -70,21 +65,23 @@ private enum class Rejim(val etiket: String) { NEZERI("Nəzəri"), PRAKTIKI("Pra
  * başlanğıc kod, ipucu, gözlənilən nəticə və cavab da oflayndır;
  * yalnız «Yoxla» düyməsi kodu real kompilyatorda işlətmək üçün
  * internet tələb edir.
+ *
+ * Vəziyyət və yoxlama [ExerciseViewModel]-dədir (mövzu başına bir nüsxə —
+ * naviqasiya girişinə bağlıdır); bu Composable yalnız render edir və
+ * hadisə göndərir.
  */
 @Composable
 fun ExercisePlayerScreen(
+    vm: ExerciseViewModel,
     topic: ExerciseTopic,
     hellEdilmis: Set<String>,
-    compiler: KotlinCompiler,
-    modifier: Modifier = Modifier,
-    onHellIsaretle: (String) -> Unit
+    modifier: Modifier = Modifier
 ) {
     val c = KAz.colors
-    // Bütün vəziyyət mövzuya bağlıdır: başqa mövzuya keçəndə sıfırlanır.
-    var rejim by remember(topic.id) { mutableStateOf(Rejim.NEZERI) }
+    val rejim by vm.rejim.collectAsStateWithLifecycle()
     // null = «Hamısı» (səviyyə filtri yoxdur).
-    var seviyye by remember(topic.id) { mutableStateOf<Level?>(null) }
-    var index by remember(topic.id) { mutableIntStateOf(0) }
+    val seviyye by vm.seviyye.collectAsStateWithLifecycle()
+    val index by vm.index.collectAsStateWithLifecycle()
 
     // Filtrlənmiş siyahılar — filtr dəyişməyincə yenidən hesablanmır.
     val nezeriSiyahi = remember(topic.id, seviyye) {
@@ -122,7 +119,7 @@ fun ExercisePlayerScreen(
                                 // Rejim dəyişəndə indeks sıfırlanır — 40-cı
                                 // nəzəri çalışmadan 40-cı praktikiyə tullanmaq
                                 // gözlənilməz olardı.
-                                .clickable { rejim = r; index = 0 }
+                                .clickable { vm.rejimSec(r) }
                                 .padding(vertical = 9.dp),
                             style = MaterialTheme.typography.labelLarge,
                             color = if (aktiv) c.accent else c.textDim,
@@ -135,9 +132,9 @@ fun ExercisePlayerScreen(
 
                 // Səviyyə filtri
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    SeviyyeCipi("Hamısı", seviyye == null) { seviyye = null; index = 0 }
+                    SeviyyeCipi("Hamısı", seviyye == null) { vm.seviyyeSec(null) }
                     Level.entries.forEach { lv ->
-                        SeviyyeCipi(lv.label, seviyye == lv) { seviyye = lv; index = 0 }
+                        SeviyyeCipi(lv.label, seviyye == lv) { vm.seviyyeSec(lv) }
                     }
                 }
 
@@ -210,17 +207,16 @@ fun ExercisePlayerScreen(
                 NezeriKart(
                     calisma = calisma,
                     hellOlunub = hellEdilmis.contains(calisma.id),
-                    onDuzgun = { onHellIsaretle(calisma.id) }
+                    onDuzgun = { vm.hellIsaretle(calisma.id) }
                 )
             }
         } else {
             val calisma = praktikiSiyahi[cariIndex]
             item(key = "praktiki-${calisma.id}") {
                 PraktikiKart(
+                    vm = vm,
                     calisma = calisma,
-                    compiler = compiler,
-                    hellOlunub = hellEdilmis.contains(calisma.id),
-                    onDuzgun = { onHellIsaretle(calisma.id) }
+                    hellOlunub = hellEdilmis.contains(calisma.id)
                 )
             }
         }
@@ -233,7 +229,7 @@ fun ExercisePlayerScreen(
                     ikon = Icons.AutoMirrored.Outlined.ArrowBack,
                     aktiv = cariIndex > 0,
                     modifier = Modifier.weight(1f)
-                ) { if (cariIndex > 0) index = cariIndex - 1 }
+                ) { if (cariIndex > 0) vm.indeksQoy(cariIndex - 1) }
 
                 AddimDuymesi(
                     etiket = "Növbəti",
@@ -241,7 +237,7 @@ fun ExercisePlayerScreen(
                     aktiv = cariIndex < say - 1,
                     solda = false,
                     modifier = Modifier.weight(1f)
-                ) { if (cariIndex < say - 1) index = cariIndex + 1 }
+                ) { if (cariIndex < say - 1) vm.indeksQoy(cariIndex + 1) }
             }
             Spacer(Modifier.height(28.dp))
         }
@@ -370,36 +366,26 @@ private fun NezeriKart(
    Praktiki çalışma — kod yazma
    ============================================================ */
 
-private sealed interface YoxlamaVeziyyeti {
-    data object Bos : YoxlamaVeziyyeti
-    data object Isleyir : YoxlamaVeziyyeti
-    data class Duzgun(val cixis: String) : YoxlamaVeziyyeti
-    data class Sehv(val gozlenilen: String, val alinan: String) : YoxlamaVeziyyeti
-    data class Xeta(val basliq: String, val metn: String) : YoxlamaVeziyyeti
-    data object Oflayn : YoxlamaVeziyyeti
-}
-
 @Composable
 private fun PraktikiKart(
+    vm: ExerciseViewModel,
     calisma: PracticeExercise,
-    compiler: KotlinCompiler,
-    hellOlunub: Boolean,
-    onDuzgun: () -> Unit
+    hellOlunub: Boolean
 ) {
     val c = KAz.colors
-    val scope = rememberCoroutineScope()
     val context = androidx.compose.ui.platform.LocalContext.current
     val bildir = LocalBildiris.current
 
-    // Redaktorun məzmunu. Çalışma dəyişəndə başlanğıc koda qayıdır.
-    // `MutableState` olduğu kimi redaktora ötürülür — yazı zamanı yalnız
-    // redaktor yenidən qurulur, kartın qalanı yerində qalır.
-    val kod = remember(calisma.id) { mutableStateOf(TextFieldValue(calisma.starter)) }
-    var veziyyet by remember(calisma.id) { mutableStateOf<YoxlamaVeziyyeti>(YoxlamaVeziyyeti.Bos) }
-    var ipucuGorunur by remember(calisma.id) { mutableStateOf(false) }
-    var hellGorunur by remember(calisma.id) { mutableStateOf(false) }
+    // Redaktorun məzmunu ViewModel-dədir; çalışma dəyişəndə `calismaniAc`
+    // onu başlanğıc koda qaytarır, eyni çalışmaya qayıdanda (döndərmə, geri)
+    // yazılan qalır. `MutableState` olduğu kimi redaktora ötürülür — yazı
+    // zamanı yalnız redaktor yenidən qurulur, kartın qalanı yerində qalır.
+    val kod = remember(calisma.id) { vm.calismaniAc(calisma) }
+    val veziyyet by vm.yoxlama.collectAsStateWithLifecycle()
+    val ipucuGorunur by vm.ipucuGorunur.collectAsStateWithLifecycle()
+    val hellGorunur by vm.hellGorunur.collectAsStateWithLifecycle()
     // «Cavab» düyməsinə basılıb, amma hələ təsdiqlənməyib.
-    var cavabSorusulur by remember(calisma.id) { mutableStateOf(false) }
+    val cavabSorusulur by vm.cavabSorusulur.collectAsStateWithLifecycle()
 
     Column {
         SeviyyeNisani(calisma.level)
@@ -455,51 +441,18 @@ private fun PraktikiKart(
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .background(KotlinBrush)
-                    .clickable(enabled = veziyyet !is YoxlamaVeziyyeti.Isleyir) {
-                        veziyyet = YoxlamaVeziyyeti.Isleyir
-                        scope.launch {
-                            veziyyet = when (val r = compiler.isle(kod.value.text)) {
-                                is RunResult.Ok -> {
-                                    // Hər iki tərəf eyni qaydada normallaşdırılır
-                                    // (sağdakı boşluqlar, kənar boş sətirlər atılır),
-                                    // yoxsa görünməyən boşluq düzgün həlli sındırardı.
-                                    val alinan = neticeniNormallasdir(r.output)
-                                    val gozlenilen = neticeniNormallasdir(calisma.gozlenilen)
-                                    if (alinan == gozlenilen) {
-                                        onDuzgun()
-                                        YoxlamaVeziyyeti.Duzgun(alinan)
-                                    } else {
-                                        YoxlamaVeziyyeti.Sehv(gozlenilen, alinan.ifBlank { "(boş)" })
-                                    }
-                                }
-                                is RunResult.CompileError ->
-                                    YoxlamaVeziyyeti.Xeta(
-                                        "Kompilyasiya xətası",
-                                        r.errors.joinToString("\n")
-                                    )
-                                is RunResult.Crashed ->
-                                    YoxlamaVeziyyeti.Xeta("Çalışma vaxtı xətası", r.exception)
-                                RunResult.Offline -> YoxlamaVeziyyeti.Oflayn
-                                is RunResult.Failed ->
-                                    YoxlamaVeziyyeti.Xeta("Bağlantı problemi", r.message)
-                            }
-                        }
-                    }
+                    .clickable(enabled = veziyyet !is YoxlamaVeziyyeti.Isleyir) { vm.yoxla(calisma) }
                     .padding(horizontal = 16.dp, vertical = 9.dp),
                 style = MaterialTheme.typography.labelLarge,
                 color = Color.White
             )
 
-            KicikDuyme("İpucu") { ipucuGorunur = true }
+            KicikDuyme("İpucu") { vm.ipucunuGoster() }
             // Cavab birbaşa açılmır: əvvəlcə xəbərdarlıq çıxır, çünki hazır
             // həlli oxumaq öyrənməni əvəz etmir. Təsdiqdən sonra kod redaktora
             // yüklənir və yazdığının üstünü yazır — geri qaytarmaq üçün «Sıfırla».
-            KicikDuyme("Cavab") { cavabSorusulur = true }
-            KicikDuyme("Sıfırla") {
-                kod.value = TextFieldValue(calisma.starter)
-                veziyyet = YoxlamaVeziyyeti.Bos
-                hellGorunur = false
-            }
+            KicikDuyme("Cavab") { vm.cavabSorus() }
+            KicikDuyme("Sıfırla") { vm.sifirla(calisma) }
         }
 
         Spacer(Modifier.height(7.dp))
@@ -514,7 +467,7 @@ private fun PraktikiKart(
             // Artıq işarələnibsə düymə göstərilmir.
             if (!hellOlunub) {
                 KicikDuyme("Həll etdim") {
-                    onDuzgun()
+                    vm.hellIsaretle(calisma.id)
                     bildir("Çalışma həll edilmiş kimi işarələndi")
                 }
             }
@@ -573,7 +526,7 @@ private fun PraktikiKart(
     // ona görə bir addım aralıq qoyulur — səhvən basmaq da mümkündür.
     if (cavabSorusulur) {
         androidx.compose.material3.AlertDialog(
-            onDismissRequest = { cavabSorusulur = false },
+            onDismissRequest = { vm.cavabdanImtina() },
             title = { Text("Cavaba baxmaq istəyirsən?") },
             text = {
                 Text(
@@ -583,14 +536,12 @@ private fun PraktikiKart(
                 )
             },
             confirmButton = {
-                androidx.compose.material3.TextButton(onClick = {
-                    kod.value = TextFieldValue(calisma.hell)
-                    hellGorunur = true
-                    cavabSorusulur = false
-                }) { Text("Yenə də göstər", color = c.warn) }
+                androidx.compose.material3.TextButton(onClick = { vm.cavabiGoster(calisma) }) {
+                    Text("Yenə də göstər", color = c.warn)
+                }
             },
             dismissButton = {
-                androidx.compose.material3.TextButton(onClick = { cavabSorusulur = false }) {
+                androidx.compose.material3.TextButton(onClick = { vm.cavabdanImtina() }) {
                     Text("Özüm sınayım")
                 }
             },

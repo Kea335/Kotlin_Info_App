@@ -121,7 +121,7 @@ class KotlinCompiler(
     private val sebekeVar: () -> Boolean,
     /** Disk və şəbəkə işi bu dispatcher-də gedir; testdə test dispatcher-i ötürülür. */
     private val io: CoroutineDispatcher = Dispatchers.IO
-) {
+) : CompilerRepository {
 
     // encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
     // defolt dəyərli olduqları üçün sorğudan düşür və server sandbox-u çökür.
@@ -136,7 +136,7 @@ class KotlinCompiler(
     private val _veziyyet = MutableStateFlow(
         KompilyatorVeziyyeti(KompilyatorVersiyalari.EHTIYAT.first(), serverden = false)
     )
-    val veziyyet: StateFlow<KompilyatorVeziyyeti> = _veziyyet.asStateFlow()
+    override val veziyyet: StateFlow<KompilyatorVeziyyeti> = _veziyyet.asStateFlow()
 
     // Diskdən bir dəfə oxunur, sonra yaddaşda qalır. Mutex: Meydan və çalışma
     // ekranı eyni anda sorğu göndərsə siyahı iki dəfə yüklənməsin.
@@ -149,10 +149,12 @@ class KotlinCompiler(
      * gəlməlidir. Keş köhnə olsa da göstərmək üçün ehtiyat siyahıdan yaxşıdır;
      * təzələnmə onsuz da ilk icradan əvvəl olur.
      */
-    suspend fun hazirla() = withContext(io) {
-        kesKilidi.withLock {
-            val diskdeki = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
-            diskdeki?.let { veziyyetiYenile(it.versiyalar) }
+    override suspend fun hazirla() {
+        withContext(io) {
+            kesKilidi.withLock {
+                val diskdeki = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
+                diskdeki?.let { veziyyetiYenile(it.versiyalar) }
+            }
         }
     }
 
@@ -215,7 +217,7 @@ class KotlinCompiler(
     }
 
     /** Kodu JetBrains kompilyatorunda işlədir. */
-    suspend fun isle(kod: String): RunResult = withContext(io) {
+    override suspend fun isle(kod: String): RunResult = withContext(io) {
         if (!sebekeVar()) return@withContext RunResult.Offline
 
         val govde = json.encodeToString(

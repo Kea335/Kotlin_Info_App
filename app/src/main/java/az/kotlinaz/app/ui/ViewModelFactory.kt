@@ -1,6 +1,7 @@
 package az.kotlinaz.app.ui
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -14,12 +15,23 @@ val CreationExtras.konteyner: AppContainer
 /**
  * Bütün ViewModel-lərin factory-si — hər biri üçün bir `initializer`.
  * Composable-da: `viewModel(factory = AppViewModelFactory.Factory)`.
+ *
+ * Ekran ViewModel-ləri `SavedStateHandle` alır: naviqasiya girişinə bağlı
+ * olduqlarından `createSavedStateHandle()` həmin girişin arqumentlərini və
+ * saxlanmış vəziyyətini gətirir.
  */
 object AppViewModelFactory {
     val Factory = viewModelFactory {
         initializer {
             val c = konteyner
             AppViewModel(c.contentRepository, c.userPrefs, c.compiler)
+        }
+        initializer {
+            PlaygroundViewModel(konteyner.compiler, createSavedStateHandle())
+        }
+        initializer {
+            val c = konteyner
+            ExerciseViewModel(c.compiler, c.userPrefs, createSavedStateHandle())
         }
     }
 }

@@ -17,6 +17,5 @@ class AppContainer(context: Context) {
 
     val userPrefs: UserPrefs by lazy { UserPrefs(app.kotlinazDataStore) }
 
-    // T2.2-də CompilerRepository interfeysi ilə əvəzlənəcək; hələlik konkret sinif.
-    val compiler: KotlinCompiler by lazy { KotlinCompiler(userPrefs, sebekeVar = { app.internetVar() }) }
+    val compiler: CompilerRepository by lazy { KotlinCompiler(userPrefs, sebekeVar = { app.internetVar() }) }
 }

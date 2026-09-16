@@ -29,55 +29,38 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import az.kotlinaz.app.data.KotlinCompiler
-import az.kotlinaz.app.data.RunResult
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.PlaygroundPreset
+import az.kotlinaz.app.ui.MeydanVeziyyeti
+import az.kotlinaz.app.ui.PlaygroundViewModel
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoChip
 import az.kotlinaz.app.ui.editor.KodRedaktoru
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
-import kotlinx.coroutines.launch
-
-// Ekranın nəticə panelinin vəziyyəti. Sealed interface seçilib ki, `when`
-// bütün halları məcburi əhatə etsin — yeni hal əlavə olunanda kompilyator
-// unudulmuş yerləri göstərir.
-private sealed interface MeydanVeziyyeti {
-    data object Bos : MeydanVeziyyeti
-    data object Isleyir : MeydanVeziyyeti
-    data class Cixis(val metn: String) : MeydanVeziyyeti
-    data class Xetalar(val basliq: String, val metn: String) : MeydanVeziyyeti
-    data object Oflayn : MeydanVeziyyeti
-}
-
-/** Boş redaktorun başlanğıc kodu — kursor gövdənin içində durur. */
-private const val BOS_KOD = "fun main() {\n    \n}"
 
 /**
  * Kod meydanı — tətbiqin YEGANƏ internet tələb edən hissəsi.
  * Kod JetBrains-in rəsmi kompilyator xidmətində işlədilir; saytdakı
  * Kotlin Playground da məhz bu xidməti çağırır.
+ *
+ * Vəziyyət və icra [PlaygroundViewModel]-dədir — bu Composable yalnız
+ * `ui`-ni render edir və hadisə göndərir.
  */
 @Composable
 fun PlaygroundScreen(
+    vm: PlaygroundViewModel,
     presets: List<PlaygroundPreset>,
-    compiler: KotlinCompiler,
     /** Sorğularda işlədilən Kotlin versiyası — xəbərdarlıq zolağında göstərilir. */
     kompilyatorVersiyasi: String,
     xariciKod: String?,
@@ -85,30 +68,22 @@ fun PlaygroundScreen(
     onXariciKodAlindi: () -> Unit
 ) {
     val c = KAz.colors
-    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val bildir = LocalBildiris.current
 
-    // Redaktorun vəziyyəti `MutableState` kimi saxlanılır və olduğu kimi
+    // Redaktorun vəziyyəti ViewModel-dəki `MutableState`-dir və olduğu kimi
     // KodRedaktoru-ya verilir: hər hərf yalnız redaktoru yeniləyir, bu ekranın
     // qalan hissəsi (çiplər, düymələr, nəticə paneli) yenidən qurulmur.
-    val kod = remember { mutableStateOf(TextFieldValue(BOS_KOD, TextRange(BOS_KOD.length - 2))) }
-    var veziyyet by remember { mutableStateOf<MeydanVeziyyeti>(MeydanVeziyyeti.Bos) }
-    // null = boş redaktor («Kod meydanı» çipi seçilidir).
-    var seciliPreset by remember { mutableStateOf<String?>(null) }
-
-    fun kodQoy(yeni: String) {
-        kod.value = TextFieldValue(yeni, TextRange(yeni.length))
-        veziyyet = MeydanVeziyyeti.Bos
-    }
+    val kod = vm.kod
+    val veziyyet by vm.ui.collectAsStateWithLifecycle()
+    val seciliPreset by vm.seciliPreset.collectAsStateWithLifecycle()
 
     // Kod kartındakı «Meydan» düyməsindən gələn kod. Alındıqdan sonra
-    // `onXariciKodAlindi()` onu ViewModel-də təmizləyir — əks halda ekrana
+    // `onXariciKodAlindi()` onu AppViewModel-də təmizləyir — əks halda ekrana
     // hər qayıdışda istifadəçinin yazdığı kod yenidən əvəzlənərdi.
     LaunchedEffect(xariciKod) {
         if (xariciKod != null) {
-            kodQoy(xariciKod)
-            seciliPreset = null
+            vm.xariciKodQoy(xariciKod)
             onXariciKodAlindi()
         }
     }
@@ -162,17 +137,14 @@ fun PlaygroundScreen(
             ) {
                 // Boş redaktor ƏN QABAQDA: meydana gələn adam əvvəlcə öz kodunu
                 // yazmaq istəyir, hazır nümunə ikinci addımdır.
+                // Kursor dərhal `main` gövdəsinin içinə qoyulur —
+                // istifadəçi çipdən sonra birbaşa yazmağa başlaya bilsin.
                 DemoChip(etiket = "Kod meydanı", aktiv = seciliPreset == null) {
-                    // Kursor dərhal `main` gövdəsinin içinə qoyulur —
-                    // istifadəçi çipdən sonra birbaşa yazmağa başlaya bilsin.
-                    kod.value = TextFieldValue(BOS_KOD, TextRange(BOS_KOD.length - 2))
-                    veziyyet = MeydanVeziyyeti.Bos
-                    seciliPreset = null
+                    vm.presetSec(null, null)
                 }
                 presets.forEach { p ->
                     DemoChip(etiket = p.label, aktiv = p.id == seciliPreset) {
-                        kodQoy(p.code)
-                        seciliPreset = p.id
+                        vm.presetSec(p.id, p.code)
                     }
                 }
             }
@@ -208,36 +180,7 @@ fun PlaygroundScreen(
                         .background(KotlinBrush)
                         // İcra gedərkən düymə kilidlənir — eyni kodu paralel
                         // iki dəfə serverə göndərməyin mənası yoxdur.
-                        .clickable(enabled = veziyyet !is MeydanVeziyyeti.Isleyir) {
-                            veziyyet = MeydanVeziyyeti.Isleyir
-                            scope.launch {
-                                // Kod yalnız BURADA oxunur — yazı zamanı deyil.
-                                veziyyet = when (val r = compiler.isle(kod.value.text)) {
-                                    is RunResult.Ok ->
-                                        MeydanVeziyyeti.Cixis(
-                                            r.output.ifBlank { "(çıxış yoxdur)" }
-                                        )
-                                    is RunResult.CompileError ->
-                                        MeydanVeziyyeti.Xetalar(
-                                            "Kompilyasiya xətası",
-                                            r.errors.joinToString("\n")
-                                        )
-                                    is RunResult.Crashed ->
-                                        MeydanVeziyyeti.Xetalar(
-                                            "Çalışma vaxtı xətası",
-                                            buildString {
-                                                if (r.output.isNotBlank()) {
-                                                    append(r.output).append('\n')
-                                                }
-                                                append(r.exception)
-                                            }
-                                        )
-                                    RunResult.Offline -> MeydanVeziyyeti.Oflayn
-                                    is RunResult.Failed ->
-                                        MeydanVeziyyeti.Xetalar("Bağlantı problemi", r.message)
-                                }
-                            }
-                        }
+                        .clickable(enabled = veziyyet !is MeydanVeziyyeti.Isleyir) { vm.isle() }
                         .padding(horizontal = 20.dp, vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White
@@ -251,7 +194,7 @@ fun PlaygroundScreen(
                         .clip(RoundedCornerShape(11.dp))
                         .background(c.bgSunken)
                         .border(1.dp, c.border, RoundedCornerShape(11.dp))
-                        .clickable { veziyyet = MeydanVeziyyeti.Bos }
+                        .clickable { vm.temizle() }
                         .padding(horizontal = 16.dp, vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = c.textDim
