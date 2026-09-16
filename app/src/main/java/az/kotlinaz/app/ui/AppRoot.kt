@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -114,7 +115,7 @@ fun AppRoot(vm: AppViewModel) {
     // Bölmə mənimsəməsi və səviyyə — çalışmalardan hesablanır, tək mənbədən gəlir.
     val tereqqi by vm.tereqqi.collectAsStateWithLifecycle()
     val meydanKodu by vm.meydanKodu.collectAsStateWithLifecycle()
-    val kompilyator by vm.compiler.veziyyet.collectAsStateWithLifecycle()
+    val kompilyator by vm.kompilyator.collectAsStateWithLifecycle()
 
     val yukleneXetasi by vm.yukleneXetasi.collectAsStateWithLifecycle()
 
@@ -341,11 +342,12 @@ fun AppRoot(vm: AppViewModel) {
                     if (movzu == null) {
                         BosEkran("Mövzu tapılmadı")
                     } else {
+                        // ViewModel naviqasiya girişinə bağlıdır: mövzu başına
+                        // bir nüsxə, geri qayıdanda vəziyyət və gedən sorğu qalır.
                         ExercisePlayerScreen(
+                            vm = viewModel(factory = AppViewModelFactory.Factory),
                             topic = movzu,
-                            hellEdilmis = hellEdilmis,
-                            compiler = vm.compiler,
-                            onHellIsaretle = { vm.calismaniHellIsaretle(it) }
+                            hellEdilmis = hellEdilmis
                         )
                     }
                 }
@@ -362,8 +364,8 @@ fun AppRoot(vm: AppViewModel) {
 
                 composable(Yol.MEYDAN) {
                     PlaygroundScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
                         presets = presets,
-                        compiler = vm.compiler,
                         kompilyatorVersiyasi = kompilyator.versiya,
                         xariciKod = meydanKodu,
                         onXariciKodAlindi = { vm.meydanKodunuTemizle() }

@@ -3,8 +3,9 @@ package az.kotlinaz.app.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.AxtarisMotoru
+import az.kotlinaz.app.data.CompilerRepository
 import az.kotlinaz.app.data.ContentRepository
-import az.kotlinaz.app.data.KotlinCompiler
+import az.kotlinaz.app.data.KompilyatorVeziyyeti
 import az.kotlinaz.app.data.SearchNetice
 import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
@@ -32,8 +33,11 @@ import kotlinx.coroutines.launch
 class AppViewModel(
     private val repo: ContentRepository,
     private val prefs: UserPrefs,
-    val compiler: KotlinCompiler
+    private val compiler: CompilerRepository
 ) : ViewModel() {
+
+    /** Aktiv kompilyator versiyası — Meydan zolağı və Tənzimləmələr üçün. İcra özü ekran ViewModel-lərindədir. */
+    val kompilyator: StateFlow<KompilyatorVeziyyeti> = compiler.veziyyet
 
     private val _sections = MutableStateFlow<List<Section>>(emptyList())
     val sections: StateFlow<List<Section>> = _sections.asStateFlow()
