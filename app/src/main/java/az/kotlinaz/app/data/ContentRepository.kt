@@ -26,10 +26,23 @@ internal val AktivJson = Json {
 }
 
 /**
+ * Məzmun mənbəyi. ViewModel-lər yalnız bu interfeysi görür — testdə
+ * [AssetContentRepository] əvəzinə kiçik fake ötürmək mümkündür (T2.1).
+ */
+interface ContentRepository {
+    suspend fun content(): Content
+    suspend fun sections(): List<Section> = content().sections
+    suspend fun exercises(): ExerciseBank
+    suspend fun quiz(): QuizBank
+    suspend fun playground(): PlaygroundData
+    suspend fun searchIndex(): SearchIndex
+}
+
+/**
  * Bütün məzmun tətbiqin daxilindədir — şəbəkə tələb olunmur.
  * Aktivlər ilk müraciətdə oxunur və yaddaşda saxlanılır.
  */
-class ContentRepository(private val context: Context) {
+class AssetContentRepository(private val context: Context) : ContentRepository {
 
     private val json = AktivJson
 
@@ -51,35 +64,33 @@ class ContentRepository(private val context: Context) {
     // Nümunə oxu: keşdə varsa dərhal qaytarılır, yoxdursa parse edilir.
     // Parse CPU işidir, ona görə Dispatchers.Default — UI sapı bloklanmasın.
     // 183 KB JSON-un açılışı bir neçə yüz millisaniyə çəkir.
-    suspend fun content(): Content = kilid.withLock {
+    override suspend fun content(): Content = kilid.withLock {
         contentCache ?: withContext(Dispatchers.Default) {
             json.decodeFromString<Content>(oxu("content.json"))
         }.also { contentCache = it }
     }
 
-    suspend fun sections(): List<Section> = content().sections
-
     // Aşağıdakılar eyni nümunə üzrədir — hər aktiv öz keşi ilə.
 
-    suspend fun exercises(): ExerciseBank = kilid.withLock {
+    override suspend fun exercises(): ExerciseBank = kilid.withLock {
         exercisesCache ?: withContext(Dispatchers.Default) {
             json.decodeFromString<ExerciseBank>(oxu("exercises.json"))
         }.also { exercisesCache = it }
     }
 
-    suspend fun quiz(): QuizBank = kilid.withLock {
+    override suspend fun quiz(): QuizBank = kilid.withLock {
         quizCache ?: withContext(Dispatchers.Default) {
             json.decodeFromString<QuizBank>(oxu("quiz.json"))
         }.also { quizCache = it }
     }
 
-    suspend fun playground(): PlaygroundData = kilid.withLock {
+    override suspend fun playground(): PlaygroundData = kilid.withLock {
         playgroundCache ?: withContext(Dispatchers.Default) {
             json.decodeFromString<PlaygroundData>(oxu("playground.json"))
         }.also { playgroundCache = it }
     }
 
-    suspend fun searchIndex(): SearchIndex = kilid.withLock {
+    override suspend fun searchIndex(): SearchIndex = kilid.withLock {
         searchCache ?: withContext(Dispatchers.Default) {
             json.decodeFromString<SearchIndex>(oxu("search.json"))
         }.also { searchCache = it }

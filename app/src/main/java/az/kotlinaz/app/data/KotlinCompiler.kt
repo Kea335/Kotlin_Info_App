@@ -3,6 +3,7 @@ package az.kotlinaz.app.data
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -112,8 +113,14 @@ data class KompilyatorVeziyyeti(
 }
 
 class KotlinCompiler(
-    private val context: Context,
-    private val prefs: UserPrefs
+    private val prefs: UserPrefs,
+    /**
+     * Şəbəkə var-yoxdur. Tətbiqdə [Context.internetVar], testdə sabit lambda —
+     * kompilyatorun özü `Context` görmür.
+     */
+    private val sebekeVar: () -> Boolean,
+    /** Disk və şəbəkə işi bu dispatcher-də gedir; testdə test dispatcher-i ötürülür. */
+    private val io: CoroutineDispatcher = Dispatchers.IO
 ) {
 
     // encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
@@ -142,7 +149,7 @@ class KotlinCompiler(
      * gəlməlidir. Keş köhnə olsa da göstərmək üçün ehtiyat siyahıdan yaxşıdır;
      * təzələnmə onsuz da ilk icradan əvvəl olur.
      */
-    suspend fun hazirla() = withContext(Dispatchers.IO) {
+    suspend fun hazirla() = withContext(io) {
         kesKilidi.withLock {
             val diskdeki = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
             diskdeki?.let { veziyyetiYenile(it.versiyalar) }
@@ -207,21 +214,9 @@ class KotlinCompiler(
         }
     }
 
-    /**
-     * Şəbəkə var-yoxdur. Yalnız sürətli ilkin yoxlamadır — «şəbəkə var, amma
-     * internet yoxdur» halını tutmur, onu artıq sorğunun özü aşkarlayır.
-     * ACCESS_NETWORK_STATE icazəsi manifestdə məhz bunun üçündür.
-     */
-    fun internetVar(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-            ?: return false
-        val setler = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
-        return setler.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
-
     /** Kodu JetBrains kompilyatorunda işlədir. */
-    suspend fun isle(kod: String): RunResult = withContext(Dispatchers.IO) {
-        if (!internetVar()) return@withContext RunResult.Offline
+    suspend fun isle(kod: String): RunResult = withContext(io) {
+        if (!sebekeVar()) return@withContext RunResult.Offline
 
         val govde = json.encodeToString(
             ApiRequest(files = listOf(ApiFile(text = kod)))
@@ -357,3 +352,15 @@ fun neticeniNormallasdir(s: String?): String =
         .split("\n")
         .joinToString("\n") { it.trimEnd() }
         .trim('\n')
+
+/**
+ * Şəbəkə var-yoxdur. Yalnız sürətli ilkin yoxlamadır — «şəbəkə var, amma
+ * internet yoxdur» halını tutmur, onu artıq sorğunun özü aşkarlayır.
+ * ACCESS_NETWORK_STATE icazəsi manifestdə məhz bunun üçündür.
+ */
+fun Context.internetVar(): Boolean {
+    val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        ?: return false
+    val setler = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
+    return setler.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+}
