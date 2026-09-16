@@ -14,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.ui.AppRoot
 import az.kotlinaz.app.ui.AppViewModel
+import az.kotlinaz.app.ui.AppViewModelFactory
 import az.kotlinaz.app.ui.theme.KotlinAzTheme
 
 /** Tətbiqin yeganə Activity-si — bütün ekranlar Compose naviqasiyası ilə onun içindədir. */
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val vm: AppViewModel = viewModel()
+            val vm: AppViewModel = viewModel(factory = AppViewModelFactory.Factory)
 
             // Tema, şrift ölçüsü və tamamlama tənzimləməsi DataStore-dadır — cihazda qalır.
             val tema by vm.tema.collectAsStateWithLifecycle()

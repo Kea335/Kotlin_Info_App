@@ -1,7 +1,6 @@
 package az.kotlinaz.app.ui
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.AxtarisMotoru
 import az.kotlinaz.app.data.ContentRepository
@@ -24,13 +23,17 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-/** Bütün ekranların paylaşdığı vəziyyət. */
-class AppViewModel(app: Application) : AndroidViewModel(app) {
-
-    private val repo = ContentRepository(app)
-    private val prefs = UserPrefs(app)
-    // prefs kompilyatora versiya siyahısının keşi üçün lazımdır.
-    val compiler = KotlinCompiler(app, prefs)
+/**
+ * Bütün ekranların paylaşdığı vəziyyət.
+ *
+ * Asılılıqlar konstruktorla gəlir ([AppViewModelFactory] → `AppContainer`):
+ * `Context` yoxdur, testdə fake repository ötürülür (T2.1).
+ */
+class AppViewModel(
+    private val repo: ContentRepository,
+    private val prefs: UserPrefs,
+    val compiler: KotlinCompiler
+) : ViewModel() {
 
     private val _sections = MutableStateFlow<List<Section>>(emptyList())
     val sections: StateFlow<List<Section>> = _sections.asStateFlow()
