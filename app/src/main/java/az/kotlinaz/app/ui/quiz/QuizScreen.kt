@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.QuizQuestion
+import az.kotlinaz.app.ui.components.YuklenmeGostericisi
 import az.kotlinaz.app.ui.demos.DemoCode
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
@@ -59,6 +60,12 @@ fun QuizScreen(
     val hovuzlar by vm.hovuzlar.collectAsStateWithLifecycle()
     val rejim by vm.rejim.collectAsStateWithLifecycle()
     val rekordlar by vm.rekordlar.collectAsStateWithLifecycle()
+
+    // Hovuzlar məzmundan qurulur; boş xəritə = hələ oxunmayıb (T2.6).
+    if (hovuzlar.isEmpty()) {
+        YuklenmeGostericisi(modifier)
+        return
+    }
 
     val secilen = rejim
     if (secilen == null) {

@@ -11,6 +11,8 @@ import az.kotlinaz.app.data.tereqqiHesabla
 import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.PlaygroundPreset
 import az.kotlinaz.app.data.model.Section
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,9 +49,15 @@ class AppViewModel(
     private val _presets = MutableStateFlow<List<PlaygroundPreset>>(emptyList())
     val presets: StateFlow<List<PlaygroundPreset>> = _presets.asStateFlow()
 
-    // Aktivlər oxunub bitəndə true olur — AppRoot ona qədər fırlanğıc göstərir.
+    // İlk mərhələ (content.json) oxunub bitəndə true olur — AppRoot ona qədər
+    // fırlanğıc göstərir. Qalan aktivlər ekranı bloklamadan arxada gəlir (T2.6).
     private val _hazir = MutableStateFlow(false)
     val hazir: StateFlow<Boolean> = _hazir.asStateFlow()
+
+    // İkinci mərhələ (çalışma bankı, meydan, axtarış) bitəndə true olur.
+    // Çalışmalar ekranı ona qədər boş siyahı yox, fırlanğıc göstərir.
+    private val _movzularHazir = MutableStateFlow(false)
+    val movzularHazir: StateFlow<Boolean> = _movzularHazir.asStateFlow()
 
     // Aktiv oxunuşu sınarsa səbəbi burada qalır. Əvvəllər belə hal yalnız
     // sonsuz fırlanğıc kimi görünürdü — indi ekranda izahı çıxır.
@@ -84,6 +92,10 @@ class AppViewModel(
     val meydanKodu: StateFlow<String?> = _meydanKodu.asStateFlow()
 
     init {
+        // Mərhələ 1: yalnız ilk ekrana (Dərslər) lazım olan content.json.
+        // 547 KB-lıq çalışma bankı istifadəçi «Çalışmalar»a toxunana qədər
+        // gözləyə bilər — əvvəl beş aktiv ardıcıl oxunur, hamısı bitməyincə
+        // fırlanğıc qalırdı (T2.6).
         viewModelScope.launch {
             // DÜZƏLİŞ: əvvəl bu blokda try/catch yox idi. Hər hansı aktiv oxunmasa
             // (məsələn release qurulusunda R8 serializatoru silsə) korutin çökür,
@@ -91,20 +103,37 @@ class AppViewModel(
             // İndi səbəb `yukleneXetasi`-yə yazılır və istifadəçi onu görür.
             try {
                 _sections.value = repo.sections()
-                _topics.value = repo.exercises().topics
-                _presets.value = repo.playground().presets
-                // Axtarış indeksi də burada bir dəfə oxunur ki, xəta eyni yerdə
-                // tutulsun; SearchViewModel keşdən anında alır.
-                repo.searchIndex()
-
-                // Kompilyator versiyasının keşi diskdən oxunur (şəbəkəsiz) —
-                // Tənzimləmələr ilk açılışdan düzgün nömrəni göstərsin.
-                compiler.hazirla()
             } catch (e: Exception) {
                 _yukleneXetasi.value = e.message ?: e.javaClass.simpleName
             } finally {
                 // `finally` vacibdir: xəta olsa da ekran fırlanğıcdan çıxmalıdır.
                 _hazir.value = true
+            }
+        }
+        // Mərhələ 2: qalan aktivlər paralel, ekranı bloklamadan. Repository-də
+        // hər aktivin öz kilidi var, ona görə async-lər həqiqətən yanaşı gedir.
+        viewModelScope.launch {
+            try {
+                // coroutineScope: bir aktiv sınsa xəta buradaca tutulur,
+                // viewModelScope-a yayılmır.
+                coroutineScope {
+                    val movzular = async { repo.exercises().topics }
+                    val numuneler = async { repo.playground().presets }
+                    // Axtarış indeksi burada bir dəfə oxunur ki, xəta eyni yerdə
+                    // tutulsun; SearchViewModel keşdən anında alır.
+                    val axtaris = async { repo.searchIndex() }
+                    // Kompilyator versiyasının keşi diskdən oxunur (şəbəkəsiz) —
+                    // Tənzimləmələr ilk açılışdan düzgün nömrəni göstərsin.
+                    val kompilyatorKesi = async { compiler.hazirla() }
+                    _topics.value = movzular.await()
+                    _presets.value = numuneler.await()
+                    axtaris.await()
+                    kompilyatorKesi.await()
+                }
+            } catch (e: Exception) {
+                _yukleneXetasi.value = e.message ?: e.javaClass.simpleName
+            } finally {
+                _movzularHazir.value = true
             }
         }
     }

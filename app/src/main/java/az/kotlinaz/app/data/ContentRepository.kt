@@ -46,53 +46,45 @@ class AssetContentRepository(private val context: Context) : ContentRepository {
 
     private val json = AktivJson
 
-    // İki ekran eyni anda eyni aktivi istəyə bilər (məsələn dərs və axtarış).
-    // Kilid olmasa hər ikisi eyni faylı ayrı-ayrı oxuyub parse edərdi.
-    private val kilid = Mutex()
+    /**
+     * Bir aktivin keşi — öz kilidi ilə. İki ekran eyni anda eyni aktivi istəyə
+     * bilər (məsələn dərs və axtarış); kilid olmasa hər ikisi eyni faylı
+     * ayrı-ayrı oxuyub parse edərdi. Kilid aktiv başınadır (T2.6): müstəqil
+     * aktivlər paralel oxunur — tək ümumi kilid başlanğıcı ardıcıl edirdi.
+     */
+    private inner class AktivKesi<T : Any>(
+        private val ad: String,
+        private val parse: (String) -> T
+    ) {
+        private val kilid = Mutex()
+        private var deyer: T? = null
 
-    private var contentCache: Content? = null
-    private var exercisesCache: ExerciseBank? = null
-    private var quizCache: QuizBank? = null
-    private var playgroundCache: PlaygroundData? = null
-    private var searchCache: SearchIndex? = null
+        // Keşdə varsa dərhal qaytarılır, yoxdursa parse edilir. Parse CPU
+        // işidir, ona görə Dispatchers.Default — UI sapı bloklanmasın.
+        // 183 KB JSON-un açılışı bir neçə yüz millisaniyə çəkir.
+        suspend fun al(): T = kilid.withLock {
+            deyer ?: withContext(Dispatchers.Default) { parse(oxu(ad)) }.also { deyer = it }
+        }
+    }
+
+    private val contentKesi = AktivKesi("content.json") { json.decodeFromString<Content>(it) }
+    private val exercisesKesi = AktivKesi("exercises.json") { json.decodeFromString<ExerciseBank>(it) }
+    private val quizKesi = AktivKesi("quiz.json") { json.decodeFromString<QuizBank>(it) }
+    private val playgroundKesi = AktivKesi("playground.json") { json.decodeFromString<PlaygroundData>(it) }
+    private val searchKesi = AktivKesi("search.json") { json.decodeFromString<SearchIndex>(it) }
 
     // Fayl oxunuşu — IO sapında.
     private suspend fun oxu(ad: String): String = withContext(Dispatchers.IO) {
         context.assets.open(ad).bufferedReader().use { it.readText() }
     }
 
-    // Nümunə oxu: keşdə varsa dərhal qaytarılır, yoxdursa parse edilir.
-    // Parse CPU işidir, ona görə Dispatchers.Default — UI sapı bloklanmasın.
-    // 183 KB JSON-un açılışı bir neçə yüz millisaniyə çəkir.
-    override suspend fun content(): Content = kilid.withLock {
-        contentCache ?: withContext(Dispatchers.Default) {
-            json.decodeFromString<Content>(oxu("content.json"))
-        }.also { contentCache = it }
-    }
+    override suspend fun content(): Content = contentKesi.al()
 
-    // Aşağıdakılar eyni nümunə üzrədir — hər aktiv öz keşi ilə.
+    override suspend fun exercises(): ExerciseBank = exercisesKesi.al()
 
-    override suspend fun exercises(): ExerciseBank = kilid.withLock {
-        exercisesCache ?: withContext(Dispatchers.Default) {
-            json.decodeFromString<ExerciseBank>(oxu("exercises.json"))
-        }.also { exercisesCache = it }
-    }
+    override suspend fun quiz(): QuizBank = quizKesi.al()
 
-    override suspend fun quiz(): QuizBank = kilid.withLock {
-        quizCache ?: withContext(Dispatchers.Default) {
-            json.decodeFromString<QuizBank>(oxu("quiz.json"))
-        }.also { quizCache = it }
-    }
+    override suspend fun playground(): PlaygroundData = playgroundKesi.al()
 
-    override suspend fun playground(): PlaygroundData = kilid.withLock {
-        playgroundCache ?: withContext(Dispatchers.Default) {
-            json.decodeFromString<PlaygroundData>(oxu("playground.json"))
-        }.also { playgroundCache = it }
-    }
-
-    override suspend fun searchIndex(): SearchIndex = kilid.withLock {
-        searchCache ?: withContext(Dispatchers.Default) {
-            json.decodeFromString<SearchIndex>(oxu("search.json"))
-        }.also { searchCache = it }
-    }
+    override suspend fun searchIndex(): SearchIndex = searchKesi.al()
 }

@@ -16,13 +16,18 @@ class FakeContentRepository(
     private val movzular: List<ExerciseTopic> = emptyList(),
     private val senedler: List<SearchDoc> = emptyList(),
     private val suallar: List<QuizQuestion> = emptyList(),
-    private val xeta: Exception? = null
+    private val xeta: Exception? = null,
+    /** Yalnız çalışma bankı sınsın — ikinci mərhələnin xətası üçün (T2.6). */
+    private val calismaXetasi: Exception? = null
 ) : ContentRepository {
     override suspend fun content(): Content {
         xeta?.let { throw it }
         return Content(sections = bolmeler)
     }
-    override suspend fun exercises() = ExerciseBank(movzular)
+    override suspend fun exercises(): ExerciseBank {
+        calismaXetasi?.let { throw it }
+        return ExerciseBank(movzular)
+    }
     override suspend fun quiz() = QuizBank(suallar)
     override suspend fun playground() = PlaygroundData()
     override suspend fun searchIndex() = SearchIndex(senedler)

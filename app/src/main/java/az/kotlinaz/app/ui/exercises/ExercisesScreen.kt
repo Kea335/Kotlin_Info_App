@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.ui.AppViewModel
+import az.kotlinaz.app.ui.components.YuklenmeGostericisi
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 
@@ -45,8 +46,15 @@ fun ExercisesScreen(
     modifier: Modifier = Modifier,
     onTopic: (String) -> Unit
 ) {
+    val hazir by appVm.movzularHazir.collectAsStateWithLifecycle()
     val topics by appVm.topics.collectAsStateWithLifecycle()
     val hellEdilmis by appVm.hellEdilmis.collectAsStateWithLifecycle()
+    // Çalışma bankı ikinci mərhələdə gəlir (T2.6) — gəlməyibsə boş siyahı
+    // yox, fırlanğıc.
+    if (!hazir) {
+        YuklenmeGostericisi(modifier)
+        return
+    }
     ExercisesContent(topics, hellEdilmis, modifier, onTopic)
 }
 
