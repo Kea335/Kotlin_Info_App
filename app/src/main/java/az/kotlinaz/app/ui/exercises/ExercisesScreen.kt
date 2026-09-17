@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.exercises
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,7 +29,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.ExerciseTopic
+import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 
@@ -38,6 +41,18 @@ import az.kotlinaz.app.ui.theme.KotlinBrush
  */
 @Composable
 fun ExercisesScreen(
+    appVm: AppViewModel,
+    modifier: Modifier = Modifier,
+    onTopic: (String) -> Unit
+) {
+    val topics by appVm.topics.collectAsStateWithLifecycle()
+    val hellEdilmis by appVm.hellEdilmis.collectAsStateWithLifecycle()
+    ExercisesContent(topics, hellEdilmis, modifier, onTopic)
+}
+
+/** Saf render — bütün vəziyyət parametrlə gəlir. */
+@Composable
+private fun ExercisesContent(
     topics: List<ExerciseTopic>,
     hellEdilmis: Set<String>,
     modifier: Modifier = Modifier,

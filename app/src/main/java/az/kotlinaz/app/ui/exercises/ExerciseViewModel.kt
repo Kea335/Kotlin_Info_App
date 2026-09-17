@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui
+package az.kotlinaz.app.ui.exercises
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

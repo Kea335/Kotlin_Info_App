@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.lessons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,6 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,9 +37,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.BolmeTereqqisi
 import az.kotlinaz.app.data.model.Section
+import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.components.BlockView
+import az.kotlinaz.app.ui.components.BosEkran
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 
@@ -48,6 +53,55 @@ import az.kotlinaz.app.ui.theme.KotlinBrush
  */
 @Composable
 fun LessonDetailScreen(
+    vm: LessonsViewModel,
+    appVm: AppViewModel,
+    /** Ünvandan gələn bölmə id-si. */
+    id: String,
+    modifier: Modifier = Modifier,
+    onNavigate: (String) -> Unit,
+    onQuiz: () -> Unit,
+    onPlayground: () -> Unit,
+    onExercises: () -> Unit,
+    onMovzu: (String) -> Unit
+) {
+    val sections by vm.sections.collectAsStateWithLifecycle()
+    val topics by appVm.topics.collectAsStateWithLifecycle()
+    val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
+
+    val bolme = sections.firstOrNull { it.id == id }
+    if (bolme == null) {
+        BosEkran("Bölmə tapılmadı", modifier)
+        return
+    }
+
+    // Dərs açılan kimi «son bölmə» yazılır — «Davam et» kartı yarımçıq
+    // qoyulan yerə qaytarsın deyə.
+    LaunchedEffect(bolme.id) { vm.sonBolmeniYaz(bolme.id) }
+
+    LessonDetailContent(
+        section = bolme,
+        tereqqi = tereqqi.bolme(bolme.id),
+        // Bölməyə bağlı çalışma mövzusu; JSON-da `sectionId` sahəsi ilə
+        // göstərilir, olmayan bölmələrdə null qalır.
+        movzuId = topics.firstOrNull { it.sectionId == bolme.id }?.id,
+        // `index` content.json-da 0-dan başlayır və siyahıdakı mövqe ilə
+        // eynidir, ona görə qonşular birbaşa götürülür. Kənarlarda getOrNull
+        // null qaytarır — düymə sönük qalır.
+        evvelki = sections.getOrNull(bolme.index - 1),
+        novbeti = sections.getOrNull(bolme.index + 1),
+        modifier = modifier,
+        onNavigate = onNavigate,
+        onOxundu = { vm.bolmeniOxunmusIsaretle(it) },
+        onQuiz = onQuiz,
+        onPlayground = onPlayground,
+        onExercises = onExercises,
+        onMovzu = onMovzu
+    )
+}
+
+/** Saf render — bütün vəziyyət parametrlə gəlir. */
+@Composable
+private fun LessonDetailContent(
     section: Section,
     /** Bu bölmənin mənimsəmə vəziyyəti — çalışmalardan hesablanır. */
     tereqqi: BolmeTereqqisi,

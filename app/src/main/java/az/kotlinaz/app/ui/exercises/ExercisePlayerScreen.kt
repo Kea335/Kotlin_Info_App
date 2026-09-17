@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.exercises
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -48,9 +48,8 @@ import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.data.model.PracticeExercise
 import az.kotlinaz.app.data.model.TheoryExercise
-import az.kotlinaz.app.ui.ExerciseViewModel
-import az.kotlinaz.app.ui.Rejim
-import az.kotlinaz.app.ui.YoxlamaVeziyyeti
+import az.kotlinaz.app.ui.AppViewModel
+import az.kotlinaz.app.ui.components.BosEkran
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoCode
@@ -73,6 +72,25 @@ import az.kotlinaz.app.ui.theme.seviyyeRengi
  */
 @Composable
 fun ExercisePlayerScreen(
+    vm: ExerciseViewModel,
+    appVm: AppViewModel,
+    /** Ünvandan gələn mövzu id-si. */
+    id: String,
+    modifier: Modifier = Modifier
+) {
+    val topics by appVm.topics.collectAsStateWithLifecycle()
+    val hellEdilmis by appVm.hellEdilmis.collectAsStateWithLifecycle()
+    val movzu = topics.firstOrNull { it.id == id }
+    if (movzu == null) {
+        BosEkran("Mövzu tapılmadı", modifier)
+        return
+    }
+    ExercisePlayerContent(vm, movzu, hellEdilmis, modifier)
+}
+
+/** Saf render — məzmun parametrlə, tur vəziyyəti [ExerciseViewModel]-dən gəlir. */
+@Composable
+private fun ExercisePlayerContent(
     vm: ExerciseViewModel,
     topic: ExerciseTopic,
     hellEdilmis: Set<String>,

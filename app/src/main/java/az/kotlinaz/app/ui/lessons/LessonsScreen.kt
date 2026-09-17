@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.lessons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,7 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,10 +36,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.SeviyyeQaydasi
 import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.data.model.Section
+import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 import az.kotlinaz.app.ui.theme.seviyyeRengi
@@ -50,16 +52,29 @@ import az.kotlinaz.app.ui.theme.seviyyeRengi
  */
 @Composable
 fun LessonsScreen(
+    vm: LessonsViewModel,
+    appVm: AppViewModel,
+    modifier: Modifier = Modifier,
+    onSection: (String) -> Unit
+) {
+    val sections by vm.sections.collectAsStateWithLifecycle()
+    val qruplar by vm.qruplar.collectAsStateWithLifecycle()
+    val sonBolme by vm.sonBolme.collectAsStateWithLifecycle()
+    val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
+    LessonsContent(sections, qruplar, tereqqi, sonBolme, modifier, onSection)
+}
+
+/** Saf render — bütün vəziyyət parametrlə gəlir. */
+@Composable
+private fun LessonsContent(
     sections: List<Section>,
+    qruplar: Map<String, List<Section>>,
     tereqqi: Tereqqi,
     sonBolme: String?,
     modifier: Modifier = Modifier,
     onSection: (String) -> Unit
 ) {
     val c = KAz.colors
-    // groupBy sıranı saxlayır (LinkedHashMap), ona görə qruplar saytdakı
-    // ardıcıllıqla düzülür: Başlanğıc → Dilin əsasları → … → Yekun.
-    val qruplar = remember(sections) { sections.groupBy { it.group } }
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),
