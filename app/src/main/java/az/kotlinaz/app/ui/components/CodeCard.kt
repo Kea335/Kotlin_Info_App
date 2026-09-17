@@ -35,7 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,10 +65,11 @@ fun CodeCard(
     val c = KAz.colors
     val context = LocalContext.current
     val bildir = LocalBildiris.current
-    // Nəticə paneli əvvəlcə bağlıdır. `remember(code)` — kart yeni koda
-    // təkrar işlədiləndə (LazyColumn elementləri təkrar istifadə olunur)
-    // köhnə kartın açıq vəziyyəti yenisinə keçməsin deyə.
-    var neticeGorunur by remember(code) { mutableStateOf(false) }
+    // Nəticə paneli əvvəlcə bağlıdır. `rememberSaveable(code)` — kart yeni
+    // koda təkrar işlədiləndə (LazyColumn elementləri təkrar istifadə olunur)
+    // köhnə kartın açıq vəziyyəti yenisinə keçməsin deyə; açıq panel isə
+    // döndərmə və proses ölümündən sağ çıxır (T2.4).
+    var neticeGorunur by rememberSaveable(code) { mutableStateOf(false) }
 
     Column(
         modifier = modifier

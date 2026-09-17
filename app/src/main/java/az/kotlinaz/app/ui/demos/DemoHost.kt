@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -180,7 +181,7 @@ private val TI_NUMUNELER = listOf(
 @Composable
 private fun TypeInferDemo(modifier: Modifier = Modifier) {
     val c = KAz.colors
-    var giris by remember { mutableStateOf("42") }
+    var giris by rememberSaveable { mutableStateOf("42") }
     val netice = remember(giris) { tipCixar(giris) }
 
     DemoCard(
@@ -264,8 +265,8 @@ private val NS_OPS = listOf(
 @Composable
 private fun NullSafetyDemo(modifier: Modifier = Modifier) {
     val c = KAz.colors
-    var deyerVar by remember { mutableStateOf(false) }
-    var opId by remember { mutableStateOf("direct") }
+    var deyerVar by rememberSaveable { mutableStateOf(false) }
+    var opId by rememberSaveable { mutableStateOf("direct") }
 
     val op = NS_OPS.firstOrNull { it.id == opId } ?: NS_OPS.first()
     val isNull = !deyerVar
@@ -460,7 +461,7 @@ private fun whenQiymetlendir(xam: String): WhenNetice {
 @Composable
 private fun WhenDemo(modifier: Modifier = Modifier) {
     val c = KAz.colors
-    var giris by remember { mutableStateOf("7") }
+    var giris by rememberSaveable { mutableStateOf("7") }
     val netice = remember(giris) { whenQiymetlendir(giris) }
 
     DemoCard(
@@ -549,7 +550,7 @@ private val SCOPE_FNS = listOf(
 @Composable
 private fun ScopeDemo(modifier: Modifier = Modifier) {
     val c = KAz.colors
-    var secili by remember { mutableStateOf("let") }
+    var secili by rememberSaveable { mutableStateOf("let") }
     val fn = SCOPE_FNS.firstOrNull { it.ad == secili } ?: SCOPE_FNS.first()
 
     DemoCard(
@@ -624,7 +625,7 @@ private const val CORO_KOD_PARALEL =
 @Composable
 private fun CoroutinesDemo(modifier: Modifier = Modifier) {
     val c = KAz.colors
-    var paralel by remember { mutableStateOf(false) }
+    var paralel by rememberSaveable { mutableStateOf(false) }
     var isleyir by remember { mutableStateOf(false) }
     var kecen by remember { mutableFloatStateOf(0f) }
     var bitmis by remember { mutableStateOf(false) }
