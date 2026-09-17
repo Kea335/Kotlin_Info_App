@@ -49,6 +49,7 @@ class AppViewModelTest {
         val vm = vm(repo)
 
         assertTrue(vm.hazir.value)
+        assertTrue(vm.movzularHazir.value)
         assertNull(vm.yukleneXetasi.value)
         assertEquals(listOf("intro"), vm.sections.value.map { it.id })
         assertNotNull(vm.bolme("intro"))
@@ -64,6 +65,23 @@ class AppViewModelTest {
         assertTrue(vm.hazir.value)
         assertEquals("aktiv pozulub", vm.yukleneXetasi.value)
         assertTrue(vm.sections.value.isEmpty())
+    }
+
+    @Test
+    fun `ikinci merhelenin xetasi da yukleneXetasi-ye yazilir, ekran acilir`() = runTest(dispatcher) {
+        val vm = vm(
+            FakeContentRepository(
+                bolmeler = listOf(Section(id = "intro", index = 0, title = "Giriş")),
+                calismaXetasi = IllegalStateException("exercises.json pozulub")
+            )
+        )
+
+        // Dərslər ekranı açılır (content.json sağlamdır), xəta isə görünür.
+        assertTrue(vm.hazir.value)
+        assertTrue(vm.movzularHazir.value)
+        assertEquals(listOf("intro"), vm.sections.value.map { it.id })
+        assertEquals("exercises.json pozulub", vm.yukleneXetasi.value)
+        assertTrue(vm.topics.value.isEmpty())
     }
 
     @Test

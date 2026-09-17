@@ -51,6 +51,7 @@ import az.kotlinaz.app.data.model.TheoryExercise
 import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.components.BosEkran
 import az.kotlinaz.app.ui.components.LocalBildiris
+import az.kotlinaz.app.ui.components.YuklenmeGostericisi
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoCode
 import az.kotlinaz.app.ui.editor.KodRedaktoru
@@ -78,8 +79,13 @@ fun ExercisePlayerScreen(
     id: String,
     modifier: Modifier = Modifier
 ) {
+    val hazir by appVm.movzularHazir.collectAsStateWithLifecycle()
     val topics by appVm.topics.collectAsStateWithLifecycle()
     val hellEdilmis by appVm.hellEdilmis.collectAsStateWithLifecycle()
+    if (!hazir) {
+        YuklenmeGostericisi(modifier)
+        return
+    }
     val movzu = topics.firstOrNull { it.id == id }
     if (movzu == null) {
         BosEkran("Mövzu tapılmadı", modifier)

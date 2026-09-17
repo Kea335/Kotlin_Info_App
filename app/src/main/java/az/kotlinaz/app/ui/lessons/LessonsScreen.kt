@@ -61,7 +61,8 @@ fun LessonsScreen(
     val qruplar by vm.qruplar.collectAsStateWithLifecycle()
     val sonBolme by vm.sonBolme.collectAsStateWithLifecycle()
     val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
-    LessonsContent(sections, qruplar, tereqqi, sonBolme, modifier, onSection)
+    val tereqqiHazir by appVm.movzularHazir.collectAsStateWithLifecycle()
+    LessonsContent(sections, qruplar, tereqqi, tereqqiHazir, sonBolme, modifier, onSection)
 }
 
 /** Saf render — bütün vəziyyət parametrlə gəlir. */
@@ -70,6 +71,8 @@ private fun LessonsContent(
     sections: List<Section>,
     qruplar: Map<String, List<Section>>,
     tereqqi: Tereqqi,
+    /** Çalışma bankı gələnə qədər false — tərəqqi kartları «0 %» yanıb-sönməsin deyə skeleton olur (T2.6). */
+    tereqqiHazir: Boolean,
     sonBolme: String?,
     modifier: Modifier = Modifier,
     onSection: (String) -> Unit
@@ -81,12 +84,19 @@ private fun LessonsContent(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
         verticalArrangement = Arrangement.spacedBy(7.dp)
     ) {
-        item(key = "seviyye") {
-            SeviyyeKarti(tereqqi)
-            Spacer(Modifier.height(9.dp))
+        if (!tereqqiHazir) {
+            item(key = "skeleton") {
+                TereqqiSkeleti()
+                Spacer(Modifier.height(9.dp))
+            }
+        } else {
+            item(key = "seviyye") {
+                SeviyyeKarti(tereqqi)
+                Spacer(Modifier.height(9.dp))
+            }
         }
 
-        item(key = "tereqqi") {
+        if (tereqqiHazir) item(key = "tereqqi") {
             TereqqiKarti(
                 tamamlanan = tereqqi.tamamlananDers,
                 umumi = sections.size,
@@ -133,6 +143,29 @@ private fun LessonsContent(
  * Hər kəs Junior başlayır. Növbəti səviyyə iki şərt birlikdə ödənəndə açılır —
  * kart hər ikisini ayrıca göstərir ki, nəyin çatmadığı aydın olsun.
  */
+/**
+ * Çalışma bankı gələnə qədər səviyyə/tərəqqi kartlarının yerini tutur —
+ * eyni hündürlükdə boş kart, ki siyahı «0 %»-dən real rəqəmə tullanmasın.
+ */
+@Composable
+private fun TereqqiSkeleti() {
+    val c = KAz.colors
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(c.bgElev)
+            .border(1.dp, c.border, RoundedCornerShape(16.dp))
+            .padding(16.dp)
+    ) {
+        Box(Modifier.fillMaxWidth(0.4f).height(14.dp).clip(RoundedCornerShape(6.dp)).background(c.bgSunken))
+        Spacer(Modifier.height(10.dp))
+        Box(Modifier.fillMaxWidth(0.7f).height(10.dp).clip(RoundedCornerShape(6.dp)).background(c.bgSunken))
+        Spacer(Modifier.height(14.dp))
+        Box(Modifier.fillMaxWidth().height(6.dp).clip(CircleShape).background(c.bgSunken))
+    }
+}
+
 @Composable
 private fun SeviyyeKarti(tereqqi: Tereqqi) {
     val c = KAz.colors
