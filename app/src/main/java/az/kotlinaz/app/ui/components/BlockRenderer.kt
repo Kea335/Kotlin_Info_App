@@ -24,7 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -443,9 +443,10 @@ private fun TimelineView(block: Timeline, modifier: Modifier = Modifier) {
 @Composable
 private fun TabsView(block: TabsBlock, modifier: Modifier = Modifier) {
     val c = KAz.colors
-    // `remember(block)` — LazyColumn elementi başqa tab blokuna təkrar
-    // işlədiləndə seçim sıfırlansın deyə.
-    var secili by remember(block) { mutableIntStateOf(0) }
+    // `rememberSaveable(block)` — LazyColumn elementi başqa tab blokuna təkrar
+    // işlədiləndə seçim sıfırlansın deyə; döndərmə və proses ölümündə isə
+    // seçili tab qalır (T2.4).
+    var secili by rememberSaveable(block) { mutableIntStateOf(0) }
 
     Column(modifier.padding(vertical = 8.dp)) {
         Row(

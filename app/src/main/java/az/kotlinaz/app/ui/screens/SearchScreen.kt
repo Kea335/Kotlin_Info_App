@@ -30,6 +30,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,7 +53,8 @@ fun SearchScreen(
     onSection: (String) -> Unit
 ) {
     val c = KAz.colors
-    var sorgu by remember { mutableStateOf("") }
+    // Sorğu mətni döndərmə və proses ölümündən sağ çıxır (T2.4).
+    var sorgu by rememberSaveable { mutableStateOf("") }
     val fokus = remember { FocusRequester() }
 
     // DÜZƏLİŞ: FocusRequester yaradılıb sahəyə bağlanmışdı, amma heç vaxt

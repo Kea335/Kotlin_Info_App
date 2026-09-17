@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -255,8 +256,9 @@ private fun NezeriKart(
     onDuzgun: () -> Unit
 ) {
     val c = KAz.colors
-    // Seçim çalışmaya bağlıdır: növbəti çalışmaya keçəndə təmizlənir.
-    var secim by remember(calisma.id) { mutableStateOf<Int?>(null) }
+    // Seçim çalışmaya bağlıdır: növbəti çalışmaya keçəndə təmizlənir;
+    // döndərmədə və proses ölümündə isə qalır (T2.4).
+    var secim by rememberSaveable(calisma.id) { mutableStateOf<Int?>(null) }
 
     Column {
         SeviyyeNisani(calisma.level)

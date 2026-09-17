@@ -28,7 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,7 +77,8 @@ fun SettingsScreen(
     val context = LocalContext.current
     val bildir = LocalBildiris.current
     // Hansı sıfırlama təsdiqlənir: "oxuma" | "calisma" | "hamisi" | null (pəncərə bağlı).
-    var tesdiq by remember { mutableStateOf<String?>(null) }
+    // Açıq dialoq döndərmədə itməsin deyə saveable (T2.4).
+    var tesdiq by rememberSaveable { mutableStateOf<String?>(null) }
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),
