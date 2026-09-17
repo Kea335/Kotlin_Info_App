@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.playground
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,14 +40,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.PlaygroundPreset
-import az.kotlinaz.app.ui.MeydanVeziyyeti
-import az.kotlinaz.app.ui.PlaygroundViewModel
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
 import az.kotlinaz.app.ui.demos.DemoChip
 import az.kotlinaz.app.ui.editor.KodRedaktoru
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
+import az.kotlinaz.app.ui.AppViewModel
 
 /**
  * Kod meydanı — tətbiqin YEGANƏ internet tələb edən hissəsi.
@@ -59,6 +58,26 @@ import az.kotlinaz.app.ui.theme.KotlinBrush
  */
 @Composable
 fun PlaygroundScreen(
+    vm: PlaygroundViewModel,
+    appVm: AppViewModel,
+    modifier: Modifier = Modifier
+) {
+    val presets by appVm.presets.collectAsStateWithLifecycle()
+    val kompilyator by appVm.kompilyator.collectAsStateWithLifecycle()
+    val meydanKodu by appVm.meydanKodu.collectAsStateWithLifecycle()
+    PlaygroundContent(
+        vm = vm,
+        presets = presets,
+        kompilyatorVersiyasi = kompilyator.versiya,
+        xariciKod = meydanKodu,
+        modifier = modifier,
+        onXariciKodAlindi = { appVm.meydanKodunuTemizle() }
+    )
+}
+
+/** Saf render — məzmun parametrlə, redaktor və icra [PlaygroundViewModel]-dən. */
+@Composable
+private fun PlaygroundContent(
     vm: PlaygroundViewModel,
     presets: List<PlaygroundPreset>,
     /** Sorğularda işlədilən Kotlin versiyası — xəbərdarlıq zolağında göstərilir. */

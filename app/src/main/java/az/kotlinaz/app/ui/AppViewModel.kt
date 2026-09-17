@@ -2,18 +2,14 @@ package az.kotlinaz.app.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import az.kotlinaz.app.data.AxtarisMotoru
 import az.kotlinaz.app.data.CompilerRepository
 import az.kotlinaz.app.data.ContentRepository
 import az.kotlinaz.app.data.KompilyatorVeziyyeti
-import az.kotlinaz.app.data.SearchNetice
 import az.kotlinaz.app.data.Tereqqi
-import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.tereqqiHesabla
 import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.PlaygroundPreset
-import az.kotlinaz.app.data.model.SearchDoc
 import az.kotlinaz.app.data.model.Section
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,14 +20,18 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /**
- * Bütün ekranların paylaşdığı vəziyyət.
+ * Tətbiq səviyyəsində paylaşılan vəziyyət: aktiv yükləmə (`hazir`,
+ * `yukleneXetasi`), məzmun siyahıları (başlıq və keçidlər üçün), tərəqqi
+ * mənzərəsi və meydana ötürülən kod.
  *
- * Asılılıqlar konstruktorla gəlir ([AppViewModelFactory] → `AppContainer`):
- * `Context` yoxdur, testdə fake repository ötürülür (T2.1).
+ * Ekran məsuliyyətləri öz ViewModel-lərindədir (T2.5): dərslər, çalışmalar,
+ * test, meydan, axtarış, tənzimləmələr. Asılılıqlar konstruktorla gəlir
+ * ([AppViewModelFactory] → `AppContainer`): `Context` yoxdur, testdə fake
+ * repository ötürülür (T2.1).
  */
 class AppViewModel(
     private val repo: ContentRepository,
-    private val prefs: UserPrefs,
+    prefs: UserPrefs,
     private val compiler: CompilerRepository
 ) : ViewModel() {
 
@@ -47,9 +47,6 @@ class AppViewModel(
     private val _presets = MutableStateFlow<List<PlaygroundPreset>>(emptyList())
     val presets: StateFlow<List<PlaygroundPreset>> = _presets.asStateFlow()
 
-    private val _searchDocs = MutableStateFlow<List<SearchDoc>>(emptyList())
-    val searchDocs: StateFlow<List<SearchDoc>> = _searchDocs.asStateFlow()
-
     // Aktivlər oxunub bitəndə true olur — AppRoot ona qədər fırlanğıc göstərir.
     private val _hazir = MutableStateFlow(false)
     val hazir: StateFlow<Boolean> = _hazir.asStateFlow()
@@ -59,27 +56,11 @@ class AppViewModel(
     private val _yukleneXetasi = MutableStateFlow<String?>(null)
     val yukleneXetasi: StateFlow<String?> = _yukleneXetasi.asStateFlow()
 
-    val tema: StateFlow<ThemeMode> =
-        prefs.tema.stateIn(viewModelScope, SharingStarted.Eagerly, ThemeMode.SYSTEM)
-
-    val sriftOlcusu: StateFlow<Int> =
-        prefs.sriftOlcusu.stateIn(viewModelScope, SharingStarted.Eagerly, 1)
-
-    val kodTamamlama: StateFlow<Boolean> =
-        prefs.kodTamamlama.stateIn(viewModelScope, SharingStarted.Eagerly, true)
-
-    val oxunanBolmeler: StateFlow<Set<String>> =
+    private val oxunanBolmeler: StateFlow<Set<String>> =
         prefs.oxunanBolmeler.stateIn(viewModelScope, SharingStarted.Eagerly, emptySet())
 
     val hellEdilmis: StateFlow<Set<String>> =
         prefs.hellEdilmis.stateIn(viewModelScope, SharingStarted.Eagerly, emptySet())
-
-    /** Bilik testinin rejim üzrə rekordları: `"junior"` → bal. */
-    val quizRekordlari: StateFlow<Map<String, Int>> =
-        prefs.quizRekordlari.stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
-
-    val sonBolme: StateFlow<String?> =
-        prefs.sonBolme.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**
      * Tərəqqi mənzərəsi — bölmə mənimsəməsi və səviyyə.
@@ -112,11 +93,9 @@ class AppViewModel(
                 _sections.value = repo.sections()
                 _topics.value = repo.exercises().topics
                 _presets.value = repo.playground().presets
-                _searchDocs.value = repo.searchIndex().docs
-
-                // Axtarış indeksi bir dəfə, burada qurulur. Dil teqi hələlik
-                // sabit «az»-dır; dil seçimi gələndə seçilmiş dildən gələcək.
-                axtarisMotoru = AxtarisMotoru(_searchDocs.value, dilTeqi = "az")
+                // Axtarış indeksi də burada bir dəfə oxunur ki, xəta eyni yerdə
+                // tutulsun; SearchViewModel keşdən anında alır.
+                repo.searchIndex()
 
                 // Kompilyator versiyasının keşi diskdən oxunur (şəbəkəsiz) —
                 // Tənzimləmələr ilk açılışdan düzgün nömrəni göstərsin.
@@ -134,40 +113,7 @@ class AppViewModel(
 
     fun movzu(id: String): ExerciseTopic? = _topics.value.firstOrNull { it.id == id }
 
-    fun temaSec(mode: ThemeMode) = viewModelScope.launch { prefs.temaSec(mode) }
-
-    fun sriftSec(olcu: Int) = viewModelScope.launch { prefs.sriftSec(olcu) }
-
-    fun tamamlamaSec(acıq: Boolean) = viewModelScope.launch { prefs.tamamlamaSec(acıq) }
-
-    fun bolmeniOxunmusIsaretle(id: String) =
-        viewModelScope.launch { prefs.bolmeniOxunmusIsaretle(id) }
-
-    // DÜZƏLİŞ: UserPrefs.sonBolmeniYaz() yazılmışdı, amma heç yerdən
-    // çağırılmırdı. Nəticədə «Davam et» kartı yalnız SONA QƏDƏR oxunmuş
-    // bölməni göstərirdi — yəni yarımçıq qoyulan dərsə qayıtmaq mümkün deyildi.
-    // İndi dərs açılan kimi son mövqe yazılır.
-    fun sonBolmeniYaz(id: String) = viewModelScope.launch { prefs.sonBolmeniYaz(id) }
-
-    fun calismaniHellIsaretle(id: String) =
-        viewModelScope.launch { prefs.calismaniHellIsaretle(id) }
-
-    fun oxumaTereqqisiniSifirla() = viewModelScope.launch { prefs.oxumaTereqqisiniSifirla() }
-
-    fun calismaTereqqisiniSifirla() = viewModelScope.launch { prefs.calismaTereqqisiniSifirla() }
-
-    fun hamisiniSifirla() = viewModelScope.launch { prefs.hamisiniSifirla() }
-
     fun meydanaGonder(kod: String) { _meydanKodu.value = kod }
 
     fun meydanKodunuTemizle() { _meydanKodu.value = null }
-
-    /* ---------- Oflayn axtarış ---------- */
-
-    // Axtarışın özü AxtarisMotoru-dadır (saf sinif, testdən çağırıla bilir).
-    // Burada yalnız istinad saxlanılır; sənədlər oxunana qədər null-dır.
-    private var axtarisMotoru: AxtarisMotoru? = null
-
-    fun axtar(sorgu: String): List<SearchNetice> =
-        axtarisMotoru?.axtar(sorgu).orEmpty()
 }

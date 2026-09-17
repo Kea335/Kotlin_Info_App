@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.quiz
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -39,9 +39,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.QuizQuestion
 import az.kotlinaz.app.ui.demos.DemoCode
-import az.kotlinaz.app.ui.quiz.QUIZ_SUAL_SAYI
-import az.kotlinaz.app.ui.quiz.QuizRejimi
-import az.kotlinaz.app.ui.quiz.QuizViewModel
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 import az.kotlinaz.app.ui.theme.seviyyeRengi
@@ -57,11 +54,11 @@ import az.kotlinaz.app.ui.theme.seviyyeRengi
 @Composable
 fun QuizScreen(
     vm: QuizViewModel,
-    rekordlar: Map<String, Int>,
     modifier: Modifier = Modifier
 ) {
     val hovuzlar by vm.hovuzlar.collectAsStateWithLifecycle()
     val rejim by vm.rejim.collectAsStateWithLifecycle()
+    val rekordlar by vm.rekordlar.collectAsStateWithLifecycle()
 
     val secilen = rejim
     if (secilen == null) {

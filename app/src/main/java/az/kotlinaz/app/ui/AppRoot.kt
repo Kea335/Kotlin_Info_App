@@ -34,7 +34,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -53,14 +52,14 @@ import androidx.navigation.compose.rememberNavController
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.LocalBolmeyeKec
 import az.kotlinaz.app.ui.components.LocalMeydanaGonder
-import az.kotlinaz.app.ui.screens.ExercisePlayerScreen
-import az.kotlinaz.app.ui.screens.ExercisesScreen
-import az.kotlinaz.app.ui.screens.LessonDetailScreen
-import az.kotlinaz.app.ui.screens.LessonsScreen
-import az.kotlinaz.app.ui.screens.PlaygroundScreen
-import az.kotlinaz.app.ui.screens.QuizScreen
-import az.kotlinaz.app.ui.screens.SearchScreen
-import az.kotlinaz.app.ui.screens.SettingsScreen
+import az.kotlinaz.app.ui.exercises.ExercisePlayerScreen
+import az.kotlinaz.app.ui.exercises.ExercisesScreen
+import az.kotlinaz.app.ui.lessons.LessonDetailScreen
+import az.kotlinaz.app.ui.lessons.LessonsScreen
+import az.kotlinaz.app.ui.playground.PlaygroundScreen
+import az.kotlinaz.app.ui.quiz.QuizScreen
+import az.kotlinaz.app.ui.search.SearchScreen
+import az.kotlinaz.app.ui.settings.SettingsScreen
 import az.kotlinaz.app.ui.theme.KAz
 import kotlinx.coroutines.launch
 
@@ -101,21 +100,13 @@ fun AppRoot(vm: AppViewModel) {
     val scope = rememberCoroutineScope()
     val snackbar = remember { SnackbarHostState() }
 
+    // Kökdə yalnız naviqasiya üçün lazım olan state toplanır (T2.5): yükləmə
+    // bayraqları və başlıq/keçid üçün məzmun siyahıları. Qalanını ekranlar
+    // öz ViewModel-lərindən özləri oxuyur — bir çalışmanın həll edilməsi
+    // naviqasiya kökünü yenidən qurmur.
     val hazir by vm.hazir.collectAsStateWithLifecycle()
     val sections by vm.sections.collectAsStateWithLifecycle()
     val topics by vm.topics.collectAsStateWithLifecycle()
-    val presets by vm.presets.collectAsStateWithLifecycle()
-    val hellEdilmis by vm.hellEdilmis.collectAsStateWithLifecycle()
-    val quizRekordlari by vm.quizRekordlari.collectAsStateWithLifecycle()
-    val sonBolme by vm.sonBolme.collectAsStateWithLifecycle()
-    val tema by vm.tema.collectAsStateWithLifecycle()
-    val srift by vm.sriftOlcusu.collectAsStateWithLifecycle()
-    val tamamlama by vm.kodTamamlama.collectAsStateWithLifecycle()
-    // Bölmə mənimsəməsi və səviyyə — çalışmalardan hesablanır, tək mənbədən gəlir.
-    val tereqqi by vm.tereqqi.collectAsStateWithLifecycle()
-    val meydanKodu by vm.meydanKodu.collectAsStateWithLifecycle()
-    val kompilyator by vm.kompilyator.collectAsStateWithLifecycle()
-
     val yukleneXetasi by vm.yukleneXetasi.collectAsStateWithLifecycle()
 
     // Cari ünvan həm başlıq, həm «geri» düyməsi, həm də alt menyunun
@@ -289,117 +280,66 @@ fun AppRoot(vm: AppViewModel) {
             ) {
                 composable(Yol.DERSLER) {
                     LessonsScreen(
-                        sections = sections,
-                        tereqqi = tereqqi,
-                        sonBolme = sonBolme,
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        appVm = vm,
                         onSection = { nav.navigate(Yol.ders(it)) }
                     )
                 }
 
                 composable(Yol.DERS) { entry ->
-                    val id = entry.arguments?.getString("id").orEmpty()
-                    val bolme = sections.firstOrNull { it.id == id }
-                    if (bolme == null) {
-                        BosEkran("Bölmə tapılmadı")
-                    } else {
-                        // Dərs açılan kimi «son bölmə» yazılır — «Davam et»
-                        // kartı yarımçıq qoyulan yerə qaytarsın deyə.
-                        LaunchedEffect(bolme.id) { vm.sonBolmeniYaz(bolme.id) }
-
-                        LessonDetailScreen(
-                            section = bolme,
-                            tereqqi = tereqqi.bolme(bolme.id),
-                            // Bölməyə bağlı çalışma mövzusu; JSON-da `sectionId`
-                            // sahəsi ilə göstərilir, olmayan bölmələrdə null qalır.
-                            movzuId = topics.firstOrNull { it.sectionId == bolme.id }?.id,
-                            // `index` content.json-da 0-dan başlayır və siyahıdakı
-                            // mövqe ilə eynidir, ona görə qonşular birbaşa götürülür.
-                            // Kənarlarda getOrNull null qaytarır — düymə sönük qalır.
-                            evvelki = sections.getOrNull(bolme.index - 1),
-                            novbeti = sections.getOrNull(bolme.index + 1),
-                            onNavigate = { nav.navigate(Yol.ders(it)) },
-                            onOxundu = { vm.bolmeniOxunmusIsaretle(it) },
-                            onQuiz = { nav.navigate(Yol.QUIZ) },
-                            onPlayground = { nav.navigate(Yol.MEYDAN) },
-                            onExercises = { nav.navigate(Yol.CALISMALAR) },
-                            onMovzu = { nav.navigate(Yol.calisma(it)) }
-                        )
-                    }
+                    LessonDetailScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        appVm = vm,
+                        id = entry.arguments?.getString("id").orEmpty(),
+                        onNavigate = { nav.navigate(Yol.ders(it)) },
+                        onQuiz = { nav.navigate(Yol.QUIZ) },
+                        onPlayground = { nav.navigate(Yol.MEYDAN) },
+                        onExercises = { nav.navigate(Yol.CALISMALAR) },
+                        onMovzu = { nav.navigate(Yol.calisma(it)) }
+                    )
                 }
 
                 composable(Yol.CALISMALAR) {
                     ExercisesScreen(
-                        topics = topics,
-                        hellEdilmis = hellEdilmis,
+                        appVm = vm,
                         onTopic = { nav.navigate(Yol.calisma(it)) }
                     )
                 }
 
                 composable(Yol.CALISMA) { entry ->
-                    val id = entry.arguments?.getString("id").orEmpty()
-                    val movzu = topics.firstOrNull { it.id == id }
-                    if (movzu == null) {
-                        BosEkran("Mövzu tapılmadı")
-                    } else {
-                        // ViewModel naviqasiya girişinə bağlıdır: mövzu başına
-                        // bir nüsxə, geri qayıdanda vəziyyət və gedən sorğu qalır.
-                        ExercisePlayerScreen(
-                            vm = viewModel(factory = AppViewModelFactory.Factory),
-                            topic = movzu,
-                            hellEdilmis = hellEdilmis
-                        )
-                    }
+                    // ViewModel naviqasiya girişinə bağlıdır: mövzu başına
+                    // bir nüsxə, geri qayıdanda vəziyyət və gedən sorğu qalır.
+                    ExercisePlayerScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        appVm = vm,
+                        id = entry.arguments?.getString("id").orEmpty()
+                    )
                 }
 
                 composable(Yol.QUIZ) {
                     // Tur QuizViewModel-dədir (naviqasiya girişinə bağlı) —
                     // proses ölümündən və döndərmədən sağ çıxır.
-                    QuizScreen(
-                        vm = viewModel(factory = AppViewModelFactory.Factory),
-                        rekordlar = quizRekordlari
-                    )
+                    QuizScreen(vm = viewModel(factory = AppViewModelFactory.Factory))
                 }
 
                 composable(Yol.MEYDAN) {
                     PlaygroundScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
-                        presets = presets,
-                        kompilyatorVersiyasi = kompilyator.versiya,
-                        xariciKod = meydanKodu,
-                        onXariciKodAlindi = { vm.meydanKodunuTemizle() }
+                        appVm = vm
                     )
                 }
 
                 composable(Yol.AXTARIS) {
                     SearchScreen(
-                        axtar = { vm.axtar(it) },
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
                         onSection = { nav.navigate(Yol.ders(it)) }
                     )
                 }
 
                 composable(Yol.TENZIMLEME) {
                     SettingsScreen(
-                        tema = tema,
-                        sriftOlcusu = srift,
-                        kodTamamlama = tamamlama,
-                        tereqqi = tereqqi,
-                        quizRekordlari = quizRekordlari,
-                        kompilyator = kompilyator,
-                        onTema = { vm.temaSec(it) },
-                        onSrift = { vm.sriftSec(it) },
-                        onTamamlama = { vm.tamamlamaSec(it) },
-                        onOxumaSifirla = {
-                            vm.oxumaTereqqisiniSifirla()
-                            bildir("Dərs təsdiqləri sıfırlandı")
-                        },
-                        onCalismaSifirla = {
-                            vm.calismaTereqqisiniSifirla()
-                            bildir("Çalışma tərəqqisi sıfırlandı")
-                        },
-                        onHamisiSifirla = {
-                            vm.hamisiniSifirla()
-                            bildir("Bütün tərəqqi sıfırlandı")
-                        }
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        appVm = vm
                     )
                 }
             }
@@ -424,11 +364,4 @@ private fun basliqUcun(
     Yol.AXTARIS -> "Axtarış"
     Yol.TENZIMLEME -> "Tənzimləmələr"
     else -> "KotlinAZ"
-}
-
-@Composable
-private fun BosEkran(metn: String) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(metn, color = KAz.colors.textFaint)
-    }
 }

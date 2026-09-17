@@ -7,7 +7,12 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import az.kotlinaz.app.KotlinAzApp
 import az.kotlinaz.app.data.AppContainer
+import az.kotlinaz.app.ui.lessons.LessonsViewModel
 import az.kotlinaz.app.ui.quiz.QuizViewModel
+import az.kotlinaz.app.ui.search.SearchViewModel
+import az.kotlinaz.app.ui.settings.SettingsViewModel
+import az.kotlinaz.app.ui.exercises.ExerciseViewModel
+import az.kotlinaz.app.ui.playground.PlaygroundViewModel
 
 /** `CreationExtras`-dan tətbiqin asılılıq qrafına çıxış. */
 val CreationExtras.konteyner: AppContainer
@@ -37,6 +42,16 @@ object AppViewModelFactory {
         initializer {
             val c = konteyner
             QuizViewModel(c.contentRepository, c.userPrefs, createSavedStateHandle())
+        }
+        initializer {
+            val c = konteyner
+            LessonsViewModel(c.contentRepository, c.userPrefs)
+        }
+        initializer {
+            SearchViewModel(konteyner.contentRepository, createSavedStateHandle())
+        }
+        initializer {
+            SettingsViewModel(konteyner.userPrefs)
         }
     }
 }

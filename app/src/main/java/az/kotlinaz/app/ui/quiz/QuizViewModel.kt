@@ -48,6 +48,10 @@ class QuizViewModel(
     val secim: StateFlow<Int?> = state.getStateFlow<Int?>(SECIM, null)
     val bitdi: StateFlow<Boolean> = state.getStateFlow(BITDI, false)
 
+    /** Rejim üzrə rekordlar: `"junior"` → bal. Rejim kartlarında və nəticədə göstərilir. */
+    val rekordlar: StateFlow<Map<String, Int>> =
+        prefs.quizRekordlari.stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
+
     /**
      * Turun sualları, saxlanmış sıra ilə. ID hovuzda yoxdursa (məzmun dəyişib)
      * o sual atılır; belə hal yalnız bərpada mümkündür və [init] onu tutub

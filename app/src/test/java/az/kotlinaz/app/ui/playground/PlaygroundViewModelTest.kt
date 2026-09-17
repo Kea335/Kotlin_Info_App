@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui
+package az.kotlinaz.app.ui.playground
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle

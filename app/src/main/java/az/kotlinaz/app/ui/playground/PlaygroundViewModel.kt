@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui
+package az.kotlinaz.app.ui.playground
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

@@ -3,11 +3,9 @@ package az.kotlinaz.app.ui
 import az.kotlinaz.app.data.ContentRepository
 import az.kotlinaz.app.data.FakeContentRepository
 import az.kotlinaz.app.data.KotlinCompiler
-import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.YaddasDataStore
 import az.kotlinaz.app.data.model.ExerciseTopic
-import az.kotlinaz.app.data.model.SearchDoc
 import az.kotlinaz.app.data.model.Section
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,32 +67,25 @@ class AppViewModelTest {
     }
 
     @Test
-    fun `axtaris fake sened indeksi uzerinde isleyir`() = runTest(dispatcher) {
-        val repo = FakeContentRepository(
-            senedler = listOf(
-                SearchDoc(id = "ns", title = "Null təhlükəsizliyi", text = "Elvis operatoru ?: null üçün"),
-                SearchDoc(id = "fn", title = "Funksiyalar", text = "fun açar sözü")
-            )
-        )
-        val vm = vm(repo)
-
-        assertEquals(listOf("ns"), vm.axtar("elvis").map { it.id })
-        assertTrue(vm.axtar("").isEmpty())
-    }
-
-    @Test
-    fun `tenzimleme yaddasdaki prefs-e yazilir ve axinda gorunur`() = runTest(dispatcher) {
+    fun `tereqqi prefs-deki hell edilmis coxlugundan hesablanir`() = runTest(dispatcher) {
         val prefs = UserPrefs(YaddasDataStore())
         val vm = vm(FakeContentRepository(), prefs)
 
-        assertEquals(ThemeMode.SYSTEM, vm.tema.value)
-        vm.temaSec(ThemeMode.DARK)
-        assertEquals(ThemeMode.DARK, vm.tema.value)
-
-        vm.calismaniHellIsaretle("intro-t-1")
+        assertTrue(vm.hellEdilmis.value.isEmpty())
+        prefs.calismaniHellIsaretle("intro-t-1")
         assertEquals(setOf("intro-t-1"), vm.hellEdilmis.value)
 
-        vm.hamisiniSifirla()
+        prefs.hamisiniSifirla()
         assertTrue(vm.hellEdilmis.value.isEmpty())
+    }
+
+    @Test
+    fun `meydana gonderilen kod oxunub temizlenir`() = runTest(dispatcher) {
+        val vm = vm(FakeContentRepository())
+        assertNull(vm.meydanKodu.value)
+        vm.meydanaGonder("println(1)")
+        assertEquals("println(1)", vm.meydanKodu.value)
+        vm.meydanKodunuTemizle()
+        assertNull(vm.meydanKodu.value)
     }
 }

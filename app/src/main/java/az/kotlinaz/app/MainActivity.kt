@@ -15,6 +15,7 @@ import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.ui.AppRoot
 import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.AppViewModelFactory
+import az.kotlinaz.app.ui.settings.SettingsViewModel
 import az.kotlinaz.app.ui.theme.KotlinAzTheme
 
 /** Tətbiqin yeganə Activity-si — bütün ekranlar Compose naviqasiyası ilə onun içindədir. */
@@ -28,11 +29,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val vm: AppViewModel = viewModel(factory = AppViewModelFactory.Factory)
-
-            // Tema, şrift ölçüsü və tamamlama tənzimləməsi DataStore-dadır — cihazda qalır.
-            val tema by vm.tema.collectAsStateWithLifecycle()
-            val srift by vm.sriftOlcusu.collectAsStateWithLifecycle()
-            val tamamlama by vm.kodTamamlama.collectAsStateWithLifecycle()
+            // Tema, şrift ölçüsü və tamamlama tənzimləməsi DataStore-dadır — cihazda
+            // qalır. Activity-yə bağlı SettingsViewModel nüsxəsi onları oxuyur.
+            val tenzimleme: SettingsViewModel = viewModel(factory = AppViewModelFactory.Factory)
+            val tema by tenzimleme.tema.collectAsStateWithLifecycle()
+            val srift by tenzimleme.sriftOlcusu.collectAsStateWithLifecycle()
+            val tamamlama by tenzimleme.kodTamamlama.collectAsStateWithLifecycle()
 
             // Tətbiqin ƏSL rejimi: «Sistem» seçilibsə cihazın rejimi, əks halda
             // istifadəçinin seçimi. Aşağıdakı sistem zolaqları da bunu izləməlidir.

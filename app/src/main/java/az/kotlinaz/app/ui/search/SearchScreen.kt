@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,10 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,29 +39,40 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.SearchNetice
 import az.kotlinaz.app.ui.theme.KAz
 
 /** Oflayn tam mətn axtarışı — bütün 32 bölmə üzrə. */
 @Composable
 fun SearchScreen(
-    axtar: (String) -> List<SearchNetice>,
+    vm: SearchViewModel,
     modifier: Modifier = Modifier,
     onSection: (String) -> Unit
 ) {
+    // Sorğu mətni ViewModel-in SavedStateHandle-ındadır — döndərmə və proses
+    // ölümündən sağ çıxır (T2.4); nəticələr orada hesablanır.
+    val sorgu by vm.sorgu.collectAsStateWithLifecycle()
+    val neticeler by vm.neticeler.collectAsStateWithLifecycle()
+    SearchContent(sorgu, neticeler, modifier, onSorgu = { vm.sorguDeyisdi(it) }, onSection = onSection)
+}
+
+/** Saf render — bütün vəziyyət parametrlə gəlir. */
+@Composable
+private fun SearchContent(
+    sorgu: String,
+    neticeler: List<SearchNetice>,
+    modifier: Modifier = Modifier,
+    onSorgu: (String) -> Unit,
+    onSection: (String) -> Unit
+) {
     val c = KAz.colors
-    // Sorğu mətni döndərmə və proses ölümündən sağ çıxır (T2.4).
-    var sorgu by rememberSaveable { mutableStateOf("") }
     val fokus = remember { FocusRequester() }
 
     // DÜZƏLİŞ: FocusRequester yaradılıb sahəyə bağlanmışdı, amma heç vaxt
     // requestFocus() çağırılmırdı — yəni axtarış ekranı açılanda kursor da,
     // klaviatura da gəlmirdi, istifadəçi əlavə bir dəfə toxunmalı olurdu.
     LaunchedEffect(Unit) { fokus.requestFocus() }
-
-    // Nəticələr sorğu dəyişəndə yenidən hesablanır. Axtarış oflayn indeksdə,
-    // əvvəlcədən kiçik hərfə salınmış mətndə gedir (bax: AppViewModel.axtar).
-    val neticeler = remember(sorgu) { axtar(sorgu) }
 
     Column(modifier.fillMaxSize()) {
         // Axtarış sahəsi
@@ -96,7 +104,7 @@ fun SearchScreen(
                 }
                 BasicTextField(
                     value = sorgu,
-                    onValueChange = { sorgu = it },
+                    onValueChange = onSorgu,
                     singleLine = true,
                     textStyle = TextStyle(
                         color = c.text,
@@ -115,7 +123,7 @@ fun SearchScreen(
                     tint = c.textFaint,
                     modifier = Modifier
                         .size(18.dp)
-                        .clickable { sorgu = "" }
+                        .clickable { onSorgu("") }
                 )
             }
         }

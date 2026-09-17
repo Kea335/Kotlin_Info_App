@@ -1,4 +1,4 @@
-package az.kotlinaz.app.ui.screens
+package az.kotlinaz.app.ui.settings
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -40,12 +40,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.BuildConfig
 import az.kotlinaz.app.data.KompilyatorVersiyalari
 import az.kotlinaz.app.data.KompilyatorVeziyyeti
 import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.model.Level
+import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.quiz.QUIZ_SUAL_SAYI
 import az.kotlinaz.app.ui.quiz.QuizRejimi
@@ -57,6 +59,47 @@ private const val GITHUB = "https://github.com/Kea335"
 
 @Composable
 fun SettingsScreen(
+    vm: SettingsViewModel,
+    appVm: AppViewModel,
+    modifier: Modifier = Modifier
+) {
+    val bildir = LocalBildiris.current
+    val tema by vm.tema.collectAsStateWithLifecycle()
+    val srift by vm.sriftOlcusu.collectAsStateWithLifecycle()
+    val tamamlama by vm.kodTamamlama.collectAsStateWithLifecycle()
+    val quizRekordlari by vm.quizRekordlari.collectAsStateWithLifecycle()
+    val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
+    val kompilyator by appVm.kompilyator.collectAsStateWithLifecycle()
+
+    SettingsContent(
+        tema = tema,
+        sriftOlcusu = srift,
+        kodTamamlama = tamamlama,
+        tereqqi = tereqqi,
+        quizRekordlari = quizRekordlari,
+        kompilyator = kompilyator,
+        modifier = modifier,
+        onTema = { vm.temaSec(it) },
+        onSrift = { vm.sriftSec(it) },
+        onTamamlama = { vm.tamamlamaSec(it) },
+        onOxumaSifirla = {
+            vm.oxumaTereqqisiniSifirla()
+            bildir("Dərs təsdiqləri sıfırlandı")
+        },
+        onCalismaSifirla = {
+            vm.calismaTereqqisiniSifirla()
+            bildir("Çalışma tərəqqisi sıfırlandı")
+        },
+        onHamisiSifirla = {
+            vm.hamisiniSifirla()
+            bildir("Bütün tərəqqi sıfırlandı")
+        }
+    )
+}
+
+/** Saf render — bütün vəziyyət parametrlə gəlir. */
+@Composable
+private fun SettingsContent(
     tema: ThemeMode,
     sriftOlcusu: Int,
     kodTamamlama: Boolean,
