@@ -47,6 +47,8 @@ import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.ui.components.LocalBildiris
+import az.kotlinaz.app.ui.quiz.QUIZ_SUAL_SAYI
+import az.kotlinaz.app.ui.quiz.QuizRejimi
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.seviyyeRengi
 

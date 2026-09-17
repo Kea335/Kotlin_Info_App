@@ -13,7 +13,6 @@ import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.tereqqiHesabla
 import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.PlaygroundPreset
-import az.kotlinaz.app.data.model.QuizQuestion
 import az.kotlinaz.app.data.model.SearchDoc
 import az.kotlinaz.app.data.model.Section
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,9 +43,6 @@ class AppViewModel(
 
     private val _topics = MutableStateFlow<List<ExerciseTopic>>(emptyList())
     val topics: StateFlow<List<ExerciseTopic>> = _topics.asStateFlow()
-
-    private val _quiz = MutableStateFlow<List<QuizQuestion>>(emptyList())
-    val quiz: StateFlow<List<QuizQuestion>> = _quiz.asStateFlow()
 
     private val _presets = MutableStateFlow<List<PlaygroundPreset>>(emptyList())
     val presets: StateFlow<List<PlaygroundPreset>> = _presets.asStateFlow()
@@ -115,7 +111,6 @@ class AppViewModel(
             try {
                 _sections.value = repo.sections()
                 _topics.value = repo.exercises().topics
-                _quiz.value = repo.quiz().questions
                 _presets.value = repo.playground().presets
                 _searchDocs.value = repo.searchIndex().docs
 
@@ -156,9 +151,6 @@ class AppViewModel(
 
     fun calismaniHellIsaretle(id: String) =
         viewModelScope.launch { prefs.calismaniHellIsaretle(id) }
-
-    fun quizNeticesiniYaz(rejim: String, bal: Int) =
-        viewModelScope.launch { prefs.quizNeticesiniYaz(rejim, bal) }
 
     fun oxumaTereqqisiniSifirla() = viewModelScope.launch { prefs.oxumaTereqqisiniSifirla() }
 
