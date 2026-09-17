@@ -3,8 +3,8 @@ package az.kotlinaz.app.ui
 import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.QuizQuestion
 import az.kotlinaz.app.data.model.TheoryExercise
-import az.kotlinaz.app.ui.screens.QuizRejimi
-import az.kotlinaz.app.ui.screens.hovuzlariQur
+import az.kotlinaz.app.ui.quiz.QuizRejimi
+import az.kotlinaz.app.ui.quiz.hovuzlariQur
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

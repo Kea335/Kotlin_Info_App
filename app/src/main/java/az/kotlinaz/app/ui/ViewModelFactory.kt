@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import az.kotlinaz.app.KotlinAzApp
 import az.kotlinaz.app.data.AppContainer
+import az.kotlinaz.app.ui.quiz.QuizViewModel
 
 /** `CreationExtras`-dan tətbiqin asılılıq qrafına çıxış. */
 val CreationExtras.konteyner: AppContainer
@@ -32,6 +33,10 @@ object AppViewModelFactory {
         initializer {
             val c = konteyner
             ExerciseViewModel(c.compiler, c.userPrefs, createSavedStateHandle())
+        }
+        initializer {
+            val c = konteyner
+            QuizViewModel(c.contentRepository, c.userPrefs, createSavedStateHandle())
         }
     }
 }

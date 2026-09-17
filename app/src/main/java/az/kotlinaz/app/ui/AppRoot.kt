@@ -104,7 +104,6 @@ fun AppRoot(vm: AppViewModel) {
     val hazir by vm.hazir.collectAsStateWithLifecycle()
     val sections by vm.sections.collectAsStateWithLifecycle()
     val topics by vm.topics.collectAsStateWithLifecycle()
-    val quiz by vm.quiz.collectAsStateWithLifecycle()
     val presets by vm.presets.collectAsStateWithLifecycle()
     val hellEdilmis by vm.hellEdilmis.collectAsStateWithLifecycle()
     val quizRekordlari by vm.quizRekordlari.collectAsStateWithLifecycle()
@@ -353,12 +352,11 @@ fun AppRoot(vm: AppViewModel) {
                 }
 
                 composable(Yol.QUIZ) {
+                    // Tur QuizViewModel-dədir (naviqasiya girişinə bağlı) —
+                    // proses ölümündən və döndərmədən sağ çıxır.
                     QuizScreen(
-                        questions = quiz,
-                        // Səviyyə rejimləri sualları çalışma bankından götürür.
-                        topics = topics,
-                        rekordlar = quizRekordlari,
-                        onBitdi = { rejim, bal -> vm.quizNeticesiniYaz(rejim, bal) }
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        rekordlar = quizRekordlari
                     )
                 }
 

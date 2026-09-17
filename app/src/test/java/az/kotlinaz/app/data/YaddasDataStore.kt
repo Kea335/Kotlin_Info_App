@@ -16,7 +16,12 @@ class YaddasDataStore(baslangic: Preferences = emptyPreferences()) : DataStore<P
 
     override val data: Flow<Preferences> get() = veziyyet
 
+    /** Neçə dəfə yazılıb — «yalnız bir dəfə yazılır» testləri üçün. */
+    var yazmaSayi = 0
+        private set
+
     override suspend fun updateData(transform: suspend (t: Preferences) -> Preferences): Preferences {
+        yazmaSayi++
         val yeni = transform(veziyyet.value)
         veziyyet.value = yeni
         return yeni

@@ -1,17 +1,13 @@
 package az.kotlinaz.app.ui
 
 import az.kotlinaz.app.data.ContentRepository
+import az.kotlinaz.app.data.FakeContentRepository
 import az.kotlinaz.app.data.KotlinCompiler
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.YaddasDataStore
-import az.kotlinaz.app.data.model.Content
-import az.kotlinaz.app.data.model.ExerciseBank
 import az.kotlinaz.app.data.model.ExerciseTopic
-import az.kotlinaz.app.data.model.PlaygroundData
-import az.kotlinaz.app.data.model.QuizBank
 import az.kotlinaz.app.data.model.SearchDoc
-import az.kotlinaz.app.data.model.SearchIndex
 import az.kotlinaz.app.data.model.Section
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,23 +30,6 @@ import kotlin.test.assertTrue
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class AppViewModelTest {
-
-    /** Aktiv oxumayan repository: sabit kiçik məzmun, ya da istənilən istisna. */
-    private class FakeContentRepository(
-        private val bolmeler: List<Section> = emptyList(),
-        private val movzular: List<ExerciseTopic> = emptyList(),
-        private val senedler: List<SearchDoc> = emptyList(),
-        private val xeta: Exception? = null
-    ) : ContentRepository {
-        override suspend fun content(): Content {
-            xeta?.let { throw it }
-            return Content(sections = bolmeler)
-        }
-        override suspend fun exercises() = ExerciseBank(movzular)
-        override suspend fun quiz() = QuizBank()
-        override suspend fun playground() = PlaygroundData()
-        override suspend fun searchIndex() = SearchIndex(senedler)
-    }
 
     private val dispatcher = UnconfinedTestDispatcher()
 

@@ -27,12 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,56 +36,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import az.kotlinaz.app.data.model.ExerciseTopic
-import az.kotlinaz.app.data.model.Level
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.QuizQuestion
 import az.kotlinaz.app.ui.demos.DemoCode
+import az.kotlinaz.app.ui.quiz.QUIZ_SUAL_SAYI
+import az.kotlinaz.app.ui.quiz.QuizRejimi
+import az.kotlinaz.app.ui.quiz.QuizViewModel
 import az.kotlinaz.app.ui.theme.KAz
 import az.kotlinaz.app.ui.theme.KotlinBrush
 import az.kotlinaz.app.ui.theme.seviyyeRengi
 
-/** Bir turdakı sual sayı. Hovuz daha kiçikdirsə, olduğu qədər sual verilir. */
-const val QUIZ_SUAL_SAYI = 15
-
-/**
- * Testin rejimi.
- *
- * Səviyyə rejimləri sualları çalışma bankının nəzəri hissəsindən götürür —
- * orada hər sualın `level` sahəsi var. «Qarışıq» isə həm bankı, həm də
- * quiz.json-dakı ümumi sualları birləşdirir.
- */
-enum class QuizRejimi(val id: String, val label: String, val seviyye: Level?) {
-    JUNIOR("junior", "Junior", Level.JUNIOR),
-    MIDDLE("middle", "Middle", Level.MIDDLE),
-    SENIOR("senior", "Senior", Level.SENIOR),
-    QARISIQ("qarisiq", "Qarışıq", null);
-
-    val izah: String
-        get() = when (this) {
-            JUNIOR -> "Sintaksis, dəyişənlər, şərtlər, dövrlər — başlanğıc suallar."
-            MIDDLE -> "Kolleksiyalar, lambda, OYP, null təhlükəsizliyi."
-            SENIOR -> "Generics, korutinlər, delegatlar, incə detallar."
-            QARISIQ -> "Bütün səviyyələrdən təsadüfi seçim — əsl imtahan."
-        }
-}
-
 /**
  * Bilik testi — səviyyə üzrə bölünmüş, hər dəfə təsadüfi sıra ilə.
  * Tam oflayn işləyir.
+ *
+ * Turun vəziyyəti [QuizViewModel]-dədir (proses ölümündən sağ çıxır); bu
+ * Composable yalnız render edir və hadisə göndərir. Rejim və hovuz
+ * qurulması da oradadır — `ui/quiz/QuizHovuzu.kt`.
  */
 @Composable
 fun QuizScreen(
-    questions: List<QuizQuestion>,
-    topics: List<ExerciseTopic>,
+    vm: QuizViewModel,
     rekordlar: Map<String, Int>,
-    modifier: Modifier = Modifier,
-    onBitdi: (String, Int) -> Unit
+    modifier: Modifier = Modifier
 ) {
-    // Rejim üzrə sual hovuzları — məzmun dəyişməyincə bir dəfə qurulur.
-    val hovuzlar = remember(questions, topics) { hovuzlariQur(questions, topics) }
-
-    // null = rejim seçimi ekranı.
-    var rejim by remember { mutableStateOf<QuizRejimi?>(null) }
+    val hovuzlar by vm.hovuzlar.collectAsStateWithLifecycle()
+    val rejim by vm.rejim.collectAsStateWithLifecycle()
 
     val secilen = rejim
     if (secilen == null) {
@@ -98,53 +69,15 @@ fun QuizScreen(
             hovuzlar = hovuzlar,
             rekordlar = rekordlar,
             modifier = modifier,
-            onSec = { rejim = it }
+            onSec = { vm.rejimSec(it) }
         )
     } else {
         QuizTuru(
+            vm = vm,
             rejim = secilen,
-            hovuz = hovuzlar[secilen].orEmpty(),
             rekord = rekordlar[secilen.id] ?: 0,
-            modifier = modifier,
-            onBitdi = { bal -> onBitdi(secilen.id, bal) },
-            onRejimiDeyis = { rejim = null }
+            modifier = modifier
         )
-    }
-}
-
-/* ============================================================
-   Sual hovuzları
-   ============================================================ */
-
-internal fun hovuzlariQur(
-    questions: List<QuizQuestion>,
-    topics: List<ExerciseTopic>
-): Map<QuizRejimi, List<QuizQuestion>> {
-    // Bankdakı nəzəri çalışmalar səviyyəyə görə qruplaşdırılır.
-    val seviyyeUzre = mutableMapOf<Level, MutableList<QuizQuestion>>()
-    topics.forEach { t ->
-        t.nezeri.forEach { e ->
-            // Nəzəri çalışma testin sual formatına birbaşa uyğun gəlir; yalnız
-            // id-yə önlük əlavə olunur ki, quiz.json-dakılarla qarışmasın.
-            seviyyeUzre.getOrPut(Level.from(e.level)) { mutableListOf() }.add(
-                QuizQuestion(
-                    id = "q-${e.id}",
-                    q = e.q,
-                    code = e.code,
-                    opts = e.opts,
-                    a = e.a,
-                    exp = e.exp
-                )
-            )
-        }
-    }
-
-    return QuizRejimi.entries.associateWith { r ->
-        when (val lv = r.seviyye) {
-            // Qarışıq: quiz.json-dakı ümumi suallar + bütün bank.
-            null -> questions + seviyyeUzre.values.flatten()
-            else -> seviyyeUzre[lv].orEmpty()
-        }
     }
 }
 
@@ -277,39 +210,24 @@ private fun Nisan(metn: String, reng: Color) {
 
 @Composable
 private fun QuizTuru(
+    vm: QuizViewModel,
     rejim: QuizRejimi,
-    hovuz: List<QuizQuestion>,
     rekord: Int,
-    modifier: Modifier = Modifier,
-    onBitdi: (Int) -> Unit,
-    onRejimiDeyis: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     val c = KAz.colors
 
-    // `tur` — neçənci dəfə oynanılır. «Yenidən başla» onu artırır və bununla
-    // aşağıdakı bütün `remember`-lər sıfırlanır: suallar yenidən seçilir, bal,
-    // indeks və seçim təzələnir.
-    var tur by remember(rejim) { mutableIntStateOf(0) }
-
-    // Hovuzdan təsadüfi 15 sual — hər turda yeni dəst.
-    val suallar = remember(hovuz, tur) { hovuz.shuffled().take(QUIZ_SUAL_SAYI) }
-
-    var index by remember(rejim, tur) { mutableIntStateOf(0) }
-    var bal by remember(rejim, tur) { mutableIntStateOf(0) }
-    // Seçim həm turdan, həm indeksdən asılıdır: növbəti suala keçəndə sıfırlanır.
-    var secim by remember(rejim, tur, index) { mutableStateOf<Int?>(null) }
-    var bitdi by remember(rejim, tur) { mutableStateOf(false) }
+    val suallar by vm.suallar.collectAsStateWithLifecycle()
+    val index by vm.index.collectAsStateWithLifecycle()
+    val bal by vm.bal.collectAsStateWithLifecycle()
+    val secim by vm.secim.collectAsStateWithLifecycle()
+    val bitdi by vm.bitdi.collectAsStateWithLifecycle()
 
     val umumi = suallar.size
 
-    // Nəticə yalnız bir dəfə yazılır — `bitdi` false→true keçidində.
-    LaunchedEffect(bitdi) {
-        if (bitdi) onBitdi(bal)
-    }
-
     // Sistemin «geri» jesti turdan çıxıb rejim seçiminə qaytarır — əks halda
     // istifadəçi Test bölməsindən tamam çıxmalı olurdu.
-    BackHandler { onRejimiDeyis() }
+    BackHandler { vm.rejimiDeyis() }
 
     if (umumi == 0) return
 
@@ -324,8 +242,8 @@ private fun QuizTuru(
                     bal = bal,
                     umumi = umumi,
                     rekord = rekord,
-                    onYeniden = { tur++ },
-                    onRejimiDeyis = onRejimiDeyis
+                    onYeniden = { vm.yenidenBasla() },
+                    onRejimiDeyis = { vm.rejimiDeyis() }
                 )
             }
             return@LazyColumn
@@ -338,7 +256,7 @@ private fun QuizTuru(
                 text = "‹  Səviyyəni dəyiş",
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
-                    .clickable(onClick = onRejimiDeyis)
+                    .clickable { vm.rejimiDeyis() }
                     .padding(horizontal = 6.dp, vertical = 4.dp),
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint
@@ -420,10 +338,7 @@ private fun QuizTuru(
                         .border(1.dp, cerceve, RoundedCornerShape(11.dp))
                         // Cavab verildikdən sonra variantlar kilidlənir —
                         // ikinci toxunuş balı təkrar artıra bilməsin.
-                        .clickable(enabled = !cavabVerilib) {
-                            secim = i
-                            if (i == sual.a) bal++
-                        }
+                        .clickable(enabled = !cavabVerilib) { vm.cavabla(i) }
                         .padding(horizontal = 13.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -484,9 +399,7 @@ private fun QuizTuru(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(11.dp))
                         .background(KotlinBrush)
-                        .clickable {
-                            if (index == umumi - 1) bitdi = true else index++
-                        }
+                        .clickable { vm.novbeti() }
                         .padding(vertical = 13.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White,
