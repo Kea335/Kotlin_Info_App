@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "locale": "en",
+    "base": "az",
+    "updated": "2026-09-17"
+  },
+  "presets": {
+    "salam": {
+      "label": ""
+    },
+    "deyisenler": {
+      "label": ""
+    },
+    "sertler": {
+      "label": ""
+    },
+    "dovrler": {
+      "label": ""
+    },
+    "funksiyalar": {
+      "label": ""
+    },
+    "null": {
+      "label": ""
+    },
+    "kolleksiyalar": {
+      "label": ""
+    },
+    "dataclass": {
+      "label": ""
+    },
+    "sealed": {
+      "label": ""
+    },
+    "coroutine": {
+      "label": ""
+    }
+  }
+}

@@ -31,15 +31,26 @@ düyməsi bağlantı tələb edir.
 ```
 tools/                        məzmun boru xətti (Node.js)
   html-parse.js               asılılıqsız HTML parseri
-  build-content.js            sayt → JSON aktivləri
+  content-lib.js              ortaq: blok mətni, axtarış indeksi, tərcümə sahələri
+  build-content.js            sayt → baza (az) JSON aktivləri
   verify-content.js           məzmun itkisinin yoxlanması
+  test-blok-idleri.js         blok id-lərinin sabitlik testi (sayt lazımdır)
+  new-locale.js               yeni dil üçün boş overlay skeleti
+  build-locale.js             overlay + baza → dil aktivləri
+  validate-locales.js         overlay-lərin doğrulaması və tərcümə faizi
 
-app/src/main/assets/          oflayn məzmun (≈840 KB)
-  content.json                32 bölmə, bloklara ayrılmış
-  exercises.json              1250 çalışma
-  quiz.json                   15 ümumi sual (qarışıq rejimin hovuzuna əlavə olunur)
-  playground.json             10 nümunə kod
-  search.json                 axtarış indeksi
+localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
+  content.json, exercises.json, quiz.json, playground.json
+
+app/src/main/assets/content/  oflayn məzmun, dil başına bir qovluq
+  locales.json                mövcud dillər (build-locale.js yazır)
+  az/                         baza — saytdan qurulur (≈840 KB)
+    content.json              32 bölmə, bloklara ayrılmış, hər blokun sabit id-si
+    exercises.json            1250 çalışma
+    quiz.json                 15 ümumi sual (qarışıq rejimin hovuzuna əlavə olunur)
+    playground.json           10 nümunə kod
+    search.json               axtarış indeksi
+  en/                         overlay-dən qurulur; boş sahələr bazadan gəlir
 
 app/src/main/java/az/kotlinaz/app/
   data/                       modellər, repozitoriya, tərəqqi, kompilyator xidməti
@@ -91,6 +102,15 @@ Testlər və məzmun yoxlaması:
 ./gradlew test                                # JVM unit testləri
 ./gradlew lint                                # Android Lint — yeni xəbərdarlıq = xəta
 node tools/verify-content.js --assets-only    # aktivlərin bütövlüyü (sayt olmadan)
+node tools/validate-locales.js                # dil overlay-ləri və tərcümə faizi
+```
+
+Yeni dil əlavə etmək:
+
+```bash
+node tools/new-locale.js tr        # localization/tr/ — boş skelet
+node tools/build-locale.js tr      # assets/content/tr/ — çatışmayan sahə bazadan
+node tools/validate-locales.js tr  # struktur, texniki sahələr, faiz
 ```
 
 Lint `app/lint-baseline.xml`-ə görə işləyir (hazırda boşdur): baseline-da
