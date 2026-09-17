@@ -44,11 +44,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import az.kotlinaz.app.data.model.ExerciseTopic
+import az.kotlinaz.app.data.model.Section
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.LocalBolmeyeKec
 import az.kotlinaz.app.ui.components.LocalMeydanaGonder
@@ -63,33 +69,20 @@ import az.kotlinaz.app.ui.settings.SettingsScreen
 import az.kotlinaz.app.ui.theme.KAz
 import kotlinx.coroutines.launch
 
-// Naviqasiya ünvanları. `{id}` — NavHost-un parametr sintaksisidir; aşağıdakı
-// ders()/calisma() funksiyaları isə konkret ünvanı qurur.
-private object Yol {
-    const val DERSLER = "dersler"
-    const val DERS = "ders/{id}"
-    const val CALISMALAR = "calismalar"
-    const val CALISMA = "calisma/{id}"
-    const val QUIZ = "quiz"
-    const val MEYDAN = "meydan"
-    const val AXTARIS = "axtaris"
-    const val TENZIMLEME = "tenzimleme"
-
-    fun ders(id: String) = "ders/$id"
-    fun calisma(id: String) = "calisma/$id"
-}
-
+// Alt menyu elementi. `yol` — keçiləcək ünvan, `secilidir` — cari
+// destination bu tabdırmı (route tipinə görə, string müqayisəsi yoxdur).
 private data class AltMenyu(
-    val yol: String,
+    val yol: Any,
     val etiket: String,
-    val ikon: ImageVector
+    val ikon: ImageVector,
+    val secilidir: (NavDestination) -> Boolean
 )
 
 private val ALT_MENYU = listOf(
-    AltMenyu(Yol.DERSLER, "Dərslər", Icons.AutoMirrored.Outlined.MenuBook),
-    AltMenyu(Yol.CALISMALAR, "Çalışmalar", Icons.Outlined.EditNote),
-    AltMenyu(Yol.QUIZ, "Test", Icons.Outlined.School),
-    AltMenyu(Yol.MEYDAN, "Meydan", Icons.Outlined.Code)
+    AltMenyu(Yol.Dersler, "Dərslər", Icons.AutoMirrored.Outlined.MenuBook) { it.hasRoute<Yol.Dersler>() },
+    AltMenyu(Yol.Calismalar, "Çalışmalar", Icons.Outlined.EditNote) { it.hasRoute<Yol.Calismalar>() },
+    AltMenyu(Yol.Quiz, "Test", Icons.Outlined.School) { it.hasRoute<Yol.Quiz>() },
+    AltMenyu(Yol.Meydan, "Meydan", Icons.Outlined.Code) { it.hasRoute<Yol.Meydan>() }
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,7 +105,8 @@ fun AppRoot(vm: AppViewModel) {
     // Cari ünvan həm başlıq, həm «geri» düyməsi, həm də alt menyunun
     // seçili elementi üçün lazımdır.
     val backStack by nav.currentBackStackEntryAsState()
-    val cariYol = backStack?.destination?.route
+    val cariDest = backStack?.destination
+    val altMenyudayiq = cariDest != null && ALT_MENYU.any { it.secilidir(cariDest) }
 
     // Qısa bildiriş (snackbar) — mətn bloklarından da çağırıla bilsin deyə
     // CompositionLocal vasitəsilə aşağıya ötürülür.
@@ -124,13 +118,13 @@ fun AppRoot(vm: AppViewModel) {
     // heç nə etmirik — naməlum ünvana keçib «Bölmə tapılmadı» göstərməkdənsə.
     val bolmeyeKec: (String) -> Unit = { href ->
         val id = href.removePrefix("#")
-        if (sections.any { it.id == id }) nav.navigate(Yol.ders(id))
+        if (sections.any { it.id == id }) nav.navigate(Yol.Ders(id))
     }
 
     // Kod kartındakı «Meydan» düyməsi: kod ViewModel-ə qoyulur, sonra meydana keçilir.
     val meydanaGonder: (String) -> Unit = { kod ->
         vm.meydanaGonder(kod)
-        nav.navigate(Yol.MEYDAN) { launchSingleTop = true }
+        nav.navigate(Yol.Meydan) { launchSingleTop = true }
     }
 
     // Aktivlər hələ oxunur — fırlanğıc.
@@ -179,13 +173,13 @@ fun AppRoot(vm: AppViewModel) {
                 TopAppBar(
                     title = {
                         Text(
-                            text = basliqUcun(cariYol, sections, topics, backStack?.arguments?.getString("id")),
+                            text = basliqUcun(backStack, sections, topics),
                             style = MaterialTheme.typography.titleMedium,
                             color = c.text
                         )
                     },
                     navigationIcon = {
-                        if (cariYol !in ALT_MENYU.map { it.yol }) {
+                        if (!altMenyudayiq) {
                             IconButton(onClick = { nav.popBackStack() }) {
                                 Icon(
                                     Icons.AutoMirrored.Outlined.ArrowBack,
@@ -200,7 +194,7 @@ fun AppRoot(vm: AppViewModel) {
                         // yığına yeni bir «axtaris» ekranı qoyurdu — beş dəfə basan
                         // istifadəçi geri qayıtmaq üçün beş dəfə «geri» basmalı olurdu.
                         IconButton(onClick = {
-                            nav.navigate(Yol.AXTARIS) { launchSingleTop = true }
+                            nav.navigate(Yol.Axtaris) { launchSingleTop = true }
                         }) {
                             Icon(
                                 Icons.Outlined.Search,
@@ -210,7 +204,7 @@ fun AppRoot(vm: AppViewModel) {
                             )
                         }
                         IconButton(onClick = {
-                            nav.navigate(Yol.TENZIMLEME) { launchSingleTop = true }
+                            nav.navigate(Yol.Tenzimleme) { launchSingleTop = true }
                         }) {
                             Icon(
                                 Icons.Outlined.Settings,
@@ -229,7 +223,7 @@ fun AppRoot(vm: AppViewModel) {
             bottomBar = {
                 NavigationBar(containerColor = c.bgElev) {
                     ALT_MENYU.forEach { menyu ->
-                        val secili = cariYol == menyu.yol
+                        val secili = cariDest != null && menyu.secilidir(cariDest)
                         NavigationBarItem(
                             selected = secili,
                             onClick = {
@@ -237,7 +231,7 @@ fun AppRoot(vm: AppViewModel) {
                                 // qədər boşalır, hər tabın sürüşmə mövqeyi isə
                                 // saveState/restoreState ilə saxlanılır.
                                 nav.navigate(menyu.yol) {
-                                    popUpTo(Yol.DERSLER) { saveState = true }
+                                    popUpTo(Yol.Dersler) { saveState = true }
                                     launchSingleTop = true
                                     restoreState = true
                                 }
@@ -264,7 +258,7 @@ fun AppRoot(vm: AppViewModel) {
         ) { padding ->
             NavHost(
                 navController = nav,
-                startDestination = Yol.DERSLER,
+                startDestination = Yol.Dersler,
                 modifier = Modifier
                     // Scaffold-un verdiyi boşluq: yuxarıda panel, aşağıda alt menyu.
                     .padding(padding)
@@ -278,65 +272,65 @@ fun AppRoot(vm: AppViewModel) {
                     .consumeWindowInsets(padding)
                     .imePadding()
             ) {
-                composable(Yol.DERSLER) {
+                composable<Yol.Dersler> {
                     LessonsScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        onSection = { nav.navigate(Yol.ders(it)) }
+                        onSection = { nav.navigate(Yol.Ders(it)) }
                     )
                 }
 
-                composable(Yol.DERS) { entry ->
+                composable<Yol.Ders> { entry ->
                     LessonDetailScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        id = entry.arguments?.getString("id").orEmpty(),
-                        onNavigate = { nav.navigate(Yol.ders(it)) },
-                        onQuiz = { nav.navigate(Yol.QUIZ) },
-                        onPlayground = { nav.navigate(Yol.MEYDAN) },
-                        onExercises = { nav.navigate(Yol.CALISMALAR) },
-                        onMovzu = { nav.navigate(Yol.calisma(it)) }
+                        id = entry.toRoute<Yol.Ders>().id,
+                        onNavigate = { nav.navigate(Yol.Ders(it)) },
+                        onQuiz = { nav.navigate(Yol.Quiz) },
+                        onPlayground = { nav.navigate(Yol.Meydan) },
+                        onExercises = { nav.navigate(Yol.Calismalar) },
+                        onMovzu = { nav.navigate(Yol.Calisma(it)) }
                     )
                 }
 
-                composable(Yol.CALISMALAR) {
+                composable<Yol.Calismalar> {
                     ExercisesScreen(
                         appVm = vm,
-                        onTopic = { nav.navigate(Yol.calisma(it)) }
+                        onTopic = { nav.navigate(Yol.Calisma(it)) }
                     )
                 }
 
-                composable(Yol.CALISMA) { entry ->
+                composable<Yol.Calisma> { entry ->
                     // ViewModel naviqasiya girişinə bağlıdır: mövzu başına
                     // bir nüsxə, geri qayıdanda vəziyyət və gedən sorğu qalır.
                     ExercisePlayerScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        id = entry.arguments?.getString("id").orEmpty()
+                        id = entry.toRoute<Yol.Calisma>().id
                     )
                 }
 
-                composable(Yol.QUIZ) {
+                composable<Yol.Quiz> {
                     // Tur QuizViewModel-dədir (naviqasiya girişinə bağlı) —
                     // proses ölümündən və döndərmədən sağ çıxır.
                     QuizScreen(vm = viewModel(factory = AppViewModelFactory.Factory))
                 }
 
-                composable(Yol.MEYDAN) {
+                composable<Yol.Meydan> {
                     PlaygroundScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm
                     )
                 }
 
-                composable(Yol.AXTARIS) {
+                composable<Yol.Axtaris> {
                     SearchScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
-                        onSection = { nav.navigate(Yol.ders(it)) }
+                        onSection = { nav.navigate(Yol.Ders(it)) }
                     )
                 }
 
-                composable(Yol.TENZIMLEME) {
+                composable<Yol.Tenzimleme> {
                     SettingsScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm
@@ -347,21 +341,31 @@ fun AppRoot(vm: AppViewModel) {
     }
 }
 
-// Yuxarı paneldəki başlıq — cari ünvana görə seçilir. Dərs və çalışma
-// ekranlarında başlıq məzmundan gəlir, ona görə id lazımdır.
+// Yuxarı paneldəki başlıq — cari ünvanın tipinə görə seçilir. Dərs və
+// çalışma ekranlarında başlıq məzmundan gəlir; id route-dan tipli oxunur.
+// Composable-dır: T3.4-dən sonra başlıqlar stringResource ilə gələcək.
+@Composable
 private fun basliqUcun(
-    yol: String?,
-    sections: List<az.kotlinaz.app.data.model.Section>,
-    topics: List<az.kotlinaz.app.data.model.ExerciseTopic>,
-    id: String?
-): String = when (yol) {
-    Yol.DERSLER -> "KotlinAZ"
-    Yol.DERS -> sections.firstOrNull { it.id == id }?.title ?: "Dərs"
-    Yol.CALISMALAR -> "Çalışmalar"
-    Yol.CALISMA -> topics.firstOrNull { it.id == id }?.title ?: "Çalışma"
-    Yol.QUIZ -> "Bilik testi"
-    Yol.MEYDAN -> "Kod meydanı"
-    Yol.AXTARIS -> "Axtarış"
-    Yol.TENZIMLEME -> "Tənzimləmələr"
-    else -> "KotlinAZ"
+    entry: NavBackStackEntry?,
+    sections: List<Section>,
+    topics: List<ExerciseTopic>
+): String {
+    val dest = entry?.destination ?: return "KotlinAZ"
+    return when {
+        dest.hasRoute<Yol.Dersler>() -> "KotlinAZ"
+        dest.hasRoute<Yol.Ders>() -> {
+            val id = entry.toRoute<Yol.Ders>().id
+            sections.firstOrNull { it.id == id }?.title ?: "Dərs"
+        }
+        dest.hasRoute<Yol.Calismalar>() -> "Çalışmalar"
+        dest.hasRoute<Yol.Calisma>() -> {
+            val id = entry.toRoute<Yol.Calisma>().id
+            topics.firstOrNull { it.id == id }?.title ?: "Çalışma"
+        }
+        dest.hasRoute<Yol.Quiz>() -> "Bilik testi"
+        dest.hasRoute<Yol.Meydan>() -> "Kod meydanı"
+        dest.hasRoute<Yol.Axtaris>() -> "Axtarış"
+        dest.hasRoute<Yol.Tenzimleme>() -> "Tənzimləmələr"
+        else -> "KotlinAZ"
+    }
 }
