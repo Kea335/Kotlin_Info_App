@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.BolmeTereqqisi
+import az.kotlinaz.app.data.model.IdliBlok
 import az.kotlinaz.app.data.model.Section
 import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.components.BlockView
@@ -155,10 +156,11 @@ private fun LessonDetailContent(
         // Hər blok ayrıca element kimi verilir — LazyColumn yalnız ekranda
         // görünənləri qurur. Ən uzun bölmədə 50+ blok var; hamısını birdən
         // qurmaq açılışı gözəçarpan dərəcədə ləngidərdi.
-        // Açar indeksdən qurulur, çünki blokların öz id-si yoxdur.
+        // Açar blokun sabit id-sidir (T3.1); id-siz bloklar (hr, quiz,
+        // playground, demo) və köhnə aktivlər üçün mövqe işlədilir.
         itemsIndexed(
             items = section.blocks,
-            key = { index, _ -> "b$index" }
+            key = { index, blok -> (blok as? IdliBlok)?.id?.ifBlank { null } ?: "b$index" }
         ) { _, block ->
             BlockView(
                 block = block,

@@ -11,10 +11,12 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const crypto = require('crypto');
 const H = require('./html-parse');
 
 const SAYT = process.env.KOTLINAZ_WEB || path.resolve('C:/Users/PC-01/Desktop/kotlinweb');
-const HEDEF = path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets');
+// KOTLINAZ_HEDEF — testlərin aktivləri müvəqqəti qovluğa yazması üçün.
+const HEDEF = process.env.KOTLINAZ_HEDEF || path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets');
 
 if (!fs.existsSync(SAYT)) {
   console.error('XETA: sayt qovlugu tapilmadi: ' + SAYT);
@@ -377,6 +379,48 @@ function bolmeleriQur() {
 }
 
 /* ============================================================
+   3b. Sabit blok id-ləri (T3.1)
+   Hər mətn daşıyan blok (iç bloklar daxil) məzmunundan qurulan
+   sabit id alır: `<bolme>.<tip>.<sha1-8>`. Dəyişməyən blok həmişə
+   eyni id-ni alır; mətn dəyişsə id də dəyişir — tərcümə köhnəlib
+   deməkdir. Eyni bölmədə eyni mətnli bloklar `.2`, `.3` sonluğu alır.
+   ============================================================ */
+
+const IDSIZ = { hr: 1, quiz: 1, playground: 1, demo: 1 };
+
+function blokMetni(b) {
+  const topla = [];
+  bloklardanMetn([b], topla);
+  return topla.filter(Boolean).join(' ').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function blokId(sectionId, tip, metn) {
+  const h = crypto.createHash('sha1').update(metn, 'utf8').digest('hex').slice(0, 8);
+  return sectionId + '.' + tip + '.' + h;
+}
+
+function idleriVer(sectionId, blocks, gorulen) {
+  return (blocks || []).map((b) => {
+    if (!b || IDSIZ[b.t]) return b;
+    const esas = blokId(sectionId, b.t, blokMetni(b));
+    const n = (gorulen[esas] || 0) + 1;
+    gorulen[esas] = n;
+    const id = n === 1 ? esas : esas + '.' + n;
+    // `id` `t`-dən dərhal sonra gəlsin deyə obyekt yenidən qurulur.
+    const yeni = { t: b.t, id: id };
+    Object.keys(b).forEach((k) => { if (k !== 't') yeni[k] = b[k]; });
+    if (b.t === 'callout') yeni.blocks = idleriVer(sectionId, b.blocks, gorulen);
+    if (b.t === 'cards') yeni.items = b.items.map((it) => Object.assign({}, it, { blocks: idleriVer(sectionId, it.blocks, gorulen) }));
+    if (b.t === 'tabs') yeni.tabs = b.tabs.map((tb) => Object.assign({}, tb, { blocks: idleriVer(sectionId, tb.blocks, gorulen) }));
+    return yeni;
+  });
+}
+
+function blokIdleriniVer(sections) {
+  return sections.map((s) => Object.assign({}, s, { blocks: idleriVer(s.id, s.blocks, {}) }));
+}
+
+/* ============================================================
    4. JS mənbələrindən data çıxarışı
    ============================================================ */
 
@@ -590,7 +634,7 @@ console.log('Menbe : ' + SAYT);
 console.log('Hedef : ' + HEDEF);
 console.log('');
 
-const sections = bolmeleriQur();
+const sections = blokIdleriniVer(bolmeleriQur());
 const calismalar = calismalariQur();
 const quiz = quizQur();
 const presets = meydanNumuneleri();
