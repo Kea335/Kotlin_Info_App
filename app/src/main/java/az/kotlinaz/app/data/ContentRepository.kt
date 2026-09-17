@@ -42,7 +42,19 @@ interface ContentRepository {
  * Bütün məzmun tətbiqin daxilindədir — şəbəkə tələb olunmur.
  * Aktivlər ilk müraciətdə oxunur və yaddaşda saxlanılır.
  */
-class AssetContentRepository(private val context: Context) : ContentRepository {
+class AssetContentRepository(
+    private val context: Context,
+    /**
+     * Məzmun dili — `assets/content/<locale>/` qovluğu (T3.2). Baza `az`
+     * saytdan qurulur, qalanları `tools/build-locale.js` overlay-dən yaradır.
+     * Seçim mexanizmi T3.3-də gəlir; hələlik baza sabitdir.
+     */
+    private val locale: String = BAZA_LOCALE
+) : ContentRepository {
+
+    companion object {
+        const val BAZA_LOCALE = "az"
+    }
 
     private val json = AktivJson
 
@@ -73,9 +85,9 @@ class AssetContentRepository(private val context: Context) : ContentRepository {
     private val playgroundKesi = AktivKesi("playground.json") { json.decodeFromString<PlaygroundData>(it) }
     private val searchKesi = AktivKesi("search.json") { json.decodeFromString<SearchIndex>(it) }
 
-    // Fayl oxunuşu — IO sapında.
+    // Fayl oxunuşu — IO sapında, locale qovluğundan.
     private suspend fun oxu(ad: String): String = withContext(Dispatchers.IO) {
-        context.assets.open(ad).bufferedReader().use { it.readText() }
+        context.assets.open("content/$locale/$ad").bufferedReader().use { it.readText() }
     }
 
     override suspend fun content(): Content = contentKesi.al()

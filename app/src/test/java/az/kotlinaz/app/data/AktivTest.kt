@@ -12,6 +12,8 @@ import az.kotlinaz.app.data.model.SearchIndex
 import az.kotlinaz.app.data.model.TabsBlock
 import kotlinx.serialization.SerializationException
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotEquals
@@ -25,12 +27,34 @@ import kotlin.test.assertTrue
  * Sayılar (32 / 25 / 625 / 15 / 10) BİLƏRƏKDƏN sabitdir: məzmun boru xətti
  * səhvən bölmə itirsə test dərhal qırmızı olur. Məzmun genişlənəndə sayı
  * yeniləmək normaldır — əsas odur ki, itki səssiz qalmasın.
+ *
+ * Testlər hər dil qovluğu üçün təkrarlanır (T3.2): `content/locales.json`
+ * siyahısındakı hər locale eyni struktur və sayları verməlidir — tərcümə
+ * overlay-i bölmə, çalışma və ya sual itirə bilməz.
  */
-class AktivTest {
+@RunWith(Parameterized::class)
+class AktivTest(private val locale: String) {
 
-    private fun aktiv(ad: String): String =
-        checkNotNull(javaClass.classLoader?.getResourceAsStream(ad)) { "$ad tapılmadı" }
-            .bufferedReader().use { it.readText() }
+    companion object {
+        private fun resurs(ad: String): String =
+            checkNotNull(AktivTest::class.java.classLoader?.getResourceAsStream(ad)) { "$ad tapılmadı" }
+                .bufferedReader().use { it.readText() }
+
+        @JvmStatic
+        @Parameterized.Parameters(name = "{0}")
+        fun localelar(): List<String> {
+            val siyahi = AktivJson.decodeFromString<LocaleSiyahisi>(resurs("content/locales.json"))
+            check(siyahi.locales.isNotEmpty() && AssetContentRepository.BAZA_LOCALE in siyahi.locales) {
+                "locales.json bazanı (${AssetContentRepository.BAZA_LOCALE}) əhatə etmir"
+            }
+            return siyahi.locales
+        }
+    }
+
+    @kotlinx.serialization.Serializable
+    private data class LocaleSiyahisi(val base: String, val locales: List<String>)
+
+    private fun aktiv(ad: String): String = resurs("content/$locale/$ad")
 
     // Hər aktiv bir dəfə decode olunur — sinif nüsxəsi hər test üçün yenidir,
     // amma 840 KB JSON üçün bu, saniyənin hissəsidir.

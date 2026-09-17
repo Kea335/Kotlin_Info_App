@@ -35,6 +35,11 @@ jobs:
       - name: Məzmun yoxlaması
         run: node tools/verify-content.js --assets-only
 
+      # Overlay-lər bazaya uyğundur, texniki sahələr toxunulmayıb, aktivlər
+      # overlay-in cari halından qurulub (T3.2). Faiz aşağı olması xəta deyil.
+      - name: Dil yoxlaması
+        run: node tools/validate-locales.js
+
       - name: Unit testlər
         run: ./gradlew test --stacktrace
 

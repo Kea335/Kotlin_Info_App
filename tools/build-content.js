@@ -13,10 +13,13 @@ const path = require('path');
 const vm = require('vm');
 const crypto = require('crypto');
 const H = require('./html-parse');
+const { bloklardanMetn, axtarisIndeksi } = require('./content-lib');
 
 const SAYT = process.env.KOTLINAZ_WEB || path.resolve('C:/Users/PC-01/Desktop/kotlinweb');
 // KOTLINAZ_HEDEF — testlərin aktivləri müvəqqəti qovluğa yazması üçün.
-const HEDEF = process.env.KOTLINAZ_HEDEF || path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets');
+// Baza dil (az) saytdan qurulur — assets/content/az/. Digər dillər overlay-dən
+// tools/build-locale.js ilə yaranır (T3.2).
+const HEDEF = process.env.KOTLINAZ_HEDEF || path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets', 'content', 'az');
 
 if (!fs.existsSync(SAYT)) {
   console.error('XETA: sayt qovlugu tapilmadi: ' + SAYT);
@@ -569,54 +572,8 @@ function meydanNumuneleri() {
    5. Axtarış indeksi
    ============================================================ */
 
-function spanMetni(spans) {
-  return (spans || []).map((s) => (s.k === 'br' ? ' ' : s.v)).join('');
-}
-
-function bloklardanMetn(blocks, topla) {
-  (blocks || []).forEach((b) => {
-    if (!b) return;
-    switch (b.t) {
-      case 'h2': case 'h3': case 'h4': case 'h5':
-        topla.push(b.text); break;
-      case 'p':
-        topla.push(spanMetni(b.spans)); break;
-      case 'code':
-        topla.push(b.title); topla.push(b.code); break;
-      case 'callout':
-        topla.push(b.title); bloklardanMetn(b.blocks, topla); break;
-      case 'cards':
-        b.items.forEach((it) => { topla.push(it.title); bloklardanMetn(it.blocks, topla); });
-        break;
-      case 'table':
-        (b.head || []).forEach((r) => r.forEach((c) => topla.push(spanMetni(c))));
-        (b.rows || []).forEach((r) => r.forEach((c) => topla.push(spanMetni(c))));
-        break;
-      case 'list':
-        b.items.forEach((it) => topla.push(spanMetni(it))); break;
-      case 'timeline':
-        b.items.forEach((it) => { topla.push(it.year); topla.push(it.title); topla.push(spanMetni(it.desc)); });
-        break;
-      case 'tabs':
-        b.tabs.forEach((tb) => { topla.push(tb.label); bloklardanMetn(tb.blocks, topla); });
-        break;
-      case 'hero':
-        topla.push(b.badge); topla.push(spanMetni(b.title)); topla.push(b.sub);
-        (b.stats || []).forEach((s) => { topla.push(s.num); topla.push(s.lbl); });
-        break;
-      default: break;
-    }
-  });
-}
-
-function axtarisIndeksi(sections) {
-  return sections.map((s) => {
-    const parcalar = [s.title, s.heading, s.group, s.kicker];
-    bloklardanMetn(s.blocks, parcalar);
-    const metn = parcalar.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-    return { id: s.id, title: s.title, group: s.group, text: metn.slice(0, 24000) };
-  });
-}
+// spanMetni / bloklardanMetn / axtarisIndeksi — tools/content-lib.js-dədir (T3.2):
+// build-locale.js də eyni indeksi tərcümə olunmuş məzmundan qurur.
 
 /* ============================================================
    6. Yazı
