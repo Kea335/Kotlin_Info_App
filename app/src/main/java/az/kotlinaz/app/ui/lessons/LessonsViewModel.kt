@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.ContentRepository
 import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.model.Section
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -18,13 +18,20 @@ import kotlinx.coroutines.launch
  * Bölmə mənimsəməsi (`tereqqi`) burada yox, `AppViewModel`-dədir — dörd
  * ekran paylaşır.
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class LessonsViewModel(
     repo: ContentRepository,
     private val prefs: UserPrefs
 ) : ViewModel() {
 
-    private val _sections = MutableStateFlow<List<Section>>(emptyList())
-    val sections: StateFlow<List<Section>> = _sections.asStateFlow()
+    /**
+     * Bölmələr cari məzmun dilində. `repo.dil` dəyişəndə yenidən oxunur
+     * (T3.3); id-lər dildən asılı olmadığından açıq dərs yerində qalır.
+     * Aktiv AppViewModel tərəfindən artıq oxunub keşlənib — çağırış anidir.
+     */
+    val sections: StateFlow<List<Section>> =
+        repo.dil.mapLatest { repo.sections() }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     /**
      * Qrup → bölmələr. `groupBy` sıranı saxlayır (LinkedHashMap), ona görə
@@ -38,12 +45,7 @@ class LessonsViewModel(
     val sonBolme: StateFlow<String?> =
         prefs.sonBolme.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    init {
-        // Aktiv AppViewModel tərəfindən artıq oxunub keşlənib — bu çağırış anidir.
-        viewModelScope.launch { _sections.value = repo.sections() }
-    }
-
-    fun bolme(id: String): Section? = _sections.value.firstOrNull { it.id == id }
+    fun bolme(id: String): Section? = sections.value.firstOrNull { it.id == id }
 
     /** Dərs açılanda çağırılır — bölmə oxunmuş sayılmasa da mövqe yadda qalır. */
     fun sonBolmeniYaz(id: String) = viewModelScope.launch { prefs.sonBolmeniYaz(id) }

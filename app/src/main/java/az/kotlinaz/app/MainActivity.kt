@@ -2,11 +2,12 @@ package az.kotlinaz.app
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -16,10 +17,16 @@ import az.kotlinaz.app.ui.AppRoot
 import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.AppViewModelFactory
 import az.kotlinaz.app.ui.settings.SettingsViewModel
+import az.kotlinaz.app.ui.settings.appCompatCariDil
 import az.kotlinaz.app.ui.theme.KotlinAzTheme
 
-/** Tətbiqin yeganə Activity-si — bütün ekranlar Compose naviqasiyası ilə onun içindədir. */
-class MainActivity : ComponentActivity() {
+/**
+ * Tətbiqin yeganə Activity-si — bütün ekranlar Compose naviqasiyası ilə onun
+ * içindədir. `AppCompatActivity`: per-app dil seçimi (T3.3) AppCompat-ın
+ * `setApplicationLocales`-i ilə işləyir və 13-dən aşağı versiyalarda resurs
+ * konfiqurasiyasını məhz bu sinif sarır.
+ */
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Kənardan-kənara rejim: məzmun status və naviqasiya zolaqlarının
         // altına da uzanır. super.onCreate()-dən əvvəl çağırılır ki, pəncərə
@@ -32,6 +39,15 @@ class MainActivity : ComponentActivity() {
             // Tema, şrift ölçüsü və tamamlama tənzimləməsi DataStore-dadır — cihazda
             // qalır. Activity-yə bağlı SettingsViewModel nüsxəsi onları oxuyur.
             val tenzimleme: SettingsViewModel = viewModel(factory = AppViewModelFactory.Factory)
+
+            // Dil (T3.3): Activity hər yarananda — ilk açılış, dil dəyişməsi,
+            // sistem dilinin dəyişməsi — sistemin tətbiq etdiyi dil DataStore
+            // ilə uzlaşdırılır və məzmun qovluğu yenidən çözülür. ViewModel-lər
+            // Activity-dən uzun yaşadığı üçün bu, onların yeganə siqnalıdır.
+            LaunchedEffect(Unit) {
+                tenzimleme.sistemleUzlasdir(appCompatCariDil())
+                vm.sistemDiliniYenile()
+            }
             val tema by tenzimleme.tema.collectAsStateWithLifecycle()
             val srift by tenzimleme.sriftOlcusu.collectAsStateWithLifecycle()
             val tamamlama by tenzimleme.kodTamamlama.collectAsStateWithLifecycle()

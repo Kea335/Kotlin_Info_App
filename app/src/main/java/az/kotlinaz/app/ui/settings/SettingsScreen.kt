@@ -7,6 +7,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.BuildConfig
+import az.kotlinaz.app.data.AppDil
 import az.kotlinaz.app.data.KompilyatorVersiyalari
 import az.kotlinaz.app.data.KompilyatorVeziyyeti
 import az.kotlinaz.app.data.Tereqqi
@@ -65,6 +68,8 @@ fun SettingsScreen(
 ) {
     val bildir = LocalBildiris.current
     val tema by vm.tema.collectAsStateWithLifecycle()
+    val dil by vm.dil.collectAsStateWithLifecycle()
+    val mezmunDili by appVm.mezmunDili.collectAsStateWithLifecycle()
     val srift by vm.sriftOlcusu.collectAsStateWithLifecycle()
     val tamamlama by vm.kodTamamlama.collectAsStateWithLifecycle()
     val quizRekordlari by vm.quizRekordlari.collectAsStateWithLifecycle()
@@ -73,6 +78,8 @@ fun SettingsScreen(
 
     SettingsContent(
         tema = tema,
+        dil = dil,
+        mezmunDili = mezmunDili,
         sriftOlcusu = srift,
         kodTamamlama = tamamlama,
         tereqqi = tereqqi,
@@ -80,6 +87,7 @@ fun SettingsScreen(
         kompilyator = kompilyator,
         modifier = modifier,
         onTema = { vm.temaSec(it) },
+        onDil = { vm.dilSec(it) },
         onSrift = { vm.sriftSec(it) },
         onTamamlama = { vm.tamamlamaSec(it) },
         onOxumaSifirla = {
@@ -98,9 +106,14 @@ fun SettingsScreen(
 }
 
 /** Saf render — bütün vəziyyət parametrlə gəlir. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun SettingsContent(
     tema: ThemeMode,
+    /** Seçilmiş dil; null = sistem dili. */
+    dil: AppDil?,
+    /** Məzmunun faktiki dili — seçilən dildə tərcümə yoxdursa fərqlənir. */
+    mezmunDili: String,
     sriftOlcusu: Int,
     kodTamamlama: Boolean,
     tereqqi: Tereqqi,
@@ -110,6 +123,7 @@ private fun SettingsContent(
     kompilyator: KompilyatorVeziyyeti,
     modifier: Modifier = Modifier,
     onTema: (ThemeMode) -> Unit,
+    onDil: (AppDil?) -> Unit,
     onSrift: (Int) -> Unit,
     onTamamlama: (Boolean) -> Unit,
     onOxumaSifirla: () -> Unit,
@@ -167,6 +181,39 @@ private fun SettingsContent(
                 Text(
                     text = "Seçim bütün tətbiqə təsir edir — dərs mətni, düymələr " +
                         "və kod blokları birlikdə böyüyüb kiçilir.",
+                    style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
+                    color = c.textFaint
+                )
+            }
+        }
+
+        item {
+            Bolum("Dil") {
+                // Hər dil öz adı ilə — istifadəçi başa düşmədiyi dildəki siyahıda
+                // öz dilini tapa bilsin. «Sistem dili» birincidir.
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(7.dp),
+                    verticalArrangement = Arrangement.spacedBy(7.dp)
+                ) {
+                    Secim(etiket = "Sistem dili", aktiv = dil == null, yigcam = true) { onDil(null) }
+                    AppDil.entries.forEach { d ->
+                        Secim(etiket = d.ozAdi, aktiv = d == dil, yigcam = true) { onDil(d) }
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+                // Seçilən dildə məzmun hələ yoxdursa dərslər hansı dildə gəlir —
+                // istifadəçi «niyə dəyişmədi» deyə çaşmasın.
+                val secilenTeq = dil?.teq
+                val qeyd = if (secilenTeq != null && secilenTeq != mezmunDili) {
+                    val adi = AppDil.from(mezmunDili)?.ozAdi ?: mezmunDili
+                    "Bu dildə dərs məzmunu hələ hazır deyil — dərslər, çalışmalar və " +
+                        "test $adi dilində göstərilir. Tərcümə gəldikcə avtomatik keçəcək."
+                } else {
+                    "Dil dəyişəndə həm tətbiqin mətnləri, həm dərs məzmunu dəyişir; " +
+                        "tərəqqi və rekordlar olduğu kimi qalır."
+                }
+                Text(
+                    text = qeyd,
                     style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
                     color = c.textFaint
                 )
@@ -423,6 +470,8 @@ private fun Secim(
     etiket: String,
     aktiv: Boolean,
     modifier: Modifier = Modifier,
+    /** Sıraya bərabər bölünmür, öz eninə yığılır (dil çipləri). */
+    yigcam: Boolean = false,
     onClick: () -> Unit
 ) {
     val c = KAz.colors
@@ -437,7 +486,7 @@ private fun Secim(
                 RoundedCornerShape(9.dp)
             )
             .clickable(onClick = onClick)
-            .padding(vertical = 9.dp),
+            .padding(horizontal = if (yigcam) 12.dp else 0.dp, vertical = 9.dp),
         style = MaterialTheme.typography.labelMedium,
         color = if (aktiv) c.accent else c.textDim,
         fontWeight = if (aktiv) FontWeight.Bold else FontWeight.Normal,

@@ -54,4 +54,19 @@ class SearchViewModelTest {
         assertEquals("fun", vm.sorgu.value)
         assertEquals(listOf("fn"), vm.neticeler.value.map { it.id })
     }
+
+    @Test
+    fun `dil deyisende indeks hemin dilin senedlerinden yeniden qurulur`() = runTest(dispatcher) {
+        val ikiDilli = FakeContentRepository(
+            dilUzreSenedler = mapOf(
+                "az" to listOf(SearchDoc(id = "ns", title = "Null təhlükəsizliyi", text = "Elvis operatoru")),
+                "en" to listOf(SearchDoc(id = "ns", title = "Null safety", text = "The Elvis operator"))
+            )
+        )
+        val vm = SearchViewModel(ikiDilli, SavedStateHandle(mapOf("sorgu" to "safety")))
+        assertTrue(vm.neticeler.value.isEmpty())
+
+        ikiDilli.dilDeyisdi("en")
+        assertEquals(listOf("Null safety"), vm.neticeler.value.map { it.title })
+    }
 }

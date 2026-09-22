@@ -2,25 +2,38 @@ package az.kotlinaz.app.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import az.kotlinaz.app.data.AppDil
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /**
- * Tənzimləmələr (T2.5): tema, şrift, tamamlama, rekordlar və sıfırlamalar.
+ * Tənzimləmələr (T2.5): tema, dil, şrift, tamamlama, rekordlar və sıfırlamalar.
  * Hamısı DataStore-dadır — bu ViewModel yalnız oxuyub yazır.
  *
  * `MainActivity` də tema/şrift/tamamlama üçün bunu işlədir (Activity-yə
  * bağlı nüsxə); tənzimləmə ekranı naviqasiya girişinə bağlı öz nüsxəsini
  * alır — ikisi eyni DataStore axınını oxuduğundan fərq görünmür.
+ *
+ * Dil seçimi (T3.3) iki yerə yazılır: DataStore (məzmun qovluğu və bu
+ * ekranın seçimi üçün) və [dilTetbiqEt] (AppCompat — UI resursları üçün).
  */
-class SettingsViewModel(private val prefs: UserPrefs) : ViewModel() {
+class SettingsViewModel(
+    private val prefs: UserPrefs,
+    /** Seçimi sistemə tətbiq edir (`appCompatDiliTetbiqEt`); testdə boşdur. */
+    private val dilTetbiqEt: (AppDil?) -> Unit = {}
+) : ViewModel() {
 
     val tema: StateFlow<ThemeMode> =
         prefs.tema.stateIn(viewModelScope, SharingStarted.Eagerly, ThemeMode.SYSTEM)
+
+    /** Seçilmiş dil; null = «Sistem dili». */
+    val dil: StateFlow<AppDil?> =
+        prefs.dil.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /** Yazı ölçüsü — 0 kiçik, 1 normal, 2 böyük. */
     val sriftOlcusu: StateFlow<Int> =
@@ -34,6 +47,26 @@ class SettingsViewModel(private val prefs: UserPrefs) : ViewModel() {
         prefs.quizRekordlari.stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
 
     fun temaSec(mode: ThemeMode) = viewModelScope.launch { prefs.temaSec(mode) }
+
+    /**
+     * Dil seçimi. Əvvəl DataStore — `AppViewModel` məzmunu ondan yenidən
+     * yükləyir; sonra AppCompat — Activity yenidən yaranır. Sıra vacibdir:
+     * yenidən yaranan Activity DataStore-da artıq yeni dili görməlidir.
+     */
+    fun dilSec(dil: AppDil?) = viewModelScope.launch {
+        prefs.dilSec(dil)
+        dilTetbiqEt(dil)
+    }
+
+    /**
+     * Android 13+-da istifadəçi dili sistem tənzimləmələrindən də dəyişə bilər —
+     * onda AppCompat-ın gördüyü dil DataStore-dakından fərqlənir. Activity hər
+     * yarananda çağırılır: fərq varsa sistemdəki əsas götürülür, DataStore
+     * ona uyğunlaşdırılır (məzmun qovluğu da ardınca dəyişir).
+     */
+    fun sistemleUzlasdir(sistemdeki: AppDil?) = viewModelScope.launch {
+        if (prefs.dil.first() != sistemdeki) prefs.dilSec(sistemdeki)
+    }
 
     fun sriftSec(olcu: Int) = viewModelScope.launch { prefs.sriftSec(olcu) }
 

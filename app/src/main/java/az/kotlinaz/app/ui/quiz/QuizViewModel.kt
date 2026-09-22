@@ -69,9 +69,14 @@ class QuizViewModel(
     val sehvIdleri: List<String> get() = _sehvler.toList()
 
     init {
+        // Hovuzlar məzmun dilində qurulur; dil dəyişəndə (T3.3) yenidən. Sual
+        // id-ləri dildən asılı deyil, ona görə gedən tur eyni suallarla, yeni
+        // dildə davam edir — `suallar` hovuzdan id ilə yığılır.
         viewModelScope.launch {
-            _hovuzlar.value = hovuzlariQur(repo.quiz().questions, repo.exercises().topics)
-            berpaniYoxla()
+            repo.dil.collect {
+                _hovuzlar.value = hovuzlariQur(repo.quiz().questions, repo.exercises().topics)
+                berpaniYoxla()
+            }
         }
     }
 
