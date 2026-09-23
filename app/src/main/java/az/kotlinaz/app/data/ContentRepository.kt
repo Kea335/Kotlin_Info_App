@@ -87,34 +87,15 @@ class AssetContentRepository(
         context.assets.open("content/locales.json").bufferedReader().use { it.readText() }
     }.let { json.decodeFromString<LocaleSiyahisi>(it).locales }
 
-    /**
-     * Bir aktivin keşi — öz kilidi ilə. İki ekran eyni anda eyni aktivi istəyə
-     * bilər (məsələn dərs və axtarış); kilid olmasa hər ikisi eyni faylı
-     * ayrı-ayrı oxuyub parse edərdi. Kilid aktiv başınadır (T2.6): müstəqil
-     * aktivlər paralel oxunur — tək ümumi kilid başlanğıcı ardıcıl edirdi.
-     */
-    private inner class AktivKesi<T : Any>(
-        private val ad: String,
-        private val parse: (String) -> T
-    ) {
-        private val kilid = Mutex()
-        /** Dəyər və oxunduğu dil — dil fərqlidirsə keş etibarsızdır. */
-        private var deyer: Pair<String, T>? = null
+    // Parse CPU işidir, ona görə Dispatchers.Default — UI sapı bloklanmasın.
+    // 183 KB JSON-un açılışı bir neçə yüz millisaniyə çəkir.
+    private fun <T : Any> aktivKesi(ad: String, parse: (String) -> T) =
+        DilKesi({ _dil.value }) { teq -> withContext(Dispatchers.Default) { parse(oxu(teq, ad)) } }
 
-        // Keşdə varsa dərhal qaytarılır, yoxdursa parse edilir. Parse CPU
-        // işidir, ona görə Dispatchers.Default — UI sapı bloklanmasın.
-        // 183 KB JSON-un açılışı bir neçə yüz millisaniyə çəkir.
-        suspend fun al(): T = kilid.withLock {
-            val teq = _dil.value
-            deyer?.takeIf { it.first == teq }?.second
-                ?: withContext(Dispatchers.Default) { parse(oxu(teq, ad)) }.also { deyer = teq to it }
-        }
-    }
-
-    private val contentKesi = AktivKesi("content.json") { json.decodeFromString<Content>(it) }
-    private val exercisesKesi = AktivKesi("exercises.json") { json.decodeFromString<ExerciseBank>(it) }
-    private val quizKesi = AktivKesi("quiz.json") { json.decodeFromString<QuizBank>(it) }
-    private val playgroundKesi = AktivKesi("playground.json") { json.decodeFromString<PlaygroundData>(it) }
+    private val contentKesi = aktivKesi("content.json") { json.decodeFromString<Content>(it) }
+    private val exercisesKesi = aktivKesi("exercises.json") { json.decodeFromString<ExerciseBank>(it) }
+    private val quizKesi = aktivKesi("quiz.json") { json.decodeFromString<QuizBank>(it) }
+    private val playgroundKesi = aktivKesi("playground.json") { json.decodeFromString<PlaygroundData>(it) }
 
     // Fayl oxunuşu — IO sapında, dil qovluğundan. Qovluq yoxdursa `en`, o da
     // yoxdursa baza: [mezmunDiliSec] onsuz da yalnız mövcud dilə çözür, bu
@@ -139,6 +120,30 @@ class AssetContentRepository(
     override suspend fun quiz(): QuizBank = quizKesi.al()
 
     override suspend fun playground(): PlaygroundData = playgroundKesi.al()
+}
+
+/**
+ * Bir aktivin dil üzrə keşi — öz kilidi ilə. İki ekran eyni anda eyni aktivi
+ * istəyə bilər (məsələn dərs və axtarış); kilid olmasa hər ikisi eyni faylı
+ * ayrı-ayrı oxuyub parse edərdi. Kilid aktiv başınadır (T2.6): müstəqil
+ * aktivlər paralel oxunur — tək ümumi kilid başlanğıcı ardıcıl edirdi.
+ *
+ * TƏK yer var: dəyər oxunduğu dillə birlikdə saxlanılır, dil fərqlidirsə
+ * yenidən yüklənir və köhnə dilin obyekti buraxılır — yaddaşda həmişə bir
+ * dilin məzmunu qalır, dil dəyişdikcə keş böyümür (T3.7).
+ */
+internal class DilKesi<T : Any>(
+    private val dil: () -> String,
+    private val yukle: suspend (String) -> T
+) {
+    private val kilid = Mutex()
+    /** Dəyər və oxunduğu dil — dil fərqlidirsə keş etibarsızdır. */
+    private var deyer: Pair<String, T>? = null
+
+    suspend fun al(): T = kilid.withLock {
+        val teq = dil()
+        deyer?.takeIf { it.first == teq }?.second ?: yukle(teq).also { deyer = teq to it }
+    }
 }
 
 /** `assets/content/locales.json` — baza dili və qurulmuş dil qovluqları. */
