@@ -1,5 +1,12 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.ui.isareler.IsareViewModel
+import az.kotlinaz.app.ui.isareler.IsareDuymesi
+import az.kotlinaz.app.ui.isareler.QeydDuymesi
+import az.kotlinaz.app.ui.isareler.QeydDialoqu
+import az.kotlinaz.app.ui.isareler.QeydKarti
+import az.kotlinaz.app.data.oyrenme.BookmarkTipi
+import androidx.compose.runtime.LaunchedEffect
 import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -80,9 +87,13 @@ import az.kotlinaz.app.ui.theme.seviyyeRengi
 fun ExercisePlayerScreen(
     vm: ExerciseViewModel,
     appVm: AppViewModel,
+    /** İşarə və qeydlər (T5.3). */
+    isareVm: IsareViewModel,
     /** Ünvandan gələn mövzu id-si. */
     id: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    /** İşarədən açılanda konkret çalışma (T5.3). */
+    hedef: String? = null
 ) {
     val hazir by appVm.movzularHazir.collectAsStateWithLifecycle()
     val topics by appVm.topics.collectAsStateWithLifecycle()
@@ -96,13 +107,15 @@ fun ExercisePlayerScreen(
         BosEkran(stringResource(R.string.calisma_movzu_yoxdur), modifier)
         return
     }
-    ExercisePlayerContent(vm, movzu, hellEdilmis, modifier)
+    LaunchedEffect(movzu.id, hedef) { if (hedef != null) vm.hedefeKec(movzu, hedef) }
+    ExercisePlayerContent(vm, isareVm, movzu, hellEdilmis, modifier)
 }
 
 /** Saf render — məzmun parametrlə, tur vəziyyəti [ExerciseViewModel]-dən gəlir. */
 @Composable
 private fun ExercisePlayerContent(
     vm: ExerciseViewModel,
+    isareVm: IsareViewModel,
     topic: ExerciseTopic,
     hellEdilmis: Set<String>,
     modifier: Modifier = Modifier
@@ -124,6 +137,14 @@ private fun ExercisePlayerContent(
     // Təhlükəsiz indeks: filtr siyahını qısaltsa belə diapazondan çıxmır.
     // (`index` çipləri basanda 0-a qaytarılır, bu isə ikinci qorunma qatıdır.)
     val cariIndex = index.coerceIn(0, (say - 1).coerceAtLeast(0))
+    val isareliler by isareVm.isareliIdler.collectAsStateWithLifecycle()
+    val qeydler by isareVm.qeydler.collectAsStateWithLifecycle()
+    var qeydAcik by rememberSaveable { mutableStateOf<String?>(null) }
+    val cariCalismaId = if (rejim == Rejim.NEZERI) {
+        nezeriSiyahi.getOrNull(cariIndex)?.id
+    } else {
+        praktikiSiyahi.getOrNull(cariIndex)?.id
+    }
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -183,6 +204,12 @@ private fun ExercisePlayerContent(
                         } else {
                             praktikiSiyahi.getOrNull(cariIndex)?.id
                         }
+                        if (cariId != null) {
+                            QeydDuymesi(qeydVar = cariId in qeydler) { qeydAcik = cariId }
+                            IsareDuymesi(isareli = cariId in isareliler) {
+                                isareVm.isareDeyis(cariId, BookmarkTipi.CALISMA)
+                            }
+                        }
                         if (cariId != null && hellEdilmis.contains(cariId)) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(
@@ -219,6 +246,14 @@ private fun ExercisePlayerContent(
                 }
 
                 Spacer(Modifier.height(14.dp))
+            }
+        }
+
+        // Cari çalışmanın öz qeydi (T5.3).
+        val cariQeyd = cariCalismaId?.let { qeydler[it] }
+        if (cariCalismaId != null && cariQeyd != null) {
+            item(key = "qeyd-$cariCalismaId") {
+                QeydKarti(cariQeyd, Modifier.padding(bottom = 12.dp)) { qeydAcik = cariCalismaId }
             }
         }
 
@@ -271,6 +306,16 @@ private fun ExercisePlayerContent(
             }
             Spacer(Modifier.height(28.dp))
         }
+    }
+
+    val q = qeydAcik
+    if (q != null) {
+        QeydDialoqu(
+            ilkin = qeydler[q].orEmpty(),
+            onSaxla = { isareVm.qeydYaz(q, it) },
+            onSil = { isareVm.qeydYaz(q, "") },
+            onBagla = { qeydAcik = null }
+        )
     }
 }
 

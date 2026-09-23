@@ -71,7 +71,8 @@ fun SettingsScreen(
     vm: SettingsViewModel,
     appVm: AppViewModel,
     modifier: Modifier = Modifier,
-    onSehvlerim: () -> Unit = {}
+    onSehvlerim: () -> Unit = {},
+    onIsareler: () -> Unit = {}
 ) {
     val bildir = LocalBildiris.current
     // Bildiriş mətnləri lambda-lardan əvvəl oxunur — onlar composable deyil.
@@ -101,6 +102,7 @@ fun SettingsScreen(
         kompilyator = kompilyator,
         sehvSayi = sehvSayi,
         onSehvlerim = onSehvlerim,
+        onIsareler = onIsareler,
         modifier = modifier,
         onTema = { vm.temaSec(it) },
         onDil = { vm.dilSec(it) },
@@ -142,6 +144,7 @@ private fun SettingsContent(
     /** Mənimsənilməmiş səhv sualların sayı (T5.2). */
     sehvSayi: Int,
     onSehvlerim: () -> Unit,
+    onIsareler: () -> Unit,
     modifier: Modifier = Modifier,
     onTema: (ThemeMode) -> Unit,
     onDil: (AppDil?) -> Unit,
@@ -294,6 +297,12 @@ private fun SettingsContent(
                     ust = stringResource(R.string.sehvlerim_basliq),
                     etiket = pluralStringResource(R.plurals.sehvlerim_sayi, sehvSayi, sehvSayi),
                     onClick = onSehvlerim
+                )
+                Spacer(Modifier.height(7.dp))
+                Kecid(
+                    ust = stringResource(R.string.ayarlar_isareler_izah),
+                    etiket = stringResource(R.string.isareler_basliq),
+                    onClick = onIsareler
                 )
 
                 Spacer(Modifier.height(10.dp))

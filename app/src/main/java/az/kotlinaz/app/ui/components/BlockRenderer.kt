@@ -121,7 +121,8 @@ fun BlockView(
             modifier = modifier.padding(vertical = 10.dp),
             title = block.title,
             output = block.output,
-            onOpenInPlayground = { meydanaGonder(it) }
+            onOpenInPlayground = { meydanaGonder(it) },
+            blokId = block.id
         )
 
         is Callout -> CalloutView(block, modifier)

@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui
 
+import androidx.compose.material.icons.outlined.CollectionsBookmark
+import az.kotlinaz.app.ui.isareler.IsarelerScreen
+import az.kotlinaz.app.ui.isareler.Kecid
 import az.kotlinaz.app.ui.quiz.QuizRejimi
 import az.kotlinaz.app.ui.sehvlerim.SehvlerimScreen
 import androidx.annotation.StringRes
@@ -195,6 +198,19 @@ fun AppRoot(vm: AppViewModel) {
                         }
                     },
                     actions = {
+                        // İşarələr və qeydlər (T5.3) — Dərslər ekranından birbaşa.
+                        if (cariDest?.hasRoute<Yol.Dersler>() == true) {
+                            IconButton(onClick = {
+                                nav.navigate(Yol.Isareler) { launchSingleTop = true }
+                            }) {
+                                Icon(
+                                    Icons.Outlined.CollectionsBookmark,
+                                    contentDescription = stringResource(R.string.isareler_basliq),
+                                    tint = c.textDim,
+                                    modifier = Modifier.size(21.dp)
+                                )
+                            }
+                        }
                         // DÜZƏLİŞ: launchSingleTop olmadan axtarış ikonuna hər toxunuş
                         // yığına yeni bir «axtaris» ekranı qoyurdu — beş dəfə basan
                         // istifadəçi geri qayıtmaq üçün beş dəfə «geri» basmalı olurdu.
@@ -287,10 +303,13 @@ fun AppRoot(vm: AppViewModel) {
                 }
 
                 composable<Yol.Ders> { entry ->
+                    val yol = entry.toRoute<Yol.Ders>()
                     LessonDetailScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        id = entry.toRoute<Yol.Ders>().id,
+                        isareVm = viewModel(factory = AppViewModelFactory.Factory),
+                        id = yol.id,
+                        blok = yol.blok,
                         onNavigate = { nav.navigate(Yol.Ders(it)) },
                         onQuiz = { nav.navigate(Yol.Quiz) },
                         onPlayground = { nav.navigate(Yol.Meydan) },
@@ -309,10 +328,13 @@ fun AppRoot(vm: AppViewModel) {
                 composable<Yol.Calisma> { entry ->
                     // ViewModel naviqasiya girişinə bağlıdır: mövzu başına
                     // bir nüsxə, geri qayıdanda vəziyyət və gedən sorğu qalır.
+                    val yol = entry.toRoute<Yol.Calisma>()
                     ExercisePlayerScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        id = entry.toRoute<Yol.Calisma>().id
+                        isareVm = viewModel(factory = AppViewModelFactory.Factory),
+                        id = yol.id,
+                        hedef = yol.hedef
                     )
                 }
 
@@ -322,6 +344,18 @@ fun AppRoot(vm: AppViewModel) {
                     QuizScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } }
+                    )
+                }
+
+                composable<Yol.Isareler> {
+                    IsarelerScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        onKecid = { k ->
+                            when (k) {
+                                is Kecid.Ders -> nav.navigate(Yol.Ders(k.bolmeId, k.blokId))
+                                is Kecid.Calisma -> nav.navigate(Yol.Calisma(k.movzuId, k.calismaId))
+                            }
+                        }
                     )
                 }
 
@@ -360,7 +394,8 @@ fun AppRoot(vm: AppViewModel) {
                     SettingsScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } }
+                        onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } },
+                        onIsareler = { nav.navigate(Yol.Isareler) { launchSingleTop = true } }
                     )
                 }
             }
@@ -393,6 +428,7 @@ private fun basliqUcun(
         dest.hasRoute<Yol.Axtaris>() -> stringResource(R.string.nav_axtaris)
         dest.hasRoute<Yol.Tenzimleme>() -> stringResource(R.string.nav_tenzimlemeler)
         dest.hasRoute<Yol.Sehvlerim>() -> stringResource(R.string.sehvlerim_basliq)
+        dest.hasRoute<Yol.Isareler>() -> stringResource(R.string.isareler_basliq)
         dest.hasRoute<Yol.SehvTesti>() -> stringResource(R.string.quiz_rejim_sehvler)
         else -> stringResource(R.string.app_name)
     }

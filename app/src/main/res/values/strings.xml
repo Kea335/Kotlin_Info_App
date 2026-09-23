@@ -370,4 +370,28 @@
     <string name="quiz_rejim_sehvler">Səhvlərdən test</string>
     <string name="quiz_rejim_sehvler_izah">Yalnız səhv cavab verdiyin suallar — iki dəfə ardıcıl düzgün cavab verəndə siyahıdan çıxır.</string>
     <string name="quiz_sehvlere_bax">Səhvlərə bax</string>
+
+    <!-- ===== İşarələr və qeydlər (T5.3) ===== -->
+    <string name="isareler_basliq">İşarələr və qeydlər</string>
+    <string name="isareler_tab_isareler">İşarələr · %1$d</string>
+    <string name="isareler_tab_qeydler">Qeydlər · %1$d</string>
+    <string name="isareler_bos">Hələ heç nə işarələməmisən. Dərsdə, çalışmada və ya kod nümunəsində işarə ikonuna toxun.</string>
+    <string name="qeydler_bos">Hələ qeydin yoxdur. Dərsdə və ya çalışmada qeyd ikonuna toxunub öz sözlərinlə yaz.</string>
+    <string name="isare_tip_bolme">Dərs</string>
+    <string name="isare_tip_calisma">Çalışma</string>
+    <string name="isare_tip_kod">Kod</string>
+    <string name="isare_elave">İşarələ</string>
+    <string name="isare_sil">İşarəni götür</string>
+    <string name="qeyd_basliq">Qeydim</string>
+    <string name="qeyd_elave">Qeyd yaz</string>
+    <string name="qeyd_redakte">Qeydi redaktə et</string>
+    <string name="qeyd_ipucu">Öz sözlərinlə yaz — nəyi yadda saxlamaq istəyirsən?</string>
+    <string name="qeyd_dil_izah">Qeyd tərcümə olunmur — dil dəyişəndə olduğu kimi qalır.</string>
+    <string name="qeyd_saxla">Saxla</string>
+    <string name="qeyd_sil">Sil</string>
+    <string name="qeyd_sil_basliq">Qeyd silinsin?</string>
+    <string name="qeyd_sil_metn">Bu qeyd həmişəlik silinəcək.</string>
+    <string name="qeyd_hamisi">Hamısını göstər</string>
+    <string name="qeyd_qisalt">Qısalt</string>
+    <string name="ayarlar_isareler_izah">İşarələr və qeydlər bu cihazda saxlanılır və Android yedəyinə düşür.</string>
 </resources>
