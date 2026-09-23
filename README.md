@@ -40,6 +40,7 @@ tools/                        məzmun boru xətti (Node.js)
   validate-locales.js         overlay-lərin doğrulaması və tərcümə faizi
   check-r8.js                 release-də @Serializable serializatorları saxlanılıbmı
   check-i18n.js               Kotlin kodunda hardcoded UI mətni (strings.xml-ə)
+  apk-budcesi.js              release APK-nın hissələr üzrə ölçüsü, 8 MB büdcə
 
 localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
   content.json, exercises.json, quiz.json, playground.json
@@ -132,7 +133,8 @@ olmayan hər tapıntı, xəbərdarlıq da olsa, build-i sındırır. Lokalda
 
 CI (`.github/workflows/android.yml`) hər push və PR-da eyni addımları
 işlədir: məzmun və dil yoxlaması → hardcoded mətn (`tools/check-i18n.js`) → test → lint → imzasız release build +
-R8 serializator yoxlaması (`tools/check-r8.js`) → debug build; APK artifact
+R8 serializator yoxlaması (`tools/check-r8.js`) → APK ölçüsü və 8 MB büdcə
+(`tools/apk-budcesi.js`) → debug build; APK artifact
 kimi yüklənir. Asılılıqları Dependabot (`.github/dependabot.yml`) həftəlik
 yeniləyir.
 
