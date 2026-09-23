@@ -1,11 +1,20 @@
 /* ============================================================
-   KotlinAZ — tərcümə overlay-lərindən dil aktivləri (T3.2)
+   KotlinAZ — tərcümə overlay-lərindən dil aktivləri (T3.2, T4.7)
 
    Bazanı (assets/content/az) oxuyur, localization/<lc>/ overlay-ini
-   ID üzrə tətbiq edir və assets/content/<lc>/ yazır. Çatışmayan və ya
-   boş sahə bazadan qalır («fallback»). search.json tərcümə olunmuş
-   məzmundan yenidən qurulur. Sonda assets/content/locales.json
-   yenilənir.
+   ID üzrə tətbiq edir və dil aktivlərini yazır. Çatışmayan və ya boş
+   sahə bazadan qalır («fallback»). search.json tərcümə olunmuş
+   məzmundan yenidən qurulur.
+
+   Dil qapısı (T4.7): 100 % tərcümə olunmuş dil app/src/main/assets-ə
+   (release), yarımçıq dil app/src/debug/assets-ə yazılır — yarımçıq
+   tərcümə istifadəçiyə çatmır, amma tərcüməçi debug build-də öz işini
+   görür. Dil 100 %-ə çatanda növbəti işlədilmədə özü main-ə keçir.
+
+   Sonda yenilənir:
+     main/assets/content/locales.json    baza + tam dillər (release)
+     debug/assets/content/locales.json   + yarımçıq dillər (debug)
+     main/res/xml/locales_config.xml     release-in sistem menyusu
 
    İşlətmək:  node tools/build-locale.js en
               node tools/build-locale.js --all
@@ -32,10 +41,18 @@ function localeQur(locale) {
     console.error('XETA: overlay qovlugu yoxdur: ' + qovluq + '  (node tools/new-locale.js ' + locale + ')');
     return false;
   }
-  const hedef = path.join(L.AKTIV_KOKU, locale);
+  const s = L.tamamlanma(locale);
+  const tam = L.tamdir(locale);
+  const koku = L.aktivKoku(locale);
+  const hedef = path.join(koku, locale);
+  // Dil status dəyişibsə (yarımçıq ↔ tam) köhnə yerdəki surət silinir —
+  // eyni dil iki source set-də qalsa debug-da hansının qalib gəldiyi bilinməz.
+  const diger = path.join(tam ? L.AKTIV_KOKU_DEBUG : L.AKTIV_KOKU, locale);
+  if (fs.existsSync(diger)) fs.rmSync(diger, { recursive: true, force: true });
   fs.mkdirSync(hedef, { recursive: true });
 
-  console.log(locale + ':');
+  const faiz = s.cemi ? Math.floor((s.var / s.cemi) * 100) : 100;
+  console.log(locale + ': ' + faiz + '% (' + s.var + '/' + s.cemi + ') → ' + (tam ? 'release (main)' : 'yalniz debug'));
   let content = null;
   L.FAYLLAR.forEach((ad) => {
     const baza = L.bazaOxu(ad);
@@ -66,12 +83,24 @@ function localeQur(locale) {
 let ugursuz = 0;
 localelar.forEach((lc) => { if (!localeQur(lc)) ugursuz++; });
 
-// Tətbiqin bildiyi dillər: baza + aktivi mövcud olan overlay dilləri.
-const movcud = [L.BAZA].concat(
-  L.localeSiyahisi().filter((lc) => fs.existsSync(path.join(L.AKTIV_KOKU, lc, 'content.json')))
-);
-fs.writeFileSync(path.join(L.AKTIV_KOKU, 'locales.json'), JSON.stringify({ base: L.BAZA, locales: movcud }) + '\n', 'utf8');
+// Dil siyahıları aktivlərin faktiki yerindən qurulur — yalnız bir dil
+// qurulanda da digər dillər siyahıdan düşmür.
+const aktivVar = (koku, lc) => fs.existsSync(path.join(koku, lc, 'content.json'));
+const release = [L.BAZA].concat(L.localeSiyahisi().filter((lc) => aktivVar(L.AKTIV_KOKU, lc)));
+const debugYalniz = L.localeSiyahisi().filter((lc) => aktivVar(L.AKTIV_KOKU_DEBUG, lc));
+
+fs.writeFileSync(path.join(L.AKTIV_KOKU, 'locales.json'), JSON.stringify({ base: L.BAZA, locales: release }) + '\n', 'utf8');
+const debugSiyahi = path.join(L.AKTIV_KOKU_DEBUG, 'locales.json');
+if (debugYalniz.length) {
+  fs.mkdirSync(L.AKTIV_KOKU_DEBUG, { recursive: true });
+  fs.writeFileSync(debugSiyahi, JSON.stringify({ base: L.BAZA, locales: release.concat(debugYalniz) }) + '\n', 'utf8');
+} else if (fs.existsSync(debugSiyahi)) {
+  fs.rmSync(debugSiyahi);
+}
+fs.writeFileSync(L.LOCALE_CONFIG, L.localeConfigMetni(release), 'utf8');
+
 console.log('');
-console.log('locales.json: ' + movcud.join(', '));
+console.log('release: ' + release.join(', '));
+console.log('debug:   ' + (debugYalniz.length ? release.concat(debugYalniz).join(', ') : '(release ile eyni)'));
 
 if (ugursuz) process.exit(1);

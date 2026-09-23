@@ -5,6 +5,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import az.kotlinaz.app.BuildConfig
 import az.kotlinaz.app.KotlinAzApp
 import az.kotlinaz.app.data.AppContainer
 import az.kotlinaz.app.ui.lessons.LessonsViewModel
@@ -52,8 +53,15 @@ object AppViewModelFactory {
             SearchViewModel(konteyner.contentRepository, createSavedStateHandle())
         }
         initializer {
-            // Dil seçimi DataStore-dan əlavə AppCompat-a da yazılır (T3.3).
-            SettingsViewModel(konteyner.userPrefs, dilTetbiqEt = ::appCompatDiliTetbiqEt)
+            val c = konteyner
+            SettingsViewModel(
+                c.userPrefs,
+                // Dil seçimi DataStore-dan əlavə AppCompat-a da yazılır (T3.3).
+                dilTetbiqEt = ::appCompatDiliTetbiqEt,
+                // Siyahıda yalnız qurulmuş (tam tərcümə olunmuş) dillər; debug-da hamısı (T4.7).
+                movcudDiller = c.contentRepository::diller,
+                hamisiGorunsun = BuildConfig.DEBUG
+            )
         }
     }
 }

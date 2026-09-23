@@ -78,3 +78,20 @@ fun mezmunDiliSec(secim: String?, sistem: List<String>, movcud: Collection<Strin
 
 /** Seçilmiş dildə məzmun yoxdursa əvvəl bu dilə, sonra bazaya düşülür. */
 const val MEZMUN_FALLBACK = "en"
+
+/**
+ * Tənzimləmələrin dil siyahısı (T4.7). Release-də yalnız məzmunu tam olan
+ * dillər görünür — `locales.json`-a `tools/build-locale.js` yalnız 100 %
+ * tərcümə olunmuş dilləri yazır, yarımçıq dilin aktivləri debug source
+ * set-indədir. Beləcə istifadəçi yarımçıq tərcüməyə keçə bilmir və
+ * «dəyişmədi» çaşqınlığı yaranmır.
+ *
+ * Baza həmişə görünür. Hazırkı seçim də görünür — dil sonradan siyahıdan
+ * düşsə belə istifadəçi nəyin seçili olduğunu görüb başqasına keçə bilsin.
+ * Debug-da ([hamisi]) bütün dillər: tərcüməçi yarımçıq işini yoxlaya bilsin.
+ */
+fun gorunenDilleriSec(movcud: Collection<String>, secim: AppDil?, hamisi: Boolean): List<AppDil> =
+    if (hamisi) AppDil.entries
+    else AppDil.entries.filter {
+        it.teq == AssetContentRepository.BAZA_LOCALE || it.teq in movcud || it == secim
+    }

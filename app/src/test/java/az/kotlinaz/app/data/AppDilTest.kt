@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-/** Dil modeli və məzmun dilinin çözülməsi (T3.3) — saf funksiyalar, Android yoxdur. */
+/** Dil modeli, məzmun dilinin çözülməsi (T3.3) və görünən dillər (T4.7) — saf funksiyalar, Android yoxdur. */
 class AppDilTest {
 
     /* ---------- AppDil ---------- */
@@ -39,16 +39,52 @@ class AppDilTest {
         assertNull(AppDil.yaxin(null))
     }
 
+    private fun localeConfig(yol: String): List<String> =
+        Regex("""android:name="([^"]+)"""").findAll(File(yol).readText()).map { it.groupValues[1] }.toList()
+
     /**
-     * `res/xml/locales_config.xml` (Android 13+ sistem menyusu) modelin eynisi
-     * olmalıdır — biri yenilənib o biri unudulsa sistem menyusunda seçilən dil
-     * tətbiqdə tanınmaz. Unit test modul qovluğundan işə düşür.
+     * Debug-ın `locales_config.xml`-i (Android 13+ sistem menyusu) modelin
+     * eynisi olmalıdır — biri yenilənib o biri unudulsa sistem menyusunda
+     * seçilən dil tətbiqdə tanınmaz. Unit test modul qovluğundan işə düşür.
      */
     @Test
-    fun `locales_config xml AppDil ile eynidir`() {
-        val xml = File("src/main/res/xml/locales_config.xml").readText()
-        val xmldeki = Regex("""android:name="([^"]+)"""").findAll(xml).map { it.groupValues[1] }.toList()
-        assertEquals(AppDil.entries.map { it.teq }, xmldeki)
+    fun `debug locales_config xml AppDil ile eynidir`() {
+        assertEquals(AppDil.entries.map { it.teq }, localeConfig("src/debug/res/xml/locales_config.xml"))
+    }
+
+    /**
+     * Release-in sistem menyusu (T4.7) məhz release məzmun dilləridir, AppDil
+     * sırası ilə: yarımçıq dil sistem menyusundan da seçilə bilməməlidir.
+     * Hər ikisini `tools/build-locale.js` yazır — uyğunsuzluq onun işlədilmədiyini göstərir.
+     */
+    @Test
+    fun `release locales_config xml release dilleridir`() {
+        val release = AktivJson.decodeFromString<LocaleSiyahisi>(
+            File("src/main/assets/content/locales.json").readText()
+        ).locales
+        val gozlenilen = AppDil.entries.map { it.teq }.filter { it in release }
+        assertEquals(gozlenilen, localeConfig("src/main/res/xml/locales_config.xml"))
+        assertEquals(release.toSet(), gozlenilen.toSet(), "locales.json-da AppDil-də olmayan dil var")
+    }
+
+    /* ---------- gorunenDilleriSec (T4.7) ---------- */
+
+    @Test
+    fun `release-de yalniz movcud diller ve baza gorunur`() {
+        assertEquals(listOf(AppDil.AZ), gorunenDilleriSec(listOf("az"), secim = null, hamisi = false))
+        assertEquals(listOf(AppDil.AZ, AppDil.EN), gorunenDilleriSec(listOf("en", "az"), secim = null, hamisi = false))
+        // locales.json oxunmayıb (boş) — baza yenə görünür.
+        assertEquals(listOf(AppDil.AZ), gorunenDilleriSec(emptyList(), secim = null, hamisi = false))
+    }
+
+    @Test
+    fun `secilmis dil siyahidan dussede gorunur`() {
+        assertEquals(listOf(AppDil.AZ, AppDil.TR), gorunenDilleriSec(listOf("az"), secim = AppDil.TR, hamisi = false))
+    }
+
+    @Test
+    fun `debug-da butun diller gorunur`() {
+        assertEquals(AppDil.entries, gorunenDilleriSec(listOf("az"), secim = null, hamisi = true))
     }
 
     /* ---------- mezmunDiliSec ---------- */
