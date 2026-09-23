@@ -33,6 +33,14 @@ private const val VERSIYALAR_URL = "https://api.kotlinlang.org/versions"
 /** Versiya siyahısının keşi bu qədər yaşayır; sonra ilk sorğudan əvvəl yenilənir. */
 private const val KES_MUDDETI_MS = 24L * 60 * 60 * 1000
 
+// encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
+// defolt dəyərli olduqları üçün sorğudan düşür və server sandbox-u çökür.
+private val kompilyatorJson = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+    encodeDefaults = true
+}
+
 @Serializable
 private data class ApiFile(
     val name: String = "File.kt",
@@ -123,14 +131,6 @@ class KotlinCompiler(
     private val io: CoroutineDispatcher = Dispatchers.IO
 ) : CompilerRepository {
 
-    // encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
-    // defolt dəyərli olduqları üçün sorğudan düşür və server sandbox-u çökür.
-    private val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        encodeDefaults = true
-    }
-
     // Siyahı hələ oxunmayıbsa ehtiyat siyahının birincisi göstərilir —
     // tətbiqin öz versiyasıdır, bu gün serverdə də var.
     private val _veziyyet = MutableStateFlow(
@@ -220,7 +220,7 @@ class KotlinCompiler(
     override suspend fun isle(kod: String): RunResult = withContext(io) {
         if (!sebekeVar()) return@withContext RunResult.Offline
 
-        val govde = json.encodeToString(
+        val govde = kompilyatorJson.encodeToString(
             ApiRequest(files = listOf(ApiFile(text = kod)))
         )
 
@@ -232,7 +232,7 @@ class KotlinCompiler(
                     if (_veziyyet.value.versiya != versiya) {
                         _veziyyet.value = _veziyyet.value.copy(versiya = versiya)
                     }
-                    return@withContext oxu(n.body)
+                    return@withContext kompilyatorCavabiniOxu(n.body)
                 }
 
                 // Bu versiya dəstəklənmir — növbətisini sınamağın mənası var.
@@ -294,52 +294,56 @@ class KotlinCompiler(
             conn?.disconnect()
         }
     }
+}
 
-    private fun oxu(body: String): RunResult = try {
-        val cavab = json.decodeFromString<ApiResponse>(body)
+/**
+ * Kompilyator xidmətinin cavab gövdəsini [RunResult]-a çevirir. Şəbəkədən
+ * ayrıdır ki, testdə real cavab nümunələri ilə yoxlanılsın (Mərhələ 3).
+ */
+internal fun kompilyatorCavabiniOxu(body: String): RunResult = try {
+    val cavab = kompilyatorJson.decodeFromString<ApiResponse>(body)
 
-        // Xidmət xəbərdarlıqları da `errors` içində qaytarır — yalnız ERROR
-        // səviyyəsi kompilyasiyanı sındırır, WARNING göstərilmir.
-        val xetalar = cavab.errors.values.flatten()
-            .filter { it.severity.equals("ERROR", ignoreCase = true) }
-            .map { e ->
-                val setir = e.interval?.start?.line?.plus(1)
-                if (setir != null) "Sətir $setir: ${e.message}" else e.message
-            }
-
-        when {
-            xetalar.isNotEmpty() -> RunResult.CompileError(xetalar)
-
-            cavab.exception != null -> {
-                val e = cavab.exception
-                val ad = e.fullName.ifBlank { "Exception" }
-                val mesaj = e.message?.let { ": $it" }.orEmpty()
-                RunResult.Crashed(cixisiAyir(cavab.text), ad + mesaj)
-            }
-
-            else -> RunResult.Ok(cixisiAyir(cavab.text))
+    // Xidmət xəbərdarlıqları da `errors` içində qaytarır — yalnız ERROR
+    // səviyyəsi kompilyasiyanı sındırır, WARNING göstərilmir.
+    val xetalar = cavab.errors.values.flatten()
+        .filter { it.severity.equals("ERROR", ignoreCase = true) }
+        .map { e ->
+            val setir = e.interval?.start?.line?.plus(1)
+            if (setir != null) "Sətir $setir: ${e.message}" else e.message
         }
-    } catch (e: Exception) {
-        RunResult.Failed("Cavab oxunmadı: ${e.message}")
-    }
 
-    /**
-     * `<outStream>` və `<errStream>` etiketlərini açır.
-     *
-     * Xidmət etiketlərin içindəki mətni HTML kimi qaçırmır (yoxlanılıb:
-     * `println("a & b <tag>")` cavabda olduğu kimi gəlir), ona görə burada
-     * heç bir entity açılışı EDİLMİR — əks halda çıxışdakı həqiqi `&lt;`
-     * mətni pozulardı.
-     */
-    private fun cixisiAyir(xam: String): String {
-        if (xam.isBlank()) return ""
-        val netice = StringBuilder()
-        listOf("outStream", "errStream").forEach { etiket ->
-            val re = Regex("<$etiket>([\\s\\S]*?)</$etiket>")
-            re.findAll(xam).forEach { netice.append(it.groupValues[1]) }
+    when {
+        xetalar.isNotEmpty() -> RunResult.CompileError(xetalar)
+
+        cavab.exception != null -> {
+            val e = cavab.exception
+            val ad = e.fullName.ifBlank { "Exception" }
+            val mesaj = e.message?.let { ": $it" }.orEmpty()
+            RunResult.Crashed(cixisiAyir(cavab.text), ad + mesaj)
         }
-        return if (netice.isEmpty()) xam else netice.toString()
+
+        else -> RunResult.Ok(cixisiAyir(cavab.text))
     }
+} catch (e: Exception) {
+    RunResult.Failed("Cavab oxunmadı: ${e.message}")
+}
+
+/**
+ * `<outStream>` və `<errStream>` etiketlərini açır.
+ *
+ * Xidmət etiketlərin içindəki mətni HTML kimi qaçırmır (yoxlanılıb:
+ * `println("a & b <tag>")` cavabda olduğu kimi gəlir), ona görə burada
+ * heç bir entity açılışı EDİLMİR — əks halda çıxışdakı həqiqi `&lt;`
+ * mətni pozulardı.
+ */
+internal fun cixisiAyir(xam: String): String {
+    if (xam.isBlank()) return ""
+    val netice = StringBuilder()
+    listOf("outStream", "errStream").forEach { etiket ->
+        val re = Regex("<$etiket>([\\s\\S]*?)</$etiket>")
+        re.findAll(xam).forEach { netice.append(it.groupValues[1]) }
+    }
+    return if (netice.isEmpty()) xam else netice.toString()
 }
 
 /**
