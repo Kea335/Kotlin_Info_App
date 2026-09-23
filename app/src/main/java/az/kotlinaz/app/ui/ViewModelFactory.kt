@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui
 
+import az.kotlinaz.app.ui.isareler.IsareViewModel
+import az.kotlinaz.app.ui.isareler.IsarelerViewModel
 import az.kotlinaz.app.ui.sehvlerim.SehvlerimViewModel
 import kotlinx.coroutines.flow.map
 import androidx.lifecycle.ViewModelProvider
@@ -69,6 +71,13 @@ object AppViewModelFactory {
         initializer {
             val c = konteyner
             SehvlerimViewModel(c.contentRepository, c.oyrenme)
+        }
+        initializer {
+            IsareViewModel(konteyner.oyrenme)
+        }
+        initializer {
+            val c = konteyner
+            IsarelerViewModel(c.contentRepository, c.oyrenme)
         }
     }
 }

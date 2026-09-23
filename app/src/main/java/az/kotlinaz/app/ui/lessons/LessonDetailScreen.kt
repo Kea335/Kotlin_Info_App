@@ -1,5 +1,18 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import az.kotlinaz.app.data.oyrenme.BookmarkTipi
+import az.kotlinaz.app.ui.isareler.IsareViewModel
+import az.kotlinaz.app.ui.isareler.IsareDuymesi
+import az.kotlinaz.app.ui.isareler.QeydDuymesi
+import az.kotlinaz.app.ui.isareler.QeydKarti
+import az.kotlinaz.app.ui.isareler.QeydDialoqu
+import az.kotlinaz.app.ui.isareler.KodIsaresi
+import az.kotlinaz.app.ui.isareler.LocalKodIsaresi
+import az.kotlinaz.app.ui.isareler.ustBlokIndeksi
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -59,9 +72,13 @@ import az.kotlinaz.app.ui.theme.KotlinBrush
 fun LessonDetailScreen(
     vm: LessonsViewModel,
     appVm: AppViewModel,
+    /** İşarə və qeydlər (T5.3). */
+    isareVm: IsareViewModel,
     /** Ünvandan gələn bölmə id-si. */
     id: String,
     modifier: Modifier = Modifier,
+    /** İşarələnmiş kod bloku — dərs ona sürüşür (T5.3). */
+    blok: String? = null,
     onNavigate: (String) -> Unit,
     onQuiz: () -> Unit,
     onPlayground: () -> Unit,
@@ -82,6 +99,14 @@ fun LessonDetailScreen(
     // qoyulan yerə qaytarsın deyə.
     LaunchedEffect(bolme.id) { vm.sonBolmeniYaz(bolme.id) }
 
+    val isareliler by isareVm.isareliIdler.collectAsStateWithLifecycle()
+    val qeydler by isareVm.qeydler.collectAsStateWithLifecycle()
+    var qeydAcik by rememberSaveable { mutableStateOf(false) }
+
+    // Kod kartlarındakı işarə düyməsi blok renderinin dərinliyindədir — CompositionLocal ilə.
+    CompositionLocalProvider(
+        LocalKodIsaresi provides KodIsaresi(isareliler) { isareVm.isareDeyis(it, BookmarkTipi.KOD) }
+    ) {
     LessonDetailContent(
         section = bolme,
         tereqqi = tereqqi.bolme(bolme.id),
@@ -99,8 +124,23 @@ fun LessonDetailScreen(
         onQuiz = onQuiz,
         onPlayground = onPlayground,
         onExercises = onExercises,
-        onMovzu = onMovzu
+        onMovzu = onMovzu,
+        blok = blok,
+        isareli = bolme.id in isareliler,
+        qeyd = qeydler[bolme.id],
+        onIsare = { isareVm.isareDeyis(bolme.id, BookmarkTipi.BOLME) },
+        onQeyd = { qeydAcik = true }
     )
+    }
+
+    if (qeydAcik) {
+        QeydDialoqu(
+            ilkin = qeydler[bolme.id].orEmpty(),
+            onSaxla = { isareVm.qeydYaz(bolme.id, it) },
+            onSil = { isareVm.qeydYaz(bolme.id, "") },
+            onBagla = { qeydAcik = false }
+        )
+    }
 }
 
 /** Saf render — bütün vəziyyət parametrlə gəlir. */
@@ -119,10 +159,26 @@ private fun LessonDetailContent(
     onQuiz: () -> Unit,
     onPlayground: () -> Unit,
     onExercises: () -> Unit,
-    onMovzu: (String) -> Unit
+    onMovzu: (String) -> Unit,
+    blok: String?,
+    isareli: Boolean,
+    qeyd: String?,
+    onIsare: () -> Unit,
+    onQeyd: () -> Unit
 ) {
     val c = KAz.colors
     val listState = rememberLazyListState()
+
+    // İşarədən gələndə kod blokuna sürüşülür — bir dəfə (döndərmədə təkrarlanmır).
+    var surusdu by rememberSaveable(section.id, blok) { mutableStateOf(false) }
+    LaunchedEffect(section.id, blok) {
+        if (blok != null && !surusdu) {
+            val i = ustBlokIndeksi(section.blocks, blok)
+            // 0-cı element başlıqdır.
+            if (i >= 0) listState.scrollToItem(i + 1)
+            surusdu = true
+        }
+    }
 
     // DÜZƏLİŞ (davranış): əvvəllər siyahının sonu görünən kimi bölmə avtomatik
     // «oxunmuş» işarələnirdi. Mətni yuxarıdan aşağı sürətlə keçmək də bunu
@@ -148,11 +204,20 @@ private fun LessonDetailContent(
                     )
                     Spacer(Modifier.height(4.dp))
                 }
-                Text(
-                    text = section.heading.ifBlank { section.title },
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = c.text
-                )
+                Row(verticalAlignment = Alignment.Top) {
+                    Text(
+                        text = section.heading.ifBlank { section.title },
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = c.text,
+                        modifier = Modifier.weight(1f)
+                    )
+                    QeydDuymesi(qeydVar = qeyd != null, onClick = onQeyd)
+                    IsareDuymesi(isareli = isareli, onClick = onIsare)
+                }
+                if (qeyd != null) {
+                    Spacer(Modifier.height(8.dp))
+                    QeydKarti(qeyd, onRedakte = onQeyd)
+                }
             }
         }
 

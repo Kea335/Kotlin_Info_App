@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.oyrenme.OyrenmeRepository
 import az.kotlinaz.app.data.model.TheoryExercise
 import az.kotlinaz.app.ui.quiz.bankSualId
@@ -100,6 +101,21 @@ class ExerciseViewModel(
 
     fun indeksQoy(i: Int) { state[INDEX] = i }
 
+    /**
+     * İşarədən gələn çalışmanı açır (T5.3): rejim, filtrsiz siyahıda indeks.
+     * Bir dəfə — sonra istifadəçinin öz gəzişi qalır (döndərmədə təkrarlanmır).
+     */
+    fun hedefeKec(topic: ExerciseTopic, calismaId: String) {
+        if (state.get<String>(HEDEF_TETBIQ) == calismaId) return
+        state[HEDEF_TETBIQ] = calismaId
+        val n = topic.nezeri.indexOfFirst { it.id == calismaId }
+        val p = topic.praktiki.indexOfFirst { it.id == calismaId }
+        when {
+            n >= 0 -> { state[REJIM] = Rejim.NEZERI; state[SEVIYYE] = null; state[INDEX] = n }
+            p >= 0 -> { state[REJIM] = Rejim.PRAKTIKI; state[SEVIYYE] = null; state[INDEX] = p }
+        }
+    }
+
     /* ---------- Praktiki çalışma ---------- */
 
     /**
@@ -176,6 +192,7 @@ class ExerciseViewModel(
         const val CALISMA_ID = "calisma_id"
         const val KOD = "kod"
         const val METN = "metn"
+        const val HEDEF_TETBIQ = "hedef_tetbiq"
     }
 }
 

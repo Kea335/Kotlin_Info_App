@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.oyrenme.FakeOyrenmeRepository
 import az.kotlinaz.app.data.model.TheoryExercise
 import az.kotlinaz.app.ui.quiz.bankSualId
@@ -249,4 +250,23 @@ class ExerciseViewModelTest {
         assertTrue(hellEdilib("n-1"))
         assertEquals(1, oyrenme.sehvler.first().single().ardicilDuzgun)
     }
+
+    /* ---------- İşarədən açılış (T5.3) ---------- */
+
+    @Test
+    fun `hedefe kec - praktiki calisma filtrsiz siyahida acilir, bir defe`() {
+        val movzu = ExerciseTopic(id = "t", title = "T", nezeri = listOf(nezeri), praktiki = listOf(calisma, calisma.copy(id = "p-2")))
+        val vm = vm(FakeCompilerRepository())
+        vm.seviyyeSec(Level.SENIOR)
+        vm.hedefeKec(movzu, "p-2")
+        assertEquals(Rejim.PRAKTIKI, vm.rejim.value)
+        assertEquals(null, vm.seviyye.value)
+        assertEquals(1, vm.index.value)
+
+        // İkinci çağırış (döndərmə, geri qayıtma) istifadəçinin gəzişini pozmur.
+        vm.indeksQoy(0)
+        vm.hedefeKec(movzu, "p-2")
+        assertEquals(0, vm.index.value)
+    }
 }
+

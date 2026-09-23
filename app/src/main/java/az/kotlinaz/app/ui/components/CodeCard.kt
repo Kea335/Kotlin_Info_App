@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.components
 
+import az.kotlinaz.app.ui.isareler.IsareDuymesi
+import az.kotlinaz.app.ui.isareler.LocalKodIsaresi
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import android.content.ActivityNotFoundException
@@ -64,7 +66,9 @@ fun CodeCard(
     modifier: Modifier = Modifier,
     title: String = "",
     output: String? = null,
-    onOpenInPlayground: ((String) -> Unit)? = null
+    onOpenInPlayground: ((String) -> Unit)? = null,
+    /** Blokun sabit id-si (T3.1) — işarə üçün; boşdursa ikon görünmür. */
+    blokId: String = ""
 ) {
     val c = KAz.colors
     val context = LocalContext.current
@@ -136,6 +140,15 @@ fun CodeCard(
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                     bildir(kopyalandi)
                 }
+            }
+
+            // İşarə (T5.3) — yalnız dərsdə və sabit id-li blokda.
+            val isare = LocalKodIsaresi.current
+            if (isare != null && blokId.isNotBlank()) {
+                IsareDuymesi(
+                    isareli = blokId in isare.isareliler,
+                    modifier = Modifier.size(34.dp)
+                ) { isare.deyis(blokId) }
             }
         }
 
