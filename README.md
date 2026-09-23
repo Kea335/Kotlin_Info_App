@@ -38,6 +38,7 @@ tools/                        məzmun boru xətti (Node.js)
   new-locale.js               yeni dil üçün boş overlay skeleti
   build-locale.js             overlay + baza → dil aktivləri
   validate-locales.js         overlay-lərin doğrulaması və tərcümə faizi
+  check-r8.js                 release-də @Serializable serializatorları saxlanılıbmı
 
 localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
   content.json, exercises.json, quiz.json, playground.json
@@ -107,6 +108,7 @@ Testlər və məzmun yoxlaması:
 ./gradlew lint                                # Android Lint — yeni xəbərdarlıq = xəta
 node tools/verify-content.js --assets-only    # aktivlərin bütövlüyü (sayt olmadan)
 node tools/validate-locales.js                # dil overlay-ləri və tərcümə faizi
+./gradlew assembleRelease && node tools/check-r8.js   # R8 serializatorları silməyib
 ```
 
 Yeni dil əlavə etmək:
@@ -129,8 +131,10 @@ olmayan hər tapıntı, xəbərdarlıq da olsa, build-i sındırır. Lokalda
 (`sdk.dir=C\:/…`), yoxsa lint `PropertyEscape` xətası verir.
 
 CI (`.github/workflows/android.yml`) hər push və PR-da eyni addımları
-işlədir: məzmun yoxlaması → test → lint → debug build; APK artifact kimi
-yüklənir.
+işlədir: məzmun və dil yoxlaması → test → lint → imzasız release build +
+R8 serializator yoxlaması (`tools/check-r8.js`) → debug build; APK artifact
+kimi yüklənir. Asılılıqları Dependabot (`.github/dependabot.yml`) həftəlik
+yeniləyir.
 
 ### İmzalı release
 

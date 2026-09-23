@@ -49,6 +49,15 @@ jobs:
       - name: Debug build
         run: ./gradlew assembleDebug
 
+      # İmzasız (CI-da keystore yoxdur): R8 + resurs sıxılması məhz release-də
+      # işləyir. R8 @Serializable modelin serializatorunu silsə debug və
+      # testlər yaşıl qalır, release APK isə ilk JSON oxunuşunda çökür.
+      - name: Release build (imzasız)
+        run: ./gradlew assembleRelease
+
+      - name: R8 serializator yoxlaması
+        run: node tools/check-r8.js
+
       - name: Debug APK
         uses: actions/upload-artifact@v7
         with:
