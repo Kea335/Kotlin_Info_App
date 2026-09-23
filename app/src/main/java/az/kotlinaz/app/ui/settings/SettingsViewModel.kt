@@ -3,11 +3,15 @@ package az.kotlinaz.app.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.AppDil
+import az.kotlinaz.app.data.AssetContentRepository
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
+import az.kotlinaz.app.data.gorunenDilleriSec
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -25,7 +29,11 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(
     private val prefs: UserPrefs,
     /** Seçimi sistemə tətbiq edir (`appCompatDiliTetbiqEt`); testdə boşdur. */
-    private val dilTetbiqEt: (AppDil?) -> Unit = {}
+    private val dilTetbiqEt: (AppDil?) -> Unit = {},
+    /** Qurulmuş məzmun dilləri — `ContentRepository.diller` (T4.7). */
+    private val movcudDiller: suspend () -> List<String> = { listOf(AssetContentRepository.BAZA_LOCALE) },
+    /** Debug build-də bütün dillər görünür — `BuildConfig.DEBUG`. */
+    private val hamisiGorunsun: Boolean = false
 ) : ViewModel() {
 
     val tema: StateFlow<ThemeMode> =
@@ -34,6 +42,29 @@ class SettingsViewModel(
     /** Seçilmiş dil; null = «Sistem dili». */
     val dil: StateFlow<AppDil?> =
         prefs.dil.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    /**
+     * Seçim siyahısındakı dillər (T4.7): release-də yalnız tam tərcümə
+     * olunmuşlar, debug-da hamısı. Siyahı oxunmasa baza ilə davam edilir —
+     * dil bölməsi boş qalmamalıdır.
+     */
+    val gorunenDiller: StateFlow<List<AppDil>> = combine(
+        flow {
+            emit(
+                try {
+                    movcudDiller()
+                } catch (_: Exception) {
+                    listOf(AssetContentRepository.BAZA_LOCALE)
+                }
+            )
+        },
+        prefs.dil
+    ) { movcud, secim -> gorunenDilleriSec(movcud, secim, hamisiGorunsun) }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            gorunenDilleriSec(listOf(AssetContentRepository.BAZA_LOCALE), null, hamisiGorunsun)
+        )
 
     /** Yazı ölçüsü — 0 kiçik, 1 normal, 2 böyük. */
     val sriftOlcusu: StateFlow<Int> =

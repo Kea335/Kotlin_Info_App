@@ -124,4 +124,23 @@ class SettingsViewModelTest {
         // Uzlaşdırma AppCompat-a geri yazmır — dövr yaranmasın.
         assertEquals(listOf<AppDil?>(AppDil.EN), tetbiqEdilen)
     }
+
+    @Test
+    fun `gorunen diller - release-de yalniz qurulmus diller, secim de daxil`() = runTest(dispatcher) {
+        val release = SettingsViewModel(prefs, movcudDiller = { listOf("az", "en") }, hamisiGorunsun = false)
+        assertEquals(listOf(AppDil.AZ, AppDil.EN), release.gorunenDiller.value)
+
+        // Sistem menyusundan (və ya köhnə versiyadan) qalan seçim də siyahıda görünür.
+        release.sistemleUzlasdir(AppDil.TR)
+        assertEquals(listOf(AppDil.AZ, AppDil.TR, AppDil.EN), release.gorunenDiller.value)
+    }
+
+    @Test
+    fun `gorunen diller - debug-da hamisi, siyahi oxunmasa baza`() = runTest(dispatcher) {
+        val debug = SettingsViewModel(prefs, movcudDiller = { listOf("az") }, hamisiGorunsun = true)
+        assertEquals(AppDil.entries, debug.gorunenDiller.value)
+
+        val xetali = SettingsViewModel(prefs, movcudDiller = { error("locales.json yoxdur") })
+        assertEquals(listOf(AppDil.AZ), xetali.gorunenDiller.value)
+    }
 }

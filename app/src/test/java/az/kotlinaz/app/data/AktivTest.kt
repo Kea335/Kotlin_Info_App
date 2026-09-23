@@ -14,6 +14,7 @@ import kotlinx.serialization.SerializationException
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotEquals
@@ -30,15 +31,25 @@ import kotlin.test.assertTrue
  *
  * Testlər hər dil qovluğu üçün təkrarlanır (T3.2): `content/locales.json`
  * siyahısındakı hər locale eyni struktur və sayları verməlidir — tərcümə
- * overlay-i bölmə, çalışma və ya sual itirə bilməz.
+ * overlay-i bölmə, çalışma və ya sual itirə bilməz. Yarımçıq dillər
+ * (`src/debug/assets`, T4.7) də yoxlanılır — onlar yalnız debug APK-ya
+ * düşür, amma tərcüməçinin build-i də sınmamalıdır.
  */
 @RunWith(Parameterized::class)
 class AktivTest(private val locale: String) {
 
     companion object {
+        /**
+         * Yarımçıq dillərin aktivləri (T4.7). Test classpath-ına qoşulmayıb —
+         * `content/locales.json` main-dəki ilə toqquşardı; fayldan oxunur
+         * (unit test modul qovluğundan işə düşür).
+         */
+        private val DEBUG_AKTIVLER = File("src/debug/assets")
+
         private fun resurs(ad: String): String =
-            checkNotNull(AktivTest::class.java.classLoader?.getResourceAsStream(ad)) { "$ad tapılmadı" }
-                .bufferedReader().use { it.readText() }
+            AktivTest::class.java.classLoader?.getResourceAsStream(ad)?.bufferedReader()?.use { it.readText() }
+                ?: File(DEBUG_AKTIVLER, ad).takeIf { it.isFile }?.readText()
+                ?: error("$ad tapılmadı")
 
         @JvmStatic
         @Parameterized.Parameters(name = "{0}")
@@ -47,7 +58,10 @@ class AktivTest(private val locale: String) {
             check(siyahi.locales.isNotEmpty() && AssetContentRepository.BAZA_LOCALE in siyahi.locales) {
                 "locales.json bazanı (${AssetContentRepository.BAZA_LOCALE}) əhatə etmir"
             }
-            return siyahi.locales
+            val debug = File(DEBUG_AKTIVLER, "content/locales.json").takeIf { it.isFile }
+                ?.let { AktivJson.decodeFromString<LocaleSiyahisi>(it.readText()).locales }
+                .orEmpty()
+            return (siyahi.locales + debug).distinct()
         }
     }
 

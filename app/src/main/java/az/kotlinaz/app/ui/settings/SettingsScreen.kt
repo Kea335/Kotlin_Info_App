@@ -69,6 +69,7 @@ fun SettingsScreen(
     val bildir = LocalBildiris.current
     val tema by vm.tema.collectAsStateWithLifecycle()
     val dil by vm.dil.collectAsStateWithLifecycle()
+    val diller by vm.gorunenDiller.collectAsStateWithLifecycle()
     val mezmunDili by appVm.mezmunDili.collectAsStateWithLifecycle()
     val srift by vm.sriftOlcusu.collectAsStateWithLifecycle()
     val tamamlama by vm.kodTamamlama.collectAsStateWithLifecycle()
@@ -79,6 +80,7 @@ fun SettingsScreen(
     SettingsContent(
         tema = tema,
         dil = dil,
+        diller = diller,
         mezmunDili = mezmunDili,
         sriftOlcusu = srift,
         kodTamamlama = tamamlama,
@@ -112,6 +114,8 @@ private fun SettingsContent(
     tema: ThemeMode,
     /** Seçilmiş dil; null = sistem dili. */
     dil: AppDil?,
+    /** Siyahıda göstərilən dillər — release-də yalnız tam tərcümə olunmuşlar (T4.7). */
+    diller: List<AppDil>,
     /** Məzmunun faktiki dili — seçilən dildə tərcümə yoxdursa fərqlənir. */
     mezmunDili: String,
     sriftOlcusu: Int,
@@ -196,7 +200,7 @@ private fun SettingsContent(
                     verticalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
                     Secim(etiket = "Sistem dili", aktiv = dil == null, yigcam = true) { onDil(null) }
-                    AppDil.entries.forEach { d ->
+                    diller.forEach { d ->
                         Secim(etiket = d.ozAdi, aktiv = d == dil, yigcam = true) { onDil(d) }
                     }
                 }

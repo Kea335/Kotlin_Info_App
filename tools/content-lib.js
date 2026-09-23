@@ -6,13 +6,27 @@
      - blok mətninin çıxarılması və axtarış indeksi
      - tərcümə olunan sahələrin («yarpaqların») siyahısı — overlay
        formatının vahid tərifi
+     - dil qapısı (T4.7): tamamlanma faizi və aktivlərin yeri
+       (tam dil → main/release, yarımçıq → debug)
    ============================================================ */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 
-const AKTIV_KOKU = path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets', 'content');
+const APP_SRC = path.resolve(__dirname, '..', 'app', 'src');
+const AKTIV_KOKU = path.join(APP_SRC, 'main', 'assets', 'content');
+/**
+ * Yarımçıq dillərin aktivləri (T4.7) — yalnız debug APK-ya düşür. Android
+ * debug source set-inin aktivlərini main-in üstünə birləşdirir: buradakı
+ * locales.json debug-da əsasınkını əvəzləyir.
+ */
+const AKTIV_KOKU_DEBUG = path.join(APP_SRC, 'debug', 'assets', 'content');
+const RES = path.join(APP_SRC, 'main', 'res');
+/** Release-in dil siyahısı (Android 13+ sistem menyusu) — build-locale.js yazır. */
+const LOCALE_CONFIG = path.join(RES, 'xml', 'locales_config.xml');
+/** Bütün dillər, AppDil sırası ilə — əl ilə saxlanılır, AppDilTest yoxlayır. */
+const LOCALE_CONFIG_DEBUG = path.join(APP_SRC, 'debug', 'res', 'xml', 'locales_config.xml');
 const LOCALIZATION = path.resolve(__dirname, '..', 'localization');
 const BAZA = 'az';
 const FAYLLAR = ['content', 'exercises', 'quiz', 'playground'];
@@ -273,6 +287,89 @@ function localeSiyahisi() {
     .sort();
 }
 
+/* ------------------------------------------------------------
+   Dil qapısı (T4.7): yalnız tam tərcümə olunmuş dil release-ə düşür
+   ------------------------------------------------------------ */
+
+/**
+ * strings.xml-dəki tərcümə olunan sətirlərin sayı. `translatable="false"`
+ * (məsələn tətbiqin adı) sayılmır — onu tərcüməçi dəyişə bilməz.
+ */
+function uiSetirSayi(fayl) {
+  if (!fs.existsSync(fayl)) return 0;
+  return (fs.readFileSync(fayl, 'utf8').match(/<string\s[^>]*>/g) || [])
+    .filter((teq) => /\sname="/.test(teq) && !/translatable="false"/.test(teq)).length;
+}
+
+/** UI sətirləri: tərcümə olunan / ümumi. */
+function uiSayi(locale) {
+  const baza = uiSetirSayi(path.join(RES, 'values', 'strings.xml'));
+  if (locale === BAZA) return { var: baza, cemi: baza };
+  return { var: Math.min(baza, uiSetirSayi(path.join(RES, 'values-' + locale, 'strings.xml'))), cemi: baza };
+}
+
+/**
+ * Dilin ümumi tamamlanması: məzmun yarpaqları + UI sətirləri. Yarpaq o
+ * zaman sayılır ki, overlay-də boş deyil və bazanın eynisi deyil —
+ * validate-locales.js-in faizi ilə eyni qayda (struktur xətaları istisna:
+ * onları validator ayrıca tutur və CI-ı sındırır).
+ */
+function tamamlanma(locale) {
+  const ui = uiSayi(locale);
+  let v = ui.var; let c = ui.cemi;
+  FAYLLAR.forEach((ad) => {
+    const baza = bazaOxu(ad);
+    const fayl = overlayYolu(locale, ad);
+    const overlay = locale !== BAZA && fs.existsSync(fayl) ? JSON.parse(fs.readFileSync(fayl, 'utf8')) : null;
+    YARPAQ[ad](baza).forEach((y) => {
+      // Bazada boş olan sahə (məsələn başlıqsız kod bloku) tərcümə edilə
+      // bilməz — sayılsa dil heç vaxt 100 %-ə çatmazdı.
+      if (bosdur(y.deyer)) return;
+      c++;
+      if (locale === BAZA) { v++; return; }
+      const d = overlay ? overlayOxu(overlay, y.acar) : undefined;
+      if (!bosdur(d) && JSON.stringify(d) !== JSON.stringify(y.deyer)) v++;
+    });
+  });
+  return { var: v, cemi: c };
+}
+
+/** Dil istifadəçiyə görünürmü: baza həmişə, qalanı yalnız 100 %-də. */
+function tamdir(locale) {
+  if (locale === BAZA) return true;
+  const s = tamamlanma(locale);
+  return s.cemi > 0 && s.var === s.cemi;
+}
+
+/** Dilin aktivləri hara yazılır: tamdırsa main (release), deyilsə debug. */
+function aktivKoku(locale) {
+  return tamdir(locale) ? AKTIV_KOKU : AKTIV_KOKU_DEBUG;
+}
+
+/** locales_config.xml-dəki dillər, fayldakı sıra ilə. */
+function localeConfigOxu(fayl) {
+  if (!fs.existsSync(fayl)) return [];
+  return (fs.readFileSync(fayl, 'utf8').match(/<locale\s+android:name="[^"]+"/g) || [])
+    .map((s) => s.match(/"([^"]+)"/)[1]);
+}
+
+/**
+ * Release-in locales_config.xml mətni: [diller] debug faylındakı (AppDil)
+ * sıra ilə; orada olmayan dil (AppDil-ə hələ əlavə olunmayıb) sona düşür.
+ */
+function localeConfigMetni(diller) {
+  const sira = localeConfigOxu(LOCALE_CONFIG_DEBUG);
+  const siralanmis = sira.filter((lc) => diller.indexOf(lc) !== -1)
+    .concat(diller.filter((lc) => sira.indexOf(lc) === -1));
+  return '<?xml version="1.0" encoding="utf-8"?>\n' +
+    '<!-- AVTOMATIK YARADILIR — node tools/build-locale.js. Əl ilə dəyişmə.\n' +
+    '     Release-də Android 13+ sistem menyusunda yalnız tam tərcümə olunmuş\n' +
+    '     dillər görünür (T4.7). Bütün dillər: src/debug/res/xml/locales_config.xml. -->\n' +
+    '<locale-config xmlns:android="http://schemas.android.com/apk/res/android">\n' +
+    siralanmis.map((lc) => '    <locale android:name="' + lc + '" />\n').join('') +
+    '</locale-config>\n';
+}
+
 /**
  * JSON mətnində təkrar açar axtarışı. JSON.parse sonuncunu götürüb
  * susur — tərcüməçi eyni id-ni iki dəfə yazsa biri itərdi.
@@ -309,8 +406,9 @@ function tekrarAcarlar(metn) {
 }
 
 module.exports = {
-  AKTIV_KOKU, LOCALIZATION, BAZA, FAYLLAR,
+  AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
   spanMetni, bloklardanMetn, axtarisIndeksi,
   YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, bosNusxe,
-  bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar
+  bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar,
+  uiSayi, tamamlanma, tamdir, aktivKoku, localeConfigOxu, localeConfigMetni
 };
