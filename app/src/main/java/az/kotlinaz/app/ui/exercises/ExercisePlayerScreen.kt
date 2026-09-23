@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import az.kotlinaz.app.ui.etiket
@@ -446,15 +447,18 @@ private fun PraktikiKart(
                 fontWeight = FontWeight.SemiBold
             )
             Spacer(Modifier.height(4.dp))
-            Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
-                Text(
-                    text = calisma.gozlenilen,
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = (13 * KAz.codeScale).sp,
-                    lineHeight = (20 * KAz.codeScale).sp,
-                    color = c.ok,
-                    softWrap = false
-                )
+            // Konsol çıxışı RTL dillərdə də soldan-sağa (T3.6).
+            SoldanSaga {
+                Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+                    Text(
+                        text = calisma.gozlenilen,
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = (13 * KAz.codeScale).sp,
+                        lineHeight = (20 * KAz.codeScale).sp,
+                        color = c.ok,
+                        softWrap = false
+                    )
+                }
             }
         }
 
@@ -678,7 +682,7 @@ private fun NeticePaneli(
 }
 
 @Composable
-private fun KonsolMetni(metn: String, reng: Color) {
+private fun KonsolMetni(metn: String, reng: Color) = SoldanSaga {
     Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
         Text(
             text = metn,

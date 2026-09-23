@@ -143,20 +143,23 @@ fun CodeCard(
         // Rəngləmə kod və tema dəyişməyincə keşdə qalır; uzun blokda
         // hər yenidən qurulmada təkrar hesablanmasın.
         val rengli = rememberHighlighted(code)
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-        ) {
-            Text(
-                text = rengli,
-                modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
-                fontFamily = FontFamily.Monospace,
-                fontSize = (13 * KAz.codeScale).sp,
-                lineHeight = (21 * KAz.codeScale).sp,
-                color = c.text,
-                softWrap = false
-            )
+        // Kod RTL dillərdə də soldan-sağa (T3.6).
+        SoldanSaga {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = rengli,
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = (13 * KAz.codeScale).sp,
+                    lineHeight = (21 * KAz.codeScale).sp,
+                    color = c.text,
+                    softWrap = false
+                )
+            }
         }
 
         // ---- Nəticə ----
@@ -180,15 +183,17 @@ fun CodeCard(
                 // DÜZƏLİŞ: bu Column-un içindədir, ona görə width() heç bir
                 // şaquli boşluq yaratmırdı — «Nəticə» yazısı çıxışa yapışırdı.
                 Spacer(Modifier.height(4.dp))
-                Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
-                    Text(
-                        text = highlightOutput(output.orEmpty(), c.ok, c.err),
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = (12.5f * KAz.codeScale).sp,
-                        lineHeight = (19 * KAz.codeScale).sp,
-                        softWrap = false,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
+                SoldanSaga {
+                    Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+                        Text(
+                            text = highlightOutput(output.orEmpty(), c.ok, c.err),
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = (12.5f * KAz.codeScale).sp,
+                            lineHeight = (19 * KAz.codeScale).sp,
+                            softWrap = false,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
                 }
             }
         }
