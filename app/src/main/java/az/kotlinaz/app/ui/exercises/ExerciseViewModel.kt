@@ -12,6 +12,9 @@ import androidx.savedstate.savedState
 import az.kotlinaz.app.data.CompilerRepository
 import az.kotlinaz.app.data.RunResult
 import az.kotlinaz.app.data.UserPrefs
+import az.kotlinaz.app.ui.IcraXetasi
+import az.kotlinaz.app.ui.XetaSetri
+import az.kotlinaz.app.ui.xetaSetrleri
 import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.data.model.PracticeExercise
 import az.kotlinaz.app.data.neticeniNormallasdir
@@ -25,12 +28,14 @@ sealed interface YoxlamaVeziyyeti {
     data object Bos : YoxlamaVeziyyeti
     data object Isleyir : YoxlamaVeziyyeti
     data class Duzgun(val cixis: String) : YoxlamaVeziyyeti
+    /** [alinan] boşdursa UI «(boş)» yazır. */
     data class Sehv(val gozlenilen: String, val alinan: String) : YoxlamaVeziyyeti
-    data class Xeta(val basliq: String, val metn: String) : YoxlamaVeziyyeti
+    data class Xeta(val nov: IcraXetasi, val setirler: List<XetaSetri>) : YoxlamaVeziyyeti
     data object Oflayn : YoxlamaVeziyyeti
 }
 
-enum class Rejim(val etiket: String) { NEZERI("Nəzəri"), PRAKTIKI("Praktiki") }
+/** Çalışma rejimi; ekrandakı adı `ui/Etiketler.kt`-dədir. */
+enum class Rejim { NEZERI, PRAKTIKI }
 
 /**
  * Çalışma mühərrikinin vəziyyəti — bir mövzu üçün bir nüsxə (naviqasiya
@@ -170,11 +175,11 @@ internal fun yoxlamaNeticesi(r: RunResult, gozlenilenXam: String): YoxlamaVeziyy
         val alinan = neticeniNormallasdir(r.output)
         val gozlenilen = neticeniNormallasdir(gozlenilenXam)
         if (alinan == gozlenilen) YoxlamaVeziyyeti.Duzgun(alinan)
-        else YoxlamaVeziyyeti.Sehv(gozlenilen, alinan.ifBlank { "(boş)" })
+        else YoxlamaVeziyyeti.Sehv(gozlenilen, alinan)
     }
     is RunResult.CompileError ->
-        YoxlamaVeziyyeti.Xeta("Kompilyasiya xətası", r.errors.joinToString("\n"))
-    is RunResult.Crashed -> YoxlamaVeziyyeti.Xeta("Çalışma vaxtı xətası", r.exception)
+        YoxlamaVeziyyeti.Xeta(IcraXetasi.KOMPILYASIYA, r.errors.map { XetaSetri(it.mesaj, it.setir) })
+    is RunResult.Crashed -> YoxlamaVeziyyeti.Xeta(IcraXetasi.ICRA, listOf(XetaSetri(r.exception)))
     RunResult.Offline -> YoxlamaVeziyyeti.Oflayn
-    is RunResult.Failed -> YoxlamaVeziyyeti.Xeta("Bağlantı problemi", r.message)
+    is RunResult.Failed -> YoxlamaVeziyyeti.Xeta(IcraXetasi.BAGLANTI, xetaSetrleri(r.message))
 }

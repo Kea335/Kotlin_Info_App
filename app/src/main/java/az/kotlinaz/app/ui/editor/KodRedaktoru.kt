@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.editor
 
+import androidx.compose.ui.res.pluralStringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -105,7 +107,7 @@ private fun rememberKeslenmisRengleme(): VisualTransformation {
 fun KodRedaktoru(
     kod: MutableState<TextFieldValue>,
     modifier: Modifier = Modifier,
-    basliq: String = "Main.kt",
+    basliq: String = "Main.kt", // i18n-ignore — fayl adı
     minHundurluk: Dp = 200.dp,
     tamamlamaAcik: Boolean = LocalKodTamamlama.current,
     basliqSagi: (@Composable RowScope.() -> Unit)? = null
@@ -142,7 +144,7 @@ fun KodRedaktoru(
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = "${deyer.text.count { it == '\n' } + 1} sətir",
+                text = (deyer.text.count { it == '\n' } + 1).let { pluralStringResource(R.plurals.redaktor_setir_sayi, it, it) },
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint
             )

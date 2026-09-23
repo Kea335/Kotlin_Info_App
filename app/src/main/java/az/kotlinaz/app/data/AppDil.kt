@@ -17,6 +17,7 @@ enum class AppDil(
     val ozAdi: String,
     val rtl: Boolean = false
 ) {
+    // i18n-ignore-start — dillərin öz adları (endonim) tərcümə olunmur
     AZ("az", "Azərbaycan"),
     TR("tr", "Türkçe"),
     EN("en", "English"),
@@ -32,6 +33,7 @@ enum class AppDil(
     ZH_CN("zh-CN", "简体中文"),
     JA("ja", "日本語"),
     KO("ko", "한국어");
+    // i18n-ignore-end
 
     companion object {
         /** Tam teq uyğunluğu; naməlum və ya null → null (sistem dili). */

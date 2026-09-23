@@ -1,5 +1,9 @@
 package az.kotlinaz.app.ui.exercises
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
+import az.kotlinaz.app.ui.etiket
+import az.kotlinaz.app.ui.xetaMetni
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -88,7 +92,7 @@ fun ExercisePlayerScreen(
     }
     val movzu = topics.firstOrNull { it.id == id }
     if (movzu == null) {
-        BosEkran("Mövzu tapılmadı", modifier)
+        BosEkran(stringResource(R.string.calisma_movzu_yoxdur), modifier)
         return
     }
     ExercisePlayerContent(vm, movzu, hellEdilmis, modifier)
@@ -131,7 +135,7 @@ private fun ExercisePlayerContent(
                     Rejim.entries.forEach { r ->
                         val aktiv = r == rejim
                         Text(
-                            text = r.etiket,
+                            text = r.etiket(),
                             modifier = Modifier
                                 .weight(1f)
                                 .clip(RoundedCornerShape(10.dp))
@@ -157,9 +161,9 @@ private fun ExercisePlayerContent(
 
                 // Səviyyə filtri
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    SeviyyeCipi("Hamısı", seviyye == null) { vm.seviyyeSec(null) }
+                    SeviyyeCipi(stringResource(R.string.calisma_hamisi), seviyye == null) { vm.seviyyeSec(null) }
                     Level.entries.forEach { lv ->
-                        SeviyyeCipi(lv.label, seviyye == lv) { vm.seviyyeSec(lv) }
+                        SeviyyeCipi(lv.etiket(), seviyye == lv) { vm.seviyyeSec(lv) }
                     }
                 }
 
@@ -168,7 +172,7 @@ private fun ExercisePlayerContent(
                 if (say > 0) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "Çalışma ${cariIndex + 1} / $say",
+                            text = stringResource(R.string.calisma_sayqac, cariIndex + 1, say),
                             style = MaterialTheme.typography.labelMedium,
                             color = c.textDim,
                             modifier = Modifier.weight(1f)
@@ -188,7 +192,7 @@ private fun ExercisePlayerContent(
                                 )
                                 Spacer(Modifier.width(4.dp))
                                 Text(
-                                    text = "Həll edilib",
+                                    text = stringResource(R.string.calisma_hell_edilib),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = c.ok
                                 )
@@ -220,7 +224,7 @@ private fun ExercisePlayerContent(
         if (say == 0) {
             item(key = "bos") {
                 Text(
-                    text = "Bu səviyyədə çalışma yoxdur.",
+                    text = stringResource(R.string.calisma_bu_seviyyede_yoxdur),
                     style = MaterialTheme.typography.bodyMedium,
                     color = c.textFaint,
                     modifier = Modifier.padding(vertical = 30.dp)
@@ -250,14 +254,14 @@ private fun ExercisePlayerContent(
             Spacer(Modifier.height(16.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                 AddimDuymesi(
-                    etiket = "Əvvəlki",
+                    etiket = stringResource(R.string.ortaq_evvelki),
                     ikon = Icons.AutoMirrored.Outlined.ArrowBack,
                     aktiv = cariIndex > 0,
                     modifier = Modifier.weight(1f)
                 ) { if (cariIndex > 0) vm.indeksQoy(cariIndex - 1) }
 
                 AddimDuymesi(
-                    etiket = "Növbəti",
+                    etiket = stringResource(R.string.ortaq_novbeti),
                     ikon = Icons.AutoMirrored.Outlined.ArrowForward,
                     aktiv = cariIndex < say - 1,
                     solda = false,
@@ -373,7 +377,8 @@ private fun NezeriKart(
                     .padding(13.dp)
             ) {
                 Text(
-                    text = if (duzgun) "Düzdür" else "Düzgün cavab: ${('A' + calisma.a)}",
+                    text = if (duzgun) stringResource(R.string.cavab_duzdur)
+                    else stringResource(R.string.cavab_duzgun, ('A' + calisma.a).toString()),
                     style = MaterialTheme.typography.labelLarge,
                     color = if (duzgun) c.ok else c.warn
                 )
@@ -435,7 +440,7 @@ private fun PraktikiKart(
                 .padding(12.dp)
         ) {
             Text(
-                text = "Gözlənilən nəticə",
+                text = stringResource(R.string.calisma_gozlenilen_netice),
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint,
                 fontWeight = FontWeight.SemiBold
@@ -463,7 +468,9 @@ private fun PraktikiKart(
         // Düymələr
         Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
             Text(
-                text = if (veziyyet is YoxlamaVeziyyeti.Isleyir) "Yoxlanılır…" else "Yoxla",
+                text = stringResource(
+                    if (veziyyet is YoxlamaVeziyyeti.Isleyir) R.string.calisma_yoxlanilir else R.string.calisma_yoxla
+                ),
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .background(KotlinBrush)
@@ -473,28 +480,30 @@ private fun PraktikiKart(
                 color = Color.White
             )
 
-            KicikDuyme("İpucu") { vm.ipucunuGoster() }
+            KicikDuyme(stringResource(R.string.calisma_ipucu)) { vm.ipucunuGoster() }
             // Cavab birbaşa açılmır: əvvəlcə xəbərdarlıq çıxır, çünki hazır
             // həlli oxumaq öyrənməni əvəz etmir. Təsdiqdən sonra kod redaktora
             // yüklənir və yazdığının üstünü yazır — geri qaytarmaq üçün «Sıfırla».
-            KicikDuyme("Cavab") { vm.cavabSorus() }
-            KicikDuyme("Sıfırla") { vm.sifirla(calisma) }
+            KicikDuyme(stringResource(R.string.calisma_cavab)) { vm.cavabSorus() }
+            KicikDuyme(stringResource(R.string.ortaq_sifirla)) { vm.sifirla(calisma) }
         }
 
         Spacer(Modifier.height(7.dp))
 
+        val kopyalandi = stringResource(R.string.ortaq_kod_kopyalandi)
+        val isarelendi = stringResource(R.string.calisma_hell_isarelendi)
         Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-            KicikDuyme("Kodu kopyala") {
+            KicikDuyme(stringResource(R.string.calisma_kodu_kopyala)) {
                 kopyala(context, kod.value.text)
-                bildir("Kod kopyalandı")
+                bildir(kopyalandi)
             }
             // Oflayn yol: internet olmayanda «Yoxla» işləmir, ona görə
             // istifadəçi özü müqayisə edib əl ilə işarələyə bilir.
             // Artıq işarələnibsə düymə göstərilmir.
             if (!hellOlunub) {
-                KicikDuyme("Həll etdim") {
+                KicikDuyme(stringResource(R.string.calisma_hell_etdim)) {
                     vm.hellIsaretle(calisma.id)
-                    bildir("Çalışma həll edilmiş kimi işarələndi")
+                    bildir(isarelendi)
                 }
             }
         }
@@ -510,7 +519,7 @@ private fun PraktikiKart(
                     .padding(12.dp)
             ) {
                 Text(
-                    text = "İpucu",
+                    text = stringResource(R.string.calisma_ipucu),
                     style = MaterialTheme.typography.labelMedium,
                     color = c.warn,
                     fontWeight = FontWeight.Bold
@@ -536,8 +545,7 @@ private fun PraktikiKart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Cavab redaktora yükləndi — oxuduqdan sonra «Sıfırla» ilə " +
-                        "başlanğıca qayıt və özün yazmağı sına.",
+                    text = stringResource(R.string.calisma_cavab_yuklendi),
                     style = MaterialTheme.typography.labelSmall.copy(lineHeight = 17.sp),
                     color = c.warn
                 )
@@ -553,22 +561,16 @@ private fun PraktikiKart(
     if (cavabSorusulur) {
         androidx.compose.material3.AlertDialog(
             onDismissRequest = { vm.cavabdanImtina() },
-            title = { Text("Cavaba baxmaq istəyirsən?") },
-            text = {
-                Text(
-                    "Hazır cavabı oxumaq öyrənməni əvəz etmir — əvvəlcə «İpucu» ilə " +
-                        "bir də cəhd et. Cavabı görsən, bu tapşırığı özün tapmaq " +
-                        "şansını itirirsən."
-                )
-            },
+            title = { Text(stringResource(R.string.calisma_cavab_tesdiq_basliq)) },
+            text = { Text(stringResource(R.string.calisma_cavab_tesdiq_metn)) },
             confirmButton = {
                 androidx.compose.material3.TextButton(onClick = { vm.cavabiGoster(calisma) }) {
-                    Text("Yenə də göstər", color = c.warn)
+                    Text(stringResource(R.string.calisma_cavab_goster), color = c.warn)
                 }
             },
             dismissButton = {
                 androidx.compose.material3.TextButton(onClick = { vm.cavabdanImtina() }) {
-                    Text("Özüm sınayım")
+                    Text(stringResource(R.string.calisma_ozum_sinayim))
                 }
             },
             containerColor = c.bgElev,
@@ -599,54 +601,51 @@ private fun YoxlamaNeticesi(veziyyet: YoxlamaVeziyyeti) {
             )
             Spacer(Modifier.width(10.dp))
             Text(
-                text = "Kod JetBrains serverində işlədilir — adətən 3–10 saniyə.",
+                text = stringResource(R.string.calisma_isleyir),
                 style = MaterialTheme.typography.bodySmall,
                 color = c.textDim
             )
         }
 
         is YoxlamaVeziyyeti.Duzgun -> NeticePaneli(
-            basliq = "Düzdür! Nəticə tam uyğundur.",
+            basliq = stringResource(R.string.calisma_duzgun_netice),
             reng = c.ok
         ) {
             KonsolMetni(veziyyet.cixis, c.ok)
         }
 
         is YoxlamaVeziyyeti.Sehv -> NeticePaneli(
-            basliq = "Nəticə uyğun gəlmədi",
+            basliq = stringResource(R.string.calisma_sehv_netice),
             reng = c.err
         ) {
             Text(
-                text = "Gözlənilən",
+                text = stringResource(R.string.calisma_gozlenilen),
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint
             )
             KonsolMetni(veziyyet.gozlenilen, c.ok)
             Spacer(Modifier.height(8.dp))
             Text(
-                text = "Sənin nəticən",
+                text = stringResource(R.string.calisma_senin_neticen),
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint
             )
-            KonsolMetni(veziyyet.alinan, c.err)
+            KonsolMetni(veziyyet.alinan.ifBlank { stringResource(R.string.calisma_bos_cixis) }, c.err)
         }
 
         is YoxlamaVeziyyeti.Xeta -> NeticePaneli(
-            basliq = veziyyet.basliq,
+            basliq = stringResource(veziyyet.nov.basliqRes),
             reng = c.err
         ) {
-            KonsolMetni(veziyyet.metn, c.err)
+            KonsolMetni(xetaMetni(veziyyet.setirler), c.err)
         }
 
         YoxlamaVeziyyeti.Oflayn -> NeticePaneli(
-            basliq = "İnternet yoxdur",
+            basliq = stringResource(R.string.ortaq_internet_yoxdur),
             reng = c.warn
         ) {
             Text(
-                text = "Kodun işlədilməsi üçün bağlantı lazımdır — Kotlin kompilyatoru " +
-                    "JetBrains serverlərindədir. Bağlantısız da işləyə bilərsən: " +
-                    "«Cavab» düyməsi ilə düzgün həlli aç və öz kodunla müqayisə et, " +
-                    "sonra «Həll etdim» ilə işarələ.",
+                text = stringResource(R.string.calisma_oflayn_izah),
                 style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                 color = c.textDim
             )
@@ -702,7 +701,7 @@ private fun SeviyyeNisani(level: String) {
     val lv = Level.from(level)
     val reng = seviyyeRengi(lv)
     Text(
-        text = lv.label,
+        text = lv.etiket(),
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
             .background(reng.copy(alpha = 0.13f))

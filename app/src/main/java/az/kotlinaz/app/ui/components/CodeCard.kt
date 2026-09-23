@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -100,7 +102,7 @@ fun CodeCard(
             Spacer(Modifier.width(10.dp))
 
             Text(
-                text = title.ifBlank { "Kotlin" },
+                text = title.ifBlank { "Kotlin" }, // i18n-ignore — dil adı
                 style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
                 color = c.textDim,
                 fontFamily = FontFamily.Monospace,
@@ -113,7 +115,7 @@ fun CodeCard(
             if (output != null) {
                 KodDuymesi(
                     ikon = Icons.Outlined.PlayArrow,
-                    etiket = if (neticeGorunur) "Gizlət" else "İşlə",
+                    etiket = stringResource(if (neticeGorunur) R.string.kod_gizlet else R.string.kod_isle),
                     vurgulu = true
                 ) { neticeGorunur = !neticeGorunur }
                 Spacer(Modifier.width(6.dp))
@@ -121,17 +123,18 @@ fun CodeCard(
 
             if (onOpenInPlayground != null) {
                 // AutoMirrored variant: sağdan-sola dillərdə ikon da güzgülənir.
-                KodDuymesi(ikon = Icons.AutoMirrored.Outlined.OpenInNew, etiket = "Meydan") {
+                KodDuymesi(ikon = Icons.AutoMirrored.Outlined.OpenInNew, etiket = stringResource(R.string.kod_meydan)) {
                     onOpenInPlayground(code)
                 }
                 Spacer(Modifier.width(6.dp))
             }
 
-            KodDuymesi(ikon = Icons.Outlined.ContentCopy, etiket = "Kopyala") {
+            val kopyalandi = stringResource(R.string.ortaq_kod_kopyalandi)
+            KodDuymesi(ikon = Icons.Outlined.ContentCopy, etiket = stringResource(R.string.ortaq_kopyala)) {
                 kopyala(context, code)
                 // Android 13+ sistemin öz bildirişini göstərir — təkrarlamırıq
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                    bildir("Kod kopyalandı")
+                    bildir(kopyalandi)
                 }
             }
         }
@@ -169,7 +172,7 @@ fun CodeCard(
                     .padding(horizontal = 14.dp, vertical = 10.dp)
             ) {
                 Text(
-                    text = "Nəticə",
+                    text = stringResource(R.string.ortaq_netice),
                     style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
                     color = c.textFaint,
                     fontWeight = FontWeight.SemiBold

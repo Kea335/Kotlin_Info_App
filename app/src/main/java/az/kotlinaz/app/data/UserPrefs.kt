@@ -255,10 +255,11 @@ internal fun xeriteAc(xam: String?): Map<String, Int> {
 internal fun xeriteYaz(xerite: Map<String, Int>): String =
     xerite.entries.joinToString(";") { "${it.key}=${it.value}" }
 
-enum class ThemeMode(val id: String, val label: String) {
-    SYSTEM("system", "Sistem"),
-    LIGHT("light", "İşıqlı"),
-    DARK("dark", "Qaranlıq");
+/** Tema rejimi; ekrandakı adı `ui/Etiketler.kt`-dədir. */
+enum class ThemeMode(val id: String) {
+    SYSTEM("system"),
+    LIGHT("light"),
+    DARK("dark");
 
     companion object {
         /** Açar yoxdursa (ilk açılış) və ya naməlumdursa — sistem rejimi. */

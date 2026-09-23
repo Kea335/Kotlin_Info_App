@@ -30,7 +30,7 @@ class KompilyatorCavabiTest {
             ]},"text":""}
             """
         )
-        assertEquals(RunResult.CompileError(listOf("Sətir 3: Unresolved reference: prntln")), n)
+        assertEquals(RunResult.CompileError(listOf(KompilyasiyaXetasi(3, "Unresolved reference: prntln"))), n)
     }
 
     @Test
@@ -56,8 +56,8 @@ class KompilyatorCavabiTest {
             ]}}
             """
         )
-        // Intervalsız xəta sətir nömrəsiz göstərilir.
-        assertEquals(RunResult.CompileError(listOf("Sətir 1: e1", "e2")), n)
+        // Intervalsız xətanın sətri yoxdur.
+        assertEquals(RunResult.CompileError(listOf(KompilyasiyaXetasi(1, "e1"), KompilyasiyaXetasi(null, "e2"))), n)
     }
 
     @Test
@@ -65,7 +65,7 @@ class KompilyatorCavabiTest {
         val n = kompilyatorCavabiniOxu(
             """{"errors":{"A.kt":[{"message":"a","severity":"ERROR"}],"B.kt":[{"message":"b","severity":"ERROR"}]}}"""
         )
-        assertEquals(RunResult.CompileError(listOf("a", "b")), n)
+        assertEquals(RunResult.CompileError(listOf(KompilyasiyaXetasi(null, "a"), KompilyasiyaXetasi(null, "b"))), n)
     }
 
     @Test
@@ -110,7 +110,7 @@ class KompilyatorCavabiTest {
     fun `JSON olmayan cavab - Failed`() {
         val n = kompilyatorCavabiniOxu("<html>502 Bad Gateway</html>")
         assertIs<RunResult.Failed>(n)
-        assertTrue(n.message.startsWith("Cavab oxunmadı"), n.message)
+        assertTrue(n.message.startsWith("JSON"), n.message)
     }
 
     /* ---------- cixisiAyir ---------- */

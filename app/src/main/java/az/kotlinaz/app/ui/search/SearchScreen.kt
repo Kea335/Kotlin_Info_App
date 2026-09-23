@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.search
 
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -97,7 +100,7 @@ private fun SearchContent(
                 // BasicTextField-in öz placeholder-i yoxdur — altda mətn kimi qoyulur.
                 if (sorgu.isEmpty()) {
                     Text(
-                        text = "Sənəddə axtar…",
+                        text = stringResource(R.string.axtaris_ipucu),
                         color = c.textFaint,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -119,7 +122,7 @@ private fun SearchContent(
             if (sorgu.isNotEmpty()) {
                 Icon(
                     Icons.Outlined.Close,
-                    contentDescription = "Təmizlə",
+                    contentDescription = stringResource(R.string.axtaris_temizle),
                     tint = c.textFaint,
                     modifier = Modifier
                         .size(18.dp)
@@ -130,10 +133,10 @@ private fun SearchContent(
 
         when {
             sorgu.trim().length < 2 -> Mesaj(
-                "Axtarış üçün ən azı iki hərf yaz.\nBütün 32 bölmə oflayn axtarılır."
+                stringResource(R.string.axtaris_qisa)
             )
 
-            neticeler.isEmpty() -> Mesaj("«$sorgu» üzrə heç nə tapılmadı.")
+            neticeler.isEmpty() -> Mesaj(stringResource(R.string.axtaris_tapilmadi, sorgu))
 
             else -> LazyColumn(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
@@ -141,7 +144,7 @@ private fun SearchContent(
             ) {
                 item {
                     Text(
-                        text = "${neticeler.size} bölmədə tapıldı",
+                        text = pluralStringResource(R.plurals.axtaris_netice_sayi, neticeler.size, neticeler.size),
                         style = MaterialTheme.typography.labelSmall,
                         color = c.textFaint,
                         modifier = Modifier.padding(bottom = 4.dp)

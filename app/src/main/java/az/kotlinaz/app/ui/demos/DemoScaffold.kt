@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.demos
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -56,7 +58,7 @@ fun DemoCard(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = "İnteraktiv",
+                text = stringResource(R.string.demo_interaktiv),
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
                     .background(c.accentSoft)

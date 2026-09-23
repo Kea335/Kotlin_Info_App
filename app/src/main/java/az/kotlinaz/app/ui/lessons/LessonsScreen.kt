@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
+import az.kotlinaz.app.ui.etiket
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -184,13 +187,13 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(
-                    text = "Səviyyən",
+                    text = stringResource(R.string.ders_seviyyen),
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
                 Spacer(Modifier.height(3.dp))
                 Text(
-                    text = lv.label,
+                    text = lv.etiket(),
                     modifier = Modifier
                         .clip(RoundedCornerShape(8.dp))
                         .background(reng.copy(alpha = 0.14f))
@@ -204,12 +207,12 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
             if (novbeti != null) {
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text = "Növbəti",
+                        text = stringResource(R.string.ortaq_novbeti),
                         style = MaterialTheme.typography.labelSmall,
                         color = c.textFaint
                     )
                     Text(
-                        text = novbeti.label,
+                        text = novbeti.etiket(),
                         style = MaterialTheme.typography.titleSmall,
                         color = seviyyeRengi(novbeti)
                     )
@@ -220,7 +223,7 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
         if (novbeti == null) {
             Spacer(Modifier.height(11.dp))
             Text(
-                text = "Ən yüksək səviyyədəsən — bütün çalışma bankı sənin ixtiyarındadır.",
+                text = stringResource(R.string.ders_en_yuksek_seviyye),
                 style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
                 color = c.textDim
             )
@@ -235,7 +238,7 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
         Spacer(Modifier.height(13.dp))
 
         Text(
-            text = "${novbeti.label} olmaq üçün",
+            text = stringResource(R.string.ders_olmaq_ucun, novbeti.etiket()),
             style = MaterialTheme.typography.labelMedium,
             color = c.text,
             fontWeight = FontWeight.SemiBold
@@ -244,7 +247,7 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
         Spacer(Modifier.height(9.dp))
 
         SertSetri(
-            etiket = "${onSeviyye.label} çalışmaları",
+            etiket = stringResource(R.string.ders_seviyye_calismalari, onSeviyye.etiket()),
             indiki = calismaSayi.hell,
             hedef = kotlin.math.ceil(calismaSayi.umumi * SeviyyeQaydasi.CALISMA_HEDEFI).toInt(),
             faiz = calismaSayi.faiz,
@@ -255,7 +258,7 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
         Spacer(Modifier.height(10.dp))
 
         SertSetri(
-            etiket = "Tamamlanmış dərslər",
+            etiket = stringResource(R.string.ders_tamamlanan),
             indiki = tereqqi.tamamlananDers,
             hedef = lazimDers,
             faiz = tereqqi.dersFaizi,
@@ -266,8 +269,7 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
         Spacer(Modifier.height(12.dp))
 
         Text(
-            text = "Dərs yalnız ona bağlı bütün çalışmalar düzgün həll ediləndə " +
-                "tamamlanır — sürətlə sürüşdürmək saymır.",
+            text = stringResource(R.string.ders_qayda_izah),
             style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
             color = c.textFaint
         )
@@ -311,7 +313,7 @@ private fun SertSetri(
                 Spacer(Modifier.width(4.dp))
             }
             Text(
-                text = "$indiki / $hedef",
+                text = stringResource(R.string.ortaq_say_bolu, indiki, hedef),
                 style = MaterialTheme.typography.labelSmall,
                 color = if (odenib) c.ok else c.textFaint,
                 fontFamily = FontFamily.Monospace,
@@ -395,11 +397,11 @@ private fun BolmeSetri(
                 )
                 Text(
                     text = when (bolme.special) {
-                        "playground" -> "İnternet tələb edir"
-                        "exercises" -> "1250 çalışma"
-                        "quiz" -> "Səviyyə üzrə test"
+                        "playground" -> stringResource(R.string.ders_internet_teleb_edir)
+                        "exercises" -> stringResource(R.string.ders_1250_calisma)
+                        "quiz" -> stringResource(R.string.ders_seviyye_uzre_test)
                         else -> if (faiz > 0f && !tamamlandi) {
-                            "${(faiz * 100).toInt()}% mənimsənilib"
+                            stringResource(R.string.ders_menimsenilib, (faiz * 100).toInt())
                         } else {
                             ""
                         }
@@ -416,7 +418,7 @@ private fun BolmeSetri(
                 ) {
                     Icon(
                         Icons.Filled.Check,
-                        contentDescription = "Tamamlanıb",
+                        contentDescription = stringResource(R.string.ders_tamamlanib),
                         tint = c.ok,
                         modifier = Modifier.size(13.dp)
                     )
@@ -454,18 +456,18 @@ private fun TereqqiKarti(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(
-                    text = "Öyrənmə tərəqqisi",
+                    text = stringResource(R.string.ders_tereqqi),
                     style = MaterialTheme.typography.titleSmall,
                     color = c.text
                 )
                 Text(
-                    text = "$tamamlanan / $umumi bölmə tamamlanıb",
+                    text = stringResource(R.string.ders_bolme_tamamlanib, tamamlanan, umumi),
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
             }
             Text(
-                text = "${(faiz * 100).toInt()}%",
+                text = stringResource(R.string.ortaq_faiz, (faiz * 100).toInt()),
                 style = MaterialTheme.typography.headlineSmall,
                 color = c.accent,
                 fontWeight = FontWeight.ExtraBold
@@ -496,7 +498,7 @@ private fun TereqqiKarti(
                 Spacer(Modifier.width(8.dp))
                 Column(Modifier.weight(1f)) {
                     Text(
-                        text = "Davam et",
+                        text = stringResource(R.string.ders_davam_et),
                         style = MaterialTheme.typography.labelSmall,
                         color = c.textFaint
                     )

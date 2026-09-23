@@ -14,19 +14,11 @@ const val QUIZ_SUAL_SAYI = 15
  * orada hər sualın `level` sahəsi var. «Qarışıq» isə həm bankı, həm də
  * quiz.json-dakı ümumi sualları birləşdirir.
  */
-enum class QuizRejimi(val id: String, val label: String, val seviyye: Level?) {
-    JUNIOR("junior", "Junior", Level.JUNIOR),
-    MIDDLE("middle", "Middle", Level.MIDDLE),
-    SENIOR("senior", "Senior", Level.SENIOR),
-    QARISIQ("qarisiq", "Qarışıq", null);
-
-    val izah: String
-        get() = when (this) {
-            JUNIOR -> "Sintaksis, dəyişənlər, şərtlər, dövrlər — başlanğıc suallar."
-            MIDDLE -> "Kolleksiyalar, lambda, OYP, null təhlükəsizliyi."
-            SENIOR -> "Generics, korutinlər, delegatlar, incə detallar."
-            QARISIQ -> "Bütün səviyyələrdən təsadüfi seçim — əsl imtahan."
-        }
+enum class QuizRejimi(val id: String, val seviyye: Level?) {
+    JUNIOR("junior", Level.JUNIOR),
+    MIDDLE("middle", Level.MIDDLE),
+    SENIOR("senior", Level.SENIOR),
+    QARISIQ("qarisiq", null)
 }
 
 /** Rejim üzrə sual hovuzları. Saf funksiya — testdən birbaşa çağırılır (T1.1). */

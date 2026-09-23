@@ -16,6 +16,9 @@ import az.kotlinaz.app.data.CompilerRepository
 import az.kotlinaz.app.data.MeydanQaralamasi
 import az.kotlinaz.app.data.RunResult
 import az.kotlinaz.app.data.UserPrefs
+import az.kotlinaz.app.ui.IcraXetasi
+import az.kotlinaz.app.ui.XetaSetri
+import az.kotlinaz.app.ui.xetaSetrleri
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,8 +37,9 @@ import kotlinx.coroutines.launch
 sealed interface MeydanVeziyyeti {
     data object Bos : MeydanVeziyyeti
     data object Isleyir : MeydanVeziyyeti
+    /** [metn] boşdursa UI «(çıxış yoxdur)» yazır. */
     data class Cixis(val metn: String) : MeydanVeziyyeti
-    data class Xetalar(val basliq: String, val metn: String) : MeydanVeziyyeti
+    data class Xetalar(val nov: IcraXetasi, val setirler: List<XetaSetri>) : MeydanVeziyyeti
     data object Oflayn : MeydanVeziyyeti
     /** İstifadəçi «Dayandır» basdı — sorğu kəsildi, nəticə yoxdur. */
     data object Dayandirildi : MeydanVeziyyeti
@@ -170,16 +174,10 @@ class PlaygroundViewModel(
 
 /** [RunResult] → nəticə paneli. Saf funksiya — testdən birbaşa çağırılır. */
 internal fun meydanNeticesi(r: RunResult): MeydanVeziyyeti = when (r) {
-    is RunResult.Ok -> MeydanVeziyyeti.Cixis(r.output.ifBlank { "(çıxış yoxdur)" })
+    is RunResult.Ok -> MeydanVeziyyeti.Cixis(r.output)
     is RunResult.CompileError ->
-        MeydanVeziyyeti.Xetalar("Kompilyasiya xətası", r.errors.joinToString("\n"))
-    is RunResult.Crashed -> MeydanVeziyyeti.Xetalar(
-        "Çalışma vaxtı xətası",
-        buildString {
-            if (r.output.isNotBlank()) append(r.output).append('\n')
-            append(r.exception)
-        }
-    )
+        MeydanVeziyyeti.Xetalar(IcraXetasi.KOMPILYASIYA, r.errors.map { XetaSetri(it.mesaj, it.setir) })
+    is RunResult.Crashed -> MeydanVeziyyeti.Xetalar(IcraXetasi.ICRA, xetaSetrleri(r.output) + XetaSetri(r.exception))
     RunResult.Offline -> MeydanVeziyyeti.Oflayn
-    is RunResult.Failed -> MeydanVeziyyeti.Xetalar("Bağlantı problemi", r.message)
+    is RunResult.Failed -> MeydanVeziyyeti.Xetalar(IcraXetasi.BAGLANTI, xetaSetrleri(r.message))
 }

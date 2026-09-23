@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.settings
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
+import az.kotlinaz.app.ui.etiket
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -69,6 +72,10 @@ fun SettingsScreen(
     modifier: Modifier = Modifier
 ) {
     val bildir = LocalBildiris.current
+    // Bildiriş mətnləri lambda-lardan əvvəl oxunur — onlar composable deyil.
+    val oxumaSifirlandi = stringResource(R.string.ayarlar_oxuma_sifirlandi)
+    val calismaSifirlandi = stringResource(R.string.ayarlar_calisma_sifirlandi)
+    val hamisiSifirlandi = stringResource(R.string.ayarlar_hamisi_sifirlandi)
     val tema by vm.tema.collectAsStateWithLifecycle()
     val dil by vm.dil.collectAsStateWithLifecycle()
     val diller by vm.gorunenDiller.collectAsStateWithLifecycle()
@@ -96,15 +103,15 @@ fun SettingsScreen(
         onTamamlama = { vm.tamamlamaSec(it) },
         onOxumaSifirla = {
             vm.oxumaTereqqisiniSifirla()
-            bildir("Dərs təsdiqləri sıfırlandı")
+            bildir(oxumaSifirlandi)
         },
         onCalismaSifirla = {
             vm.calismaTereqqisiniSifirla()
-            bildir("Çalışma tərəqqisi sıfırlandı")
+            bildir(calismaSifirlandi)
         },
         onHamisiSifirla = {
             vm.hamisiniSifirla()
-            bildir("Bütün tərəqqi sıfırlandı")
+            bildir(hamisiSifirlandi)
         }
     )
 }
@@ -139,6 +146,7 @@ private fun SettingsContent(
     val c = KAz.colors
     val context = LocalContext.current
     val bildir = LocalBildiris.current
+    val brauzerYoxdur = stringResource(R.string.ortaq_brauzer_yoxdur)
     // Hansı sıfırlama təsdiqlənir: "oxuma" | "calisma" | "hamisi" | null (pəncərə bağlı).
     // Açıq dialoq döndərmədə itməsin deyə saveable (T2.4).
     var tesdiq by rememberSaveable { mutableStateOf<String?>(null) }
@@ -149,9 +157,9 @@ private fun SettingsContent(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item {
-            Bolum("Görünüş") {
+            Bolum(stringResource(R.string.ayarlar_gorunus)) {
                 Text(
-                    text = "Tema",
+                    text = stringResource(R.string.ayarlar_tema),
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
@@ -159,7 +167,7 @@ private fun SettingsContent(
                 Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                     ThemeMode.entries.forEach { m ->
                         Secim(
-                            etiket = m.label,
+                            etiket = m.etiket(),
                             aktiv = m == tema,
                             modifier = Modifier.weight(1f)
                         ) { onTema(m) }
@@ -169,15 +177,19 @@ private fun SettingsContent(
                 Spacer(Modifier.height(14.dp))
 
                 Text(
-                    text = "Yazı şrifti",
+                    text = stringResource(R.string.ayarlar_srift),
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
                 Spacer(Modifier.height(7.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                    listOf("Kiçik", "Normal", "Böyük").forEachIndexed { i, ad ->
+                    listOf(
+                        R.string.ayarlar_srift_kicik,
+                        R.string.ayarlar_srift_normal,
+                        R.string.ayarlar_srift_boyuk
+                    ).forEachIndexed { i, ad ->
                         Secim(
-                            etiket = ad,
+                            etiket = stringResource(ad),
                             aktiv = i == sriftOlcusu,
                             modifier = Modifier.weight(1f)
                         ) { onSrift(i) }
@@ -185,8 +197,7 @@ private fun SettingsContent(
                 }
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    text = "Seçim bütün tətbiqə təsir edir — dərs mətni, düymələr " +
-                        "və kod blokları birlikdə böyüyüb kiçilir.",
+                    text = stringResource(R.string.ayarlar_srift_izah),
                     style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
                     color = c.textFaint
                 )
@@ -194,14 +205,14 @@ private fun SettingsContent(
         }
 
         item {
-            Bolum("Dil") {
+            Bolum(stringResource(R.string.ayarlar_dil)) {
                 // Hər dil öz adı ilə — istifadəçi başa düşmədiyi dildəki siyahıda
                 // öz dilini tapa bilsin. «Sistem dili» birincidir.
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(7.dp),
                     verticalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
-                    Secim(etiket = "Sistem dili", aktiv = dil == null, yigcam = true) { onDil(null) }
+                    Secim(etiket = stringResource(R.string.ayarlar_sistem_dili), aktiv = dil == null, yigcam = true) { onDil(null) }
                     diller.forEach { d ->
                         Secim(etiket = d.ozAdi, aktiv = d == dil, yigcam = true) { onDil(d) }
                     }
@@ -212,11 +223,9 @@ private fun SettingsContent(
                 val secilenTeq = dil?.teq
                 val qeyd = if (secilenTeq != null && secilenTeq != mezmunDili) {
                     val adi = AppDil.from(mezmunDili)?.ozAdi ?: mezmunDili
-                    "Bu dildə dərs məzmunu hələ hazır deyil — dərslər, çalışmalar və " +
-                        "test $adi dilində göstərilir. Tərcümə gəldikcə avtomatik keçəcək."
+                    stringResource(R.string.ayarlar_dil_mezmun_yoxdur, adi)
                 } else {
-                    "Dil dəyişəndə həm tətbiqin mətnləri, həm dərs məzmunu dəyişir; " +
-                        "tərəqqi və rekordlar olduğu kimi qalır."
+                    stringResource(R.string.ayarlar_dil_izah)
                 }
                 Text(
                     text = qeyd,
@@ -227,19 +236,17 @@ private fun SettingsContent(
         }
 
         item {
-            Bolum("Redaktor") {
+            Bolum(stringResource(R.string.ayarlar_redaktor)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(
-                            text = "Kod tamamlama",
+                            text = stringResource(R.string.ayarlar_tamamlama),
                             style = MaterialTheme.typography.labelLarge,
                             color = c.text
                         )
                         Spacer(Modifier.height(3.dp))
                         Text(
-                            text = "Kod yazarkən sözün üstündə təkliflər çıxır: «pri» " +
-                                "yazanda print/println, «va» yazanda val/var. " +
-                                "Kod meydanında və praktiki çalışmalarda işləyir.",
+                            text = stringResource(R.string.ayarlar_tamamlama_izah),
                             style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
                             color = c.textDim
                         )
@@ -260,79 +267,83 @@ private fun SettingsContent(
         }
 
         item {
-            Bolum("Tərəqqi") {
-                Setir("Səviyyən", tereqqi.seviyye.label, vurgu = seviyyeRengi(tereqqi.seviyye))
+            Bolum(stringResource(R.string.ayarlar_tereqqi)) {
+                Setir(stringResource(R.string.ayarlar_seviyyen), tereqqi.seviyye.etiket(), vurgu = seviyyeRengi(tereqqi.seviyye))
                 Setir(
-                    "Tamamlanmış dərslər",
-                    "${tereqqi.tamamlananDers} / ${tereqqi.umumiDers}"
+                    stringResource(R.string.ayarlar_tamamlanan_dersler),
+                    stringResource(R.string.ortaq_say_bolu, tereqqi.tamamlananDers, tereqqi.umumiDers)
                 )
                 Level.entries.forEach { lv ->
                     val say = tereqqi.say(lv)
-                    Setir("${lv.label} çalışmalar", "${say.hell} / ${say.umumi}")
+                    Setir(
+                        stringResource(R.string.ayarlar_seviyye_calismalar, lv.etiket()),
+                        stringResource(R.string.ortaq_say_bolu, say.hell, say.umumi)
+                    )
                 }
 
                 Spacer(Modifier.height(10.dp))
                 Text(
-                    text = "Dərs yalnız ona bağlı çalışmaların hamısı düzgün həll " +
-                        "ediləndə tamamlanmış sayılır.",
+                    text = stringResource(R.string.ayarlar_tereqqi_izah),
                     style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
                     color = c.textFaint
                 )
 
                 Spacer(Modifier.height(13.dp))
 
-                Sifirla("Dərs təsdiqlərini sıfırla") { tesdiq = "oxuma" }
+                Sifirla(stringResource(R.string.ayarlar_sifirla_oxuma)) { tesdiq = "oxuma" }
                 Spacer(Modifier.height(7.dp))
-                Sifirla("Çalışma tərəqqisini sıfırla") { tesdiq = "calisma" }
+                Sifirla(stringResource(R.string.ayarlar_sifirla_calisma)) { tesdiq = "calisma" }
                 Spacer(Modifier.height(7.dp))
-                Sifirla("Hər şeyi sıfırla", tehlukeli = true) { tesdiq = "hamisi" }
+                Sifirla(stringResource(R.string.ayarlar_sifirla_hamisi), tehlukeli = true) { tesdiq = "hamisi" }
             }
         }
 
         item {
-            Bolum("Bilik testi rekordları") {
+            Bolum(stringResource(R.string.ayarlar_rekordlar)) {
                 val varmi = QuizRejimi.entries.any { (quizRekordlari[it.id] ?: 0) > 0 }
                 if (!varmi) {
                     Text(
-                        text = "Hələ test verməmisən. Test bölməsində Junior, Middle, " +
-                            "Senior və Qarışıq rejimləri var.",
+                        text = stringResource(R.string.ayarlar_rekord_yoxdur),
                         style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
                         color = c.textDim
                     )
                 } else {
                     QuizRejimi.entries.forEach { r ->
                         val rekord = quizRekordlari[r.id] ?: 0
-                        Setir(r.label, if (rekord > 0) "$rekord / $QUIZ_SUAL_SAYI" else "—")
+                        Setir(
+                            r.etiket(),
+                            if (rekord > 0) stringResource(R.string.ortaq_say_bolu, rekord, QUIZ_SUAL_SAYI) else "—"
+                        )
                     }
                 }
             }
         }
 
         item {
-            Bolum("Oflayn iş") {
+            Bolum(stringResource(R.string.ayarlar_oflayn)) {
                 Text(
-                    text = "Bütün dərslər, 144 kod nümunəsi (nəticələri ilə birlikdə), " +
-                        "6 interaktiv nümayiş, 1250 çalışma və bilik testi tətbiqin " +
-                        "içindədir — internet lazım deyil.\n\n" +
-                        "Yalnız kod meydanı və praktiki çalışmalardakı «Yoxla» düyməsi " +
-                        "bağlantı tələb edir, çünki kod real Kotlin kompilyatorunda " +
-                        "işlədilir.",
+                    text = stringResource(R.string.ayarlar_oflayn_izah),
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                     color = c.textDim
                 )
 
                 Spacer(Modifier.height(8.dp))
-                Setir("Kompilyator", "Kotlin ${kompilyator.versiya}")
+                Setir(
+                    stringResource(R.string.ayarlar_kompilyator),
+                    stringResource(R.string.ortaq_kotlin_versiya, kompilyator.versiya)
+                )
 
                 // Boz qeyd yalnız deyiləsi söz olanda: tətbiqin öz versiyası
                 // serverdə yoxdursa, ya da siyahı hələ serverdən yoxlanılmayıbsa.
                 val qeyd = when {
                     kompilyator.tetbiqdenFerqli ->
-                        "Tətbiq Kotlin ${KompilyatorVersiyalari.TETBIQIN} ilə qurulub; " +
-                            "server bu versiyanı təklif etmədiyi üçün kod " +
-                            "${kompilyator.versiya} versiyasında icra olunur."
+                        stringResource(
+                            R.string.ayarlar_kompilyator_ferqli,
+                            KompilyatorVersiyalari.TETBIQIN,
+                            kompilyator.versiya
+                        )
                     !kompilyator.serverden ->
-                        "Versiya siyahısı ilk icrada serverdən yoxlanılır."
+                        stringResource(R.string.ayarlar_kompilyator_yoxlanmayib)
                     else -> null
                 }
                 if (qeyd != null) {
@@ -347,28 +358,30 @@ private fun SettingsContent(
         }
 
         item {
-            Bolum("Məxfilik və əlaqə") {
+            Bolum(stringResource(R.string.ayarlar_mexfilik)) {
                 // Play «Data safety» bəyanatı ilə eyni mətn (PRIVACY.md).
                 Text(
-                    text = "Kod meydanında və praktiki çalışmalarda «İşlə» və ya «Yoxla» " +
-                        "basanda yazdığın kod icra üçün JetBrains-in Kotlin serverinə " +
-                        "(api.kotlinlang.org) göndərilir. Başqa heç bir məlumat cihazdan " +
-                        "çıxmır: hesab, reklam, analitika və izləmə yoxdur. Tərəqqi və " +
-                        "tənzimləmələr yalnız bu cihazda (və Android yedəyində) saxlanılır.",
+                    text = stringResource(R.string.ayarlar_mexfilik_izah),
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                     color = c.textDim
                 )
                 Spacer(Modifier.height(10.dp))
-                Kecid(ust = "Sənəd", etiket = "Məxfilik siyasəti") {
-                    kecidAc(context, MEXFILIK_URL, bildir)
+                Kecid(
+                    ust = stringResource(R.string.ayarlar_senad),
+                    etiket = stringResource(R.string.ayarlar_mexfilik_siyaseti)
+                ) {
+                    kecidAc(context, MEXFILIK_URL, brauzerYoxdur, bildir)
                 }
                 Spacer(Modifier.height(7.dp))
-                Kecid(ust = "GitHub issue — cihaz və versiya əlavə olunur", etiket = "Xəta bildir") {
-                    kecidAc(context, xetaBildirisiUrl(cihazMelumati(dil, mezmunDili, kompilyator)), bildir)
+                Kecid(
+                    ust = stringResource(R.string.ayarlar_xeta_bildir_ust),
+                    etiket = stringResource(R.string.ayarlar_xeta_bildir)
+                ) {
+                    kecidAc(context, xetaBildirisiUrl(cihazMelumati(dil, mezmunDili, kompilyator)), brauzerYoxdur, bildir)
                 }
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    text = "Forma brauzerdə açılır — göndərmədən əvvəl hamısını görüb dəyişə bilərsən.",
+                    text = stringResource(R.string.ayarlar_xeta_bildir_izah),
                     style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
                     color = c.textFaint
                 )
@@ -376,19 +389,19 @@ private fun SettingsContent(
         }
 
         item {
-            Bolum("Mənbə") {
+            Bolum(stringResource(R.string.ayarlar_menbe)) {
                 Text(
-                    text = "Məzmun KotlinAZ saytından götürülüb.",
+                    text = stringResource(R.string.ayarlar_menbe_izah),
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                     color = c.textDim
                 )
                 Spacer(Modifier.height(10.dp))
                 Kecid(ust = "GitHub", etiket = "github.com/Kea335") {
-                    kecidAc(context, GITHUB, bildir)
+                    kecidAc(context, GITHUB, brauzerYoxdur, bildir)
                 }
                 Spacer(Modifier.height(9.dp))
                 Text(
-                    text = "KotlinAZ · v${BuildConfig.VERSION_NAME}",
+                    text = stringResource(R.string.ayarlar_versiya, BuildConfig.VERSION_NAME),
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
@@ -402,37 +415,35 @@ private fun SettingsContent(
     if (tesdiq != null) {
         val (basliq, metn, emel) = when (tesdiq) {
             "oxuma" -> Triple(
-                "Dərs təsdiqləri silinsin?",
-                "Çalışması olmayan bölmələrdə verdiyin «Oxudum» təsdiqləri silinəcək. " +
-                    "Çalışmalardan gələn mənimsəməyə toxunulmur.",
+                R.string.ayarlar_tesdiq_oxuma_basliq,
+                R.string.ayarlar_tesdiq_oxuma_metn,
                 onOxumaSifirla
             )
             "calisma" -> Triple(
-                "Çalışma tərəqqisi silinsin?",
-                "Həll edilmiş çalışmaların işarəsi silinəcək — dərslərin mənimsəməsi " +
-                    "və səviyyən də sıfırlanacaq.",
+                R.string.ayarlar_tesdiq_calisma_basliq,
+                R.string.ayarlar_tesdiq_calisma_metn,
                 onCalismaSifirla
             )
             else -> Triple(
-                "Hər şey silinsin?",
-                "Dərs təsdiqləri, çalışmalar və test rekordları — hamısı sıfırlanacaq.",
+                R.string.ayarlar_tesdiq_hamisi_basliq,
+                R.string.ayarlar_tesdiq_hamisi_metn,
                 onHamisiSifirla
             )
         }
 
         androidx.compose.material3.AlertDialog(
             onDismissRequest = { tesdiq = null },
-            title = { Text(basliq) },
-            text = { Text(metn) },
+            title = { Text(stringResource(basliq)) },
+            text = { Text(stringResource(metn)) },
             confirmButton = {
                 androidx.compose.material3.TextButton(onClick = {
                     emel()
                     tesdiq = null
-                }) { Text("Sıfırla", color = c.err) }
+                }) { Text(stringResource(R.string.ortaq_sifirla), color = c.err) }
             },
             dismissButton = {
                 androidx.compose.material3.TextButton(onClick = { tesdiq = null }) {
-                    Text("İmtina")
+                    Text(stringResource(R.string.ayarlar_imtina))
                 }
             },
             containerColor = c.bgElev,
@@ -531,11 +542,11 @@ private fun Kecid(ust: String, etiket: String, onClick: () -> Unit) {
 }
 
 /** Ünvanı brauzerdə açır; brauzer tapılmasa çökmək əvəzinə xəbər verir. */
-private fun kecidAc(context: Context, url: String, bildir: (String) -> Unit) {
+private fun kecidAc(context: Context, url: String, brauzerYoxdur: String, bildir: (String) -> Unit) {
     try {
         context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
     } catch (_: ActivityNotFoundException) {
-        bildir("Brauzer tapılmadı")
+        bildir(brauzerYoxdur)
     }
 }
 

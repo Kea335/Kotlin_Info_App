@@ -1,5 +1,354 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!--
+    KotlinAZ UI mətnləri (T3.4). Baza dil — azərbaycanca.
+    Ad qaydası: <ekran>_<məqsəd>. Say və formatlar %1$d / %1$s / plurals ilə —
+    sətir birləşməsi yoxdur, tərcüməçi tam cümləni görür.
+    Tərcümələr: res/values-<dil>/strings.xml (T4.1+). Dil faizini
+    tools/validate-locales.js hesablayır.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="az">
     <!-- Brend adı tərcümə olunmur — dil faizinə də sayılmır (T4.7). -->
     <string name="app_name" translatable="false">KotlinAZ</string>
+
+    <!-- ===== Ümumi: səviyyə, tema, rejim, icra xətaları ===== -->
+    <string name="seviyye_junior">Junior</string>
+    <string name="seviyye_middle">Middle</string>
+    <string name="seviyye_senior">Senior</string>
+    <string name="tema_sistem">Sistem</string>
+    <string name="tema_isiqli">İşıqlı</string>
+    <string name="tema_qaranliq">Qaranlıq</string>
+    <string name="calisma_rejim_nezeri">Nəzəri</string>
+    <string name="calisma_rejim_praktiki">Praktiki</string>
+    <string name="quiz_rejim_qarisiq">Qarışıq</string>
+    <string name="quiz_rejim_junior_izah">Sintaksis, dəyişənlər, şərtlər, dövrlər — başlanğıc suallar.</string>
+    <string name="quiz_rejim_middle_izah">Kolleksiyalar, lambda, OYP, null təhlükəsizliyi.</string>
+    <string name="quiz_rejim_senior_izah">Generics, korutinlər, delegatlar, incə detallar.</string>
+    <string name="quiz_rejim_qarisiq_izah">Bütün səviyyələrdən təsadüfi seçim — əsl imtahan.</string>
+    <string name="icra_xeta_kompilyasiya">Kompilyasiya xətası</string>
+    <string name="icra_xeta_calisma_vaxti">Çalışma vaxtı xətası</string>
+    <string name="icra_xeta_baglanti">Bağlantı problemi</string>
+    <!-- Kompilyatorun xəta sətri: nömrə və serverin (ingiliscə) mesajı -->
+    <string name="icra_setir">Sətir %1$d: %2$s</string>
+    <string name="ortaq_kopyala">Kopyala</string>
+    <string name="ortaq_kod_kopyalandi">Kod kopyalandı</string>
+    <string name="ortaq_novbeti">Növbəti</string>
+    <string name="ortaq_evvelki">Əvvəlki</string>
+    <string name="ortaq_sifirla">Sıfırla</string>
+    <string name="ortaq_netice">Nəticə</string>
+    <string name="ortaq_internet_yoxdur">İnternet yoxdur</string>
+    <!-- Faiz: 75% -->
+    <string name="ortaq_faiz">%1$d%%</string>
+    <!-- Sayğac: həll edilən / ümumi -->
+    <string name="ortaq_say_bolu">%1$d / %2$d</string>
+    <string name="ortaq_brauzer_yoxdur">Brauzer tapılmadı</string>
+
+    <!-- ===== Naviqasiya və başlıqlar ===== -->
+    <string name="nav_dersler">Dərslər</string>
+    <string name="nav_calismalar">Çalışmalar</string>
+    <string name="nav_test">Test</string>
+    <string name="nav_meydan">Meydan</string>
+    <string name="nav_geri">Geri</string>
+    <string name="nav_axtaris">Axtarış</string>
+    <string name="nav_tenzimlemeler">Tənzimləmələr</string>
+    <string name="basliq_ders">Dərs</string>
+    <string name="basliq_calisma">Çalışma</string>
+    <string name="basliq_bilik_testi">Bilik testi</string>
+    <string name="basliq_kod_meydani">Kod meydanı</string>
+    <string name="yukleme_xeta_basliq">Məzmun yüklənmədi</string>
+    <string name="yukleme_xeta_izah">Tətbiqin daxili aktivləri oxunmadı.</string>
+
+    <!-- ===== Tənzimləmələr ===== -->
+    <string name="ayarlar_oxuma_sifirlandi">Dərs təsdiqləri sıfırlandı</string>
+    <string name="ayarlar_calisma_sifirlandi">Çalışma tərəqqisi sıfırlandı</string>
+    <string name="ayarlar_hamisi_sifirlandi">Bütün tərəqqi sıfırlandı</string>
+    <string name="ayarlar_gorunus">Görünüş</string>
+    <string name="ayarlar_tema">Tema</string>
+    <string name="ayarlar_srift">Yazı şrifti</string>
+    <string name="ayarlar_srift_kicik">Kiçik</string>
+    <string name="ayarlar_srift_normal">Normal</string>
+    <string name="ayarlar_srift_boyuk">Böyük</string>
+    <string name="ayarlar_srift_izah">Seçim bütün tətbiqə təsir edir — dərs mətni, düymələr və kod blokları birlikdə böyüyüb kiçilir.</string>
+    <string name="ayarlar_dil">Dil</string>
+    <string name="ayarlar_sistem_dili">Sistem dili</string>
+    <!-- Parametr — məzmunun göstərildiyi dilin öz adı (məs. «English») -->
+    <string name="ayarlar_dil_mezmun_yoxdur">Bu dildə dərs məzmunu hələ hazır deyil — dərslər, çalışmalar və test %1$s dilində göstərilir. Tərcümə gəldikcə avtomatik keçəcək.</string>
+    <string name="ayarlar_dil_izah">Dil dəyişəndə həm tətbiqin mətnləri, həm dərs məzmunu dəyişir; tərəqqi və rekordlar olduğu kimi qalır.</string>
+    <string name="ayarlar_redaktor">Redaktor</string>
+    <string name="ayarlar_tamamlama">Kod tamamlama</string>
+    <string name="ayarlar_tamamlama_izah">Kod yazarkən sözün üstündə təkliflər çıxır: «pri» yazanda print/println, «va» yazanda val/var. Kod meydanında və praktiki çalışmalarda işləyir.</string>
+    <string name="ayarlar_tereqqi">Tərəqqi</string>
+    <string name="ayarlar_seviyyen">Səviyyən</string>
+    <string name="ayarlar_tamamlanan_dersler">Tamamlanmış dərslər</string>
+    <!-- Parametr — səviyyə adı (Junior…) -->
+    <string name="ayarlar_seviyye_calismalar">%1$s çalışmalar</string>
+    <string name="ayarlar_tereqqi_izah">Dərs yalnız ona bağlı çalışmaların hamısı düzgün həll ediləndə tamamlanmış sayılır.</string>
+    <string name="ayarlar_sifirla_oxuma">Dərs təsdiqlərini sıfırla</string>
+    <string name="ayarlar_sifirla_calisma">Çalışma tərəqqisini sıfırla</string>
+    <string name="ayarlar_sifirla_hamisi">Hər şeyi sıfırla</string>
+    <string name="ayarlar_rekordlar">Bilik testi rekordları</string>
+    <string name="ayarlar_rekord_yoxdur">Hələ test verməmisən. Test bölməsində Junior, Middle, Senior və Qarışıq rejimləri var.</string>
+    <string name="ayarlar_oflayn">Oflayn iş</string>
+    <string name="ayarlar_oflayn_izah">Bütün dərslər, 144 kod nümunəsi (nəticələri ilə birlikdə), 6 interaktiv nümayiş, 1250 çalışma və bilik testi tətbiqin içindədir — internet lazım deyil.\n\nYalnız kod meydanı və praktiki çalışmalardakı «Yoxla» düyməsi bağlantı tələb edir, çünki kod real Kotlin kompilyatorunda işlədilir.</string>
+    <string name="ayarlar_kompilyator">Kompilyator</string>
+    <string name="ortaq_kotlin_versiya">Kotlin %1$s</string>
+    <string name="ayarlar_kompilyator_ferqli">Tətbiq Kotlin %1$s ilə qurulub; server bu versiyanı təklif etmədiyi üçün kod %2$s versiyasında icra olunur.</string>
+    <string name="ayarlar_kompilyator_yoxlanmayib">Versiya siyahısı ilk icrada serverdən yoxlanılır.</string>
+    <string name="ayarlar_mexfilik">Məxfilik və əlaqə</string>
+    <!-- Play «Data safety» bəyanatı və PRIVACY.md ilə eyni məna -->
+    <string name="ayarlar_mexfilik_izah">Kod meydanında və praktiki çalışmalarda «İşlə» və ya «Yoxla» basanda yazdığın kod icra üçün JetBrains-in Kotlin serverinə (api.kotlinlang.org) göndərilir. Başqa heç bir məlumat cihazdan çıxmır: hesab, reklam, analitika və izləmə yoxdur. Tərəqqi və tənzimləmələr yalnız bu cihazda (və Android yedəyində) saxlanılır.</string>
+    <string name="ayarlar_senad">Sənəd</string>
+    <string name="ayarlar_mexfilik_siyaseti">Məxfilik siyasəti</string>
+    <string name="ayarlar_xeta_bildir_ust">GitHub issue — cihaz və versiya əlavə olunur</string>
+    <string name="ayarlar_xeta_bildir">Xəta bildir</string>
+    <string name="ayarlar_xeta_bildir_izah">Forma brauzerdə açılır — göndərmədən əvvəl hamısını görüb dəyişə bilərsən.</string>
+    <string name="ayarlar_menbe">Mənbə</string>
+    <string name="ayarlar_menbe_izah">Məzmun KotlinAZ saytından götürülüb.</string>
+    <string name="ayarlar_versiya">KotlinAZ · v%1$s</string>
+    <string name="ayarlar_tesdiq_oxuma_basliq">Dərs təsdiqləri silinsin?</string>
+    <string name="ayarlar_tesdiq_oxuma_metn">Çalışması olmayan bölmələrdə verdiyin «Oxudum» təsdiqləri silinəcək. Çalışmalardan gələn mənimsəməyə toxunulmur.</string>
+    <string name="ayarlar_tesdiq_calisma_basliq">Çalışma tərəqqisi silinsin?</string>
+    <string name="ayarlar_tesdiq_calisma_metn">Həll edilmiş çalışmaların işarəsi silinəcək — dərslərin mənimsəməsi və səviyyən də sıfırlanacaq.</string>
+    <string name="ayarlar_tesdiq_hamisi_basliq">Hər şey silinsin?</string>
+    <string name="ayarlar_tesdiq_hamisi_metn">Dərs təsdiqləri, çalışmalar və test rekordları — hamısı sıfırlanacaq.</string>
+    <string name="ayarlar_imtina">İmtina</string>
+
+    <!-- ===== Kod meydanı ===== -->
+    <string name="meydan_xeberdarliq">Bu bölmə internet tələb edir — kod JetBrains serverlərində kompilyasiya olunur. Tətbiqin qalan hissəsi tam oflayn işləyir.</string>
+    <string name="meydan_kompilyator">Kompilyator: Kotlin %1$s</string>
+    <string name="meydan_baslangic">Başlanğıc</string>
+    <!-- Boş redaktoru açan çip -->
+    <string name="meydan_bos_redaktor">Kod meydanı</string>
+    <string name="meydan_paylas">Kodu paylaş</string>
+    <string name="meydan_paylas_tetbiq_yoxdur">Paylaşmaq üçün tətbiq tapılmadı</string>
+    <string name="meydan_isle">▶  İşlə</string>
+    <string name="meydan_dayandir">■  Dayandır</string>
+    <string name="meydan_temizle">Təmizlə</string>
+    <string name="meydan_isleyir">Kod serverdə kompilyasiya olunur…</string>
+    <string name="meydan_cixis_yoxdur">(çıxış yoxdur)</string>
+    <string name="meydan_dayandirildi">Dayandırıldı</string>
+    <string name="meydan_dayandirildi_izah">İcra dayandırıldı — nəticə gözlənilmir.</string>
+    <string name="meydan_oflayn_izah">Kod meydanı Kotlin kompilyatorunu JetBrains serverlərində işlədir, ona görə bağlantı olmadan işləyə bilmir. Bağlantısız da öyrənməyə davam edə bilərsən — bütün dərslər, 144 kod nümunəsi (nəticələri ilə birlikdə), 1250 çalışma və bilik testi oflayn əlçatandır.</string>
+
+    <!-- ===== Kod kartı və redaktor ===== -->
+    <string name="kod_isle">İşlə</string>
+    <string name="kod_gizlet">Gizlət</string>
+    <!-- Kodu meydanda açan düymə -->
+    <string name="kod_meydan">Meydan</string>
+    <plurals name="redaktor_setir_sayi">
+        <item quantity="one">%d sətir</item>
+        <item quantity="other">%d sətir</item>
+    </plurals>
+
+    <!-- ===== Çalışmalar ===== -->
+    <string name="cavab_duzdur">Düzdür</string>
+    <!-- Parametr — variantın hərfi (A, B…) -->
+    <string name="cavab_duzgun">Düzgün cavab: %1$s</string>
+    <string name="calisma_movzu_yoxdur">Mövzu tapılmadı</string>
+    <!-- Səviyyə filtri: bütün səviyyələr -->
+    <string name="calisma_hamisi">Hamısı</string>
+    <string name="calisma_sayqac">Çalışma %1$d / %2$d</string>
+    <string name="calisma_hell_edilib">Həll edilib</string>
+    <string name="calisma_bu_seviyyede_yoxdur">Bu səviyyədə çalışma yoxdur.</string>
+    <string name="calisma_gozlenilen_netice">Gözlənilən nəticə</string>
+    <string name="calisma_yoxla">Yoxla</string>
+    <string name="calisma_yoxlanilir">Yoxlanılır…</string>
+    <string name="calisma_ipucu">İpucu</string>
+    <string name="calisma_cavab">Cavab</string>
+    <string name="calisma_kodu_kopyala">Kodu kopyala</string>
+    <string name="calisma_hell_etdim">Həll etdim</string>
+    <string name="calisma_hell_isarelendi">Çalışma həll edilmiş kimi işarələndi</string>
+    <string name="calisma_cavab_yuklendi">Cavab redaktora yükləndi — oxuduqdan sonra «Sıfırla» ilə başlanğıca qayıt və özün yazmağı sına.</string>
+    <string name="calisma_cavab_tesdiq_basliq">Cavaba baxmaq istəyirsən?</string>
+    <string name="calisma_cavab_tesdiq_metn">Hazır cavabı oxumaq öyrənməni əvəz etmir — əvvəlcə «İpucu» ilə bir də cəhd et. Cavabı görsən, bu tapşırığı özün tapmaq şansını itirirsən.</string>
+    <string name="calisma_cavab_goster">Yenə də göstər</string>
+    <string name="calisma_ozum_sinayim">Özüm sınayım</string>
+    <string name="calisma_isleyir">Kod JetBrains serverində işlədilir — adətən 3–10 saniyə.</string>
+    <string name="calisma_duzgun_netice">Düzdür! Nəticə tam uyğundur.</string>
+    <string name="calisma_sehv_netice">Nəticə uyğun gəlmədi</string>
+    <string name="calisma_gozlenilen">Gözlənilən</string>
+    <string name="calisma_senin_neticen">Sənin nəticən</string>
+    <string name="calisma_bos_cixis">(boş)</string>
+    <string name="calisma_oflayn_izah">Kodun işlədilməsi üçün bağlantı lazımdır — Kotlin kompilyatoru JetBrains serverlərindədir. Bağlantısız da işləyə bilərsən: «Cavab» düyməsi ilə düzgün həlli aç və öz kodunla müqayisə et, sonra «Həll etdim» ilə işarələ.</string>
+    <string name="calisma_bank">Çalışmalar bankı</string>
+    <string name="calisma_bank_hell">%1$d / %2$d həll edilib</string>
+    <plurals name="calisma_nezeri_sayi">
+        <item quantity="one">%d nəzəri</item>
+        <item quantity="other">%d nəzəri</item>
+    </plurals>
+    <plurals name="calisma_praktiki_sayi">
+        <item quantity="one">%d praktiki</item>
+        <item quantity="other">%d praktiki</item>
+    </plurals>
+
+    <!-- ===== Bilik testi ===== -->
+    <string name="quiz_seviyye_sec">Səviyyəni seç</string>
+    <!-- Say: sonuncu rəqəm -->
+    <plurals name="quiz_izah">
+        <item quantity="one">Hər turda %1$d sual təsadüfi seçilir — eyni rejimi təkrar oynasan suallar dəyişir.</item>
+        <item quantity="other">Hər turda %1$d sual təsadüfi seçilir — eyni rejimi təkrar oynasan suallar dəyişir.</item>
+    </plurals>
+    <plurals name="quiz_hovuz_sayi">
+        <item quantity="one">%d sual</item>
+        <item quantity="other">%d sual</item>
+    </plurals>
+    <string name="quiz_rekord_nisan">rekord %1$d/%2$d</string>
+    <string name="quiz_seviyyeni_deyis_geri">‹  Səviyyəni dəyiş</string>
+    <string name="quiz_sual_sayqac">Sual %1$d / %2$d</string>
+    <string name="quiz_bal">Bal: %1$d</string>
+    <string name="quiz_neticeye_bax">Nəticəyə bax</string>
+    <string name="quiz_novbeti_sual">Növbəti sual</string>
+    <string name="quiz_rey_mukemmel">Mükəmməl! Bu səviyyəni yaxşı bilirsən.</string>
+    <string name="quiz_rey_yaxsi">Yaxşı nəticə! Bir neçə mövzunu təkrarlamaq kifayətdir.</string>
+    <string name="quiz_rey_orta">Pis deyil. Səhv verdiyin mövzuların dərslərinə qayıt.</string>
+    <string name="quiz_rey_baslangic">Başlanğıc üçün normaldır — mövzuları yenidən oxu və təkrar sına.</string>
+    <!-- Say: sonuncu rəqəm -->
+    <plurals name="quiz_dogru_cavab">
+        <item quantity="one">%1$d / %2$d doğru cavab</item>
+        <item quantity="other">%1$d / %2$d doğru cavab</item>
+    </plurals>
+    <!-- Parametrlər — rejim adı, rekord, sual sayı -->
+    <string name="quiz_rekordun">%1$s rekordun: %2$d / %3$d</string>
+    <string name="quiz_yeniden">Yenidən başla</string>
+    <string name="quiz_seviyyeni_deyis">Səviyyəni dəyiş</string>
+
+    <!-- ===== Dərslər ===== -->
+    <string name="ders_seviyyen">Səviyyən</string>
+    <string name="ders_en_yuksek_seviyye">Ən yüksək səviyyədəsən — bütün çalışma bankı sənin ixtiyarındadır.</string>
+    <!-- Parametr — növbəti səviyyənin adı -->
+    <string name="ders_olmaq_ucun">%1$s olmaq üçün</string>
+    <!-- Parametr — səviyyə adı -->
+    <string name="ders_seviyye_calismalari">%1$s çalışmaları</string>
+    <string name="ders_tamamlanan">Tamamlanmış dərslər</string>
+    <string name="ders_qayda_izah">Dərs yalnız ona bağlı bütün çalışmalar düzgün həll ediləndə tamamlanır — sürətlə sürüşdürmək saymır.</string>
+    <string name="ders_internet_teleb_edir">İnternet tələb edir</string>
+    <string name="ders_1250_calisma">1250 çalışma</string>
+    <string name="ders_seviyye_uzre_test">Səviyyə üzrə test</string>
+    <string name="ders_menimsenilib">%1$d%% mənimsənilib</string>
+    <string name="ders_tamamlanib">Tamamlanıb</string>
+    <string name="ders_tereqqi">Öyrənmə tərəqqisi</string>
+    <string name="ders_bolme_tamamlanib">%1$d / %2$d bölmə tamamlanıb</string>
+    <string name="ders_davam_et">Davam et</string>
+    <string name="ders_bolme_yoxdur">Bölmə tapılmadı</string>
+    <string name="ders_calismalara_kec">Çalışmalara keç — 25 mövzu, 1250 tapşırıq</string>
+    <string name="ders_tamamlanib_basliq">Bu dərs tamamlanıb</string>
+    <string name="ders_menimse_basliq">Bu dərsi mənimsəmək</string>
+    <string name="ders_oz_tesdiq">Öz təsdiqinlə işarələnib</string>
+    <string name="ders_calismasiz">Bu bölmənin çalışması yoxdur</string>
+    <!-- Say: sonuncu rəqəm -->
+    <plurals name="ders_calisma_hell">
+        <item quantity="one">%1$d / %2$d çalışma həll edilib</item>
+        <item quantity="other">%1$d / %2$d çalışma həll edilib</item>
+    </plurals>
+    <string name="ders_calismasiz_izah">Bu bölmə üçün çalışma bankında mövzu yoxdur. Oxuyub bitirdiyini özün təsdiqləyə bilərsən.</string>
+    <string name="ders_calismali_izah">Mətni sürüşdürmək kifayət etmir — dərs yalnız bütün çalışmalar düzgün həll ediləndə tamamlanmış sayılır.</string>
+    <string name="ders_oxudum">Oxudum, bitirdim</string>
+    <string name="ders_calismalara_qayit">Çalışmalara qayıt</string>
+    <string name="ders_calismalarina_kec">Bu dərsin çalışmalarına keç</string>
+
+    <!-- ===== Axtarış ===== -->
+    <string name="axtaris_ipucu">Sənəddə axtar…</string>
+    <string name="axtaris_temizle">Təmizlə</string>
+    <string name="axtaris_qisa">Axtarış üçün ən azı iki hərf yaz.\nBütün 32 bölmə oflayn axtarılır.</string>
+    <string name="axtaris_tapilmadi">«%1$s» üzrə heç nə tapılmadı.</string>
+    <plurals name="axtaris_netice_sayi">
+        <item quantity="one">%d bölmədə tapıldı</item>
+        <item quantity="other">%d bölmədə tapıldı</item>
+    </plurals>
+
+    <!-- ===== Dərs blokları ===== -->
+    <string name="blok_quiz_basliq">Bilik testi</string>
+    <string name="blok_quiz_metn">15 sual — sintaksisdən coroutine-lərə qədər. Suallar hər dəfə qarışıq sırada gəlir.</string>
+    <string name="blok_quiz_duyme">Testi başlat</string>
+    <string name="blok_meydan_basliq">Kod meydanı</string>
+    <string name="blok_meydan_metn">Real Kotlin kompilyatoru. Bu bölmə internet tələb edir — tətbiqin qalan hissəsi oflayn işləyir.</string>
+    <string name="blok_meydan_duyme">Meydanı aç</string>
+    <string name="demo_interaktiv">İnteraktiv</string>
+
+    <!-- ===== İnteraktiv nümayişlər: tip çıxarışı ===== -->
+    <string name="demo_tip_basliq">Tip çıxarışı laboratoriyası</string>
+    <string name="demo_tip_tesvir">Kotlin val x = … yazanda sağ tərəfə baxıb tipi özü təyin edir.</string>
+    <!-- Kod şərhi — «//»-dan sonrakı mətn -->
+    <string name="demo_tip_kod_serhi">kompilyatorun gördüyü:</string>
+    <string name="demo_tip_cixarilan">Çıxarılan tip: </string>
+    <string name="demo_tip_bos">Yuxarıya bir dəyər yazın və ya nümunələrdən seçin.</string>
+    <string name="demo_tip_long_l">L sonluğu Long bildirir (64 bit).</string>
+    <string name="demo_tip_long_boyuk">Dəyər Int hüdudundan böyükdür, ona görə avtomatik Long seçildi.</string>
+    <string name="demo_tip_int">Tam rəqəmlər defolt olaraq Int-dir (32 bit).</string>
+    <string name="demo_tip_float">f sonluğu Float bildirir (32 bit onluq).</string>
+    <string name="demo_tip_double">Onluq ədədlər defolt olaraq Double-dir (64 bit).</string>
+    <string name="demo_tip_boolean">Məntiqi dəyər: yalnız true və ya false ola bilər.</string>
+    <string name="demo_tip_char">Tək dırnaq Char bildirir, iki dırnaq isə String.</string>
+    <string name="demo_tip_string">İki dırnaq arasındakı mətn String-dir.</string>
+    <string name="demo_tip_null">Tək başına null-un tipi Nothing?-dir. Adətən açıq tip yazılır: val x: String? = null</string>
+    <string name="demo_tip_bos_siyahi">Boş siyahıda element tipi bilinmir — açıq yazın: listOf&lt;Int&gt;()</string>
+    <string name="demo_tip_list">listOf() dəyişməz (read-only) siyahı qaytarır.</string>
+    <string name="demo_tip_mutable_list">mutableListOf() əlavə və silmə əməliyyatlarına icazə verir.</string>
+    <string name="demo_tip_map">mapOf(\"a\" to 1) forması Map&lt;String, Int&gt; verir.</string>
+    <string name="demo_tip_set">Set təkrarlanan elementləri saxlamır.</string>
+    <string name="demo_tip_array">Array sabit ölçülüdür; adətən List daha rahatdır.</string>
+    <string name="demo_tip_lambda">Süslü mötərizə lambda-dır; parametrsiz olsa tipi () -&gt; Unit olur.</string>
+    <string name="demo_tip_taninmayan">Tanınmayan ifadə — yuxarıdakı nümunələrdən birini seçin.</string>
+
+    <!-- ===== İnteraktiv nümayişlər: null-safety ===== -->
+    <string name="demo_ns_basliq">Null-safety laboratoriyası</string>
+    <string name="demo_ns_tesvir">Dəyəri null / dolu et, sonra operatoru seç — nəticəni və izahı dərhal gör.</string>
+    <string name="demo_ns_deyer_var">Dəyər var (söndürülübsə null)</string>
+    <string name="demo_ns_kompilyasiya">KOMPİLYASİYA XƏTASI</string>
+    <string name="demo_ns_cokme">ÇALIŞMA VAXTI ÇÖKMƏSİ</string>
+    <string name="demo_ns_netice">NƏTİCƏ</string>
+    <string name="demo_ns_ne_bas_verdi">Nə baş verdi?</string>
+    <string name="demo_ns_hec_ne">(heç nə çap olunmadı)</string>
+    <string name="demo_ns_direct">Kotlin bu kodu işə salmağa belə imkan vermir. Xəta çalışma vaxtında yox, kompilyasiya vaxtında tutulur — yəni istifadəçi onu heç vaxt görməyəcək.</string>
+    <string name="demo_ns_safe_null">Safe call operatoru (?.): receiver null-dursa çağırış tamamilə atlanır və nəticə null olur. Çökmə baş vermir.</string>
+    <string name="demo_ns_safe_dolu">Receiver null deyil, ona görə length adi qaydada hesablanır.</string>
+    <string name="demo_ns_bang_null">!! operatoru «mən zəmanət verirəm ki, null deyil» deməkdir. Səhv etsən — NPE. Mümkün qədər ondan qaçın.</string>
+    <string name="demo_ns_bang_dolu">Bu dəfə dəyər null deyildi, ona görə işlədi. Amma !! yenə də risklidir — növbəti dəfə null ola bilər.</string>
+    <string name="demo_ns_elvis_null">Elvis operatoru (?:) sol tərəf null olduqda sağ tərəfdəki ehtiyat dəyəri qaytarır.</string>
+    <string name="demo_ns_elvis_dolu">Sol tərəf null olmadığı üçün elvisin sağ tərəfi heç işləmir.</string>
+    <string name="demo_ns_let_null">let bloku yalnız receiver null olmayanda işlənir. Null olanda bütün blok atlanır.</string>
+    <string name="demo_ns_let_dolu">Blok içində it artıq smart-cast olunmuş String tipidir — əlavə ? işarəsinə ehtiyac yoxdur.</string>
+    <string name="demo_ns_if_null">Şərti yoxlama false verdi, blok işlənmədi.</string>
+    <string name="demo_ns_if_dolu">SMART CAST: null yoxlamasından sonra kompilyator ad-ı avtomatik String kimi görür — ?. yazmağa ehtiyac qalmır.</string>
+
+    <!-- ===== İnteraktiv nümayişlər: zəncir, when, scope, coroutine ===== -->
+    <string name="demo_zencir_basliq">Zəncir qurucusu</string>
+    <string name="demo_zencir_tesvir">Əməliyyatları klikləyərək zəncir yığ — hər addımın aralıq nəticəsini gör.</string>
+    <string name="demo_zencir_temizle">Zənciri təmizlə</string>
+    <string name="demo_zencir_terminal">Terminal əməliyyatdan sonra zəncir davam edə bilməz</string>
+    <string name="demo_zencir_netice">nəticə = </string>
+    <string name="demo_when_basliq">when ifadəsi sınaqçısı</string>
+    <string name="demo_when_tesvir">Dəyər yaz — hansı budağın seçildiyini canlı gör.</string>
+    <string name="demo_when_bos_giris">(boş giriş)</string>
+    <string name="demo_scope_basliq">Scope funksiyaları müqayisəsi</string>
+    <string name="demo_scope_tesvir">Beş funksiyanın fərqi: kontekst obyekti nədir, nə qaytarır, harada işlədilir.</string>
+    <string name="demo_scope_kontekst">Kontekst</string>
+    <string name="demo_scope_qaytarir">Qaytarır</string>
+    <string name="demo_scope_ne_vaxt">Nə vaxt işlədilir?</string>
+    <string name="demo_scope_lambda_neticesi">lambda nəticəsi</string>
+    <string name="demo_scope_obyektin_ozu">obyektin özü</string>
+    <!-- Kod şərhi -->
+    <string name="demo_scope_son_setir">son sətir qaytarılır</string>
+    <string name="demo_scope_let">Null olmayan dəyərlə iş görmək və onu başqa nəticəyə çevirmək üçün.</string>
+    <string name="demo_scope_run">Obyekt konfiqurasiyası ilə nəticə hesablanmasını birləşdirmək üçün.</string>
+    <string name="demo_scope_with">Eyni obyekt üzərində bir neçə əməliyyatı bir yerdə qruplaşdırmaq üçün.</string>
+    <string name="demo_scope_apply">Obyekti qurmaq (builder üslubu) — ən çox işlənən scope funksiyasıdır.</string>
+    <string name="demo_scope_also">Yan təsirlər üçün — loglama, yoxlama, debug. Zənciri pozmur.</string>
+    <string name="demo_coro_basliq">Coroutine vizualizatoru</string>
+    <string name="demo_coro_tesvir">Eyni üç tapşırıq — ardıcıl və paralel icrada nə qədər çəkir?</string>
+    <string name="demo_coro_ardicil">Ardıcıl</string>
+    <string name="demo_coro_paralel">Paralel (async)</string>
+    <!-- Kod şərhi -->
+    <string name="demo_coro_serh_ardicil">Ardıcıl — hər biri o birini gözləyir</string>
+    <!-- Kod şərhi -->
+    <string name="demo_coro_serh_paralel">Paralel — hamısı eyni anda başlayır</string>
+    <!-- Kod şərhi -->
+    <string name="demo_coro_serh_cemi">cəmi ~%1$d ms</string>
+    <string name="demo_ms">%1$d ms</string>
+    <string name="demo_coro_basla">Başla</string>
+    <string name="demo_coro_dayandir">Dayandır</string>
+    <string name="demo_coro_yeniden">Yenidən</string>
+    <string name="demo_coro_paralel_bitdi">Paralel: 1500 ms — yalnız ən uzun tapşırıq qədər çəkdi. 2.2 dəfə sürətli!</string>
+    <string name="demo_coro_ardicil_bitdi">Ardıcıl: 3300 ms — hər tapşırıq öz növbəsini gözlədi.</string>
+    <string name="demo_coro_gedir">İcra gedir…</string>
+    <string name="demo_coro_baslayin">Başla düyməsini basın.</string>
 </resources>

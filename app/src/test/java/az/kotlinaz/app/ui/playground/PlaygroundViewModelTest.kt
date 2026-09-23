@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.playground
 
+import az.kotlinaz.app.data.KompilyasiyaXetasi
+import az.kotlinaz.app.ui.IcraXetasi
+import az.kotlinaz.app.ui.XetaSetri
 import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
@@ -116,24 +119,26 @@ class PlaygroundViewModelTest {
 
     @Test
     fun `her RunResult hali panele cevrilir`() {
-        assertEquals(MeydanVeziyyeti.Cixis("(çıxış yoxdur)"), meydanNeticesi(RunResult.Ok("  ")))
+        // Boş çıxış olduğu kimi qalır — «(çıxış yoxdur)» yazısını UI öz dilində qoyur.
+        assertEquals(MeydanVeziyyeti.Cixis("  "), meydanNeticesi(RunResult.Ok("  ")))
         assertEquals(
-            MeydanVeziyyeti.Xetalar("Kompilyasiya xətası", "a\nb"),
-            meydanNeticesi(RunResult.CompileError(listOf("a", "b")))
+            MeydanVeziyyeti.Xetalar(IcraXetasi.KOMPILYASIYA, listOf(XetaSetri("a", 3), XetaSetri("b"))),
+            meydanNeticesi(RunResult.CompileError(listOf(KompilyasiyaXetasi(3, "a"), KompilyasiyaXetasi(null, "b"))))
         )
         assertEquals(
-            MeydanVeziyyeti.Xetalar("Çalışma vaxtı xətası", "cixis\nNPE"),
+            MeydanVeziyyeti.Xetalar(IcraXetasi.ICRA, listOf(XetaSetri("cixis"), XetaSetri("NPE"))),
             meydanNeticesi(RunResult.Crashed("cixis", "NPE"))
         )
         assertEquals(
-            MeydanVeziyyeti.Xetalar("Çalışma vaxtı xətası", "NPE"),
+            MeydanVeziyyeti.Xetalar(IcraXetasi.ICRA, listOf(XetaSetri("NPE"))),
             meydanNeticesi(RunResult.Crashed("", "NPE"))
         )
         assertEquals(MeydanVeziyyeti.Oflayn, meydanNeticesi(RunResult.Offline))
         assertEquals(
-            MeydanVeziyyeti.Xetalar("Bağlantı problemi", "timeout"),
+            MeydanVeziyyeti.Xetalar(IcraXetasi.BAGLANTI, listOf(XetaSetri("timeout"))),
             meydanNeticesi(RunResult.Failed("timeout"))
         )
+        assertEquals(MeydanVeziyyeti.Xetalar(IcraXetasi.BAGLANTI, emptyList()), meydanNeticesi(RunResult.Failed("")))
     }
 
     /* ---------- Dayandır (Mərhələ 4) ---------- */
