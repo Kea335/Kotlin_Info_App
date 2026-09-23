@@ -57,6 +57,13 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
         val KOMPILYATOR_VERSIYALARI = stringPreferencesKey("compiler_versions")
         /** Keşin yazıldığı an, epoch ms — 24 saatdan köhnədirsə yenilənir. */
         val KOMPILYATOR_VERSIYALARI_VAXTI = longPreferencesKey("compiler_versions_ts")
+        /**
+         * Kod meydanındakı son kod — tətbiq bağlanıb açılanda itməsin. Tərəqqi
+         * deyil, sıfırlamalarda toxunulmur.
+         */
+        val MEYDAN_KODU = stringPreferencesKey("meydan_kodu")
+        /** Həmin kodun başladığı nümunə; yoxdursa boş redaktordan. */
+        val MEYDAN_PRESETI = stringPreferencesKey("meydan_preseti")
     }
 
     val tema: Flow<ThemeMode> = dataStore.data.map {
@@ -178,6 +185,21 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    /** Meydanın saxlanmış kodu; yoxdursa və ya disk oxunmasa null. */
+    suspend fun meydanQaralamasi(): MeydanQaralamasi? = try {
+        val p = dataStore.data.first()
+        p[Acar.MEYDAN_KODU]?.let { MeydanQaralamasi(it, p[Acar.MEYDAN_PRESETI]) }
+    } catch (_: Exception) {
+        null
+    }
+
+    suspend fun meydanQaralamasiniYaz(q: MeydanQaralamasi) {
+        dataStore.edit { p ->
+            p[Acar.MEYDAN_KODU] = q.kod
+            if (q.preset == null) p.remove(Acar.MEYDAN_PRESETI) else p[Acar.MEYDAN_PRESETI] = q.preset
+        }
+    }
+
     /** Tərəqqinin hamısı silinir; tema, dil və şrift ölçüsü toxunulmadan qalır. */
     suspend fun hamisiniSifirla() {
         dataStore.edit { p ->
@@ -189,6 +211,9 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
         }
     }
 }
+
+/** Kod meydanının diskdəki halı: redaktordakı kod və seçili nümunə (null = boş redaktor). */
+data class MeydanQaralamasi(val kod: String, val preset: String?)
 
 /** Diskdəki kompilyator versiyaları və yazıldığı an (epoch ms). */
 data class KompilyatorKesi(val versiyalar: List<KompilyatorVersiyasi>, val vaxt: Long)

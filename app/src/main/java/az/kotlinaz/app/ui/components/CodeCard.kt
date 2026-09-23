@@ -1,8 +1,10 @@
 package az.kotlinaz.app.ui.components
 
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -225,4 +227,21 @@ private fun KodDuymesi(
 internal fun kopyala(context: Context, metn: String) {
     val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
     cm.setPrimaryClip(ClipData.newPlainText("KotlinAZ", metn))
+}
+
+/**
+ * Mətni sistemin paylaşma menyusu ilə göndərir (mesajlaşma, e-poçt, qeyd).
+ * Paylaşa bilən tətbiq yoxdursa false — çağıran istifadəçiyə deyir.
+ */
+internal fun paylas(context: Context, metn: String, basliq: String): Boolean {
+    val gonder = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, metn)
+    }
+    return try {
+        context.startActivity(Intent.createChooser(gonder, basliq))
+        true
+    } catch (_: ActivityNotFoundException) {
+        false
+    }
 }

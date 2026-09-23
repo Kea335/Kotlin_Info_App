@@ -22,7 +22,7 @@ düyməsi bağlantı tələb edir.
 | Çalışmalar | 25 mövzu × (25 nəzəri + 25 praktiki) = 1250 | ✅ (yoxlama istisna) |
 | Bilik testi | Junior / Middle / Senior / Qarışıq rejimləri, hər turda 15 təsadüfi sual | ✅ |
 | Axtarış | Bütün bölmələr üzrə tam mətn axtarışı | ✅ |
-| Kod meydanı | Boş redaktor + 10 nümunə, söz tamamlama, real icra | ❌ internet lazımdır |
+| Kod meydanı | Boş redaktor + 10 nümunə, söz tamamlama, real icra, dayandırma; kod yadda qalır, paylaşılır | ❌ internet lazımdır |
 
 ---
 

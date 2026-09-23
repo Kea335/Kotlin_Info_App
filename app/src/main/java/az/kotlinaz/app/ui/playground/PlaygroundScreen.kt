@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ContentCopy
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import az.kotlinaz.app.data.model.PlaygroundPreset
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.components.kopyala
+import az.kotlinaz.app.ui.components.paylas
 import az.kotlinaz.app.ui.demos.DemoChip
 import az.kotlinaz.app.ui.editor.KodRedaktoru
 import az.kotlinaz.app.ui.theme.KAz
@@ -175,31 +177,47 @@ private fun PlaygroundContent(
                 kod = kod,
                 minHundurluk = 210.dp,
                 basliqSagi = {
-                    Icon(
-                        Icons.Outlined.ContentCopy,
-                        contentDescription = "Kopyala",
-                        tint = c.textDim,
-                        modifier = Modifier
-                            .size(16.dp)
-                            .clickable {
-                                kopyala(context, kod.value.text)
-                                bildir("Kod kopyalandı")
-                            }
-                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                        Icon(
+                            Icons.Outlined.Share,
+                            contentDescription = "Kodu paylaş",
+                            tint = c.textDim,
+                            modifier = Modifier
+                                .size(16.dp)
+                                .clickable {
+                                    if (!paylas(context, kod.value.text, "Kodu paylaş")) {
+                                        bildir("Paylaşmaq üçün tətbiq tapılmadı")
+                                    }
+                                }
+                        )
+                        Icon(
+                            Icons.Outlined.ContentCopy,
+                            contentDescription = "Kopyala",
+                            tint = c.textDim,
+                            modifier = Modifier
+                                .size(16.dp)
+                                .clickable {
+                                    kopyala(context, kod.value.text)
+                                    bildir("Kod kopyalandı")
+                                }
+                        )
+                    }
                 }
             )
 
             Spacer(Modifier.height(11.dp))
 
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                // İcra gedərkən «İşlə» «Dayandır»-a çevrilir: eyni kodu paralel
+                // iki dəfə göndərməyin mənası yoxdur, amma asılı qalmış (və ya
+                // sonsuz dövrlü) sorğunu 60 s gözləmək də lazım deyil.
+                val isleyir = veziyyet is MeydanVeziyyeti.Isleyir
                 Text(
-                    text = if (veziyyet is MeydanVeziyyeti.Isleyir) "İşləyir…" else "▶  İşlə",
+                    text = if (isleyir) "■  Dayandır" else "▶  İşlə",
                     modifier = Modifier
                         .clip(RoundedCornerShape(11.dp))
-                        .background(KotlinBrush)
-                        // İcra gedərkən düymə kilidlənir — eyni kodu paralel
-                        // iki dəfə serverə göndərməyin mənası yoxdur.
-                        .clickable(enabled = veziyyet !is MeydanVeziyyeti.Isleyir) { vm.isle() }
+                        .then(if (isleyir) Modifier.background(c.err) else Modifier.background(KotlinBrush))
+                        .clickable { if (isleyir) vm.dayandir() else vm.isle() }
                         .padding(horizontal = 20.dp, vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White
@@ -261,6 +279,14 @@ private fun MeydanNeticesi(veziyyet: MeydanVeziyyeti) {
 
         is MeydanVeziyyeti.Xetalar -> Panel(veziyyet.basliq, c.err) {
             KonsolMetn(veziyyet.metn, c.err)
+        }
+
+        MeydanVeziyyeti.Dayandirildi -> Panel("Dayandırıldı", c.textDim) {
+            Text(
+                text = "İcra dayandırıldı — nəticə gözlənilmir.",
+                style = MaterialTheme.typography.bodySmall,
+                color = c.textDim
+            )
         }
 
         MeydanVeziyyeti.Oflayn -> Panel("İnternet yoxdur", c.warn) {
