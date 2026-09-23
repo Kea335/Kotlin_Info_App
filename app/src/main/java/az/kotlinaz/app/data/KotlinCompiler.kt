@@ -94,7 +94,7 @@ sealed interface RunResult {
     data class Ok(val output: String) : RunResult
 
     /** Kompilyasiya xətaları. */
-    data class CompileError(val errors: List<String>) : RunResult
+    data class CompileError(val errors: List<KompilyasiyaXetasi>) : RunResult
 
     /** Çalışma vaxtı çökməsi. */
     data class Crashed(val output: String, val exception: String) : RunResult
@@ -102,9 +102,22 @@ sealed interface RunResult {
     /** İnternet yoxdur. */
     data object Offline : RunResult
 
-    /** Şəbəkə və ya server problemi. */
+    /**
+     * Şəbəkə və ya server problemi. [message] texniki detaldır (`HTTP 503`,
+     * sistem istisnasının mətni) — başlığı UI öz dilində yazır.
+     */
     data class Failed(val message: String) : RunResult
 }
+
+/**
+ * Kompilyatorun bir xətası. Mesaj serverdən gəlir (ingiliscə); «Sətir N»
+ * prefiksini UI tətbiqin dilində qurur — data qatında UI mətni yoxdur (T3.4).
+ */
+data class KompilyasiyaXetasi(
+    /** 1-dən sayılan sətir; server intervalı vermirsə null. */
+    val setir: Int?,
+    val mesaj: String
+)
 
 /**
  * Kompilyatorun aktiv versiyası — Kod meydanında və Tənzimləmələrdə göstərilir.
@@ -260,7 +273,7 @@ class KotlinCompiler(
             ApiRequest(files = listOf(ApiFile(text = kod)))
         )
 
-        var sonXeta = "Naməlum xəta"
+        var sonXeta = ""
         for (versiya in versiyalar()) {
             when (val n = sorgu(versiya, govde)) {
                 is Cavab.Ugur -> {
@@ -322,10 +335,10 @@ class KotlinCompiler(
                 Cavab.Ugur(body)
             } else if (kod == 400 || kod == 404 || kod == 410) {
                 // Ünvandakı versiya tanınmadı — siyahıdakı növbətisini sınamağa dəyər.
-                Cavab.Desteklenmir("Server $kod cavabı qaytardı (versiya $versiya)")
+                Cavab.Desteklenmir("HTTP $kod ($versiya)")
             } else {
                 // 5xx və digərləri: problem versiyada deyil.
-                Cavab.Xeta("Server $kod cavabı qaytardı")
+                Cavab.Xeta("HTTP $kod")
             }
         } catch (e: Exception) {
             // Timeout, DNS, TLS, kəsilmiş bağlantı — hamısı buraya düşür.
@@ -347,10 +360,7 @@ internal fun kompilyatorCavabiniOxu(body: String): RunResult = try {
     // səviyyəsi kompilyasiyanı sındırır, WARNING göstərilmir.
     val xetalar = cavab.errors.values.flatten()
         .filter { it.severity.equals("ERROR", ignoreCase = true) }
-        .map { e ->
-            val setir = e.interval?.start?.line?.plus(1)
-            if (setir != null) "Sətir $setir: ${e.message}" else e.message
-        }
+        .map { e -> KompilyasiyaXetasi(e.interval?.start?.line?.plus(1), e.message) }
 
     when {
         xetalar.isNotEmpty() -> RunResult.CompileError(xetalar)
@@ -365,7 +375,7 @@ internal fun kompilyatorCavabiniOxu(body: String): RunResult = try {
         else -> RunResult.Ok(cixisiAyir(cavab.text))
     }
 } catch (e: Exception) {
-    RunResult.Failed("Cavab oxunmadı: ${e.message}")
+    RunResult.Failed("JSON: ${e.message}")
 }
 
 /**

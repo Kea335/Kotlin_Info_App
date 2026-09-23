@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.exercises
 
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -112,18 +115,18 @@ private fun UmumiTereqqi(hell: Int, umumi: Int) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(
-                    text = "Çalışmalar bankı",
+                    text = stringResource(R.string.calisma_bank),
                     style = MaterialTheme.typography.titleSmall,
                     color = c.text
                 )
                 Text(
-                    text = "$hell / $umumi həll edilib",
+                    text = stringResource(R.string.calisma_bank_hell, hell, umumi),
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
                 )
             }
             Text(
-                text = "${(faiz * 100).toInt()}%",
+                text = stringResource(R.string.ortaq_faiz, (faiz * 100).toInt()),
                 style = MaterialTheme.typography.headlineSmall,
                 color = c.accent,
                 fontWeight = FontWeight.ExtraBold
@@ -184,7 +187,7 @@ private fun MovzuKarti(
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = "$hell/$umumi",
+                text = "$hell/$umumi", // i18n-ignore — yalnız rəqəmlər
                 style = MaterialTheme.typography.labelSmall,
                 color = if (bitib) c.ok else c.textFaint,
                 fontFamily = FontFamily.Monospace,
@@ -215,8 +218,8 @@ private fun MovzuKarti(
         Spacer(Modifier.height(8.dp))
 
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            Etiket("${movzu.nezeri.size} nəzəri", c.accent)
-            Etiket("${movzu.praktiki.size} praktiki", c.warn)
+            Etiket(pluralStringResource(R.plurals.calisma_nezeri_sayi, movzu.nezeri.size, movzu.nezeri.size), c.accent)
+            Etiket(pluralStringResource(R.plurals.calisma_praktiki_sayi, movzu.praktiki.size, movzu.praktiki.size), c.warn)
         }
     }
 }

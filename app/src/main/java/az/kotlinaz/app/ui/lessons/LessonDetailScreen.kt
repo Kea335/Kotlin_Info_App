@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -71,7 +74,7 @@ fun LessonDetailScreen(
 
     val bolme = sections.firstOrNull { it.id == id }
     if (bolme == null) {
-        BosEkran("Bölmə tapılmadı", modifier)
+        BosEkran(stringResource(R.string.ders_bolme_yoxdur), modifier)
         return
     }
 
@@ -183,7 +186,7 @@ private fun LessonDetailContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Çalışmalara keç — 25 mövzu, 1250 tapşırıq",
+                        text = stringResource(R.string.ders_calismalara_kec),
                         style = MaterialTheme.typography.labelLarge,
                         color = c.accent,
                         modifier = Modifier.weight(1f)
@@ -212,14 +215,14 @@ private fun LessonDetailContent(
             Spacer(Modifier.height(22.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                 NavDuymesi(
-                    yon = "Əvvəlki",
+                    yon = stringResource(R.string.ortaq_evvelki),
                     basliq = evvelki?.title,
                     geri = true,
                     modifier = Modifier.weight(1f)
                 ) { evvelki?.let { onNavigate(it.id) } }
 
                 NavDuymesi(
-                    yon = "Növbəti",
+                    yon = stringResource(R.string.ortaq_novbeti),
                     basliq = novbeti?.title,
                     geri = false,
                     modifier = Modifier.weight(1f)
@@ -259,15 +262,15 @@ private fun MenimsemeKarti(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(
-                    text = if (bitib) "Bu dərs tamamlanıb" else "Bu dərsi mənimsəmək",
+                    text = stringResource(if (bitib) R.string.ders_tamamlanib_basliq else R.string.ders_menimse_basliq),
                     style = MaterialTheme.typography.titleSmall,
                     color = if (bitib) c.ok else c.text
                 )
                 Text(
                     text = when {
-                        tereqqi.calismasiz && bitib -> "Öz təsdiqinlə işarələnib"
-                        tereqqi.calismasiz -> "Bu bölmənin çalışması yoxdur"
-                        else -> "${tereqqi.hell} / ${tereqqi.umumi} çalışma həll edilib"
+                        tereqqi.calismasiz && bitib -> stringResource(R.string.ders_oz_tesdiq)
+                        tereqqi.calismasiz -> stringResource(R.string.ders_calismasiz)
+                        else -> pluralStringResource(R.plurals.ders_calisma_hell, tereqqi.umumi, tereqqi.hell, tereqqi.umumi)
                     },
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
@@ -287,7 +290,7 @@ private fun MenimsemeKarti(
                 }
             } else if (!tereqqi.calismasiz) {
                 Text(
-                    text = "${(tereqqi.faiz * 100).toInt()}%",
+                    text = stringResource(R.string.ortaq_faiz, (tereqqi.faiz * 100).toInt()),
                     style = MaterialTheme.typography.titleMedium,
                     color = c.accent,
                     fontWeight = FontWeight.ExtraBold
@@ -324,13 +327,9 @@ private fun MenimsemeKarti(
         Spacer(Modifier.height(12.dp))
 
         Text(
-            text = if (tereqqi.calismasiz) {
-                "Bu bölmə üçün çalışma bankında mövzu yoxdur. Oxuyub bitirdiyini " +
-                    "özün təsdiqləyə bilərsən."
-            } else {
-                "Mətni sürüşdürmək kifayət etmir — dərs yalnız bütün çalışmalar " +
-                    "düzgün həll ediləndə tamamlanmış sayılır."
-            },
+            text = stringResource(
+                if (tereqqi.calismasiz) R.string.ders_calismasiz_izah else R.string.ders_calismali_izah
+            ),
             style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
             color = c.textDim
         )
@@ -340,7 +339,7 @@ private fun MenimsemeKarti(
         if (tereqqi.calismasiz) {
             if (!bitib) {
                 Text(
-                    text = "Oxudum, bitirdim",
+                    text = stringResource(R.string.ders_oxudum),
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(10.dp))
@@ -363,7 +362,9 @@ private fun MenimsemeKarti(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (bitib) "Çalışmalara qayıt" else "Bu dərsin çalışmalarına keç",
+                    text = stringResource(
+                        if (bitib) R.string.ders_calismalara_qayit else R.string.ders_calismalarina_kec
+                    ),
                     style = MaterialTheme.typography.labelLarge,
                     color = if (bitib) c.textDim else c.accent,
                     modifier = Modifier.weight(1f)

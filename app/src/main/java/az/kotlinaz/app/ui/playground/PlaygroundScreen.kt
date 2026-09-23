@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.playground
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
+import az.kotlinaz.app.ui.xetaMetni
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -126,8 +129,7 @@ private fun PlaygroundContent(
                 Spacer(Modifier.width(9.dp))
                 Column {
                     Text(
-                        text = "Bu bölmə internet tələb edir — kod JetBrains serverlərində " +
-                            "kompilyasiya olunur. Tətbiqin qalan hissəsi tam oflayn işləyir.",
+                        text = stringResource(R.string.meydan_xeberdarliq),
                         style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
                         color = c.textDim
                     )
@@ -135,7 +137,7 @@ private fun PlaygroundContent(
                     // İstifadəçi hansı versiyada yazdığını bilməlidir: məsələn
                     // `when` guard sintaksisi 2.1-də xəta verir, 2.4-də işləyir.
                     Text(
-                        text = "Kompilyator: Kotlin $kompilyatorVersiyasi",
+                        text = stringResource(R.string.meydan_kompilyator, kompilyatorVersiyasi),
                         style = MaterialTheme.typography.labelSmall,
                         color = c.textFaint
                     )
@@ -146,7 +148,7 @@ private fun PlaygroundContent(
 
         item(key = "numuneler") {
             Text(
-                text = "Başlanğıc",
+                text = stringResource(R.string.meydan_baslangic),
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint,
                 fontWeight = FontWeight.SemiBold
@@ -160,7 +162,7 @@ private fun PlaygroundContent(
                 // yazmaq istəyir, hazır nümunə ikinci addımdır.
                 // Kursor dərhal `main` gövdəsinin içinə qoyulur —
                 // istifadəçi çipdən sonra birbaşa yazmağa başlaya bilsin.
-                DemoChip(etiket = "Kod meydanı", aktiv = seciliPreset == null) {
+                DemoChip(etiket = stringResource(R.string.meydan_bos_redaktor), aktiv = seciliPreset == null) {
                     vm.presetSec(null, null)
                 }
                 presets.forEach { p ->
@@ -177,28 +179,31 @@ private fun PlaygroundContent(
                 kod = kod,
                 minHundurluk = 210.dp,
                 basliqSagi = {
+                    val paylasBasliq = stringResource(R.string.meydan_paylas)
+                    val paylasYoxdur = stringResource(R.string.meydan_paylas_tetbiq_yoxdur)
+                    val kopyalandi = stringResource(R.string.ortaq_kod_kopyalandi)
                     Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                         Icon(
                             Icons.Outlined.Share,
-                            contentDescription = "Kodu paylaş",
+                            contentDescription = paylasBasliq,
                             tint = c.textDim,
                             modifier = Modifier
                                 .size(16.dp)
                                 .clickable {
-                                    if (!paylas(context, kod.value.text, "Kodu paylaş")) {
-                                        bildir("Paylaşmaq üçün tətbiq tapılmadı")
+                                    if (!paylas(context, kod.value.text, paylasBasliq)) {
+                                        bildir(paylasYoxdur)
                                     }
                                 }
                         )
                         Icon(
                             Icons.Outlined.ContentCopy,
-                            contentDescription = "Kopyala",
+                            contentDescription = stringResource(R.string.ortaq_kopyala),
                             tint = c.textDim,
                             modifier = Modifier
                                 .size(16.dp)
                                 .clickable {
                                     kopyala(context, kod.value.text)
-                                    bildir("Kod kopyalandı")
+                                    bildir(kopyalandi)
                                 }
                         )
                     }
@@ -213,7 +218,7 @@ private fun PlaygroundContent(
                 // sonsuz dövrlü) sorğunu 60 s gözləmək də lazım deyil.
                 val isleyir = veziyyet is MeydanVeziyyeti.Isleyir
                 Text(
-                    text = if (isleyir) "■  Dayandır" else "▶  İşlə",
+                    text = stringResource(if (isleyir) R.string.meydan_dayandir else R.string.meydan_isle),
                     modifier = Modifier
                         .clip(RoundedCornerShape(11.dp))
                         .then(if (isleyir) Modifier.background(c.err) else Modifier.background(KotlinBrush))
@@ -226,7 +231,7 @@ private fun PlaygroundContent(
                 // Yalnız nəticə panelini bağlayır; redaktordakı koda toxunmur.
                 // Kodu silmək üçün yuxarıdakı «Kod meydanı» çipi var.
                 Text(
-                    text = "Təmizlə",
+                    text = stringResource(R.string.meydan_temizle),
                     modifier = Modifier
                         .clip(RoundedCornerShape(11.dp))
                         .background(c.bgSunken)
@@ -267,34 +272,31 @@ private fun MeydanNeticesi(veziyyet: MeydanVeziyyeti) {
             )
             Spacer(Modifier.width(10.dp))
             Text(
-                text = "Kod serverdə kompilyasiya olunur…",
+                text = stringResource(R.string.meydan_isleyir),
                 style = MaterialTheme.typography.bodySmall,
                 color = c.textDim
             )
         }
 
-        is MeydanVeziyyeti.Cixis -> Panel("Nəticə", c.ok) {
-            KonsolMetn(veziyyet.metn, c.ok)
+        is MeydanVeziyyeti.Cixis -> Panel(stringResource(R.string.ortaq_netice), c.ok) {
+            KonsolMetn(veziyyet.metn.ifBlank { stringResource(R.string.meydan_cixis_yoxdur) }, c.ok)
         }
 
-        is MeydanVeziyyeti.Xetalar -> Panel(veziyyet.basliq, c.err) {
-            KonsolMetn(veziyyet.metn, c.err)
+        is MeydanVeziyyeti.Xetalar -> Panel(stringResource(veziyyet.nov.basliqRes), c.err) {
+            KonsolMetn(xetaMetni(veziyyet.setirler), c.err)
         }
 
-        MeydanVeziyyeti.Dayandirildi -> Panel("Dayandırıldı", c.textDim) {
+        MeydanVeziyyeti.Dayandirildi -> Panel(stringResource(R.string.meydan_dayandirildi), c.textDim) {
             Text(
-                text = "İcra dayandırıldı — nəticə gözlənilmir.",
+                text = stringResource(R.string.meydan_dayandirildi_izah),
                 style = MaterialTheme.typography.bodySmall,
                 color = c.textDim
             )
         }
 
-        MeydanVeziyyeti.Oflayn -> Panel("İnternet yoxdur", c.warn) {
+        MeydanVeziyyeti.Oflayn -> Panel(stringResource(R.string.ortaq_internet_yoxdur), c.warn) {
             Text(
-                text = "Kod meydanı Kotlin kompilyatorunu JetBrains serverlərində işlədir, " +
-                    "ona görə bağlantı olmadan işləyə bilmir. Bağlantısız da öyrənməyə " +
-                    "davam edə bilərsən — bütün dərslər, 144 kod nümunəsi (nəticələri ilə " +
-                    "birlikdə), 1250 çalışma və bilik testi oflayn əlçatandır.",
+                text = stringResource(R.string.meydan_oflayn_izah),
                 style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                 color = c.textDim
             )

@@ -39,6 +39,7 @@ tools/                        məzmun boru xətti (Node.js)
   build-locale.js             overlay + baza → dil aktivləri
   validate-locales.js         overlay-lərin doğrulaması və tərcümə faizi
   check-r8.js                 release-də @Serializable serializatorları saxlanılıbmı
+  check-i18n.js               Kotlin kodunda hardcoded UI mətni (strings.xml-ə)
 
 localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
   content.json, exercises.json, quiz.json, playground.json
@@ -131,7 +132,7 @@ olmayan hər tapıntı, xəbərdarlıq da olsa, build-i sındırır. Lokalda
 (`sdk.dir=C\:/…`), yoxsa lint `PropertyEscape` xətası verir.
 
 CI (`.github/workflows/android.yml`) hər push və PR-da eyni addımları
-işlədir: məzmun və dil yoxlaması → test → lint → imzasız release build +
+işlədir: məzmun və dil yoxlaması → hardcoded mətn (`tools/check-i18n.js`) → test → lint → imzasız release build +
 R8 serializator yoxlaması (`tools/check-r8.js`) → debug build; APK artifact
 kimi yüklənir. Asılılıqları Dependabot (`.github/dependabot.yml`) həftəlik
 yeniləyir.

@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.demos
 
+import androidx.annotation.StringRes
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.animation.core.withInfiniteAnimationFrameMillis
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -111,7 +114,8 @@ private fun FlowChips(
    1. Tip çıxarışı laboratoriyası
    ============================================================ */
 
-private data class TipNeticesi(val tip: String, val qeyd: String)
+/** [tip] Kotlin tipidir (tərcümə olunmur), [qeyd] izahın resursu. */
+private data class TipNeticesi(val tip: String, @param:StringRes val qeyd: Int)
 
 private val R_LONG = Regex("^-?\\d+[lL]$")
 private val R_INT = Regex("^-?\\d+$")
@@ -124,25 +128,25 @@ private val R_LAMBDA = Regex("^\\{.*\\}$")
 
 private fun tipCixar(xam: String): TipNeticesi {
     val v = xam.trim()
-    if (v.isEmpty()) return TipNeticesi("?", "Yuxarıya bir dəyər yazın və ya nümunələrdən seçin.")
-    if (R_LONG.matches(v)) return TipNeticesi("Long", "L sonluğu Long bildirir (64 bit).")
+    if (v.isEmpty()) return TipNeticesi("?", R.string.demo_tip_bos)
+    if (R_LONG.matches(v)) return TipNeticesi("Long", R.string.demo_tip_long_l)
     if (R_INT.matches(v)) {
         val n = v.toLongOrNull() ?: 0L
         return if (n > Int.MAX_VALUE || n < Int.MIN_VALUE) {
-            TipNeticesi("Long", "Dəyər Int hüdudundan böyükdür, ona görə avtomatik Long seçildi.")
+            TipNeticesi("Long", R.string.demo_tip_long_boyuk)
         } else {
-            TipNeticesi("Int", "Tam rəqəmlər defolt olaraq Int-dir (32 bit).")
+            TipNeticesi("Int", R.string.demo_tip_int)
         }
     }
-    if (R_FLOAT.matches(v)) return TipNeticesi("Float", "f sonluğu Float bildirir (32 bit onluq).")
-    if (R_DOUBLE.matches(v)) return TipNeticesi("Double", "Onluq ədədlər defolt olaraq Double-dir (64 bit).")
-    if (R_BOOL.matches(v)) return TipNeticesi("Boolean", "Məntiqi dəyər: yalnız true və ya false ola bilər.")
-    if (R_CHAR.matches(v)) return TipNeticesi("Char", "Tək dırnaq Char bildirir, iki dırnaq isə String.")
-    if (R_STRING.matches(v)) return TipNeticesi("String", "İki dırnaq arasındakı mətn String-dir.")
+    if (R_FLOAT.matches(v)) return TipNeticesi("Float", R.string.demo_tip_float)
+    if (R_DOUBLE.matches(v)) return TipNeticesi("Double", R.string.demo_tip_double)
+    if (R_BOOL.matches(v)) return TipNeticesi("Boolean", R.string.demo_tip_boolean)
+    if (R_CHAR.matches(v)) return TipNeticesi("Char", R.string.demo_tip_char)
+    if (R_STRING.matches(v)) return TipNeticesi("String", R.string.demo_tip_string)
     if (v == "null") {
         return TipNeticesi(
             "Nothing?",
-            "Tək başına null-un tipi Nothing?-dir. Adətən açıq tip yazılır: val x: String? = null"
+            R.string.demo_tip_null
         )
     }
     if (v.startsWith("listOf(")) {
@@ -150,7 +154,7 @@ private fun tipCixar(xam: String): TipNeticesi {
         if (inner.isEmpty()) {
             return TipNeticesi(
                 "List<Nothing>",
-                "Boş siyahıda element tipi bilinmir — açıq yazın: listOf<Int>()"
+                R.string.demo_tip_bos_siyahi
             )
         }
         val ilk = inner.split(",").first().trim()
@@ -159,18 +163,18 @@ private fun tipCixar(xam: String): TipNeticesi {
             R_STRING.matches(ilk) -> "String"
             else -> "Any"
         }
-        return TipNeticesi("List<$t>", "listOf() dəyişməz (read-only) siyahı qaytarır.")
+        return TipNeticesi("List<$t>", R.string.demo_tip_list)
     }
     if (v.startsWith("mutableListOf(")) {
-        return TipNeticesi("MutableList<Int>", "mutableListOf() əlavə və silmə əməliyyatlarına icazə verir.")
+        return TipNeticesi("MutableList<Int>", R.string.demo_tip_mutable_list)
     }
-    if (v.startsWith("mapOf(")) return TipNeticesi("Map<K, V>", "mapOf(\"a\" to 1) forması Map<String, Int> verir.")
-    if (v.startsWith("setOf(")) return TipNeticesi("Set<Int>", "Set təkrarlanan elementləri saxlamır.")
-    if (v.startsWith("arrayOf(")) return TipNeticesi("Array<Int>", "Array sabit ölçülüdür; adətən List daha rahatdır.")
+    if (v.startsWith("mapOf(")) return TipNeticesi("Map<K, V>", R.string.demo_tip_map)
+    if (v.startsWith("setOf(")) return TipNeticesi("Set<Int>", R.string.demo_tip_set)
+    if (v.startsWith("arrayOf(")) return TipNeticesi("Array<Int>", R.string.demo_tip_array)
     if (R_LAMBDA.matches(v)) {
-        return TipNeticesi("() -> Unit", "Süslü mötərizə lambda-dır; parametrsiz olsa tipi () -> Unit olur.")
+        return TipNeticesi("() -> Unit", R.string.demo_tip_lambda)
     }
-    return TipNeticesi("String", "Tanınmayan ifadə — yuxarıdakı nümunələrdən birini seçin.")
+    return TipNeticesi("String", R.string.demo_tip_taninmayan)
 }
 
 private val TI_NUMUNELER = listOf(
@@ -185,8 +189,8 @@ private fun TypeInferDemo(modifier: Modifier = Modifier) {
     val netice = remember(giris) { tipCixar(giris) }
 
     DemoCard(
-        basliq = "Tip çıxarışı laboratoriyası",
-        tesvir = "Kotlin val x = ... yazanda sağ tərəfə baxıb tipi özü təyin edir.",
+        basliq = stringResource(R.string.demo_tip_basliq),
+        tesvir = stringResource(R.string.demo_tip_tesvir),
         modifier = modifier
     ) {
         FlowChips {
@@ -200,18 +204,18 @@ private fun TypeInferDemo(modifier: Modifier = Modifier) {
 
         val gosterilen = giris.ifBlank { "…" }
         DemoCode(
-            "val x = $gosterilen\n\n// kompilyatorun gördüyü:\nval x: ${netice.tip} = $gosterilen"
+            "val x = $gosterilen\n\n// ${stringResource(R.string.demo_tip_kod_serhi)}\nval x: ${netice.tip} = $gosterilen"
         )
         Spacer(Modifier.height(11.dp))
 
         DemoScreen(
             buildAnnotatedString {
-                withStyle(SpanStyle(color = c.textFaint)) { append("Çıxarılan tip: ") }
+                withStyle(SpanStyle(color = c.textFaint)) { append(stringResource(R.string.demo_tip_cixarilan)) }
                 withStyle(SpanStyle(color = c.accent, fontWeight = FontWeight.Bold)) { append(netice.tip) }
             }
         )
         Spacer(Modifier.height(11.dp))
-        DemoNote(netice.qeyd)
+        DemoNote(stringResource(netice.qeyd))
     }
 }
 
@@ -220,7 +224,16 @@ private fun TypeInferDemo(modifier: Modifier = Modifier) {
    ============================================================ */
 
 private enum class NsKind { OK, COMPILE, CRASH }
-private data class NsNetice(val kind: NsKind, val msg: String, val note: String)
+/**
+ * [msg] konsolun göstərdiyidir (kod çıxışı və ya kompilyator mesajı —
+ * tərcümə olunmur); [msgRes] verilibsə onun yerinə UI mətni; [note] izahdır.
+ */
+private data class NsNetice(
+    val kind: NsKind,
+    val msg: String,
+    @param:StringRes val note: Int,
+    @param:StringRes val msgRes: Int? = null
+)
 
 private data class NsOp(
     val id: String,
@@ -233,32 +246,32 @@ private val NS_OPS = listOf(
         NsNetice(
             NsKind.COMPILE,
             "Only safe (?.) or non-null asserted (!!.) calls are allowed\non a nullable receiver of type String?",
-            "Kotlin bu kodu işə salmağa belə imkan vermir. Xəta çalışma vaxtında yox, kompilyasiya vaxtında tutulur — yəni istifadəçi onu heç vaxt görməyəcək."
+            R.string.demo_ns_direct
         )
     },
     NsOp("safe", "ad?.length") { isNull ->
-        if (isNull) NsNetice(NsKind.OK, "null", "Safe call operatoru (?.): receiver null-dursa çağırış tamamilə atlanır və nəticə null olur. Çökmə baş vermir.")
-        else NsNetice(NsKind.OK, "6", "Receiver null deyil, ona görə length adi qaydada hesablanır.")
+        if (isNull) NsNetice(NsKind.OK, "null", R.string.demo_ns_safe_null)
+        else NsNetice(NsKind.OK, "6", R.string.demo_ns_safe_dolu)
     },
     NsOp("bang", "ad!!.length") { isNull ->
         if (isNull) NsNetice(
             NsKind.CRASH,
             "Exception in thread \"main\"\nkotlin.KotlinNullPointerException\n\tat MainKt.main(Main.kt:4)",
-            "!! operatoru «mən zəmanət verirəm ki, null deyil» deməkdir. Səhv etsən — NPE. Mümkün qədər ondan qaçın."
+            R.string.demo_ns_bang_null
         )
-        else NsNetice(NsKind.OK, "6", "Bu dəfə dəyər null deyildi, ona görə işlədi. Amma !! yenə də risklidir — növbəti dəfə null ola bilər.")
+        else NsNetice(NsKind.OK, "6", R.string.demo_ns_bang_dolu)
     },
     NsOp("elvis", "ad?.length ?: 0") { isNull ->
-        if (isNull) NsNetice(NsKind.OK, "0", "Elvis operatoru (?:) sol tərəf null olduqda sağ tərəfdəki ehtiyat dəyəri qaytarır.")
-        else NsNetice(NsKind.OK, "6", "Sol tərəf null olmadığı üçün elvisin sağ tərəfi heç işləmir.")
+        if (isNull) NsNetice(NsKind.OK, "0", R.string.demo_ns_elvis_null)
+        else NsNetice(NsKind.OK, "6", R.string.demo_ns_elvis_dolu)
     },
     NsOp("let", "ad?.let { it.length }") { isNull ->
-        if (isNull) NsNetice(NsKind.OK, "null", "let bloku yalnız receiver null olmayanda işlənir. Null olanda bütün blok atlanır.")
-        else NsNetice(NsKind.OK, "6", "Blok içində it artıq smart-cast olunmuş String tipidir — əlavə ? işarəsinə ehtiyac yoxdur.")
+        if (isNull) NsNetice(NsKind.OK, "null", R.string.demo_ns_let_null)
+        else NsNetice(NsKind.OK, "6", R.string.demo_ns_let_dolu)
     },
     NsOp("ifcheck", "if (ad != null) ad.length") { isNull ->
-        if (isNull) NsNetice(NsKind.OK, "(heç nə çap olunmadı)", "Şərti yoxlama false verdi, blok işlənmədi.")
-        else NsNetice(NsKind.OK, "6", "SMART CAST: null yoxlamasından sonra kompilyator ad-ı avtomatik String kimi görür — ?. yazmağa ehtiyac qalmır.")
+        if (isNull) NsNetice(NsKind.OK, "", R.string.demo_ns_if_null, msgRes = R.string.demo_ns_hec_ne)
+        else NsNetice(NsKind.OK, "6", R.string.demo_ns_if_dolu)
     }
 )
 
@@ -273,12 +286,12 @@ private fun NullSafetyDemo(modifier: Modifier = Modifier) {
     val res = remember(opId, isNull) { op.run(isNull) }
 
     DemoCard(
-        basliq = "Null-safety laboratoriyası",
-        tesvir = "Dəyəri null / dolu et, sonra operatoru seç — nəticəni və izahı dərhal gör.",
+        basliq = stringResource(R.string.demo_ns_basliq),
+        tesvir = stringResource(R.string.demo_ns_tesvir),
         modifier = modifier
     ) {
         DemoToggleRow(
-            etiket = "Dəyər var (söndürülübsə null)",
+            etiket = stringResource(R.string.demo_ns_deyer_var),
             checked = deyerVar,
             sagMetn = if (isNull) "ad = null" else "ad = \"Kotlin\"",
             onCheckedChange = { deyerVar = it }
@@ -297,21 +310,24 @@ private fun NullSafetyDemo(modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(11.dp))
 
-        val basliq = when (res.kind) {
-            NsKind.COMPILE -> "KOMPİLYASİYA XƏTASI"
-            NsKind.CRASH -> "ÇALIŞMA VAXTI ÇÖKMƏSİ"
-            NsKind.OK -> "NƏTİCƏ"
-        }
+        val basliq = stringResource(
+            when (res.kind) {
+                NsKind.COMPILE -> R.string.demo_ns_kompilyasiya
+                NsKind.CRASH -> R.string.demo_ns_cokme
+                NsKind.OK -> R.string.demo_ns_netice
+            }
+        )
+        val msg = res.msgRes?.let { stringResource(it) } ?: res.msg
         DemoScreen(
             basliq = basliq,
             metn = buildAnnotatedString {
                 withStyle(
                     SpanStyle(color = if (res.kind == NsKind.OK) c.ok else c.err)
-                ) { append(res.msg) }
+                ) { append(msg) }
             }
         )
         Spacer(Modifier.height(11.dp))
-        DemoNote(res.note, basliq = "Nə baş verdi?")
+        DemoNote(stringResource(res.note), basliq = stringResource(R.string.demo_ns_ne_bas_verdi))
     }
 }
 
@@ -355,8 +371,8 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
     val zencir = remember { mutableStateListOf("filter", "map") }
 
     DemoCard(
-        basliq = "Zəncir qurucusu",
-        tesvir = "Əməliyyatları klikləyərək zəncir yığ — hər addımın aralıq nəticəsini gör.",
+        basliq = stringResource(R.string.demo_zencir_basliq),
+        tesvir = stringResource(R.string.demo_zencir_tesvir),
         modifier = modifier
     ) {
         FlowChips {
@@ -367,7 +383,7 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
             }
         }
         Spacer(Modifier.height(9.dp))
-        DemoChip(etiket = "Zənciri təmizlə") { zencir.clear() }
+        DemoChip(etiket = stringResource(R.string.demo_zencir_temizle)) { zencir.clear() }
         Spacer(Modifier.height(11.dp))
 
         val kod = buildString {
@@ -388,6 +404,7 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
         // Terminal əməliyyatdan (sum, count, …) sonra zəncir davam edə bilməz:
         // nəticə artıq siyahı deyil.
         var bitdi = false
+        val terminalSonra = stringResource(R.string.demo_zencir_terminal)
         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
             ChainStep("listOf(…)", colFmt(COL_BASE), aktiv = true)
 
@@ -396,7 +413,7 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
                 if (bitdi) {
                     ChainStep(
                         o.label,
-                        "Terminal əməliyyatdan sonra zəncir davam edə bilməz",
+                        terminalSonra,
                         aktiv = false,
                         sagReng = c.err
                     )
@@ -413,7 +430,7 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
         Spacer(Modifier.height(11.dp))
         DemoScreen(
             buildAnnotatedString {
-                withStyle(SpanStyle(color = c.textFaint)) { append("nəticə = ") }
+                withStyle(SpanStyle(color = c.textFaint)) { append(stringResource(R.string.demo_zencir_netice)) }
                 withStyle(SpanStyle(color = c.accent, fontWeight = FontWeight.Bold)) { append(colFmt(cari)) }
             }
         )
@@ -424,6 +441,8 @@ private fun CollectionsDemo(modifier: Modifier = Modifier) {
    4. when ifadəsi sınaqçısı
    ============================================================ */
 
+// i18n-ignore-start — kod nümunəsinin literal-ları və onların çıxışı tərcümə
+// olunmur (T4.0: kodda yalnız şərhlər); budaqlar və nəticələr eyni qalmalıdır.
 private val WHEN_BRANCHES = listOf(
     "0 -> \"Sıfır\"",
     "1, 2, 3 -> \"Kiçik rəqəm: \$x\"",
@@ -439,7 +458,8 @@ private data class WhenNetice(val branch: Int?, val out: String)
 
 private fun whenQiymetlendir(xam: String): WhenNetice {
     val v = xam.trim()
-    if (v.isEmpty()) return WhenNetice(null, "(boş giriş)")
+    // Boş girişdə budaq yoxdur — UI «(boş giriş)» yazır.
+    if (v.isEmpty()) return WhenNetice(null, "")
 
     val num = if (R_INT.matches(v)) v.toIntOrNull() else null
     if (num != null) {
@@ -457,6 +477,7 @@ private fun whenQiymetlendir(xam: String): WhenNetice {
     if (Regex("^-?\\d+\\.\\d+$").matches(v)) return WhenNetice(5, "Böyük rəqəm: $v")
     return WhenNetice(4, "Bu bir String-dir: uzunluq ${v.length}")
 }
+// i18n-ignore-end
 
 @Composable
 private fun WhenDemo(modifier: Modifier = Modifier) {
@@ -465,8 +486,8 @@ private fun WhenDemo(modifier: Modifier = Modifier) {
     val netice = remember(giris) { whenQiymetlendir(giris) }
 
     DemoCard(
-        basliq = "when ifadəsi sınaqçısı",
-        tesvir = "Dəyər yaz — hansı budağın seçildiyini canlı gör.",
+        basliq = stringResource(R.string.demo_when_basliq),
+        tesvir = stringResource(R.string.demo_when_tesvir),
         modifier = modifier
     ) {
         FlowChips {
@@ -490,7 +511,7 @@ private fun WhenDemo(modifier: Modifier = Modifier) {
             buildAnnotatedString {
                 withStyle(
                     SpanStyle(color = if (netice.branch == null) c.textFaint else c.ok)
-                ) { append(netice.out) }
+                ) { append(if (netice.branch == null) stringResource(R.string.demo_when_bos_giris) else netice.out) }
             }
         )
     }
@@ -500,51 +521,59 @@ private fun WhenDemo(modifier: Modifier = Modifier) {
    5. Scope funksiyaları müqayisəsi
    ============================================================ */
 
+/**
+ * [code] və [out] koddur — identifikatorlar və literal-lar tərcümə olunmur
+ * (T4.0); koddakı `%1$s` yerinə tərcümə olunan şərh qoyulur ([serh]).
+ */
 private data class ScopeFn(
     val ad: String,
     val code: String,
     val ctx: String,
-    val ret: String,
-    val use: String,
-    val out: String
+    @param:StringRes val ret: Int,
+    @param:StringRes val use: Int,
+    val out: String,
+    @param:StringRes val serh: Int? = null
 )
 
 private val SCOPE_FNS = listOf(
     ScopeFn(
         "let",
-        "val uzunluq = ad?.let {\n    println(it)      // it = \"Kotlin\"\n    it.length        // son sətir qaytarılır\n}",
-        "it", "lambda nəticəsi",
-        "Null olmayan dəyərlə iş görmək və onu başqa nəticəyə çevirmək üçün.",
-        "Kotlin\nuzunluq = 6"
+        "val uzunluq = ad?.let {\n    println(it)      // it = \"Kotlin\"\n    it.length        // %1\$s\n}",
+        "it", R.string.demo_scope_lambda_neticesi,
+        R.string.demo_scope_let,
+        "Kotlin\nuzunluq = 6",
+        serh = R.string.demo_scope_son_setir
     ),
     ScopeFn(
         "run",
         "val uzunluq = ad.run {\n    println(this)    // this = \"Kotlin\"\n    length           // this.length\n}",
-        "this", "lambda nəticəsi",
-        "Obyekt konfiqurasiyası ilə nəticə hesablanmasını birləşdirmək üçün.",
+        "this", R.string.demo_scope_lambda_neticesi,
+        R.string.demo_scope_run,
         "Kotlin\nuzunluq = 6"
     ),
     ScopeFn(
         "with",
         "val netice = with(ad) {\n    println(this)    // this = \"Kotlin\"\n    uppercase()\n}",
-        "this", "lambda nəticəsi",
-        "Eyni obyekt üzərində bir neçə əməliyyatı bir yerdə qruplaşdırmaq üçün.",
+        "this", R.string.demo_scope_lambda_neticesi,
+        R.string.demo_scope_with,
         "Kotlin\nnetice = KOTLIN"
     ),
     ScopeFn(
         "apply",
         "val istifadeci = Istifadeci().apply {\n    ad = \"Aysel\"     // this.ad\n    yas = 24\n}",
-        "this", "obyektin özü",
-        "Obyekti qurmaq (builder üslubu) — ən çox işlənən scope funksiyasıdır.",
+        "this", R.string.demo_scope_obyektin_ozu,
+        R.string.demo_scope_apply,
         "istifadeci = Istifadeci(ad=Aysel, yas=24)"
     ),
+    // i18n-ignore-start — kod və onun çıxışı (T4.0)
     ScopeFn(
         "also",
         "val siyahi = mutableListOf(1, 2)\n    .also { println(\"əvvəl: \$it\") }\n    .apply { add(3) }\n    .also { println(\"sonra: \$it\") }",
-        "it", "obyektin özü",
-        "Yan təsirlər üçün — loglama, yoxlama, debug. Zənciri pozmur.",
+        "it", R.string.demo_scope_obyektin_ozu,
+        R.string.demo_scope_also,
         "əvvəl: [1, 2]\nsonra: [1, 2, 3]"
     )
+    // i18n-ignore-end
 )
 
 @Composable
@@ -554,8 +583,8 @@ private fun ScopeDemo(modifier: Modifier = Modifier) {
     val fn = SCOPE_FNS.firstOrNull { it.ad == secili } ?: SCOPE_FNS.first()
 
     DemoCard(
-        basliq = "Scope funksiyaları müqayisəsi",
-        tesvir = "Beş funksiyanın fərqi: kontekst obyekti nədir, nə qaytarır, harada işlədilir.",
+        basliq = stringResource(R.string.demo_scope_basliq),
+        tesvir = stringResource(R.string.demo_scope_tesvir),
         modifier = modifier
     ) {
         FlowChips {
@@ -564,7 +593,7 @@ private fun ScopeDemo(modifier: Modifier = Modifier) {
             }
         }
         Spacer(Modifier.height(11.dp))
-        DemoCode(fn.code)
+        DemoCode(fn.serh?.let { fn.code.format(stringResource(it)) } ?: fn.code)
         Spacer(Modifier.height(11.dp))
 
         Column(
@@ -574,8 +603,8 @@ private fun ScopeDemo(modifier: Modifier = Modifier) {
                 .background(c.bgSunken)
                 .padding(11.dp)
         ) {
-            DemoFact("Kontekst", fn.ctx)
-            DemoFact("Qaytarır", fn.ret)
+            DemoFact(stringResource(R.string.demo_scope_kontekst), fn.ctx)
+            DemoFact(stringResource(R.string.demo_scope_qaytarir), stringResource(fn.ret))
         }
         Spacer(Modifier.height(11.dp))
 
@@ -585,7 +614,7 @@ private fun ScopeDemo(modifier: Modifier = Modifier) {
             }
         )
         Spacer(Modifier.height(11.dp))
-        DemoNote(fn.use, basliq = "Nə vaxt işlədilir?")
+        DemoNote(stringResource(fn.use), basliq = stringResource(R.string.demo_scope_ne_vaxt))
     }
 }
 
@@ -605,22 +634,23 @@ private val CORO_TASKS = listOf(
 // ekranda darıxdırıcı olmasın deyə.
 private const val CORO_SPEED = 1.6f
 
+// Şərhlər (%1$s, %2$s) tərcümə olunur, kod yox (T4.0).
 private const val CORO_KOD_ARDICIL =
-    "// Ardıcıl — hər biri o birini gözləyir\n" +
+    "// %1\$s\n" +
         "suspend fun yukle() {\n" +
         "    val a = apiCagirisi()   // 1500 ms\n" +
         "    val b = bazaSorgusu()   // 1000 ms\n" +
         "    val c = faylOxuma()     // 800 ms\n" +
-        "} // cəmi ~3300 ms"
+        "} // %2\$s"
 
 private const val CORO_KOD_PARALEL =
-    "// Paralel — hamısı eyni anda başlayır\n" +
+    "// %1\$s\n" +
         "suspend fun yukle() = coroutineScope {\n" +
         "    val a = async { apiCagirisi() }\n" +
         "    val b = async { bazaSorgusu() }\n" +
         "    val c = async { faylOxuma() }\n" +
         "    listOf(a.await(), b.await(), c.await())\n" +
-        "} // cəmi ~1500 ms"
+        "} // %2\$s"
 
 @Composable
 private fun CoroutinesDemo(modifier: Modifier = Modifier) {
@@ -663,20 +693,32 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
     }
 
     DemoCard(
-        basliq = "Coroutine vizualizatoru",
-        tesvir = "Eyni üç tapşırıq — ardıcıl və paralel icrada nə qədər çəkir?",
+        basliq = stringResource(R.string.demo_coro_basliq),
+        tesvir = stringResource(R.string.demo_coro_tesvir),
         modifier = modifier
     ) {
         FlowChips {
-            DemoChip(etiket = "Ardıcıl", aktiv = !paralel) {
+            DemoChip(etiket = stringResource(R.string.demo_coro_ardicil), aktiv = !paralel) {
                 paralel = false; isleyir = false; kecen = 0f; bitmis = false
             }
-            DemoChip(etiket = "Paralel (async)", aktiv = paralel) {
+            DemoChip(etiket = stringResource(R.string.demo_coro_paralel), aktiv = paralel) {
                 paralel = true; isleyir = false; kecen = 0f; bitmis = false
             }
         }
         Spacer(Modifier.height(11.dp))
-        DemoCode(if (paralel) CORO_KOD_PARALEL else CORO_KOD_ARDICIL)
+        DemoCode(
+            if (paralel) {
+                CORO_KOD_PARALEL.format(
+                    stringResource(R.string.demo_coro_serh_paralel),
+                    stringResource(R.string.demo_coro_serh_cemi, 1500)
+                )
+            } else {
+                CORO_KOD_ARDICIL.format(
+                    stringResource(R.string.demo_coro_serh_ardicil),
+                    stringResource(R.string.demo_coro_serh_cemi, 3300)
+                )
+            }
+        )
         Spacer(Modifier.height(13.dp))
 
         // Zolaqlar
@@ -712,7 +754,7 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
                     )
                     if (pct > 0.18f) {
                         Text(
-                            text = "$gosterilenMs ms",
+                            text = stringResource(R.string.demo_ms, gosterilenMs),
                             modifier = Modifier.align(Alignment.CenterStart).padding(start = 7.dp),
                             style = MaterialTheme.typography.labelSmall,
                             color = Color.White,
@@ -727,7 +769,11 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = if (isleyir) "Dayandır" else if (bitmis) "Yenidən" else "Başla",
+                text = stringResource(
+                    if (isleyir) R.string.demo_coro_dayandir
+                    else if (bitmis) R.string.demo_coro_yeniden
+                    else R.string.demo_coro_basla
+                ),
                 modifier = Modifier
                     .clip(RoundedCornerShape(9.dp))
                     .background(KotlinBrush)
@@ -748,7 +794,7 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.width(12.dp))
             Text(
-                text = "${min(kecen, umumi.toFloat()).roundToInt()} ms",
+                text = stringResource(R.string.demo_ms, min(kecen, umumi.toFloat()).roundToInt()),
                 style = MaterialTheme.typography.titleMedium,
                 color = c.accent,
                 fontFamily = FontFamily.Monospace,
@@ -758,12 +804,14 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
 
         Spacer(Modifier.height(11.dp))
         DemoNote(
-            metn = when {
-                bitmis && paralel -> "Paralel: 1500 ms — yalnız ən uzun tapşırıq qədər çəkdi. 2.2 dəfə sürətli!"
-                bitmis -> "Ardıcıl: 3300 ms — hər tapşırıq öz növbəsini gözlədi."
-                isleyir -> "İcra gedir…"
-                else -> "Başla düyməsini basın."
-            }
+            metn = stringResource(
+                when {
+                    bitmis && paralel -> R.string.demo_coro_paralel_bitdi
+                    bitmis -> R.string.demo_coro_ardicil_bitdi
+                    isleyir -> R.string.demo_coro_gedir
+                    else -> R.string.demo_coro_baslayin
+                }
+            )
         )
     }
 }

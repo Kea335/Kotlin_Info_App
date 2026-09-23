@@ -1,5 +1,10 @@
 package az.kotlinaz.app.ui.quiz
 
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
+import az.kotlinaz.app.R
+import az.kotlinaz.app.ui.etiket
+import az.kotlinaz.app.ui.izah
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -106,14 +111,13 @@ private fun RejimSecimi(
         item(key = "basliq") {
             Column {
                 Text(
-                    text = "Səviyyəni seç",
+                    text = stringResource(R.string.quiz_seviyye_sec),
                     style = MaterialTheme.typography.titleMedium,
                     color = c.text
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = "Hər turda $QUIZ_SUAL_SAYI sual təsadüfi seçilir — " +
-                        "eyni rejimi təkrar oynasan suallar dəyişir.",
+                    text = pluralStringResource(R.plurals.quiz_izah, QUIZ_SUAL_SAYI, QUIZ_SUAL_SAYI),
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
                     color = c.textDim
                 )
@@ -166,22 +170,22 @@ private fun RejimKarti(
                 Box(Modifier.size(7.dp).clip(CircleShape).background(reng))
                 Spacer(Modifier.width(7.dp))
                 Text(
-                    text = rejim.label,
+                    text = rejim.etiket(),
                     style = MaterialTheme.typography.titleSmall,
                     color = c.text
                 )
             }
             Spacer(Modifier.height(4.dp))
             Text(
-                text = rejim.izah,
+                text = rejim.izah(),
                 style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
                 color = c.textDim
             )
             Spacer(Modifier.height(6.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Nisan("$hovuzOlcusu sual", c.textFaint)
+                Nisan(pluralStringResource(R.plurals.quiz_hovuz_sayi, hovuzOlcusu, hovuzOlcusu), c.textFaint)
                 if (rekord > 0) {
-                    Nisan("rekord $rekord/$QUIZ_SUAL_SAYI", reng)
+                    Nisan(stringResource(R.string.quiz_rekord_nisan, rekord, QUIZ_SUAL_SAYI), reng)
                 }
             }
         }
@@ -257,7 +261,7 @@ private fun QuizTuru(
 
         item(key = "meta") {
             Text(
-                text = "‹  Səviyyəni dəyiş",
+                text = stringResource(R.string.quiz_seviyyeni_deyis_geri),
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .clickable { vm.rejimiDeyis() }
@@ -267,16 +271,16 @@ private fun QuizTuru(
             )
             Spacer(Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Nisan(rejim.label, rejimRengi(rejim))
+                Nisan(rejim.etiket(), rejimRengi(rejim))
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Sual ${index + 1} / $umumi",
+                    text = stringResource(R.string.quiz_sual_sayqac, index + 1, umumi),
                     style = MaterialTheme.typography.labelMedium,
                     color = c.textDim,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = "Bal: $bal",
+                    text = stringResource(R.string.quiz_bal, bal),
                     style = MaterialTheme.typography.labelMedium,
                     color = c.accent,
                     fontWeight = FontWeight.Bold
@@ -383,7 +387,8 @@ private fun QuizTuru(
                         .padding(13.dp)
                 ) {
                     Text(
-                        text = if (duzgun) "Düzdür" else "Düzgün cavab: ${('A' + sual.a)}",
+                        text = if (duzgun) stringResource(R.string.cavab_duzdur)
+                        else stringResource(R.string.cavab_duzgun, ('A' + sual.a).toString()),
                         style = MaterialTheme.typography.labelLarge,
                         color = if (duzgun) c.ok else c.warn
                     )
@@ -398,7 +403,9 @@ private fun QuizTuru(
                 Spacer(Modifier.height(16.dp))
 
                 Text(
-                    text = if (index == umumi - 1) "Nəticəyə bax" else "Növbəti sual",
+                    text = stringResource(
+                        if (index == umumi - 1) R.string.quiz_neticeye_bax else R.string.quiz_novbeti_sual
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(11.dp))
@@ -429,12 +436,14 @@ private fun NeticeEkrani(
     // Tam ədəd bölməsi — faiz aşağıya yuvarlanır (14/15 → 93%).
     val faiz = if (umumi == 0) 0 else (bal * 100 / umumi)
 
-    val rey = when {
-        faiz >= 90 -> "Mükəmməl! Bu səviyyəni yaxşı bilirsən."
-        faiz >= 70 -> "Yaxşı nəticə! Bir neçə mövzunu təkrarlamaq kifayətdir."
-        faiz >= 50 -> "Pis deyil. Səhv verdiyin mövzuların dərslərinə qayıt."
-        else -> "Başlanğıc üçün normaldır — mövzuları yenidən oxu və təkrar sına."
-    }
+    val rey = stringResource(
+        when {
+            faiz >= 90 -> R.string.quiz_rey_mukemmel
+            faiz >= 70 -> R.string.quiz_rey_yaxsi
+            faiz >= 50 -> R.string.quiz_rey_orta
+            else -> R.string.quiz_rey_baslangic
+        }
+    )
 
     Column(
         Modifier
@@ -445,17 +454,17 @@ private fun NeticeEkrani(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Nisan(rejim.label, rejimRengi(rejim))
+        Nisan(rejim.etiket(), rejimRengi(rejim))
         Spacer(Modifier.height(10.dp))
         Text(
-            text = "$faiz%",
+            text = stringResource(R.string.ortaq_faiz, faiz),
             style = MaterialTheme.typography.displaySmall.copy(fontSize = (46 * KAz.codeScale).sp),
             color = c.accent,
             fontWeight = FontWeight.ExtraBold
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            text = "$bal / $umumi doğru cavab",
+            text = pluralStringResource(R.plurals.quiz_dogru_cavab, umumi, bal, umumi),
             style = MaterialTheme.typography.titleMedium,
             color = c.text
         )
@@ -470,7 +479,7 @@ private fun NeticeEkrani(
         if (rekord > 0) {
             Spacer(Modifier.height(12.dp))
             Text(
-                text = "${rejim.label} rekordun: $rekord / $umumi",
+                text = stringResource(R.string.quiz_rekordun, rejim.etiket(), rekord, umumi),
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(c.bgSunken)
@@ -483,7 +492,7 @@ private fun NeticeEkrani(
         Spacer(Modifier.height(22.dp))
 
         Text(
-            text = "Yenidən başla",
+            text = stringResource(R.string.quiz_yeniden),
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(11.dp))
@@ -498,7 +507,7 @@ private fun NeticeEkrani(
         Spacer(Modifier.height(8.dp))
 
         Text(
-            text = "Səviyyəni dəyiş",
+            text = stringResource(R.string.quiz_seviyyeni_deyis),
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(11.dp))

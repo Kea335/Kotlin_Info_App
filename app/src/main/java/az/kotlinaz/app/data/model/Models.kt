@@ -285,11 +285,14 @@ data class SearchIndex(val docs: List<SearchDoc> = emptyList())
 
 /* ---------- Səviyyə ---------- */
 
-/** Çalışma səviyyələri — JSON-dakı `level` sahəsinin qarşılığı. */
-enum class Level(val id: String, val label: String) {
-    JUNIOR("junior", "Junior"),
-    MIDDLE("middle", "Middle"),
-    SENIOR("senior", "Senior");
+/**
+ * Çalışma səviyyələri — JSON-dakı `level` sahəsinin qarşılığı. Ekrandakı
+ * adı `ui/Etiketler.kt`-dədir (`Level.etiket()`) — data qatı resursdan asılı deyil.
+ */
+enum class Level(val id: String) {
+    JUNIOR("junior"),
+    MIDDLE("middle"),
+    SENIOR("senior");
 
     companion object {
         /** Naməlum dəyər gəlsə çökmürük — ən aşağı səviyyə götürülür. */

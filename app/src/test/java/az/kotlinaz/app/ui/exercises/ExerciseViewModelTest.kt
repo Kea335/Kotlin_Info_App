@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.data.KompilyasiyaXetasi
+import az.kotlinaz.app.ui.IcraXetasi
+import az.kotlinaz.app.ui.XetaSetri
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import az.kotlinaz.app.data.FakeCompilerRepository
@@ -77,19 +80,26 @@ class ExerciseViewModelTest {
     }
 
     @Test
-    fun `Ok bos cixis - Sehv paneli bos yerine (bos) gosterir`() = runTest(dispatcher) {
+    fun `Ok bos cixis - Sehv, alinan bosdur (UI «(boş)» yazir)`() = runTest(dispatcher) {
         val vm = vm(FakeCompilerRepository(RunResult.Ok("")))
         vm.calismaniAc(calisma)
         vm.yoxla(calisma)
-        assertEquals(YoxlamaVeziyyeti.Sehv("Salam", "(boş)"), vm.yoxlama.value)
+        assertEquals(YoxlamaVeziyyeti.Sehv("Salam", ""), vm.yoxlama.value)
     }
 
     @Test
-    fun `CompileError - Xeta paneli setirleri birlesdirir`() = runTest(dispatcher) {
-        val vm = vm(FakeCompilerRepository(RunResult.CompileError(listOf("1:1 x", "2:3 y"))))
+    fun `CompileError - Xeta paneli setir nomreleri ile`() = runTest(dispatcher) {
+        val vm = vm(
+            FakeCompilerRepository(
+                RunResult.CompileError(listOf(KompilyasiyaXetasi(1, "x"), KompilyasiyaXetasi(null, "y")))
+            )
+        )
         vm.calismaniAc(calisma)
         vm.yoxla(calisma)
-        assertEquals(YoxlamaVeziyyeti.Xeta("Kompilyasiya xətası", "1:1 x\n2:3 y"), vm.yoxlama.value)
+        assertEquals(
+            YoxlamaVeziyyeti.Xeta(IcraXetasi.KOMPILYASIYA, listOf(XetaSetri("x", 1), XetaSetri("y"))),
+            vm.yoxlama.value
+        )
         assertFalse(hellEdilib(calisma.id))
     }
 
@@ -98,7 +108,7 @@ class ExerciseViewModelTest {
         val vm = vm(FakeCompilerRepository(RunResult.Crashed("qismen", "ArithmeticException")))
         vm.calismaniAc(calisma)
         vm.yoxla(calisma)
-        assertEquals(YoxlamaVeziyyeti.Xeta("Çalışma vaxtı xətası", "ArithmeticException"), vm.yoxlama.value)
+        assertEquals(YoxlamaVeziyyeti.Xeta(IcraXetasi.ICRA, listOf(XetaSetri("ArithmeticException"))), vm.yoxlama.value)
     }
 
     @Test
@@ -115,7 +125,7 @@ class ExerciseViewModelTest {
         val vm = vm(FakeCompilerRepository(RunResult.Failed("timeout")))
         vm.calismaniAc(calisma)
         vm.yoxla(calisma)
-        assertEquals(YoxlamaVeziyyeti.Xeta("Bağlantı problemi", "timeout"), vm.yoxlama.value)
+        assertEquals(YoxlamaVeziyyeti.Xeta(IcraXetasi.BAGLANTI, listOf(XetaSetri("timeout"))), vm.yoxlama.value)
     }
 
     /* ---------- davranış ---------- */

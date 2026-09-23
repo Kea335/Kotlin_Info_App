@@ -33,6 +33,7 @@ data class CihazMelumati(
 
 /** GitHub-un yeni issue formunun ünvanı, başlıq və gövdə doldurulmuş. */
 internal fun xetaBildirisiUrl(m: CihazMelumati): String {
+    // i18n-ignore-start — issue layihənin dilində yazılır (saxlayıcı üçün), UI deyil
     val govde = buildString {
         appendLine("**Nə baş verdi?**")
         appendLine()
@@ -52,7 +53,8 @@ internal fun xetaBildirisiUrl(m: CihazMelumati): String {
         appendLine("| Dil | ${m.dil} |")
         append("| Kompilyator | Kotlin ${m.kompilyator} |")
     }
-    return "$REPO_URL/issues/new?title=${kodla("[Xəta] ")}&body=${kodla(govde)}"
+    // i18n-ignore-end
+    return "$REPO_URL/issues/new?title=${kodla("[Xəta] ")}&body=${kodla(govde)}" // i18n-ignore — issue başlığı da
 }
 
 /** URL sorğu parametri: boşluq `%20` (GitHub `+`-ı başlıqda olduğu kimi saxlayır). */

@@ -40,6 +40,10 @@ jobs:
       - name: Dil yoxlaması
         run: node tools/validate-locales.js
 
+      # Compose-dakı Text("…") literal-larını Lint tutmur (T3.4).
+      - name: Hardcoded mətn yoxlaması
+        run: node tools/check-i18n.js
+
       - name: Unit testlər
         run: ./gradlew test --stacktrace
 

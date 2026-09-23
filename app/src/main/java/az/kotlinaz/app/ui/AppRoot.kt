@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui
 
+import androidx.annotation.StringRes
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -73,16 +76,16 @@ import kotlinx.coroutines.launch
 // destination bu tabdırmı (route tipinə görə, string müqayisəsi yoxdur).
 private data class AltMenyu(
     val yol: Any,
-    val etiket: String,
+    @param:StringRes val etiket: Int,
     val ikon: ImageVector,
     val secilidir: (NavDestination) -> Boolean
 )
 
 private val ALT_MENYU = listOf(
-    AltMenyu(Yol.Dersler, "Dərslər", Icons.AutoMirrored.Outlined.MenuBook) { it.hasRoute<Yol.Dersler>() },
-    AltMenyu(Yol.Calismalar, "Çalışmalar", Icons.Outlined.EditNote) { it.hasRoute<Yol.Calismalar>() },
-    AltMenyu(Yol.Quiz, "Test", Icons.Outlined.School) { it.hasRoute<Yol.Quiz>() },
-    AltMenyu(Yol.Meydan, "Meydan", Icons.Outlined.Code) { it.hasRoute<Yol.Meydan>() }
+    AltMenyu(Yol.Dersler, R.string.nav_dersler, Icons.AutoMirrored.Outlined.MenuBook) { it.hasRoute<Yol.Dersler>() },
+    AltMenyu(Yol.Calismalar, R.string.nav_calismalar, Icons.Outlined.EditNote) { it.hasRoute<Yol.Calismalar>() },
+    AltMenyu(Yol.Quiz, R.string.nav_test, Icons.Outlined.School) { it.hasRoute<Yol.Quiz>() },
+    AltMenyu(Yol.Meydan, R.string.nav_meydan, Icons.Outlined.Code) { it.hasRoute<Yol.Meydan>() }
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -145,13 +148,13 @@ fun AppRoot(vm: AppViewModel) {
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Məzmun yüklənmədi",
+                    text = stringResource(R.string.yukleme_xeta_basliq),
                     style = MaterialTheme.typography.titleMedium,
                     color = c.text
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = yukleneXetasi ?: "Tətbiqin daxili aktivləri oxunmadı.",
+                    text = yukleneXetasi ?: stringResource(R.string.yukleme_xeta_izah),
                     style = MaterialTheme.typography.bodySmall,
                     color = c.textFaint,
                     textAlign = TextAlign.Center
@@ -183,7 +186,7 @@ fun AppRoot(vm: AppViewModel) {
                             IconButton(onClick = { nav.popBackStack() }) {
                                 Icon(
                                     Icons.AutoMirrored.Outlined.ArrowBack,
-                                    contentDescription = "Geri",
+                                    contentDescription = stringResource(R.string.nav_geri),
                                     tint = c.text
                                 )
                             }
@@ -198,7 +201,7 @@ fun AppRoot(vm: AppViewModel) {
                         }) {
                             Icon(
                                 Icons.Outlined.Search,
-                                contentDescription = "Axtarış",
+                                contentDescription = stringResource(R.string.nav_axtaris),
                                 tint = c.textDim,
                                 modifier = Modifier.size(21.dp)
                             )
@@ -208,7 +211,7 @@ fun AppRoot(vm: AppViewModel) {
                         }) {
                             Icon(
                                 Icons.Outlined.Settings,
-                                contentDescription = "Tənzimləmələr",
+                                contentDescription = stringResource(R.string.nav_tenzimlemeler),
                                 tint = c.textDim,
                                 modifier = Modifier.size(21.dp)
                             )
@@ -239,11 +242,12 @@ fun AppRoot(vm: AppViewModel) {
                             icon = {
                                 Icon(
                                     menyu.ikon,
-                                    contentDescription = menyu.etiket,
+                                    contentDescription = null,
                                     modifier = Modifier.size(21.dp)
                                 )
                             },
-                            label = { Text(menyu.etiket) },
+                            // İkonun təsviri yoxdur — etiket onsuz da oxunur, iki dəfə səslənməsin.
+                            label = { Text(stringResource(menyu.etiket)) },
                             colors = NavigationBarItemDefaults.colors(
                                 selectedIconColor = c.accent,
                                 selectedTextColor = c.accent,
@@ -343,29 +347,28 @@ fun AppRoot(vm: AppViewModel) {
 
 // Yuxarı paneldəki başlıq — cari ünvanın tipinə görə seçilir. Dərs və
 // çalışma ekranlarında başlıq məzmundan gəlir; id route-dan tipli oxunur.
-// Composable-dır: T3.4-dən sonra başlıqlar stringResource ilə gələcək.
 @Composable
 private fun basliqUcun(
     entry: NavBackStackEntry?,
     sections: List<Section>,
     topics: List<ExerciseTopic>
 ): String {
-    val dest = entry?.destination ?: return "KotlinAZ"
+    val dest = entry?.destination ?: return stringResource(R.string.app_name)
     return when {
-        dest.hasRoute<Yol.Dersler>() -> "KotlinAZ"
+        dest.hasRoute<Yol.Dersler>() -> stringResource(R.string.app_name)
         dest.hasRoute<Yol.Ders>() -> {
             val id = entry.toRoute<Yol.Ders>().id
-            sections.firstOrNull { it.id == id }?.title ?: "Dərs"
+            sections.firstOrNull { it.id == id }?.title ?: stringResource(R.string.basliq_ders)
         }
-        dest.hasRoute<Yol.Calismalar>() -> "Çalışmalar"
+        dest.hasRoute<Yol.Calismalar>() -> stringResource(R.string.nav_calismalar)
         dest.hasRoute<Yol.Calisma>() -> {
             val id = entry.toRoute<Yol.Calisma>().id
-            topics.firstOrNull { it.id == id }?.title ?: "Çalışma"
+            topics.firstOrNull { it.id == id }?.title ?: stringResource(R.string.basliq_calisma)
         }
-        dest.hasRoute<Yol.Quiz>() -> "Bilik testi"
-        dest.hasRoute<Yol.Meydan>() -> "Kod meydanı"
-        dest.hasRoute<Yol.Axtaris>() -> "Axtarış"
-        dest.hasRoute<Yol.Tenzimleme>() -> "Tənzimləmələr"
-        else -> "KotlinAZ"
+        dest.hasRoute<Yol.Quiz>() -> stringResource(R.string.basliq_bilik_testi)
+        dest.hasRoute<Yol.Meydan>() -> stringResource(R.string.basliq_kod_meydani)
+        dest.hasRoute<Yol.Axtaris>() -> stringResource(R.string.nav_axtaris)
+        dest.hasRoute<Yol.Tenzimleme>() -> stringResource(R.string.nav_tenzimlemeler)
+        else -> stringResource(R.string.app_name)
     }
 }

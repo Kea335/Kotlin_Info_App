@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -140,17 +142,17 @@ fun BlockView(
 
         QuizBlock -> AksiyaKarti(
             ikon = "🎓",
-            basliq = "Bilik testi",
-            metn = "15 sual — sintaksisdən coroutine-lərə qədər. Suallar hər dəfə qarışıq sırada gəlir.",
-            duyme = "Testi başlat",
+            basliq = stringResource(R.string.blok_quiz_basliq),
+            metn = stringResource(R.string.blok_quiz_metn),
+            duyme = stringResource(R.string.blok_quiz_duyme),
             modifier = modifier
         ) { onQuiz?.invoke() }
 
         PlaygroundBlock -> AksiyaKarti(
             ikon = "▶",
-            basliq = "Kod meydanı",
-            metn = "Real Kotlin kompilyatoru. Bu bölmə internet tələb edir — tətbiqin qalan hissəsi oflayn işləyir.",
-            duyme = "Meydanı aç",
+            basliq = stringResource(R.string.blok_meydan_basliq),
+            metn = stringResource(R.string.blok_meydan_metn),
+            duyme = stringResource(R.string.blok_meydan_duyme),
             modifier = modifier
         ) { onPlayground?.invoke() }
 
