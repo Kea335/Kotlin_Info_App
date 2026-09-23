@@ -6,8 +6,6 @@ import az.kotlinaz.app.data.model.ExerciseTopic
 import az.kotlinaz.app.data.model.PlaygroundData
 import az.kotlinaz.app.data.model.QuizBank
 import az.kotlinaz.app.data.model.QuizQuestion
-import az.kotlinaz.app.data.model.SearchDoc
-import az.kotlinaz.app.data.model.SearchIndex
 import az.kotlinaz.app.data.model.Section
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +15,6 @@ import kotlinx.coroutines.flow.asStateFlow
 class FakeContentRepository(
     private val bolmeler: List<Section> = emptyList(),
     private val movzular: List<ExerciseTopic> = emptyList(),
-    private val senedler: List<SearchDoc> = emptyList(),
     private val suallar: List<QuizQuestion> = emptyList(),
     private val xeta: Exception? = null,
     /** Yalnız çalışma bankı sınsın — ikinci mərhələnin xətası üçün (T2.6). */
@@ -25,9 +22,7 @@ class FakeContentRepository(
     /** Qurulmuş dillər — `locales.json` əvəzi (T3.3). */
     private val diller: List<String> = listOf(AssetContentRepository.BAZA_LOCALE),
     /** Dil üzrə bölmələr; dil burada yoxdursa [bolmeler] qaytarılır. */
-    private val dilUzreBolmeler: Map<String, List<Section>> = emptyMap(),
-    /** Dil üzrə axtarış sənədləri; dil burada yoxdursa [senedler]. */
-    private val dilUzreSenedler: Map<String, List<SearchDoc>> = emptyMap()
+    private val dilUzreBolmeler: Map<String, List<Section>> = emptyMap()
 ) : ContentRepository {
 
     private val _dil = MutableStateFlow(AssetContentRepository.BAZA_LOCALE)
@@ -52,5 +47,4 @@ class FakeContentRepository(
     }
     override suspend fun quiz() = QuizBank(suallar)
     override suspend fun playground() = PlaygroundData()
-    override suspend fun searchIndex() = SearchIndex(dilUzreSenedler[_dil.value] ?: senedler)
 }

@@ -13,7 +13,7 @@ const path = require('path');
 const vm = require('vm');
 const crypto = require('crypto');
 const H = require('./html-parse');
-const { bloklardanMetn, axtarisIndeksi } = require('./content-lib');
+const { bloklardanMetn } = require('./content-lib');
 
 const SAYT = process.env.KOTLINAZ_WEB || path.resolve('C:/Users/PC-01/Desktop/kotlinweb');
 // KOTLINAZ_HEDEF — testlərin aktivləri müvəqqəti qovluğa yazması üçün.
@@ -572,8 +572,8 @@ function meydanNumuneleri() {
    5. Axtarış indeksi
    ============================================================ */
 
-// spanMetni / bloklardanMetn / axtarisIndeksi — tools/content-lib.js-dədir (T3.2):
-// build-locale.js də eyni indeksi tərcümə olunmuş məzmundan qurur.
+// search.json artıq yazılmır (T3.5): tətbiq indeksi yüklənmiş məzmundan özü
+// qurur (AxtarisIndeksi.kt) — qayda content-lib.js-dəki bloklardanMetn-dir.
 
 /* ============================================================
    6. Yazı
@@ -595,13 +595,13 @@ const sections = blokIdleriniVer(bolmeleriQur());
 const calismalar = calismalariQur();
 const quiz = quizQur();
 const presets = meydanNumuneleri();
-const indeks = axtarisIndeksi(sections);
 
 yaz('content.json', { version: '1.0.0', sections: sections });
 yaz('exercises.json', { topics: calismalar.topics });
 yaz('quiz.json', { questions: quiz });
 yaz('playground.json', { presets: presets });
-yaz('search.json', { docs: indeks });
+// Köhnə boru xəttindən qalmış indeks APK-ya düşməsin.
+if (fs.existsSync(path.join(HEDEF, 'search.json'))) fs.rmSync(path.join(HEDEF, 'search.json'));
 
 console.log('');
 console.log('Bolme sayi       : ' + sections.length);

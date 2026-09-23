@@ -51,7 +51,6 @@ app/src/main/assets/content/  oflayn məzmun, dil başına bir qovluq
     exercises.json            1250 çalışma
     quiz.json                 15 ümumi sual (qarışıq rejimin hovuzuna əlavə olunur)
     playground.json           10 nümunə kod
-    search.json               axtarış indeksi
   <lc>/                       tam tərcümə olunmuş dil — overlay-dən qurulur
 
 app/src/debug/assets/content/ yarımçıq dillər — yalnız debug APK-ya düşür (T4.7)

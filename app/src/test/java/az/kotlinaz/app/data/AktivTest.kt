@@ -8,7 +8,6 @@ import az.kotlinaz.app.data.model.IdliBlok
 import az.kotlinaz.app.data.model.ExerciseBank
 import az.kotlinaz.app.data.model.PlaygroundData
 import az.kotlinaz.app.data.model.QuizBank
-import az.kotlinaz.app.data.model.SearchIndex
 import az.kotlinaz.app.data.model.TabsBlock
 import kotlinx.serialization.SerializationException
 import org.junit.Test
@@ -73,7 +72,8 @@ class AktivTest(private val locale: String) {
     private val bank by lazy { AktivJson.decodeFromString<ExerciseBank>(aktiv("exercises.json")) }
     private val quiz by lazy { AktivJson.decodeFromString<QuizBank>(aktiv("quiz.json")) }
     private val playground by lazy { AktivJson.decodeFromString<PlaygroundData>(aktiv("playground.json")) }
-    private val search by lazy { AktivJson.decodeFromString<SearchIndex>(aktiv("search.json")) }
+    /** Axtarış sənədləri — aktiv deyil, məzmundan qurulur (T3.5). */
+    private val search by lazy { axtarisSenedleri(content.sections) }
 
     private val bolmeIdleri get() = content.sections.map { it.id }.toSet()
 
@@ -83,7 +83,7 @@ class AktivTest(private val locale: String) {
     @Test fun `exercises json decode olunur`() { assertTrue(bank.topics.isNotEmpty()) }
     @Test fun `quiz json decode olunur`() { assertTrue(quiz.questions.isNotEmpty()) }
     @Test fun `playground json decode olunur`() { assertTrue(playground.presets.isNotEmpty()) }
-    @Test fun `search json decode olunur`() { assertTrue(search.docs.isNotEmpty()) }
+    @Test fun `axtaris senedleri qurulur`() { assertTrue(search.all { it.text.isNotBlank() }) }
 
     /* ---------- Struktur sabitləri ---------- */
 
@@ -105,7 +105,7 @@ class AktivTest(private val locale: String) {
     fun `15 quiz suali, 10 meydan numunesi, 32 axtaris senedi`() {
         assertEquals(15, quiz.questions.size)
         assertEquals(10, playground.presets.size)
-        assertEquals(32, search.docs.size)
+        assertEquals(32, search.size)
     }
 
     @Test
@@ -183,8 +183,8 @@ class AktivTest(private val locale: String) {
 
     @Test
     fun `axtaris senedlerinin id-leri bolme id-leri ile ust-uste dusur`() {
-        assertEquals(bolmeIdleri, search.docs.map { it.id }.toSet())
-        search.docs.forEach { assertTrue(it.title.isNotBlank(), it.id) }
+        assertEquals(bolmeIdleri, search.map { it.id }.toSet())
+        search.forEach { assertTrue(it.title.isNotBlank(), it.id) }
     }
 
     @Test
@@ -255,7 +255,6 @@ class AktivTest(private val locale: String) {
         assertTrue(c.sections.isEmpty())
         assertEquals("1.0.0", c.version)
         assertTrue(AktivJson.decodeFromString<ExerciseBank>("{}").topics.isEmpty())
-        assertTrue(AktivJson.decodeFromString<SearchIndex>("{}").docs.isEmpty())
     }
 
     @Test

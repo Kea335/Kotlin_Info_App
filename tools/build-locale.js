@@ -3,8 +3,8 @@
 
    Bazanı (assets/content/az) oxuyur, localization/<lc>/ overlay-ini
    ID üzrə tətbiq edir və dil aktivlərini yazır. Çatışmayan və ya boş
-   sahə bazadan qalır («fallback»). search.json tərcümə olunmuş
-   məzmundan yenidən qurulur.
+   sahə bazadan qalır («fallback»). Axtarış indeksi yazılmır — tətbiq
+   onu yüklənmiş məzmundan özü qurur (T3.5).
 
    Dil qapısı (T4.7): 100 % tərcümə olunmuş dil app/src/main/assets-ə
    (release), yarımçıq dil app/src/debug/assets-ə yazılır — yarımçıq
@@ -53,7 +53,6 @@ function localeQur(locale) {
 
   const faiz = s.cemi ? Math.floor((s.var / s.cemi) * 100) : 100;
   console.log(locale + ': ' + faiz + '% (' + s.var + '/' + s.cemi + ') → ' + (tam ? 'release (main)' : 'yalniz debug'));
-  let content = null;
   L.FAYLLAR.forEach((ad) => {
     const baza = L.bazaOxu(ad);
     const overlayFayli = L.overlayYolu(locale, ad);
@@ -65,18 +64,15 @@ function localeQur(locale) {
       if (L.bosdur(v)) { fallback++; return; }
       y.qoy(v); tetbiq++;
     });
-    if (ad === 'content') content = baza;
     const yol = path.join(hedef, ad + '.json');
     fs.writeFileSync(yol, JSON.stringify(baza), 'utf8');
     const kb = (fs.statSync(yol).size / 1024).toFixed(1);
     console.log('  ' + (ad + '.json').padEnd(18) + kb.padStart(7) + ' KB   tercume ' + String(tetbiq).padStart(5) + '   fallback ' + String(fallback).padStart(5));
   });
 
-  // Axtarış indeksi tərcümə olunmuş məzmundan — az-dakı ilə eyni qayda.
-  const indeks = { docs: L.axtarisIndeksi(content.sections) };
-  const yol = path.join(hedef, 'search.json');
-  fs.writeFileSync(yol, JSON.stringify(indeks), 'utf8');
-  console.log('  ' + 'search.json'.padEnd(18) + (fs.statSync(yol).size / 1024).toFixed(1).padStart(7) + ' KB');
+  // Köhnə boru xəttinin search.json-u qalıbsa silinir (T3.5).
+  const kohneIndeks = path.join(hedef, 'search.json');
+  if (fs.existsSync(kohneIndeks)) fs.rmSync(kohneIndeks);
   return true;
 }
 
