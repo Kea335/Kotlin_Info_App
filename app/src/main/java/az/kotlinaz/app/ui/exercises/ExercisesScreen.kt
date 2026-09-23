@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.exercises
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import az.kotlinaz.app.R
@@ -176,7 +177,7 @@ private fun MovzuKarti(
                 if (bitib) c.ok.copy(alpha = 0.45f) else c.border,
                 RoundedCornerShape(13.dp)
             )
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(14.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

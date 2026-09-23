@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.semantics.Role
 import az.kotlinaz.app.ui.isareler.IsareDuymesi
 import az.kotlinaz.app.ui.isareler.LocalKodIsaresi
 import androidx.compose.ui.res.stringResource
@@ -225,7 +226,7 @@ private fun KodDuymesi(
         modifier = Modifier
             .border(1.dp, if (vurgulu) c.accent.copy(alpha = 0.5f) else c.border, RoundedCornerShape(8.dp))
             .background(if (vurgulu) c.accentSoft else Color.Transparent, RoundedCornerShape(8.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 8.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)

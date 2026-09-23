@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.demos
 
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
 import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -107,7 +109,9 @@ fun DemoChip(
                 if (aktiv) c.accent.copy(alpha = 0.55f) else c.border,
                 RoundedCornerShape(8.dp)
             )
-            .clickable(onClick = onClick)
+            // Çip sıx sıralarda (FlowChips) durur — 48 dp layout sıraları
+            // aralayardı; toxunma sahəsini Compose-un hit-test genişlənməsi verir.
+            .selectable(selected = aktiv, role = Role.Button, onClick = onClick)
             .padding(horizontal = 10.dp, vertical = 6.dp),
         style = MaterialTheme.typography.labelSmall,
         color = if (aktiv) c.accent else c.textDim,

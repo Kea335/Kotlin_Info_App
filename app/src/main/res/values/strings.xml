@@ -428,4 +428,10 @@
     <string name="yol_kilid_ikon">Tövsiyə olunan sıradan irəlidədir</string>
     <!-- Parametr — bölmə adları, vergüllə -->
     <string name="yol_xeberdarliq">Bu mövzu üçün əvvəlcə «%1$s» bölməsini tamamlamaq tövsiyə olunur — amma istəsən indi də oxuya bilərsən.</string>
+
+    <!-- ===== Əlçatanlıq (T5.6) ===== -->
+    <!-- TalkBack: variantın vəziyyəti -->
+    <string name="a11y_duzgun_cavab">düzgün cavab</string>
+    <string name="a11y_sehv_cavab">səhv cavab — sənin seçimin</string>
+    <string name="a11y_tereqqi">Tərəqqi: %1$d%%</string>
 </resources>

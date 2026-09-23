@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.settings
 
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -511,6 +514,7 @@ private fun Secim(
     Text(
         text = etiket,
         modifier = modifier
+            .minimumInteractiveComponentSize()
             .clip(RoundedCornerShape(9.dp))
             .background(if (aktiv) c.accentSoft else c.bgSunken)
             .border(
@@ -518,7 +522,7 @@ private fun Secim(
                 if (aktiv) c.accent.copy(alpha = 0.5f) else c.border,
                 RoundedCornerShape(9.dp)
             )
-            .clickable(onClick = onClick)
+            .selectable(selected = aktiv, role = Role.RadioButton, onClick = onClick)
             .padding(horizontal = if (yigcam) 12.dp else 0.dp, vertical = 9.dp),
         style = MaterialTheme.typography.labelMedium,
         color = if (aktiv) c.accent else c.textDim,
@@ -537,7 +541,7 @@ private fun Kecid(ust: String, etiket: String, onClick: () -> Unit) {
             .clip(RoundedCornerShape(10.dp))
             .background(c.bgSunken)
             .border(1.dp, c.border, RoundedCornerShape(10.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 12.dp, vertical = 11.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -617,7 +621,7 @@ private fun Sifirla(etiket: String, tehlukeli: Boolean = false, onClick: () -> U
                 if (tehlukeli) c.err.copy(alpha = 0.3f) else c.border,
                 RoundedCornerShape(9.dp)
             )
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(vertical = 11.dp),
         style = MaterialTheme.typography.labelMedium,
         color = reng,

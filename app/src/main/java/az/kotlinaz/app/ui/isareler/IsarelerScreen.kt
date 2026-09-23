@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.isareler
 
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -160,7 +162,7 @@ private fun Tab(etiket: String, aktiv: Boolean, modifier: Modifier, onClick: () 
             .clip(RoundedCornerShape(10.dp))
             .background(if (aktiv) c.accentSoft else c.bgSunken)
             .border(1.dp, if (aktiv) c.accent.copy(alpha = 0.5f) else c.border, RoundedCornerShape(10.dp))
-            .clickable(onClick = onClick)
+            .selectable(selected = aktiv, role = Role.Tab, onClick = onClick)
             .padding(vertical = 10.dp),
         style = MaterialTheme.typography.labelLarge,
         color = if (aktiv) c.accent else c.textDim,
@@ -181,7 +183,7 @@ private fun HedefSetri(
             .clip(RoundedCornerShape(12.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(12.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(start = 13.dp, top = 10.dp, bottom = 10.dp, end = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.demos
 
+import androidx.compose.ui.semantics.Role
 import androidx.annotation.StringRes
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -777,7 +778,7 @@ private fun CoroutinesDemo(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .clip(RoundedCornerShape(9.dp))
                     .background(KotlinBrush)
-                    .clickable {
+                    .clickable(role = Role.Button) {
                         if (isleyir) {
                             isleyir = false
                             kecen = 0f
