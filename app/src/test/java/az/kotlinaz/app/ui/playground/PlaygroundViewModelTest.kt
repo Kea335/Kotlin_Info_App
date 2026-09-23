@@ -1,13 +1,19 @@
 package az.kotlinaz.app.ui.playground
 
+import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import az.kotlinaz.app.data.FakeCompilerRepository
+import az.kotlinaz.app.data.MeydanQaralamasi
 import az.kotlinaz.app.data.RunResult
+import az.kotlinaz.app.data.UserPrefs
+import az.kotlinaz.app.data.YaddasDataStore
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -30,7 +36,9 @@ class PlaygroundViewModelTest {
     @After
     fun sifirla() = Dispatchers.resetMain()
 
-    private fun vm(fake: FakeCompilerRepository) = PlaygroundViewModel(fake, SavedStateHandle())
+    private val prefs = UserPrefs(YaddasDataStore())
+
+    private fun vm(fake: FakeCompilerRepository) = PlaygroundViewModel(fake, SavedStateHandle(), prefs)
 
     @Test
     fun `baslangicda bos kod ve kursor main govdesindedir`() {
@@ -126,5 +134,89 @@ class PlaygroundViewModelTest {
             MeydanVeziyyeti.Xetalar("Bağlantı problemi", "timeout"),
             meydanNeticesi(RunResult.Failed("timeout"))
         )
+    }
+
+    /* ---------- Dayandır (Mərhələ 4) ---------- */
+
+    @Test
+    fun `dayandir icrani legv edir, gec gelen cavab gosterilmir`() = runTest(dispatcher) {
+        val qapi = CompletableDeferred<Unit>()
+        val vm = vm(FakeCompilerRepository(RunResult.Ok("gec"), dayandir = qapi))
+
+        vm.isle()
+        vm.dayandir()
+        assertEquals(MeydanVeziyyeti.Dayandirildi, vm.ui.value)
+
+        qapi.complete(Unit)
+        assertEquals(MeydanVeziyyeti.Dayandirildi, vm.ui.value)
+    }
+
+    @Test
+    fun `dayandirdiqdan sonra yeniden isle olur`() = runTest(dispatcher) {
+        val qapi = CompletableDeferred<Unit>()
+        val fake = FakeCompilerRepository(RunResult.Ok("2"), dayandir = qapi)
+        val vm = vm(fake)
+        vm.isle()
+        vm.dayandir()
+
+        qapi.complete(Unit)
+        vm.isle()
+        assertEquals(2, fake.cagirisSayi)
+        assertEquals(MeydanVeziyyeti.Cixis("2"), vm.ui.value)
+    }
+
+    @Test
+    fun `icra yoxdursa dayandir hec ne etmir`() = runTest(dispatcher) {
+        val vm = vm(FakeCompilerRepository(RunResult.Ok("1")))
+        vm.isle()
+        vm.dayandir()
+        assertEquals(MeydanVeziyyeti.Cixis("1"), vm.ui.value)
+    }
+
+    @Test
+    fun `icra gederken numune secilse kohne cavab paneli acmir`() = runTest(dispatcher) {
+        val qapi = CompletableDeferred<Unit>()
+        val vm = vm(FakeCompilerRepository(RunResult.Ok("kohne"), dayandir = qapi))
+        vm.isle()
+        vm.presetSec("hello", "println(1)")
+        qapi.complete(Unit)
+        assertEquals(MeydanVeziyyeti.Bos, vm.ui.value)
+    }
+
+    /* ---------- Diskdə saxlama (Mərhələ 4) ---------- */
+
+    @Test
+    fun `diskdeki kod ve numune acilista berpa olunur`() = runTest(dispatcher) {
+        prefs.meydanQaralamasiniYaz(MeydanQaralamasi("println(42)", "hello"))
+        val vm = vm(FakeCompilerRepository())
+        assertEquals("println(42)", vm.kod.value.text)
+        assertEquals("println(42)".length, vm.kod.value.selection.start)
+        assertEquals("hello", vm.seciliPreset.value)
+    }
+
+    @Test
+    fun `yazi dayananda kod diske yazilir`() = runTest(dispatcher) {
+        val vm = vm(FakeCompilerRepository())
+        vm.kod.value = TextFieldValue("val x = 1")
+        Snapshot.sendApplyNotifications()
+
+        advanceTimeBy(500)
+        runCurrent()
+        // Hələ yazmağa davam edir — diskə getmir.
+        assertNull(prefs.meydanQaralamasi())
+
+        advanceTimeBy(600)
+        runCurrent()
+        assertEquals(MeydanQaralamasi("val x = 1", null), prefs.meydanQaralamasi())
+    }
+
+    @Test
+    fun `numune secimi de diske yazilir`() = runTest(dispatcher) {
+        val vm = vm(FakeCompilerRepository())
+        vm.presetSec("hello", "println(1)")
+        Snapshot.sendApplyNotifications()
+        advanceTimeBy(1_100)
+        runCurrent()
+        assertEquals(MeydanQaralamasi("println(1)", "hello"), prefs.meydanQaralamasi())
     }
 }

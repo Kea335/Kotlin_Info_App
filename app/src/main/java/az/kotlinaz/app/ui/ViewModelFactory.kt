@@ -35,7 +35,7 @@ object AppViewModelFactory {
             AppViewModel(c.contentRepository, c.userPrefs, c.compiler, c.sistemDilleri)
         }
         initializer {
-            PlaygroundViewModel(konteyner.compiler, createSavedStateHandle())
+            PlaygroundViewModel(konteyner.compiler, createSavedStateHandle(), konteyner.userPrefs)
         }
         initializer {
             val c = konteyner

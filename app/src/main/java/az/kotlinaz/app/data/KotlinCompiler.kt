@@ -4,10 +4,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -128,7 +133,10 @@ class KotlinCompiler(
      */
     private val sebekeVar: () -> Boolean,
     /** Disk və şəbəkə işi bu dispatcher-də gedir; testdə test dispatcher-i ötürülür. */
-    private val io: CoroutineDispatcher = Dispatchers.IO
+    private val io: CoroutineDispatcher = Dispatchers.IO,
+    /** Kompilyator API-sinin kökü; testdə lokal server. */
+    private val apiUrl: String = BASE,
+    private val versiyalarUrl: String = VERSIYALAR_URL
 ) : CompilerRepository {
 
     // Siyahı hələ oxunmayıbsa ehtiyat siyahının birincisi göstərilir —
@@ -195,10 +203,14 @@ class KotlinCompiler(
     }
 
     /** `GET /versions`. Hər cür uğursuzluqda boş siyahı — çağıran ehtiyata keçir. */
-    private fun versiyalariYukle(): List<KompilyatorVersiyasi> {
-        var conn: HttpURLConnection? = null
+    private suspend fun versiyalariYukle(): List<KompilyatorVersiyasi> {
+        val conn = URL(versiyalarUrl).openConnection() as HttpURLConnection
+        return legvEdilebilen(conn) { versiyalariOxu(conn) }
+    }
+
+    private fun versiyalariOxu(conn: HttpURLConnection): List<KompilyatorVersiyasi> {
         return try {
-            conn = (URL(VERSIYALAR_URL).openConnection() as HttpURLConnection).apply {
+            conn.apply {
                 requestMethod = "GET"
                 // Kiçik JSON-dur — icra sorğusundakı 60 s oxuma vaxtı burada artıqdır.
                 connectTimeout = 15_000
@@ -212,7 +224,31 @@ class KotlinCompiler(
         } catch (_: Exception) {
             emptyList()
         } finally {
-            conn?.disconnect()
+            conn.disconnect()
+        }
+    }
+
+    /**
+     * [conn] üzərində bloklayan işi görür. `HttpURLConnection`-un oxuması
+     * korutin ləğvinə reaksiya vermir — «Dayandır» basılsa və ya ekran
+     * bağlansa da sorğu `readTimeout`-a (icrada 60 s) qədər asılı qalardı.
+     * Ona görə ləğvi ayrıca korutin gözləyir və bağlantını kəsir: bloklanmış
+     * oxuma dərhal istisna atır, ip və soket boşalır.
+     */
+    private suspend fun <T> legvEdilebilen(conn: HttpURLConnection, blok: () -> T): T = coroutineScope {
+        val kesici = launch(start = CoroutineStart.UNDISPATCHED) {
+            try {
+                awaitCancellation()
+            } finally {
+                conn.disconnect()
+            }
+        }
+        try {
+            blok()
+        } finally {
+            kesici.cancel()
+            // Kəsilmiş bağlantının istisnası «şəbəkə xətası» kimi qayıtmasın.
+            ensureActive()
         }
     }
 
@@ -259,11 +295,15 @@ class KotlinCompiler(
         data class Xeta(val mesaj: String) : Cavab
     }
 
-    private fun sorgu(versiya: String, govde: String): Cavab {
-        var conn: HttpURLConnection? = null
+    private suspend fun sorgu(versiya: String, govde: String): Cavab {
+        // openConnection hələ qoşulmur — kəsici hazır olana qədər şəbəkəyə çıxılmır.
+        val conn = URL("$apiUrl/$versiya/compiler/run?filename=File.kt").openConnection() as HttpURLConnection
+        return legvEdilebilen(conn) { sorguIcra(conn, versiya, govde) }
+    }
+
+    private fun sorguIcra(conn: HttpURLConnection, versiya: String, govde: String): Cavab {
         return try {
-            val url = URL("$BASE/$versiya/compiler/run?filename=File.kt")
-            conn = (url.openConnection() as HttpURLConnection).apply {
+            conn.apply {
                 requestMethod = "POST"
                 // Qoşulma qısa, oxuma uzun: kompilyasiya + icra server tərəfdə
                 // bəzən 10-20 saniyə çəkir, ona görə readTimeout böyükdür.
@@ -291,7 +331,7 @@ class KotlinCompiler(
             // Timeout, DNS, TLS, kəsilmiş bağlantı — hamısı buraya düşür.
             Cavab.Xeta(e.message ?: e.javaClass.simpleName)
         } finally {
-            conn?.disconnect()
+            conn.disconnect()
         }
     }
 }
