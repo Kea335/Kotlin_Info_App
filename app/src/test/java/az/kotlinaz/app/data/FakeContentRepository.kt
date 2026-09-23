@@ -22,7 +22,9 @@ class FakeContentRepository(
     /** Qurulmuş dillər — `locales.json` əvəzi (T3.3). */
     private val diller: List<String> = listOf(AssetContentRepository.BAZA_LOCALE),
     /** Dil üzrə bölmələr; dil burada yoxdursa [bolmeler] qaytarılır. */
-    private val dilUzreBolmeler: Map<String, List<Section>> = emptyMap()
+    private val dilUzreBolmeler: Map<String, List<Section>> = emptyMap(),
+    /** Dil üzrə çalışma bankı; dil burada yoxdursa [movzular]. */
+    private val dilUzreMovzular: Map<String, List<ExerciseTopic>> = emptyMap()
 ) : ContentRepository {
 
     private val _dil = MutableStateFlow(AssetContentRepository.BAZA_LOCALE)
@@ -43,7 +45,7 @@ class FakeContentRepository(
     }
     override suspend fun exercises(): ExerciseBank {
         calismaXetasi?.let { throw it }
-        return ExerciseBank(movzular)
+        return ExerciseBank(dilUzreMovzular[_dil.value] ?: movzular)
     }
     override suspend fun quiz() = QuizBank(suallar)
     override suspend fun playground() = PlaygroundData()

@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.data.oyrenme.FakeOyrenmeRepository
+import az.kotlinaz.app.data.model.TheoryExercise
+import az.kotlinaz.app.ui.quiz.bankSualId
 import az.kotlinaz.app.data.KompilyasiyaXetasi
 import az.kotlinaz.app.ui.IcraXetasi
 import az.kotlinaz.app.ui.XetaSetri
@@ -50,8 +53,9 @@ class ExerciseViewModelTest {
     private val basqaCalisma = calisma.copy(id = "intro-p-2", starter = "// 2", gozlenilen = "2")
 
     private val prefs = UserPrefs(YaddasDataStore())
+    private val oyrenme = FakeOyrenmeRepository()
 
-    private fun vm(fake: FakeCompilerRepository) = ExerciseViewModel(fake, prefs, SavedStateHandle())
+    private fun vm(fake: FakeCompilerRepository) = ExerciseViewModel(fake, prefs, oyrenme, SavedStateHandle())
 
     private suspend fun hellEdilib(id: String) = prefs.hellEdilmis.first().contains(id)
 
@@ -221,5 +225,28 @@ class ExerciseViewModelTest {
         val vm = vm(FakeCompilerRepository())
         vm.hellIsaretle("intro-t-4")
         assertTrue(hellEdilib("intro-t-4"))
+    }
+
+    /* ---------- Nəzəri cavab (T5.2) ---------- */
+
+    private val nezeri = TheoryExercise(
+        id = "n-1", no = 1, level = "junior", q = "Sual", opts = listOf("a", "b", "c"), a = 2, exp = ""
+    )
+
+    @Test
+    fun `nezeri sehv cavab Sehvlerim-e dusur, hell edilmir`() = runTest(dispatcher) {
+        val vm = vm(FakeCompilerRepository())
+        vm.nezeriCavab(nezeri, 0)
+        assertEquals(listOf(bankSualId("n-1")), oyrenme.sehvler.first().map { it.sualId })
+        assertFalse(hellEdilib("n-1"))
+    }
+
+    @Test
+    fun `nezeri duzgun cavab hell edir ve sehvi menimsemeye yaxinlasdirir`() = runTest(dispatcher) {
+        val vm = vm(FakeCompilerRepository())
+        vm.nezeriCavab(nezeri, 0)
+        vm.nezeriCavab(nezeri, 2)
+        assertTrue(hellEdilib("n-1"))
+        assertEquals(1, oyrenme.sehvler.first().single().ardicilDuzgun)
     }
 }

@@ -18,8 +18,25 @@ enum class QuizRejimi(val id: String, val seviyye: Level?) {
     JUNIOR("junior", Level.JUNIOR),
     MIDDLE("middle", Level.MIDDLE),
     SENIOR("senior", Level.SENIOR),
-    QARISIQ("qarisiq", null)
+    QARISIQ("qarisiq", null),
+
+    /**
+     * «Səhvlərim»-dən test (T5.2): tur yalnız hələ mənimsənilməmiş səhv
+     * suallardan yığılır. Seçim ekranında və rekordlarda görünmür.
+     */
+    SEHVLER("sehvler", null);
+
+    companion object {
+        /** Seçim ekranındakı və rekordu saxlanan rejimlər. */
+        val SECIM: List<QuizRejimi> = listOf(JUNIOR, MIDDLE, SENIOR, QARISIQ)
+    }
 }
+
+/**
+ * Çalışma bankındakı nəzəri sualın quiz id-si. «Səhvlərim» testdəki və
+ * nəzəri çalışmadakı cavabı bu id ilə eyni sətirdə birləşdirir (T5.2).
+ */
+fun bankSualId(nezeriId: String): String = "q-$nezeriId"
 
 /** Rejim üzrə sual hovuzları. Saf funksiya — testdən birbaşa çağırılır (T1.1). */
 internal fun hovuzlariQur(
@@ -34,7 +51,7 @@ internal fun hovuzlariQur(
             // id-yə önlük əlavə olunur ki, quiz.json-dakılarla qarışmasın.
             seviyyeUzre.getOrPut(Level.from(e.level)) { mutableListOf() }.add(
                 QuizQuestion(
-                    id = "q-${e.id}",
+                    id = bankSualId(e.id),
                     q = e.q,
                     code = e.code,
                     opts = e.opts,
@@ -47,7 +64,8 @@ internal fun hovuzlariQur(
 
     return QuizRejimi.entries.associateWith { r ->
         when (val lv = r.seviyye) {
-            // Qarışıq: quiz.json-dakı ümumi suallar + bütün bank.
+            // Qarışıq: quiz.json-dakı ümumi suallar + bütün bank. Səhv testi də
+            // id-ləri bu tam hovuzdan tapır; turun özü aktiv səhvlərdən seçilir.
             null -> questions + seviyyeUzre.values.flatten()
             else -> seviyyeUzre[lv].orEmpty()
         }

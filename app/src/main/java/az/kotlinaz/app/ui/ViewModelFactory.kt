@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui
 
+import az.kotlinaz.app.ui.sehvlerim.SehvlerimViewModel
+import kotlinx.coroutines.flow.map
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -39,11 +41,11 @@ object AppViewModelFactory {
         }
         initializer {
             val c = konteyner
-            ExerciseViewModel(c.compiler, c.userPrefs, createSavedStateHandle())
+            ExerciseViewModel(c.compiler, c.userPrefs, c.oyrenme, createSavedStateHandle())
         }
         initializer {
             val c = konteyner
-            QuizViewModel(c.contentRepository, c.userPrefs, createSavedStateHandle())
+            QuizViewModel(c.contentRepository, c.userPrefs, c.oyrenme, createSavedStateHandle())
         }
         initializer {
             val c = konteyner
@@ -60,8 +62,13 @@ object AppViewModelFactory {
                 dilTetbiqEt = ::appCompatDiliTetbiqEt,
                 // Siyahıda yalnız qurulmuş (tam tərcümə olunmuş) dillər; debug-da hamısı (T4.7).
                 movcudDiller = c.contentRepository::diller,
-                hamisiGorunsun = BuildConfig.DEBUG
+                hamisiGorunsun = BuildConfig.DEBUG,
+                sehvSayi = c.oyrenme.sehvler.map { it.size }
             )
+        }
+        initializer {
+            val c = konteyner
+            SehvlerimViewModel(c.contentRepository, c.oyrenme)
         }
     }
 }

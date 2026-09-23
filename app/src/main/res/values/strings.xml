@@ -351,4 +351,23 @@
     <string name="demo_coro_ardicil_bitdi">Ardıcıl: 3300 ms — hər tapşırıq öz növbəsini gözlədi.</string>
     <string name="demo_coro_gedir">İcra gedir…</string>
     <string name="demo_coro_baslayin">Başla düyməsini basın.</string>
+
+    <!-- ===== Səhvlərim (T5.2) ===== -->
+    <string name="sehvlerim_basliq">Səhvlərim</string>
+    <string name="sehvlerim_bos">Hələ səhvin yoxdur — testdən keç, səhvlər burada toplanacaq.</string>
+    <string name="sehvlerim_izah">İki dəfə ardıcıl düzgün cavab verdiyin sual siyahıdan çıxır.</string>
+    <plurals name="sehvlerim_sayi">
+        <item quantity="one">%d səhv sual</item>
+        <item quantity="other">%d səhv sual</item>
+    </plurals>
+    <string name="sehvlerim_test">Yalnız səhvlərdən test</string>
+    <plurals name="sehvlerim_defe">
+        <item quantity="one">%d dəfə səhv</item>
+        <item quantity="other">%d dəfə səhv</item>
+    </plurals>
+    <!-- Mövzu · neçə dəfə səhv · son tarix -->
+    <string name="sehvlerim_meta">%1$s · %2$s · %3$s</string>
+    <string name="quiz_rejim_sehvler">Səhvlərdən test</string>
+    <string name="quiz_rejim_sehvler_izah">Yalnız səhv cavab verdiyin suallar — iki dəfə ardıcıl düzgün cavab verəndə siyahıdan çıxır.</string>
+    <string name="quiz_sehvlere_bax">Səhvlərə bax</string>
 </resources>

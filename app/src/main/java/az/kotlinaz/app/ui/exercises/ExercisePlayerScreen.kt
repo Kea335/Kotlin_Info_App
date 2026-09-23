@@ -237,7 +237,7 @@ private fun ExercisePlayerContent(
                 NezeriKart(
                     calisma = calisma,
                     hellOlunub = hellEdilmis.contains(calisma.id),
-                    onDuzgun = { vm.hellIsaretle(calisma.id) }
+                    onCavab = { vm.nezeriCavab(calisma, it) }
                 )
             }
         } else {
@@ -282,7 +282,8 @@ private fun ExercisePlayerContent(
 private fun NezeriKart(
     calisma: TheoryExercise,
     hellOlunub: Boolean,
-    onDuzgun: () -> Unit
+    /** Seçilən variant — düzgün/səhv qərarı və yazılma ViewModel-dədir. */
+    onCavab: (Int) -> Unit
 ) {
     val c = KAz.colors
     // Seçim çalışmaya bağlıdır: növbəti çalışmaya keçəndə təmizlənir;
@@ -332,11 +333,11 @@ private fun NezeriKart(
                     .background(fon)
                     .border(1.dp, cerceve, RoundedCornerShape(11.dp))
                     // Cavab verildikdən sonra kilidlənir. Düzgün cavab dərhal
-                    // «həll edilib» kimi yazılır — nəzəri çalışmada yoxlama tam
-                    // oflayndır, serverə ehtiyac yoxdur.
+                    // «həll edilib» kimi yazılır, səhv cavab «Səhvlərim»-ə düşür —
+                    // nəzəri çalışmada yoxlama tam oflayndır.
                     .clickable(enabled = !cavabVerilib) {
                         secim = i
-                        if (i == calisma.a) onDuzgun()
+                        onCavab(i)
                     }
                     .padding(horizontal = 13.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically

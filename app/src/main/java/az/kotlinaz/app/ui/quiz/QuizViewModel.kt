@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.ContentRepository
 import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.model.QuizQuestion
+import az.kotlinaz.app.data.oyrenme.OyrenmeRepository
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -28,6 +31,8 @@ import kotlinx.coroutines.launch
 class QuizViewModel(
     repo: ContentRepository,
     private val prefs: UserPrefs,
+    /** Səhv cavablar və turların tarixçəsi — Room (T5.1/T5.2). */
+    private val oyrenme: OyrenmeRepository,
     private val state: SavedStateHandle
 ) : ViewModel() {
 
@@ -48,6 +53,9 @@ class QuizViewModel(
     val secim: StateFlow<Int?> = state.getStateFlow<Int?>(SECIM, null)
     val bitdi: StateFlow<Boolean> = state.getStateFlow(BITDI, false)
 
+    /** Səhv testi seçilib, amma mənimsənilməmiş səhv yoxdur — boş hal göstərilir. */
+    val sehvYoxdur: StateFlow<Boolean> = state.getStateFlow(SEHV_YOXDUR, false)
+
     /** Rejim üzrə rekordlar: `"junior"` → bal. Rejim kartlarında və nəticədə göstərilir. */
     val rekordlar: StateFlow<Map<String, Int>> =
         prefs.quizRekordlari.stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
@@ -63,10 +71,8 @@ class QuizViewModel(
             idler.mapNotNull { idUzre[it] }
         }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    // Səhv cavab verilən sualların ID-ləri — T5.2 «Səhvlərim» üçün toplanır.
-    // TODO(T5.1): Room sxemi gələndə diskə yazılacaq; indilik yalnız yaddaşda.
-    private val _sehvler = mutableListOf<String>()
-    val sehvIdleri: List<String> get() = _sehvler.toList()
+    // Səhv testinin sualları Room-dan asinxron seçilir; yenisi başlayanda köhnəsi ləğv olunur.
+    private var sehvSecimi: Job? = null
 
     init {
         // Hovuzlar məzmun dilində qurulur; dil dəyişəndə (T3.3) yenidən. Sual
@@ -107,9 +113,32 @@ class QuizViewModel(
 
     /** Hovuzdan təsadüfi [QUIZ_SUAL_SAYI] sual — hər turda yeni dəst. */
     private fun turaBasla(r: QuizRejimi) {
+        sehvSecimi?.cancel()
+        if (r == QuizRejimi.SEHVLER) {
+            sehvTurunaBasla()
+            return
+        }
         val hovuz = _hovuzlar.value[r].orEmpty()
         state[SUAL_IDLERI] = ArrayList(hovuz.shuffled().take(QUIZ_SUAL_SAYI).map { it.id })
+        state[SEHV_YOXDUR] = false
         sifirla()
+    }
+
+    /**
+     * Səhv testi (T5.2): hələ mənimsənilməmiş səhvlərdən təsadüfi dəst.
+     * Hovuz id-ləri tam hovuzdandır — tur gedərkən sual mənimsənilsə də
+     * turdan düşmür, indeks sürüşmür.
+     */
+    private fun sehvTurunaBasla() {
+        state[SUAL_IDLERI] = ArrayList<String>()
+        sifirla()
+        sehvSecimi = viewModelScope.launch {
+            val aktiv = oyrenme.sehvler.first().mapTo(HashSet()) { it.sualId }
+            val hovuz = _hovuzlar.value[QuizRejimi.SEHVLER].orEmpty().filter { it.id in aktiv }
+            state[SUAL_IDLERI] = ArrayList(hovuz.shuffled().take(QUIZ_SUAL_SAYI).map { it.id })
+            // Hovuzlar hələ oxunmayıbsa «boş» demək tezdir — yüklənəndə berpaniYoxla təkrarlayır.
+            state[SEHV_YOXDUR] = hovuz.isEmpty() && _hovuzlar.value.isNotEmpty()
+        }
     }
 
     private fun sifirla() {
@@ -127,7 +156,11 @@ class QuizViewModel(
         if (secim.value != null || bitdi.value) return
         val sual = suallar.value.getOrNull(index.value) ?: return
         state[SECIM] = variant
-        if (variant == sual.a) state[BAL] = bal.value + 1 else _sehvler += sual.id
+        val duzgun = variant == sual.a
+        if (duzgun) state[BAL] = bal.value + 1
+        // Səhv cavab «Səhvlərim»-ə düşür; səhv olmuş sualın düzgün cavabı onu
+        // mənimsənilməyə yaxınlaşdırır (2 ardıcıl — T5.2).
+        viewModelScope.launch { oyrenme.cavabYaz(sual.id, duzgun) }
     }
 
     /** «Növbəti sual» / «Nəticəyə bax». Cavab verilməyibsə heçdir. */
@@ -146,7 +179,12 @@ class QuizViewModel(
         state[BITDI] = true
         val r = rejim.value ?: return
         val netice = bal.value
-        viewModelScope.launch { prefs.quizNeticesiniYaz(r.id, netice) }
+        val umumi = suallar.value.size
+        viewModelScope.launch {
+            // Səhv testinin rekordu yoxdur — hovuzu hər dəfə fərqlidir.
+            if (r != QuizRejimi.SEHVLER) prefs.quizNeticesiniYaz(r.id, netice)
+            oyrenme.quizTuruYaz(r.id, netice, umumi)
+        }
     }
 
     /** «Yenidən başla» — eyni rejimdə yeni təsadüfi dəst. */
@@ -161,5 +199,6 @@ class QuizViewModel(
         const val BAL = "bal"
         const val SECIM = "secim"
         const val BITDI = "bitdi"
+        const val SEHV_YOXDUR = "sehv_yoxdur"
     }
 }

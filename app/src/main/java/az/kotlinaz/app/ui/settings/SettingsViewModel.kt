@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.settings
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.AppDil
@@ -33,8 +35,12 @@ class SettingsViewModel(
     /** Qurulmuş məzmun dilləri — `ContentRepository.diller` (T4.7). */
     private val movcudDiller: suspend () -> List<String> = { listOf(AssetContentRepository.BAZA_LOCALE) },
     /** Debug build-də bütün dillər görünür — `BuildConfig.DEBUG`. */
-    private val hamisiGorunsun: Boolean = false
+    private val hamisiGorunsun: Boolean = false,
+    /** Mənimsənilməmiş səhvlərin sayı — «Səhvlərim» sətri (T5.2). */
+    sehvSayi: Flow<Int> = flowOf(0)
 ) : ViewModel() {
+
+    val sehvSayi: StateFlow<Int> = sehvSayi.stateIn(viewModelScope, SharingStarted.Eagerly, 0)
 
     val tema: StateFlow<ThemeMode> =
         prefs.tema.stateIn(viewModelScope, SharingStarted.Eagerly, ThemeMode.SYSTEM)

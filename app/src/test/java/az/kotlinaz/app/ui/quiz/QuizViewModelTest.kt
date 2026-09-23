@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.quiz
 
+import az.kotlinaz.app.data.oyrenme.FakeOyrenmeRepository
+import az.kotlinaz.app.data.oyrenme.QuizTuru
 import androidx.lifecycle.SavedStateHandle
 import az.kotlinaz.app.data.FakeContentRepository
 import az.kotlinaz.app.data.UserPrefs
@@ -56,9 +58,10 @@ class QuizViewModelTest {
 
     private val store = YaddasDataStore()
     private val prefs = UserPrefs(store)
+    private val oyrenme = FakeOyrenmeRepository()
 
     private fun vm(state: SavedStateHandle = SavedStateHandle()) =
-        QuizViewModel(FakeContentRepository(movzular = topics, suallar = umumi), prefs, state)
+        QuizViewModel(FakeContentRepository(movzular = topics, suallar = umumi), prefs, oyrenme, state)
 
     private fun QuizViewModel.cariSual() = suallar.value[index.value]
 
@@ -131,7 +134,7 @@ class QuizViewModelTest {
     }
 
     @Test
-    fun `sehv cavab verilen id-ler toplanir`() = runTest(dispatcher) {
+    fun `sehv cavab verilen id-ler Sehvlerim-e yazilir`() = runTest(dispatcher) {
         val vm = vm()
         vm.rejimSec(QuizRejimi.JUNIOR)
         val s1 = vm.cariSual()
@@ -143,8 +146,57 @@ class QuizViewModelTest {
         val s3 = vm.cariSual()
         vm.cavabla((s3.a + 2) % 3)
 
-        assertEquals(listOf(s1.id, s3.id), vm.sehvIdleri)
+        assertEquals(setOf(s1.id, s3.id), oyrenme.sehvler.first().map { it.sualId }.toSet())
         assertEquals(1, vm.bal.value)
+    }
+
+    /* ---------- Səhv testi (T5.2) ---------- */
+
+    @Test
+    fun `tur bitende quiz turu yazilir`() = runTest(dispatcher) {
+        val vm = vm()
+        vm.rejimSec(QuizRejimi.JUNIOR)
+        repeat(QUIZ_SUAL_SAYI) { vm.cavabla(vm.cariSual().a); vm.novbeti() }
+        assertEquals(listOf(QuizTuru("junior", QUIZ_SUAL_SAYI, QUIZ_SUAL_SAYI, oyrenme.indi)), oyrenme.quizTurlari.first())
+    }
+
+    @Test
+    fun `sehv testi yalniz menimsenilmemis sehvlerden yigilir`() = runTest(dispatcher) {
+        oyrenme.cavabYaz(bankSualId("t-3"), duzgun = false)
+        oyrenme.cavabYaz("g-1", duzgun = false)
+        // Mənimsənilmiş səhv (2 ardıcıl düzgün) testə düşmür.
+        oyrenme.cavabYaz(bankSualId("t-5"), duzgun = false)
+        oyrenme.cavabYaz(bankSualId("t-5"), duzgun = true)
+        oyrenme.cavabYaz(bankSualId("t-5"), duzgun = true)
+
+        val vm = vm()
+        vm.rejimSec(QuizRejimi.SEHVLER)
+        assertEquals(setOf(bankSualId("t-3"), "g-1"), vm.suallar.value.map { it.id }.toSet())
+        assertFalse(vm.sehvYoxdur.value)
+    }
+
+    @Test
+    fun `sehv yoxdursa sehv testi bos hal gosterir`() = runTest(dispatcher) {
+        val vm = vm()
+        vm.rejimSec(QuizRejimi.SEHVLER)
+        assertTrue(vm.suallar.value.isEmpty())
+        assertTrue(vm.sehvYoxdur.value)
+    }
+
+    @Test
+    fun `sehv testinde iki duzgun cavabdan sonra sual siyahidan cixir, rekord yazilmir`() = runTest(dispatcher) {
+        oyrenme.cavabYaz("g-1", duzgun = false)
+        repeat(2) {
+            val vm = vm()
+            vm.rejimSec(QuizRejimi.SEHVLER)
+            vm.cavabla(vm.cariSual().a)
+            vm.novbeti()
+            assertTrue(vm.bitdi.value)
+        }
+        assertTrue(oyrenme.sehvler.first().isEmpty())
+        // Səhv testinin rekordu yoxdur, amma turlar tarixçəyə düşür.
+        assertTrue(prefs.quizRekordlari.first().isEmpty())
+        assertEquals(2, oyrenme.quizTurlari.first().count { it.rejim == "sehvler" })
     }
 
     @Test

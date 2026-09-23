@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui
 
+import az.kotlinaz.app.ui.quiz.QuizRejimi
+import az.kotlinaz.app.ui.sehvlerim.SehvlerimScreen
 import androidx.annotation.StringRes
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -317,7 +319,27 @@ fun AppRoot(vm: AppViewModel) {
                 composable<Yol.Quiz> {
                     // Tur QuizViewModel-dədir (naviqasiya girişinə bağlı) —
                     // proses ölümündən və döndərmədən sağ çıxır.
-                    QuizScreen(vm = viewModel(factory = AppViewModelFactory.Factory))
+                    QuizScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } }
+                    )
+                }
+
+                composable<Yol.Sehvlerim> {
+                    SehvlerimScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        onTest = { nav.navigate(Yol.SehvTesti) }
+                    )
+                }
+
+                composable<Yol.SehvTesti> {
+                    QuizScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        sabitRejim = QuizRejimi.SEHVLER,
+                        onCixis = { nav.popBackStack() },
+                        // Səhvlərin siyahısına qayıdış — yeni nüsxə açılmasın.
+                        onSehvlerim = { nav.popBackStack() }
+                    )
                 }
 
                 composable<Yol.Meydan> {
@@ -337,7 +359,8 @@ fun AppRoot(vm: AppViewModel) {
                 composable<Yol.Tenzimleme> {
                     SettingsScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
-                        appVm = vm
+                        appVm = vm,
+                        onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } }
                     )
                 }
             }
@@ -369,6 +392,8 @@ private fun basliqUcun(
         dest.hasRoute<Yol.Meydan>() -> stringResource(R.string.basliq_kod_meydani)
         dest.hasRoute<Yol.Axtaris>() -> stringResource(R.string.nav_axtaris)
         dest.hasRoute<Yol.Tenzimleme>() -> stringResource(R.string.nav_tenzimlemeler)
+        dest.hasRoute<Yol.Sehvlerim>() -> stringResource(R.string.sehvlerim_basliq)
+        dest.hasRoute<Yol.SehvTesti>() -> stringResource(R.string.quiz_rejim_sehvler)
         else -> stringResource(R.string.app_name)
     }
 }
