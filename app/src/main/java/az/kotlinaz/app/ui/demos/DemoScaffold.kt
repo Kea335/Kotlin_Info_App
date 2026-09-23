@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.demos
 
+import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import androidx.compose.foundation.background
@@ -159,15 +160,17 @@ fun DemoScreen(
             Spacer(Modifier.height(5.dp))
         }
         // Konsol çıxışı sətir sonuna görə bölünmür (softWrap = false);
-        // uzun sətir üfüqi sürüşmə ilə oxunur — real terminal kimi.
-        Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
-            Text(
-                text = metn,
-                fontFamily = FontFamily.Monospace,
-                fontSize = (13 * KAz.codeScale).sp,
-                lineHeight = (20 * KAz.codeScale).sp,
-                softWrap = false
-            )
+        // uzun sətir üfüqi sürüşmə ilə oxunur — real terminal kimi. RTL-də də LTR.
+        SoldanSaga {
+            Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+                Text(
+                    text = metn,
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = (13 * KAz.codeScale).sp,
+                    lineHeight = (20 * KAz.codeScale).sp,
+                    softWrap = false
+                )
+            }
         }
     }
 }
@@ -179,7 +182,7 @@ fun DemoScreen(metn: String, modifier: Modifier = Modifier, basliq: String? = nu
 
 /** Rənglənmiş kod paneli — demo daxilində. */
 @Composable
-fun DemoCode(kod: String, modifier: Modifier = Modifier) {
+fun DemoCode(kod: String, modifier: Modifier = Modifier) = SoldanSaga {
     val c = KAz.colors
     val rengli = rememberHighlighted(kod)
     Box(
@@ -209,7 +212,8 @@ fun DemoField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = ""
-) {
+) = SoldanSaga {
+    // Girilən dəyər Kotlin ifadəsidir (`42L`, `listOf(1, 2)`) — RTL-də də LTR.
     val c = KAz.colors
     Box(
         modifier
@@ -336,7 +340,8 @@ fun ChainStep(
     aktiv: Boolean,
     modifier: Modifier = Modifier,
     sagReng: Color? = null
-) {
+) = SoldanSaga {
+    // Zəncir addımı kod və onun nəticəsidir — RTL-də də soldan-sağa.
     val c = KAz.colors
     Row(
         modifier

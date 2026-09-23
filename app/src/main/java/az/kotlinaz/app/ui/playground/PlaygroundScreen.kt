@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.playground
 
+import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import az.kotlinaz.app.ui.xetaMetni
@@ -329,7 +330,7 @@ private fun Panel(
 }
 
 @Composable
-private fun KonsolMetn(metn: String, reng: Color) {
+private fun KonsolMetn(metn: String, reng: Color) = SoldanSaga {
     Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
         Text(
             text = metn,

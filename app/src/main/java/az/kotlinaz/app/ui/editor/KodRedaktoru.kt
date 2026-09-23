@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.editor
 
+import androidx.compose.ui.text.style.TextDirection
+import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.pluralStringResource
 import az.kotlinaz.app.R
 import androidx.compose.foundation.background
@@ -164,6 +166,8 @@ fun KodRedaktoru(
         }
 
         // ---- Kod sahəsi ----
+        // RTL dillərdə də soldan-sağa (T3.6): layout və mətn istiqaməti.
+        SoldanSaga {
         BasicTextField(
             value = deyer,
             onValueChange = { kod.value = it },
@@ -175,7 +179,8 @@ fun KodRedaktoru(
                 fontFamily = FontFamily.Monospace,
                 fontSize = (13 * KAz.codeScale).sp,
                 lineHeight = (21 * KAz.codeScale).sp,
-                color = c.text
+                color = c.text,
+                textDirection = TextDirection.Ltr
             ),
             // Avtomatik düzəliş və böyük hərfə keçid kod yazanda həm səhv
             // nəticə verir (`val` → `Val`), həm də IME-nin hər vuruşda əlavə
@@ -187,6 +192,7 @@ fun KodRedaktoru(
             visualTransformation = rememberKeslenmisRengleme(),
             cursorBrush = SolidColor(c.accent)
         )
+        }
     }
 }
 
