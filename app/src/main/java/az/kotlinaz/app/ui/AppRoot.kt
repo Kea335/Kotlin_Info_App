@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui
 
+import az.kotlinaz.app.ui.statistika.StatistikaScreen
 import androidx.compose.material.icons.outlined.CollectionsBookmark
 import az.kotlinaz.app.ui.isareler.IsarelerScreen
 import az.kotlinaz.app.ui.isareler.Kecid
@@ -298,7 +299,8 @@ fun AppRoot(vm: AppViewModel) {
                     LessonsScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
-                        onSection = { nav.navigate(Yol.Ders(it)) }
+                        onSection = { nav.navigate(Yol.Ders(it)) },
+                        onStatistika = { nav.navigate(Yol.Statistika) { launchSingleTop = true } }
                     )
                 }
 
@@ -344,6 +346,13 @@ fun AppRoot(vm: AppViewModel) {
                     QuizScreen(
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } }
+                    )
+                }
+
+                composable<Yol.Statistika> {
+                    StatistikaScreen(
+                        vm = viewModel(factory = AppViewModelFactory.Factory),
+                        appVm = vm
                     )
                 }
 
@@ -395,7 +404,8 @@ fun AppRoot(vm: AppViewModel) {
                         vm = viewModel(factory = AppViewModelFactory.Factory),
                         appVm = vm,
                         onSehvlerim = { nav.navigate(Yol.Sehvlerim) { launchSingleTop = true } },
-                        onIsareler = { nav.navigate(Yol.Isareler) { launchSingleTop = true } }
+                        onIsareler = { nav.navigate(Yol.Isareler) { launchSingleTop = true } },
+                        onStatistika = { nav.navigate(Yol.Statistika) { launchSingleTop = true } }
                     )
                 }
             }
@@ -429,6 +439,7 @@ private fun basliqUcun(
         dest.hasRoute<Yol.Tenzimleme>() -> stringResource(R.string.nav_tenzimlemeler)
         dest.hasRoute<Yol.Sehvlerim>() -> stringResource(R.string.sehvlerim_basliq)
         dest.hasRoute<Yol.Isareler>() -> stringResource(R.string.isareler_basliq)
+        dest.hasRoute<Yol.Statistika>() -> stringResource(R.string.stat_basliq)
         dest.hasRoute<Yol.SehvTesti>() -> stringResource(R.string.quiz_rejim_sehvler)
         else -> stringResource(R.string.app_name)
     }

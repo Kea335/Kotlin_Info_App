@@ -145,13 +145,19 @@ class ExerciseViewModel(
         val metn = kod.value.text
         viewModelScope.launch {
             val netice = yoxlamaNeticesi(compiler.isle(metn), calisma.gozlenilen)
-            if (netice is YoxlamaVeziyyeti.Duzgun) prefs.calismaniHellIsaretle(calisma.id)
+            if (netice is YoxlamaVeziyyeti.Duzgun) hellYaz(calisma.id)
             _yoxlama.value = netice
         }
     }
 
     /** Nəzəri düzgün cavab və oflayn «Həll etdim» — yazma tək yerdən gedir. */
-    fun hellIsaretle(id: String) = viewModelScope.launch { prefs.calismaniHellIsaretle(id) }
+    fun hellIsaretle(id: String) = viewModelScope.launch { hellYaz(id) }
+
+    // Günlük fəallıq (T5.4) yalnız ilk həlldə artır — eyni çalışmanı təkrar
+    // həll etmək statistikanı şişirtməsin.
+    private suspend fun hellYaz(id: String) {
+        if (prefs.calismaniHellIsaretle(id)) oyrenme.hellQeydEt()
+    }
 
     /**
      * Nəzəri çalışmanın cavabı: düzgünsə həll edilmiş sayılır; hər iki halda

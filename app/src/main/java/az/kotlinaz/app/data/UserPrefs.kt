@@ -151,10 +151,15 @@ class UserPrefs(
         dataStore.edit { it[Acar.SON_BOLME] = id }
     }
 
-    suspend fun calismaniHellIsaretle(id: String) {
+    /** true — çalışma bu çağırışla İLK DƏFƏ həll sayıldı (günlük fəallıq üçün, T5.4). */
+    suspend fun calismaniHellIsaretle(id: String): Boolean {
+        var yeni = false
         dataStore.edit { p ->
-            p[Acar.HELL] = (p[Acar.HELL] ?: emptySet()) + id
+            val movcud = p[Acar.HELL] ?: emptySet()
+            yeni = id !in movcud
+            p[Acar.HELL] = movcud + id
         }
+        return yeni
     }
 
     /** Rejimin rekordu yalnız köhnəni ötəndə yenilənir. */

@@ -78,9 +78,6 @@
     <string name="ayarlar_tamamlama_izah">Kod yazarkən sözün üstündə təkliflər çıxır: «pri» yazanda print/println, «va» yazanda val/var. Kod meydanında və praktiki çalışmalarda işləyir.</string>
     <string name="ayarlar_tereqqi">Tərəqqi</string>
     <string name="ayarlar_seviyyen">Səviyyən</string>
-    <string name="ayarlar_tamamlanan_dersler">Tamamlanmış dərslər</string>
-    <!-- Parametr — səviyyə adı (Junior…) -->
-    <string name="ayarlar_seviyye_calismalar">%1$s çalışmalar</string>
     <string name="ayarlar_tereqqi_izah">Dərs yalnız ona bağlı çalışmaların hamısı düzgün həll ediləndə tamamlanmış sayılır.</string>
     <string name="ayarlar_sifirla_oxuma">Dərs təsdiqlərini sıfırla</string>
     <string name="ayarlar_sifirla_calisma">Çalışma tərəqqisini sıfırla</string>
@@ -394,4 +391,27 @@
     <string name="qeyd_hamisi">Hamısını göstər</string>
     <string name="qeyd_qisalt">Qısalt</string>
     <string name="ayarlar_isareler_izah">İşarələr və qeydlər bu cihazda saxlanılır və Android yedəyinə düşür.</string>
+
+    <!-- ===== Statistika (T5.4) ===== -->
+    <string name="stat_basliq">Statistika</string>
+    <string name="stat_sayqaclar">Sayğaclar</string>
+    <string name="stat_dersler">Tamamlanmış dərslər</string>
+    <string name="stat_calismalar">Həll edilmiş çalışmalar</string>
+    <string name="stat_fealiyyet">Son 30 gün</string>
+    <!-- Parametrlər: «12 çalışma», «5 gün» -->
+    <string name="stat_fealiyyet_xulase">%1$s · %2$s fəal</string>
+    <plurals name="stat_calisma_sayi">
+        <item quantity="one">%d çalışma</item>
+        <item quantity="other">%d çalışma</item>
+    </plurals>
+    <plurals name="stat_gun_sayi">
+        <item quantity="one">%d gün</item>
+        <item quantity="other">%d gün</item>
+    </plurals>
+    <string name="stat_seriya">Cari seriya</string>
+    <string name="stat_en_uzun_seriya">Ən uzun seriya</string>
+    <string name="stat_quiz_tarixcesi">Bilik testi — son turlar</string>
+    <string name="stat_quiz_bos">Hələ test verməmisən. Tur bitəndə nəticə burada görünəcək.</string>
+    <string name="stat_rekord">Rekord</string>
+    <string name="stat_ac">Bütün statistikaya bax</string>
 </resources>
