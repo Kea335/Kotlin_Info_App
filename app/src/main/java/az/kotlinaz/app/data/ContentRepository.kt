@@ -5,7 +5,6 @@ import az.kotlinaz.app.data.model.Content
 import az.kotlinaz.app.data.model.ExerciseBank
 import az.kotlinaz.app.data.model.PlaygroundData
 import az.kotlinaz.app.data.model.QuizBank
-import az.kotlinaz.app.data.model.SearchIndex
 import az.kotlinaz.app.data.model.Section
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,7 +52,7 @@ interface ContentRepository {
     suspend fun exercises(): ExerciseBank
     suspend fun quiz(): QuizBank
     suspend fun playground(): PlaygroundData
-    suspend fun searchIndex(): SearchIndex
+    // Axtarış indeksi aktiv deyil — yüklənmiş məzmundan qurulur (T3.5, axtarisSenedleri).
 }
 
 /**
@@ -116,7 +115,6 @@ class AssetContentRepository(
     private val exercisesKesi = AktivKesi("exercises.json") { json.decodeFromString<ExerciseBank>(it) }
     private val quizKesi = AktivKesi("quiz.json") { json.decodeFromString<QuizBank>(it) }
     private val playgroundKesi = AktivKesi("playground.json") { json.decodeFromString<PlaygroundData>(it) }
-    private val searchKesi = AktivKesi("search.json") { json.decodeFromString<SearchIndex>(it) }
 
     // Fayl oxunuşu — IO sapında, dil qovluğundan. Qovluq yoxdursa `en`, o da
     // yoxdursa baza: [mezmunDiliSec] onsuz da yalnız mövcud dilə çözür, bu
@@ -141,8 +139,6 @@ class AssetContentRepository(
     override suspend fun quiz(): QuizBank = quizKesi.al()
 
     override suspend fun playground(): PlaygroundData = playgroundKesi.al()
-
-    override suspend fun searchIndex(): SearchIndex = searchKesi.al()
 }
 
 /** `assets/content/locales.json` — baza dili və qurulmuş dil qovluqları. */

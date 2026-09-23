@@ -39,6 +39,10 @@ function spanMetni(spans) {
   return (spans || []).map((s) => (s.k === 'br' ? ' ' : s.v)).join('');
 }
 
+/**
+ * Blokların mətni. Tətbiqdəki axtarış indeksi (AxtarisIndeksi.kt, T3.5)
+ * eyni qaydanı Kotlin-də təkrarlayır — birini dəyişəndə o birini də dəyiş.
+ */
 function bloklardanMetn(blocks, topla) {
   (blocks || []).forEach((b) => {
     if (!b) return;
@@ -72,15 +76,6 @@ function bloklardanMetn(blocks, topla) {
         break;
       default: break;
     }
-  });
-}
-
-function axtarisIndeksi(sections) {
-  return sections.map((s) => {
-    const parcalar = [s.title, s.heading, s.group, s.kicker];
-    bloklardanMetn(s.blocks, parcalar);
-    const metn = parcalar.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-    return { id: s.id, title: s.title, group: s.group, text: metn.slice(0, 24000) };
   });
 }
 
@@ -407,7 +402,7 @@ function tekrarAcarlar(metn) {
 
 module.exports = {
   AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
-  spanMetni, bloklardanMetn, axtarisIndeksi,
+  spanMetni, bloklardanMetn,
   YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, bosNusxe,
   bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar,
   uiSayi, tamamlanma, tamdir, aktivKoku, localeConfigOxu, localeConfigMetni

@@ -280,8 +280,6 @@ data class SearchDoc(
     val text: String = ""
 )
 
-@Serializable
-data class SearchIndex(val docs: List<SearchDoc> = emptyList())
 
 /* ---------- Səviyyə ---------- */
 

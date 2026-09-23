@@ -183,12 +183,10 @@ class AppViewModel(
                 coroutineScope {
                     val movzular = async { repo.exercises().topics }
                     val numuneler = async { repo.playground().presets }
-                    // Axtarış indeksi burada bir dəfə oxunur ki, xəta eyni yerdə
-                    // tutulsun; SearchViewModel keşdən anında alır.
-                    val axtaris = async { repo.searchIndex() }
+                    // Axtarış indeksi aktiv deyil — SearchViewModel onu artıq
+                    // yüklənmiş bölmələrdən özü qurur (T3.5).
                     _topics.value = movzular.await()
                     _presets.value = numuneler.await()
-                    axtaris.await()
                 }
             } catch (e: CancellationException) {
                 throw e
