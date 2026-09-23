@@ -414,4 +414,18 @@
     <string name="stat_quiz_bos">Hələ test verməmisən. Tur bitəndə nəticə burada görünəcək.</string>
     <string name="stat_rekord">Rekord</string>
     <string name="stat_ac">Bütün statistikaya bax</string>
+
+    <!-- ===== Öyrənmə yolu (T5.5) ===== -->
+    <string name="yol_novbeti">Növbəti addım</string>
+    <!-- Bölmə adı · «25 çalışma qalıb» -->
+    <string name="yol_tovsiye">%1$s · %2$s</string>
+    <plurals name="yol_qalan_calisma">
+        <item quantity="one">%d çalışma qalıb</item>
+        <item quantity="other">%d çalışma qalıb</item>
+    </plurals>
+    <!-- Dərslər siyahısında kilidli bölmənin alt yazısı -->
+    <string name="yol_kilidli">Əvvəlcə əvvəlki mövzuları tamamla</string>
+    <string name="yol_kilid_ikon">Tövsiyə olunan sıradan irəlidədir</string>
+    <!-- Parametr — bölmə adları, vergüllə -->
+    <string name="yol_xeberdarliq">Bu mövzu üçün əvvəlcə «%1$s» bölməsini tamamlamaq tövsiyə olunur — amma istəsən indi də oxuya bilərsən.</string>
 </resources>

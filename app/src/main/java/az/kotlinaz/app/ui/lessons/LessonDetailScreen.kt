@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.material.icons.outlined.Lock
+import az.kotlinaz.app.data.catismayanAsililiqlar
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -107,8 +109,12 @@ fun LessonDetailScreen(
     CompositionLocalProvider(
         LocalKodIsaresi provides KodIsaresi(isareliler) { isareVm.isareDeyis(it, BookmarkTipi.KOD) }
     ) {
+    // Tövsiyə olunan sıradan irəlidədirsə yuxarıda xəbərdarlıq (T5.5) — kilid sərt deyil.
+    val catismayan = catismayanAsililiqlar(bolme, tereqqi).mapNotNull { id -> sections.firstOrNull { it.id == id }?.title }
+
     LessonDetailContent(
         section = bolme,
+        catismayan = catismayan,
         tereqqi = tereqqi.bolme(bolme.id),
         // Bölməyə bağlı çalışma mövzusu; JSON-da `sectionId` sahəsi ilə
         // göstərilir, olmayan bölmələrdə null qalır.
@@ -147,6 +153,8 @@ fun LessonDetailScreen(
 @Composable
 private fun LessonDetailContent(
     section: Section,
+    /** Tamamlanmamış asılılıqların adları (T5.5); boşdursa xəbərdarlıq yoxdur. */
+    catismayan: List<String>,
     /** Bu bölmənin mənimsəmə vəziyyəti — çalışmalardan hesablanır. */
     tereqqi: BolmeTereqqisi,
     /** Bölməyə bağlı çalışma mövzusunun id-si; yoxdursa null. */
@@ -192,6 +200,28 @@ private fun LessonDetailContent(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
+        if (catismayan.isNotEmpty()) {
+            item(key = "yol-xeberdarligi") {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 6.dp, bottom = 10.dp)
+                        .clip(RoundedCornerShape(11.dp))
+                        .background(c.warn.copy(alpha = 0.10f))
+                        .padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Outlined.Lock, contentDescription = null, tint = c.warn, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(9.dp))
+                    Text(
+                        text = stringResource(R.string.yol_xeberdarliq, catismayan.joinToString(", ")),
+                        style = MaterialTheme.typography.bodySmall.copy(lineHeight = 19.sp),
+                        color = c.text
+                    )
+                }
+            }
+        }
+
         item(key = "basliq") {
             Column(Modifier.padding(bottom = 4.dp)) {
                 if (section.kicker.isNotBlank()) {

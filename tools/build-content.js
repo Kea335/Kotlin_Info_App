@@ -576,6 +576,35 @@ function meydanNumuneleri() {
 // qurur (AxtarisIndeksi.kt) — qayda content-lib.js-dəki bloklardanMetn-dir.
 
 /* ============================================================
+   5a. Öyrənmə yolu (T5.5)
+   tools/path.json-dakı asılılıqlar bölmələrə `requires` kimi yazılır.
+   Saytın HTML-ində belə məlumat yoxdur — qraf əl ilə saxlanılır.
+   Naməlum id və ya dövr qurulmanı dayandırır.
+   ============================================================ */
+
+function yolQur(sections) {
+  const yol = JSON.parse(fs.readFileSync(path.join(__dirname, 'path.json'), 'utf8')).requires || {};
+  const idler = new Set(sections.map((s) => s.id));
+  Object.keys(yol).forEach((id) => {
+    [id].concat(yol[id]).forEach((x) => {
+      if (!idler.has(x)) throw new Error('path.json: namelum bolme id-si: ' + x);
+    });
+  });
+  // Dövr yoxlaması: DFS, «yolda» olan düyünə qayıtmaq dövrdür.
+  const hal = {};
+  function gez(id, zencir) {
+    if (hal[id] === 2) return;
+    if (hal[id] === 1) throw new Error('path.json: dovr: ' + zencir.concat([id]).join(' -> '));
+    hal[id] = 1;
+    (yol[id] || []).forEach((x) => gez(x, zencir.concat([id])));
+    hal[id] = 2;
+  }
+  Object.keys(yol).forEach((id) => gez(id, []));
+  // Yalnız boş olmayan `requires` yazılır — asılılıqsız bölmədə sahə yoxdur.
+  return sections.map((s) => (yol[s.id] && yol[s.id].length ? Object.assign({}, s, { requires: yol[s.id] }) : s));
+}
+
+/* ============================================================
    6. Yazı
    ============================================================ */
 
@@ -591,7 +620,7 @@ console.log('Menbe : ' + SAYT);
 console.log('Hedef : ' + HEDEF);
 console.log('');
 
-const sections = blokIdleriniVer(bolmeleriQur());
+const sections = yolQur(blokIdleriniVer(bolmeleriQur()));
 const calismalar = calismalariQur();
 const quiz = quizQur();
 const presets = meydanNumuneleri();
