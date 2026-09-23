@@ -9,10 +9,14 @@
 
     <!-- localeConfig 13+-da sistem menyusunda dil siyahısını verir; aşağı
          versiyalarda AppCompat (aşağıdakı service) eyni işi görür — ona görə
-         «yalnız 33+» xəbərdarlığı bilərəkdən susdurulub (T3.3). -->
+         «yalnız 33+» xəbərdarlığı bilərəkdən susdurulub (T3.3).
+         Yedək: tərəqqi, tənzimləmələr və meydanın kodu yedəklənir, kompilyator
+         keşi yox — fullBackupContent 12-dən aşağı, dataExtractionRules 12+. -->
     <application
         android:name=".KotlinAzApp"
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:localeConfig="@xml/locales_config"

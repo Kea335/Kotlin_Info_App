@@ -15,7 +15,7 @@ class AppContainer(context: Context) {
 
     val contentRepository: ContentRepository by lazy { AssetContentRepository(app) }
 
-    val userPrefs: UserPrefs by lazy { UserPrefs(app.kotlinazDataStore) }
+    val userPrefs: UserPrefs by lazy { UserPrefs(app.kotlinazDataStore, kesStore = app.kesDataStore) }
 
     val compiler: CompilerRepository by lazy { KotlinCompiler(userPrefs, sebekeVar = { app.internetVar() }) }
 

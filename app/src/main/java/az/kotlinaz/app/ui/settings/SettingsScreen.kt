@@ -1,7 +1,9 @@
 package az.kotlinaz.app.ui.settings
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -345,6 +347,35 @@ private fun SettingsContent(
         }
 
         item {
+            Bolum("Məxfilik və əlaqə") {
+                // Play «Data safety» bəyanatı ilə eyni mətn (PRIVACY.md).
+                Text(
+                    text = "Kod meydanında və praktiki çalışmalarda «İşlə» və ya «Yoxla» " +
+                        "basanda yazdığın kod icra üçün JetBrains-in Kotlin serverinə " +
+                        "(api.kotlinlang.org) göndərilir. Başqa heç bir məlumat cihazdan " +
+                        "çıxmır: hesab, reklam, analitika və izləmə yoxdur. Tərəqqi və " +
+                        "tənzimləmələr yalnız bu cihazda (və Android yedəyində) saxlanılır.",
+                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
+                    color = c.textDim
+                )
+                Spacer(Modifier.height(10.dp))
+                Kecid(ust = "Sənəd", etiket = "Məxfilik siyasəti") {
+                    kecidAc(context, MEXFILIK_URL, bildir)
+                }
+                Spacer(Modifier.height(7.dp))
+                Kecid(ust = "GitHub issue — cihaz və versiya əlavə olunur", etiket = "Xəta bildir") {
+                    kecidAc(context, xetaBildirisiUrl(cihazMelumati(dil, mezmunDili, kompilyator)), bildir)
+                }
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "Forma brauzerdə açılır — göndərmədən əvvəl hamısını görüb dəyişə bilərsən.",
+                    style = MaterialTheme.typography.labelSmall.copy(lineHeight = 16.sp),
+                    color = c.textFaint
+                )
+            }
+        }
+
+        item {
             Bolum("Mənbə") {
                 Text(
                     text = "Məzmun KotlinAZ saytından götürülüb.",
@@ -352,42 +383,8 @@ private fun SettingsContent(
                     color = c.textDim
                 )
                 Spacer(Modifier.height(10.dp))
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(c.bgSunken)
-                        .border(1.dp, c.border, RoundedCornerShape(10.dp))
-                        .clickable {
-                            // Brauzer tapılmasa çökməmək üçün: xəbərdarlıq verilir.
-                            val niyyet = Intent(Intent.ACTION_VIEW, GITHUB.toUri())
-                            try {
-                                context.startActivity(niyyet)
-                            } catch (_: ActivityNotFoundException) {
-                                bildir("Brauzer tapılmadı")
-                            }
-                        }
-                        .padding(horizontal = 12.dp, vertical = 11.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(Modifier.weight(1f)) {
-                        Text(
-                            text = "GitHub",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = c.textFaint
-                        )
-                        Text(
-                            text = "github.com/Kea335",
-                            style = MaterialTheme.typography.labelLarge,
-                            color = c.accent
-                        )
-                    }
-                    Icon(
-                        Icons.AutoMirrored.Outlined.OpenInNew,
-                        contentDescription = null,
-                        tint = c.accent,
-                        modifier = Modifier.size(17.dp)
-                    )
+                Kecid(ust = "GitHub", etiket = "github.com/Kea335") {
+                    kecidAc(context, GITHUB, bildir)
                 }
                 Spacer(Modifier.height(9.dp))
                 Text(
@@ -497,6 +494,59 @@ private fun Secim(
         textAlign = TextAlign.Center
     )
 }
+
+/** Brauzerdə açılan keçid sətri. */
+@Composable
+private fun Kecid(ust: String, etiket: String, onClick: () -> Unit) {
+    val c = KAz.colors
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(c.bgSunken)
+            .border(1.dp, c.border, RoundedCornerShape(10.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 12.dp, vertical = 11.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(
+                text = ust,
+                style = MaterialTheme.typography.labelSmall,
+                color = c.textFaint
+            )
+            Text(
+                text = etiket,
+                style = MaterialTheme.typography.labelLarge,
+                color = c.accent
+            )
+        }
+        Icon(
+            Icons.AutoMirrored.Outlined.OpenInNew,
+            contentDescription = null,
+            tint = c.accent,
+            modifier = Modifier.size(17.dp)
+        )
+    }
+}
+
+/** Ünvanı brauzerdə açır; brauzer tapılmasa çökmək əvəzinə xəbər verir. */
+private fun kecidAc(context: Context, url: String, bildir: (String) -> Unit) {
+    try {
+        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+    } catch (_: ActivityNotFoundException) {
+        bildir("Brauzer tapılmadı")
+    }
+}
+
+/** «Xəta bildir» hesabatı üçün cihaz məlumatı. */
+private fun cihazMelumati(dil: AppDil?, mezmunDili: String, kompilyator: KompilyatorVeziyyeti) = CihazMelumati(
+    tetbiq = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
+    android = "${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})",
+    cihaz = cihazAdi(Build.MANUFACTURER, Build.MODEL),
+    dil = "${dil?.teq ?: "sistem"} → $mezmunDili",
+    kompilyator = kompilyator.versiya
+)
 
 @Composable
 private fun Setir(acar: String, deyer: String, vurgu: Color? = null) {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 və aşağı (Auto Backup). Yalnız çıxarılanlar yazılıb — qalan
+     hər şey (tərəqqi, tənzimləmələr, meydanın kodu, AppCompat-ın dil seçimi)
+     yedəklənir. Kompilyator versiyalarının keşi yeni cihazda serverdən
+     yenidən alınır, yedəkdə yer tutmamalıdır. -->
+<full-backup-content>
+    <exclude domain="file" path="datastore/kotlinaz_kes.preferences_pb" />
+</full-backup-content>

@@ -190,6 +190,21 @@ həlli aç, öz kodunla müqayisə et, «Həll etdim» ilə işarələ.
 
 ---
 
+## Məxfilik
+
+Kod meydanında və praktiki çalışmalarda yazdığınız kod icra üçün JetBrains
+serverlərinə göndərilir. Başqa heç bir data cihazdan çıxmır — hesab, reklam,
+analitika yoxdur. Tam mətn: [PRIVACY.md](PRIVACY.md) (Play Console-un
+«Privacy policy» ünvanı).
+
+- Android yedəyi tərəqqini, tənzimləmələri və meydanın kodunu saxlayır;
+  kompilyator keşi ayrıca faylda (`kotlinaz_kes`) və yedəkdən çıxarılıb —
+  `res/xml/backup_rules.xml`, `res/xml/data_extraction_rules.xml`.
+- Tənzimləmələrdəki «Xəta bildir» GitHub issue formunu versiya və cihaz
+  məlumatı ilə doldurub brauzerdə açır; heç nə avtomatik göndərilmir.
+
+---
+
 ## Mənbə
 
 Məzmun müəllifi: [Kea335/Kotlin_Info_Web](https://github.com/Kea335/Kotlin_Info_Web)

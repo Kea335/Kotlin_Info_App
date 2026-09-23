@@ -20,12 +20,24 @@ import kotlinx.coroutines.flow.map
 internal val Context.kotlinazDataStore: DataStore<Preferences> by preferencesDataStore(name = "kotlinaz")
 
 /**
+ * Bərpa oluna bilən keşlər (kompilyator versiyaları) — ayrıca faylda, çünki
+ * yedəklənmir: `res/xml/backup_rules.xml` və `data_extraction_rules.xml` bu
+ * faylı (`datastore/kotlinaz_kes.preferences_pb`) çıxarır. Tərəqqi və
+ * tənzimləmələr isə yedəklənir — yeni telefonda itmir.
+ */
+internal val Context.kesDataStore: DataStore<Preferences> by preferencesDataStore(name = "kotlinaz_kes")
+
+/**
  * Tərəqqi və tənzimləmələr — hamısı cihazda saxlanılır.
  *
  * `Context` yox, hazır [DataStore] alır: testdə yaddaşdakı fake store ilə
  * işləyir, tətbiqdə isə AppContainer [kotlinazDataStore]-u ötürür.
  */
-class UserPrefs(private val dataStore: DataStore<Preferences>) {
+class UserPrefs(
+    private val dataStore: DataStore<Preferences>,
+    /** Yedəklənməyən keşlər — tətbiqdə [kesDataStore]; testdə defolt olaraq eyni store. */
+    private val kesStore: DataStore<Preferences> = dataStore
+) {
 
     // Disk açarları. Adlar dəyişsə istifadəçinin tərəqqisi itər — sabit qalmalıdır.
     private object Acar {
@@ -52,7 +64,7 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
         /**
          * Kompilyator versiyalarının keşi — `api.kotlinlang.org/versions`
          * cavabı, [KompilyatorVersiyalari.keseYaz] formatında. Tərəqqi deyil,
-         * ona görə sıfırlamalarda toxunulmur.
+         * ona görə sıfırlamalarda toxunulmur. [kesStore]-dadır (yedəklənmir).
          */
         val KOMPILYATOR_VERSIYALARI = stringPreferencesKey("compiler_versions")
         /** Keşin yazıldığı an, epoch ms — 24 saatdan köhnədirsə yenilənir. */
@@ -170,7 +182,7 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
      * çökməkdən yaxşıdır.
      */
     suspend fun kompilyatorKesi(): KompilyatorKesi? = try {
-        val p = dataStore.data.first()
+        val p = kesStore.data.first()
         val versiyalar = KompilyatorVersiyalari.kesdenOxu(p[Acar.KOMPILYATOR_VERSIYALARI])
         val vaxt = p[Acar.KOMPILYATOR_VERSIYALARI_VAXTI]
         if (versiyalar.isEmpty() || vaxt == null) null else KompilyatorKesi(versiyalar, vaxt)
@@ -179,9 +191,17 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
     }
 
     suspend fun kompilyatorKesiniYaz(versiyalar: List<KompilyatorVersiyasi>, vaxt: Long) {
-        dataStore.edit { p ->
+        kesStore.edit { p ->
             p[Acar.KOMPILYATOR_VERSIYALARI] = KompilyatorVersiyalari.keseYaz(versiyalar)
             p[Acar.KOMPILYATOR_VERSIYALARI_VAXTI] = vaxt
+        }
+        // Köhnə versiyalar keşi əsas faylda saxlayırdı — ilk yeni yazıda
+        // oradan silinir ki, yedəyə düşməsin.
+        if (kesStore !== dataStore) {
+            dataStore.edit { p ->
+                p.remove(Acar.KOMPILYATOR_VERSIYALARI)
+                p.remove(Acar.KOMPILYATOR_VERSIYALARI_VAXTI)
+            }
         }
     }
 
