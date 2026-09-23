@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import androidx.compose.foundation.background
@@ -471,7 +472,7 @@ private fun TabsView(block: TabsBlock, modifier: Modifier = Modifier) {
                             if (aktiv) c.accent.copy(alpha = 0.45f) else c.border,
                             RoundedCornerShape(9.dp)
                         )
-                        .clickable { secili = index }
+                        .clickable(role = Role.Button) { secili = index }
                         .padding(horizontal = 12.dp, vertical = 7.dp),
                     style = MaterialTheme.typography.labelMedium,
                     color = if (aktiv) c.accent else c.textDim,
@@ -591,7 +592,7 @@ private fun AksiyaKarti(
             .clip(RoundedCornerShape(15.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(15.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

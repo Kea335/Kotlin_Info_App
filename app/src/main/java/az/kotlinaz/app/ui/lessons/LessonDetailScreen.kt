@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.material.icons.outlined.Lock
 import az.kotlinaz.app.data.catismayanAsililiqlar
 import androidx.compose.runtime.CompositionLocalProvider
@@ -276,7 +277,7 @@ private fun LessonDetailContent(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
                         .background(c.accentSoft)
-                        .clickable(onClick = onExercises)
+                        .clickable(role = Role.Button, onClick = onExercises)
                         .padding(15.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -439,7 +440,7 @@ private fun MenimsemeKarti(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(10.dp))
                         .background(c.accentSoft)
-                        .clickable(onClick = onOxundu)
+                        .clickable(role = Role.Button, onClick = onOxundu)
                         .padding(vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = c.accent,
@@ -452,7 +453,7 @@ private fun MenimsemeKarti(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
                     .background(if (bitib) c.bgSunken else c.accentSoft)
-                    .clickable { onMovzu(movzuId) }
+                    .clickable(role = Role.Button) { onMovzu(movzuId) }
                     .padding(horizontal = 12.dp, vertical = 11.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -492,7 +493,7 @@ private fun NavDuymesi(
             .clip(RoundedCornerShape(12.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(12.dp))
-            .then(if (aktiv) Modifier.clickable(onClick = onClick) else Modifier)
+            .then(if (aktiv) Modifier.clickable(role = Role.Button, onClick = onClick) else Modifier)
             .padding(12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

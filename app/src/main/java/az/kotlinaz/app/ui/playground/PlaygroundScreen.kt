@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.playground
 
+import androidx.compose.ui.semantics.Role
 import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
@@ -190,7 +191,7 @@ private fun PlaygroundContent(
                             tint = c.textDim,
                             modifier = Modifier
                                 .size(16.dp)
-                                .clickable {
+                                .clickable(role = Role.Button) {
                                     if (!paylas(context, kod.value.text, paylasBasliq)) {
                                         bildir(paylasYoxdur)
                                     }
@@ -202,7 +203,7 @@ private fun PlaygroundContent(
                             tint = c.textDim,
                             modifier = Modifier
                                 .size(16.dp)
-                                .clickable {
+                                .clickable(role = Role.Button) {
                                     kopyala(context, kod.value.text)
                                     bildir(kopyalandi)
                                 }
@@ -223,7 +224,7 @@ private fun PlaygroundContent(
                     modifier = Modifier
                         .clip(RoundedCornerShape(11.dp))
                         .then(if (isleyir) Modifier.background(c.err) else Modifier.background(KotlinBrush))
-                        .clickable { if (isleyir) vm.dayandir() else vm.isle() }
+                        .clickable(role = Role.Button) { if (isleyir) vm.dayandir() else vm.isle() }
                         .padding(horizontal = 20.dp, vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White
@@ -237,7 +238,7 @@ private fun PlaygroundContent(
                         .clip(RoundedCornerShape(11.dp))
                         .background(c.bgSunken)
                         .border(1.dp, c.border, RoundedCornerShape(11.dp))
-                        .clickable { vm.temizle() }
+                        .clickable(role = Role.Button) { vm.temizle() }
                         .padding(horizontal = 16.dp, vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = c.textDim

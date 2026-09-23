@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.sehvlerim
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -122,7 +123,7 @@ private fun SehvSiyahisi(setirler: List<SehvSetri>, onTest: () -> Unit, modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(11.dp))
                         .background(KotlinBrush)
-                        .clickable(onClick = onTest)
+                        .clickable(role = Role.Button, onClick = onTest)
                         .padding(vertical = 11.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White,
@@ -148,7 +149,7 @@ private fun SehvKarti(s: SehvSetri) {
             .clip(RoundedCornerShape(13.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(13.dp))
-            .clickable { acik = !acik }
+            .clickable(role = Role.Button) { acik = !acik }
             .padding(14.dp)
     ) {
         Row(verticalAlignment = Alignment.Top) {

@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.isareler
 
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -90,7 +92,7 @@ fun QeydKarti(metn: String, modifier: Modifier = Modifier, onRedakte: () -> Unit
             .clip(RoundedCornerShape(12.dp))
             .background(c.warn.copy(alpha = 0.08f))
             .border(1.dp, c.warn.copy(alpha = 0.28f), RoundedCornerShape(12.dp))
-            .clickable(onClick = onRedakte)
+            .clickable(role = Role.Button, onClick = onRedakte)
             .padding(12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -115,8 +117,8 @@ fun QeydKarti(metn: String, modifier: Modifier = Modifier, onRedakte: () -> Unit
             Text(
                 text = stringResource(if (tam) R.string.qeyd_qisalt else R.string.qeyd_hamisi),
                 modifier = Modifier
-                    .padding(top = 4.dp)
-                    .clickable { tam = !tam },
+                    .minimumInteractiveComponentSize()
+                    .clickable(role = Role.Button) { tam = !tam },
                 style = MaterialTheme.typography.labelSmall,
                 color = c.accent
             )

@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.editor
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextDirection
 import az.kotlinaz.app.ui.components.SoldanSaga
 import androidx.compose.ui.res.pluralStringResource
@@ -240,7 +241,7 @@ private fun TeklifCipi(teklif: Tamamlama, onClick: () -> Unit) {
             .clip(RoundedCornerShape(7.dp))
             .background(reng.copy(alpha = 0.11f))
             .border(1.dp, reng.copy(alpha = 0.35f), RoundedCornerShape(7.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 9.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -1,5 +1,10 @@
 package az.kotlinaz.app.ui.exercises
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import az.kotlinaz.app.ui.isareler.IsareViewModel
 import az.kotlinaz.app.ui.isareler.IsareDuymesi
 import az.kotlinaz.app.ui.isareler.QeydDuymesi
@@ -170,7 +175,7 @@ private fun ExercisePlayerContent(
                                 // Rejim dəyişəndə indeks sıfırlanır — 40-cı
                                 // nəzəri çalışmadan 40-cı praktikiyə tullanmaq
                                 // gözlənilməz olardı.
-                                .clickable { vm.rejimSec(r) }
+                                .selectable(selected = aktiv, role = Role.Tab) { vm.rejimSec(r) }
                                 .padding(vertical = 9.dp),
                             style = MaterialTheme.typography.labelLarge,
                             color = if (aktiv) c.accent else c.textDim,
@@ -352,6 +357,8 @@ private fun NezeriKart(
 
         Spacer(Modifier.height(13.dp))
 
+        val duzgunCavab = stringResource(R.string.a11y_duzgun_cavab)
+        val sehvCavab = stringResource(R.string.a11y_sehv_cavab)
         calisma.opts.forEachIndexed { i, variant ->
             val secilib = secim == i
             val duzgundur = i == calisma.a
@@ -380,7 +387,13 @@ private fun NezeriKart(
                     // Cavab verildikdən sonra kilidlənir. Düzgün cavab dərhal
                     // «həll edilib» kimi yazılır, səhv cavab «Səhvlərim»-ə düşür —
                     // nəzəri çalışmada yoxlama tam oflayndır.
-                    .clickable(enabled = !cavabVerilib) {
+                    .semantics {
+                            when {
+                                cavabVerilib && duzgundur -> stateDescription = duzgunCavab
+                                cavabVerilib && secilib -> stateDescription = sehvCavab
+                            }
+                        }
+                        .clickable(enabled = !cavabVerilib, role = Role.Button) {
                         secim = i
                         onCavab(i)
                     }
@@ -524,7 +537,7 @@ private fun PraktikiKart(
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .background(KotlinBrush)
-                    .clickable(enabled = veziyyet !is YoxlamaVeziyyeti.Isleyir) { vm.yoxla(calisma) }
+                    .clickable(enabled = veziyyet !is YoxlamaVeziyyeti.Isleyir, role = Role.Button) { vm.yoxla(calisma) }
                     .padding(horizontal = 16.dp, vertical = 9.dp),
                 style = MaterialTheme.typography.labelLarge,
                 color = Color.White
@@ -768,6 +781,8 @@ private fun SeviyyeCipi(etiket: String, aktiv: Boolean, onClick: () -> Unit) {
     Text(
         text = etiket,
         modifier = Modifier
+            // 48 dp toxunma hədəfi (T5.6) — görünən çip eyni qalır.
+            .minimumInteractiveComponentSize()
             .clip(RoundedCornerShape(8.dp))
             .background(if (aktiv) c.accentSoft else c.bgSunken)
             .border(
@@ -775,7 +790,7 @@ private fun SeviyyeCipi(etiket: String, aktiv: Boolean, onClick: () -> Unit) {
                 if (aktiv) c.accent.copy(alpha = 0.5f) else c.border,
                 RoundedCornerShape(8.dp)
             )
-            .clickable(onClick = onClick)
+            .selectable(selected = aktiv, role = Role.RadioButton, onClick = onClick)
             .padding(horizontal = 10.dp, vertical = 6.dp),
         style = MaterialTheme.typography.labelSmall,
         color = if (aktiv) c.accent else c.textDim,
@@ -789,10 +804,11 @@ private fun KicikDuyme(etiket: String, onClick: () -> Unit) {
     Text(
         text = etiket,
         modifier = Modifier
+            .minimumInteractiveComponentSize()
             .clip(RoundedCornerShape(9.dp))
             .background(c.bgSunken)
             .border(1.dp, c.border, RoundedCornerShape(9.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 11.dp, vertical = 8.dp),
         style = MaterialTheme.typography.labelMedium,
         color = c.textDim
@@ -814,7 +830,7 @@ private fun AddimDuymesi(
             .clip(RoundedCornerShape(11.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(11.dp))
-            .then(if (aktiv) Modifier.clickable(onClick = onClick) else Modifier)
+            .then(if (aktiv) Modifier.clickable(role = Role.Button, onClick = onClick) else Modifier)
             .padding(vertical = 11.dp, horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center

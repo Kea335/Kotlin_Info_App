@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.search
 
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import az.kotlinaz.app.R
@@ -125,8 +127,9 @@ private fun SearchContent(
                     contentDescription = stringResource(R.string.axtaris_temizle),
                     tint = c.textFaint,
                     modifier = Modifier
+                        .minimumInteractiveComponentSize()
+                        .clickable(role = Role.Button) { onSorgu("") }
                         .size(18.dp)
-                        .clickable { onSorgu("") }
                 )
             }
         }
@@ -157,7 +160,7 @@ private fun SearchContent(
                             .clip(RoundedCornerShape(12.dp))
                             .background(c.bgElev)
                             .border(1.dp, c.border, RoundedCornerShape(12.dp))
-                            .clickable { onSection(n.id) }
+                            .clickable(role = Role.Button) { onSection(n.id) }
                             .padding(13.dp)
                     ) {
                         Text(

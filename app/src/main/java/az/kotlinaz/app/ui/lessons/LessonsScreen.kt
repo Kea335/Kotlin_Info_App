@@ -1,5 +1,10 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.Role
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.material.icons.outlined.Lock
@@ -204,7 +209,7 @@ internal fun SeviyyeKarti(tereqqi: Tereqqi, onClick: (() -> Unit)? = null) {
             .clip(RoundedCornerShape(16.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(16.dp))
-            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .then(if (onClick != null) Modifier.clickable(role = Role.Button, onClick = onClick) else Modifier)
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -354,8 +359,14 @@ private fun duzFirca(reng: Color): Brush = Brush.linearGradient(listOf(reng, ren
 @Composable
 private fun Zolaq(faiz: Float, firca: Brush, hundurluk: Int = 6) {
     val c = KAz.colors
+    val tesvir = stringResource(R.string.a11y_tereqqi, (faiz * 100).toInt())
     Box(
         Modifier
+            // Rəng zolağı TalkBack üçün faiz kimi oxunur (T5.6).
+            .semantics {
+                progressBarRangeInfo = ProgressBarRangeInfo(faiz.coerceIn(0f, 1f), 0f..1f)
+                contentDescription = tesvir
+            }
             .fillMaxWidth()
             .height(hundurluk.dp)
             .clip(CircleShape)
@@ -397,7 +408,7 @@ private fun BolmeSetri(
                 if (tamamlandi) c.ok.copy(alpha = 0.4f) else c.border,
                 RoundedCornerShape(12.dp)
             )
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 13.dp, vertical = 12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -523,7 +534,7 @@ private fun TereqqiKarti(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
                     .background(c.accentSoft)
-                    .clickable { onDavam(sonBolme.id) }
+                    .clickable(role = Role.Button) { onDavam(sonBolme.id) }
                     .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -556,7 +567,7 @@ private fun TereqqiKarti(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
                     .background(c.bgSunken)
-                    .clickable { onDavam(tovsiye.bolme.id) }
+                    .clickable(role = Role.Button) { onDavam(tovsiye.bolme.id) }
                     .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

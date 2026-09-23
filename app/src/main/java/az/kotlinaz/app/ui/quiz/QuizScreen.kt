@@ -1,5 +1,9 @@
 package az.kotlinaz.app.ui.quiz
 
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.Role
 import androidx.compose.runtime.LaunchedEffect
 import az.kotlinaz.app.ui.sehvlerim.SehvYoxdur
 import androidx.compose.ui.res.stringResource
@@ -189,7 +193,7 @@ private fun RejimKarti(
             .clip(RoundedCornerShape(14.dp))
             .background(c.bgElev)
             .border(1.dp, reng.copy(alpha = 0.35f), RoundedCornerShape(14.dp))
-            .then(if (bos) Modifier else Modifier.clickable(onClick = onClick))
+            .then(if (bos) Modifier else Modifier.clickable(role = Role.Button, onClick = onClick))
             .padding(15.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -296,8 +300,9 @@ private fun QuizTuru(
             Text(
                 text = stringResource(R.string.quiz_seviyyeni_deyis_geri),
                 modifier = Modifier
+                    .minimumInteractiveComponentSize()
                     .clip(RoundedCornerShape(8.dp))
-                    .clickable { vm.rejimiDeyis() }
+                    .clickable(role = Role.Button) { vm.rejimiDeyis() }
                     .padding(horizontal = 6.dp, vertical = 4.dp),
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint
@@ -352,6 +357,8 @@ private fun QuizTuru(
 
             Spacer(Modifier.height(14.dp))
 
+            val duzgunCavab = stringResource(R.string.a11y_duzgun_cavab)
+            val sehvCavab = stringResource(R.string.a11y_sehv_cavab)
             sual.opts.forEachIndexed { i, variant ->
                 val secilib = secim == i
                 val duzgundur = i == sual.a
@@ -379,7 +386,13 @@ private fun QuizTuru(
                         .border(1.dp, cerceve, RoundedCornerShape(11.dp))
                         // Cavab verildikdən sonra variantlar kilidlənir —
                         // ikinci toxunuş balı təkrar artıra bilməsin.
-                        .clickable(enabled = !cavabVerilib) { vm.cavabla(i) }
+                        .semantics {
+                            when {
+                                cavabVerilib && duzgundur -> stateDescription = duzgunCavab
+                                cavabVerilib && secilib -> stateDescription = sehvCavab
+                            }
+                        }
+                        .clickable(enabled = !cavabVerilib, role = Role.Button) { vm.cavabla(i) }
                         .padding(horizontal = 13.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -443,7 +456,7 @@ private fun QuizTuru(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(11.dp))
                         .background(KotlinBrush)
-                        .clickable { vm.novbeti() }
+                        .clickable(role = Role.Button) { vm.novbeti() }
                         .padding(vertical = 13.dp),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White,
@@ -531,7 +544,7 @@ private fun NeticeEkrani(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(11.dp))
                 .background(KotlinBrush)
-                .clickable(onClick = onYeniden)
+                .clickable(role = Role.Button, onClick = onYeniden)
                 .padding(vertical = 12.dp),
             style = MaterialTheme.typography.labelLarge,
             color = Color.White,
@@ -546,7 +559,7 @@ private fun NeticeEkrani(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(11.dp))
                     .background(c.accentSoft)
-                    .clickable(onClick = onSehvlerim)
+                    .clickable(role = Role.Button, onClick = onSehvlerim)
                     .padding(vertical = 12.dp),
                 style = MaterialTheme.typography.labelLarge,
                 color = c.accent,
@@ -563,7 +576,7 @@ private fun NeticeEkrani(
                 .clip(RoundedCornerShape(11.dp))
                 .background(c.bgSunken)
                 .border(1.dp, c.border, RoundedCornerShape(11.dp))
-                .clickable(onClick = onRejimiDeyis)
+                .clickable(role = Role.Button, onClick = onRejimiDeyis)
                 .padding(vertical = 12.dp),
             style = MaterialTheme.typography.labelLarge,
             color = c.textDim,
