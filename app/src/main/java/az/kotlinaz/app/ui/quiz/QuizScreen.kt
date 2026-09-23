@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.quiz
 
+import androidx.compose.runtime.LaunchedEffect
+import az.kotlinaz.app.ui.sehvlerim.SehvYoxdur
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import az.kotlinaz.app.R
@@ -60,11 +62,26 @@ import az.kotlinaz.app.ui.theme.seviyyeRengi
 @Composable
 fun QuizScreen(
     vm: QuizViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    /**
+     * Verilibsə tur bu rejimlə başlayır və seçim ekranı yoxdur — səhv testi
+     * (T5.2). Turdan çıxış ([onCixis]) onda ekranı bağlayır.
+     */
+    sabitRejim: QuizRejimi? = null,
+    onCixis: () -> Unit = {},
+    /** Nəticə ekranındakı «Səhvlərə bax». */
+    onSehvlerim: () -> Unit = {}
 ) {
     val hovuzlar by vm.hovuzlar.collectAsStateWithLifecycle()
     val rejim by vm.rejim.collectAsStateWithLifecycle()
     val rekordlar by vm.rekordlar.collectAsStateWithLifecycle()
+    val sehvYoxdur by vm.sehvYoxdur.collectAsStateWithLifecycle()
+
+    // Sabit rejim yalnız ilk açılışda seçilir; proses ölümündən sonra rejim
+    // SavedStateHandle-dan gəlir və tur yerində qalır.
+    LaunchedEffect(sabitRejim) {
+        if (sabitRejim != null && vm.rejim.value == null) vm.rejimSec(sabitRejim)
+    }
 
     // Hovuzlar məzmundan qurulur; boş xəritə = hələ oxunmayıb (T2.6).
     if (hovuzlar.isEmpty()) {
@@ -72,8 +89,17 @@ fun QuizScreen(
         return
     }
 
+    if (rejim == QuizRejimi.SEHVLER && sehvYoxdur) {
+        SehvYoxdur(modifier)
+        return
+    }
+
     val secilen = rejim
     if (secilen == null) {
+        if (sabitRejim != null) {
+            YuklenmeGostericisi(modifier)
+            return
+        }
         RejimSecimi(
             hovuzlar = hovuzlar,
             rekordlar = rekordlar,
@@ -85,7 +111,9 @@ fun QuizScreen(
             vm = vm,
             rejim = secilen,
             rekord = rekordlar[secilen.id] ?: 0,
-            modifier = modifier
+            modifier = modifier,
+            onCixis = if (sabitRejim != null) onCixis else vm::rejimiDeyis,
+            onSehvlerim = onSehvlerim
         )
     }
 }
@@ -125,7 +153,7 @@ private fun RejimSecimi(
             }
         }
 
-        QuizRejimi.entries.forEach { r ->
+        QuizRejimi.SECIM.forEach { r ->
             item(key = r.id) {
                 RejimKarti(
                     rejim = r,
@@ -221,7 +249,10 @@ private fun QuizTuru(
     vm: QuizViewModel,
     rejim: QuizRejimi,
     rekord: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    /** «Səviyyəni dəyiş» və geri jesti — adi testdə seçim ekranı, səhv testində ekranı bağlamaq. */
+    onCixis: () -> Unit,
+    onSehvlerim: () -> Unit
 ) {
     val c = KAz.colors
 
@@ -235,7 +266,7 @@ private fun QuizTuru(
 
     // Sistemin «geri» jesti turdan çıxıb rejim seçiminə qaytarır — əks halda
     // istifadəçi Test bölməsindən tamam çıxmalı olurdu.
-    BackHandler { vm.rejimiDeyis() }
+    BackHandler(onBack = onCixis)
 
     if (umumi == 0) return
 
@@ -251,7 +282,9 @@ private fun QuizTuru(
                     umumi = umumi,
                     rekord = rekord,
                     onYeniden = { vm.yenidenBasla() },
-                    onRejimiDeyis = { vm.rejimiDeyis() }
+                    onRejimiDeyis = onCixis,
+                    // Turda səhv varsa «Səhvlərim»-ə keçid.
+                    onSehvlerim = if (bal < umumi) onSehvlerim else null
                 )
             }
             return@LazyColumn
@@ -430,7 +463,8 @@ private fun NeticeEkrani(
     umumi: Int,
     rekord: Int,
     onYeniden: () -> Unit,
-    onRejimiDeyis: () -> Unit
+    onRejimiDeyis: () -> Unit,
+    onSehvlerim: (() -> Unit)?
 ) {
     val c = KAz.colors
     // Tam ədəd bölməsi — faiz aşağıya yuvarlanır (14/15 → 93%).
@@ -476,7 +510,7 @@ private fun NeticeEkrani(
             textAlign = TextAlign.Center
         )
 
-        if (rekord > 0) {
+        if (rekord > 0 && rejim != QuizRejimi.SEHVLER) {
             Spacer(Modifier.height(12.dp))
             Text(
                 text = stringResource(R.string.quiz_rekordun, rejim.etiket(), rekord, umumi),
@@ -503,6 +537,22 @@ private fun NeticeEkrani(
             color = Color.White,
             textAlign = TextAlign.Center
         )
+
+        if (onSehvlerim != null) {
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = stringResource(R.string.quiz_sehvlere_bax),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(11.dp))
+                    .background(c.accentSoft)
+                    .clickable(onClick = onSehvlerim)
+                    .padding(vertical = 12.dp),
+                style = MaterialTheme.typography.labelLarge,
+                color = c.accent,
+                textAlign = TextAlign.Center
+            )
+        }
 
         Spacer(Modifier.height(8.dp))
 

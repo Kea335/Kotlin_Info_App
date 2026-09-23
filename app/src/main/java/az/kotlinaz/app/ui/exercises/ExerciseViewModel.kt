@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.exercises
 
+import az.kotlinaz.app.data.oyrenme.OyrenmeRepository
+import az.kotlinaz.app.data.model.TheoryExercise
+import az.kotlinaz.app.ui.quiz.bankSualId
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
@@ -51,6 +54,8 @@ enum class Rejim { NEZERI, PRAKTIKI }
 class ExerciseViewModel(
     private val compiler: CompilerRepository,
     private val prefs: UserPrefs,
+    /** Nəzəri çalışmadakı səhvlər «Səhvlərim»-ə düşür (T5.2). */
+    private val oyrenme: OyrenmeRepository,
     private val state: SavedStateHandle
 ) : ViewModel() {
 
@@ -131,6 +136,16 @@ class ExerciseViewModel(
 
     /** Nəzəri düzgün cavab və oflayn «Həll etdim» — yazma tək yerdən gedir. */
     fun hellIsaretle(id: String) = viewModelScope.launch { prefs.calismaniHellIsaretle(id) }
+
+    /**
+     * Nəzəri çalışmanın cavabı: düzgünsə həll edilmiş sayılır; hər iki halda
+     * «Səhvlərim» cədvəli yenilənir — testdəki eyni sualla bir id (T5.2).
+     */
+    fun nezeriCavab(calisma: TheoryExercise, variant: Int) {
+        val duzgun = variant == calisma.a
+        if (duzgun) hellIsaretle(calisma.id)
+        viewModelScope.launch { oyrenme.cavabYaz(bankSualId(calisma.id), duzgun) }
+    }
 
     fun ipucunuGoster() { state[IPUCU] = true }
 

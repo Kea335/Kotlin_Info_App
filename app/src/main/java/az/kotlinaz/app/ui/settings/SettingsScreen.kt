@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.settings
 
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import az.kotlinaz.app.ui.etiket
@@ -69,7 +70,8 @@ private const val GITHUB = "https://github.com/Kea335"
 fun SettingsScreen(
     vm: SettingsViewModel,
     appVm: AppViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSehvlerim: () -> Unit = {}
 ) {
     val bildir = LocalBildiris.current
     // Bildiriş mətnləri lambda-lardan əvvəl oxunur — onlar composable deyil.
@@ -85,6 +87,7 @@ fun SettingsScreen(
     val quizRekordlari by vm.quizRekordlari.collectAsStateWithLifecycle()
     val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
     val kompilyator by appVm.kompilyator.collectAsStateWithLifecycle()
+    val sehvSayi by vm.sehvSayi.collectAsStateWithLifecycle()
 
     SettingsContent(
         tema = tema,
@@ -96,6 +99,8 @@ fun SettingsScreen(
         tereqqi = tereqqi,
         quizRekordlari = quizRekordlari,
         kompilyator = kompilyator,
+        sehvSayi = sehvSayi,
+        onSehvlerim = onSehvlerim,
         modifier = modifier,
         onTema = { vm.temaSec(it) },
         onDil = { vm.dilSec(it) },
@@ -134,6 +139,9 @@ private fun SettingsContent(
     quizRekordlari: Map<String, Int>,
     /** Kod icrasında işlədilən Kotlin versiyası. */
     kompilyator: KompilyatorVeziyyeti,
+    /** Mənimsənilməmiş səhv sualların sayı (T5.2). */
+    sehvSayi: Int,
+    onSehvlerim: () -> Unit,
     modifier: Modifier = Modifier,
     onTema: (ThemeMode) -> Unit,
     onDil: (AppDil?) -> Unit,
@@ -281,6 +289,13 @@ private fun SettingsContent(
                     )
                 }
 
+                Spacer(Modifier.height(6.dp))
+                Kecid(
+                    ust = stringResource(R.string.sehvlerim_basliq),
+                    etiket = pluralStringResource(R.plurals.sehvlerim_sayi, sehvSayi, sehvSayi),
+                    onClick = onSehvlerim
+                )
+
                 Spacer(Modifier.height(10.dp))
                 Text(
                     text = stringResource(R.string.ayarlar_tereqqi_izah),
@@ -300,7 +315,7 @@ private fun SettingsContent(
 
         item {
             Bolum(stringResource(R.string.ayarlar_rekordlar)) {
-                val varmi = QuizRejimi.entries.any { (quizRekordlari[it.id] ?: 0) > 0 }
+                val varmi = QuizRejimi.SECIM.any { (quizRekordlari[it.id] ?: 0) > 0 }
                 if (!varmi) {
                     Text(
                         text = stringResource(R.string.ayarlar_rekord_yoxdur),
@@ -308,7 +323,7 @@ private fun SettingsContent(
                         color = c.textDim
                     )
                 } else {
-                    QuizRejimi.entries.forEach { r ->
+                    QuizRejimi.SECIM.forEach { r ->
                         val rekord = quizRekordlari[r.id] ?: 0
                         Setir(
                             r.etiket(),

@@ -38,6 +38,7 @@ fun ThemeMode.etiket(): String = stringResource(
 @Composable
 fun QuizRejimi.etiket(): String = when (this) {
     QuizRejimi.QARISIQ -> stringResource(R.string.quiz_rejim_qarisiq)
+    QuizRejimi.SEHVLER -> stringResource(R.string.quiz_rejim_sehvler)
     else -> checkNotNull(seviyye).etiket()
 }
 
@@ -48,6 +49,7 @@ fun QuizRejimi.izah(): String = stringResource(
         QuizRejimi.MIDDLE -> R.string.quiz_rejim_middle_izah
         QuizRejimi.SENIOR -> R.string.quiz_rejim_senior_izah
         QuizRejimi.QARISIQ -> R.string.quiz_rejim_qarisiq_izah
+        QuizRejimi.SEHVLER -> R.string.quiz_rejim_sehvler_izah
     }
 )
 

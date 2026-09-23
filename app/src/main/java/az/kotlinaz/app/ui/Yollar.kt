@@ -19,4 +19,8 @@ object Yol {
     @Serializable object Meydan
     @Serializable object Axtaris
     @Serializable object Tenzimleme
+    /** «Səhvlərim» (T5.2). */
+    @Serializable object Sehvlerim
+    /** Yalnız səhv suallardan test — QuizScreen [QuizRejimi.SEHVLER] ilə. */
+    @Serializable object SehvTesti
 }
