@@ -18,4 +18,14 @@ class AppContainer(context: Context) {
     val userPrefs: UserPrefs by lazy { UserPrefs(app.kotlinazDataStore) }
 
     val compiler: CompilerRepository by lazy { KotlinCompiler(userPrefs, sebekeVar = { app.internetVar() }) }
+
+    /**
+     * Cihazın dil siyahısı, üstünlük sırası ilə — «Sistem dili» seçimində
+     * məzmun qovluğu bundan çözülür (T3.3). Lambda-dır: dil dəyişəndə
+     * konfiqurasiya yenilənir, hər çağırışda təzə oxunmalıdır.
+     * Application kontekstində 13+-da per-app locale də görünür.
+     */
+    val sistemDilleri: () -> List<String> = {
+        app.resources.configuration.locales.toLanguageTags().split(',').filter { it.isNotBlank() }
+    }
 }

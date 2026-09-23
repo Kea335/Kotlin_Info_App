@@ -30,6 +30,8 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
     // Disk açarları. Adlar dəyişsə istifadəçinin tərəqqisi itər — sabit qalmalıdır.
     private object Acar {
         val TEMA = stringPreferencesKey("tema")
+        /** Tətbiq dili — [AppDil.teq]; açar yoxdursa sistem dili (T3.3). */
+        val DIL = stringPreferencesKey("dil")
         /** Oxunmuş bölmə id-ləri. */
         val OXUNAN = stringSetPreferencesKey("oxunan_bolmeler")
         /** Həll edilmiş çalışma id-ləri (nəzəri və praktiki birlikdə). */
@@ -61,6 +63,14 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
         ThemeMode.from(it[Acar.TEMA])
     }
 
+    /**
+     * Seçilmiş dil; null = «Sistem dili». Naməlum teq (məsələn dil siyahıdan
+     * çıxarılıbsa) da sistem dili sayılır — tətbiq çökmür.
+     */
+    val dil: Flow<AppDil?> = dataStore.data.map {
+        AppDil.from(it[Acar.DIL])
+    }
+
     val oxunanBolmeler: Flow<Set<String>> = dataStore.data.map {
         it[Acar.OXUNAN] ?: emptySet()
     }
@@ -90,6 +100,13 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
 
     suspend fun temaSec(mode: ThemeMode) {
         dataStore.edit { it[Acar.TEMA] = mode.id }
+    }
+
+    /** null = sistem dili: açar silinir ki, «sistem» ilə «az» seçimi qarışmasın. */
+    suspend fun dilSec(dil: AppDil?) {
+        dataStore.edit {
+            if (dil == null) it.remove(Acar.DIL) else it[Acar.DIL] = dil.teq
+        }
     }
 
     suspend fun sriftSec(olcu: Int) {
@@ -161,7 +178,7 @@ class UserPrefs(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    /** Tərəqqinin hamısı silinir; tema və şrift ölçüsü toxunulmadan qalır. */
+    /** Tərəqqinin hamısı silinir; tema, dil və şrift ölçüsü toxunulmadan qalır. */
     suspend fun hamisiniSifirla() {
         dataStore.edit { p ->
             p.remove(Acar.OXUNAN)

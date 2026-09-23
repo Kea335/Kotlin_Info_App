@@ -6,19 +6,20 @@ import androidx.lifecycle.viewModelScope
 import az.kotlinaz.app.data.AxtarisMotoru
 import az.kotlinaz.app.data.ContentRepository
 import az.kotlinaz.app.data.SearchNetice
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 /**
- * Oflayn axtarış (T2.5). İndeks bir dəfə, burada qurulur; sorğu
+ * Oflayn axtarış (T2.5). İndeks məzmun dili üzrə burada qurulur; sorğu
  * [SavedStateHandle]-dadır, nəticələr sorğu dəyişəndə hesablanır.
  *
  * Axtarışın özü [AxtarisMotoru]-dadır (saf sinif, testdən çağırıla bilir).
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class SearchViewModel(
     repo: ContentRepository,
     private val state: SavedStateHandle
@@ -26,20 +27,16 @@ class SearchViewModel(
 
     val sorgu: StateFlow<String> = state.getStateFlow(SORGU, "")
 
-    // Sənədlər oxunana qədər null — nəticə boşdur.
-    private val motor = MutableStateFlow<AxtarisMotoru?>(null)
+    // Sənədlər oxunana qədər null — nəticə boşdur. Dil dəyişəndə (T3.3) indeks
+    // həmin dilin search.json-undan və həmin dilin kiçiltmə qaydası ilə
+    // yenidən qurulur: `İ`/`ı` düzəlişi (T0.1) yalnız az/tr üçün lazımdır.
+    private val motor: StateFlow<AxtarisMotoru?> =
+        repo.dil.mapLatest { teq -> AxtarisMotoru(repo.searchIndex().docs, dilTeqi = teq) }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     val neticeler: StateFlow<List<SearchNetice>> =
         combine(motor, sorgu) { m, s -> m?.axtar(s).orEmpty() }
             .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
-
-    init {
-        viewModelScope.launch {
-            // Dil teqi hələlik sabit «az»-dır; dil seçimi gələndə (T3.3)
-            // seçilmiş dildən gələcək.
-            motor.value = AxtarisMotoru(repo.searchIndex().docs, dilTeqi = "az")
-        }
-    }
 
     fun sorguDeyisdi(metn: String) { state[SORGU] = metn }
 

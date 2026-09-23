@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui.settings
 
+import az.kotlinaz.app.data.AppDil
 import az.kotlinaz.app.data.ThemeMode
 import az.kotlinaz.app.data.UserPrefs
 import az.kotlinaz.app.data.YaddasDataStore
@@ -15,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /** [SettingsViewModel] — tənzimləmələr yaddaşdakı prefs-ə yazılır və axında görünür (T2.5). */
@@ -29,9 +31,12 @@ class SettingsViewModelTest {
     @After
     fun sifirla() = Dispatchers.resetMain()
 
-    private val prefs = UserPrefs(YaddasDataStore())
+    private val store = YaddasDataStore()
+    private val prefs = UserPrefs(store)
+    /** AppCompat-a ötürülən seçimlər — sırayla. */
+    private val tetbiqEdilen = mutableListOf<AppDil?>()
     // `lazy`: ViewModel yalnız test dispatcher-i qurulandan sonra (@Before) yaranmalıdır.
-    private val vm by lazy { SettingsViewModel(prefs) }
+    private val vm by lazy { SettingsViewModel(prefs, dilTetbiqEt = { tetbiqEdilen += it }) }
 
     @Test
     fun `tema srift ve tamamlama yazilir`() = runTest(dispatcher) {
@@ -73,5 +78,50 @@ class SettingsViewModelTest {
         vm.hamisiniSifirla()
         assertTrue(vm.quizRekordlari.value.isEmpty())
         assertEquals(ThemeMode.LIGHT, vm.tema.value)
+    }
+
+    /* ---------- Dil (T3.3) ---------- */
+
+    @Test
+    fun `dil secimi hem prefs-e, hem sisteme yazilir - sistem dili acari silir`() = runTest(dispatcher) {
+        assertNull(vm.dil.value)
+
+        vm.dilSec(AppDil.TR)
+        assertEquals(AppDil.TR, vm.dil.value)
+        assertEquals(AppDil.TR, prefs.dil.first())
+        assertEquals(listOf<AppDil?>(AppDil.TR), tetbiqEdilen)
+
+        vm.dilSec(null)
+        assertNull(vm.dil.value)
+        assertEquals(listOf(AppDil.TR, null), tetbiqEdilen)
+    }
+
+    @Test
+    fun `sifirlama dili silmir`() = runTest(dispatcher) {
+        vm.dilSec(AppDil.EN)
+        vm.hamisiniSifirla()
+        assertEquals(AppDil.EN, vm.dil.value)
+    }
+
+    @Test
+    fun `sistemle uzlasdirma yalniz ferq olanda yazir, AppCompat-a toxunmur`() = runTest(dispatcher) {
+        vm.dilSec(AppDil.EN)
+        val evvel = store.yazmaSayi
+
+        // Eyni dil — yazı yoxdur.
+        vm.sistemleUzlasdir(AppDil.EN)
+        assertEquals(evvel, store.yazmaSayi)
+
+        // Sistem tənzimləmələrindən dəyişdirilib — prefs ona uyğunlaşır.
+        vm.sistemleUzlasdir(AppDil.RU)
+        assertEquals(AppDil.RU, vm.dil.value)
+        assertEquals(evvel + 1, store.yazmaSayi)
+
+        // Sistemdə «sistem dili»nə qaytarılıb.
+        vm.sistemleUzlasdir(null)
+        assertNull(vm.dil.value)
+
+        // Uzlaşdırma AppCompat-a geri yazmır — dövr yaranmasın.
+        assertEquals(listOf<AppDil?>(AppDil.EN), tetbiqEdilen)
     }
 }

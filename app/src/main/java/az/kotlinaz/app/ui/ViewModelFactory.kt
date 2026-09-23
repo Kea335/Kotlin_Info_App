@@ -11,6 +11,7 @@ import az.kotlinaz.app.ui.lessons.LessonsViewModel
 import az.kotlinaz.app.ui.quiz.QuizViewModel
 import az.kotlinaz.app.ui.search.SearchViewModel
 import az.kotlinaz.app.ui.settings.SettingsViewModel
+import az.kotlinaz.app.ui.settings.appCompatDiliTetbiqEt
 import az.kotlinaz.app.ui.exercises.ExerciseViewModel
 import az.kotlinaz.app.ui.playground.PlaygroundViewModel
 
@@ -30,7 +31,7 @@ object AppViewModelFactory {
     val Factory = viewModelFactory {
         initializer {
             val c = konteyner
-            AppViewModel(c.contentRepository, c.userPrefs, c.compiler)
+            AppViewModel(c.contentRepository, c.userPrefs, c.compiler, c.sistemDilleri)
         }
         initializer {
             PlaygroundViewModel(konteyner.compiler, createSavedStateHandle())
@@ -51,7 +52,8 @@ object AppViewModelFactory {
             SearchViewModel(konteyner.contentRepository, createSavedStateHandle())
         }
         initializer {
-            SettingsViewModel(konteyner.userPrefs)
+            // Dil seçimi DataStore-dan əlavə AppCompat-a da yazılır (T3.3).
+            SettingsViewModel(konteyner.userPrefs, dilTetbiqEt = ::appCompatDiliTetbiqEt)
         }
     }
 }

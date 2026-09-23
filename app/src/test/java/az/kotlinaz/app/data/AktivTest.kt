@@ -51,9 +51,6 @@ class AktivTest(private val locale: String) {
         }
     }
 
-    @kotlinx.serialization.Serializable
-    private data class LocaleSiyahisi(val base: String, val locales: List<String>)
-
     private fun aktiv(ad: String): String = resurs("content/$locale/$ad")
 
     // Hər aktiv bir dəfə decode olunur — sinif nüsxəsi hər test üçün yenidir,
