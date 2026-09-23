@@ -83,3 +83,42 @@ jobs:
             app/build/reports/
             app/build/test-results/
           if-no-files-found: ignore
+
+  # Cihaz testləri (androidTest) — Room DAO-ları real SQLite tələb edir,
+  # JVM unit testində işləmir (T5.1). Emulyator KVM ilə, animasiyasız.
+  cihaz-testleri:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Cihaz testləri (emulyator, API 34)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          disable-animations: true
+          script: ./gradlew connectedDebugAndroidTest --stacktrace
+
+      - name: Cihaz testi hesabatı
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cihaz-testleri
+          path: app/build/reports/androidTests/
+          if-no-files-found: ignore
+

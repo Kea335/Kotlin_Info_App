@@ -1,6 +1,10 @@
 package az.kotlinaz.app.data
 
 import android.content.Context
+import androidx.room.Room
+import az.kotlinaz.app.data.oyrenme.KotlinAzDatabase
+import az.kotlinaz.app.data.oyrenme.OyrenmeRepository
+import az.kotlinaz.app.data.oyrenme.RoomOyrenmeRepository
 
 /**
  * Tətbiqin tək asılılıq qrafı. Repozitoriyalar burada bir dəfə yaranır —
@@ -18,6 +22,13 @@ class AppContainer(context: Context) {
     val userPrefs: UserPrefs by lazy { UserPrefs(app.kotlinazDataStore, kesStore = app.kesDataStore) }
 
     val compiler: CompilerRepository by lazy { KotlinCompiler(userPrefs, sebekeVar = { app.internetVar() }) }
+
+    /** Öyrənmə tarixçəsi (T5.1) — ilk müraciətdə açılır, başlanğıcı yavaşlatmır. */
+    private val database: KotlinAzDatabase by lazy {
+        Room.databaseBuilder(app, KotlinAzDatabase::class.java, KotlinAzDatabase.FAYL).build()
+    }
+
+    val oyrenme: OyrenmeRepository by lazy { RoomOyrenmeRepository(database) }
 
     /**
      * Cihazın dil siyahısı, üstünlük sırası ilə — «Sistem dili» seçimində
