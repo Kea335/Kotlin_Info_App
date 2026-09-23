@@ -1,0 +1,27 @@
+{
+  "_meta": "Öyrənmə yolu (T5.5): bölmə → əvvəlcə tamamlanmalı bölmələr. build-content.js hər bölməyə content.json-da `requires` kimi yazır (texniki sahədir, tərcümə olunmur). Burada adı keçməyən bölmələr (giris, tarixce, qurasdirma, resurslar, java-muqayise, idiomlar, xüsusi bölmələr) asılılıqsızdır və tövsiyə yoluna daxil deyil. Dövr olmamalıdır — build-content.js və PathTest yoxlayır.",
+  "requires": {
+    "deyisenler": ["sintaksis"],
+    "metnler": ["deyisenler"],
+    "operatorlar": ["deyisenler"],
+    "sertler": ["operatorlar"],
+    "dovrler": ["sertler"],
+    "funksiyalar": ["dovrler"],
+    "kolleksiyalar": ["funksiyalar"],
+    "null-safety": ["kolleksiyalar"],
+    "lambda": ["null-safety"],
+    "scope-funksiyalari": ["lambda"],
+    "genislenmeler": ["scope-funksiyalari"],
+    "oop": ["genislenmeler"],
+    "miras": ["oop"],
+    "xususi-sinifler": ["miras"],
+    "generics": ["xususi-sinifler"],
+    "delegatlar": ["generics"],
+    "istisnalar": ["delegatlar"],
+    "coroutines": ["istisnalar"],
+    "test": ["coroutines"],
+    "android": ["coroutines"],
+    "multiplatform": ["coroutines"],
+    "backend": ["coroutines"]
+  }
+}

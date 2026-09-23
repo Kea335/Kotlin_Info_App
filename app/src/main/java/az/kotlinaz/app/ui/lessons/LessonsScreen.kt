@@ -1,5 +1,13 @@
 package az.kotlinaz.app.ui.lessons
 
+import androidx.compose.runtime.remember
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Flag
+import az.kotlinaz.app.data.Tovsiye
+import az.kotlinaz.app.data.YolHali
+import az.kotlinaz.app.data.novbetiAddim
+import az.kotlinaz.app.data.yolHali
 import androidx.compose.ui.res.stringResource
 import az.kotlinaz.app.R
 import az.kotlinaz.app.ui.etiket
@@ -67,7 +75,13 @@ fun LessonsScreen(
     val sonBolme by vm.sonBolme.collectAsStateWithLifecycle()
     val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
     val tereqqiHazir by appVm.movzularHazir.collectAsStateWithLifecycle()
-    LessonsContent(sections, qruplar, tereqqi, tereqqiHazir, sonBolme, modifier, onSection, onStatistika)
+    val topics by appVm.topics.collectAsStateWithLifecycle()
+    val hellEdilmis by appVm.hellEdilmis.collectAsStateWithLifecycle()
+    // Öyrənmə yolunun növbəti addımı (T5.5) — saf funksiya, tərəqqi dəyişəndə yenidən.
+    val tovsiye = remember(sections, tereqqi, topics, hellEdilmis) {
+        novbetiAddim(sections, tereqqi, topics, hellEdilmis)
+    }
+    LessonsContent(sections, qruplar, tereqqi, tereqqiHazir, sonBolme, tovsiye, modifier, onSection, onStatistika)
 }
 
 /** Saf render — bütün vəziyyət parametrlə gəlir. */
@@ -79,6 +93,7 @@ private fun LessonsContent(
     /** Çalışma bankı gələnə qədər false — tərəqqi kartları «0 %» yanıb-sönməsin deyə skeleton olur (T2.6). */
     tereqqiHazir: Boolean,
     sonBolme: String?,
+    tovsiye: Tovsiye?,
     modifier: Modifier = Modifier,
     onSection: (String) -> Unit,
     onStatistika: () -> Unit
@@ -107,6 +122,8 @@ private fun LessonsContent(
                 tamamlanan = tereqqi.tamamlananDers,
                 umumi = sections.size,
                 sonBolme = sonBolme?.let { id -> sections.firstOrNull { it.id == id } },
+                // «Davam et» ilə eyni bölmədirsə təkrarlanmır.
+                tovsiye = tovsiye?.takeIf { it.bolme.id != sonBolme },
                 onDavam = onSection
             )
             Spacer(Modifier.height(10.dp))
@@ -130,6 +147,7 @@ private fun LessonsContent(
                     bolme = bolme,
                     faiz = bt.faiz,
                     tamamlandi = bt.tamamlandi,
+                    kilidli = yolHali(bolme, tereqqi) == YolHali.KILIDLI,
                     onClick = { onSection(bolme.id) }
                 )
             }
@@ -364,6 +382,8 @@ private fun BolmeSetri(
     bolme: Section,
     faiz: Float,
     tamamlandi: Boolean,
+    /** Tövsiyə olunan sıradan irəlidədir (T5.5) — açılır, sadəcə boz görünür. */
+    kilidli: Boolean,
     onClick: () -> Unit
 ) {
     val c = KAz.colors
@@ -398,7 +418,7 @@ private fun BolmeSetri(
                 Text(
                     text = bolme.title,
                     style = MaterialTheme.typography.titleSmall,
-                    color = c.text
+                    color = if (kilidli) c.textDim else c.text
                 )
                 Text(
                     text = when (bolme.special) {
@@ -407,12 +427,23 @@ private fun BolmeSetri(
                         "quiz" -> stringResource(R.string.ders_seviyye_uzre_test)
                         else -> if (faiz > 0f && !tamamlandi) {
                             stringResource(R.string.ders_menimsenilib, (faiz * 100).toInt())
+                        } else if (kilidli) {
+                            stringResource(R.string.yol_kilidli)
                         } else {
                             ""
                         }
                     },
                     style = MaterialTheme.typography.labelSmall,
                     color = c.textFaint
+                )
+            }
+
+            if (kilidli && !tamamlandi) {
+                Icon(
+                    Icons.Outlined.Lock,
+                    contentDescription = stringResource(R.string.yol_kilid_ikon),
+                    tint = c.textFaint,
+                    modifier = Modifier.size(16.dp)
                 )
             }
 
@@ -444,6 +475,8 @@ private fun TereqqiKarti(
     tamamlanan: Int,
     umumi: Int,
     sonBolme: Section?,
+    /** Öyrənmə yolunun növbəti addımı (T5.5); «Davam et» ilə eynidirsə null. */
+    tovsiye: Tovsiye?,
     onDavam: (String) -> Unit
 ) {
     val c = KAz.colors
@@ -511,6 +544,47 @@ private fun TereqqiKarti(
                         text = sonBolme.title,
                         style = MaterialTheme.typography.labelLarge,
                         color = c.accent
+                    )
+                }
+            }
+        }
+
+        if (tovsiye != null) {
+            Spacer(Modifier.height(if (sonBolme != null) 8.dp else 13.dp))
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(c.bgSunken)
+                    .clickable { onDavam(tovsiye.bolme.id) }
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    Icons.Outlined.Flag,
+                    contentDescription = null,
+                    tint = c.accent,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(Modifier.width(8.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.yol_novbeti),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = c.textFaint
+                    )
+                    Text(
+                        text = if (tovsiye.qalanCalisma > 0) {
+                            stringResource(
+                                R.string.yol_tovsiye,
+                                tovsiye.bolme.title,
+                                pluralStringResource(R.plurals.yol_qalan_calisma, tovsiye.qalanCalisma, tovsiye.qalanCalisma)
+                            )
+                        } else {
+                            tovsiye.bolme.title
+                        },
+                        style = MaterialTheme.typography.labelLarge,
+                        color = c.text
                     )
                 }
             }

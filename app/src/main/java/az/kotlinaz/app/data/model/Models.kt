@@ -188,7 +188,12 @@ data class Section(
     val kicker: String = "",
     /** `"playground"` | `"exercises"` | `"quiz"` — xüsusi davranışlı bölmələr. */
     val special: String? = null,
-    val blocks: List<Block> = emptyList()
+    val blocks: List<Block> = emptyList(),
+    /**
+     * Öyrənmə yolu (T5.5): əvvəlcə tamamlanmalı bölmələr — tools/path.json-dan.
+     * Texniki sahədir, tərcümə olunmur; asılılıqsız bölmədə JSON-da yoxdur.
+     */
+    val requires: List<String> = emptyList()
 )
 
 @Serializable

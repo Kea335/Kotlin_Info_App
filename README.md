@@ -40,6 +40,7 @@ tools/                        məzmun boru xətti (Node.js)
   validate-locales.js         overlay-lərin doğrulaması və tərcümə faizi
   check-r8.js                 release-də @Serializable serializatorları saxlanılıbmı
   check-i18n.js               Kotlin kodunda hardcoded UI mətni (strings.xml-ə)
+  path.json                   öyrənmə yolu: bölmə → əvvəlcə tamamlanmalı bölmələr
   apk-budcesi.js              release APK-nın hissələr üzrə ölçüsü, 8 MB büdcə
 
 localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
