@@ -1,5 +1,6 @@
 package az.kotlinaz.app.ui
 
+import az.kotlinaz.app.ui.statistika.StatistikaViewModel
 import az.kotlinaz.app.ui.isareler.IsareViewModel
 import az.kotlinaz.app.ui.isareler.IsarelerViewModel
 import az.kotlinaz.app.ui.sehvlerim.SehvlerimViewModel
@@ -74,6 +75,9 @@ object AppViewModelFactory {
         }
         initializer {
             IsareViewModel(konteyner.oyrenme)
+        }
+        initializer {
+            StatistikaViewModel(konteyner.oyrenme)
         }
         initializer {
             val c = konteyner

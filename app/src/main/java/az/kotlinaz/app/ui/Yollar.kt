@@ -27,4 +27,6 @@ object Yol {
     @Serializable object SehvTesti
     /** «İşarələr və qeydlər» (T5.3). */
     @Serializable object Isareler
+    /** Statistika (T5.4). */
+    @Serializable object Statistika
 }

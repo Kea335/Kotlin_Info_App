@@ -58,14 +58,16 @@ fun LessonsScreen(
     vm: LessonsViewModel,
     appVm: AppViewModel,
     modifier: Modifier = Modifier,
-    onSection: (String) -> Unit
+    onSection: (String) -> Unit,
+    /** Səviyyə kartına toxunuş — Statistika (T5.4). */
+    onStatistika: () -> Unit = {}
 ) {
     val sections by vm.sections.collectAsStateWithLifecycle()
     val qruplar by vm.qruplar.collectAsStateWithLifecycle()
     val sonBolme by vm.sonBolme.collectAsStateWithLifecycle()
     val tereqqi by appVm.tereqqi.collectAsStateWithLifecycle()
     val tereqqiHazir by appVm.movzularHazir.collectAsStateWithLifecycle()
-    LessonsContent(sections, qruplar, tereqqi, tereqqiHazir, sonBolme, modifier, onSection)
+    LessonsContent(sections, qruplar, tereqqi, tereqqiHazir, sonBolme, modifier, onSection, onStatistika)
 }
 
 /** Saf render — bütün vəziyyət parametrlə gəlir. */
@@ -78,7 +80,8 @@ private fun LessonsContent(
     tereqqiHazir: Boolean,
     sonBolme: String?,
     modifier: Modifier = Modifier,
-    onSection: (String) -> Unit
+    onSection: (String) -> Unit,
+    onStatistika: () -> Unit
 ) {
     val c = KAz.colors
 
@@ -94,7 +97,7 @@ private fun LessonsContent(
             }
         } else {
             item(key = "seviyye") {
-                SeviyyeKarti(tereqqi)
+                SeviyyeKarti(tereqqi, onClick = onStatistika)
                 Spacer(Modifier.height(9.dp))
             }
         }
@@ -169,8 +172,9 @@ private fun TereqqiSkeleti() {
     }
 }
 
+/** Səviyyə kartı — Dərslər və Statistika ekranlarında eyni komponent (T5.4). */
 @Composable
-private fun SeviyyeKarti(tereqqi: Tereqqi) {
+internal fun SeviyyeKarti(tereqqi: Tereqqi, onClick: (() -> Unit)? = null) {
     val c = KAz.colors
     val lv = tereqqi.seviyye
     val reng = seviyyeRengi(lv)
@@ -182,6 +186,7 @@ private fun SeviyyeKarti(tereqqi: Tereqqi) {
             .clip(RoundedCornerShape(16.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(16.dp))
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

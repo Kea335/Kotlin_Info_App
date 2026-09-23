@@ -55,7 +55,6 @@ import az.kotlinaz.app.data.KompilyatorVersiyalari
 import az.kotlinaz.app.data.KompilyatorVeziyyeti
 import az.kotlinaz.app.data.Tereqqi
 import az.kotlinaz.app.data.ThemeMode
-import az.kotlinaz.app.data.model.Level
 import az.kotlinaz.app.ui.AppViewModel
 import az.kotlinaz.app.ui.components.LocalBildiris
 import az.kotlinaz.app.ui.quiz.QUIZ_SUAL_SAYI
@@ -72,7 +71,8 @@ fun SettingsScreen(
     appVm: AppViewModel,
     modifier: Modifier = Modifier,
     onSehvlerim: () -> Unit = {},
-    onIsareler: () -> Unit = {}
+    onIsareler: () -> Unit = {},
+    onStatistika: () -> Unit = {}
 ) {
     val bildir = LocalBildiris.current
     // Bildiriş mətnləri lambda-lardan əvvəl oxunur — onlar composable deyil.
@@ -103,6 +103,7 @@ fun SettingsScreen(
         sehvSayi = sehvSayi,
         onSehvlerim = onSehvlerim,
         onIsareler = onIsareler,
+        onStatistika = onStatistika,
         modifier = modifier,
         onTema = { vm.temaSec(it) },
         onDil = { vm.dilSec(it) },
@@ -145,6 +146,7 @@ private fun SettingsContent(
     sehvSayi: Int,
     onSehvlerim: () -> Unit,
     onIsareler: () -> Unit,
+    onStatistika: () -> Unit,
     modifier: Modifier = Modifier,
     onTema: (ThemeMode) -> Unit,
     onDil: (AppDil?) -> Unit,
@@ -280,19 +282,14 @@ private fun SettingsContent(
         item {
             Bolum(stringResource(R.string.ayarlar_tereqqi)) {
                 Setir(stringResource(R.string.ayarlar_seviyyen), tereqqi.seviyye.etiket(), vurgu = seviyyeRengi(tereqqi.seviyye))
-                Setir(
-                    stringResource(R.string.ayarlar_tamamlanan_dersler),
-                    stringResource(R.string.ortaq_say_bolu, tereqqi.tamamlananDers, tereqqi.umumiDers)
-                )
-                Level.entries.forEach { lv ->
-                    val say = tereqqi.say(lv)
-                    Setir(
-                        stringResource(R.string.ayarlar_seviyye_calismalar, lv.etiket()),
-                        stringResource(R.string.ortaq_say_bolu, say.hell, say.umumi)
-                    )
-                }
-
                 Spacer(Modifier.height(6.dp))
+                // Sayğaclar, fəallıq, seriya və quiz tarixçəsi Statistika ekranındadır (T5.4).
+                Kecid(
+                    ust = stringResource(R.string.stat_basliq),
+                    etiket = stringResource(R.string.stat_ac),
+                    onClick = onStatistika
+                )
+                Spacer(Modifier.height(7.dp))
                 Kecid(
                     ust = stringResource(R.string.sehvlerim_basliq),
                     etiket = pluralStringResource(R.plurals.sehvlerim_sayi, sehvSayi, sehvSayi),

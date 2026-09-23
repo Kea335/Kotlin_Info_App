@@ -268,5 +268,17 @@ class ExerciseViewModelTest {
         vm.hedefeKec(movzu, "p-2")
         assertEquals(0, vm.index.value)
     }
+
+    /* ---------- Günlük fəallıq (T5.4) ---------- */
+
+    @Test
+    fun `fealiyyet yalniz ilk hellde artir`() = runTest(dispatcher) {
+        val vm = vm(FakeCompilerRepository())
+        vm.nezeriCavab(nezeri, 2)
+        vm.nezeriCavab(nezeri, 2)
+        vm.hellIsaretle("n-1")
+        vm.hellIsaretle("p-yeni")
+        assertEquals(2, oyrenme.fealiyyet.first().sumOf { it.hellSayi })
+    }
 }
 
