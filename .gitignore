@@ -17,3 +17,6 @@ app/build/
 *.jks
 *.keystore
 keystore.properties
+
+# Kod yoxlamasının keşi (T4.6) — CI-da actions/cache saxlayır
+tools/.code-cache.json

@@ -82,6 +82,9 @@ tools/                        məzmun boru xətti (Node.js)
   path.json                   öyrənmə yolu: bölmə → əvvəlcə tamamlanmalı bölmələr
   apk-budcesi.js              release APK-nın hissələr üzrə ölçüsü, 8 MB büdcə
   versiya.js                  versiyanın artırılması (gradle.properties → versionCode)
+  check-code.js               kod nümunələri real kompilyatorda: çıxış = gözlənilən
+  check-code-istisnalar.json  bilərəkdən işləməyən nümunələr, səbəbi ilə
+  normallasdir-hallar.json    çıxış müqayisəsi qaydası — Kotlin və JS eyni hallarla
 
 localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
   content.json, exercises.json, quiz.json, playground.json
@@ -231,6 +234,7 @@ oxunuşu sınır.
 node tools/check-i18n.js                # Kotlin kodunda hardcoded UI mətni
 node tools/validate-locales.js          # dil overlay-ləri və tərcümə faizi
 node tools/verify-content.js --assets-only
+node tools/check-code.js                # kod nümunələri kompilyatorda (≈10 dəq, keşlə saniyələr)
 ```
 
 CI (`.github/workflows/android.yml`) hər push və PR-da iki job işlədir:
@@ -240,6 +244,12 @@ CI (`.github/workflows/android.yml`) hər push və PR-da iki job işlədir:
   APK ölçüsü və 8 MB büdcə (`tools/apk-budcesi.js`, Job Summary-də hesabat) →
   debug build; APK artifact kimi yüklənir.
 - **cihaz-testleri** — API 34 emulyatorunda `connectedDebugAndroidTest`.
+
+Gecəlik ayrıca workflow (`.github/workflows/kod-yoxlamasi.yml`) dərslərdəki
+`fun main`-li kod bloklarını, 625 model həlli və meydan nümunələrini
+JetBrains kompilyatorunda işlədib çıxışı gözlənilənlə tutuşdurur;
+uyğunsuzluq olsa `kod-yoxlamasi` nişanlı issue açır. Dəyişməyən nümunələr
+keşdən keçir — xidmət ictimaidir.
 
 Asılılıqları Dependabot (`.github/dependabot.yml`) yeniləyir: Gradle
 həftəlik, GitHub Actions aylıq.

@@ -1,0 +1,27 @@
+{
+  "_qeyd": "neticeniNormallasdir üçün ortaq hallar (T4.6). Həm Kotlin testi (NormallasdirOrtaqHallarTest), həm tools/check-code.js bu faylı oxuyur — iki tətbiq eyni nəticəni verməlidir, yoxsa skriptdə keçən həll tətbiqdə keçməzdi.",
+  "hallar": [
+    { "giris": null, "netice": "" },
+    { "giris": "", "netice": "" },
+    { "giris": "a\r\nb", "netice": "a\nb" },
+    { "giris": "a   \nb  ", "netice": "a\nb" },
+    { "giris": "  a\n b", "netice": "  a\n b" },
+    { "giris": "\n\na\n\nb\n\n", "netice": "a\n\nb" },
+    { "giris": "   \n\t\n  ", "netice": "" },
+    { "giris": "a\t\nb\t", "netice": "a\nb" },
+    { "giris": "\r\n x  \r\n\r\n y \r\n", "netice": " x\n\n y" },
+    { "giris": "a\r", "netice": "a" },
+    { "giris": "a\rb", "netice": "a\rb" },
+    { "giris": "a\u000b\f", "netice": "a" },
+    { "giris": "a\u00A0", "netice": "a" },
+    { "giris": "a\u2007\u202F", "netice": "a" },
+    { "giris": "a\u3000", "netice": "a" },
+    { "giris": "a\u001f", "netice": "a" },
+    { "giris": "a\u2028", "netice": "a" },
+    { "giris": "a\uFEFF", "netice": "a\uFEFF" },
+    { "giris": "a\u200B", "netice": "a\u200B" },
+    { "giris": "\u00A0a", "netice": "\u00A0a" },
+    { "giris": " \n a", "netice": " a" },
+    { "giris": "Salam, dünya!\n", "netice": "Salam, dünya!" }
+  ]
+}

@@ -8,6 +8,13 @@ release dayandırılır.
 
 - `main` yaşıldır: GitHub Actions-da `build` və `cihaz-testleri` job-ları keçib.
 - Release qapısının siyahısı keçib (build, məzmun, davranış, görünüş, paylama).
+- Kod nümunələri kompilyatorda gözlənilən nəticəni verir (gecəlik
+  «Kod yoxlaması» workflow-u yaşıldır, ya da lokalda):
+
+  ```bash
+  node tools/check-code.js --all
+  ```
+
 - Dil cədvəli təzədir:
 
   ```bash
