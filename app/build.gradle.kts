@@ -16,6 +16,15 @@ val imza = Properties().apply {
 }
 val imzaVar = imzaFayli.exists() && imza.getProperty("storeFile") != null
 
+// Versiya tək yerdədir — gradle.properties-dəki kotlinaz.versiya (T5.7).
+// versionCode ondan hesablanır, əl ilə yazılmır və geri getmir:
+// 1.2.3 → 10203. Artırmaq: node tools/versiya.js patch|minor|major
+val versiyaAdi = providers.gradleProperty("kotlinaz.versiya").get()
+val versiyaKodu = versiyaAdi.split('.').map(String::toInt).let { (x, y, z) ->
+    require(y in 0..99 && z in 0..99) { "kotlinaz.versiya: minor və patch 0–99 olmalıdır ($versiyaAdi)" }
+    x * 10_000 + y * 100 + z
+}
+
 android {
     namespace = "az.kotlinaz.app"
     compileSdk = 37
@@ -24,8 +33,8 @@ android {
         applicationId = "az.kotlinaz.app"
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = versiyaKodu
+        versionName = versiyaAdi
 
         // Cihaz testləri (Room DAO və s.) — T5.1.
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -40,6 +40,13 @@ jobs:
       - name: Dil yoxlaması
         run: node tools/validate-locales.js
 
+      # README-dəki dil cədvəli və nişan validatorun çıxışı ilə eynidir (T5.7).
+      # Fərq varsa: node tools/validate-locales.js --readme və commit.
+      - name: README dil cədvəli təzədir
+        run: |
+          node tools/validate-locales.js --readme > /dev/null
+          git diff --exit-code README.md
+
       # Compose-dakı Text("…") literal-larını Lint tutmur (T3.4).
       - name: Hardcoded mətn yoxlaması
         run: node tools/check-i18n.js

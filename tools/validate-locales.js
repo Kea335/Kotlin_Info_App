@@ -18,6 +18,8 @@
 
    İşlətmək:  node tools/validate-locales.js            # bütün dillər
               node tools/validate-locales.js en --json  # CI üçün
+              node tools/validate-locales.js --markdown # README dil cədvəli
+              node tools/validate-locales.js --readme   # README.md-ni yerində yenilə
    Çıxış kodu: xəta varsa 2, əks halda 0.
    ============================================================ */
 'use strict';
@@ -28,6 +30,8 @@ const L = require('./content-lib');
 
 const args = process.argv.slice(2);
 const JSON_CIXIS = args.includes('--json');
+const MARKDOWN = args.includes('--markdown');
+const README = args.includes('--readme');
 const secilen = args.filter((a) => !a.startsWith('--'));
 const QRUPLAR = ['ui', 'dersler', 'calismalar', 'quiz', 'meydan'];
 const SPAN_NOVLERI = { t: 1, b: 1, i: 1, code: 1, link: 1, kbd: 1, grad: 1, br: 1 };
@@ -216,8 +220,65 @@ function umumi(say) {
   return faiz({ var: v, cemi: c });
 }
 
+/* ---------- README dil cədvəli (T5.7) ---------- */
+
+/** Dillərin öz adları — AppDil.kt-dəki enum-dan (tək mənbə). */
+function dilAdlari() {
+  const kt = path.resolve(__dirname, '..', 'app', 'src', 'main', 'java', 'az', 'kotlinaz', 'app', 'data', 'AppDil.kt');
+  const m = {};
+  const re = /^\s*[A-Z_]+\("([^"]+)", "([^"]+)"/gm;
+  let x;
+  const metn = fs.readFileSync(kt, 'utf8');
+  while ((x = re.exec(metn)) !== null) m[x[1]] = x[2];
+  return m;
+}
+
+function markdownBloku() {
+  const adlar = dilAdlari();
+  const hazir = localelar.filter((lc) => netice[lc].tam);
+  const setirler = [
+    '| Dil | Kod | Tərcümə | Vəziyyət |',
+    '|---|---|---|---|'
+  ];
+  localelar.forEach((lc) => {
+    const n = netice[lc];
+    const hal = lc === L.BAZA ? 'baza' : n.tam ? 'tətbiqdə' : 'hazırlanır (yalnız debug build)';
+    setirler.push('| ' + (adlar[lc] || lc) + ' | `' + lc + '` | ' + umumi(n.say) + ' % | ' + hal + ' |');
+  });
+  const planli = Object.keys(adlar).filter((lc) => localelar.indexOf(lc) === -1);
+  if (planli.length) {
+    setirler.push('');
+    setirler.push('Planlaşdırılan (overlay hələ yoxdur): ' + planli.map((lc) => adlar[lc]).join(', ') + '.');
+  }
+  const nisan = '[![Dillər](https://img.shields.io/badge/dill%C9%99r-' + hazir.length + '%20%2F%20' +
+    Object.keys(adlar).length + '-7F52FF)](#dil-dəstəyi)';
+  return { cedvel: setirler.join('\n'), nisan: nisan };
+}
+
+/** README.md-dəki `<!-- ad:basla -->…<!-- ad:son -->` bloklarını yeniləyir. */
+function readmeYenile(blok) {
+  const yol = path.resolve(__dirname, '..', 'README.md');
+  let md = fs.readFileSync(yol, 'utf8');
+  // Windows checkout-u (autocrlf) CRLF verir — blok da faylın sətir sonu ilə yazılır.
+  const eol = md.includes('\r\n') ? '\r\n' : '\n';
+  const evez = (ad, deyer) => {
+    const re = new RegExp('(<!-- ' + ad + ':basla -->)[\\s\\S]*?(<!-- ' + ad + ':son -->)');
+    if (!re.test(md)) throw new Error('README.md: <!-- ' + ad + ':basla/son --> nişanları yoxdur');
+    md = md.replace(re, (_, a, b) => a + eol + deyer.split('\n').join(eol) + eol + b);
+  };
+  evez('diller', blok.cedvel);
+  evez('dil-nisani', blok.nisan);
+  fs.writeFileSync(yol, md, 'utf8');
+}
+
 let xetaVar = false;
-if (JSON_CIXIS) {
+if (MARKDOWN || README) {
+  const blok = markdownBloku();
+  if (README) readmeYenile(blok);
+  console.log(blok.nisan + '\n\n' + blok.cedvel);
+  localelar.forEach((lc) => { if (netice[lc].xetalar.length) xetaVar = true; });
+  if (siyahiXetalari.length) xetaVar = true;
+} else if (JSON_CIXIS) {
   const cixis = {};
   localelar.forEach((lc) => {
     const n = netice[lc];

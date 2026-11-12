@@ -1,6 +1,13 @@
 # KotlinAZ — Android tətbiqi
 
 [![Android CI](https://github.com/Kea335/Kotlin_Info_App/actions/workflows/android.yml/badge.svg)](https://github.com/Kea335/Kotlin_Info_App/actions/workflows/android.yml)
+[![Lisenziya: MIT](https://img.shields.io/badge/lisenziya-MIT-blue.svg)](LICENSE)
+<!-- dil-nisani:basla -->
+[![Dillər](https://img.shields.io/badge/dill%C9%99r-1%20%2F%2015-7F52FF)](#dil-dəstəyi)
+<!-- dil-nisani:son -->
+
+**Offline Kotlin learning app** — 32 lessons, 1250 exercises, a real compiler,
+15 languages planned. Kotlin · Jetpack Compose · StateFlow · DataStore · Room.
 
 [KotlinAZ](https://github.com/Kea335/Kotlin_Info_Web) saytının nativ Android
 qarşılığı. Bütün məzmun — 32 bölmə, 144 kod nümunəsi, 6 interaktiv nümayiş,
@@ -23,10 +30,42 @@ düyməsi bağlantı tələb edir.
 | Bilik testi | Junior / Middle / Senior / Qarışıq rejimləri, hər turda 15 təsadüfi sual | ✅ |
 | Axtarış | Bütün bölmələr üzrə tam mətn axtarışı | ✅ |
 | Kod meydanı | Boş redaktor + 10 nümunə, söz tamamlama, real icra, dayandırma; kod yadda qalır, paylaşılır | ❌ internet lazımdır |
+| Öyrənmə yolu | Bölmələr arası asılılıq, «Növbəti addım» tövsiyəsi, yumşaq kilid | ✅ |
+| Səhvlərim | Testdə və çalışmada səhv cavab verilən suallar; yalnız onlardan test | ✅ |
+| İşarələr və qeydlər | Dərs, çalışma və kod nümunəsini işarələmək, öz qeydlərin | ✅ |
+| Statistika | Sayğaclar, 30 günlük fəallıq qrafiki, seriya, quiz tarixçəsi | ✅ |
+| Dillər | 15 dil üçün hazır mühərrik; tam tərcümə olunan dil avtomatik görünür, RTL | ✅ |
+
+---
+
+## Dil dəstəyi
+
+Cədvəl `node tools/validate-locales.js --readme` ilə yenilənir. Yalnız 100 %
+tərcümə olunmuş dil tətbiqdə görünür və release APK-ya düşür (T4.7);
+yarımçıq dil yalnız debug build-də, tərcüməçi üçündür.
+
+<!-- diller:basla -->
+| Dil | Kod | Tərcümə | Vəziyyət |
+|---|---|---|---|
+| Azərbaycan | `az` | 100 % | baza |
+| English | `en` | 0 % | hazırlanır (yalnız debug build) |
+
+Planlaşdırılan (overlay hələ yoxdur): Türkçe, Русский, Español, Português (Brasil), Deutsch, Français, العربية, فارسی, हिन्दी, Bahasa Indonesia, 简体中文, 日本語, 한국어.
+<!-- diller:son -->
 
 ---
 
 ## Arxitektura
+
+```
+UI (Compose)  →  ViewModel  →  Repository  →  Assets (JSON) / DataStore / Room
+                                    └──────→  JetBrains kompilyator API (yalnız icra)
+```
+
+Ekranlar yalnız vəziyyəti render edir; vəziyyət və proses ölümündən sağ
+çıxan hissə (`SavedStateHandle`) ViewModel-dədir. Məzmun, tərəqqi (DataStore)
+və öyrənmə tarixçəsi (Room) repository sərhədinin arxasındadır — testlərdə
+fake ilə əvəz olunur.
 
 ```
 tools/                        məzmun boru xətti (Node.js)
@@ -42,6 +81,7 @@ tools/                        məzmun boru xətti (Node.js)
   check-i18n.js               Kotlin kodunda hardcoded UI mətni (strings.xml-ə)
   path.json                   öyrənmə yolu: bölmə → əvvəlcə tamamlanmalı bölmələr
   apk-budcesi.js              release APK-nın hissələr üzrə ölçüsü, 8 MB büdcə
+  versiya.js                  versiyanın artırılması (gradle.properties → versionCode)
 
 localization/<lc>/            tərcümə overlay-ləri — yalnız dəyişən sahələr, ID ilə
   content.json, exercises.json, quiz.json, playground.json
@@ -60,13 +100,17 @@ app/src/debug/assets/content/ yarımçıq dillər — yalnız debug APK-ya düş
   en/                         overlay-dən qurulur; boş sahələr bazadan gəlir
 
 app/src/main/java/az/kotlinaz/app/
-  data/                       modellər, repozitoriya, tərəqqi, kompilyator xidməti
-  ui/theme/                   saytın rəng palitrası (açıq + qaranlıq)
+  data/                       modellər, repozitoriyalar, tərəqqi, statistika,
+                              öyrənmə yolu, axtarış, kompilyator xidməti
+  data/oyrenme/               Room: səhvlər, işarələr, qeydlər, quiz turları, fəallıq
+  ui/theme/                   saytın rəng palitrası (açıq + qaranlıq, WCAG AA)
   ui/highlight/               Kotlin sintaksis rəngləyicisi
   ui/components/              blok renderi (paraqraf, kod, cədvəl, callout, …)
   ui/editor/                  kod redaktoru və söz tamamlama lüğəti
   ui/demos/                   6 interaktiv nümayiş
-  ui/screens/                 dərslər, çalışmalar, test, meydan, axtarış, tənzimləmə
+  ui/lessons, exercises, quiz, playground, search, settings,
+     sehvlerim, isareler, statistika   ekranlar və onların ViewModel-ləri
+app/schemas/                  Room sxemi (miqrasiyalar üçün commit olunur)
 ```
 
 Sayt HTML-i çalışma vaxtında oxunmur — qurma mərhələsində struktur JSON-a
@@ -132,12 +176,8 @@ olmayan hər tapıntı, xəbərdarlıq da olsa, build-i sındırır. Lokalda
 `local.properties`-də `sdk.dir` yolundakı `:` `\:` kimi yazılmalıdır
 (`sdk.dir=C\:/…`), yoxsa lint `PropertyEscape` xətası verir.
 
-CI (`.github/workflows/android.yml`) hər push və PR-da eyni addımları
-işlədir: məzmun və dil yoxlaması → hardcoded mətn (`tools/check-i18n.js`) → test → lint → imzasız release build +
-R8 serializator yoxlaması (`tools/check-r8.js`) → APK ölçüsü və 8 MB büdcə
-(`tools/apk-budcesi.js`) → debug build; APK artifact
-kimi yüklənir. Asılılıqları Dependabot (`.github/dependabot.yml`) həftəlik
-yeniləyir.
+Versiya `gradle.properties`-dəki `kotlinaz.versiya`-dadır, `versionCode`
+ondan hesablanır. Buraxılış addımları: [`docs/RELEASE.md`](docs/RELEASE.md).
 
 ### İmzalı release
 
@@ -161,7 +201,7 @@ keyPassword=...
 ./gradlew assembleRelease
 ```
 
-APK: `app/build/outputs/apk/release/app-release.apk` (≈1.9 MB)
+APK: `app/build/outputs/apk/release/app-release.apk` (≈2.6 MB; hissələr üzrə: `node tools/apk-budcesi.js`)
 
 Fayl yoxdursa release yenə qurulur, sadəcə imzasız qalır. Release qurulusunda
 R8 minifikasiyası və resurs təmizlənməsi aktivdir; `proguard-rules.pro`
@@ -179,6 +219,30 @@ oxunuşu sınır.
 | Kotlin | 2.4.10 (AGP-nin daxili dəstəyi) |
 | Compose BOM | 2026.08.00 |
 | minSdk / targetSdk | 24 / 37 |
+
+---
+
+## Test və CI
+
+```bash
+./gradlew test                          # JVM unit testləri (ViewModel, qaydalar, aktivlər)
+./gradlew connectedDebugAndroidTest     # cihaz testləri — Room DAO-ları (emulyator lazımdır)
+./gradlew lint                          # Android Lint — yeni xəbərdarlıq = xəta
+node tools/check-i18n.js                # Kotlin kodunda hardcoded UI mətni
+node tools/validate-locales.js          # dil overlay-ləri və tərcümə faizi
+node tools/verify-content.js --assets-only
+```
+
+CI (`.github/workflows/android.yml`) hər push və PR-da iki job işlədir:
+
+- **build** — məzmun və dil yoxlaması → hardcoded mətn → unit testlər → lint →
+  imzasız release build → R8 serializator yoxlaması (`tools/check-r8.js`) →
+  APK ölçüsü və 8 MB büdcə (`tools/apk-budcesi.js`, Job Summary-də hesabat) →
+  debug build; APK artifact kimi yüklənir.
+- **cihaz-testleri** — API 34 emulyatorunda `connectedDebugAndroidTest`.
+
+Asılılıqları Dependabot (`.github/dependabot.yml`) yeniləyir: Gradle
+həftəlik, GitHub Actions aylıq.
 
 ---
 
