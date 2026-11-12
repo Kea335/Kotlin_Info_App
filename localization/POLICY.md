@@ -78,8 +78,20 @@ fayl adı kodun içindəki identifikatorlarla bağlıdır.
 Bəzi dəyərlərdə tərcümə olunası söz yoxdur: yalnız koddan ibarət variantlar
 (`["null", "-1", "0", "NullPointerException"]`), `data class` etiketi, fayl adı,
 `[1, 4, 9]` kimi nəticə. Onlar hər dildə bazadakı kimi qalır, faizə sayılmır və
-`overlay-parca.js cixar` onları vermir. Qayda mühafizəkardır: dəyərdə **bir**
-adi söz də varsa («Bəli», «yaz.», «(tam bölmə!)»), o tərcümə olunur.
+`overlay-parca.js cixar` onları vermir. İki mənbə:
+
+- **Qayda** (`content-lib.dilNeytraldir`) — dəyərdəki hər söz kod kimi görünür.
+  Mühafizəkardır: bir adi söz də varsa («Bəli», «yaz.», «(tam bölmə!)»), dəyər
+  tərcümə olunur.
+- **Siyahı** — [`neytral.json`](neytral.json): qaydanın tuta bilmədiyi, əl ilə
+  yoxlanılmış yarpaqlar — kod ipucusu (`s.map { it * 2 }`), kod variantları
+  (`["and", "&&", "&", "AND"]`), proqram çıxışı (`"init, birinci, sonuncu"`),
+  məhsul adı («Kotlin Koans»), yalnız kod olan şərh (`// Java: final String …`).
+  Yol bazaya aiddir və bütün dillərə tətbiq olunur; baza dəyişib yol itəndə
+  validator **[xəta]** verir.
+
+Xəbərdarlığı susdurmaq üçün neytral dəyəri **dəyişmə** («1 · Safe call — ?.» →
+«Safe calls» yox): bazadakı kimi saxla və yolu `neytral.json`-a əlavə et.
 Siyahı: `node tools/overlay-parca.js neytral <fayl>`.
 
 ### String literal-lar — əsas qayda

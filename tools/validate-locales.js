@@ -132,6 +132,15 @@ function lugetFayllariniYoxla() {
   Object.keys(L.localizedIo()).forEach((id) => {
     if (!calismalar[id]) xetalar.push(rel(L.LOCALIZED_IO_FAYLI) + ': «' + id + '» praktiki calisma deyil');
   });
+  // neytral.json: hər yol bazada mövcud yarpaq olmalıdır — məzmun (və blok
+  // id-si, T3.1) dəyişəndə köhnə yol qalmasın.
+  const ns = L.neytralSiyahi();
+  L.FAYLLAR.forEach((ad) => {
+    const var_ = new Set(L.YARPAQ[ad](L.bazaOxu(ad)).map((y) => y.acar.join(' › ')));
+    ns[ad].forEach((yol) => {
+      if (!var_.has(yol)) xetalar.push(rel(L.NEYTRAL_FAYLI) + ': ' + ad + ' › ' + yol + ' — bazada yoxdur');
+    });
+  });
   return xetalar;
 }
 
@@ -176,7 +185,7 @@ function localeYoxla(locale) {
   if (locale === L.BAZA) {
     L.FAYLLAR.forEach((ad) => {
       L.YARPAQ[ad](L.bazaOxu(ad)).forEach((y) => {
-        if (L.bosdur(y.deyer) || L.dilNeytraldir(y.deyer)) return;
+        if (L.bosdur(y.deyer) || L.neytraldir(ad, y)) return;
         n.say[y.qrup].var++; n.say[y.qrup].cemi++;
       });
     });
@@ -191,7 +200,7 @@ function localeYoxla(locale) {
 
     if (!fs.existsSync(fayl)) {
       n.xeberdarliqlar.push(rel + ': overlay yoxdur — hamisi bazadan gelir');
-      yarpaqlar.forEach((y) => { if (!L.bosdur(y.deyer) && !L.dilNeytraldir(y.deyer)) n.say[y.qrup].cemi++; });
+      yarpaqlar.forEach((y) => { if (!L.bosdur(y.deyer) && !L.neytraldir(ad, y)) n.say[y.qrup].cemi++; });
       return;
     }
     const metn = fs.readFileSync(fayl, 'utf8');
@@ -220,8 +229,8 @@ function localeYoxla(locale) {
       // Bazada boş sahə tərcümə edilə bilməz — faizə sayılmır (L.tamamlanma ilə eyni).
       if (L.bosdur(y.deyer)) return;
       // Dildən asılı olmayan yarpaq (yalnız kod/rəqəm) faizə sayılmır; overlay-də
-      // varsa yenə də quruluşu yoxlanılır (L.dilNeytraldir).
-      const neytral = L.dilNeytraldir(y.deyer);
+      // varsa yenə də quruluşu yoxlanılır (L.neytraldir).
+      const neytral = L.neytraldir(ad, y);
       const q = neytral ? { var: 0, cemi: 0 } : n.say[y.qrup];
       q.cemi++;
       const v = L.overlayOxu(overlay, y.acar);

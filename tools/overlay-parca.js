@@ -64,7 +64,7 @@ if (emr === 'siyahi') {
   faylYoxla(a1);
   let say = 0;
   yarpaqlar(a1).forEach((y) => {
-    if (!L.dilNeytraldir(y.deyer)) return;
+    if (!L.neytraldir(a1, y)) return;
     say++;
     console.log(y.acar.join(' › ') + '  ' + JSON.stringify(y.deyer).slice(0, 100));
   });
@@ -77,7 +77,7 @@ if (emr === 'siyahi') {
   let say = 0;
   yarpaqlar(a2).forEach((y) => {
     if (!basdir(y.acar, prefiks) || L.bosdur(y.deyer)) return;
-    if (L.dilNeytraldir(y.deyer) && !HAMISI) return;
+    if (L.neytraldir(a2, y) && !HAMISI) return;
     const v = L.overlayOxu(overlay, y.acar);
     const tercume = !L.bosdur(v) && JSON.stringify(v) !== JSON.stringify(y.deyer) && !(y.yoxla && y.yoxla(v));
     if (tercume && !HAMISI) return;

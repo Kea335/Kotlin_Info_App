@@ -353,6 +353,30 @@ function dilNeytraldir(v) {
   return m.split(/[\s,;/«»“”"'—–-]+/).filter(Boolean).every(kodSozudur);
 }
 
+/**
+ * Qaydanın tuta bilmədiyi neytral yarpaqlar — localization/neytral.json.
+ * Kod ipucusu (`s.map { it * 2 }`), kod variantları (`["and", "&&", "&", "AND"]`),
+ * proqram çıxışı, məhsul adı: sözlər koda bənzəmir, amma heç bir dildə
+ * dəyişmir. Siyahı bazanın xüsusiyyətidir — bütün dillərə aiddir. Yol
+ * bazada artıq yoxdursa validator xəta verir (məzmun dəyişib).
+ */
+const NEYTRAL_FAYLI = path.join(LOCALIZATION, 'neytral.json');
+let _neytralSiyahi = null;
+function neytralSiyahi() {
+  if (_neytralSiyahi === null) {
+    const d = fs.existsSync(NEYTRAL_FAYLI) ? JSON.parse(fs.readFileSync(NEYTRAL_FAYLI, 'utf8')) : {};
+    _neytralSiyahi = {};
+    FAYLLAR.forEach((ad) => { _neytralSiyahi[ad] = new Set(d[ad] || []); });
+  }
+  return _neytralSiyahi;
+}
+
+/** Yarpaq dildən asılı deyil: qayda ilə (dilNeytraldir) və ya siyahıda. */
+function neytraldir(ad, y) {
+  if (bosdur(y.deyer)) return false;
+  return dilNeytraldir(y.deyer) || neytralSiyahi()[ad].has(y.acar.join(' › '));
+}
+
 /** Bazadakı dəyərin tipinə uyğun boş dəyər — skelet üçün. */
 function bosNusxe(v) {
   return Array.isArray(v) ? [] : '';
@@ -436,7 +460,7 @@ function tamamlanma(locale) {
     YARPAQ[ad](baza).forEach((y) => {
       // Bazada boş olan sahə (məsələn başlıqsız kod bloku) tərcümə edilə
       // bilməz — sayılsa dil heç vaxt 100 %-ə çatmazdı.
-      if (bosdur(y.deyer) || dilNeytraldir(y.deyer)) return;
+      if (bosdur(y.deyer) || neytraldir(ad, y)) return;
       c++;
       if (locale === BAZA) { v++; return; }
       const d = overlay ? overlayOxu(overlay, y.acar) : undefined;
@@ -521,7 +545,7 @@ function tekrarAcarlar(metn) {
 module.exports = {
   AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, RES_DEBUG, uiFayli, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
   spanMetni, bloklardanMetn,
-  YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, dilNeytraldir, bosNusxe,
+  YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, dilNeytraldir, neytraldir, neytralSiyahi, NEYTRAL_FAYLI, bosNusxe,
   bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar, localizedIo, LOCALIZED_IO_FAYLI,
   uiSayi, tamamlanma, tamdir, aktivKoku, localeConfigOxu, localeConfigMetni
 };
