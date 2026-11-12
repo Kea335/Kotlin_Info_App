@@ -13,6 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const K = require('./kod-serhleri');
 
 const APP_SRC = path.resolve(__dirname, '..', 'app', 'src');
 const AKTIV_KOKU = path.join(APP_SRC, 'main', 'assets', 'content');
@@ -85,18 +86,49 @@ function bloklardanMetn(blocks, topla) {
                  deyer: <bazadakı dəyər>, qoy: (yeni) => … , qrup }
    `acar` overlay-dəki yol, `qoy` isə həmin dəyəri baza sənədinə yazan
    funksiyadır — build-locale bu ikisini birləşdirir.
-   Texniki sahələr (kod, cavab indeksi, səviyyə, id…) yarpaq DEYİL —
+   Texniki sahələr (cavab indeksi, səviyyə, id, çıxış…) yarpaq DEYİL —
    overlay-də görünsələr validator xəta verir.
+
+   Kod (T4.0): kod blokunun, başlanğıc kodun, model həllin və meydan
+   nümunəsinin kodu yalnız ŞƏRHİ varsa yarpaqdır; tərcümədə yalnız
+   şərh dəyişə bilər (`localizedIo` çalışmasında həm də literal mətni).
+   Belə yarpağın `yoxla(v)` funksiyası var — kod dəyişibsə izah qaytarır;
+   tamamlanma onu saymır, build-locale bazanı saxlayır, validator xəta verir.
    ------------------------------------------------------------ */
 
-function yarpaq(siyahi, acar, obj, sahe, qrup) {
+function yarpaq(siyahi, acar, obj, sahe, qrup, yoxla) {
   if (obj[sahe] === undefined) return;
-  siyahi.push({
+  const y = {
     acar: acar.concat([sahe]),
     deyer: obj[sahe],
     qoy: (v) => { obj[sahe] = v; },
     qrup: qrup
-  });
+  };
+  if (yoxla) y.yoxla = yoxla;
+  siyahi.push(y);
+}
+
+/** Kod yarpağı — yalnız tərcümə olunası şərh (və ya io literalı) varsa. */
+function kodYarpagi(siyahi, acar, obj, sahe, qrup, literallar) {
+  const baza = obj[sahe];
+  if (!K.tercumeOlunur(baza, literallar)) return;
+  yarpaq(siyahi, acar, obj, sahe, qrup, (v) => K.kodFerqi(baza, v, literallar));
+}
+
+/**
+ * `localizedIo` çalışmaları (T4.0): giriş/çıxışı dilə bağlı olanlar —
+ * starter, hell və gozlenilen BİRLİKDƏ tərcümə olunur. Siyahı baza
+ * məzmunundan ayrıdır: exercises.json saytdan yenidən qurulur.
+ */
+const LOCALIZED_IO_FAYLI = path.join(LOCALIZATION, 'localizedIo.json');
+let _localizedIo = null;
+function localizedIo() {
+  if (_localizedIo === null) {
+    _localizedIo = fs.existsSync(LOCALIZED_IO_FAYLI)
+      ? JSON.parse(fs.readFileSync(LOCALIZED_IO_FAYLI, 'utf8')).calismalar || {}
+      : {};
+  }
+  return _localizedIo;
 }
 
 function blokYarpaqlari(siyahi, blocks, bolmeAcari, qrup) {
@@ -112,8 +144,10 @@ function blokYarpaqlari(siyahi, blocks, bolmeAcari, qrup) {
       case 'p':
         yarpaq(siyahi, acar, b, 'spans', qrup); break;
       case 'code':
-        // yalnız başlıq; code/output bazadan gəlir (T4.0 siyasəti)
-        yarpaq(siyahi, acar, b, 'title', qrup); break;
+        // başlıq və şərhlər; kodun özü və output bazadan (T4.0 siyasəti)
+        yarpaq(siyahi, acar, b, 'title', qrup);
+        if ((b.lang || 'kotlin') === 'kotlin') kodYarpagi(siyahi, acar, b, 'code', qrup, false);
+        break;
       case 'callout':
         yarpaq(siyahi, acar, b, 'title', qrup);
         blokYarpaqlari(siyahi, b.blocks, bolmeAcari, qrup);
@@ -168,7 +202,10 @@ function contentYarpaqlari(doc) {
   return siyahi;
 }
 
-/** exercises.json → yarpaqlar. starter/gozlenilen/hell/code texnikidir. */
+/**
+ * exercises.json → yarpaqlar. starter/hell yalnız şərhlərinə görə;
+ * gozlenilen yalnız localizedIo çalışmasında; nəzəri `code` texnikidir.
+ */
 function exercisesYarpaqlari(doc) {
   const siyahi = [];
   (doc.topics || []).forEach((t) => {
@@ -184,6 +221,10 @@ function exercisesYarpaqlari(doc) {
       const a = acar.concat(['praktiki', e.id]);
       yarpaq(siyahi, a, e, 'tapsiriq', 'calismalar');
       yarpaq(siyahi, a, e, 'ipucu', 'calismalar');
+      const io = Object.prototype.hasOwnProperty.call(localizedIo(), e.id);
+      kodYarpagi(siyahi, a, e, 'starter', 'calismalar', io);
+      kodYarpagi(siyahi, a, e, 'hell', 'calismalar', io);
+      if (io) yarpaq(siyahi, a, e, 'gozlenilen', 'calismalar');
     });
   });
   return siyahi;
@@ -201,10 +242,13 @@ function quizYarpaqlari(doc) {
   return siyahi;
 }
 
-/** playground.json → yarpaqlar. Yalnız `label`; `code` bazadan. */
+/** playground.json → yarpaqlar. `label` və `code`-un şərhləri. */
 function playgroundYarpaqlari(doc) {
   const siyahi = [];
-  (doc.presets || []).forEach((p) => yarpaq(siyahi, ['presets', p.id], p, 'label', 'meydan'));
+  (doc.presets || []).forEach((p) => {
+    yarpaq(siyahi, ['presets', p.id], p, 'label', 'meydan');
+    kodYarpagi(siyahi, ['presets', p.id], p, 'code', 'meydan', false);
+  });
   return siyahi;
 }
 
@@ -323,7 +367,8 @@ function tamamlanma(locale) {
       c++;
       if (locale === BAZA) { v++; return; }
       const d = overlay ? overlayOxu(overlay, y.acar) : undefined;
-      if (!bosdur(d) && JSON.stringify(d) !== JSON.stringify(y.deyer)) v++;
+      // Kodu dəyişmiş tərcümə sayılmır — build-locale onu onsuz da atır.
+      if (!bosdur(d) && JSON.stringify(d) !== JSON.stringify(y.deyer) && !(y.yoxla && y.yoxla(d))) v++;
     });
   });
   return { var: v, cemi: c };
@@ -404,6 +449,6 @@ module.exports = {
   AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
   spanMetni, bloklardanMetn,
   YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, bosNusxe,
-  bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar,
+  bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar, localizedIo, LOCALIZED_IO_FAYLI,
   uiSayi, tamamlanma, tamdir, aktivKoku, localeConfigOxu, localeConfigMetni
 };

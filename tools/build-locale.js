@@ -58,16 +58,20 @@ function localeQur(locale) {
     const overlayFayli = L.overlayYolu(locale, ad);
     const overlay = fs.existsSync(overlayFayli) ? JSON.parse(fs.readFileSync(overlayFayli, 'utf8')) : {};
     const yarpaqlar = L.YARPAQ[ad](baza);
-    let tetbiq = 0; let fallback = 0;
+    let tetbiq = 0; let fallback = 0; let redd = 0;
     yarpaqlar.forEach((y) => {
       const v = L.overlayOxu(overlay, y.acar);
       if (L.bosdur(v)) { fallback++; return; }
+      // Şərhdən kənarda dəyişmiş kod APK-ya düşmür — baza qalır (T4.0).
+      // Səbəbi validator göstərir: node tools/validate-locales.js <lc>
+      if (y.yoxla && y.yoxla(v)) { redd++; fallback++; return; }
       y.qoy(v); tetbiq++;
     });
     const yol = path.join(hedef, ad + '.json');
     fs.writeFileSync(yol, JSON.stringify(baza), 'utf8');
     const kb = (fs.statSync(yol).size / 1024).toFixed(1);
-    console.log('  ' + (ad + '.json').padEnd(18) + kb.padStart(7) + ' KB   tercume ' + String(tetbiq).padStart(5) + '   fallback ' + String(fallback).padStart(5));
+    console.log('  ' + (ad + '.json').padEnd(18) + kb.padStart(7) + ' KB   tercume ' + String(tetbiq).padStart(5) + '   fallback ' + String(fallback).padStart(5) +
+      (redd ? '   ! kodu deyismis ' + redd + ' (bax validate-locales)' : ''));
   });
 
   // Köhnə boru xəttinin search.json-u qalıbsa silinir (T3.5).

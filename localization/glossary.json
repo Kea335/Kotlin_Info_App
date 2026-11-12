@@ -1,0 +1,206 @@
+{
+  "_meta": {
+    "qeyd": "Təsdiqlənmiş terminlər (T4.0). Tərcüməçi öz variantını uydurmur — burada olmayan termin lazımdırsa əvvəl bura əlavə olunur. Qaydalar: POLICY.md.",
+    "format": "Hər termində dil → əsas forma. _formalar[dil] — validatorun həmin dildə qəbul etdiyi əlavə formalar (hal şəkilçili kök, ingiliscə ad). Müqayisə kiçik hərflə, alt sətir kimidir.",
+    "status": "AI qaralaması, 2026-09-24. az/en/tr/ru pivotdur — insan təsdiqi gözləyir; digər dillər o dörddən yoxlanılır.",
+    "tesdiq": { "az": false, "en": false, "tr": false, "ru": false }
+  },
+  "terms": {
+    "null-safety": {
+      "az": "null təhlükəsizliyi", "en": "null safety", "tr": "null güvenliği", "ru": "null-безопасность",
+      "es": "seguridad frente a null", "pt-BR": "segurança contra null", "de": "Null-Sicherheit", "fr": "sécurité vis-à-vis de null",
+      "ar": "أمان null", "fa": "ایمنی null", "hi": "नल सेफ़्टी", "id": "null safety",
+      "zh-CN": "空安全", "ja": "null 安全", "ko": "널 안전성",
+      "_formalar": {
+        "az": ["null təhlükəsizliy"], "tr": ["null güvenli"], "ru": ["null-безопасн", "null безопасн"],
+        "es": ["null safety"], "pt-BR": ["null safety"], "de": ["nullsicherheit", "null safety"], "fr": ["null safety"],
+        "ar": ["null safety"], "fa": ["null safety"], "hi": ["null safety"], "id": ["keamanan null"],
+        "zh-CN": ["null 安全", "null safety"], "ja": ["null安全", "null safety"], "ko": ["null 안전", "null safety"]
+      }
+    },
+    "coroutine": {
+      "az": "coroutine", "en": "coroutine", "tr": "coroutine", "ru": "корутина",
+      "es": "corrutina", "pt-BR": "corrotina", "de": "Coroutine", "fr": "coroutine",
+      "ar": "كوروتين", "fa": "کوروتین", "hi": "कोरूटीन", "id": "coroutine",
+      "zh-CN": "协程", "ja": "コルーチン", "ko": "코루틴",
+      "_formalar": {
+        "ru": ["корутин", "coroutine"], "es": ["coroutine"], "pt-BR": ["coroutine"], "ar": ["coroutine"],
+        "fa": ["coroutine"], "hi": ["coroutine"], "zh-CN": ["coroutine"], "ja": ["coroutine"], "ko": ["coroutine"]
+      }
+    },
+    "flow": {
+      "az": "Flow", "en": "Flow", "tr": "Flow", "ru": "Flow", "es": "Flow", "pt-BR": "Flow", "de": "Flow", "fr": "Flow",
+      "ar": "Flow", "fa": "Flow", "hi": "Flow", "id": "Flow", "zh-CN": "Flow", "ja": "Flow", "ko": "Flow"
+    },
+    "stateflow": {
+      "az": "StateFlow", "en": "StateFlow", "tr": "StateFlow", "ru": "StateFlow", "es": "StateFlow", "pt-BR": "StateFlow", "de": "StateFlow", "fr": "StateFlow",
+      "ar": "StateFlow", "fa": "StateFlow", "hi": "StateFlow", "id": "StateFlow", "zh-CN": "StateFlow", "ja": "StateFlow", "ko": "StateFlow"
+    },
+    "mutablelist": {
+      "az": "MutableList", "en": "MutableList", "tr": "MutableList", "ru": "MutableList", "es": "MutableList", "pt-BR": "MutableList", "de": "MutableList", "fr": "MutableList",
+      "ar": "MutableList", "fa": "MutableList", "hi": "MutableList", "id": "MutableList", "zh-CN": "MutableList", "ja": "MutableList", "ko": "MutableList"
+    },
+    "inheritance": {
+      "az": "miras", "en": "inheritance", "tr": "kalıtım", "ru": "наследование",
+      "es": "herencia", "pt-BR": "herança", "de": "Vererbung", "fr": "héritage",
+      "ar": "الوراثة", "fa": "وراثت", "hi": "इनहेरिटेंस", "id": "pewarisan",
+      "zh-CN": "继承", "ja": "継承", "ko": "상속",
+      "_formalar": {
+        "en": ["inherit"], "tr": ["kalıt", "miras"], "ru": ["наслед"], "es": ["hered"], "pt-BR": ["herd", "heran"],
+        "de": ["erb"], "fr": ["hérit"], "ar": ["وراث", "يرث"], "fa": ["ارث"], "hi": ["इनहेरिट", "विरासत"],
+        "id": ["waris", "inherit"]
+      }
+    },
+    "encapsulation": {
+      "az": "inkapsulyasiya", "en": "encapsulation", "tr": "kapsülleme", "ru": "инкапсуляция",
+      "es": "encapsulamiento", "pt-BR": "encapsulamento", "de": "Kapselung", "fr": "encapsulation",
+      "ar": "التغليف", "fa": "کپسوله‌سازی", "hi": "एनकैप्सुलेशन", "id": "enkapsulasi",
+      "zh-CN": "封装", "ja": "カプセル化", "ko": "캡슐화",
+      "_formalar": {
+        "az": ["inkapsulyasiya", "enkapsulyasiya"], "en": ["encapsulat"], "tr": ["kapsülle"], "ru": ["инкапсуля"],
+        "es": ["encapsula"], "pt-BR": ["encapsula"], "de": ["kapsel"], "fr": ["encapsul"], "ar": ["تغليف"], "fa": ["کپسوله"]
+      }
+    },
+    "polymorphism": {
+      "az": "polimorfizm", "en": "polymorphism", "tr": "çok biçimlilik", "ru": "полиморфизм",
+      "es": "polimorfismo", "pt-BR": "polimorfismo", "de": "Polymorphie", "fr": "polymorphisme",
+      "ar": "تعدد الأشكال", "fa": "چندریختی", "hi": "पॉलीमॉर्फ़िज़्म", "id": "polimorfisme",
+      "zh-CN": "多态", "ja": "ポリモーフィズム", "ko": "다형성",
+      "_formalar": {
+        "tr": ["polimorfizm"], "de": ["polymorphismus"], "hi": ["बहुरूपता"], "ja": ["多態性", "多相性"]
+      }
+    },
+    "dependency-injection": {
+      "az": "dependency injection", "en": "dependency injection", "tr": "bağımlılık enjeksiyonu", "ru": "внедрение зависимостей",
+      "es": "inyección de dependencias", "pt-BR": "injeção de dependência", "de": "Dependency Injection", "fr": "injection de dépendances",
+      "ar": "حقن التبعيات", "fa": "تزریق وابستگی", "hi": "डिपेंडेंसी इंजेक्शन", "id": "dependency injection",
+      "zh-CN": "依赖注入", "ja": "依存性注入", "ko": "의존성 주입",
+      "_formalar": {
+        "az": ["asılılıq inyeksiya"], "tr": ["dependency injection"], "ru": ["dependency injection"],
+        "es": ["dependency injection"], "pt-BR": ["injeção de dependências", "dependency injection"],
+        "fr": ["dependency injection"], "ar": ["dependency injection"], "fa": ["dependency injection"],
+        "hi": ["dependency injection"], "id": ["injeksi dependensi"], "ja": ["依存関係の注入", "dependency injection"],
+        "ko": ["dependency injection"]
+      }
+    },
+    "viewmodel": {
+      "az": "ViewModel", "en": "ViewModel", "tr": "ViewModel", "ru": "ViewModel", "es": "ViewModel", "pt-BR": "ViewModel", "de": "ViewModel", "fr": "ViewModel",
+      "ar": "ViewModel", "fa": "ViewModel", "hi": "ViewModel", "id": "ViewModel", "zh-CN": "ViewModel", "ja": "ViewModel", "ko": "ViewModel"
+    },
+    "composable": {
+      "az": "Composable", "en": "Composable", "tr": "Composable", "ru": "Composable", "es": "Composable", "pt-BR": "Composable", "de": "Composable", "fr": "Composable",
+      "ar": "Composable", "fa": "Composable", "hi": "Composable", "id": "Composable", "zh-CN": "Composable", "ja": "Composable", "ko": "Composable"
+    },
+    "recomposition": {
+      "az": "recomposition", "en": "recomposition", "tr": "yeniden oluşturma", "ru": "рекомпозиция",
+      "es": "recomposición", "pt-BR": "recomposição", "de": "Neuzusammensetzung", "fr": "recomposition",
+      "ar": "إعادة التركيب", "fa": "بازترکیب", "hi": "रीकंपोज़िशन", "id": "rekomposisi",
+      "zh-CN": "重组", "ja": "再コンポーズ", "ko": "재구성",
+      "_formalar": {
+        "az": ["rekompozisiya", "yenidən qurulma"], "tr": ["recomposition"], "ru": ["рекомпози"], "de": ["recomposition"],
+        "ar": ["recomposition"], "fa": ["recomposition"], "hi": ["recomposition"], "id": ["recomposition"],
+        "zh-CN": ["recomposition"], "ja": ["recomposition"], "ko": ["recomposition", "리컴포지션"]
+      }
+    },
+    "extension-function": {
+      "az": "genişlənmə funksiyası", "en": "extension function", "tr": "uzantı fonksiyonu", "ru": "функция-расширение",
+      "es": "función de extensión", "pt-BR": "função de extensão", "de": "Erweiterungsfunktion", "fr": "fonction d'extension",
+      "ar": "دالة امتداد", "fa": "تابع افزونه", "hi": "एक्सटेंशन फ़ंक्शन", "id": "fungsi ekstensi",
+      "zh-CN": "扩展函数", "ja": "拡張関数", "ko": "확장 함수",
+      "_formalar": {
+        "az": ["genişlənmə", "extension"], "en": ["extension"], "tr": ["uzantı", "extension"], "ru": ["расширени", "extension"],
+        "es": ["extensión", "extension"], "pt-BR": ["extensão", "extension"], "de": ["erweiterung", "extension"],
+        "fr": ["extension"], "ar": ["امتداد", "extension"], "fa": ["افزونه", "extension"], "hi": ["extension", "एक्सटेंशन"],
+        "id": ["ekstensi", "extension"], "zh-CN": ["扩展", "extension"], "ja": ["拡張", "extension"], "ko": ["확장", "extension"]
+      }
+    },
+    "higher-order-function": {
+      "az": "yüksək sıralı funksiya", "en": "higher-order function", "tr": "yüksek mertebeden fonksiyon", "ru": "функция высшего порядка",
+      "es": "función de orden superior", "pt-BR": "função de ordem superior", "de": "Funktion höherer Ordnung", "fr": "fonction d'ordre supérieur",
+      "ar": "دالة من رتبة أعلى", "fa": "تابع مرتبه بالا", "hi": "हायर-ऑर्डर फ़ंक्शन", "id": "fungsi tingkat tinggi",
+      "zh-CN": "高阶函数", "ja": "高階関数", "ko": "고차 함수",
+      "_formalar": {
+        "az": ["yüksək sıralı", "higher-order"], "en": ["higher-order"], "tr": ["yüksek mertebe", "higher-order"],
+        "ru": ["высшего порядка", "higher-order"], "es": ["orden superior", "higher-order"], "pt-BR": ["ordem superior", "higher-order"],
+        "de": ["höherer ordnung", "higher-order"], "fr": ["ordre supérieur", "higher-order"], "ar": ["رتبة أعلى", "higher-order"],
+        "fa": ["مرتبه بالا", "higher-order"], "hi": ["higher-order"], "id": ["tingkat tinggi", "higher-order"],
+        "zh-CN": ["higher-order"], "ja": ["higher-order"], "ko": ["higher-order"]
+      }
+    },
+    "lambda": {
+      "az": "lambda", "en": "lambda", "tr": "lambda", "ru": "лямбда",
+      "es": "lambda", "pt-BR": "lambda", "de": "Lambda", "fr": "lambda",
+      "ar": "لامدا", "fa": "لامبدا", "hi": "लैम्ब्डा", "id": "lambda",
+      "zh-CN": "lambda 表达式", "ja": "ラムダ", "ko": "람다",
+      "_formalar": {
+        "ru": ["лямбд", "lambda"], "ar": ["lambda"], "fa": ["lambda"], "hi": ["lambda"],
+        "zh-CN": ["lambda"], "ja": ["lambda"], "ko": ["lambda"]
+      }
+    },
+    "scope-function": {
+      "az": "scope funksiyası", "en": "scope function", "tr": "scope fonksiyonu", "ru": "функция области видимости",
+      "es": "función de alcance", "pt-BR": "função de escopo", "de": "Scope-Funktion", "fr": "fonction de portée",
+      "ar": "دالة النطاق", "fa": "تابع دامنه", "hi": "स्कोप फ़ंक्शन", "id": "fungsi scope",
+      "zh-CN": "作用域函数", "ja": "スコープ関数", "ko": "범위 지정 함수",
+      "_formalar": {
+        "az": ["scope funksiya"], "tr": ["kapsam fonksiyon", "scope function"], "ru": ["области видимости", "scope function"],
+        "es": ["scope function"], "pt-BR": ["scope function"], "de": ["scope function"], "fr": ["scope function"],
+        "ar": ["دوال النطاق", "scope function"], "fa": ["scope function"], "hi": ["scope function"], "id": ["scope function"],
+        "zh-CN": ["scope function"], "ja": ["scope function"], "ko": ["scope function"]
+      }
+    },
+    "delegate": {
+      "az": "delegat", "en": "delegate", "tr": "delege", "ru": "делегат",
+      "es": "delegado", "pt-BR": "delegado", "de": "Delegat", "fr": "délégué",
+      "ar": "المفوَّض", "fa": "نماینده", "hi": "डेलिगेट", "id": "delegasi",
+      "zh-CN": "委托", "ja": "デリゲート", "ko": "위임",
+      "_formalar": {
+        "en": ["delegat"], "tr": ["delegate", "delegasyon"], "ru": ["делегат", "делегирова"], "es": ["delega"], "pt-BR": ["delega"],
+        "de": ["delegat", "delegier"], "fr": ["délég"], "ar": ["تفويض", "delegate"], "fa": ["delegate", "واگذاری"],
+        "hi": ["delegate"], "id": ["delegate"], "ja": ["委譲", "delegate"], "ko": ["delegate", "델리게이트"]
+      }
+    },
+    "generic": {
+      "az": "generic", "en": "generic", "tr": "jenerik", "ru": "дженерик",
+      "es": "genérico", "pt-BR": "genérico", "de": "Generics", "fr": "générique",
+      "ar": "الأنواع العامة", "fa": "جنریک", "hi": "जेनेरिक", "id": "generik",
+      "zh-CN": "泛型", "ja": "ジェネリクス", "ko": "제네릭",
+      "_formalar": {
+        "tr": ["generic"], "ru": ["дженерик", "обобщ", "generic"], "es": ["generic"], "pt-BR": ["generic"], "de": ["generisch", "generic"],
+        "fr": ["generic"], "ar": ["generic"], "fa": ["generic"], "hi": ["generic"], "id": ["generic"],
+        "zh-CN": ["generic"], "ja": ["総称", "generic"], "ko": ["generic"]
+      }
+    },
+    "type-inference": {
+      "az": "tip çıxarışı", "en": "type inference", "tr": "tür çıkarımı", "ru": "вывод типов",
+      "es": "inferencia de tipos", "pt-BR": "inferência de tipos", "de": "Typinferenz", "fr": "inférence de type",
+      "ar": "استنتاج النوع", "fa": "استنتاج نوع", "hi": "टाइप इन्फ़रेंस", "id": "inferensi tipe",
+      "zh-CN": "类型推断", "ja": "型推論", "ko": "타입 추론",
+      "_formalar": {
+        "az": ["tip çıxarış"], "en": ["inferred", "infer"], "tr": ["tür çıkarım"], "ru": ["вывод тип", "выводит"],
+        "es": ["infier", "inferencia"], "pt-BR": ["infer"], "de": ["typinferenz", "inferier"], "fr": ["infér"],
+        "ar": ["type inference"], "fa": ["type inference"], "hi": ["type inference"], "id": ["type inference"],
+        "zh-CN": ["推断"], "ja": ["推論"], "ko": ["추론"]
+      }
+    },
+    "immutability": {
+      "az": "dəyişməzlik", "en": "immutability", "tr": "değişmezlik", "ru": "неизменяемость",
+      "es": "inmutabilidad", "pt-BR": "imutabilidade", "de": "Unveränderlichkeit", "fr": "immuabilité",
+      "ar": "عدم القابلية للتغيير", "fa": "تغییرناپذیری", "hi": "अपरिवर्तनीयता", "id": "imutabilitas",
+      "zh-CN": "不可变性", "ja": "不変性", "ko": "불변성",
+      "_formalar": {
+        "az": ["dəyişməz", "immutab"], "en": ["immutab"], "tr": ["değişmez", "immutable"], "ru": ["неизменяем", "immutable"],
+        "es": ["inmutab", "immutable"], "pt-BR": ["imutáve", "imutab", "immutable"], "de": ["unveränderlich", "immutable"],
+        "fr": ["immuab", "immutable"], "ar": ["غير قابل للتغيير", "immutable"], "fa": ["تغییرناپذیر", "immutable"],
+        "hi": ["अपरिवर्तनीय", "immutable"], "id": ["imutab", "immutable"], "zh-CN": ["不可变", "immutable"],
+        "ja": ["不変", "イミュータブル", "immutable"], "ko": ["불변", "immutable"]
+      }
+    }
+  },
+  "doNotTranslate": [
+    "Kotlin", "Java", "Android", "JetBrains", "Compose", "Gradle", "IntelliJ IDEA", "Android Studio",
+    "ViewModel", "Composable", "Flow", "StateFlow", "SharedFlow", "MutableList", "LiveData",
+    "val", "var", "fun", "when", "suspend", "data class", "sealed", "object", "companion object",
+    "lateinit", "lazy", "inline", "reified", "operator", "infix", "override", "open"
+  ]
+}

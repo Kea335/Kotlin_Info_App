@@ -2,7 +2,7 @@
   "_meta": {
     "locale": "en",
     "base": "az",
-    "updated": "2026-09-17"
+    "updated": "2026-09-24"
   },
   "topics": {
     "sintaksis": {
@@ -137,7 +137,8 @@
       "praktiki": {
         "sintaksis-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-02": {
           "tapsiriq": "",
@@ -145,7 +146,8 @@
         },
         "sintaksis-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-04": {
           "tapsiriq": "",
@@ -157,27 +159,33 @@
         },
         "sintaksis-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "hell": ""
         },
         "sintaksis-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-12": {
           "tapsiriq": "",
@@ -189,23 +197,28 @@
         },
         "sintaksis-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-19": {
           "tapsiriq": "",
@@ -213,27 +226,33 @@
         },
         "sintaksis-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sintaksis-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -405,7 +424,8 @@
         },
         "deyisenler-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "deyisenler-p-11": {
           "tapsiriq": "",
@@ -433,7 +453,8 @@
         },
         "deyisenler-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "deyisenler-p-18": {
           "tapsiriq": "",
@@ -449,7 +470,8 @@
         },
         "deyisenler-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "deyisenler-p-22": {
           "tapsiriq": "",
@@ -605,7 +627,8 @@
         },
         "sertler-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-03": {
           "tapsiriq": "",
@@ -637,19 +660,23 @@
         },
         "sertler-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-14": {
           "tapsiriq": "",
@@ -657,7 +684,8 @@
         },
         "sertler-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-16": {
           "tapsiriq": "",
@@ -669,7 +697,8 @@
         },
         "sertler-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-19": {
           "tapsiriq": "",
@@ -677,19 +706,23 @@
         },
         "sertler-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "sertler-p-24": {
           "tapsiriq": "",
@@ -697,7 +730,8 @@
         },
         "sertler-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -909,15 +943,18 @@
         },
         "dovrler-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "dovrler-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "dovrler-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "dovrler-p-23": {
           "tapsiriq": "",
@@ -1093,7 +1130,8 @@
         },
         "null-safety-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-09": {
           "tapsiriq": "",
@@ -1125,11 +1163,13 @@
         },
         "null-safety-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-18": {
           "tapsiriq": "",
@@ -1141,11 +1181,13 @@
         },
         "null-safety-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-22": {
           "tapsiriq": "",
@@ -1153,15 +1195,18 @@
         },
         "null-safety-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "null-safety-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -1529,103 +1574,128 @@
       "praktiki": {
         "funksiyalar-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "funksiyalar-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -1761,7 +1831,8 @@
       "praktiki": {
         "lambda-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-02": {
           "tapsiriq": "",
@@ -1773,7 +1844,8 @@
         },
         "lambda-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-05": {
           "tapsiriq": "",
@@ -1781,43 +1853,53 @@
         },
         "lambda-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-16": {
           "tapsiriq": "",
@@ -1829,31 +1911,38 @@
         },
         "lambda-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "lambda-p-25": {
           "tapsiriq": "",
@@ -1993,23 +2082,28 @@
       "praktiki": {
         "scope-funksiyalari-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-06": {
           "tapsiriq": "",
@@ -2017,7 +2111,8 @@
         },
         "scope-funksiyalari-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-08": {
           "tapsiriq": "",
@@ -2025,15 +2120,18 @@
         },
         "scope-funksiyalari-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-12": {
           "tapsiriq": "",
@@ -2041,19 +2139,23 @@
         },
         "scope-funksiyalari-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-17": {
           "tapsiriq": "",
@@ -2065,31 +2167,38 @@
         },
         "scope-funksiyalari-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "scope-funksiyalari-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -2225,103 +2334,128 @@
       "praktiki": {
         "oop-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "oop-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -2457,103 +2591,128 @@
       "praktiki": {
         "miras-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "miras-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -2689,103 +2848,128 @@
       "praktiki": {
         "xususi-sinifler-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "xususi-sinifler-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -3001,7 +3185,8 @@
         },
         "metnler-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "metnler-p-22": {
           "tapsiriq": "",
@@ -3209,19 +3394,23 @@
         },
         "operatorlar-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-19": {
           "tapsiriq": "",
@@ -3237,19 +3426,23 @@
         },
         "operatorlar-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "operatorlar-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -3385,103 +3578,128 @@
       "praktiki": {
         "genislenmeler-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "genislenmeler-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -3617,103 +3835,128 @@
       "praktiki": {
         "generics-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "generics-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -3853,15 +4096,18 @@
         },
         "istisnalar-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-05": {
           "tapsiriq": "",
@@ -3869,47 +4115,58 @@
         },
         "istisnalar-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-17": {
           "tapsiriq": "",
@@ -3917,35 +4174,43 @@
         },
         "istisnalar-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "istisnalar-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -4081,103 +4346,128 @@
       "praktiki": {
         "delegatlar-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "delegatlar-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -4313,103 +4603,128 @@
       "praktiki": {
         "coroutines-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "coroutines-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -4545,103 +4860,128 @@
       "praktiki": {
         "test-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "test-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -4777,103 +5117,128 @@
       "praktiki": {
         "java-muqayise-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "java-muqayise-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -5009,103 +5374,128 @@
       "praktiki": {
         "idiomlar-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "idiomlar-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -5241,103 +5631,128 @@
       "praktiki": {
         "android-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "android-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -5473,103 +5888,128 @@
       "praktiki": {
         "multiplatform-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "multiplatform-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     },
@@ -5705,103 +6145,128 @@
       "praktiki": {
         "backend-p-01": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-02": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-03": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-04": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-05": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-06": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-07": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-08": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-09": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-10": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-11": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-12": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-13": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-14": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-15": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-16": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-17": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-18": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-19": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-20": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-21": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-22": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-23": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-24": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         },
         "backend-p-25": {
           "tapsiriq": "",
-          "ipucu": ""
+          "ipucu": "",
+          "starter": ""
         }
       }
     }

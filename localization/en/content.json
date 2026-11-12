@@ -96,7 +96,8 @@
           }
         },
         "giris.code.ae120c87": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "giris.code.31da4116": {
           "title": ""
@@ -255,7 +256,8 @@
           "text": ""
         },
         "qurasdirma.code.18420166": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "qurasdirma.h4.42757315": {
           "text": ""
@@ -323,19 +325,22 @@
           "spans": []
         },
         "sintaksis.code.d2babc57": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sintaksis.h3.5f156308": {
           "text": ""
         },
         "sintaksis.code.1850694e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sintaksis.h3.2dec28d2": {
           "text": ""
         },
         "sintaksis.code.58b05db7": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sintaksis.callout.6c93dba0": {
           "title": ""
@@ -350,7 +355,8 @@
           "spans": []
         },
         "sintaksis.code.13900582": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sintaksis.h3.f5917877": {
           "text": ""
@@ -359,7 +365,8 @@
           "spans": []
         },
         "sintaksis.code.3c1e5adc": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sintaksis.h3.089054e7": {
           "text": ""
@@ -383,7 +390,8 @@
           "text": ""
         },
         "deyisenler.code.b7c4a939": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "deyisenler.callout.e11e6a14": {
           "title": ""
@@ -408,7 +416,8 @@
           "text": ""
         },
         "deyisenler.code.8dc9066e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "deyisenler.h3.b574b02e": {
           "text": ""
@@ -420,13 +429,15 @@
           "spans": []
         },
         "deyisenler.code.dbded1a7": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "deyisenler.h3.9bdee4fe": {
           "text": ""
         },
         "deyisenler.code.ddb77550": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "deyisenler.table.031831c9": {
           "head": [],
@@ -447,13 +458,15 @@
           "text": ""
         },
         "metnler.code.07a176c3": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "metnler.h3.4123b296": {
           "text": ""
         },
         "metnler.code.eca899b7": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "metnler.h3.c61caaf9": {
           "text": ""
@@ -463,13 +476,15 @@
           "rows": []
         },
         "metnler.code.44902cfe": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "metnler.h3.aab57097": {
           "text": ""
         },
         "metnler.code.5a87d89e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "metnler.callout.404a2b61": {
           "title": ""
@@ -512,7 +527,8 @@
           "text": ""
         },
         "operatorlar.code.1c96e22b": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "operatorlar.h3.334d3864": {
           "text": ""
@@ -528,7 +544,8 @@
           "spans": []
         },
         "operatorlar.code.2070e32a": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "operatorlar.table.67bbd125": {
           "head": [],
@@ -549,7 +566,8 @@
           "text": ""
         },
         "sertler.code.579820d0": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sertler.callout.ea8c1a77": {
           "title": ""
@@ -564,13 +582,15 @@
           "spans": []
         },
         "sertler.code.f83969db": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sertler.h3.f8574870": {
           "text": ""
         },
         "sertler.code.8e65c394": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "sertler.callout.73574f69": {
           "title": ""
@@ -593,25 +613,29 @@
           "text": ""
         },
         "dovrler.code.0ead546a": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "dovrler.h3.6004e4e6": {
           "text": ""
         },
         "dovrler.code.7c309284": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "dovrler.h3.e88682b6": {
           "text": ""
         },
         "dovrler.code.e786f4ba": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "dovrler.h3.7cfeb028": {
           "text": ""
         },
         "dovrler.code.b3693b05": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "dovrler.callout.081841d2": {
           "title": ""
@@ -620,7 +644,8 @@
           "spans": []
         },
         "dovrler.code.c325ec87": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "dovrler.h3.dd6e6ff7": {
           "text": ""
@@ -644,7 +669,8 @@
           "text": ""
         },
         "funksiyalar.code.7ca21690": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "funksiyalar.h3.c5281f44": {
           "text": ""
@@ -653,7 +679,8 @@
           "spans": []
         },
         "funksiyalar.code.4aad7d11": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "funksiyalar.callout.dde1267d": {
           "title": ""
@@ -665,25 +692,29 @@
           "text": ""
         },
         "funksiyalar.code.2d5ad4b0": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "funksiyalar.h3.2d1fbc89": {
           "text": ""
         },
         "funksiyalar.code.3e7addae": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "funksiyalar.h3.1c99daa2": {
           "text": ""
         },
         "funksiyalar.code.476fc415": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "funksiyalar.h3.c5c73f7f": {
           "text": ""
         },
         "funksiyalar.code.12eb92c6": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "funksiyalar.callout.945f5fe9": {
           "title": ""
@@ -695,7 +726,8 @@
           "text": ""
         },
         "funksiyalar.code.32ae746d": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -712,7 +744,8 @@
           "text": ""
         },
         "lambda.code.75d87bb8": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "lambda.h3.9f9f1d9c": {
           "text": ""
@@ -725,7 +758,8 @@
           "text": ""
         },
         "lambda.code.aaadc4c8": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "lambda.h3.73b80066": {
           "text": ""
@@ -734,19 +768,22 @@
           "spans": []
         },
         "lambda.code.2aca7508": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "lambda.h3.d001a331": {
           "text": ""
         },
         "lambda.code.0027d1c9": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "lambda.h3.f243fd7e": {
           "text": ""
         },
         "lambda.code.7f9b02a4": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "lambda.h3.679fc6ba": {
           "text": ""
@@ -755,7 +792,8 @@
           "spans": []
         },
         "lambda.code.c922ebc0": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "lambda.callout.710ff33c": {
           "title": ""
@@ -791,13 +829,15 @@
           "text": ""
         },
         "scope-funksiyalari.code.f38ac2cd": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "scope-funksiyalari.h3.0530ced8": {
           "text": ""
         },
         "scope-funksiyalari.code.6bf2318e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "scope-funksiyalari.callout.1c84e4a8": {
           "title": ""
@@ -820,19 +860,22 @@
           "text": ""
         },
         "genislenmeler.code.e5dbbd79": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "genislenmeler.h3.826073af": {
           "text": ""
         },
         "genislenmeler.code.1caff14b": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "genislenmeler.h3.c269533d": {
           "text": ""
         },
         "genislenmeler.code.37454cc1": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "genislenmeler.h3.c7bc634d": {
           "text": ""
@@ -844,7 +887,8 @@
           "spans": []
         },
         "genislenmeler.code.49ac3433": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "genislenmeler.callout.4995b7da": {
           "title": ""
@@ -856,7 +900,8 @@
           "text": ""
         },
         "genislenmeler.code.ba2b9d29": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -873,7 +918,8 @@
           "text": ""
         },
         "null-safety.code.a24fd805": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h3.3515f27c": {
           "text": ""
@@ -882,19 +928,22 @@
           "text": ""
         },
         "null-safety.code.4284bb02": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h4.14b8b165": {
           "text": ""
         },
         "null-safety.code.c96c19c7": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h4.b6357838": {
           "text": ""
         },
         "null-safety.code.219048bd": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.callout.e8dea34f": {
           "title": ""
@@ -906,25 +955,29 @@
           "text": ""
         },
         "null-safety.code.5b2ebd0e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h4.707259b2": {
           "text": ""
         },
         "null-safety.code.d39e73a1": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h4.7f3a4e91": {
           "text": ""
         },
         "null-safety.code.43f813ed": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h3.0bf47d49": {
           "text": ""
         },
         "null-safety.code.22fadaf5": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "null-safety.h3.48e23484": {
           "text": ""
@@ -967,7 +1020,8 @@
           "rows": []
         },
         "kolleksiyalar.code.9b676a3e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "kolleksiyalar.callout.b4056a5a": {
           "title": ""
@@ -979,19 +1033,22 @@
           "text": ""
         },
         "kolleksiyalar.code.296b77eb": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "kolleksiyalar.h3.0d8556e1": {
           "text": ""
         },
         "kolleksiyalar.code.71f49d7f": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "kolleksiyalar.h3.4c2f479a": {
           "text": ""
         },
         "kolleksiyalar.code.d18e4219": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "kolleksiyalar.h3.fa777003": {
           "text": ""
@@ -1007,7 +1064,8 @@
           "spans": []
         },
         "kolleksiyalar.code.76102d7b": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "kolleksiyalar.callout.4ba1a663": {
           "title": ""
@@ -1019,7 +1077,8 @@
           "text": ""
         },
         "kolleksiyalar.code.17bfa588": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -1036,13 +1095,15 @@
           "text": ""
         },
         "oop.code.d629fbc9": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "oop.h3.8601d61c": {
           "text": ""
         },
         "oop.code.ad72a289": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "oop.callout.9ed492d6": {
           "title": ""
@@ -1054,7 +1115,8 @@
           "text": ""
         },
         "oop.code.cda2a5e0": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "oop.h3.df05b83d": {
           "text": ""
@@ -1073,7 +1135,8 @@
           "text": ""
         },
         "oop.code.01063e33": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -1090,25 +1153,29 @@
           "text": ""
         },
         "miras.code.f48e0d42": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "miras.h3.48c19f5d": {
           "text": ""
         },
         "miras.code.84d91e64": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "miras.h3.4966f923": {
           "text": ""
         },
         "miras.code.ea2e7954": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "miras.h3.df0080f1": {
           "text": ""
         },
         "miras.code.e981d6a1": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "miras.h3.02fdf069": {
           "text": ""
@@ -1124,7 +1191,8 @@
           "spans": []
         },
         "miras.code.ed963b92": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -1141,7 +1209,8 @@
           "text": ""
         },
         "xususi-sinifler.code.f8f1c366": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.callout.423646ba": {
           "title": ""
@@ -1153,7 +1222,8 @@
           "text": ""
         },
         "xususi-sinifler.code.74107a1a": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.h3.6c209cda": {
           "text": ""
@@ -1162,7 +1232,8 @@
           "spans": []
         },
         "xususi-sinifler.code.50738001": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.callout.7f3a2165": {
           "title": ""
@@ -1174,31 +1245,36 @@
           "text": ""
         },
         "xususi-sinifler.code.d4294568": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.h3.d46d5a7e": {
           "text": ""
         },
         "xususi-sinifler.code.dd693c32": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.h3.5ae8d6ee": {
           "text": ""
         },
         "xususi-sinifler.code.535c9c28": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.h3.a8173b29": {
           "text": ""
         },
         "xususi-sinifler.code.754f8445": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.h3.948e5a45": {
           "text": ""
         },
         "xususi-sinifler.code.635e12d3": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "xususi-sinifler.h3.f4f8f522": {
           "text": ""
@@ -1222,13 +1298,15 @@
           "text": ""
         },
         "generics.code.ffa36427": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "generics.h3.854777bc": {
           "text": ""
         },
         "generics.code.9d717d61": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "generics.h3.8255b1ad": {
           "text": ""
@@ -1241,7 +1319,8 @@
           "rows": []
         },
         "generics.code.dc79a713": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "generics.callout.782e4b5e": {
           "title": ""
@@ -1256,13 +1335,15 @@
           "spans": []
         },
         "generics.code.8dd0ea99": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "generics.h3.0e4da712": {
           "text": ""
         },
         "generics.code.9ed6e8be": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -1279,13 +1360,15 @@
           "text": ""
         },
         "coroutines.code.653aeb19": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.h3.7b37ec26": {
           "text": ""
         },
         "coroutines.code.afc8da1b": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.callout.bfb73cc8": {
           "title": ""
@@ -1304,7 +1387,8 @@
           "text": ""
         },
         "coroutines.code.c1746589": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.h3.d02480af": {
           "text": ""
@@ -1314,7 +1398,8 @@
           "rows": []
         },
         "coroutines.code.0b446e82": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.h3.038cf05b": {
           "text": ""
@@ -1323,13 +1408,15 @@
           "spans": []
         },
         "coroutines.code.a020deac": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.h3.c0209457": {
           "text": ""
         },
         "coroutines.code.7e5eed9c": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.callout.ea1343fa": {
           "title": ""
@@ -1341,7 +1428,8 @@
           "text": ""
         },
         "coroutines.code.cbd72ac6": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.h3.3664bdb8": {
           "text": ""
@@ -1350,14 +1438,16 @@
           "spans": []
         },
         "coroutines.code.21903a52": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.table.adac1e19": {
           "head": [],
           "rows": []
         },
         "coroutines.code.06e29e33": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "coroutines.h3.c21301a5": {
           "text": ""
@@ -1381,7 +1471,8 @@
           "text": ""
         },
         "istisnalar.code.8f9d1ad3": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "istisnalar.h3.8777b853": {
           "text": ""
@@ -1403,7 +1494,8 @@
           "text": ""
         },
         "istisnalar.code.34a89b9b": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "istisnalar.h3.2a62c3fb": {
           "text": ""
@@ -1424,7 +1516,8 @@
           "text": ""
         },
         "istisnalar.code.7128fb2d": {
-          "title": ""
+          "title": "",
+          "code": ""
         }
       }
     },
@@ -1441,7 +1534,8 @@
           "text": ""
         },
         "delegatlar.code.093a8b83": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "delegatlar.table.15e3f33e": {
           "head": [],
@@ -1451,13 +1545,15 @@
           "text": ""
         },
         "delegatlar.code.84c84fc4": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "delegatlar.h3.5b7f9d9e": {
           "text": ""
         },
         "delegatlar.code.921175e9": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "delegatlar.h3.d01b11d6": {
           "text": ""
@@ -1469,7 +1565,8 @@
           "text": ""
         },
         "delegatlar.code.4759bead": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "delegatlar.h4.f10209b3": {
           "text": ""
@@ -1505,34 +1602,40 @@
           "text": ""
         },
         "android.code.c170e10d": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "android.h3.0bfba840": {
           "text": ""
         },
         "android.code.7249eb58": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "android.code.7accdd68": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "android.h3.b10f93ad": {
           "text": ""
         },
         "android.code.b049b3ad": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "android.h3.c5612a0b": {
           "text": ""
         },
         "android.code.356b92a8": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "android.h3.67a713ab": {
           "text": ""
         },
         "android.code.7c129c6e": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "android.callout.174fcf05": {
           "title": ""
@@ -1577,7 +1680,8 @@
           }
         },
         "multiplatform.code.0c1c5519": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "multiplatform.code.9014e703": {
           "title": ""
@@ -1617,7 +1721,8 @@
           "spans": []
         },
         "multiplatform.code.c0cb6322": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "multiplatform.table.52134558": {
           "head": [],
@@ -1650,13 +1755,15 @@
           "text": ""
         },
         "backend.code.796c71e7": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "backend.h3.b9395c83": {
           "text": ""
         },
         "backend.code.64de14f9": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "backend.table.a48580d4": {
           "head": [],
@@ -1677,7 +1784,8 @@
           "text": ""
         },
         "test.code.780c027f": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "test.h3.e8e20255": {
           "text": ""
@@ -1690,13 +1798,15 @@
           "text": ""
         },
         "test.code.4e560006": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "test.h3.4b7fa526": {
           "text": ""
         },
         "test.code.3bfaf51c": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "test.h3.d300c230": {
           "text": ""
@@ -1705,7 +1815,8 @@
           "title": ""
         },
         "test.code.8d69295d": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "test.callout.3fba827b": {
           "title": ""
@@ -1754,13 +1865,15 @@
           "text": ""
         },
         "java-muqayise.code.82c4adb9": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "java-muqayise.h3.5e79c054": {
           "text": ""
         },
         "java-muqayise.code.656821fb": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "java-muqayise.h3.2d3d16e2": {
           "text": ""
@@ -1884,7 +1997,8 @@
           "text": ""
         },
         "idiomlar.code.5fa7b33c": {
-          "title": ""
+          "title": "",
+          "code": ""
         },
         "idiomlar.h3.1ac334d4": {
           "text": ""
