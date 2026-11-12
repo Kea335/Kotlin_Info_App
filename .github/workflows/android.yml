@@ -42,7 +42,9 @@ jobs:
 
       # Kodda yalnız şərh tərcümə olunur — skelet müqayisəsinin testləri (T4.0).
       - name: Kod şərhləri testləri
-        run: node tools/test-kod-serhleri.js
+        run: |
+          node tools/test-kod-serhleri.js
+          node tools/test-neytral.js
 
       # README-dəki dil cədvəli və nişan validatorun çıxışı ilə eynidir (T5.7).
       # Fərq varsa: node tools/validate-locales.js --readme və commit.

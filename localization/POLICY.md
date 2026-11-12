@@ -70,6 +70,18 @@ Skelet fərqlidirsə — boşluq, sətir, dırnaq daxil — **[xəta]**, və
 
 Şərhi olmayan kod overlay-də ümumiyyətlə görünmür — tərcümə ediləsi heç nə yoxdur.
 
+Kod bloku başlığı fayl adıdırsa (`Sinif.kt`, `build.gradle.kts`), o da dəyişmir —
+fayl adı kodun içindəki identifikatorlarla bağlıdır.
+
+### Dildən asılı olmayan dəyərlər
+
+Bəzi dəyərlərdə tərcümə olunası söz yoxdur: yalnız koddan ibarət variantlar
+(`["null", "-1", "0", "NullPointerException"]`), `data class` etiketi, fayl adı,
+`[1, 4, 9]` kimi nəticə. Onlar hər dildə bazadakı kimi qalır, faizə sayılmır və
+`overlay-parca.js cixar` onları vermir. Qayda mühafizəkardır: dəyərdə **bir**
+adi söz də varsa («Bəli», «yaz.», «(tam bölmə!)»), o tərcümə olunur.
+Siyahı: `node tools/overlay-parca.js neytral <fayl>`.
+
 ### String literal-lar — əsas qayda
 
 Kod içindəki mətn literal-ları **defolt olaraq dəyişmir**:
