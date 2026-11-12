@@ -1,0 +1,81 @@
+name: Kod yoxlaması
+
+# Dərs bloklarını, model həlləri və meydan nümunələrini JetBrains
+# kompilyatorunda işlədir, çıxışı gözlənilənlə tutuşdurur (T4.6).
+# Xidmət ictimaidir — hər push-da yox, gecə bir dəfə. Keş dəyişməyən
+# nümunələri atlayır; kompilyator versiyası dəyişəndə hamısı yoxlanılır.
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      yeniden:
+        description: 'Keşə baxmadan hamısını yoxla'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: kod-yoxlamasi
+  cancel-in-progress: false
+
+jobs:
+  yoxla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+
+      # Açar hər run-da yenidir: keş həmişə saxlanılır, bərpa isə ən sonuncudan.
+      - name: Keşi bərpa et
+        uses: actions/cache/restore@v6
+        with:
+          path: tools/.code-cache.json
+          key: kod-kesi-${{ github.run_id }}
+          restore-keys: kod-kesi-
+
+      - name: Kod nümunələri
+        id: yoxla
+        run: |
+          set +e
+          node tools/check-code.js --all --hesabat hesabat.md ${{ inputs.yeniden && '--yeniden' || '' }}
+          echo "kod=$?" >> "$GITHUB_OUTPUT"
+
+      # Uğurlu nəticələr uğursuz run-da da keşdə qalmalıdır.
+      - name: Keşi saxla
+        if: always()
+        uses: actions/cache/save@v6
+        with:
+          path: tools/.code-cache.json
+          key: kod-kesi-${{ github.run_id }}
+
+      # Yalnız həqiqi uyğunsuzluq (1) issue açır; xidmət düşübsə (3) run
+      # sadəcə qırmızı olur — sabah yenidən sınanır.
+      - name: Issue aç və ya yenilə
+        if: steps.yoxla.outputs.kod == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create kod-yoxlamasi --color D93F0B \
+            --description "Gecəlik kod yoxlamasının tapıntıları (T4.6)" --force
+          echo "" >> hesabat.md
+          echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> hesabat.md
+          nomre=$(gh issue list --label kod-yoxlamasi --state open --json number --jq '.[0].number')
+          if [ -n "$nomre" ]; then
+            gh issue comment "$nomre" --body-file hesabat.md
+          else
+            gh issue create --title "Kod nümunələri gözlənilən nəticəni vermir" \
+              --label kod-yoxlamasi --body-file hesabat.md
+          fi
+
+      - name: Nəticə
+        if: steps.yoxla.outputs.kod != '0'
+        run: exit ${{ steps.yoxla.outputs.kod }}

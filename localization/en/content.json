@@ -2,7 +2,7 @@
   "_meta": {
     "locale": "en",
     "base": "az",
-    "updated": "2026-09-17"
+    "updated": "2026-09-24"
   },
   "sections": {
     "giris": {
@@ -527,7 +527,7 @@
         "operatorlar.p.0e54f5f7": {
           "spans": []
         },
-        "operatorlar.code.ff6444f8": {
+        "operatorlar.code.2070e32a": {
           "title": ""
         },
         "operatorlar.table.67bbd125": {
@@ -745,7 +745,7 @@
         "lambda.h3.f243fd7e": {
           "text": ""
         },
-        "lambda.code.f64e3a22": {
+        "lambda.code.7f9b02a4": {
           "title": ""
         },
         "lambda.h3.679fc6ba": {
@@ -1123,7 +1123,7 @@
         "miras.p.7c9d3938": {
           "spans": []
         },
-        "miras.code.917329da": {
+        "miras.code.ed963b92": {
           "title": ""
         }
       }
@@ -1152,7 +1152,7 @@
         "xususi-sinifler.h3.ba3f320c": {
           "text": ""
         },
-        "xususi-sinifler.code.bff56cb5": {
+        "xususi-sinifler.code.74107a1a": {
           "title": ""
         },
         "xususi-sinifler.h3.6c209cda": {
@@ -1191,7 +1191,7 @@
         "xususi-sinifler.h3.a8173b29": {
           "text": ""
         },
-        "xususi-sinifler.code.8172aa52": {
+        "xususi-sinifler.code.754f8445": {
           "title": ""
         },
         "xususi-sinifler.h3.948e5a45": {
@@ -1303,7 +1303,7 @@
         "coroutines.h3.51979d92": {
           "text": ""
         },
-        "coroutines.code.724455b4": {
+        "coroutines.code.c1746589": {
           "title": ""
         },
         "coroutines.h3.d02480af": {
