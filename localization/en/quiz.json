@@ -2,83 +2,158 @@
   "_meta": {
     "locale": "en",
     "base": "az",
-    "updated": "2026-09-17"
+    "updated": "2026-11-12"
   },
   "questions": {
     "quiz-01": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What is the main difference between val and var?",
+      "opts": [
+        "A val can't be reassigned later, a var can",
+        "val is only for numbers, var is for all types",
+        "There's no difference, they're the same",
+        "var works at compile time, val at runtime"
+      ],
+      "exp": "val (value) is a read-only reference — once assigned, it can't be reassigned. var (variable) can be changed. Note: val fixes only the reference, not the object itself — you can still add elements to a mutableListOf held in a val."
     },
     "quiz-02": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What will this code print?",
+      "opts": [
+        "null",
+        "-1",
+        "0",
+        "NullPointerException"
+      ],
+      "exp": "Because of the safe call, ad?.length returns null; then the Elvis operator (?:) sees null and returns the -1 on its right."
     },
     "quiz-03": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "Which functions does a data class generate automatically?",
+      "opts": [
+        "Only toString()",
+        "equals(), hashCode(), toString(), copy() and componentN()",
+        "Only the constructor",
+        "The main() function"
+      ],
+      "exp": "Based on the properties in the primary constructor, a data class automatically generates equals()/hashCode(), toString(), copy() and component1(), component2()… for destructuring."
     },
     "quiz-04": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "In Kotlin, how must a parent class be declared so that another class can inherit from it?",
+      "opts": [
+        "With the public keyword",
+        "Nothing is needed, all classes are open to inheritance",
+        "With the open keyword",
+        "Only with abstract — there's no other way"
+      ],
+      "exp": "In Kotlin, classes are final (closed) by default. To allow inheritance you have to write open. abstract classes are also open to inheritance, but you can't create objects from them directly."
     },
     "quiz-05": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What is the result of this code?",
+      "opts": [
+        "[1, 9, 25]",
+        "[4, 16]",
+        "[2, 4]",
+        "[1, 4, 9, 16, 25]"
+      ],
+      "exp": "First, filter picks the even numbers → [2, 4]. Then map squares each of them → [4, 16]."
     },
     "quiz-06": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What does the !! operator do?",
+      "opts": [
+        "Doubles the value",
+        "Forces a nullable value to non-null and throws an NPE if it's null",
+        "Performs logical negation",
+        "Converts the value to a String"
+      ],
+      "exp": "!! is the «not-null assertion» operator. If the value is null, a KotlinNullPointerException is thrown. Since it switches off Kotlin's null safety completely, you should avoid it whenever possible."
     },
     "quiz-07": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What does the suspend keyword mean?",
+      "opts": [
+        "The function never returns a value",
+        "The function can be paused and resumed later — it's called only inside a coroutine",
+        "The function runs synchronously",
+        "The function creates a new thread automatically"
+      ],
+      "exp": "A suspend function can pause (suspend) without blocking the thread. It can be called only from another suspend function or from a coroutine builder (launch, async, runBlocking). It doesn't create a thread by itself."
     },
     "quiz-08": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What is the main difference between apply and also?",
+      "opts": [
+        "apply uses this, also uses it — but both return the object itself",
+        "apply returns the object, also returns the lambda result",
+        "There's no difference",
+        "also works only with collections"
+      ],
+      "exp": "Both return the receiver object itself. The difference is the context: inside apply you use this (so you can set properties directly), inside also you use it (more readable for side effects)."
     },
     "quiz-09": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "Will this code compile?",
+      "opts": [
+        "Yes, Int is converted to Long automatically",
+        "No — Kotlin has no automatic number conversion, you need x.toLong()",
+        "Yes, but it will give a warning",
+        "Only when working together with Java"
+      ],
+      "exp": "Unlike Java, Kotlin doesn't support automatic widening number conversion. You have to write x.toLong() explicitly — this prevents hidden data loss."
     },
     "quiz-10": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What is the main advantage of a sealed class?",
+      "opts": [
+        "It uses less memory",
+        "All subclasses are known at compile time — no else needed in a when expression",
+        "It's converted to JSON automatically",
+        "It gives multiple inheritance"
+      ],
+      "exp": "Since all subclasses of a sealed class are defined in the same module, the compiler knows every one of them. This makes the when expression exhaustive — no else branch is needed, and the compiler warns you when you add a new subclass."
     },
     "quiz-11": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "Which types can't be used with lateinit?",
+      "opts": [
+        "String",
+        "Class types",
+        "Primitive types (Int, Double, Boolean…)",
+        "List"
+      ],
+      "exp": "lateinit doesn't work with primitive types (Int, Long, Double, Boolean, Char…), because they have no null value to mark the «not assigned yet» state. Use by Delegates.notNull() for them instead."
     },
     "quiz-12": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "Which statement about extension functions is true?",
+      "opts": [
+        "They give access to the class's private members",
+        "They really change the class",
+        "They're resolved statically — not virtual, can't be overridden",
+        "They can be added only to classes you wrote yourself"
+      ],
+      "exp": "Extension functions add nothing to the class — the compiler turns them into ordinary static function calls. That's why they're not polymorphic (they're chosen by the declared type of the variable) and have no access to private members."
     },
     "quiz-13": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What is the result of this code?",
+      "opts": [
+        "true / true",
+        "false / false",
+        "true / false",
+        "false / true"
+      ],
+      "exp": "== checks structural equality (equals) — the two lists have the same elements, so it's true. === is referential equality — these are separate objects, so it's false."
     },
     "quiz-14": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What does the Unit type in Kotlin correspond to?",
+      "opts": [
+        "Java's void — but Unit is a real type",
+        "The null value",
+        "An empty list",
+        "The Any type"
+      ],
+      "exp": "Unit is the counterpart of Java's void, but in Kotlin it's a real type with exactly one instance. If a function returns nothing, it returns Unit by default — you don't need to write it."
     },
     "quiz-15": {
-      "q": "",
-      "opts": [],
-      "exp": ""
+      "q": "What is async/await used for in coroutines?",
+      "opts": [
+        "Creating a new thread",
+        "Doing work in parallel and getting the result later — it returns a Deferred",
+        "Catching errors",
+        "Freeing memory"
+      ],
+      "exp": "async returns a Deferred<T> and starts the work right away. When you call await(), it waits for the result without blocking the thread. Starting several async calls at once gives you real parallelism."
     }
   }
 }

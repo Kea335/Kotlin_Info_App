@@ -2,43 +2,43 @@
   "_meta": {
     "locale": "en",
     "base": "az",
-    "updated": "2026-09-24"
+    "updated": "2026-11-12"
   },
   "presets": {
     "salam": {
-      "label": ""
+      "label": "Hello, world"
     },
     "deyisenler": {
-      "label": "",
-      "code": ""
+      "label": "Variables and types",
+      "code": "fun main() {\n    val ad: String = \"Kotlin\"   // read-only\n    var yas = 14                // mutable, type inferred as Int\n    val pi = 3.14               // Double\n    val aktivdir = true         // Boolean\n\n    yas += 1\n\n    println(\"$ad — $yas yaşında\")\n    println(\"pi = $pi, aktivdir = $aktivdir\")\n    println(\"yas tipi: \" + yas::class.simpleName)\n}"
     },
     "sertler": {
-      "label": ""
+      "label": "Conditions (when)"
     },
     "dovrler": {
-      "label": ""
+      "label": "Loops and ranges"
     },
     "funksiyalar": {
-      "label": ""
+      "label": "Functions"
     },
     "null": {
-      "label": "",
-      "code": ""
+      "label": "Null safety",
+      "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n    val bos: String? = null\n\n    println(ad?.length)          // 6\n    println(bos?.length)         // null — no crash\n    println(bos?.length ?: -1)   // Elvis operator\n\n    ad?.let { println(\"Böyük hərflərlə: ${it.uppercase()}\") }\n\n    val siyahi: List<String>? = null\n    println(siyahi.orEmpty())    // []\n}"
     },
     "kolleksiyalar": {
-      "label": ""
+      "label": "Collections"
     },
     "dataclass": {
-      "label": "",
-      "code": ""
+      "label": "data class",
+      "code": "data class Istifadeci(val ad: String, val yas: Int)\n\nfun main() {\n    val a = Istifadeci(\"Aysel\", 24)\n    val b = a.copy(yas = 25)\n\n    println(a)\n    println(b)\n    println(\"Bərabərdirmi? \" + (a == b))\n\n    val (ad, yas) = a           // destructuring\n    println(\"$ad / $yas\")\n}"
     },
     "sealed": {
-      "label": "",
-      "code": ""
+      "label": "sealed class",
+      "code": "sealed class Netice {\n    data class Ugurlu(val data: String) : Netice()\n    data class Xeta(val kod: Int) : Netice()\n    data object Yuklenir : Netice()\n}\n\n// no else needed — the compiler knows every case\nfun emalEt(n: Netice): String = when (n) {\n    is Netice.Ugurlu -> \"Uğurlu: ${n.data}\"\n    is Netice.Xeta -> \"Xəta kodu: ${n.kod}\"\n    Netice.Yuklenir -> \"Yüklənir...\"\n}\n\nfun main() {\n    listOf(\n        Netice.Yuklenir,\n        Netice.Ugurlu(\"məlumat hazırdır\"),\n        Netice.Xeta(404)\n    ).forEach { println(emalEt(it)) }\n}"
     },
     "coroutine": {
-      "label": "",
-      "code": ""
+      "label": "Coroutines (parallel)",
+      "code": "import kotlinx.coroutines.*\n\nsuspend fun getir(ad: String, vaxt: Long): String {\n    delay(vaxt)\n    return ad\n}\n\nfun main() = runBlocking {\n    val basla = System.currentTimeMillis()\n\n    // Both start at the same time\n    val a = async { getir(\"A\", 1000) }\n    val b = async { getir(\"B\", 1000) }\n\n    println(\"Nəticələr: ${a.await()}, ${b.await()}\")\n    println(\"Vaxt: ~${System.currentTimeMillis() - basla} ms\")\n    println(\"Ardıcıl olsaydı ~2000 ms çəkərdi.\")\n}"
     }
   }
 }
