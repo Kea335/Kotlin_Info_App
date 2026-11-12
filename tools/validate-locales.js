@@ -58,6 +58,83 @@ function formatNisanlari(metn) {
 
 function deepEqual(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
 
+/* ---------- Lüğət və tərcümə olunmayanlar (T4.0) ---------- */
+
+const LUGET_FAYLI = path.join(L.LOCALIZATION, 'glossary.json');
+const luget = fs.existsSync(LUGET_FAYLI)
+  ? JSON.parse(fs.readFileSync(LUGET_FAYLI, 'utf8'))
+  : { terms: {}, doNotTranslate: [] };
+
+function kicik(s, lc) {
+  try { return s.toLocaleLowerCase(lc); } catch (e) { return s.toLowerCase(); }
+}
+
+/** Terminin dildəki qəbul olunan formaları, kiçik hərflə. */
+function formalar(t, lc) {
+  if (!t[lc]) return [];
+  return [t[lc]].concat((t._formalar && t._formalar[lc]) || []).map((f) => kicik(f, lc));
+}
+
+const regexQacir = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// Adi mətndə yalnız xüsusi adlar və çoxsözlü terminlər yoxlanılır: `var`,
+// `val`, `when` kimi açar sözlər azərbaycanca mətndə adi söz də ola bilər
+// («dəyişən var»). Onları inline kod span-larının eyniliyi qoruyur.
+const QADAGAN = (luget.doNotTranslate || [])
+  .filter((s) => /[A-Z ]/.test(s))
+  .map((s) => ({ s, re: new RegExp('(^|[^\\p{L}\\p{N}_])' + regexQacir(s) + '(?=$|[^\\p{L}\\p{N}_])', 'u') }));
+
+/** Dəyərdəki inline kod span-larının mətni (`{k:'code'}`), sıralı. */
+function kodSpanlari(v, topla) {
+  topla = topla || [];
+  if (Array.isArray(v)) v.forEach((x) => kodSpanlari(x, topla));
+  else if (v && typeof v === 'object' && v.k === 'code') topla.push(v.v);
+  return topla;
+}
+
+/** Lüğət qaydaları — xəbərdarlıq mətnləri (boş massiv: problem yoxdur). */
+function lugetYoxla(baza, terc, lc) {
+  const x = [];
+  const bk = kodSpanlari(baza).sort();
+  const tk = kodSpanlari(terc).sort();
+  if (bk.length && !deepEqual(bk, tk)) {
+    const itən = bk.filter((s) => tk.indexOf(s) === -1);
+    x.push('inline kod deyisib' + (itən.length ? ' — ' + itən.slice(0, 3).map((s) => '`' + s + '`').join(', ') : ''));
+  }
+  const bm = metnDeyeri(baza);
+  const tm = metnDeyeri(terc);
+  QADAGAN.forEach(({ s, re }) => {
+    if (re.test(bm) && tm.indexOf(s) === -1) x.push('«' + s + '» tercume olunmamalidir');
+  });
+  const bmK = kicik(bm, L.BAZA);
+  const tmK = kicik(tm, lc);
+  Object.keys(luget.terms || {}).forEach((ad) => {
+    const t = luget.terms[ad];
+    const hedef = formalar(t, lc);
+    if (!hedef.length || !formalar(t, L.BAZA).some((f) => bmK.includes(f))) return;
+    if (!hedef.some((f) => tmK.includes(f))) x.push('luget: «' + t[L.BAZA] + '» → «' + t[lc] + '» gozlenilirdi');
+  });
+  return x;
+}
+
+/** glossary.json və localizedIo.json-un özü — xəta mətnləri. */
+function lugetFayllariniYoxla() {
+  const xetalar = [];
+  const rel = (f) => path.relative(process.cwd(), f);
+  const diller = Object.keys(dilAdlari());
+  Object.keys(luget.terms || {}).forEach((ad) => {
+    const t = luget.terms[ad];
+    const yox = diller.filter((lc) => !t[lc]);
+    if (yox.length) xetalar.push(rel(LUGET_FAYLI) + ': «' + ad + '» — ' + yox.join(', ') + ' qarşılığı yoxdur');
+  });
+  const calismalar = {};
+  L.bazaOxu('exercises').topics.forEach((t) => t.praktiki.forEach((e) => { calismalar[e.id] = true; }));
+  Object.keys(L.localizedIo()).forEach((id) => {
+    if (!calismalar[id]) xetalar.push(rel(L.LOCALIZED_IO_FAYLI) + ': «' + id + '» praktiki calisma deyil');
+  });
+  return xetalar;
+}
+
 /** Tərcümənin quruluşu bazadakı ilə uyğundurmu — uyğunsuzluq mesajı və ya null. */
 function qurulusYoxla(baza, terc, sahe) {
   if (typeof baza === 'string') {
@@ -146,9 +223,12 @@ function localeYoxla(locale) {
       const v = L.overlayOxu(overlay, y.acar);
       if (L.bosdur(v)) return;
       const yol = y.acar.join(' › ');
-      const problem = qurulusYoxla(y.deyer, v, y.acar[y.acar.length - 1]);
+      const problem = y.yoxla ? y.yoxla(v) : qurulusYoxla(y.deyer, v, y.acar[y.acar.length - 1]);
       if (problem) { n.xetalar.push(rel + ': ' + yol + ' — ' + problem); return; }
       if (deepEqual(v, y.deyer)) { n.xeberdarliqlar.push(rel + ': ' + yol + ' — bazadaki metnin eynisi (tercume olunmayib)'); return; }
+      // Kod yarpağında yalnız şərh dəyişib (y.yoxla) — mətn qaydaları ona aid deyil.
+      if (y.yoxla) { q.var++; return; }
+      lugetYoxla(y.deyer, v, locale).forEach((x) => n.xeberdarliqlar.push(rel + ': ' + yol + ' — ' + x));
       const bazaN = formatNisanlari(metnDeyeri(y.deyer));
       const tercN = formatNisanlari(metnDeyeri(v));
       if (bazaN !== tercN) { n.xetalar.push(rel + ': ' + yol + ' — format nisanlari ferqlidir (' + (bazaN || '—') + ' → ' + (tercN || '—') + ')'); return; }
@@ -163,7 +243,11 @@ function localeYoxla(locale) {
       n.xetalar.push(aktivRel + ' yoxdur — node tools/build-locale.js ' + locale);
     } else {
       const gozlenilen = L.bazaOxu(ad);
-      L.YARPAQ[ad](gozlenilen).forEach((y) => { const v = L.overlayOxu(overlay, y.acar); if (!L.bosdur(v)) y.qoy(v); });
+      // build-locale ilə eyni: kodu dəyişmiş tərcümə tətbiq olunmur.
+      L.YARPAQ[ad](gozlenilen).forEach((y) => {
+        const v = L.overlayOxu(overlay, y.acar);
+        if (!L.bosdur(v) && !(y.yoxla && y.yoxla(v))) y.qoy(v);
+      });
       if (JSON.stringify(gozlenilen) !== fs.readFileSync(aktiv, 'utf8')) {
         n.xetalar.push(aktivRel + ' kohnelib — node tools/build-locale.js ' + locale);
       }
@@ -211,7 +295,7 @@ function siyahilariYoxla() {
 const localelar = secilen.length ? secilen : [L.BAZA].concat(L.localeSiyahisi());
 const netice = {};
 localelar.forEach((lc) => { netice[lc] = localeYoxla(lc); });
-const siyahiXetalari = siyahilariYoxla();
+const siyahiXetalari = siyahilariYoxla().concat(lugetFayllariniYoxla());
 
 function faiz(s) { return s.cemi ? Math.round((s.var / s.cemi) * 100) : 100; }
 function umumi(say) {

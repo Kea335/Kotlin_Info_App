@@ -2,14 +2,15 @@
   "_meta": {
     "locale": "en",
     "base": "az",
-    "updated": "2026-09-17"
+    "updated": "2026-09-24"
   },
   "presets": {
     "salam": {
       "label": ""
     },
     "deyisenler": {
-      "label": ""
+      "label": "",
+      "code": ""
     },
     "sertler": {
       "label": ""
@@ -21,19 +22,23 @@
       "label": ""
     },
     "null": {
-      "label": ""
+      "label": "",
+      "code": ""
     },
     "kolleksiyalar": {
       "label": ""
     },
     "dataclass": {
-      "label": ""
+      "label": "",
+      "code": ""
     },
     "sealed": {
-      "label": ""
+      "label": "",
+      "code": ""
     },
     "coroutine": {
-      "label": ""
+      "label": "",
+      "code": ""
     }
   }
 }
