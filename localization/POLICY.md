@@ -42,7 +42,9 @@ yoxlayır — aşağıda hər qaydanın yanında **[xəta]**, **[xəbərdarlıq]
 - Kod bloklarının **başlığı** (`title`) — kodun özü yox
 - Kod içindəki **şərhlər**: `// İstifadəçinin yaşını yoxlayırıq` → `// Check the user's age`
 - Meydan nümunələrinin etiketi (`label`)
-- UI sətirləri — `app/src/main/res/values-<dil>/strings.xml`
+- UI sətirləri — `app/src/debug/res/values-<dil>/strings.xml`. Dil 100 %-ə
+  çatanda `build-locale.js` faylı `src/main/res/`-ə köçürür (T4.7 qapısı):
+  yarımçıq UI release-ə düşmür
 
 ### Span quruluşu
 

@@ -90,6 +90,12 @@ android {
         // mesaj dəyişir və baseline köhnəlir. Asılılıqlar bilərəkdən,
         // ayrıca PR-la yenilənir — bu qaydalar CI qapısına aid deyil.
         disable += setOf("GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion")
+
+        // Yarımçıq dilin strings.xml-i src/debug/res-dədir və debug-ın
+        // locales_config.xml-ində elan olunub; release-ə düşmür (T4.7).
+        // Lint isə manifestdəki @xml/locales_config-i main-in faylı ilə
+        // tutuşdurur — yanlış pozitiv. Qapını validate-locales.js yoxlayır.
+        disable += "UnusedTranslation"
     }
 
     testOptions {

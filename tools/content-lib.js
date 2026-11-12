@@ -24,6 +24,7 @@ const AKTIV_KOKU = path.join(APP_SRC, 'main', 'assets', 'content');
  */
 const AKTIV_KOKU_DEBUG = path.join(APP_SRC, 'debug', 'assets', 'content');
 const RES = path.join(APP_SRC, 'main', 'res');
+const RES_DEBUG = path.join(APP_SRC, 'debug', 'res');
 /** Release-in dil siyahısı (Android 13+ sistem menyusu) — build-locale.js yazır. */
 const LOCALE_CONFIG = path.join(RES, 'xml', 'locales_config.xml');
 /** Bütün dillər, AppDil sırası ilə — əl ilə saxlanılır, AppDilTest yoxlayır. */
@@ -340,11 +341,23 @@ function uiSetirSayi(fayl) {
     .filter((teq) => /\sname="/.test(teq) && !/translatable="false"/.test(teq)).length;
 }
 
+/**
+ * Dilin UI sətirləri faylı. Aktivlər kimi (T4.7): yarımçıq dil
+ * src/debug/res-dədir, tam dil src/main/res-də — yoxsa sistem dili həmin
+ * dil olan cihazda release yarımçıq UI göstərərdi. Faylı build-locale.js
+ * köçürür; yeni dil debug-da başlayır. Hələ yoxdursa debug yolu qaytarılır.
+ */
+function uiFayli(locale) {
+  const main = path.join(RES, 'values-' + locale, 'strings.xml');
+  const debug = path.join(RES_DEBUG, 'values-' + locale, 'strings.xml');
+  return fs.existsSync(main) ? main : debug;
+}
+
 /** UI sətirləri: tərcümə olunan / ümumi. */
 function uiSayi(locale) {
   const baza = uiSetirSayi(path.join(RES, 'values', 'strings.xml'));
   if (locale === BAZA) return { var: baza, cemi: baza };
-  return { var: Math.min(baza, uiSetirSayi(path.join(RES, 'values-' + locale, 'strings.xml'))), cemi: baza };
+  return { var: Math.min(baza, uiSetirSayi(uiFayli(locale))), cemi: baza };
 }
 
 /**
@@ -446,7 +459,7 @@ function tekrarAcarlar(metn) {
 }
 
 module.exports = {
-  AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
+  AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, RES_DEBUG, uiFayli, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
   spanMetni, bloklardanMetn,
   YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, bosNusxe,
   bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar, localizedIo, LOCALIZED_IO_FAYLI,

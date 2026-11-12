@@ -260,6 +260,16 @@ function localeYoxla(locale) {
       (n.tam ? 'dil tamdir — release-e kecir' : 'dil yarimciqdir — release-e dusmemelidir') +
       ') — node tools/build-locale.js ' + locale);
   }
+  // UI sətirləri də eyni qapıdan keçir: yarımçıq dilin strings.xml-i main-də
+  // olsa, sistem dili həmin dil olan cihazda release yarımçıq UI göstərər.
+  if (locale !== L.BAZA) {
+    const uiYanlis = path.join(n.tam ? L.RES_DEBUG : L.RES, 'values-' + locale, 'strings.xml');
+    if (fs.existsSync(uiYanlis)) {
+      n.xetalar.push(path.relative(process.cwd(), uiYanlis) + ' artiq burada olmamalidir (' +
+        (n.tam ? 'dil tamdir — release-e kecir' : 'dil yarimciqdir — release-e dusmemelidir') +
+        ') — node tools/build-locale.js ' + locale);
+    }
+  }
 
   return n;
 }

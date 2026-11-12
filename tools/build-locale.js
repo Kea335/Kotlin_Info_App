@@ -51,6 +51,18 @@ function localeQur(locale) {
   if (fs.existsSync(diger)) fs.rmSync(diger, { recursive: true, force: true });
   fs.mkdirSync(hedef, { recursive: true });
 
+  // UI sətirləri də statusla köçür (T4.7): yarımçıq dil yalnız debug-da.
+  // Bu fayl tərcümənin mənbəyidir — silinmir, yeri dəyişir.
+  const ui = L.uiFayli(locale);
+  const uiHedef = path.join(tam ? L.RES : L.RES_DEBUG, 'values-' + locale, 'strings.xml');
+  if (fs.existsSync(ui) && path.resolve(ui) !== path.resolve(uiHedef)) {
+    fs.mkdirSync(path.dirname(uiHedef), { recursive: true });
+    fs.renameSync(ui, uiHedef);
+    const kohneQovluq = path.dirname(ui);
+    if (!fs.readdirSync(kohneQovluq).length) fs.rmdirSync(kohneQovluq);
+    console.log('  strings.xml → ' + path.relative(process.cwd(), uiHedef));
+  }
+
   const faiz = s.cemi ? Math.floor((s.var / s.cemi) * 100) : 100;
   console.log(locale + ': ' + faiz + '% (' + s.var + '/' + s.cemi + ') → ' + (tam ? 'release (main)' : 'yalniz debug'));
   L.FAYLLAR.forEach((ad) => {
