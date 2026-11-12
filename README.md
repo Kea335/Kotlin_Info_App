@@ -3,7 +3,7 @@
 [![Android CI](https://github.com/Kea335/Kotlin_Info_App/actions/workflows/android.yml/badge.svg)](https://github.com/Kea335/Kotlin_Info_App/actions/workflows/android.yml)
 [![Lisenziya: MIT](https://img.shields.io/badge/lisenziya-MIT-blue.svg)](LICENSE)
 <!-- dil-nisani:basla -->
-[![Dillər](https://img.shields.io/badge/dill%C9%99r-1%20%2F%2015-7F52FF)](#dil-dəstəyi)
+[![Dillər](https://img.shields.io/badge/dill%C9%99r-2%20%2F%2015-7F52FF)](#dil-dəstəyi)
 <!-- dil-nisani:son -->
 
 **Offline Kotlin learning app** — 32 lessons, 1250 exercises, a real compiler,
@@ -48,7 +48,7 @@ yarımçıq dil yalnız debug build-də, tərcüməçi üçündür.
 | Dil | Kod | Tərcümə | Vəziyyət |
 |---|---|---|---|
 | Azərbaycan | `az` | 100 % | baza |
-| English | `en` | 0 % | hazırlanır (yalnız debug build) |
+| English | `en` | 100 % | tətbiqdə |
 
 Planlaşdırılan (overlay hələ yoxdur): Türkçe, Русский, Español, Português (Brasil), Deutsch, Français, العربية, فارسی, हिन्दी, Bahasa Indonesia, 简体中文, 日本語, 한국어.
 <!-- diller:son -->

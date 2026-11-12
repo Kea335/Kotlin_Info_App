@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    KotlinAZ UI strings — English (T4.1). Base: values/strings.xml (az).
+    Rules: localization/POLICY.md. Keep %1$d / %1$s placeholders as they are.
+-->
+<resources>
+
+    <!-- ===== Common: level, theme, mode, run errors ===== -->
+    <string name="seviyye_junior">Junior</string>
+    <string name="seviyye_middle">Middle</string>
+    <string name="seviyye_senior">Senior</string>
+    <string name="tema_sistem">System</string>
+    <string name="tema_isiqli">Light</string>
+    <string name="tema_qaranliq">Dark</string>
+    <string name="calisma_rejim_nezeri">Theory</string>
+    <string name="calisma_rejim_praktiki">Practice</string>
+    <string name="quiz_rejim_qarisiq">Mixed</string>
+    <string name="quiz_rejim_junior_izah">Syntax, variables, conditions, loops — beginner questions.</string>
+    <string name="quiz_rejim_middle_izah">Collections, lambdas, OOP, null safety.</string>
+    <string name="quiz_rejim_senior_izah">Generics, coroutines, delegates, the fine details.</string>
+    <string name="quiz_rejim_qarisiq_izah">A random mix from all levels — the real exam.</string>
+    <string name="icra_xeta_kompilyasiya">Compilation error</string>
+    <string name="icra_xeta_calisma_vaxti">Runtime error</string>
+    <string name="icra_xeta_baglanti">Connection problem</string>
+    <string name="icra_setir">Line %1$d: %2$s</string>
+    <string name="ortaq_kopyala">Copy</string>
+    <string name="ortaq_kod_kopyalandi">Code copied</string>
+    <string name="ortaq_novbeti">Next</string>
+    <string name="ortaq_evvelki">Previous</string>
+    <string name="ortaq_sifirla">Reset</string>
+    <string name="ortaq_netice">Output</string>
+    <string name="ortaq_internet_yoxdur">No internet</string>
+    <string name="ortaq_faiz">%1$d%%</string>
+    <string name="ortaq_say_bolu">%1$d / %2$d</string>
+    <string name="ortaq_brauzer_yoxdur">No browser found</string>
+
+    <!-- ===== Navigation and titles ===== -->
+    <string name="nav_dersler">Lessons</string>
+    <string name="nav_calismalar">Exercises</string>
+    <string name="nav_test">Quiz</string>
+    <string name="nav_meydan">Playground</string>
+    <string name="nav_geri">Back</string>
+    <string name="nav_axtaris">Search</string>
+    <string name="nav_tenzimlemeler">Settings</string>
+    <string name="basliq_ders">Lesson</string>
+    <string name="basliq_calisma">Exercise</string>
+    <string name="basliq_bilik_testi">Knowledge quiz</string>
+    <string name="basliq_kod_meydani">Code playground</string>
+    <string name="yukleme_xeta_basliq">Content failed to load</string>
+    <string name="yukleme_xeta_izah">The app\'s built-in assets could not be read.</string>
+
+    <!-- ===== Settings ===== -->
+    <string name="ayarlar_oxuma_sifirlandi">Lesson confirmations reset</string>
+    <string name="ayarlar_calisma_sifirlandi">Exercise progress reset</string>
+    <string name="ayarlar_hamisi_sifirlandi">All progress reset</string>
+    <string name="ayarlar_gorunus">Appearance</string>
+    <string name="ayarlar_tema">Theme</string>
+    <string name="ayarlar_srift">Font size</string>
+    <string name="ayarlar_srift_kicik">Small</string>
+    <string name="ayarlar_srift_normal">Default</string>
+    <string name="ayarlar_srift_boyuk">Large</string>
+    <string name="ayarlar_srift_izah">Applies to the whole app — lesson text, buttons and code blocks grow and shrink together.</string>
+    <string name="ayarlar_dil">Language</string>
+    <string name="ayarlar_sistem_dili">System language</string>
+    <string name="ayarlar_dil_mezmun_yoxdur">Lesson content isn\'t ready in this language yet — lessons, exercises and the quiz are shown in %1$s. It will switch automatically as translations arrive.</string>
+    <string name="ayarlar_dil_izah">Changing the language changes both the app text and the lesson content; your progress and records stay as they are.</string>
+    <string name="ayarlar_redaktor">Editor</string>
+    <string name="ayarlar_tamamlama">Code completion</string>
+    <string name="ayarlar_tamamlama_izah">Suggestions appear above the word as you type: “pri” gives print/println, “va” gives val/var. Works in the playground and in practice exercises.</string>
+    <string name="ayarlar_tereqqi">Progress</string>
+    <string name="ayarlar_seviyyen">Your level</string>
+    <string name="ayarlar_tereqqi_izah">A lesson counts as completed only when all of its exercises are solved correctly.</string>
+    <string name="ayarlar_sifirla_oxuma">Reset lesson confirmations</string>
+    <string name="ayarlar_sifirla_calisma">Reset exercise progress</string>
+    <string name="ayarlar_sifirla_hamisi">Reset everything</string>
+    <string name="ayarlar_rekordlar">Quiz records</string>
+    <string name="ayarlar_rekord_yoxdur">You haven\'t taken a quiz yet. The Quiz tab has Junior, Middle, Senior and Mixed modes.</string>
+    <string name="ayarlar_oflayn">Offline use</string>
+    <string name="ayarlar_oflayn_izah">All lessons, 144 code samples (with their output), 6 interactive demos, 1250 exercises and the quiz are inside the app — no internet needed.\n\nOnly the playground and the “Check” button in practice exercises need a connection, because the code runs on the real Kotlin compiler.</string>
+    <string name="ayarlar_kompilyator">Compiler</string>
+    <string name="ortaq_kotlin_versiya">Kotlin %1$s</string>
+    <string name="ayarlar_kompilyator_ferqli">The app was built with Kotlin %1$s; the server doesn\'t offer that version, so code runs on %2$s.</string>
+    <string name="ayarlar_kompilyator_yoxlanmayib">The version list is checked with the server on the first run.</string>
+    <string name="ayarlar_mexfilik">Privacy and contact</string>
+    <string name="ayarlar_mexfilik_izah">When you tap “Run” or “Check” in the playground or a practice exercise, the code you wrote is sent to JetBrains\' Kotlin server (api.kotlinlang.org) to be executed. No other data leaves the device: there are no accounts, ads, analytics or tracking. Progress and settings are stored only on this device (and in Android backup).</string>
+    <string name="ayarlar_senad">Document</string>
+    <string name="ayarlar_mexfilik_siyaseti">Privacy policy</string>
+    <string name="ayarlar_xeta_bildir_ust">GitHub issue — device and version are attached</string>
+    <string name="ayarlar_xeta_bildir">Report a bug</string>
+    <string name="ayarlar_xeta_bildir_izah">The form opens in your browser — you can review and edit everything before sending.</string>
+    <string name="ayarlar_menbe">Source</string>
+    <string name="ayarlar_menbe_izah">Content is taken from the KotlinAZ website.</string>
+    <string name="ayarlar_versiya">KotlinAZ · v%1$s</string>
+    <string name="ayarlar_tesdiq_oxuma_basliq">Delete lesson confirmations?</string>
+    <string name="ayarlar_tesdiq_oxuma_metn">The “I\'ve read it” confirmations you gave in sections without exercises will be deleted. Mastery earned from exercises is not affected.</string>
+    <string name="ayarlar_tesdiq_calisma_basliq">Delete exercise progress?</string>
+    <string name="ayarlar_tesdiq_calisma_metn">Solved marks on exercises will be deleted — lesson mastery and your level will be reset too.</string>
+    <string name="ayarlar_tesdiq_hamisi_basliq">Delete everything?</string>
+    <string name="ayarlar_tesdiq_hamisi_metn">Lesson confirmations, exercises and quiz records — all of it will be reset.</string>
+    <string name="ayarlar_imtina">Cancel</string>
+
+    <!-- ===== Playground ===== -->
+    <string name="meydan_xeberdarliq">This section needs internet — code is compiled on JetBrains servers. The rest of the app works fully offline.</string>
+    <string name="meydan_kompilyator">Compiler: Kotlin %1$s</string>
+    <string name="meydan_baslangic">Starters</string>
+    <string name="meydan_bos_redaktor">Playground</string>
+    <string name="meydan_paylas">Share code</string>
+    <string name="meydan_paylas_tetbiq_yoxdur">No app found to share with</string>
+    <string name="meydan_isle">▶  Run</string>
+    <string name="meydan_dayandir">■  Stop</string>
+    <string name="meydan_temizle">Clear</string>
+    <string name="meydan_isleyir">Compiling on the server…</string>
+    <string name="meydan_cixis_yoxdur">(no output)</string>
+    <string name="meydan_dayandirildi">Stopped</string>
+    <string name="meydan_dayandirildi_izah">Execution stopped — no result is expected.</string>
+    <string name="meydan_oflayn_izah">The playground runs the Kotlin compiler on JetBrains servers, so it can\'t work without a connection. You can keep learning offline — all lessons, 144 code samples (with their output), 1250 exercises and the quiz are available offline.</string>
+
+    <!-- ===== Code card and editor ===== -->
+    <string name="kod_isle">Run</string>
+    <string name="kod_gizlet">Hide</string>
+    <string name="kod_meydan">Playground</string>
+    <plurals name="redaktor_setir_sayi">
+        <item quantity="one">%d line</item>
+        <item quantity="other">%d lines</item>
+    </plurals>
+
+    <!-- ===== Exercises ===== -->
+    <string name="cavab_duzdur">Correct</string>
+    <string name="cavab_duzgun">Correct answer: %1$s</string>
+    <string name="calisma_movzu_yoxdur">Topic not found</string>
+    <string name="calisma_hamisi">All</string>
+    <string name="calisma_sayqac">Exercise %1$d / %2$d</string>
+    <string name="calisma_hell_edilib">Solved</string>
+    <string name="calisma_bu_seviyyede_yoxdur">No exercises at this level.</string>
+    <string name="calisma_gozlenilen_netice">Expected output</string>
+    <string name="calisma_yoxla">Check</string>
+    <string name="calisma_yoxlanilir">Checking…</string>
+    <string name="calisma_ipucu">Hint</string>
+    <string name="calisma_cavab">Answer</string>
+    <string name="calisma_kodu_kopyala">Copy code</string>
+    <string name="calisma_hell_etdim">I solved it</string>
+    <string name="calisma_hell_isarelendi">Exercise marked as solved</string>
+    <string name="calisma_cavab_yuklendi">The answer was loaded into the editor — after reading it, tap “Reset” to go back to the starter and try writing it yourself.</string>
+    <string name="calisma_cavab_tesdiq_basliq">Do you want to see the answer?</string>
+    <string name="calisma_cavab_tesdiq_metn">Reading a ready answer doesn\'t replace learning — try once more with the “Hint” first. If you see the answer, you lose the chance to figure this task out yourself.</string>
+    <string name="calisma_cavab_goster">Show it anyway</string>
+    <string name="calisma_ozum_sinayim">Let me try</string>
+    <string name="calisma_isleyir">Running the code on the JetBrains server — usually 3–10 seconds.</string>
+    <string name="calisma_duzgun_netice">Correct! The output matches exactly.</string>
+    <string name="calisma_sehv_netice">The output didn\'t match</string>
+    <string name="calisma_gozlenilen">Expected</string>
+    <string name="calisma_senin_neticen">Your output</string>
+    <string name="calisma_bos_cixis">(empty)</string>
+    <string name="calisma_oflayn_izah">Running code needs a connection — the Kotlin compiler is on JetBrains servers. You can still work offline: open the correct solution with the “Answer” button, compare it with your code, then mark it with “I solved it”.</string>
+    <string name="calisma_bank">Exercise bank</string>
+    <string name="calisma_bank_hell">Solved: %1$d / %2$d</string>
+    <plurals name="calisma_nezeri_sayi">
+        <item quantity="one">%d theory</item>
+        <item quantity="other">%d theory</item>
+    </plurals>
+    <plurals name="calisma_praktiki_sayi">
+        <item quantity="one">%d practice</item>
+        <item quantity="other">%d practice</item>
+    </plurals>
+
+    <!-- ===== Quiz ===== -->
+    <string name="quiz_seviyye_sec">Choose a level</string>
+    <plurals name="quiz_izah">
+        <item quantity="one">Each round picks %1$d random question — play the same mode again and the questions change.</item>
+        <item quantity="other">Each round picks %1$d random questions — play the same mode again and the questions change.</item>
+    </plurals>
+    <plurals name="quiz_hovuz_sayi">
+        <item quantity="one">%d question</item>
+        <item quantity="other">%d questions</item>
+    </plurals>
+    <string name="quiz_rekord_nisan">record %1$d/%2$d</string>
+    <string name="quiz_seviyyeni_deyis_geri">‹  Change level</string>
+    <string name="quiz_sual_sayqac">Question %1$d / %2$d</string>
+    <string name="quiz_bal">Score: %1$d</string>
+    <string name="quiz_neticeye_bax">See results</string>
+    <string name="quiz_novbeti_sual">Next question</string>
+    <string name="quiz_rey_mukemmel">Perfect! You know this level well.</string>
+    <string name="quiz_rey_yaxsi">Good result! Reviewing a few topics is enough.</string>
+    <string name="quiz_rey_orta">Not bad. Go back to the lessons for the topics you missed.</string>
+    <string name="quiz_rey_baslangic">That\'s normal for a start — reread the topics and try again.</string>
+    <plurals name="quiz_dogru_cavab">
+        <item quantity="one">%1$d / %2$d correct answer</item>
+        <item quantity="other">%1$d / %2$d correct answers</item>
+    </plurals>
+    <string name="quiz_rekordun">Your %1$s record: %2$d / %3$d</string>
+    <string name="quiz_yeniden">Start over</string>
+    <string name="quiz_seviyyeni_deyis">Change level</string>
+
+    <!-- ===== Lessons ===== -->
+    <string name="ders_seviyyen">Your level</string>
+    <string name="ders_en_yuksek_seviyye">You\'re at the highest level — the whole exercise bank is yours.</string>
+    <string name="ders_olmaq_ucun">To become %1$s</string>
+    <string name="ders_seviyye_calismalari">%1$s exercises</string>
+    <string name="ders_tamamlanan">Completed lessons</string>
+    <string name="ders_qayda_izah">A lesson is completed only when all of its exercises are solved correctly — scrolling through quickly doesn\'t count.</string>
+    <string name="ders_internet_teleb_edir">Needs internet</string>
+    <string name="ders_1250_calisma">1250 exercises</string>
+    <string name="ders_seviyye_uzre_test">Quiz by level</string>
+    <string name="ders_menimsenilib">%1$d%% mastered</string>
+    <string name="ders_tamamlanib">Completed</string>
+    <string name="ders_tereqqi">Learning progress</string>
+    <string name="ders_bolme_tamamlanib">Sections completed: %1$d / %2$d</string>
+    <string name="ders_davam_et">Continue</string>
+    <string name="ders_bolme_yoxdur">Section not found</string>
+    <string name="ders_calismalara_kec">Go to exercises — 25 topics, 1250 tasks</string>
+    <string name="ders_tamamlanib_basliq">This lesson is completed</string>
+    <string name="ders_menimse_basliq">Mastering this lesson</string>
+    <string name="ders_oz_tesdiq">Marked by your own confirmation</string>
+    <string name="ders_calismasiz">This section has no exercises</string>
+    <plurals name="ders_calisma_hell">
+        <item quantity="one">%1$d / %2$d exercise solved</item>
+        <item quantity="other">%1$d / %2$d exercises solved</item>
+    </plurals>
+    <string name="ders_calismasiz_izah">The exercise bank has no topic for this section. You can confirm yourself that you\'ve finished reading it.</string>
+    <string name="ders_calismali_izah">Scrolling through the text isn\'t enough — the lesson counts as completed only when all exercises are solved correctly.</string>
+    <string name="ders_oxudum">I\'ve read it, done</string>
+    <string name="ders_calismalara_qayit">Back to exercises</string>
+    <string name="ders_calismalarina_kec">Go to this lesson\'s exercises</string>
+
+    <!-- ===== Search ===== -->
+    <string name="axtaris_ipucu">Search the docs…</string>
+    <string name="axtaris_temizle">Clear</string>
+    <string name="axtaris_qisa">Type at least two letters to search.\nAll 32 sections are searched offline.</string>
+    <string name="axtaris_tapilmadi">Nothing found for “%1$s”.</string>
+    <plurals name="axtaris_netice_sayi">
+        <item quantity="one">Found in %d section</item>
+        <item quantity="other">Found in %d sections</item>
+    </plurals>
+
+    <!-- ===== Lesson blocks ===== -->
+    <string name="blok_quiz_basliq">Knowledge quiz</string>
+    <string name="blok_quiz_metn">15 questions — from syntax to coroutines. The questions come in a different order every time.</string>
+    <string name="blok_quiz_duyme">Start the quiz</string>
+    <string name="blok_meydan_basliq">Code playground</string>
+    <string name="blok_meydan_metn">The real Kotlin compiler. This section needs internet — the rest of the app works offline.</string>
+    <string name="blok_meydan_duyme">Open the playground</string>
+    <string name="demo_interaktiv">Interactive</string>
+
+    <!-- ===== Interactive demos: type inference ===== -->
+    <string name="demo_tip_basliq">Type inference lab</string>
+    <string name="demo_tip_tesvir">When you write val x = … Kotlin looks at the right-hand side and works out the type itself.</string>
+    <string name="demo_tip_kod_serhi">what the compiler sees:</string>
+    <string name="demo_tip_cixarilan">Inferred type: </string>
+    <string name="demo_tip_bos">Type a value above or pick one of the examples.</string>
+    <string name="demo_tip_long_l">The L suffix means Long (64 bits).</string>
+    <string name="demo_tip_long_boyuk">The value is bigger than the Int range, so Long was chosen automatically.</string>
+    <string name="demo_tip_int">Whole numbers are Int by default (32 bits).</string>
+    <string name="demo_tip_float">The f suffix means Float (32-bit decimal).</string>
+    <string name="demo_tip_double">Decimal numbers are Double by default (64 bits).</string>
+    <string name="demo_tip_boolean">A logical value: it can only be true or false.</string>
+    <string name="demo_tip_char">Single quotes mean Char, double quotes mean String.</string>
+    <string name="demo_tip_string">Text between double quotes is a String.</string>
+    <string name="demo_tip_null">On its own, null has the type Nothing?. Usually you write the type explicitly: val x: String? = null</string>
+    <string name="demo_tip_bos_siyahi">An empty list\'s element type is unknown — write it explicitly: listOf&lt;Int&gt;()</string>
+    <string name="demo_tip_list">listOf() returns a read-only list.</string>
+    <string name="demo_tip_mutable_list">mutableListOf() allows adding and removing elements.</string>
+    <string name="demo_tip_map">The form mapOf(\"a\" to 1) gives Map&lt;String, Int&gt;.</string>
+    <string name="demo_tip_set">A Set doesn\'t keep duplicate elements.</string>
+    <string name="demo_tip_array">An Array has a fixed size; a List is usually more convenient.</string>
+    <string name="demo_tip_lambda">Curly braces are a lambda; with no parameters its type is () -&gt; Unit.</string>
+    <string name="demo_tip_taninmayan">Unrecognized expression — pick one of the examples above.</string>
+
+    <!-- ===== Interactive demos: null safety ===== -->
+    <string name="demo_ns_basliq">Null safety lab</string>
+    <string name="demo_ns_tesvir">Make the value null or non-null, then pick an operator — see the result and the explanation right away.</string>
+    <string name="demo_ns_deyer_var">Has a value (null when off)</string>
+    <string name="demo_ns_kompilyasiya">COMPILATION ERROR</string>
+    <string name="demo_ns_cokme">RUNTIME CRASH</string>
+    <string name="demo_ns_netice">OUTPUT</string>
+    <string name="demo_ns_ne_bas_verdi">What happened?</string>
+    <string name="demo_ns_hec_ne">(nothing was printed)</string>
+    <string name="demo_ns_direct">Kotlin won\'t even let this code run. The error is caught at compile time, not at runtime — so the user will never see it.</string>
+    <string name="demo_ns_safe_null">The safe call operator (?.): if the receiver is null, the call is skipped entirely and the result is null. No crash.</string>
+    <string name="demo_ns_safe_dolu">The receiver isn\'t null, so length is computed as usual.</string>
+    <string name="demo_ns_bang_null">The !! operator means “I guarantee this isn\'t null”. If you\'re wrong — NPE. Avoid it whenever you can.</string>
+    <string name="demo_ns_bang_dolu">This time the value wasn\'t null, so it worked. But !! is still risky — next time it might be null.</string>
+    <string name="demo_ns_elvis_null">The Elvis operator (?:) returns the fallback value on the right when the left side is null.</string>
+    <string name="demo_ns_elvis_dolu">The left side isn\'t null, so the right side of the Elvis operator never runs.</string>
+    <string name="demo_ns_let_null">The let block runs only when the receiver isn\'t null. When it is null, the whole block is skipped.</string>
+    <string name="demo_ns_let_dolu">Inside the block, it is already smart-cast to String — no extra ? needed.</string>
+    <string name="demo_ns_if_null">The condition was false, so the block didn\'t run.</string>
+    <string name="demo_ns_if_dolu">SMART CAST: after the null check the compiler automatically treats ad as String — no need to write ?.</string>
+
+    <!-- ===== Interactive demos: chain, when, scope, coroutine ===== -->
+    <string name="demo_zencir_basliq">Chain builder</string>
+    <string name="demo_zencir_tesvir">Tap operations to build a chain — see the intermediate result of every step.</string>
+    <string name="demo_zencir_temizle">Clear the chain</string>
+    <string name="demo_zencir_terminal">The chain can\'t continue after a terminal operation</string>
+    <string name="demo_zencir_netice">result = </string>
+    <string name="demo_when_basliq">when expression tester</string>
+    <string name="demo_when_tesvir">Type a value — see live which branch is chosen.</string>
+    <string name="demo_when_bos_giris">(empty input)</string>
+    <string name="demo_scope_basliq">Scope functions compared</string>
+    <string name="demo_scope_tesvir">How the five functions differ: what the context object is, what they return, where they\'re used.</string>
+    <string name="demo_scope_kontekst">Context</string>
+    <string name="demo_scope_qaytarir">Returns</string>
+    <string name="demo_scope_ne_vaxt">When to use it?</string>
+    <string name="demo_scope_lambda_neticesi">lambda result</string>
+    <string name="demo_scope_obyektin_ozu">the object itself</string>
+    <string name="demo_scope_son_setir">the last line is returned</string>
+    <string name="demo_scope_let">To work with a non-null value and turn it into another result.</string>
+    <string name="demo_scope_run">To combine configuring an object with computing a result.</string>
+    <string name="demo_scope_with">To group several operations on the same object in one place.</string>
+    <string name="demo_scope_apply">To build an object (builder style) — the most used scope function.</string>
+    <string name="demo_scope_also">For side effects — logging, validation, debugging. It doesn\'t break the chain.</string>
+    <string name="demo_coro_basliq">Coroutine visualizer</string>
+    <string name="demo_coro_tesvir">The same three tasks — how long do they take sequentially and in parallel?</string>
+    <string name="demo_coro_ardicil">Sequential</string>
+    <string name="demo_coro_paralel">Parallel (async)</string>
+    <string name="demo_coro_serh_ardicil">Sequential — each one waits for the other</string>
+    <string name="demo_coro_serh_paralel">Parallel — all start at the same time</string>
+    <string name="demo_coro_serh_cemi">total ~%1$d ms</string>
+    <string name="demo_ms">%1$d ms</string>
+    <string name="demo_coro_basla">Start</string>
+    <string name="demo_coro_dayandir">Stop</string>
+    <string name="demo_coro_yeniden">Again</string>
+    <string name="demo_coro_paralel_bitdi">Parallel: 1500 ms — it took only as long as the longest task. 2.2 times faster!</string>
+    <string name="demo_coro_ardicil_bitdi">Sequential: 3300 ms — each task waited for its turn.</string>
+    <string name="demo_coro_gedir">Running…</string>
+    <string name="demo_coro_baslayin">Press the Start button.</string>
+
+    <!-- ===== My mistakes (T5.2) ===== -->
+    <string name="sehvlerim_basliq">My mistakes</string>
+    <string name="sehvlerim_bos">No mistakes yet — take a quiz and your mistakes will be collected here.</string>
+    <string name="sehvlerim_izah">A question leaves the list once you answer it correctly twice in a row.</string>
+    <plurals name="sehvlerim_sayi">
+        <item quantity="one">%d missed question</item>
+        <item quantity="other">%d missed questions</item>
+    </plurals>
+    <string name="sehvlerim_test">Quiz on mistakes only</string>
+    <plurals name="sehvlerim_defe">
+        <item quantity="one">missed %d time</item>
+        <item quantity="other">missed %d times</item>
+    </plurals>
+    <string name="sehvlerim_meta">%1$s · %2$s · %3$s</string>
+    <string name="quiz_rejim_sehvler">Quiz on mistakes</string>
+    <string name="quiz_rejim_sehvler_izah">Only the questions you answered wrong — a question leaves the list once you answer it correctly twice in a row.</string>
+    <string name="quiz_sehvlere_bax">Review mistakes</string>
+
+    <!-- ===== Bookmarks and notes (T5.3) ===== -->
+    <string name="isareler_basliq">Bookmarks and notes</string>
+    <string name="isareler_tab_isareler">Bookmarks · %1$d</string>
+    <string name="isareler_tab_qeydler">Notes · %1$d</string>
+    <string name="isareler_bos">You haven\'t bookmarked anything yet. Tap the bookmark icon in a lesson, exercise or code sample.</string>
+    <string name="qeydler_bos">No notes yet. Tap the note icon in a lesson or exercise and write in your own words.</string>
+    <string name="isare_tip_bolme">Lesson</string>
+    <string name="isare_tip_calisma">Exercise</string>
+    <string name="isare_tip_kod">Code</string>
+    <string name="isare_elave">Bookmark</string>
+    <string name="isare_sil">Remove bookmark</string>
+    <string name="qeyd_basliq">My note</string>
+    <string name="qeyd_elave">Write a note</string>
+    <string name="qeyd_redakte">Edit note</string>
+    <string name="qeyd_ipucu">Write in your own words — what do you want to remember?</string>
+    <string name="qeyd_dil_izah">Notes aren\'t translated — they stay as they are when you change the language.</string>
+    <string name="qeyd_saxla">Save</string>
+    <string name="qeyd_sil">Delete</string>
+    <string name="qeyd_sil_basliq">Delete the note?</string>
+    <string name="qeyd_sil_metn">This note will be deleted permanently.</string>
+    <string name="qeyd_hamisi">Show all</string>
+    <string name="qeyd_qisalt">Show less</string>
+    <string name="ayarlar_isareler_izah">Bookmarks and notes are stored on this device and included in Android backup.</string>
+
+    <!-- ===== Statistics (T5.4) ===== -->
+    <string name="stat_basliq">Statistics</string>
+    <string name="stat_sayqaclar">Counters</string>
+    <string name="stat_dersler">Completed lessons</string>
+    <string name="stat_calismalar">Solved exercises</string>
+    <string name="stat_fealiyyet">Last 30 days</string>
+    <string name="stat_fealiyyet_xulase">%1$s · %2$s active</string>
+    <plurals name="stat_calisma_sayi">
+        <item quantity="one">%d exercise</item>
+        <item quantity="other">%d exercises</item>
+    </plurals>
+    <plurals name="stat_gun_sayi">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <string name="stat_seriya">Current streak</string>
+    <string name="stat_en_uzun_seriya">Longest streak</string>
+    <string name="stat_quiz_tarixcesi">Quiz — recent rounds</string>
+    <string name="stat_quiz_bos">You haven\'t taken a quiz yet. Results will appear here when a round ends.</string>
+    <string name="stat_rekord">Record</string>
+    <string name="stat_ac">See all statistics</string>
+
+    <!-- ===== Learning path (T5.5) ===== -->
+    <string name="yol_novbeti">Next step</string>
+    <string name="yol_tovsiye">%1$s · %2$s</string>
+    <plurals name="yol_qalan_calisma">
+        <item quantity="one">%d exercise left</item>
+        <item quantity="other">%d exercises left</item>
+    </plurals>
+    <string name="yol_kilidli">Finish the earlier topics first</string>
+    <string name="yol_kilid_ikon">Ahead of the recommended order</string>
+    <string name="yol_xeberdarliq">For this topic it\'s recommended to finish “%1$s” first — but you can read it now if you want.</string>
+
+    <!-- ===== Accessibility (T5.6) ===== -->
+    <string name="a11y_duzgun_cavab">correct answer</string>
+    <string name="a11y_sehv_cavab">wrong answer — your choice</string>
+    <string name="a11y_tereqqi">Progress: %1$d%%</string>
+</resources>

@@ -132,6 +132,15 @@ function lugetFayllariniYoxla() {
   Object.keys(L.localizedIo()).forEach((id) => {
     if (!calismalar[id]) xetalar.push(rel(L.LOCALIZED_IO_FAYLI) + ': «' + id + '» praktiki calisma deyil');
   });
+  // neytral.json: hər yol bazada mövcud yarpaq olmalıdır — məzmun (və blok
+  // id-si, T3.1) dəyişəndə köhnə yol qalmasın.
+  const ns = L.neytralSiyahi();
+  L.FAYLLAR.forEach((ad) => {
+    const var_ = new Set(L.YARPAQ[ad](L.bazaOxu(ad)).map((y) => y.acar.join(' › ')));
+    ns[ad].forEach((yol) => {
+      if (!var_.has(yol)) xetalar.push(rel(L.NEYTRAL_FAYLI) + ': ' + ad + ' › ' + yol + ' — bazada yoxdur');
+    });
+  });
   return xetalar;
 }
 
@@ -176,7 +185,7 @@ function localeYoxla(locale) {
   if (locale === L.BAZA) {
     L.FAYLLAR.forEach((ad) => {
       L.YARPAQ[ad](L.bazaOxu(ad)).forEach((y) => {
-        if (L.bosdur(y.deyer)) return;
+        if (L.bosdur(y.deyer) || L.neytraldir(ad, y)) return;
         n.say[y.qrup].var++; n.say[y.qrup].cemi++;
       });
     });
@@ -191,7 +200,7 @@ function localeYoxla(locale) {
 
     if (!fs.existsSync(fayl)) {
       n.xeberdarliqlar.push(rel + ': overlay yoxdur — hamisi bazadan gelir');
-      yarpaqlar.forEach((y) => { if (!L.bosdur(y.deyer)) n.say[y.qrup].cemi++; });
+      yarpaqlar.forEach((y) => { if (!L.bosdur(y.deyer) && !L.neytraldir(ad, y)) n.say[y.qrup].cemi++; });
       return;
     }
     const metn = fs.readFileSync(fayl, 'utf8');
@@ -219,13 +228,17 @@ function localeYoxla(locale) {
     yarpaqlar.forEach((y) => {
       // Bazada boş sahə tərcümə edilə bilməz — faizə sayılmır (L.tamamlanma ilə eyni).
       if (L.bosdur(y.deyer)) return;
-      const q = n.say[y.qrup]; q.cemi++;
+      // Dildən asılı olmayan yarpaq (yalnız kod/rəqəm) faizə sayılmır; overlay-də
+      // varsa yenə də quruluşu yoxlanılır (L.neytraldir).
+      const neytral = L.neytraldir(ad, y);
+      const q = neytral ? { var: 0, cemi: 0 } : n.say[y.qrup];
+      q.cemi++;
       const v = L.overlayOxu(overlay, y.acar);
       if (L.bosdur(v)) return;
       const yol = y.acar.join(' › ');
       const problem = y.yoxla ? y.yoxla(v) : qurulusYoxla(y.deyer, v, y.acar[y.acar.length - 1]);
       if (problem) { n.xetalar.push(rel + ': ' + yol + ' — ' + problem); return; }
-      if (deepEqual(v, y.deyer)) { n.xeberdarliqlar.push(rel + ': ' + yol + ' — bazadaki metnin eynisi (tercume olunmayib)'); return; }
+      if (deepEqual(v, y.deyer)) { if (!neytral) n.xeberdarliqlar.push(rel + ': ' + yol + ' — bazadaki metnin eynisi (tercume olunmayib)'); return; }
       // Kod yarpağında yalnız şərh dəyişib (y.yoxla) — mətn qaydaları ona aid deyil.
       if (y.yoxla) { q.var++; return; }
       lugetYoxla(y.deyer, v, locale).forEach((x) => n.xeberdarliqlar.push(rel + ': ' + yol + ' — ' + x));
@@ -259,6 +272,16 @@ function localeYoxla(locale) {
     n.xetalar.push(path.relative(process.cwd(), yanlisYer) + ' artiq burada olmamalidir (' +
       (n.tam ? 'dil tamdir — release-e kecir' : 'dil yarimciqdir — release-e dusmemelidir') +
       ') — node tools/build-locale.js ' + locale);
+  }
+  // UI sətirləri də eyni qapıdan keçir: yarımçıq dilin strings.xml-i main-də
+  // olsa, sistem dili həmin dil olan cihazda release yarımçıq UI göstərər.
+  if (locale !== L.BAZA) {
+    const uiYanlis = path.join(n.tam ? L.RES_DEBUG : L.RES, 'values-' + locale, 'strings.xml');
+    if (fs.existsSync(uiYanlis)) {
+      n.xetalar.push(path.relative(process.cwd(), uiYanlis) + ' artiq burada olmamalidir (' +
+        (n.tam ? 'dil tamdir — release-e kecir' : 'dil yarimciqdir — release-e dusmemelidir') +
+        ') — node tools/build-locale.js ' + locale);
+    }
   }
 
   return n;

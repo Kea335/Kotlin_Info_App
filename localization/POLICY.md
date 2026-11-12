@@ -42,7 +42,9 @@ yoxlayır — aşağıda hər qaydanın yanında **[xəta]**, **[xəbərdarlıq]
 - Kod bloklarının **başlığı** (`title`) — kodun özü yox
 - Kod içindəki **şərhlər**: `// İstifadəçinin yaşını yoxlayırıq` → `// Check the user's age`
 - Meydan nümunələrinin etiketi (`label`)
-- UI sətirləri — `app/src/main/res/values-<dil>/strings.xml`
+- UI sətirləri — `app/src/debug/res/values-<dil>/strings.xml`. Dil 100 %-ə
+  çatanda `build-locale.js` faylı `src/main/res/`-ə köçürür (T4.7 qapısı):
+  yarımçıq UI release-ə düşmür
 
 ### Span quruluşu
 
@@ -67,6 +69,30 @@ Skelet fərqlidirsə — boşluq, sətir, dırnaq daxil — **[xəta]**, və
 `build-locale.js` həmin sahə üçün bazanı saxlayır (tərcümə APK-ya düşmür).
 
 Şərhi olmayan kod overlay-də ümumiyyətlə görünmür — tərcümə ediləsi heç nə yoxdur.
+
+Kod bloku başlığı fayl adıdırsa (`Sinif.kt`, `build.gradle.kts`), o da dəyişmir —
+fayl adı kodun içindəki identifikatorlarla bağlıdır.
+
+### Dildən asılı olmayan dəyərlər
+
+Bəzi dəyərlərdə tərcümə olunası söz yoxdur: yalnız koddan ibarət variantlar
+(`["null", "-1", "0", "NullPointerException"]`), `data class` etiketi, fayl adı,
+`[1, 4, 9]` kimi nəticə. Onlar hər dildə bazadakı kimi qalır, faizə sayılmır və
+`overlay-parca.js cixar` onları vermir. İki mənbə:
+
+- **Qayda** (`content-lib.dilNeytraldir`) — dəyərdəki hər söz kod kimi görünür.
+  Mühafizəkardır: bir adi söz də varsa («Bəli», «yaz.», «(tam bölmə!)»), dəyər
+  tərcümə olunur.
+- **Siyahı** — [`neytral.json`](neytral.json): qaydanın tuta bilmədiyi, əl ilə
+  yoxlanılmış yarpaqlar — kod ipucusu (`s.map { it * 2 }`), kod variantları
+  (`["and", "&&", "&", "AND"]`), proqram çıxışı (`"init, birinci, sonuncu"`),
+  məhsul adı («Kotlin Koans»), yalnız kod olan şərh (`// Java: final String …`).
+  Yol bazaya aiddir və bütün dillərə tətbiq olunur; baza dəyişib yol itəndə
+  validator **[xəta]** verir.
+
+Xəbərdarlığı susdurmaq üçün neytral dəyəri **dəyişmə** («1 · Safe call — ?.» →
+«Safe calls» yox): bazadakı kimi saxla və yolu `neytral.json`-a əlavə et.
+Siyahı: `node tools/overlay-parca.js neytral <fayl>`.
 
 ### String literal-lar — əsas qayda
 

@@ -24,6 +24,7 @@ const AKTIV_KOKU = path.join(APP_SRC, 'main', 'assets', 'content');
  */
 const AKTIV_KOKU_DEBUG = path.join(APP_SRC, 'debug', 'assets', 'content');
 const RES = path.join(APP_SRC, 'main', 'res');
+const RES_DEBUG = path.join(APP_SRC, 'debug', 'res');
 /** Release-in dil siyahısı (Android 13+ sistem menyusu) — build-locale.js yazır. */
 const LOCALE_CONFIG = path.join(RES, 'xml', 'locales_config.xml');
 /** Bütün dillər, AppDil sırası ilə — əl ilə saxlanılır, AppDilTest yoxlayır. */
@@ -292,6 +293,90 @@ function bosdur(v) {
   return false;
 }
 
+/* ------------------------------------------------------------
+   Dildən asılı olmayan yarpaq (T4.1)
+
+   Bəzi dəyərlərdə tərcümə olunası söz yoxdur: `["null", "-1", "0",
+   "NullPointerException"]` variantları, «data class» etiketi, `[1, 4, 9]`.
+   Onlar hər dildə bazadakı kimi qalır — faizə sayılsalar dil heç vaxt
+   100 %-ə çatmazdı. Bazada boş sahə kimi saydan çıxarılır, «bazadakının
+   eynisi» xəbərdarlığı vermir, overlay-parca.js onları çıxarmır.
+
+   Qayda mühafizəkardır: dəyərdəki HƏR söz kod kimi görünməlidir — inline
+   kod span-ı, `f()`, `a.b`, camelCase, rəqəm/simvol, null/true/false,
+   glossary.doNotTranslate və ya aşağıdakı stdlib tip adları. Bir adi söz
+   («Bəli», «yalnız») kifayətdir ki, yarpaq tərcümə olunası sayılsın.
+   Siyahı: node tools/overlay-parca.js neytral <fayl>
+   ------------------------------------------------------------ */
+
+const KOD_ADLARI = ['class', 'interface', 'enum', 'Int', 'Long', 'Short', 'Byte', 'Double', 'Float',
+  'Boolean', 'Char', 'String', 'Unit', 'Any', 'Nothing', 'List', 'Set', 'Map', 'Array', 'Pair',
+  'Triple', 'Sequence', 'Result', 'Regex', 'Exception', 'Throwable', 'Job', 'Deferred'];
+
+let _neytralSozler = null;
+function neytralSozler() {
+  if (_neytralSozler === null) {
+    const f = path.join(LOCALIZATION, 'glossary.json');
+    const dnt = fs.existsSync(f) ? (JSON.parse(fs.readFileSync(f, 'utf8')).doNotTranslate || []) : [];
+    // Uzun ifadələr əvvəl: «data class» «class»-dan qabaq silinsin.
+    _neytralSozler = dnt.concat(KOD_ADLARI).sort((a, b) => b.length - a.length)
+      .map((s) => new RegExp('(^|[^\\p{L}\\p{N}_])' + s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?=$|[^\\p{L}\\p{N}_])', 'gu'));
+  }
+  return _neytralSozler;
+}
+
+/** Dəyərin adi mətni; inline kod span-ları atılır (onlar onsuz da dəyişmir). */
+function neytralMetn(v) {
+  if (typeof v === 'string') return v;
+  if (Array.isArray(v)) return v.map(neytralMetn).join(' ');
+  if (v && typeof v === 'object') return v.k === 'code' ? ' ' : (v.v || '');
+  return '';
+}
+
+function kodSozudur(t) {
+  // Cümlə durğusu və mötərizə kod əlaməti deyil: «nədir?», «yaz.»,
+  // «(tam bölmə!)» adi sözlərdir; `start()` isə koddur — `(` içindədir.
+  t = t.replace(/^[([]+/, '');
+  if (t.indexOf('(') === -1) t = t.replace(/[)\]]+$/, '');
+  t = t.replace(/[.?!:]+$/, '');
+  if (!/\p{L}/u.test(t)) return true;                    // rəqəm, simvol
+  if (/[()<>{}=.?!_$:[\]]/.test(t)) return true;         // f(), a.b, x?.y, List<T>
+  if (/^(null|true|false)$/.test(t)) return true;
+  if (/^[a-z]+[A-Z]\w*$/.test(t) || /^[A-Z][a-z0-9]+[A-Z]\w*$/.test(t)) return true; // camelCase, PascalCase
+  return false;
+}
+
+function dilNeytraldir(v) {
+  if (bosdur(v)) return false;
+  let m = neytralMetn(v);
+  neytralSozler().forEach((re) => { m = m.replace(re, '$1 '); });
+  return m.split(/[\s,;/«»“”"'—–-]+/).filter(Boolean).every(kodSozudur);
+}
+
+/**
+ * Qaydanın tuta bilmədiyi neytral yarpaqlar — localization/neytral.json.
+ * Kod ipucusu (`s.map { it * 2 }`), kod variantları (`["and", "&&", "&", "AND"]`),
+ * proqram çıxışı, məhsul adı: sözlər koda bənzəmir, amma heç bir dildə
+ * dəyişmir. Siyahı bazanın xüsusiyyətidir — bütün dillərə aiddir. Yol
+ * bazada artıq yoxdursa validator xəta verir (məzmun dəyişib).
+ */
+const NEYTRAL_FAYLI = path.join(LOCALIZATION, 'neytral.json');
+let _neytralSiyahi = null;
+function neytralSiyahi() {
+  if (_neytralSiyahi === null) {
+    const d = fs.existsSync(NEYTRAL_FAYLI) ? JSON.parse(fs.readFileSync(NEYTRAL_FAYLI, 'utf8')) : {};
+    _neytralSiyahi = {};
+    FAYLLAR.forEach((ad) => { _neytralSiyahi[ad] = new Set(d[ad] || []); });
+  }
+  return _neytralSiyahi;
+}
+
+/** Yarpaq dildən asılı deyil: qayda ilə (dilNeytraldir) və ya siyahıda. */
+function neytraldir(ad, y) {
+  if (bosdur(y.deyer)) return false;
+  return dilNeytraldir(y.deyer) || neytralSiyahi()[ad].has(y.acar.join(' › '));
+}
+
 /** Bazadakı dəyərin tipinə uyğun boş dəyər — skelet üçün. */
 function bosNusxe(v) {
   return Array.isArray(v) ? [] : '';
@@ -340,11 +425,23 @@ function uiSetirSayi(fayl) {
     .filter((teq) => /\sname="/.test(teq) && !/translatable="false"/.test(teq)).length;
 }
 
+/**
+ * Dilin UI sətirləri faylı. Aktivlər kimi (T4.7): yarımçıq dil
+ * src/debug/res-dədir, tam dil src/main/res-də — yoxsa sistem dili həmin
+ * dil olan cihazda release yarımçıq UI göstərərdi. Faylı build-locale.js
+ * köçürür; yeni dil debug-da başlayır. Hələ yoxdursa debug yolu qaytarılır.
+ */
+function uiFayli(locale) {
+  const main = path.join(RES, 'values-' + locale, 'strings.xml');
+  const debug = path.join(RES_DEBUG, 'values-' + locale, 'strings.xml');
+  return fs.existsSync(main) ? main : debug;
+}
+
 /** UI sətirləri: tərcümə olunan / ümumi. */
 function uiSayi(locale) {
   const baza = uiSetirSayi(path.join(RES, 'values', 'strings.xml'));
   if (locale === BAZA) return { var: baza, cemi: baza };
-  return { var: Math.min(baza, uiSetirSayi(path.join(RES, 'values-' + locale, 'strings.xml'))), cemi: baza };
+  return { var: Math.min(baza, uiSetirSayi(uiFayli(locale))), cemi: baza };
 }
 
 /**
@@ -363,7 +460,7 @@ function tamamlanma(locale) {
     YARPAQ[ad](baza).forEach((y) => {
       // Bazada boş olan sahə (məsələn başlıqsız kod bloku) tərcümə edilə
       // bilməz — sayılsa dil heç vaxt 100 %-ə çatmazdı.
-      if (bosdur(y.deyer)) return;
+      if (bosdur(y.deyer) || neytraldir(ad, y)) return;
       c++;
       if (locale === BAZA) { v++; return; }
       const d = overlay ? overlayOxu(overlay, y.acar) : undefined;
@@ -446,9 +543,9 @@ function tekrarAcarlar(metn) {
 }
 
 module.exports = {
-  AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
+  AKTIV_KOKU, AKTIV_KOKU_DEBUG, RES, RES_DEBUG, uiFayli, LOCALE_CONFIG, LOCALE_CONFIG_DEBUG, LOCALIZATION, BAZA, FAYLLAR,
   spanMetni, bloklardanMetn,
-  YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, bosNusxe,
+  YARPAQ, overlayOxu, overlayYaz, overlayYollari, bosdur, dilNeytraldir, neytraldir, neytralSiyahi, NEYTRAL_FAYLI, bosNusxe,
   bazaOxu, overlayYolu, localeSiyahisi, tekrarAcarlar, localizedIo, LOCALIZED_IO_FAYLI,
   uiSayi, tamamlanma, tamdir, aktivKoku, localeConfigOxu, localeConfigMetni
 };

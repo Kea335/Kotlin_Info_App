@@ -4,4 +4,5 @@
      dillər görünür (T4.7). Bütün dillər: src/debug/res/xml/locales_config.xml. -->
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
     <locale android:name="az" />
+    <locale android:name="en" />
 </locale-config>
