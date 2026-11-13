@@ -8348,119 +8348,846 @@
       }
     },
     "backend": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Бэкенд: Ktor и Spring",
+      "heading": "Бэкенд: Ktor и Spring Boot",
+      "kicker": "Раздел 25",
+      "group": "Области применения",
       "blocks": {
         "backend.p.583dab15": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin силён и на сервере. Есть два основных варианта: лёгкий и полностью написанный на Kotlin"
+            },
+            {
+              "k": "b",
+              "v": "Ktor"
+            },
+            {
+              "k": "t",
+              "v": " или"
+            },
+            {
+              "k": "b",
+              "v": "Spring Boot"
+            },
+            {
+              "k": "t",
+              "v": " со зрелой экосистемой."
+            }
+          ]
         },
         "backend.h3.f584f673": {
-          "text": ""
+          "text": "Ktor — минимальный REST API"
         },
         "backend.code.7642f1df": {
           "title": ""
         },
         "backend.h3.35709734": {
-          "text": ""
+          "text": "Ktor — зависимости"
         },
         "backend.code.82615a39": {
           "title": ""
         },
         "backend.h3.73435695": {
-          "text": ""
+          "text": "Kotlin со Spring Boot"
         },
         "backend.code.796c71e7": {
           "title": "",
-          "code": ""
+          "code": "import org.springframework.boot.autoconfigure.SpringBootApplication\nimport org.springframework.boot.runApplication\nimport org.springframework.web.bind.annotation.*\nimport org.springframework.http.ResponseEntity\n\n@SpringBootApplication\nclass Tetbiq\n\nfun main(args: Array<String>) {\n    runApplication<Tetbiq>(*args)\n}\n\ndata class Istifadeci(val id: Long, val ad: String, val email: String)\n\n@RestController\n@RequestMapping(\"/api/istifadeciler\")\nclass IstifadeciController(private val servis: IstifadeciServisi) {\n\n    @GetMapping\n    fun hamisi(): List<Istifadeci> = servis.hamisi()\n\n    @GetMapping(\"/{id}\")\n    fun tap(@PathVariable id: Long): ResponseEntity<Istifadeci> =\n        servis.tap(id)\n            ?.let { ResponseEntity.ok(it) }\n            ?: ResponseEntity.notFound().build()\n\n    // Со Spring WebFlux suspend-функции поддерживаются напрямую\n    @PostMapping\n    suspend fun yarat(@RequestBody istifadeci: Istifadeci): Istifadeci =\n        servis.yarat(istifadeci)\n}"
         },
         "backend.h3.b9395c83": {
-          "text": ""
+          "text": "Exposed — SQL-библиотека"
         },
         "backend.code.64de14f9": {
           "title": "",
-          "code": ""
+          "code": "import org.jetbrains.exposed.sql.*\nimport org.jetbrains.exposed.sql.transactions.transaction\n\nobject Istifadeciler : Table(\"istifadeciler\") {\n    val id = integer(\"id\").autoIncrement()\n    val ad = varchar(\"ad\", 100)\n    val email = varchar(\"email\", 200).uniqueIndex()\n    val yas = integer(\"yas\").nullable()\n\n    override val primaryKey = PrimaryKey(id)\n}\n\nfun main() {\n    Database.connect(\"jdbc:postgresql://localhost:5432/baza\",\n        driver = \"org.postgresql.Driver\", user = \"admin\", password = \"sirr\")\n\n    transaction {\n        SchemaUtils.create(Istifadeciler)\n\n        // INSERT\n        Istifadeciler.insert {\n            it[ad] = \"Aysel\"\n            it[email] = \"aysel@mail.az\"\n            it[yas] = 24\n        }\n\n        // SELECT — типобезопасный DSL\n        val boyukler = Istifadeciler\n            .select { Istifadeciler.yas greaterEq 18 }\n            .orderBy(Istifadeciler.ad)\n            .map { it[Istifadeciler.ad] }\n\n        // UPDATE\n        Istifadeciler.update({ Istifadeciler.ad eq \"Aysel\" }) {\n            it[yas] = 25\n        }\n    }\n}"
         },
         "backend.table.a48580d4": {
           "head": [],
-          "rows": []
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Разработчик"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "JetBrains"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "VMware / Pivotal"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Порог входа"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Простой, мало понятий"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Крутой, много понятий"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Время запуска"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Очень быстро (~300 мс)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Медленно (~2–5 с)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Память"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Мало"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Много"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Экосистема"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Небольшая, растёт"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Огромная, зрелая"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Поддержка корутин"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Встроенная"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Через WebFlux"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Когда"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Микросервисы, KMP, новые проекты"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Корпоративные системы, нужны готовые решения"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "test": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Написание тестов",
+      "heading": "Написание тестов",
+      "kicker": "Раздел 26",
+      "group": "Области применения",
       "blocks": {
         "test.p.f0e21275": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Писать тесты на Kotlin особенно приятно: благодаря обратным кавычкам имена тестов читаются как обычные предложения, а тесты корутин поддерживаются отдельной библиотекой."
+            }
+          ]
         },
         "test.h3.d069587a": {
-          "text": ""
+          "text": "Базовые тесты"
         },
         "test.code.780c027f": {
           "title": "",
-          "code": ""
+          "code": "import kotlin.test.*\n\nclass HesablayiciTest {\n\n    private lateinit var hesablayici: Hesablayici\n\n    @BeforeTest\n    fun hazirla() {\n        hesablayici = Hesablayici()\n    }\n\n    // Имена тестов в обратных кавычках — читаются как документация\n    @Test\n    fun `iki musbet reqemi toplayir`() {\n        assertEquals(5, hesablayici.topla(2, 3))\n    }\n\n    @Test\n    fun `sifira bolende istisna atir`() {\n        val xeta = assertFailsWith<ArithmeticException> {\n            hesablayici.bol(10, 0)\n        }\n        assertEquals(\"Sıfıra bölmək olmaz\", xeta.message)\n    }\n\n    @Test\n    fun `bos siyahi ucun null qaytarir`() {\n        assertNull(emptyList<Int>().maxOrNull())\n    }\n\n    @Test\n    fun `siyahida element var`() {\n        val netice = listOf(1, 2, 3)\n        assertTrue(netice.contains(2))\n        assertContentEquals(listOf(1, 2, 3), netice)\n    }\n}"
         },
         "test.h3.e8e20255": {
-          "text": ""
+          "text": "Функции проверок (assertions)"
         },
         "test.table.237604bd": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функция"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Проверяет"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertEquals(g, f)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ожидаемое = фактическое"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertNotEquals(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Различаются"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertTrue(x) / assertFalse(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Логическое условие"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertNull(x) / assertNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Равно ли null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertSame(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Тот же объект (ссылка)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertContentEquals(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Содержимое коллекции"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertFailsWith<E> { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Бросается конкретное исключение"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "fail(\"mesaj\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Намеренно проваливает тест"
+                }
+              ]
+            ]
+          ]
         },
         "test.h3.cf856e7a": {
-          "text": ""
+          "text": "Тесты корутин"
         },
         "test.code.4e560006": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.test.*\nimport kotlin.test.*\n\nclass RepoTest {\n\n    // runTest — мгновенно пропускает delay с помощью виртуального времени\n    @Test\n    fun `melumat ugurla yuklenir`() = runTest {\n        val repo = IstifadeciRepo(SaxtaApi())\n\n        val netice = repo.hamisiniGetir()   // delay(5000) внутри проходит мгновенно\n\n        assertEquals(2, netice.size)\n        assertEquals(\"Aysel\", netice.first().ad)\n    }\n\n    @Test\n    fun `sebeke xetasi duzgun idare olunur`() = runTest {\n        val repo = IstifadeciRepo(XetaliApi())\n\n        assertFailsWith<NetworkException> {\n            repo.hamisiniGetir()\n        }\n    }\n}"
         },
         "test.h3.4b7fa526": {
-          "text": ""
+          "text": "MockK — мок-объекты"
         },
         "test.code.3bfaf51c": {
           "title": "",
-          "code": ""
+          "code": "import io.mockk.*\nimport kotlin.test.*\n\nclass ServisTest {\n\n    private val repo = mockk<IstifadeciRepo>()\n    private val servis = IstifadeciServisi(repo)\n\n    @Test\n    fun `repodan gelen melumat cevrilir`() {\n        // Подготовка\n        every { repo.tap(1) } returns Istifadeci(1, \"Aysel\")\n\n        // Действие\n        val netice = servis.adiAl(1)\n\n        // Проверка\n        assertEquals(\"Aysel\", netice)\n        verify(exactly = 1) { repo.tap(1) }\n    }\n\n    @Test\n    fun `suspend funksiya mock-lanir`() = runTest {\n        coEvery { repo.hamisiniGetir() } returns listOf(Istifadeci(1, \"Aysel\"))\n\n        val netice = servis.hamisi()\n\n        assertEquals(1, netice.size)\n        coVerify { repo.hamisiniGetir() }\n    }\n}"
         },
         "test.h3.d300c230": {
-          "text": ""
+          "text": "Параметризованные тесты"
         },
         "test.code.6d55ae0d": {
           "title": ""
         },
         "test.code.8d69295d": {
-          "title": "",
-          "code": ""
+          "title": "build.gradle.kts — зависимости для тестов",
+          "code": "dependencies {\n    testImplementation(kotlin(\"test\"))\n    testImplementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1\")\n    testImplementation(\"io.mockk:mockk:1.13.11\")\n    testImplementation(\"org.junit.jupiter:junit-jupiter-params:5.10.2\")\n    testImplementation(\"app.cash.turbine:turbine:1.1.0\")   // тесты Flow\n}\n\ntasks.test {\n    useJUnitPlatform()\n}"
         },
         "test.callout.3fba827b": {
-          "title": ""
+          "title": "Шаблон AAA"
         },
         "test.p.c23c3b86": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Дели каждый тест на три части:"
+            },
+            {
+              "k": "b",
+              "v": "Arrange"
+            },
+            {
+              "k": "t",
+              "v": " (подготовка — данные и моки),"
+            },
+            {
+              "k": "b",
+              "v": "Act"
+            },
+            {
+              "k": "t",
+              "v": " (действие — вызов тестируемой функции),"
+            },
+            {
+              "k": "b",
+              "v": "Assert"
+            },
+            {
+              "k": "t",
+              "v": " (проверка). Проверяй в одном тесте только одно поведение — тогда при падении теста причина сразу понятна."
+            }
+          ]
         }
       }
     },
     "java-muqayise": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Kotlin и Java",
+      "heading": "Сравнение Kotlin и Java",
+      "kicker": "Раздел 27",
+      "group": "Итоги",
       "blocks": {
         "java-muqayise.p.b8d2d2a8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin создавался не для того, чтобы заменить Java, а чтобы решить её проблемы. Оба языка компилируются в один и тот же байт-код и могут работать вместе в одном проекте."
+            }
+          ]
         },
         "java-muqayise.h3.ae5725ed": {
-          "text": ""
+          "text": "Основные различия"
         },
         "java-muqayise.table.b94a0bf2": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Тема"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Java"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kotlin"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Null-безопасность"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет в системе типов"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Часть типа ("
+                },
+                {
+                  "k": "code",
+                  "v": "String?"
+                },
+                {
+                  "k": "t",
+                  "v": ")"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Точка с запятой"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Обязательна"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Не нужна"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Указание типов"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Почти всегда"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Часто не нужно"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Класс данных"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "record"
+                },
+                {
+                  "k": "t",
+                  "v": " (Java 16+) или 50 строк"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "data class"
+                },
+                {
+                  "k": "t",
+                  "v": " — 1 строка"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функции-расширения"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Есть"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Корутины"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Виртуальные потоки (Java 21+)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Корутины + Flow"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Checked exceptions"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Есть"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Параметры по умолчанию"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет (нужны перегрузки)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Есть"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Строковые шаблоны"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет (конкатенация / format)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"$ad\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Классы по умолчанию"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Открыты (можно наследовать)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "final (нужен"
+                },
+                {
+                  "k": "code",
+                  "v": "open"
+                },
+                {
+                  "k": "t",
+                  "v": ")"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Статические члены"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "static"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "companion object"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Синглтоны"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Вручную (enum или holder)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "object"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Оператор"
+                },
+                {
+                  "k": "code",
+                  "v": "=="
+                },
+                {
+                  "k": "t",
+                  "v": " (равенство)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Сравнение ссылок"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Сравнение содержимого"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Примитивные типы"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "int"
+                },
+                {
+                  "k": "t",
+                  "v": " и"
+                },
+                {
+                  "k": "code",
+                  "v": "Integer"
+                },
+                {
+                  "k": "t",
+                  "v": " — разные"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Только"
+                },
+                {
+                  "k": "code",
+                  "v": "Int"
+                },
+                {
+                  "k": "t",
+                  "v": " (компилятор оптимизирует)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Тернарный оператор"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "a ? b : c"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "if (a) b else c"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "switch"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ограниченные типы"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "when"
+                },
+                {
+                  "k": "t",
+                  "v": " — любое условие"
+                }
+              ]
+            ]
+          ]
         },
         "java-muqayise.h3.ab700530": {
-          "text": ""
+          "text": "Код рядом"
         },
         "java-muqayise.tabs.53c96cfc": {
           "tabs": {
@@ -8479,52 +9206,143 @@
           "title": ""
         },
         "java-muqayise.h3.b1609b6e": {
-          "text": ""
+          "text": "Вызов кода Java из Kotlin"
         },
         "java-muqayise.code.82c4adb9": {
           "title": "",
-          "code": ""
+          "code": "import java.util.ArrayList\nimport java.time.LocalDate\n\nfun main() {\n    // Классы Java работают напрямую\n    val siyahi = ArrayList<String>()\n    siyahi.add(\"Kotlin\")\n\n    val bugun = LocalDate.now()\n\n    // Геттеры/сеттеры Java автоматически видны как свойства\n    // javaObyekt.getAd()  →  javaObyekt.ad\n    // javaObyekt.setAd(x) →  javaObyekt.ad = x\n\n    // ОСТОРОЖНО: платформенные типы (String!) не проверяются на null\n    val ad: String? = javaServis.tapAd()   // будь осторожен\n}"
         },
         "java-muqayise.h3.5e79c054": {
-          "text": ""
+          "text": "Вызов кода Kotlin из Java"
         },
         "java-muqayise.code.656821fb": {
           "title": "",
-          "code": ""
+          "code": "@file:JvmName(\"Komekciler\")     // в Java будет Komekciler, а не KomekcilerKt\n\npackage az.numune\n\nclass Servis {\n    companion object {\n        // без @JvmStatic в Java: Servis.Companion.yarat()\n        @JvmStatic\n        fun yarat() = Servis()\n    }\n\n    // Параметры по умолчанию в Java не работают — @JvmOverloads решает это\n    @JvmOverloads\n    fun gonder(mesaj: String, tecili: Boolean = false, tekrar: Int = 1) { }\n\n    // @JvmField — обычное поле, без геттера/сеттера\n    @JvmField\n    val versiya = \"1.0\"\n}\n\n// На стороне Java:\n// Servis s = Servis.yarat();\n// s.gonder(\"salam\");                  ← благодаря @JvmOverloads\n// s.gonder(\"salam\", true);\n// String v = s.versiya;               ← благодаря @JvmField"
         },
         "java-muqayise.h3.2d3d16e2": {
-          "text": ""
+          "text": "Стратегия перехода с Java на Kotlin"
         },
         "java-muqayise.list.1471b1d5": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Начни с тестов."
+              },
+              {
+                "k": "t",
+                "v": " Тестовый код не влияет на продакшен — это безопасная площадка для экспериментов."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Новые файлы пиши на Kotlin."
+              },
+              {
+                "k": "t",
+                "v": " Существующий код на Java не трогай."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Переведи классы моделей/DTO."
+              },
+              {
+                "k": "t",
+                "v": " Здесь самый большой выигрыш: 50 строк → 1 строка."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Используй автоконвертацию в IDE."
+              },
+              {
+                "k": "t",
+                "v": " IntelliJ: вставь Java-файл или используй"
+              },
+              {
+                "k": "code",
+                "v": "Code → Convert Java File to Kotlin"
+              },
+              {
+                "k": "t",
+                "v": "."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "После конвертации почисти вручную."
+              },
+              {
+                "k": "t",
+                "v": " Автоконвертация оставляет много"
+              },
+              {
+                "k": "code",
+                "v": "!!"
+              },
+              {
+                "k": "t",
+                "v": " и лишних объявлений типов — исправь их."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Не торопись."
+              },
+              {
+                "k": "t",
+                "v": " Оба языка спокойно живут в одном проекте. «Большое переписывание» не нужно."
+              }
+            ]
+          ]
         },
         "java-muqayise.callout.b313cc9a": {
-          "title": ""
+          "title": "Java плохая?"
         },
         "java-muqayise.p.7d88a996": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Нет. Версии Java вплоть до 21 принесли records, sealed classes, pattern matching и виртуальные потоки — разрыв уже не такой большой, как раньше. Kotlin всё ещё лаконичнее и впереди по null-безопасности, но экосистема и стабильность Java безупречны."
+            },
+            {
+              "k": "b",
+              "v": "Правильный ответ зависит от проекта."
+            }
+          ]
         }
       }
     },
     "idiomlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Идиомы и лучшие практики",
+      "heading": "Идиомы и лучшие практики",
+      "kicker": "Раздел 28",
+      "group": "Итоги",
       "blocks": {
         "idiomlar.p.bb03f4f8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "На Kotlin можно писать «как на Java», но сила языка — в идиоматичном стиле. Ниже самые частые приёмы: слева — чего избегать, справа — что рекомендуется."
+            }
+          ]
         },
         "idiomlar.h3.c951ddc1": {
-          "text": ""
+          "text": "1 · Проверка на null"
         },
         "idiomlar.cards.3417af8e": {
           "items": {
             "0": {
-              "title": ""
+              "title": "❌ Не пиши так"
             },
             "1": {
-              "title": ""
+              "title": "✅ Пиши так"
             }
           }
         },
@@ -8535,7 +9353,7 @@
           "title": ""
         },
         "idiomlar.h3.9513e8b7": {
-          "text": ""
+          "text": "2 · Запасное значение"
         },
         "idiomlar.cards.9a7f5b5e": {
           "items": {
@@ -8554,7 +9372,7 @@
           "title": ""
         },
         "idiomlar.h3.ddd71299": {
-          "text": ""
+          "text": "3 · Обработка коллекций"
         },
         "idiomlar.cards.ead1c088": {
           "items": {
@@ -8573,7 +9391,7 @@
           "title": ""
         },
         "idiomlar.h3.6267a5b5": {
-          "text": ""
+          "text": "4 · Построение объектов"
         },
         "idiomlar.cards.892d895b": {
           "items": {
@@ -8592,7 +9410,7 @@
           "title": ""
         },
         "idiomlar.h3.15b9411d": {
-          "text": ""
+          "text": "5 · Ранний выход"
         },
         "idiomlar.cards.0130b391": {
           "items": {
@@ -8611,90 +9429,501 @@
           "title": ""
         },
         "idiomlar.h3.8ef4335e": {
-          "text": ""
+          "text": "Ещё идиомы"
         },
         "idiomlar.code.5fa7b33c": {
           "title": "",
-          "code": ""
+          "code": "// Функция из одного выражения\nfun kvadrat(x: Int) = x * x\n\n// Возврат напрямую через when\nfun tesvir(kod: Int) = when (kod) {\n    200 -> \"OK\"\n    404 -> \"Tapılmadı\"\n    in 500..599 -> \"Server xətası\"\n    else -> \"Naməlum\"\n}\n\n// Построение коллекции\nval siyahi = buildList {\n    add(\"Kotlin\")\n    if (serait) add(\"Java\")\n}\n\n// Построение строки\nval metn = buildString {\n    appendLine(\"Başlıq\")\n    repeat(3) { appendLine(\"Sətir $it\") }\n}\n\n// Возврат пары\nfun minMax(s: List<Int>) = s.min() to s.max()\nval (min, max) = minMax(listOf(3, 1, 4))\n\n// Превращение коллекции в map\nval idIleTap = istifadeciler.associateBy { it.id }\n\n// Добавление элемента по условию\nval parametrler = buildMap {\n    put(\"ad\", ad)\n    filtr?.let { put(\"filtr\", it) }\n}\n\n// Несколько условий сразу\nval etibarli = listOf(ad, email, telefon).all { it.isNotBlank() }\n\n// Перебор ресурса — закрывается автоматически\nFile(\"melumat.txt\").useLines { setirler ->\n    setirler.filter { it.isNotBlank() }.forEach(::println)\n}\n\n// sealed вместо enum для фиксированного набора\n// (если нужно хранить дополнительные данные)"
         },
         "idiomlar.h3.1ac334d4": {
-          "text": ""
+          "text": "Правила стиля кода"
         },
         "idiomlar.table.3f6ab771": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Правило"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Пояснение"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "val > var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Неизменяемость — по умолчанию"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Пиши тип только когда нужно"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Явно в публичном API, выводом — в локальных переменных"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Избегай"
+                },
+                {
+                  "k": "code",
+                  "v": "!!"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Каждый — потенциальное падение"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Группируй расширения"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "В одном файле"
+                },
+                {
+                  "k": "code",
+                  "v": "Genislenmeler.kt"
+                },
+                {
+                  "k": "t",
+                  "v": ", а не по всему проекту"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Держи data class неизменяемыми"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Все свойства —"
+                },
+                {
+                  "k": "code",
+                  "v": "val"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Имена функций — глаголы"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "hesabla()"
+                },
+                {
+                  "k": "t",
+                  "v": ","
+                },
+                {
+                  "k": "code",
+                  "v": "yukle()"
+                },
+                {
+                  "k": "t",
+                  "v": " — а не"
+                },
+                {
+                  "k": "code",
+                  "v": "data()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Имена Boolean — как вопросы"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "aktivdir"
+                },
+                {
+                  "k": "t",
+                  "v": ","
+                },
+                {
+                  "k": "code",
+                  "v": "hasError"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Длина строки ≤ 120"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Лимит ktlint по умолчанию"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Отступ 4 пробела"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Без табов"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Не вкладывай функции области видимости глубоко"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Не больше 2 уровней"
+                }
+              ]
+            ]
+          ]
         },
         "idiomlar.h3.da9add51": {
-          "text": ""
+          "text": "Советы по производительности"
         },
         "idiomlar.list.49973a39": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Для больших коллекций используй"
+              },
+              {
+                "k": "code",
+                "v": "asSequence()"
+              },
+              {
+                "k": "t",
+                "v": " — промежуточные списки не создаются."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Делай небольшие функции, принимающие лямбды,"
+              },
+              {
+                "k": "code",
+                "v": "inline"
+              },
+              {
+                "k": "t",
+                "v": " — это убирает затраты на создание объектов."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Вместо склейки String в цикле используй"
+              },
+              {
+                "k": "code",
+                "v": "buildString"
+              },
+              {
+                "k": "t",
+                "v": "."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Для типов id используй"
+              },
+              {
+                "k": "code",
+                "v": "value class"
+              },
+              {
+                "k": "t",
+                "v": " — типобезопасность без накладных расходов во время выполнения."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Для тяжёлых объектов используй"
+              },
+              {
+                "k": "code",
+                "v": "by lazy"
+              },
+              {
+                "k": "t",
+                "v": " — если они не понадобятся, то и не создадутся."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Примитивные массивы"
+              },
+              {
+                "k": "t",
+                "v": " —"
+              },
+              {
+                "k": "code",
+                "v": "IntArray"
+              },
+              {
+                "k": "t",
+                "v": " быстрее, чем"
+              },
+              {
+                "k": "code",
+                "v": "List<Int>"
+              },
+              {
+                "k": "t",
+                "v": " (нет boxing)."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Избегай рефлексии"
+              },
+              {
+                "k": "t",
+                "v": " — плагины компилятора (serialization) быстрее."
+              }
+            ]
+          ]
         },
         "idiomlar.callout.e6103dce": {
-          "title": ""
+          "title": "Подключи инструменты"
         },
         "idiomlar.p.e96dc764": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "ktlint"
+            },
+            {
+              "k": "t",
+              "v": " автоматизирует форматирование."
+            },
+            {
+              "k": "b",
+              "v": "detekt"
+            },
+            {
+              "k": "t",
+              "v": " ловит «запахи кода» и излишнюю сложность. Подключи оба к CI — и споры о стиле полностью исчезнут из код-ревью."
+            }
+          ]
         }
       }
     },
     "calismalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Упражнения",
+      "heading": "Упражнения",
+      "kicker": "Упражнения",
+      "group": "Итоги",
       "blocks": {
         "calismalar.p.f3d4c013": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "По каждой теме два вида упражнений:"
+            },
+            {
+              "k": "b",
+              "v": "теоретические"
+            },
+            {
+              "k": "t",
+              "v": " проверяют понимание понятий, а"
+            },
+            {
+              "k": "b",
+              "v": "практические"
+            },
+            {
+              "k": "t",
+              "v": " заставляют писать код и автоматически сверяют результат. Упражнения разделены на уровни Junior, Middle и Senior."
+            }
+          ]
         },
         "calismalar.callout.34aa3074": {
-          "title": ""
+          "title": "Как проверяются практические упражнения?"
         },
         "calismalar.p.f03302c9": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Пишешь код в редакторе и нажимаешь кнопку"
+            },
+            {
+              "k": "b",
+              "v": "Проверить"
+            },
+            {
+              "k": "t",
+              "v": ". Код компилируется и выполняется на сервере JetBrains, а его вывод сравнивается с ожидаемым. Эталонное решение каждого упражнения заранее проверено компилятором Kotlin — значит, задача гарантированно решаема."
+            }
+          ]
         },
         "calismalar.p.eb7f2dd5": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Решено: 0 / 0"
+            }
+          ]
         },
         "calismalar.p.3355b8e8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Упражнение 1 / 1"
+            }
+          ]
         },
         "calismalar.callout.1e02db9f": {
-          "title": ""
+          "title": "Прогресс сохраняется"
         },
         "calismalar.p.dd75de94": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Правильно решённые упражнения сохраняются на устройстве — если закрыть приложение и вернуться, они не пропадут. Меняя фильтр уровня, можно проверить себя: Junior проверяет основы, Middle — повседневные рабочие ситуации, Senior — тонкие детали."
+            }
+          ]
         }
       }
     },
     "quiz": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Тест знаний",
+      "heading": "Проверь свои знания",
+      "kicker": "Раздел 29",
+      "group": "Итоги",
       "blocks": {
         "quiz.p.74feaad2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "15 вопросов — от синтаксиса до корутин. После каждого ответа показывается объяснение. Вопросы каждый раз идут в случайном порядке."
+            }
+          ]
         },
         "quiz.callout.38146208": {
-          "title": ""
+          "title": "Если результат низкий"
         },
         "quiz.p.57654f01": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Не переживай — вернись к разделам"
+            },
+            {
+              "k": "link",
+              "v": "Null-безопасность",
+              "href": "#null-safety"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "link",
+              "v": "Коллекции",
+              "href": "#kolleksiyalar"
+            },
+            {
+              "k": "t",
+              "v": " и"
+            },
+            {
+              "k": "link",
+              "v": "Особые виды классов",
+              "href": "#xususi-sinifler"
+            },
+            {
+              "k": "t",
+              "v": ". Это три темы, о которых чаще всего спрашивают на собеседованиях."
+            }
+          ]
         }
       }
     },
     "resurslar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Ресурсы",
+      "heading": "Ресурсы и следующие шаги",
+      "kicker": "Раздел 30",
+      "group": "Итоги",
       "blocks": {
         "resurslar.p.7b734f96": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Это приложение даёт основу. Чтобы двигаться дальше — ресурсы и идеи для проектов."
+            }
+          ]
         },
         "resurslar.h3.2b394210": {
-          "text": ""
+          "text": "Официальные ресурсы"
         },
         "resurslar.cards.a7055f29": {
           "items": {
@@ -8714,100 +9943,427 @@
               "title": ""
             },
             "5": {
-              "title": ""
+              "title": "„Kotlin in Action“"
             }
           }
         },
         "resurslar.p.c01dc095": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Официальная документация. Самые точные и свежие объяснения по каждой теме."
+            }
+          ]
         },
         "resurslar.p.1c96219c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Запускай Kotlin в браузере. Без установки, результат кода сразу."
+            }
+          ]
         },
         "resurslar.p.f31b8dd7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Набор интерактивных задач. Лучший способ закрепить синтаксис практикой."
+            }
+          ]
         },
         "resurslar.p.dd787c4b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Руководства Google по Kotlin для Android, codelab и примеры проектов."
+            }
+          ]
         },
         "resurslar.p.d95b0d7e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "50 000+ разработчиков. Каналы"
+            },
+            {
+              "k": "code",
+              "v": "#getting-started"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "#coroutines"
+            },
+            {
+              "k": "t",
+              "v": " и"
+            },
+            {
+              "k": "code",
+              "v": "#multiplatform"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "resurslar.p.89954c12": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Книга, написанная членами команды, создавшей язык. Для глубокого понимания."
+            }
+          ]
         },
         "resurslar.h3.a40eb99e": {
-          "text": ""
+          "text": "План обучения"
         },
         "resurslar.timeline.e8cfbba7": {
           "items": {
             "0": {
-              "title": "",
-              "desc": []
+              "title": "Основы",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Переменные, типы, условия, циклы, функции. Пиши небольшие консольные программы: калькулятор, игру «угадай число», анализатор текста."
+                }
+              ]
             },
             "1": {
-              "title": "",
-              "desc": []
+              "title": "ООП и коллекции",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Классы, интерфейсы, data/sealed class, операции с коллекциями. Проект: система управления библиотекой (консоль)."
+                }
+              ]
             },
             "2": {
-              "title": "",
-              "desc": []
+              "title": "Функциональный стиль",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Лямбды, функции высшего порядка, функции области видимости, расширения. Перепиши свой код и сократи его."
+                }
+              ]
             },
             "3": {
-              "title": "",
-              "desc": []
+              "title": "Асинхронность",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Корутины, Flow, обработка ошибок. Проект: консольное приложение, получающее данные из открытого API (погода, курсы валют)."
+                }
+              ]
             },
             "4": {
-              "title": "",
-              "desc": []
+              "title": "Настоящее приложение",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Выбери Android (Compose) или бэкенд (Ktor). Напиши полностью рабочее приложение вместе с тестами и выложи на GitHub."
+                }
+              ]
             }
           }
         },
         "resurslar.h3.751b0bcd": {
-          "text": ""
+          "text": "Идеи проектов для практики"
         },
         "resurslar.table.34142ba5": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Уровень"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Проект"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Чему учит"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Начальный"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Список задач (консоль)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Коллекции, data class, циклы"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Начальный"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Конвертер валют"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Функции, when, форматирование"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Средний"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Анализатор текстовых файлов"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Файловый ввод-вывод, sequence, группировка"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Средний"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Прогноз погоды (API)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ktor Client, корутины, serialization"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Средний"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Учёт расходов (Android)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Compose, Room, ViewModel, StateFlow"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Продвинутый"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "REST API + авторизация (Ktor)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Бэкенд, JWT, Exposed, тесты"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Продвинутый"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Приложение заметок на KMP"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "expect/actual, общая логика, iOS+Android"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Продвинутый"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Свой DSL"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Лямбды с receiver, infix, перегрузка операторов"
+                }
+              ]
+            ]
+          ]
         },
         "resurslar.h3.7b1e6467": {
-          "text": ""
+          "text": "Частые вопросы"
         },
         "resurslar.h4.f6e5ef09": {
-          "text": ""
+          "text": "Нужно ли знать Java перед изучением Kotlin?"
         },
         "resurslar.p.29939b36": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Нет. Изучать Kotlin как первый язык вполне можно, а во многих случаях даже проще — меньше шаблонного кода, понятнее сообщения об ошибках. Знание Java помогает только при чтении старых библиотек."
+            }
+          ]
         },
         "resurslar.h4.63590024": {
-          "text": ""
+          "text": "Заменит ли Kotlin Java?"
         },
         "resurslar.p.65825c37": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "На Android практически уже заменил. На бэкенде же Java всё ещё доминирует и останется там надолго. Они не соперники — они живут вместе на одной платформе."
+            }
+          ]
         },
         "resurslar.h4.bbb63d35": {
-          "text": ""
+          "text": "Kotlin медленный?"
         },
         "resurslar.p.dec368a0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Нет. Он компилируется в тот же байт-код, и производительность практически такая же, как у Java. Раньше медленной была компиляция, но компилятор K2 решил эту проблему."
+            }
+          ]
         },
         "resurslar.h4.1735f6a0": {
-          "text": ""
+          "text": "Когда изучать корутины?"
         },
         "resurslar.p.f12187c6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "После того как освоишь основы языка (классы, коллекции, лямбды). Корутины — сложная тема, и без основ их трудно понять. Но если будешь писать под Android, до них обязательно дойдёшь."
+            }
+          ]
         },
         "resurslar.h4.d02c37d2": {
-          "text": ""
+          "text": "Какую IDE выбрать?"
         },
         "resurslar.p.2d7361bd": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "IntelliJ IDEA Community"
+            },
+            {
+              "k": "t",
+              "v": " (бесплатно) — для Kotlin в целом."
+            },
+            {
+              "k": "b",
+              "v": "Android Studio"
+            },
+            {
+              "k": "t",
+              "v": " — для Android."
+            },
+            {
+              "k": "b",
+              "v": "Fleet"
+            },
+            {
+              "k": "t",
+              "v": " — для KMP. Поддержка Kotlin в VS Code слабая, не рекомендуется."
+            }
+          ]
         },
         "resurslar.callout.342c0b44": {
-          "title": ""
+          "title": "Самый важный совет"
         },
         "resurslar.p.3b7f5ec8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Язык не выучить чтением."
+            },
+            {
+              "k": "b",
+              "v": "Набери и запусти"
+            },
+            {
+              "k": "t",
+              "v": " каждый пример кода из этого приложения"
+            },
+            {
+              "k": "b",
+              "v": "сам"
+            },
+            {
+              "k": "t",
+              "v": ". Потом измени, сломай, исправь. Чтение сообщений об ошибках — самый быстрый способ учиться."
+            }
+          ]
         }
       }
     }
