@@ -5945,326 +5945,1699 @@
     },
     "xususi-sinifler": {
       "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "heading": "Особые виды классов",
+      "kicker": "Раздел 18",
+      "group": "Объектно-ориентированное программирование",
       "blocks": {
         "xususi-sinifler.p.59d8033b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Одна из самых любимых возможностей Kotlin — готовые виды классов для конкретных задач: хранить данные, строить ограниченную иерархию, задавать фиксированный набор и гарантировать единственный экземпляр (singleton)."
+            }
+          ]
         },
         "xususi-sinifler.h3.0609fa01": {
-          "text": ""
+          "text": "data class — класс данных"
         },
         "xususi-sinifler.code.f8f1c366": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(val ad: String, val yas: Int)\n\nfun main() {\n    val a = Istifadeci(\"Aysel\", 24)\n    val b = Istifadeci(\"Aysel\", 24)\n\n    println(a)             // toString() автоматически\n    println(a == b)        // equals() автоматически — по содержимому\n    println(a === b)       // это разные объекты\n\n    // copy() — копия с изменённым полем\n    println(a.copy(yas = 25))\n\n    // componentN() — деструктуризация\n    val (ad, yas) = a\n    println(\"$ad / $yas\")\n}"
         },
         "xususi-sinifler.callout.423646ba": {
-          "title": ""
+          "title": "Правила data class"
         },
         "xususi-sinifler.p.d87232f7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В первичном конструкторе должен быть хотя бы один параметр, и все они должны быть помечены"
+            },
+            {
+              "k": "code",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": "/"
+            },
+            {
+              "k": "code",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": "."
+            },
+            {
+              "k": "b",
+              "v": "Важно:"
+            },
+            {
+              "k": "t",
+              "v": " автоматически созданные"
+            },
+            {
+              "k": "code",
+              "v": "equals"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "hashCode"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "toString"
+            },
+            {
+              "k": "t",
+              "v": " учитывают только свойства"
+            },
+            {
+              "k": "b",
+              "v": "из первичного конструктора"
+            },
+            {
+              "k": "t",
+              "v": " — объявленные в теле не считаются."
+            }
+          ]
         },
         "xususi-sinifler.h3.ba3f320c": {
-          "text": ""
+          "text": "enum class — фиксированный набор"
         },
         "xususi-sinifler.code.74107a1a": {
           "title": "",
-          "code": ""
+          "code": "enum class Isiq(val kod: String) {\n    QIRMIZI(\"#FF0000\") {\n        override fun emr() = \"Dayan!\"\n    },\n    YASIL(\"#00FF00\") {\n        override fun emr() = \"Get!\"\n    },\n    MAVI(\"#0000FF\") {\n        override fun emr() = \"Gözlə\"\n    };\n\n    abstract fun emr(): String  // каждая константа даёт свою версию\n}\n\nfun main() {\n    // values() / entries — все константы\n    Isiq.entries.forEach { println(\"${it.name} ${it.kod}\") }\n\n    println(Isiq.QIRMIZI.emr())\n    println(\"QIRMIZI indeksi: ${Isiq.QIRMIZI.ordinal}\")\n    println(Isiq.entries.map { it.name })\n\n    // Из строки в enum\n    val r = Isiq.valueOf(\"YASIL\")\n    // Безопасный вариант:\n    val t = Isiq.entries.find { it.name == \"NAMELUM\" }   // null\n}"
         },
         "xususi-sinifler.h3.6c209cda": {
-          "text": ""
+          "text": "sealed class — ограниченная иерархия"
         },
         "xususi-sinifler.p.d9a9d274": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Класс, все наследники которого известны на этапе компиляции. Идеален для моделирования состояния."
+            }
+          ]
         },
         "xususi-sinifler.code.50738001": {
           "title": "",
-          "code": ""
+          "code": "sealed class Netice<out T> {\n    data object Yuklenir : Netice<Nothing>()\n    data class Ugurlu<T>(val data: T) : Netice<T>()\n    data class Xeta(val mesaj: String, val kod: Int) : Netice<Nothing>()\n}\n\nfun emalEt(n: Netice<List<String>>): String = when (n) {\n    // else НЕ НУЖЕН — компилятор знает все случаи\n    is Netice.Yuklenir -> \"Yüklənir...\"\n    is Netice.Ugurlu -> \"Uğurlu: ${n.data.size} element\"   // smart cast\n    is Netice.Xeta -> \"Xəta: ${n.mesaj} (kod ${n.kod})\"\n}\n\nfun main() {\n    println(emalEt(Netice.Yuklenir))\n    println(emalEt(Netice.Ugurlu(listOf(\"a\", \"b\", \"c\"))))\n    println(emalEt(Netice.Xeta(\"Şəbəkə əlçatmazdır\", 503)))\n}"
         },
         "xususi-sinifler.callout.7f3a2165": {
-          "title": ""
+          "title": "Настоящая польза sealed"
         },
         "xususi-sinifler.p.2ac5211a": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Когда ты добавляешь новый случай (например,"
+            },
+            {
+              "k": "code",
+              "v": "Netice.Bos"
+            },
+            {
+              "k": "t",
+              "v": "), все блоки"
+            },
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": ", использующие этот тип, перестают компилироваться. Компилятор показывает, какие места нужно обновить, — ничего не забывается. Если бы ты написал"
+            },
+            {
+              "k": "code",
+              "v": "else"
+            },
+            {
+              "k": "t",
+              "v": ", эта защита пропала бы."
+            }
+          ]
         },
         "xususi-sinifler.h3.ac0dc1a1": {
           "text": ""
         },
         "xususi-sinifler.code.d4294568": {
           "title": "",
-          "code": ""
+          "code": "// Не требует иерархии классов — гибче\nsealed interface Hadise {\n    data class Klik(val x: Int, val y: Int) : Hadise\n    data class Yazma(val metn: String) : Hadise\n    data object Geri : Hadise\n}\n\nfun idareEt(h: Hadise) = when (h) {\n    is Hadise.Klik -> \"Klik: (${h.x}, ${h.y})\"\n    is Hadise.Yazma -> \"Yazıldı: ${h.metn}\"\n    Hadise.Geri -> \"Geri qayıdıldı\"\n}"
         },
         "xususi-sinifler.h3.d46d5a7e": {
-          "text": ""
+          "text": "object — синглтон (singleton)"
         },
         "xususi-sinifler.code.dd693c32": {
           "title": "",
-          "code": ""
+          "code": "// object — синглтон, встроенный в язык. Потокобезопасен, создаётся лениво.\nobject Konfiq {\n    val apiUrl = \"https://api.numune.az\"\n    var debugRejimi = true\n    private var sayqac = 0\n\n    init {\n        println(\"Konfiq yükləndi\")     // только ОДИН раз\n    }\n\n    fun artir() {\n        sayqac++\n        println(\"Sayqac: $sayqac\")\n    }\n}\n\nfun main() {\n    println(Konfiq.apiUrl)\n    println(Konfiq.debugRejimi)\n    Konfiq.artir()\n    Konfiq.artir()\n}"
         },
         "xususi-sinifler.h3.5ae8d6ee": {
-          "text": ""
+          "text": "companion object — «статические» члены"
         },
         "xususi-sinifler.code.535c9c28": {
           "title": "",
-          "code": ""
+          "code": "class Istifadeci private constructor(val ad: String) {\n\n    companion object {\n        const val MAKSIMUM = 100\n        private var yaradilanSay = 0\n\n        // Фабричный метод — единственный путь, ведь конструктор private\n        fun yarat(ad: String): Istifadeci {\n            yaradilanSay++\n            return Istifadeci(ad)\n        }\n\n        fun say() = yaradilanSay\n    }\n}\n\nfun main() {\n    val u = Istifadeci.yarat(\"Aysel\")\n    Istifadeci.yarat(\"Kamran\")\n\n    println(u.ad)\n    println(Istifadeci.say())\n    println(\"Maksimum: ${Istifadeci.MAKSIMUM}\")\n}"
         },
         "xususi-sinifler.h3.a8173b29": {
-          "text": ""
+          "text": "Анонимные объекты"
         },
         "xususi-sinifler.code.754f8445": {
           "title": "",
-          "code": ""
+          "code": "interface Dinleyici {\n    fun basladi()\n    fun bitdi(netice: String)\n}\n\nfun isleAt(dinleyici: Dinleyici) { /* ... */ }\n\nfun main() {\n    // object : Interfeys { } — аналог анонимного класса Java\n    isleAt(object : Dinleyici {\n        override fun basladi() = println(\"Başladı\")\n        override fun bitdi(netice: String) = println(\"Bitdi: $netice\")\n    })\n\n    // Анонимный объект без супертипа — просто группа данных\n    val noqte = object {\n        val x = 10\n        val y = 20\n    }\n    println(noqte.x + noqte.y)\n}"
         },
         "xususi-sinifler.h3.948e5a45": {
-          "text": ""
+          "text": "value class — обёртка без накладных расходов"
         },
         "xususi-sinifler.code.635e12d3": {
           "title": "",
-          "code": ""
+          "code": "// Во время выполнения хранится как обычная String — объект не создаётся\n@JvmInline\nvalue class Email(val deyer: String) {\n    init {\n        require(deyer.contains(\"@\")) { \"Yanlış email\" }\n    }\n}\n\n@JvmInline\nvalue class IstifadeciId(val deyer: Long)\n\n// Типобезопасность: id не перепутать\nfun tap(id: IstifadeciId) { }\n\nfun main() {\n    val e = Email(\"aysel@mail.az\")\n    println(e.deyer)\n\n    // tap(5L)                   ← ОШИБКА: Long передать нельзя\n    tap(IstifadeciId(5L))        // правильно\n}"
         },
         "xususi-sinifler.h3.f4f8f522": {
-          "text": ""
+          "text": "Итог"
         },
         "xususi-sinifler.table.e82ab62c": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Вид"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Для чего"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Типичный пример"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "data class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Носитель данных"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ответ API, DTO, модель"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "enum class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Фиксированный ограниченный набор"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Статус, цвет, день"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "sealed class/interface"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ограниченная иерархия"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Состояние UI, тип результата"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "object"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Синглтон"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Конфигурация, кеш, репозиторий"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "companion object"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Статические члены, привязанные к классу"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Фабричный метод, константы"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "value class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Типобезопасность без накладных расходов"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Id, Email, Деньги"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "annotation class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Метаданные"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "@Serializable, @Test"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "generics": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Дженерики",
+      "heading": "Дженерики",
+      "kicker": "Раздел 19",
+      "group": "Объектно-ориентированное программирование",
       "blocks": {
         "generics.p.40200d9c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Дженерики позволяют использовать один и тот же код с разными типами — не теряя типобезопасности. Отсюда и разница между"
+            },
+            {
+              "k": "code",
+              "v": "List<String>"
+            },
+            {
+              "k": "t",
+              "v": " и"
+            },
+            {
+              "k": "code",
+              "v": "List<Int>"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "generics.h3.67958582": {
-          "text": ""
+          "text": "Обобщённые функции и классы"
         },
         "generics.code.ffa36427": {
           "title": "",
-          "code": ""
+          "code": "// Обобщённая функция — T может быть любым типом\nfun <T> ilkini(siyahi: List<T>): T = siyahi.first()\n\n// Обобщённый класс\nclass Qutu<T>(private val deyer: T) {\n    fun al(): T = deyer\n    fun cap() = println(\"Qutuda: $deyer\")\n}\n\nfun main() {\n    println(ilkini(listOf(\"Kotlin\", \"Java\")))\n    println(ilkini(listOf(42, 7)))\n\n    Qutu(\"Kotlin\").cap()\n    Qutu(42).cap()\n}"
         },
         "generics.h3.854777bc": {
-          "text": ""
+          "text": "Ограничения типов (constraints)"
         },
         "generics.code.9d717d61": {
           "title": "",
-          "code": ""
+          "code": "// T может быть только Comparable — теперь работает оператор >\nfun <T : Comparable<T>> boyuk(a: T, b: T): T = if (a > b) a else b\n\n// Несколько ограничений — через where\nfun <T> emalEt(element: T): List<T>\n    where T : Comparable<T>, T : Any = listOf(element)\n\n// Требуем не-nullable тип\nfun <T : Any> tələbEt(deyer: T?): T = deyer ?: error(\"null ola bilməz\")\n\nfun main() {\n    println(boyuk(9, 3))\n    println(boyuk(\"Java\", \"Kotlin\"))\n    println(listOf(1, 2, 3).sorted())\n}"
         },
         "generics.h3.8255b1ad": {
-          "text": ""
+          "text": "Вариантность: in и out"
         },
         "generics.p.3cc85d2d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Это самая сложная, но и самая полезная часть дженериков. Вопрос такой: можно ли передать"
+            },
+            {
+              "k": "code",
+              "v": "List<It>"
+            },
+            {
+              "k": "t",
+              "v": " туда, где ожидается"
+            },
+            {
+              "k": "code",
+              "v": "List<Heyvan>"
+            },
+            {
+              "k": "t",
+              "v": "?"
+            }
+          ]
         },
         "generics.table.24453c80": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Модификатор"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Название"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Значение"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Пример"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "out T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ковариантность"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T используется только на"
+                },
+                {
+                  "k": "b",
+                  "v": "выходе"
+                },
+                {
+                  "k": "t",
+                  "v": " (возвращается)."
+                },
+                {
+                  "k": "code",
+                  "v": "Qutu<It>"
+                },
+                {
+                  "k": "t",
+                  "v": " →"
+                },
+                {
+                  "k": "code",
+                  "v": "Qutu<Heyvan>"
+                },
+                {
+                  "k": "t",
+                  "v": " допустимо"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "List<out E>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "in T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Контравариантность"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T используется только на"
+                },
+                {
+                  "k": "b",
+                  "v": "входе"
+                },
+                {
+                  "k": "t",
+                  "v": " (параметр)."
+                },
+                {
+                  "k": "code",
+                  "v": "Qebul<Heyvan>"
+                },
+                {
+                  "k": "t",
+                  "v": " →"
+                },
+                {
+                  "k": "code",
+                  "v": "Qebul<It>"
+                },
+                {
+                  "k": "t",
+                  "v": " допустимо"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "Comparable<in T>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "(ничего)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Инвариантность"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Тип должен совпадать точно"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "MutableList<E>"
+                }
+              ]
+            ]
+          ]
         },
         "generics.code.dc79a713": {
           "title": "",
-          "code": ""
+          "code": "open class Heyvan\nclass It : Heyvan()\n\n// out — производитель (producer): только возвращает T\nclass Menbe<out T>(private val deyer: T) {\n    fun al(): T = deyer\n    // fun yaz(x: T) { }    ← ОШИБКА: out-тип не может быть параметром\n}\n\n// in — потребитель (consumer): только принимает T\nclass Hedef<in T> {\n    fun yaz(deyer: T) = println(deyer)\n    // fun al(): T          ← ОШИБКА: in-тип нельзя возвращать\n}\n\nfun main() {\n    val itMenbe: Menbe<It> = Menbe(It())\n    val heyvanMenbe: Menbe<Heyvan> = itMenbe      // работает благодаря out\n\n    val heyvanHedef: Hedef<Heyvan> = Hedef()\n    val itHedef: Hedef<It> = heyvanHedef          // работает благодаря in\n\n    // MutableList инвариантен:\n    // val a: MutableList<Heyvan> = mutableListOf<It>()  ← ОШИБКА\n    // Причина: тогда туда можно было бы добавить Pisik!\n\n    // А List ковариантен (List<out E>) — читать безопасно:\n    val b: List<Heyvan> = listOf<It>()            // работает\n}"
         },
         "generics.callout.782e4b5e": {
-          "title": ""
+          "title": "Правило PECS"
         },
         "generics.p.b478e86d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "P"
+            },
+            {
+              "k": "t",
+              "v": "roducer —"
+            },
+            {
+              "k": "b",
+              "v": "E"
+            },
+            {
+              "k": "t",
+              "v": "xtends (в Kotlin"
+            },
+            {
+              "k": "code",
+              "v": "out"
+            },
+            {
+              "k": "t",
+              "v": "),"
+            },
+            {
+              "k": "b",
+              "v": "C"
+            },
+            {
+              "k": "t",
+              "v": "onsumer —"
+            },
+            {
+              "k": "b",
+              "v": "S"
+            },
+            {
+              "k": "t",
+              "v": "uper (в Kotlin"
+            },
+            {
+              "k": "code",
+              "v": "in"
+            },
+            {
+              "k": "t",
+              "v": "). Проще говоря: если ты только"
+            },
+            {
+              "k": "b",
+              "v": "читаешь"
+            },
+            {
+              "k": "t",
+              "v": " из типа, пиши"
+            },
+            {
+              "k": "code",
+              "v": "out"
+            },
+            {
+              "k": "t",
+              "v": "; если только"
+            },
+            {
+              "k": "b",
+              "v": "записываешь"
+            },
+            {
+              "k": "t",
+              "v": " в него — пиши"
+            },
+            {
+              "k": "code",
+              "v": "in"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "generics.h3.6ae45d58": {
-          "text": ""
+          "text": "reified — видеть тип во время выполнения"
         },
         "generics.p.2efad755": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "На JVM обобщённые типы стираются во время выполнения (type erasure)."
+            },
+            {
+              "k": "code",
+              "v": "inline"
+            },
+            {
+              "k": "t",
+              "v": " +"
+            },
+            {
+              "k": "code",
+              "v": "reified"
+            },
+            {
+              "k": "t",
+              "v": " обходят это ограничение."
+            }
+          ]
         },
         "generics.code.8dd0ea99": {
           "title": "",
-          "code": ""
+          "code": "// без reified: \"Cannot check for instance of erased type: T\"\ninline fun <reified T> List<*>.yalnizTipi(): List<T> =\n    filterIsInstance<T>()\n\ninline fun <reified T> tipdirmi(deyer: Any): Boolean = deyer is T\n\nfun main() {\n    val qarisiq = listOf(1, \"iki\", 3, \"dörd\")\n\n    println(qarisiq.yalnizTipi<String>())\n    println(qarisiq.yalnizTipi<Int>())\n    println(tipdirmi<String>(\"Kotlin\"))\n}"
         },
         "generics.h3.0e4da712": {
           "text": ""
         },
         "generics.code.9ed6e8be": {
           "title": "",
-          "code": ""
+          "code": "// Какой бы ни был тип — мы знаем лишь, что это что-то\nfun say(siyahi: List<*>): Int = siyahi.size\n\nfun cap(siyahi: List<*>) {\n    for (element in siyahi) {\n        println(element)     // тип элемента — Any?\n    }\n    // siyahi.add(...)       ← нельзя, тип неизвестен\n}\n\nfun main() {\n    println(say(listOf(1, 2, 3)))\n    println(say(listOf(\"a\", \"b\")))\n}"
         }
       }
     },
     "coroutines": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Корутины",
+      "heading": "Корутины",
+      "kicker": "Раздел 20",
+      "group": "Продвинутые темы",
       "blocks": {
         "coroutines.p.659d47f2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Корутина — это лёгкая «задача», которую можно приостановить и возобновить. В отличие от потока, она не занимает ресурс операционной системы: на нескольких потоках могут работать сотни тысяч корутин."
+            }
+          ]
         },
         "coroutines.h3.7a90d74d": {
-          "text": ""
+          "text": "Подключение"
         },
         "coroutines.code.653aeb19": {
           "title": "",
-          "code": ""
+          "code": "dependencies {\n    implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1\")\n    // Дополнительно для Android:\n    // implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1\")\n}"
         },
         "coroutines.h3.7b37ec26": {
-          "text": ""
+          "text": "suspend-функции"
         },
         "coroutines.code.afc8da1b": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\n// suspend — эту функцию можно приостановить\n// Поток не блокируется: во время ожидания он занимается другой работой\nsuspend fun melumatYukle(): String {\n    delay(1000)                  // это НЕ Thread.sleep — не блокирует\n    return \"Məlumat yükləndi\"\n}\n\nfun main() = runBlocking {       // превращаем main в область корутин\n    println(\"Başladı\")\n    println(melumatYukle())\n    println(\"Bitdi\")\n}"
         },
         "coroutines.callout.bfb73cc8": {
           "title": ""
         },
         "coroutines.p.bad62990": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "Thread.sleep()"
+            },
+            {
+              "k": "t",
+              "v": " полностью блокирует поток — в это время он ничего не может делать."
+            },
+            {
+              "k": "code",
+              "v": "delay()"
+            },
+            {
+              "k": "t",
+              "v": " лишь приостанавливает корутину, а поток освобождается и выполняет другие корутины. В этом вся разница."
+            }
+          ]
         },
         "coroutines.h3.2adfb8f8": {
-          "text": ""
+          "text": "Построители корутин (builders)"
         },
         "coroutines.table.f4cc6212": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Builder"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Возвращает"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Блокирует?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Когда"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "launch { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Job"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "«Запустил и забыл» — результат не нужен"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "async { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Deferred<T>"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нужен результат — получаем через"
+                },
+                {
+                  "k": "code",
+                  "v": "await()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "runBlocking { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "Да"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Как мост в main() и тестах"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "coroutineScope { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет (suspend)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Дочерняя область внутри suspend-функции"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "supervisorScope { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет (suspend)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Чтобы сбой одного потомка не останавливал остальных"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "withContext(ctx) { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет (suspend)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Смена диспетчера"
+                }
+              ]
+            ]
+          ]
         },
         "coroutines.h3.51979d92": {
-          "text": ""
+          "text": "launch и async"
         },
         "coroutines.code.c1746589": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nsuspend fun getir(ad: String, vaxt: Long): String {\n    delay(vaxt)\n    return ad\n}\n\nfun main(): Unit = runBlocking {\n    println(\"Başladı\")\n    val basla = System.currentTimeMillis()\n\n    // async — обе стартуют СРАЗУ\n    val a = async { getir(\"A\", 1000) }\n    val b = async { getir(\"B\", 1000) }\n\n    // await() — ждёт результат (поток не блокируется)\n    val neticeler = listOf(a.await(), b.await())\n\n    println(\"Cəmi vaxt: ~${System.currentTimeMillis() - basla} ms\")\n    println(\"Nəticələr: $neticeler\")\n\n    // launch — когда результат не нужен\n    launch {\n        delay(100)\n        // analitikaGonder()\n    }\n}"
         },
         "coroutines.h3.d02480af": {
-          "text": ""
+          "text": "Диспетчеры"
         },
         "coroutines.table.07fdd8cd": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Dispatcher"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Пул потоков"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Для чего"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.Default"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "По числу ядер CPU"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нагрузка на CPU: сортировка, вычисления, парсинг"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.IO"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "64+ потока"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Сеть, файлы, базы данных — работа с долгим ожиданием"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.Main"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "UI-поток"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Обновление интерфейса Android/Swing"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.Unconfined"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Не фиксирован"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Редкие случаи — обычно не используйте"
+                }
+              ]
+            ]
+          ]
         },
         "coroutines.code.0b446e82": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nsuspend fun profilYukle(id: Int): Profil {\n    // Сетевой запрос — в пуле IO\n    val xam = withContext(Dispatchers.IO) {\n        api.profilGetir(id)\n    }\n\n    // Тяжёлая обработка — в пуле Default\n    val emal = withContext(Dispatchers.Default) {\n        xam.tehlilEt()\n    }\n\n    return emal\n}\n\n// Типичная форма в Android\nfun ViewModel.yukle() {\n    viewModelScope.launch {          // стартует на диспетчере Main\n        veziyyet = Yuklenir\n        val netice = withContext(Dispatchers.IO) { repo.getir() }\n        veziyyet = Ugurlu(netice)    // снова на Main\n    }\n}"
         },
         "coroutines.h3.038cf05b": {
-          "text": ""
+          "text": "Структурированная конкурентность"
         },
         "coroutines.p.a08bec36": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin каждая корутина принадлежит"
+            },
+            {
+              "k": "b",
+              "v": "области (scope)"
+            },
+            {
+              "k": "t",
+              "v": ". Когда область отменяется, все дочерние корутины автоматически останавливаются — «потерянных» задач не остаётся."
+            }
+          ]
         },
         "coroutines.code.a020deac": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nsuspend fun hamisiniIsle() = coroutineScope {\n    // coroutineScope ждёт, пока завершатся ВСЕ потомки\n    launch {\n        delay(100)\n        println(\"Alt tapşırıq 1 bitdi\")\n    }\n    launch {\n        delay(200)\n        println(\"Alt tapşırıq 2 bitdi\")\n    }\n}\n\nfun main() = runBlocking {\n    hamisiniIsle()\n    println(\"Bütün alt tapşırıqlar bitdi\")\n}"
         },
         "coroutines.h3.c0209457": {
-          "text": ""
+          "text": "Отмена (cancellation)"
         },
         "coroutines.code.7e5eed9c": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val is1 = launch {\n        try {\n            repeat(100) { i ->\n                println(\"İşlənir $i\")\n                delay(100)          // точка, чувствительная к отмене\n            }\n        } catch (e: CancellationException) {\n            println(\"Ləğv olundu\")\n            throw e                 // ОБЯЗАТЕЛЬНО пробросить дальше\n        } finally {\n            // withContext(NonCancellable) { ... } — если очистка suspend\n            println(\"Təmizlik aparıldı\")\n        }\n    }\n\n    delay(350)\n    is1.cancelAndJoin()\n}"
         },
         "coroutines.callout.ea1343fa": {
-          "title": ""
+          "title": "Отмена требует сотрудничества"
         },
         "coroutines.p.620377eb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Корутина отменяется только в «точке приостановки» ("
+            },
+            {
+              "k": "code",
+              "v": "delay"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "yield"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "withContext"
+            },
+            {
+              "k": "t",
+              "v": "). Если в долгом цикле на CPU нет ни одной такой точки, отмена не сработает. В таких случаях добавь в цикл"
+            },
+            {
+              "k": "code",
+              "v": "ensureActive()"
+            },
+            {
+              "k": "t",
+              "v": " или"
+            },
+            {
+              "k": "code",
+              "v": "yield()"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "coroutines.h3.d32dd581": {
-          "text": ""
+          "text": "Обработка ошибок"
         },
         "coroutines.code.cbd72ac6": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    // 1) try/catch — работает как обычно\n    try {\n        coroutineScope {\n            launch { throw RuntimeException(\"xəta!\") }\n        }\n    } catch (e: Exception) {\n        println(\"Tutuldu: ${e.message}\")\n    }\n\n    // 2) supervisorScope — сбой одного потомка не убивает остальных\n    supervisorScope {\n        launch { throw RuntimeException(\"birinci uğursuz\") }\n        launch { delay(100); println(\"ikinci yenə də işlədi\") }\n    }\n\n    // 3) CoroutineExceptionHandler — глобальный перехватчик для launch\n    val handler = CoroutineExceptionHandler { _, e ->\n        println(\"Handler tutdu: ${e.message}\")\n    }\n    val scope = CoroutineScope(Dispatchers.Default + handler)\n    scope.launch { throw RuntimeException(\"arxa fonda xəta\") }\n\n    delay(300)\n}"
         },
         "coroutines.h3.3664bdb8": {
-          "text": ""
+          "text": "Flow — асинхронный поток"
         },
         "coroutines.p.beb9a804": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Функция"
+            },
+            {
+              "k": "code",
+              "v": "suspend"
+            },
+            {
+              "k": "t",
+              "v": " возвращает одно значение. А"
+            },
+            {
+              "k": "code",
+              "v": "Flow"
+            },
+            {
+              "k": "t",
+              "v": " испускает несколько значений со временем — как реактивный поток."
+            }
+          ]
         },
         "coroutines.code.21903a52": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun reqemAxini(): Flow<Int> = flow {\n    for (i in 1..3) {\n        delay(100)\n        emit(i)            // отправляет значение в поток\n    }\n}\n\nfun main() = runBlocking {\n    reqemAxini()\n        .map { it * 2 }\n        .filter { it > 0 }\n        .onCompletion { println(\"Axın bitdi\") }\n        .collect { println(\"Alındı: $it\") }   // терминальная операция\n}"
         },
         "coroutines.table.adac1e19": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Тип"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Особенность"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Для чего"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Flow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Холодный — заново стартует при каждом collect"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Чтение из базы, сетевой поток"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "StateFlow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Горячий — всегда хранит текущее значение"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Состояние UI (state)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "SharedFlow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Горячий — одноразовые события"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Навигация, toast, предупреждения"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Channel"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Очередь между корутинами"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Шаблон producer/consumer"
+                }
+              ]
+            ]
+          ]
         },
         "coroutines.code.06e29e33": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.flow.*\n\nclass SayqacViewModel {\n    private val _veziyyet = MutableStateFlow(0)\n    val veziyyet: StateFlow<Int> = _veziyyet.asStateFlow()   // наружу — только для чтения\n\n    fun artir() {\n        _veziyyet.value++\n    }\n}\n\n// Использование (Android):\n// lifecycleScope.launch {\n//     viewModel.veziyyet.collect { deyer ->\n//         textView.text = deyer.toString()\n//     }\n// }"
         },
         "coroutines.h3.c21301a5": {
-          "text": ""
+          "text": "Полезные функции"
         },
         "coroutines.table.f5f56c53": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функция"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Что делает"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "delay(ms)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Приостанавливает корутину (поток не блокируется)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "withTimeout(ms) { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "По истечении времени бросает TimeoutCancellationException"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "withTimeoutOrNull(ms) { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "По истечении времени возвращает null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "job.join()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ждёт завершения корутины"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "job.cancel()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Отменяет"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "yield()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Уступает очередь другим корутинам"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "ensureActive()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Сразу останавливается, если отменена"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "awaitAll(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ждёт несколько Deferred вместе"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "istisnalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Исключения",
+      "heading": "Исключения (exceptions)",
+      "kicker": "Раздел 21",
+      "group": "Продвинутые темы",
       "blocks": {
         "istisnalar.p.b88cd2a6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin нет"
+            },
+            {
+              "k": "b",
+              "v": "проверяемых исключений (checked exceptions)"
+            },
+            {
+              "k": "t",
+              "v": " — ни один метод не обязан объявлять"
+            },
+            {
+              "k": "code",
+              "v": "throws"
+            },
+            {
+              "k": "t",
+              "v": ". Это отказ от одной из самых критикуемых особенностей Java."
+            }
+          ]
         },
         "istisnalar.h3.00bd3d1f": {
           "text": ""
         },
         "istisnalar.code.8f9d1ad3": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // try — это ВЫРАЖЕНИЕ, оно возвращает значение\n    val netice = try {\n        \"abc\".toInt()\n    } catch (e: NumberFormatException) {\n        println(\"Xəta: ${e.message}\")\n        0\n    } finally {\n        println(\"Hər halda işlənir\")\n    }\n    println(\"Nəticə: $netice\")\n\n    // Способ проще — исключение вообще не бросается\n    val duzgun = \"42\".toIntOrNull() ?: 0\n    println(\"Düzgün: $duzgun\")\n}"
         },
         "istisnalar.h3.8777b853": {
-          "text": ""
+          "text": "Своё исключение"
         },
         "istisnalar.code.cba6ba18": {
           "title": ""
         },
         "istisnalar.h3.30fbfd11": {
-          "text": ""
+          "text": "Функции проверки"
         },
         "istisnalar.table.4441efdb": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функция"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Бросается при нарушении"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Когда"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "require(şərt)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Неверный аргумент"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "requireNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Аргумент не должен быть null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "check(şərt)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Неверное состояние объекта"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "checkNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Состояние не должно быть null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "error(\"mesaj\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Код, до которого не должны доходить"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "TODO()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "NotImplementedError"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ещё не написано"
+                }
+              ]
+            ]
+          ]
         },
         "istisnalar.code.3491360f": {
           "title": ""
         },
         "istisnalar.h3.3eb5e1b4": {
-          "text": ""
+          "text": "Result и runCatching — подход без исключений"
         },
         "istisnalar.code.34a89b9b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // runCatching — возвращает результат, обёрнутый в Result<T>\n    val ugurlu = runCatching { \"42\".toInt() }\n    ugurlu.onSuccess { println(\"Uğurlu: $it\") }\n\n    val ugursuz = runCatching { \"abc\".toInt() }\n    ugursuz.onFailure { println(\"Xəta baş verdi: ${it.message}\") }\n\n    // Использование в цепочке\n    val netice = runCatching { \"abc\".toInt() }\n        .map { it * 2 }\n        .getOrDefault(0)\n    println(\"Nəticə: $netice\")\n\n    // Другие варианты\n    // .getOrNull()             → T?\n    // .getOrThrow()            → T, при ошибке бросает её\n    // .getOrElse { 0 }         → запасное значение из лямбды\n    // .fold(onSuccess, onFailure)\n}"
         },
         "istisnalar.h3.2a62c3fb": {
-          "text": ""
+          "text": "Моделирование ошибок через sealed class"
         },
         "istisnalar.p.e5ae6722": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В больших проектах результат, выраженный типом, предсказуемее исключений."
+            }
+          ]
         },
         "istisnalar.code.7c271e46": {
           "title": ""
         },
         "istisnalar.callout.08a41b3e": {
-          "title": ""
+          "title": "Какой подход и когда?"
         },
         "istisnalar.p.0f74b1f3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "Исключения"
+            },
+            {
+              "k": "t",
+              "v": " — для ошибок программиста и неожиданных ситуаций (null id, сломанная конфигурация)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Result / sealed"
+            },
+            {
+              "k": "t",
+              "v": " — для ожидаемых неудач (нет сети, не прошла валидация, файл не найден). Такие случаи — часть бизнес-логики и должны выражаться типами."
+            }
+          ]
         },
         "istisnalar.h3.ba8bd562": {
-          "text": ""
+          "text": "Взаимодействие с Java: @Throws"
         },
         "istisnalar.code.7128fb2d": {
           "title": "",
-          "code": ""
+          "code": "import java.io.IOException\n\n// В Kotlin нет checked exceptions, но если мы хотим, чтобы Java\n// требовала try/catch при вызове этой функции:\n@Throws(IOException::class)\nfun faylOxu(yol: String): String {\n    // ...\n    return \"\"\n}"
         }
       }
     },
