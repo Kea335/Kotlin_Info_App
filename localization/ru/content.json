@@ -7642,149 +7642,499 @@
       }
     },
     "delegatlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Делегаты и аннотации",
+      "heading": "Делегаты и аннотации",
+      "kicker": "Раздел 22",
+      "group": "Продвинутые темы",
       "blocks": {
         "delegatlar.p.59ec8e7c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Делегирование свойств — это передача логики"
+            },
+            {
+              "k": "code",
+              "v": "get"
+            },
+            {
+              "k": "t",
+              "v": "/"
+            },
+            {
+              "k": "code",
+              "v": "set"
+            },
+            {
+              "k": "t",
+              "v": " другому объекту. Одна из самых изящных возможностей Kotlin."
+            }
+          ]
         },
         "delegatlar.h3.f1d925bd": {
-          "text": ""
+          "text": "by lazy — ленивая инициализация"
         },
         "delegatlar.code.093a8b83": {
           "title": "",
-          "code": ""
+          "code": "val agirNetice: Long by lazy {\n    println(\"Ağır hesablama aparılır...\")\n    (1..1_000_000L).sum()\n}\n\nfun main() {\n    println(\"Proqram başladı\")     // ещё не вычислено\n\n    println(\"Nəticə: $agirNetice\") // ПЕРВОЕ обращение — вычисляется сейчас\n    println(\"Nəticə: $agirNetice\") // ВТОРОЕ обращение — берётся из кеша\n}"
         },
         "delegatlar.table.15e3f33e": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Режим lazy"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Поведение"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "SYNCHRONIZED"
+                },
+                {
+                  "k": "t",
+                  "v": " (по умолчанию)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Потокобезопасен, вычисляется только один раз"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "PUBLICATION"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Вычислять могут несколько потоков, сохраняется первый результат"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "NONE"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Без синхронизации — для одного потока, самый быстрый"
+                }
+              ]
+            ]
+          ]
         },
         "delegatlar.h3.c052735f": {
-          "text": ""
+          "text": "observable и vetoable"
         },
         "delegatlar.code.84c84fc4": {
           "title": "",
-          "code": ""
+          "code": "import kotlin.properties.Delegates\n\nclass Istifadeci {\n    // observable — сообщает ПОСЛЕ каждого изменения\n    var ad: String by Delegates.observable(\"Aysel\") { _, kohne, yeni ->\n        println(\"Dəyişdi: $kohne -> $yeni\")\n    }\n\n    // vetoable — может ОТКЛОНИТЬ изменение\n    var etibarliAd: String by Delegates.vetoable(\"Aysel\") { _, _, yeni ->\n        if (yeni.isBlank()) {\n            println(\"Rədd edildi (boş ola bilməz)\")\n            false          // изменение не происходит\n        } else true\n    }\n\n    // notNull — аналог lateinit для примитивных типов\n    var yas: Int by Delegates.notNull()\n}\n\nfun main() {\n    val u = Istifadeci()\n    u.ad = \"Leyla\"\n    println(\"Ad: ${u.ad}\")\n\n    u.etibarliAd = \"Leyla\"\n    u.etibarliAd = \"\"\n    println(\"Ad: ${u.etibarliAd}\")\n}"
         },
         "delegatlar.h3.5b7f9d9e": {
-          "text": ""
+          "text": "Делегирование в Map"
         },
         "delegatlar.code.921175e9": {
           "title": "",
-          "code": ""
+          "code": "// Построить объект прямо из JSON или map с конфигурацией\nclass Istifadeci(melumat: Map<String, Any?>) {\n    val ad: String by melumat\n    val yas: Int by melumat\n    val email: String by melumat\n}\n\nfun main() {\n    val u = Istifadeci(mapOf(\n        \"ad\" to \"Aysel\",\n        \"yas\" to 24,\n        \"email\" to \"aysel@mail.az\"\n    ))\n\n    println(u.ad)\n    println(u.yas)\n    println(u.email)\n}"
         },
         "delegatlar.h3.d01b11d6": {
-          "text": ""
+          "text": "Свой делегат"
         },
         "delegatlar.code.df341210": {
           "title": ""
         },
         "delegatlar.h3.082fcf43": {
-          "text": ""
+          "text": "Аннотации"
         },
         "delegatlar.code.4759bead": {
           "title": "",
-          "code": ""
+          "code": "// Объявляем свою аннотацию\n@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)\n@Retention(AnnotationRetention.RUNTIME)\nannotation class Muellif(val ad: String, val versiya: Int = 1)\n\n@Muellif(\"Aysel\", versiya = 2)\nclass Hesablayici {\n\n    @Deprecated(\"Əvəzinə hesabla2() işlədin\", ReplaceWith(\"hesabla2()\"))\n    fun hesabla() = 0\n\n    fun hesabla2() = 1\n}"
         },
         "delegatlar.h4.f10209b3": {
-          "text": ""
+          "text": "Часто используемые стандартные аннотации"
         },
         "delegatlar.table.82b5410f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Аннотация"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Что делает"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Deprecated"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Помечает как устаревшее и предлагает замену"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmStatic"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Делает член companion по-настоящему static для Java"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmOverloads"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Генерирует перегрузки Java для параметров по умолчанию"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmName(\"ad\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Меняет имя, видимое из Java"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmField"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Открывает свойство как поле, без геттера/сеттера"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Throws"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Объявляет checked exceptions для Java"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Suppress(\"...\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Отключает предупреждение компилятора"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@OptIn(...)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Подтверждает использование экспериментального API"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Serializable"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Поддержка JSON для kotlinx.serialization"
+                }
+              ]
+            ]
+          ]
         },
         "delegatlar.h3.b1ab1543": {
-          "text": ""
+          "text": "Рефлексия"
         },
         "delegatlar.code.7189ac9f": {
           "title": ""
         },
         "delegatlar.callout.d145112f": {
-          "title": ""
+          "title": "Рефлексия дорогая"
         },
         "delegatlar.p.8bc8bb1c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Для полной рефлексии нужна зависимость"
+            },
+            {
+              "k": "code",
+              "v": "kotlin-reflect"
+            },
+            {
+              "k": "t",
+              "v": " (около 3 МБ), и работает она медленно. На Android её лучше избегать — плагины компилятора вроде"
+            },
+            {
+              "k": "code",
+              "v": "kotlinx.serialization"
+            },
+            {
+              "k": "t",
+              "v": " делают ту же работу без рефлексии."
+            }
+          ]
         }
       }
     },
     "android": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Android-приложения",
+      "heading": "Android на Kotlin",
+      "kicker": "Раздел 23",
+      "group": "Области применения",
       "blocks": {
         "android.p.957cc892": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Сегодня Android — крупнейшая область применения Kotlin. С 2019 года Google придерживается политики «Kotlin-first»: новые API сначала создаются для Kotlin."
+            }
+          ]
         },
         "android.h3.61e216e9": {
-          "text": ""
+          "text": "Jetpack Compose — современный UI"
         },
         "android.code.c170e10d": {
           "title": "",
-          "code": ""
+          "code": "import androidx.compose.foundation.layout.*\nimport androidx.compose.material3.*\nimport androidx.compose.runtime.*\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.unit.dp\n\n@Composable\nfun SayqacEkrani() {\n    // remember + mutableStateOf — UI обновляется автоматически при изменении состояния\n    var sayqac by remember { mutableStateOf(0) }\n\n    Column(\n        modifier = Modifier.fillMaxSize().padding(24.dp),\n        horizontalAlignment = Alignment.CenterHorizontally,\n        verticalArrangement = Arrangement.Center\n    ) {\n        Text(\n            text = \"Sayğac: $sayqac\",\n            style = MaterialTheme.typography.headlineMedium\n        )\n        Spacer(Modifier.height(16.dp))\n        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {\n            Button(onClick = { sayqac++ }) { Text(\"Artır\") }\n            OutlinedButton(onClick = { sayqac = 0 }) { Text(\"Sıfırla\") }\n        }\n    }\n}"
         },
         "android.h3.0bfba840": {
-          "text": ""
+          "text": "Архитектура ViewModel + StateFlow"
         },
         "android.code.7249eb58": {
           "title": "",
-          "code": ""
+          "code": "import androidx.lifecycle.ViewModel\nimport androidx.lifecycle.viewModelScope\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.launch\n\n// Состояние UI — моделируется через sealed interface\nsealed interface EkranVeziyyeti {\n    data object Yuklenir : EkranVeziyyeti\n    data class Ugurlu(val istifadeciler: List<Istifadeci>) : EkranVeziyyeti\n    data class Xeta(val mesaj: String) : EkranVeziyyeti\n}\n\nclass IstifadeciViewModel(\n    private val repo: IstifadeciRepo\n) : ViewModel() {\n\n    private val _veziyyet = MutableStateFlow<EkranVeziyyeti>(EkranVeziyyeti.Yuklenir)\n    val veziyyet: StateFlow<EkranVeziyyeti> = _veziyyet.asStateFlow()\n\n    init { yukle() }\n\n    fun yukle() {\n        viewModelScope.launch {          // отменяется автоматически, когда ViewModel уничтожается\n            _veziyyet.value = EkranVeziyyeti.Yuklenir\n            _veziyyet.value = runCatching { repo.hamisiniGetir() }\n                .fold(\n                    onSuccess = { EkranVeziyyeti.Ugurlu(it) },\n                    onFailure = { EkranVeziyyeti.Xeta(it.message ?: \"Naməlum xəta\") }\n                )\n        }\n    }\n}"
         },
         "android.code.7accdd68": {
           "title": "",
-          "code": ""
+          "code": "@Composable\nfun IstifadeciEkrani(vm: IstifadeciViewModel) {\n    val veziyyet by vm.veziyyet.collectAsStateWithLifecycle()\n\n    when (val v = veziyyet) {        // exhaustive — ни один случай не забыт\n        EkranVeziyyeti.Yuklenir -> CircularProgressIndicator()\n        is EkranVeziyyeti.Ugurlu -> LazyColumn {\n            items(v.istifadeciler) { istifadeci ->\n                ListItem(headlineContent = { Text(istifadeci.ad) })\n            }\n        }\n        is EkranVeziyyeti.Xeta -> Column {\n            Text(v.mesaj)\n            Button(onClick = vm::yukle) { Text(\"Yenidən cəhd et\") }\n        }\n    }\n}"
         },
         "android.h3.b10f93ad": {
-          "text": ""
+          "text": "Room — база данных"
         },
         "android.code.b049b3ad": {
           "title": "",
-          "code": ""
+          "code": "@Entity(tableName = \"istifadeciler\")\ndata class IstifadeciEntity(\n    @PrimaryKey(autoGenerate = true) val id: Int = 0,\n    val ad: String,\n    val email: String\n)\n\n@Dao\ninterface IstifadeciDao {\n    // Возвращает Flow — UI обновляется автоматически при изменении базы\n    @Query(\"SELECT * FROM istifadeciler ORDER BY ad\")\n    fun hamisi(): Flow<List<IstifadeciEntity>>\n\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\n    suspend fun elaveEt(istifadeci: IstifadeciEntity)\n\n    @Delete\n    suspend fun sil(istifadeci: IstifadeciEntity)\n}\n\n@Database(entities = [IstifadeciEntity::class], version = 1)\nabstract class AppBaza : RoomDatabase() {\n    abstract fun istifadeciDao(): IstifadeciDao\n}"
         },
         "android.h3.c5612a0b": {
-          "text": ""
+          "text": "Retrofit — сетевые запросы"
         },
         "android.code.356b92a8": {
           "title": "",
-          "code": ""
+          "code": "import retrofit2.http.*\n\n@Serializable\ndata class IstifadeciDto(val id: Int, val ad: String, val email: String)\n\ninterface Api {\n    // suspend — в Retrofit встроена поддержка корутин\n    @GET(\"istifadeciler\")\n    suspend fun hamisi(): List<IstifadeciDto>\n\n    @GET(\"istifadeciler/{id}\")\n    suspend fun tap(@Path(\"id\") id: Int): IstifadeciDto\n\n    @POST(\"istifadeciler\")\n    suspend fun yarat(@Body istifadeci: IstifadeciDto): IstifadeciDto\n}\n\nclass IstifadeciRepo(private val api: Api, private val dao: IstifadeciDao) {\n    suspend fun hamisiniGetir(): List<Istifadeci> =\n        withContext(Dispatchers.IO) {\n            api.hamisi().map { it.toModel() }\n        }\n}"
         },
         "android.h3.67a713ab": {
-          "text": ""
+          "text": "Полезные расширения для Android"
         },
         "android.code.7c129c6e": {
           "title": "",
           "code": ""
         },
         "android.callout.174fcf05": {
-          "title": ""
+          "title": "Современный стек Android (2025)"
         },
         "android.p.6c3d4702": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "UI:"
+            },
+            {
+              "k": "t",
+              "v": " Jetpack Compose + Material 3 ·"
+            },
+            {
+              "k": "b",
+              "v": "Архитектура:"
+            },
+            {
+              "k": "t",
+              "v": " MVVM/MVI + ViewModel + StateFlow ·"
+            },
+            {
+              "k": "b",
+              "v": "DI:"
+            },
+            {
+              "k": "t",
+              "v": " Hilt или Koin ·"
+            },
+            {
+              "k": "b",
+              "v": "Сеть:"
+            },
+            {
+              "k": "t",
+              "v": " Retrofit + kotlinx.serialization или Ktor Client ·"
+            },
+            {
+              "k": "b",
+              "v": "База данных:"
+            },
+            {
+              "k": "t",
+              "v": " Room ·"
+            },
+            {
+              "k": "b",
+              "v": "Навигация:"
+            },
+            {
+              "k": "t",
+              "v": " Navigation Compose ·"
+            },
+            {
+              "k": "b",
+              "v": "Изображения:"
+            },
+            {
+              "k": "t",
+              "v": " Coil ·"
+            },
+            {
+              "k": "b",
+              "v": "Тесты:"
+            },
+            {
+              "k": "t",
+              "v": " JUnit5 + MockK + Turbine"
+            }
+          ]
         }
       }
     },
     "multiplatform": {
       "title": "",
       "heading": "",
-      "kicker": "",
-      "group": "",
+      "kicker": "Раздел 24",
+      "group": "Области применения",
       "blocks": {
         "multiplatform.p.ba66e4e2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Идея KMP проста:"
+            },
+            {
+              "k": "b",
+              "v": "пиши бизнес-логику один раз"
+            },
+            {
+              "k": "t",
+              "v": ", а интерфейс оставляй нативным на каждой платформе. Отличие от React Native и Flutter — UI не заменяется, на каждой платформе остаётся нативный вид."
+            }
+          ]
         },
         "multiplatform.h3.1dccda1e": {
-          "text": ""
+          "text": "Структура проекта"
         },
         "multiplatform.code.30f5e63d": {
-          "title": ""
+          "title": "дерево проекта KMP"
         },
         "multiplatform.h3.3fd80c27": {
-          "text": ""
+          "text": "Механизм expect / actual"
         },
         "multiplatform.p.9dccb40b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Когда общему коду нужно что-то платформенное, это объявляется «ожидаемым» через"
+            },
+            {
+              "k": "code",
+              "v": "expect"
+            },
+            {
+              "k": "t",
+              "v": ", а каждая платформа даёт свою"
+            },
+            {
+              "k": "code",
+              "v": "actual"
+            },
+            {
+              "k": "t",
+              "v": "-версию."
+            }
+          ]
         },
         "multiplatform.tabs.8c18b414": {
           "tabs": {
@@ -7801,7 +8151,7 @@
         },
         "multiplatform.code.0c1c5519": {
           "title": "",
-          "code": ""
+          "code": "// Общий код — без реализации, только сигнатура\nexpect fun platformaAdi(): String\n\nexpect class Tarix() {\n    fun indi(): Long\n    fun formatla(vaxt: Long): String\n}\n\n// Общая бизнес-логика — одинаково работает на всех платформах\nclass SalamlamaServisi {\n    fun salamla(): String = \"Salam, ${platformaAdi()}!\"\n}"
         },
         "multiplatform.code.9014e703": {
           "title": ""
@@ -7810,43 +8160,190 @@
           "title": ""
         },
         "multiplatform.h3.f053eab9": {
-          "text": ""
+          "text": "Конфигурация Gradle"
         },
         "multiplatform.code.1bad8a68": {
           "title": ""
         },
         "multiplatform.h3.28bf17c0": {
-          "text": ""
+          "text": "Что делить, а что нет?"
         },
         "multiplatform.cards.72f6714b": {
           "items": {
             "0": {
-              "title": ""
+              "title": "Имеет смысл делить"
             },
             "1": {
-              "title": ""
+              "title": "Лучше оставить нативным"
             }
           }
         },
         "multiplatform.p.f76bc572": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Бизнес-логика · Модели данных · Сетевой слой (Ktor) · База данных (SQLDelight) · Валидация · Аналитика · ViewModel · Код тестов"
+            }
+          ]
         },
         "multiplatform.p.86d51c74": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "UI-компоненты · Платформенные разрешения · Push-уведомления · Камера/сенсоры · Платёжные интеграции · Глубокая интеграция с ОС"
+            }
+          ]
         },
         "multiplatform.h3.c9a12b16": {
           "text": ""
         },
         "multiplatform.p.c736ba5b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Если хочешь делить и UI, Compose Multiplatform от JetBrains позволяет писать общий интерфейс для Android, iOS, десктопа и веба."
+            }
+          ]
         },
         "multiplatform.code.c0cb6322": {
           "title": "",
-          "code": ""
+          "code": "@Composable\nfun App() {\n    MaterialTheme {\n        var sayqac by remember { mutableStateOf(0) }\n        Column(\n            Modifier.fillMaxSize(),\n            horizontalAlignment = Alignment.CenterHorizontally,\n            verticalArrangement = Arrangement.Center\n        ) {\n            Text(\"Sayğac: $sayqac\")\n            Button(onClick = { sayqac++ }) { Text(\"Artır\") }\n        }\n    }\n}\n// Этот код одинаково работает на Android, iOS, десктопе и в вебе"
         },
         "multiplatform.table.52134558": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Подход"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Общий код"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "UI"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Производительность"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "KMP (логика)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~50–70%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Полностью нативный"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нативная"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Compose Multiplatform"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~85–95%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Общий (Compose)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Очень близко к нативной"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Flutter"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~95%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Собственный движок отрисовки"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Хорошая"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "React Native"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~90%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нативные компоненты (через мост)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Средняя"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
