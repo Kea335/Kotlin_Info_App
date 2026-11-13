@@ -1,0 +1,2198 @@
+{
+  "_meta": {
+    "locale": "tr",
+    "base": "az",
+    "updated": "2026-11-13"
+  },
+  "sections": {
+    "giris": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "giris.hero.80bd415e": {
+          "badge": "",
+          "title": [],
+          "sub": "",
+          "stats": {
+            "0": {
+              "lbl": ""
+            },
+            "1": {
+              "lbl": ""
+            },
+            "2": {
+              "lbl": ""
+            },
+            "3": {
+              "lbl": ""
+            }
+          }
+        },
+        "giris.p.4f1b598a": {
+          "spans": []
+        },
+        "giris.p.61d0b647": {
+          "spans": []
+        },
+        "giris.h3.82d109d7": {
+          "text": ""
+        },
+        "giris.cards.45037a00": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            },
+            "2": {
+              "title": ""
+            },
+            "3": {
+              "title": ""
+            },
+            "4": {
+              "title": ""
+            },
+            "5": {
+              "title": ""
+            }
+          }
+        },
+        "giris.p.9293a34f": {
+          "spans": []
+        },
+        "giris.p.509353d8": {
+          "spans": []
+        },
+        "giris.p.d6e0a6d5": {
+          "spans": []
+        },
+        "giris.p.b3076627": {
+          "spans": []
+        },
+        "giris.p.7db1a4da": {
+          "spans": []
+        },
+        "giris.p.e811d50a": {
+          "spans": []
+        },
+        "giris.h3.8caf489e": {
+          "text": ""
+        },
+        "giris.p.a2ba22da": {
+          "spans": []
+        },
+        "giris.tabs.b1880dd6": {
+          "tabs": {
+            "0": {
+              "label": ""
+            },
+            "1": {
+              "label": ""
+            }
+          }
+        },
+        "giris.code.ae120c87": {
+          "title": "",
+          "code": ""
+        },
+        "giris.code.31da4116": {
+          "title": ""
+        },
+        "giris.callout.a85f49eb": {
+          "title": ""
+        },
+        "giris.p.86b925f2": {
+          "spans": []
+        },
+        "giris.h3.a765df87": {
+          "text": ""
+        },
+        "giris.table.434e2c85": {
+          "head": [],
+          "rows": []
+        },
+        "giris.h3.9d286303": {
+          "text": ""
+        },
+        "giris.list.94e5ee6b": {
+          "items": []
+        }
+      }
+    },
+    "tarixce": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "tarixce.p.0b143a22": {
+          "spans": []
+        },
+        "tarixce.timeline.4393cfe1": {
+          "items": {
+            "0": {
+              "title": "",
+              "desc": []
+            },
+            "1": {
+              "title": "",
+              "desc": []
+            },
+            "2": {
+              "title": "",
+              "desc": []
+            },
+            "3": {
+              "title": "",
+              "desc": []
+            },
+            "4": {
+              "title": "",
+              "desc": []
+            },
+            "5": {
+              "title": "",
+              "desc": []
+            },
+            "6": {
+              "title": "",
+              "desc": []
+            },
+            "7": {
+              "title": "",
+              "desc": []
+            },
+            "8": {
+              "title": "",
+              "desc": []
+            },
+            "9": {
+              "title": "",
+              "desc": []
+            },
+            "10": {
+              "title": "",
+              "desc": []
+            }
+          }
+        },
+        "tarixce.h3.0aeaca9e": {
+          "text": ""
+        },
+        "tarixce.table.00c5a49f": {
+          "head": [],
+          "rows": []
+        },
+        "tarixce.callout.6a86eb13": {
+          "title": ""
+        },
+        "tarixce.p.2bf6dd15": {
+          "spans": []
+        }
+      }
+    },
+    "qurasdirma": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "qurasdirma.p.bb45558e": {
+          "spans": []
+        },
+        "qurasdirma.h3.a4cededd": {
+          "text": ""
+        },
+        "qurasdirma.p.bf981d07": {
+          "spans": []
+        },
+        "qurasdirma.h3.441868e5": {
+          "text": ""
+        },
+        "qurasdirma.list.b9c588eb": {
+          "items": []
+        },
+        "qurasdirma.callout.38824775": {
+          "title": ""
+        },
+        "qurasdirma.p.d06bdd97": {
+          "spans": []
+        },
+        "qurasdirma.h3.5118b8b3": {
+          "text": ""
+        },
+        "qurasdirma.p.43a58fb4": {
+          "spans": []
+        },
+        "qurasdirma.code.fb20acfd": {
+          "title": ""
+        },
+        "qurasdirma.h3.51ae7c4f": {
+          "text": ""
+        },
+        "qurasdirma.p.081d64b0": {
+          "spans": []
+        },
+        "qurasdirma.code.943096ad": {
+          "title": ""
+        },
+        "qurasdirma.p.c40c8afe": {
+          "spans": []
+        },
+        "qurasdirma.code.716a1a51": {
+          "title": ""
+        },
+        "qurasdirma.h3.0d9ace09": {
+          "text": ""
+        },
+        "qurasdirma.code.cc760d95": {
+          "title": ""
+        },
+        "qurasdirma.h4.25963746": {
+          "text": ""
+        },
+        "qurasdirma.code.18420166": {
+          "title": "",
+          "code": ""
+        },
+        "qurasdirma.h4.42757315": {
+          "text": ""
+        },
+        "qurasdirma.table.fdf8abdd": {
+          "head": [],
+          "rows": []
+        },
+        "qurasdirma.callout.fe0a16e9": {
+          "title": ""
+        },
+        "qurasdirma.p.09d77442": {
+          "spans": []
+        }
+      }
+    },
+    "kod-meydani": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "kod-meydani.p.f0f09342": {
+          "spans": []
+        },
+        "kod-meydani.callout.95e8f6e5": {
+          "title": ""
+        },
+        "kod-meydani.p.7d870dcf": {
+          "spans": []
+        },
+        "kod-meydani.h3.48d73cd4": {
+          "text": ""
+        },
+        "kod-meydani.list.a94459fb": {
+          "items": []
+        },
+        "kod-meydani.callout.bb847b9e": {
+          "title": ""
+        },
+        "kod-meydani.p.f3dc61d3": {
+          "spans": []
+        },
+        "kod-meydani.h3.5a70e292": {
+          "text": ""
+        },
+        "kod-meydani.p.5d3da3b0": {
+          "spans": []
+        }
+      }
+    },
+    "sintaksis": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "sintaksis.p.b6250dd9": {
+          "spans": []
+        },
+        "sintaksis.h3.2d4d2623": {
+          "text": ""
+        },
+        "sintaksis.p.f679b026": {
+          "spans": []
+        },
+        "sintaksis.code.d2babc57": {
+          "title": "",
+          "code": ""
+        },
+        "sintaksis.h3.5f156308": {
+          "text": ""
+        },
+        "sintaksis.code.1850694e": {
+          "title": "",
+          "code": ""
+        },
+        "sintaksis.h3.2dec28d2": {
+          "text": ""
+        },
+        "sintaksis.code.58b05db7": {
+          "title": "",
+          "code": ""
+        },
+        "sintaksis.callout.6c93dba0": {
+          "title": ""
+        },
+        "sintaksis.p.18005fbc": {
+          "spans": []
+        },
+        "sintaksis.h3.7d7c42e2": {
+          "text": ""
+        },
+        "sintaksis.p.740f380b": {
+          "spans": []
+        },
+        "sintaksis.code.13900582": {
+          "title": "",
+          "code": ""
+        },
+        "sintaksis.h3.f5917877": {
+          "text": ""
+        },
+        "sintaksis.p.f655461d": {
+          "spans": []
+        },
+        "sintaksis.code.3c1e5adc": {
+          "title": "",
+          "code": ""
+        },
+        "sintaksis.h3.089054e7": {
+          "text": ""
+        },
+        "sintaksis.table.42beaf83": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "deyisenler": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "deyisenler.p.659074b6": {
+          "spans": []
+        },
+        "deyisenler.h3.acaa755c": {
+          "text": ""
+        },
+        "deyisenler.code.b7c4a939": {
+          "title": "",
+          "code": ""
+        },
+        "deyisenler.callout.e11e6a14": {
+          "title": ""
+        },
+        "deyisenler.p.962bfa8e": {
+          "spans": []
+        },
+        "deyisenler.h3.d2bd2b6b": {
+          "text": ""
+        },
+        "deyisenler.p.8c0a1307": {
+          "spans": []
+        },
+        "deyisenler.h3.3e164a6a": {
+          "text": ""
+        },
+        "deyisenler.table.69721b7f": {
+          "head": [],
+          "rows": []
+        },
+        "deyisenler.h3.6a135f51": {
+          "text": ""
+        },
+        "deyisenler.code.8dc9066e": {
+          "title": "",
+          "code": ""
+        },
+        "deyisenler.h3.b574b02e": {
+          "text": ""
+        },
+        "deyisenler.callout.cd415ca6": {
+          "title": ""
+        },
+        "deyisenler.p.f22ed486": {
+          "spans": []
+        },
+        "deyisenler.code.dbded1a7": {
+          "title": "",
+          "code": ""
+        },
+        "deyisenler.h3.9bdee4fe": {
+          "text": ""
+        },
+        "deyisenler.code.ddb77550": {
+          "title": "",
+          "code": ""
+        },
+        "deyisenler.table.031831c9": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "metnler": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "metnler.p.16c0b11a": {
+          "spans": []
+        },
+        "metnler.h3.5d49873e": {
+          "text": ""
+        },
+        "metnler.code.07a176c3": {
+          "title": "",
+          "code": ""
+        },
+        "metnler.h3.4123b296": {
+          "text": ""
+        },
+        "metnler.code.eca899b7": {
+          "title": "",
+          "code": ""
+        },
+        "metnler.h3.c61caaf9": {
+          "text": ""
+        },
+        "metnler.table.78ed8043": {
+          "head": [],
+          "rows": []
+        },
+        "metnler.code.44902cfe": {
+          "title": "",
+          "code": ""
+        },
+        "metnler.h3.aab57097": {
+          "text": ""
+        },
+        "metnler.code.5a87d89e": {
+          "title": "",
+          "code": ""
+        },
+        "metnler.callout.404a2b61": {
+          "title": ""
+        },
+        "metnler.p.507fbce7": {
+          "spans": []
+        }
+      }
+    },
+    "operatorlar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "operatorlar.p.e5bbefe9": {
+          "spans": []
+        },
+        "operatorlar.h3.2fed7f21": {
+          "text": ""
+        },
+        "operatorlar.table.80d73024": {
+          "head": [],
+          "rows": []
+        },
+        "operatorlar.callout.3ac3c666": {
+          "title": ""
+        },
+        "operatorlar.p.f0674e2e": {
+          "spans": []
+        },
+        "operatorlar.h3.767c7db7": {
+          "text": ""
+        },
+        "operatorlar.table.54171e7d": {
+          "head": [],
+          "rows": []
+        },
+        "operatorlar.h3.662f2b2e": {
+          "text": ""
+        },
+        "operatorlar.code.1c96e22b": {
+          "title": "",
+          "code": ""
+        },
+        "operatorlar.h3.334d3864": {
+          "text": ""
+        },
+        "operatorlar.table.66c0a15c": {
+          "head": [],
+          "rows": []
+        },
+        "operatorlar.h3.126c7a56": {
+          "text": ""
+        },
+        "operatorlar.p.0e54f5f7": {
+          "spans": []
+        },
+        "operatorlar.code.2070e32a": {
+          "title": "",
+          "code": ""
+        },
+        "operatorlar.table.67bbd125": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "sertler": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "sertler.p.1f37735b": {
+          "spans": []
+        },
+        "sertler.h3.e2af7a1d": {
+          "text": ""
+        },
+        "sertler.code.579820d0": {
+          "title": "",
+          "code": ""
+        },
+        "sertler.callout.ea8c1a77": {
+          "title": ""
+        },
+        "sertler.p.2f4efd63": {
+          "spans": []
+        },
+        "sertler.h3.0321cb67": {
+          "text": ""
+        },
+        "sertler.p.1a57945e": {
+          "spans": []
+        },
+        "sertler.code.f83969db": {
+          "title": "",
+          "code": ""
+        },
+        "sertler.h3.f8574870": {
+          "text": ""
+        },
+        "sertler.code.8e65c394": {
+          "title": "",
+          "code": ""
+        },
+        "sertler.callout.73574f69": {
+          "title": ""
+        },
+        "sertler.p.3689c31f": {
+          "spans": []
+        }
+      }
+    },
+    "dovrler": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "dovrler.p.a07e9238": {
+          "spans": []
+        },
+        "dovrler.h3.33f37383": {
+          "text": ""
+        },
+        "dovrler.code.0ead546a": {
+          "title": "",
+          "code": ""
+        },
+        "dovrler.h3.6004e4e6": {
+          "text": ""
+        },
+        "dovrler.code.7c309284": {
+          "title": "",
+          "code": ""
+        },
+        "dovrler.h3.e88682b6": {
+          "text": ""
+        },
+        "dovrler.code.e786f4ba": {
+          "title": "",
+          "code": ""
+        },
+        "dovrler.h3.7cfeb028": {
+          "text": ""
+        },
+        "dovrler.code.b3693b05": {
+          "title": "",
+          "code": ""
+        },
+        "dovrler.callout.081841d2": {
+          "title": ""
+        },
+        "dovrler.p.6ae1c199": {
+          "spans": []
+        },
+        "dovrler.code.c325ec87": {
+          "title": "",
+          "code": ""
+        },
+        "dovrler.h3.dd6e6ff7": {
+          "text": ""
+        },
+        "dovrler.table.d9808f9a": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "funksiyalar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "funksiyalar.p.2ad85a88": {
+          "spans": []
+        },
+        "funksiyalar.h3.2c252c35": {
+          "text": ""
+        },
+        "funksiyalar.code.7ca21690": {
+          "title": "",
+          "code": ""
+        },
+        "funksiyalar.h3.c5281f44": {
+          "text": ""
+        },
+        "funksiyalar.p.40b6dd92": {
+          "spans": []
+        },
+        "funksiyalar.code.4aad7d11": {
+          "title": "",
+          "code": ""
+        },
+        "funksiyalar.callout.dde1267d": {
+          "title": ""
+        },
+        "funksiyalar.p.baf6a7e3": {
+          "spans": []
+        },
+        "funksiyalar.h3.b2f63d43": {
+          "text": ""
+        },
+        "funksiyalar.code.2d5ad4b0": {
+          "title": "",
+          "code": ""
+        },
+        "funksiyalar.h3.2d1fbc89": {
+          "text": ""
+        },
+        "funksiyalar.code.3e7addae": {
+          "title": "",
+          "code": ""
+        },
+        "funksiyalar.h3.1c99daa2": {
+          "text": ""
+        },
+        "funksiyalar.code.476fc415": {
+          "title": "",
+          "code": ""
+        },
+        "funksiyalar.h3.c5c73f7f": {
+          "text": ""
+        },
+        "funksiyalar.code.12eb92c6": {
+          "title": "",
+          "code": ""
+        },
+        "funksiyalar.callout.945f5fe9": {
+          "title": ""
+        },
+        "funksiyalar.p.08b6f1ae": {
+          "spans": []
+        },
+        "funksiyalar.h3.a14fcc6e": {
+          "text": ""
+        },
+        "funksiyalar.code.32ae746d": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "lambda": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "lambda.p.0ce05bb0": {
+          "spans": []
+        },
+        "lambda.h3.4379bf27": {
+          "text": ""
+        },
+        "lambda.code.75d87bb8": {
+          "title": "",
+          "code": ""
+        },
+        "lambda.h3.9f9f1d9c": {
+          "text": ""
+        },
+        "lambda.table.326ff4a6": {
+          "head": [],
+          "rows": []
+        },
+        "lambda.h3.059d57b8": {
+          "text": ""
+        },
+        "lambda.code.aaadc4c8": {
+          "title": "",
+          "code": ""
+        },
+        "lambda.h3.73b80066": {
+          "text": ""
+        },
+        "lambda.p.14316fdd": {
+          "spans": []
+        },
+        "lambda.code.2aca7508": {
+          "title": "",
+          "code": ""
+        },
+        "lambda.h3.d001a331": {
+          "text": ""
+        },
+        "lambda.code.0027d1c9": {
+          "title": "",
+          "code": ""
+        },
+        "lambda.h3.f243fd7e": {
+          "text": ""
+        },
+        "lambda.code.7f9b02a4": {
+          "title": "",
+          "code": ""
+        },
+        "lambda.h3.679fc6ba": {
+          "text": ""
+        },
+        "lambda.p.bc6e3d9e": {
+          "spans": []
+        },
+        "lambda.code.c922ebc0": {
+          "title": "",
+          "code": ""
+        },
+        "lambda.callout.710ff33c": {
+          "title": ""
+        },
+        "lambda.p.c481e3c5": {
+          "spans": []
+        }
+      }
+    },
+    "scope-funksiyalari": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "scope-funksiyalari.p.7a40de82": {
+          "spans": []
+        },
+        "scope-funksiyalari.h3.3b397afe": {
+          "text": ""
+        },
+        "scope-funksiyalari.table.b628e4ec": {
+          "head": [],
+          "rows": []
+        },
+        "scope-funksiyalari.callout.3dbbc2f6": {
+          "title": ""
+        },
+        "scope-funksiyalari.p.9f1141ea": {
+          "spans": []
+        },
+        "scope-funksiyalari.h3.df101ed5": {
+          "text": ""
+        },
+        "scope-funksiyalari.code.f38ac2cd": {
+          "title": "",
+          "code": ""
+        },
+        "scope-funksiyalari.h3.0530ced8": {
+          "text": ""
+        },
+        "scope-funksiyalari.code.6bf2318e": {
+          "title": "",
+          "code": ""
+        },
+        "scope-funksiyalari.callout.1c84e4a8": {
+          "title": ""
+        },
+        "scope-funksiyalari.p.eee66178": {
+          "spans": []
+        }
+      }
+    },
+    "genislenmeler": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "genislenmeler.p.465423aa": {
+          "spans": []
+        },
+        "genislenmeler.h3.75ec6b08": {
+          "text": ""
+        },
+        "genislenmeler.code.e5dbbd79": {
+          "title": "",
+          "code": ""
+        },
+        "genislenmeler.h3.826073af": {
+          "text": ""
+        },
+        "genislenmeler.code.1caff14b": {
+          "title": "",
+          "code": ""
+        },
+        "genislenmeler.h3.c269533d": {
+          "text": ""
+        },
+        "genislenmeler.code.37454cc1": {
+          "title": "",
+          "code": ""
+        },
+        "genislenmeler.h3.c7bc634d": {
+          "text": ""
+        },
+        "genislenmeler.callout.70e206dd": {
+          "title": ""
+        },
+        "genislenmeler.p.acdd59fb": {
+          "spans": []
+        },
+        "genislenmeler.code.49ac3433": {
+          "title": "",
+          "code": ""
+        },
+        "genislenmeler.callout.4995b7da": {
+          "title": ""
+        },
+        "genislenmeler.p.38f7a2de": {
+          "spans": []
+        },
+        "genislenmeler.h3.bf40edb8": {
+          "text": ""
+        },
+        "genislenmeler.code.ba2b9d29": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "null-safety": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "null-safety.p.71e03f26": {
+          "spans": []
+        },
+        "null-safety.h3.44ad617e": {
+          "text": ""
+        },
+        "null-safety.code.a24fd805": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h3.3515f27c": {
+          "text": ""
+        },
+        "null-safety.h4.e583cf1c": {
+          "text": ""
+        },
+        "null-safety.code.4284bb02": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h4.14b8b165": {
+          "text": ""
+        },
+        "null-safety.code.c96c19c7": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h4.b6357838": {
+          "text": ""
+        },
+        "null-safety.code.219048bd": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.callout.e8dea34f": {
+          "title": ""
+        },
+        "null-safety.p.de6a159f": {
+          "spans": []
+        },
+        "null-safety.h4.01746fa3": {
+          "text": ""
+        },
+        "null-safety.code.5b2ebd0e": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h4.707259b2": {
+          "text": ""
+        },
+        "null-safety.code.d39e73a1": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h4.7f3a4e91": {
+          "text": ""
+        },
+        "null-safety.code.43f813ed": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h3.0bf47d49": {
+          "text": ""
+        },
+        "null-safety.code.22fadaf5": {
+          "title": "",
+          "code": ""
+        },
+        "null-safety.h3.48e23484": {
+          "text": ""
+        },
+        "null-safety.callout.b1486b00": {
+          "title": ""
+        },
+        "null-safety.p.c1e98c78": {
+          "spans": []
+        },
+        "null-safety.h3.0c30ce47": {
+          "text": ""
+        },
+        "null-safety.table.be28499f": {
+          "head": [],
+          "rows": []
+        },
+        "null-safety.callout.6be44e69": {
+          "title": ""
+        },
+        "null-safety.p.b7acba6d": {
+          "spans": []
+        }
+      }
+    },
+    "kolleksiyalar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "kolleksiyalar.p.b139ebbb": {
+          "spans": []
+        },
+        "kolleksiyalar.h3.823b09ff": {
+          "text": ""
+        },
+        "kolleksiyalar.table.b29c3f53": {
+          "head": [],
+          "rows": []
+        },
+        "kolleksiyalar.code.9b676a3e": {
+          "title": "",
+          "code": ""
+        },
+        "kolleksiyalar.callout.b4056a5a": {
+          "title": ""
+        },
+        "kolleksiyalar.p.ba2a989e": {
+          "spans": []
+        },
+        "kolleksiyalar.h3.9140c87c": {
+          "text": ""
+        },
+        "kolleksiyalar.code.296b77eb": {
+          "title": "",
+          "code": ""
+        },
+        "kolleksiyalar.h3.0d8556e1": {
+          "text": ""
+        },
+        "kolleksiyalar.code.71f49d7f": {
+          "title": "",
+          "code": ""
+        },
+        "kolleksiyalar.h3.4c2f479a": {
+          "text": ""
+        },
+        "kolleksiyalar.code.d18e4219": {
+          "title": "",
+          "code": ""
+        },
+        "kolleksiyalar.h3.fa777003": {
+          "text": ""
+        },
+        "kolleksiyalar.table.743f7a6e": {
+          "head": [],
+          "rows": []
+        },
+        "kolleksiyalar.h3.cb1d095b": {
+          "text": ""
+        },
+        "kolleksiyalar.p.00753936": {
+          "spans": []
+        },
+        "kolleksiyalar.code.76102d7b": {
+          "title": "",
+          "code": ""
+        },
+        "kolleksiyalar.callout.4ba1a663": {
+          "title": ""
+        },
+        "kolleksiyalar.p.dc1b0aed": {
+          "spans": []
+        },
+        "kolleksiyalar.h3.ce49b31e": {
+          "text": ""
+        },
+        "kolleksiyalar.code.17bfa588": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "oop": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "oop.p.478f3eba": {
+          "spans": []
+        },
+        "oop.h3.f02538d8": {
+          "text": ""
+        },
+        "oop.code.d629fbc9": {
+          "title": "",
+          "code": ""
+        },
+        "oop.h3.8601d61c": {
+          "text": ""
+        },
+        "oop.code.ad72a289": {
+          "title": "",
+          "code": ""
+        },
+        "oop.callout.9ed492d6": {
+          "title": ""
+        },
+        "oop.p.b5831c1e": {
+          "spans": []
+        },
+        "oop.h3.4e45d0d6": {
+          "text": ""
+        },
+        "oop.code.cda2a5e0": {
+          "title": "",
+          "code": ""
+        },
+        "oop.h3.df05b83d": {
+          "text": ""
+        },
+        "oop.table.79e055f4": {
+          "head": [],
+          "rows": []
+        },
+        "oop.h3.70076017": {
+          "text": ""
+        },
+        "oop.code.2dd409d4": {
+          "title": ""
+        },
+        "oop.h3.ba5b5119": {
+          "text": ""
+        },
+        "oop.code.01063e33": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "miras": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "miras.p.b1ef11ae": {
+          "spans": []
+        },
+        "miras.h3.21dc5a17": {
+          "text": ""
+        },
+        "miras.code.f48e0d42": {
+          "title": "",
+          "code": ""
+        },
+        "miras.h3.48c19f5d": {
+          "text": ""
+        },
+        "miras.code.84d91e64": {
+          "title": "",
+          "code": ""
+        },
+        "miras.h3.4966f923": {
+          "text": ""
+        },
+        "miras.code.ea2e7954": {
+          "title": "",
+          "code": ""
+        },
+        "miras.h3.df0080f1": {
+          "text": ""
+        },
+        "miras.code.e981d6a1": {
+          "title": "",
+          "code": ""
+        },
+        "miras.h3.02fdf069": {
+          "text": ""
+        },
+        "miras.table.b3aa05f0": {
+          "head": [],
+          "rows": []
+        },
+        "miras.h3.a489d246": {
+          "text": ""
+        },
+        "miras.p.7c9d3938": {
+          "spans": []
+        },
+        "miras.code.ed963b92": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "xususi-sinifler": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "xususi-sinifler.p.59d8033b": {
+          "spans": []
+        },
+        "xususi-sinifler.h3.0609fa01": {
+          "text": ""
+        },
+        "xususi-sinifler.code.f8f1c366": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.callout.423646ba": {
+          "title": ""
+        },
+        "xususi-sinifler.p.d87232f7": {
+          "spans": []
+        },
+        "xususi-sinifler.h3.ba3f320c": {
+          "text": ""
+        },
+        "xususi-sinifler.code.74107a1a": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.h3.6c209cda": {
+          "text": ""
+        },
+        "xususi-sinifler.p.d9a9d274": {
+          "spans": []
+        },
+        "xususi-sinifler.code.50738001": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.callout.7f3a2165": {
+          "title": ""
+        },
+        "xususi-sinifler.p.2ac5211a": {
+          "spans": []
+        },
+        "xususi-sinifler.h3.ac0dc1a1": {
+          "text": ""
+        },
+        "xususi-sinifler.code.d4294568": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.h3.d46d5a7e": {
+          "text": ""
+        },
+        "xususi-sinifler.code.dd693c32": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.h3.5ae8d6ee": {
+          "text": ""
+        },
+        "xususi-sinifler.code.535c9c28": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.h3.a8173b29": {
+          "text": ""
+        },
+        "xususi-sinifler.code.754f8445": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.h3.948e5a45": {
+          "text": ""
+        },
+        "xususi-sinifler.code.635e12d3": {
+          "title": "",
+          "code": ""
+        },
+        "xususi-sinifler.h3.f4f8f522": {
+          "text": ""
+        },
+        "xususi-sinifler.table.e82ab62c": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "generics": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "generics.p.40200d9c": {
+          "spans": []
+        },
+        "generics.h3.67958582": {
+          "text": ""
+        },
+        "generics.code.ffa36427": {
+          "title": "",
+          "code": ""
+        },
+        "generics.h3.854777bc": {
+          "text": ""
+        },
+        "generics.code.9d717d61": {
+          "title": "",
+          "code": ""
+        },
+        "generics.h3.8255b1ad": {
+          "text": ""
+        },
+        "generics.p.3cc85d2d": {
+          "spans": []
+        },
+        "generics.table.24453c80": {
+          "head": [],
+          "rows": []
+        },
+        "generics.code.dc79a713": {
+          "title": "",
+          "code": ""
+        },
+        "generics.callout.782e4b5e": {
+          "title": ""
+        },
+        "generics.p.b478e86d": {
+          "spans": []
+        },
+        "generics.h3.6ae45d58": {
+          "text": ""
+        },
+        "generics.p.2efad755": {
+          "spans": []
+        },
+        "generics.code.8dd0ea99": {
+          "title": "",
+          "code": ""
+        },
+        "generics.h3.0e4da712": {
+          "text": ""
+        },
+        "generics.code.9ed6e8be": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "coroutines": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "coroutines.p.659d47f2": {
+          "spans": []
+        },
+        "coroutines.h3.7a90d74d": {
+          "text": ""
+        },
+        "coroutines.code.653aeb19": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.h3.7b37ec26": {
+          "text": ""
+        },
+        "coroutines.code.afc8da1b": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.callout.bfb73cc8": {
+          "title": ""
+        },
+        "coroutines.p.bad62990": {
+          "spans": []
+        },
+        "coroutines.h3.2adfb8f8": {
+          "text": ""
+        },
+        "coroutines.table.f4cc6212": {
+          "head": [],
+          "rows": []
+        },
+        "coroutines.h3.51979d92": {
+          "text": ""
+        },
+        "coroutines.code.c1746589": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.h3.d02480af": {
+          "text": ""
+        },
+        "coroutines.table.07fdd8cd": {
+          "head": [],
+          "rows": []
+        },
+        "coroutines.code.0b446e82": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.h3.038cf05b": {
+          "text": ""
+        },
+        "coroutines.p.a08bec36": {
+          "spans": []
+        },
+        "coroutines.code.a020deac": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.h3.c0209457": {
+          "text": ""
+        },
+        "coroutines.code.7e5eed9c": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.callout.ea1343fa": {
+          "title": ""
+        },
+        "coroutines.p.620377eb": {
+          "spans": []
+        },
+        "coroutines.h3.d32dd581": {
+          "text": ""
+        },
+        "coroutines.code.cbd72ac6": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.h3.3664bdb8": {
+          "text": ""
+        },
+        "coroutines.p.beb9a804": {
+          "spans": []
+        },
+        "coroutines.code.21903a52": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.table.adac1e19": {
+          "head": [],
+          "rows": []
+        },
+        "coroutines.code.06e29e33": {
+          "title": "",
+          "code": ""
+        },
+        "coroutines.h3.c21301a5": {
+          "text": ""
+        },
+        "coroutines.table.f5f56c53": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "istisnalar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "istisnalar.p.b88cd2a6": {
+          "spans": []
+        },
+        "istisnalar.h3.00bd3d1f": {
+          "text": ""
+        },
+        "istisnalar.code.8f9d1ad3": {
+          "title": "",
+          "code": ""
+        },
+        "istisnalar.h3.8777b853": {
+          "text": ""
+        },
+        "istisnalar.code.cba6ba18": {
+          "title": ""
+        },
+        "istisnalar.h3.30fbfd11": {
+          "text": ""
+        },
+        "istisnalar.table.4441efdb": {
+          "head": [],
+          "rows": []
+        },
+        "istisnalar.code.3491360f": {
+          "title": ""
+        },
+        "istisnalar.h3.3eb5e1b4": {
+          "text": ""
+        },
+        "istisnalar.code.34a89b9b": {
+          "title": "",
+          "code": ""
+        },
+        "istisnalar.h3.2a62c3fb": {
+          "text": ""
+        },
+        "istisnalar.p.e5ae6722": {
+          "spans": []
+        },
+        "istisnalar.code.7c271e46": {
+          "title": ""
+        },
+        "istisnalar.callout.08a41b3e": {
+          "title": ""
+        },
+        "istisnalar.p.0f74b1f3": {
+          "spans": []
+        },
+        "istisnalar.h3.ba8bd562": {
+          "text": ""
+        },
+        "istisnalar.code.7128fb2d": {
+          "title": "",
+          "code": ""
+        }
+      }
+    },
+    "delegatlar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "delegatlar.p.59ec8e7c": {
+          "spans": []
+        },
+        "delegatlar.h3.f1d925bd": {
+          "text": ""
+        },
+        "delegatlar.code.093a8b83": {
+          "title": "",
+          "code": ""
+        },
+        "delegatlar.table.15e3f33e": {
+          "head": [],
+          "rows": []
+        },
+        "delegatlar.h3.c052735f": {
+          "text": ""
+        },
+        "delegatlar.code.84c84fc4": {
+          "title": "",
+          "code": ""
+        },
+        "delegatlar.h3.5b7f9d9e": {
+          "text": ""
+        },
+        "delegatlar.code.921175e9": {
+          "title": "",
+          "code": ""
+        },
+        "delegatlar.h3.d01b11d6": {
+          "text": ""
+        },
+        "delegatlar.code.df341210": {
+          "title": ""
+        },
+        "delegatlar.h3.082fcf43": {
+          "text": ""
+        },
+        "delegatlar.code.4759bead": {
+          "title": "",
+          "code": ""
+        },
+        "delegatlar.h4.f10209b3": {
+          "text": ""
+        },
+        "delegatlar.table.82b5410f": {
+          "head": [],
+          "rows": []
+        },
+        "delegatlar.h3.b1ab1543": {
+          "text": ""
+        },
+        "delegatlar.code.7189ac9f": {
+          "title": ""
+        },
+        "delegatlar.callout.d145112f": {
+          "title": ""
+        },
+        "delegatlar.p.8bc8bb1c": {
+          "spans": []
+        }
+      }
+    },
+    "android": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "android.p.957cc892": {
+          "spans": []
+        },
+        "android.h3.61e216e9": {
+          "text": ""
+        },
+        "android.code.c170e10d": {
+          "title": "",
+          "code": ""
+        },
+        "android.h3.0bfba840": {
+          "text": ""
+        },
+        "android.code.7249eb58": {
+          "title": "",
+          "code": ""
+        },
+        "android.code.7accdd68": {
+          "title": "",
+          "code": ""
+        },
+        "android.h3.b10f93ad": {
+          "text": ""
+        },
+        "android.code.b049b3ad": {
+          "title": "",
+          "code": ""
+        },
+        "android.h3.c5612a0b": {
+          "text": ""
+        },
+        "android.code.356b92a8": {
+          "title": "",
+          "code": ""
+        },
+        "android.h3.67a713ab": {
+          "text": ""
+        },
+        "android.code.7c129c6e": {
+          "title": "",
+          "code": ""
+        },
+        "android.callout.174fcf05": {
+          "title": ""
+        },
+        "android.p.6c3d4702": {
+          "spans": []
+        }
+      }
+    },
+    "multiplatform": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "multiplatform.p.ba66e4e2": {
+          "spans": []
+        },
+        "multiplatform.h3.1dccda1e": {
+          "text": ""
+        },
+        "multiplatform.code.30f5e63d": {
+          "title": ""
+        },
+        "multiplatform.h3.3fd80c27": {
+          "text": ""
+        },
+        "multiplatform.p.9dccb40b": {
+          "spans": []
+        },
+        "multiplatform.tabs.8c18b414": {
+          "tabs": {
+            "0": {
+              "label": ""
+            },
+            "1": {
+              "label": ""
+            },
+            "2": {
+              "label": ""
+            }
+          }
+        },
+        "multiplatform.code.0c1c5519": {
+          "title": "",
+          "code": ""
+        },
+        "multiplatform.code.9014e703": {
+          "title": ""
+        },
+        "multiplatform.code.70fa8ad9": {
+          "title": ""
+        },
+        "multiplatform.h3.f053eab9": {
+          "text": ""
+        },
+        "multiplatform.code.1bad8a68": {
+          "title": ""
+        },
+        "multiplatform.h3.28bf17c0": {
+          "text": ""
+        },
+        "multiplatform.cards.72f6714b": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            }
+          }
+        },
+        "multiplatform.p.f76bc572": {
+          "spans": []
+        },
+        "multiplatform.p.86d51c74": {
+          "spans": []
+        },
+        "multiplatform.h3.c9a12b16": {
+          "text": ""
+        },
+        "multiplatform.p.c736ba5b": {
+          "spans": []
+        },
+        "multiplatform.code.c0cb6322": {
+          "title": "",
+          "code": ""
+        },
+        "multiplatform.table.52134558": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "backend": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "backend.p.583dab15": {
+          "spans": []
+        },
+        "backend.h3.f584f673": {
+          "text": ""
+        },
+        "backend.code.7642f1df": {
+          "title": ""
+        },
+        "backend.h3.35709734": {
+          "text": ""
+        },
+        "backend.code.82615a39": {
+          "title": ""
+        },
+        "backend.h3.73435695": {
+          "text": ""
+        },
+        "backend.code.796c71e7": {
+          "title": "",
+          "code": ""
+        },
+        "backend.h3.b9395c83": {
+          "text": ""
+        },
+        "backend.code.64de14f9": {
+          "title": "",
+          "code": ""
+        },
+        "backend.table.a48580d4": {
+          "head": [],
+          "rows": []
+        }
+      }
+    },
+    "test": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "test.p.f0e21275": {
+          "spans": []
+        },
+        "test.h3.d069587a": {
+          "text": ""
+        },
+        "test.code.780c027f": {
+          "title": "",
+          "code": ""
+        },
+        "test.h3.e8e20255": {
+          "text": ""
+        },
+        "test.table.237604bd": {
+          "head": [],
+          "rows": []
+        },
+        "test.h3.cf856e7a": {
+          "text": ""
+        },
+        "test.code.4e560006": {
+          "title": "",
+          "code": ""
+        },
+        "test.h3.4b7fa526": {
+          "text": ""
+        },
+        "test.code.3bfaf51c": {
+          "title": "",
+          "code": ""
+        },
+        "test.h3.d300c230": {
+          "text": ""
+        },
+        "test.code.6d55ae0d": {
+          "title": ""
+        },
+        "test.code.8d69295d": {
+          "title": "",
+          "code": ""
+        },
+        "test.callout.3fba827b": {
+          "title": ""
+        },
+        "test.p.c23c3b86": {
+          "spans": []
+        }
+      }
+    },
+    "java-muqayise": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "java-muqayise.p.b8d2d2a8": {
+          "spans": []
+        },
+        "java-muqayise.h3.ae5725ed": {
+          "text": ""
+        },
+        "java-muqayise.table.b94a0bf2": {
+          "head": [],
+          "rows": []
+        },
+        "java-muqayise.h3.ab700530": {
+          "text": ""
+        },
+        "java-muqayise.tabs.53c96cfc": {
+          "tabs": {
+            "0": {
+              "label": ""
+            },
+            "1": {
+              "label": ""
+            }
+          }
+        },
+        "java-muqayise.code.6d9abac9": {
+          "title": ""
+        },
+        "java-muqayise.code.1e9a3286": {
+          "title": ""
+        },
+        "java-muqayise.h3.b1609b6e": {
+          "text": ""
+        },
+        "java-muqayise.code.82c4adb9": {
+          "title": "",
+          "code": ""
+        },
+        "java-muqayise.h3.5e79c054": {
+          "text": ""
+        },
+        "java-muqayise.code.656821fb": {
+          "title": "",
+          "code": ""
+        },
+        "java-muqayise.h3.2d3d16e2": {
+          "text": ""
+        },
+        "java-muqayise.list.1471b1d5": {
+          "items": []
+        },
+        "java-muqayise.callout.b313cc9a": {
+          "title": ""
+        },
+        "java-muqayise.p.7d88a996": {
+          "spans": []
+        }
+      }
+    },
+    "idiomlar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "idiomlar.p.bb03f4f8": {
+          "spans": []
+        },
+        "idiomlar.h3.c951ddc1": {
+          "text": ""
+        },
+        "idiomlar.cards.3417af8e": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            }
+          }
+        },
+        "idiomlar.code.1e507861": {
+          "title": ""
+        },
+        "idiomlar.code.8c03cb73": {
+          "title": ""
+        },
+        "idiomlar.h3.9513e8b7": {
+          "text": ""
+        },
+        "idiomlar.cards.9a7f5b5e": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            }
+          }
+        },
+        "idiomlar.code.cb1c6492": {
+          "title": ""
+        },
+        "idiomlar.code.96b314b4": {
+          "title": ""
+        },
+        "idiomlar.h3.ddd71299": {
+          "text": ""
+        },
+        "idiomlar.cards.ead1c088": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            }
+          }
+        },
+        "idiomlar.code.dfb62f21": {
+          "title": ""
+        },
+        "idiomlar.code.b2cd34a5": {
+          "title": ""
+        },
+        "idiomlar.h3.6267a5b5": {
+          "text": ""
+        },
+        "idiomlar.cards.892d895b": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            }
+          }
+        },
+        "idiomlar.code.abd40afa": {
+          "title": ""
+        },
+        "idiomlar.code.9c2258b0": {
+          "title": ""
+        },
+        "idiomlar.h3.15b9411d": {
+          "text": ""
+        },
+        "idiomlar.cards.0130b391": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            }
+          }
+        },
+        "idiomlar.code.911d059f": {
+          "title": ""
+        },
+        "idiomlar.code.0d4afb17": {
+          "title": ""
+        },
+        "idiomlar.h3.8ef4335e": {
+          "text": ""
+        },
+        "idiomlar.code.5fa7b33c": {
+          "title": "",
+          "code": ""
+        },
+        "idiomlar.h3.1ac334d4": {
+          "text": ""
+        },
+        "idiomlar.table.3f6ab771": {
+          "head": [],
+          "rows": []
+        },
+        "idiomlar.h3.da9add51": {
+          "text": ""
+        },
+        "idiomlar.list.49973a39": {
+          "items": []
+        },
+        "idiomlar.callout.e6103dce": {
+          "title": ""
+        },
+        "idiomlar.p.e96dc764": {
+          "spans": []
+        }
+      }
+    },
+    "calismalar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "calismalar.p.f3d4c013": {
+          "spans": []
+        },
+        "calismalar.callout.34aa3074": {
+          "title": ""
+        },
+        "calismalar.p.f03302c9": {
+          "spans": []
+        },
+        "calismalar.p.eb7f2dd5": {
+          "spans": []
+        },
+        "calismalar.p.3355b8e8": {
+          "spans": []
+        },
+        "calismalar.callout.1e02db9f": {
+          "title": ""
+        },
+        "calismalar.p.dd75de94": {
+          "spans": []
+        }
+      }
+    },
+    "quiz": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "quiz.p.74feaad2": {
+          "spans": []
+        },
+        "quiz.callout.38146208": {
+          "title": ""
+        },
+        "quiz.p.57654f01": {
+          "spans": []
+        }
+      }
+    },
+    "resurslar": {
+      "title": "",
+      "heading": "",
+      "kicker": "",
+      "group": "",
+      "blocks": {
+        "resurslar.p.7b734f96": {
+          "spans": []
+        },
+        "resurslar.h3.2b394210": {
+          "text": ""
+        },
+        "resurslar.cards.a7055f29": {
+          "items": {
+            "0": {
+              "title": ""
+            },
+            "1": {
+              "title": ""
+            },
+            "2": {
+              "title": ""
+            },
+            "3": {
+              "title": ""
+            },
+            "4": {
+              "title": ""
+            },
+            "5": {
+              "title": ""
+            }
+          }
+        },
+        "resurslar.p.c01dc095": {
+          "spans": []
+        },
+        "resurslar.p.1c96219c": {
+          "spans": []
+        },
+        "resurslar.p.f31b8dd7": {
+          "spans": []
+        },
+        "resurslar.p.dd787c4b": {
+          "spans": []
+        },
+        "resurslar.p.d95b0d7e": {
+          "spans": []
+        },
+        "resurslar.p.89954c12": {
+          "spans": []
+        },
+        "resurslar.h3.a40eb99e": {
+          "text": ""
+        },
+        "resurslar.timeline.e8cfbba7": {
+          "items": {
+            "0": {
+              "title": "",
+              "desc": []
+            },
+            "1": {
+              "title": "",
+              "desc": []
+            },
+            "2": {
+              "title": "",
+              "desc": []
+            },
+            "3": {
+              "title": "",
+              "desc": []
+            },
+            "4": {
+              "title": "",
+              "desc": []
+            }
+          }
+        },
+        "resurslar.h3.751b0bcd": {
+          "text": ""
+        },
+        "resurslar.table.34142ba5": {
+          "head": [],
+          "rows": []
+        },
+        "resurslar.h3.7b1e6467": {
+          "text": ""
+        },
+        "resurslar.h4.f6e5ef09": {
+          "text": ""
+        },
+        "resurslar.p.29939b36": {
+          "spans": []
+        },
+        "resurslar.h4.63590024": {
+          "text": ""
+        },
+        "resurslar.p.65825c37": {
+          "spans": []
+        },
+        "resurslar.h4.bbb63d35": {
+          "text": ""
+        },
+        "resurslar.p.dec368a0": {
+          "spans": []
+        },
+        "resurslar.h4.1735f6a0": {
+          "text": ""
+        },
+        "resurslar.p.f12187c6": {
+          "spans": []
+        },
+        "resurslar.h4.d02c37d2": {
+          "text": ""
+        },
+        "resurslar.p.2d7361bd": {
+          "spans": []
+        },
+        "resurslar.callout.342c0b44": {
+          "title": ""
+        },
+        "resurslar.p.3b7f5ec8": {
+          "spans": []
+        }
+      }
+    }
+  }
+}

@@ -49,8 +49,9 @@ yarımçıq dil yalnız debug build-də, tərcüməçi üçündür.
 |---|---|---|---|
 | Azərbaycan | `az` | 100 % | baza |
 | English | `en` | 100 % | tətbiqdə |
+| Türkçe | `tr` | 9 % | hazırlanır (yalnız debug build) |
 
-Planlaşdırılan (overlay hələ yoxdur): Türkçe, Русский, Español, Português (Brasil), Deutsch, Français, العربية, فارسی, हिन्दी, Bahasa Indonesia, 简体中文, 日本語, 한국어.
+Planlaşdırılan (overlay hələ yoxdur): Русский, Español, Português (Brasil), Deutsch, Français, العربية, فارسی, हिन्दी, Bahasa Indonesia, 简体中文, 日本語, 한국어.
 <!-- diller:son -->
 
 ---
