@@ -6438,7 +6438,7 @@
         },
         "coroutines-p-03": {
           "tapsiriq": "launch kullan: coroutine başlat ve bitmesini bekle.",
-          "ipucu": "j.join() yaz.",
+          "ipucu": "j.join() çağır.",
           "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch {\n        delay(50)\n        println(\"is bitdi\")\n    }\n    // bekle\n    println(\"hamisi bitdi\")\n}"
         },
         "coroutines-p-04": {
@@ -6554,516 +6554,741 @@
       }
     },
     "test": {
-      "title": "",
+      "title": "Test yazmak",
       "nezeri": {
         "test-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'in standart test kütüphanesi hangisidir?",
+          "opts": [
+            "Yalnızca JUnit",
+            "kotlin.test",
+            "TestNG",
+            "Spek"
+          ],
+          "exp": "kotlin.test platformdan bağımsız assert fonksiyonları sunar. JVM'de altta JUnit çalışır, ama kod aynı kalır."
         },
         "test-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertEquals() parametrelerinin sırası nasıldır?",
+          "opts": [
+            "(gerçek, beklenen)",
+            "(beklenen, gerçek)",
+            "Farketmez",
+            "(mesaj, değer)"
+          ],
+          "exp": "Önce beklenen, sonra gerçek değer yazılır. Yanlış sıra hata mesajını tersine çevirir ve teşhisi zorlaştırır."
         },
         "test-n-03": {
-          "q": "",
+          "q": "Test fonksiyonu nasıl işaretlenir?",
           "opts": [],
-          "exp": ""
+          "exp": "@Test anotasyonu kotlin.test paketinden gelir ve fonksiyonu test çalıştırıcısı için görünür kılar."
         },
         "test-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Test adında boşluk kullanmak için ne yapılır?",
+          "opts": [
+            "Alt çizgi konur",
+            "Backtick içine alınır",
+            "Tırnak içine alınır",
+            "Mümkün değil"
+          ],
+          "exp": "fun `bos siyahi ucun null qaytarir`() — testler cümle gibi okunur ve belgeleme rolü üstlenir."
         },
         "test-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertTrue() neyi kontrol eder?",
+          "opts": [
+            "Değerin null olmadığını",
+            "Koşulun doğru olduğunu",
+            "İki değerin eşitliğini",
+            "İstisnayı"
+          ],
+          "exp": "Koşul yanlışsa AssertionError fırlatılır. Tersi assertFalse()'tur."
         },
         "test-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Assert başarısız olduğunda ne olur?",
+          "opts": [
+            "null döndürür",
+            "AssertionError fırlatılır",
+            "Test atlanır",
+            "Hiçbir şey"
+          ],
+          "exp": "AssertionError, Throwable'dan türer. Test çalıştırıcısı onu yakalar ve testi başarısız olarak işaretler."
         },
         "test-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@BeforeTest ne yapar?",
+          "opts": [
+            "Testten sonra çalışır",
+            "Her testten önce çalışır",
+            "Bir kez çalışır",
+            "Hiçbir şey"
+          ],
+          "exp": "Her test için temiz bir başlangıç durumu kurmak içindir. Tersi @AfterTest'tir."
         },
         "test-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertNull() neyi kontrol eder?",
+          "opts": [
+            "Değerin boş olduğunu",
+            "Değerin null olduğunu",
+            "Listenin boş olduğunu",
+            "Türün uygunluğunu"
+          ],
+          "exp": "Eşi assertNotNull()'dur; hem kontrol eder hem de non-null türünde değer döndürür."
         },
         "test-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yapar?",
+          "opts": [
+            "Hata fırlatır",
+            "\"kecdi\" yazdırır",
+            "Hiçbir şey",
+            "null döndürür"
+          ],
+          "exp": "Beklenen ve gerçek değer aynıdır, bu yüzden assert sessizce geçer ve sonraki satır çalışır."
         },
         "test-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertFailsWith ne içindir?",
+          "opts": [
+            "Testi durdurmak",
+            "Belirli bir istisnanın fırlatıldığını kontrol etmek",
+            "Değeri karşılaştırmak",
+            "Testi atlamak"
+          ],
+          "exp": "assertFailsWith<NumberFormatException> { ... } — hem istisnanın fırlatıldığını kontrol eder hem de nesnesini döndürür ki mesajı da kontrol edebilesin."
         },
         "test-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertContentEquals ne zaman kullanılır?",
+          "opts": [
+            "Metinler için",
+            "Koleksiyon ve dizilerin içeriğini karşılaştırmak için",
+            "Nesneler için",
+            "Sayılar için"
+          ],
+          "exp": "Dizilerde assertEquals referansı karşılaştırır ve yanlış sonuç verir. İçerik karşılaştırması için assertContentEquals gerekir."
         },
         "test-n-12": {
-          "q": "",
+          "q": "AAA kalıbı ne anlama gelir?",
           "opts": [],
-          "exp": ""
+          "exp": "Hazırlık, çalıştırma, doğrulama. Testi üç açık parçaya bölmek onu okunaklı yapar ve teşhisi kolaylaştırır."
         },
         "test-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir testte kaç davranış kontrol edilmelidir?",
+          "opts": [
+            "Mümkün olduğunca çok",
+            "Bir — böylece başarısızlığın nedeni hemen anlaşılır",
+            "En az üç",
+            "Farketmez"
+          ],
+          "exp": "Çok şey kontrol eden bir test başarısız olduğunda hangi kısmın bozulduğunu bulmak zorlaşır. Bir test — bir iddia ilkesi işe yarar."
         },
         "test-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Coroutine testleri için ne kullanılır?",
+          "opts": [
+            "runBlocking",
+            "runTest — sanal zamanla delay'leri anında geçer",
+            "Thread.sleep",
+            "Hiçbir şey"
+          ],
+          "exp": "runTest, kotlinx-coroutines-test paketindedir. delay(5000) gerçek 5 saniye sürmez, sanal zaman ileri alınır."
         },
         "test-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Mock nedir?",
+          "opts": [
+            "Gerçek bir nesne",
+            "Testte gerçek bağımlılığın yerini alan sahte bir nesne",
+            "Bir hata türü",
+            "Bir kütüphane"
+          ],
+          "exp": "Ağ veya veritabanı gibi ağır bağımlılıkların yerini alır. Kotlin'de en çok MockK kullanılır, çünkü final sınıflarla da çalışır."
         },
         "test-n-16": {
-          "q": "",
+          "q": "MockK'da suspend fonksiyonu mock'lamak için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "coEvery ve coVerify suspend fonksiyonlar içindir. Sıradan fonksiyonlar için every ve verify kullanılır."
         },
         "test-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertSame() ile assertEquals() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "assertSame referansı, assertEquals içeriği kontrol eder",
+            "assertSame daha hızlıdır",
+            "assertEquals yalnızca sayılar içindir"
+          ],
+          "exp": "assertSame üç eşittir işareti gibi çalışır. Genellikle içerik karşılaştırması gerekir, bu yüzden assertEquals daha çok kullanılır."
         },
         "test-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Test kodunda neden backtick'li adlar kullanılır?",
+          "opts": [
+            "Hız için",
+            "Testin neyi kontrol ettiğini bir cümle gibi ifade etmek için",
+            "Derleyici gerektirir",
+            "Bellek için"
+          ],
+          "exp": "Test raporunda ad olduğu gibi görünür. İyi bir ad, testin ne yaptığını kodu okumadan anlatır."
         },
         "test-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Parametreli test ne içindir?",
+          "opts": [
+            "Testi hızlandırmak",
+            "Aynı mantığı farklı girdi setleriyle kontrol etmek",
+            "Mock oluşturmak",
+            "Testi atlamak"
+          ],
+          "exp": "@ParameterizedTest ve @CsvSource ile tek bir test fonksiyonu onlarca durumu kapsar. Tekrarlanan kod ortadan kalkar."
         },
         "test-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Test edilebilir kod yazmak için en önemli ilke nedir?",
+          "opts": [
+            "Çok yorum yazmak",
+            "Bağımlılıkları dışarıdan aktarmak (dependency injection)",
+            "Kısa fonksiyonlar",
+            "Global değişkenler"
+          ],
+          "exp": "Bir sınıf kendi bağımlılığını içeride oluşturuyorsa onu testte değiştirmek mümkün olmaz. Yapıcıdan aktarmak testi kolaylaştırır."
         },
         "test-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Turbine kütüphanesi ne içindir?",
+          "opts": [
+            "Ağ testi",
+            "Flow testleri",
+            "UI testi",
+            "Performans testi"
+          ],
+          "exp": "Flow'un yaydığı değerleri sırayla kontrol etmeyi sağlar: awaitItem(), awaitComplete()."
         },
         "test-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "%100 test kapsamı neyi garanti eder?",
+          "opts": [
+            "Hatasız kodu",
+            "Yalnızca her satırın bir kez çalıştığını — doğruluğu değil",
+            "Hızı",
+            "Güvenliği"
+          ],
+          "exp": "Bir satır çalışabilir ama sonucu kontrol edilmeyebilir. Kapsam faydalı bir göstergedir, amaç değildir."
         },
         "test-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Testte gerçek bir ağ isteği kullanmak neden kötüdür?",
+          "opts": [
+            "Yavaştır ve kararsızdır — sonuç dış etkenlere bağlı kalır",
+            "Pahalıdır",
+            "Derleme hatası verir",
+            "Kötü değil"
+          ],
+          "exp": "Böyle bir test bazen geçer, bazen geçmez — flaky olur. Birim testlerde ağ mock'lanır, gerçek entegrasyon ise ayrı bir test setinde kontrol edilir."
         },
         "test-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "assertFailsWith ne döndürür?",
+          "opts": [
+            "Boolean",
+            "Fırlatılan istisna nesnesini",
+            "Unit",
+            "null"
+          ],
+          "exp": "Döndürülen nesne üzerinde mesaj veya kendi alanları kontrol edilebilir — bu, testi daha kesin yapar."
         },
         "test-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Test adında ne yansıtılmalıdır?",
+          "opts": [
+            "Metodun adı",
+            "Koşul, eylem ve beklenen sonuç",
+            "Sınıf adı",
+            "Tarih"
+          ],
+          "exp": "«bos siyahi ucun null qaytarir» gibi bir ad testin neyi kontrol ettiğini tamamen açıklar. «test1» hiçbir şey söylemez."
         }
       },
       "praktiki": {
         "test-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "assertEquals kullan: 2+3 sonucunu kontrol et, geçerse \"kecdi\" yazdır.",
+          "ipucu": "assertEquals(5, 2 + 3) — önce beklenen, sonra gerçek.",
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    // assert'i yaz\n    println(\"kecdi\")\n}"
         },
         "test-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Başarısız assert'i yakala: AssertionError'ı yakalayıp mesaj yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    try {\n        assertEquals(5, 2 + 2)\n    } catch (e: AssertionError) {\n        // başarısız yazdır\n    }\n}"
         },
         "test-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "assertTrue kullan: listenin boş olmadığını kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertTrue\n\nfun main() {\n    val s = listOf(1, 2)\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "assertFalse kullan: boş listenin elemanı olmadığını kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertFalse\n\nfun main() {\n    val s = emptyList<Int>()\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "assertNull kullan: toIntOrNull sonucunun null olduğunu kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertNull\n\nfun main() {\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "assertNotNull kullan: doğru bir dönüşümün null olmadığını kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertNotNull\n\nfun main() {\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir fonksiyon yaz ve onu assert ile kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun topla(a: Int, b: Int) = a + b\n\nfun main() {\n    // topla(2, 3) sonucunu kontrol et\n    println(\"kecdi\")\n}"
         },
         "test-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Art arda birkaç assert yaz: hepsi geçerse \"hamisi kecdi\" yazdırılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    // üç assert yaz\n    println(\"hamisi kecdi\")\n}"
         },
         "test-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Metin sonucunu kontrol et: uppercase() doğru çalışıyor mu?",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "assertFailsWith kullan: fırlatılan istisnanın türünü yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertFailsWith\n\nfun main() {\n    val e = // assertFailsWith'i yaz\n    println(e::class.simpleName)\n}"
         },
         "test-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "assertFailsWith ile istisna mesajını da kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertFailsWith\nimport kotlin.test.assertEquals\n\nfun yoxla(y: Int) {\n    require(y >= 0) { \"menfi olmaz\" }\n}\n\nfun main() {\n    val e = assertFailsWith<IllegalArgumentException> { yoxla(-1) }\n    // mesajı kontrol et\n    println(\"kecdi\")\n}"
         },
         "test-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "assertContentEquals kullan: iki listenin içeriğini karşılaştır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertContentEquals\n\nfun main() {\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "map işleminin sonucunu assertContentEquals ile kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertContentEquals\n\nfun main() {\n    val n = listOf(1, 2, 3).map { it * 2 }\n    // assert'i yaz\n    println(\"kecdi\")\n}"
         },
         "test-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "AAA kalıbıyla bir test yaz: hazırlık, çalıştırma, doğrulama.",
           "ipucu": "",
           "starter": ""
         },
         "test-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "assertSame ile referans eşitliğini kontrol et.",
+          "ipucu": "assertSame(a, b) — aynı nesneye iki referans.",
+          "starter": "import kotlin.test.assertSame\n\nfun main() {\n    val a = listOf(1, 2)\n    val b = a\n    // assert'i yaz\n    println(\"ok\")\n}"
         },
         "test-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "data class'ın equals'ını test et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\ndata class U(val ad: String, val yas: Int)\n\nfun main() {\n    // iki aynı nesneyi karşılaştır\n    println(\"kecdi\")\n}"
         },
         "test-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Sınır durumunu test et: boş listede firstOrNull null döndürmeli.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertNull\n\nfun main() {\n    val s = emptyList<Int>()\n    // assert'i yaz\n    println(\"serhed hali kecdi\")\n}"
         },
         "test-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Birkaç girdi için aynı mantığı kontrol et (parametreli testin basit bir biçimi).",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun ikiqat(x: Int) = x * 2\n\nfun main() {\n    val hallar = listOf(1 to 2, 2 to 4, 3 to 6)\n    // her durumu kontrol et\n    println(\"butun hallar kecdi\")\n}"
         },
         "test-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Assert'e bir mesaj ekle: başarısızlıkta açık bir açıklama çıksın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    try {\n        assertEquals(5, 4, \"toplama sehvdir\")\n    } catch (e: AssertionError) {\n        // mesajda \"toplama\" var mı kontrol et\n    }\n}"
         },
         "test-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Dependency injection ile test edilebilir bir sınıf yaz: bağımlılığı yapıcıdan aktar.",
+          "ipucu": "val saxta = object : Menbe { override fun al() = \"test\" } ardından assertEquals(\"TEST\", Servis(saxta).emal())",
+          "starter": "import kotlin.test.assertEquals\n\ninterface Menbe { fun al(): String }\n\nclass Servis(private val m: Menbe) {\n    fun emal() = m.al().uppercase()\n}\n\nfun main() {\n    // sahte kaynak oluştur ve test et\n    println(\"kecdi\")\n}"
         },
         "test-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Sahte nesnenin çağrıldığını kontrol et: bir sayaçla izle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\ninterface Loglayan { fun log(m: String) }\n\nclass Servis(private val l: Loglayan) {\n    fun isle() { l.log(\"basladi\") }\n}\n\nfun main() {\n    var say = 0\n    val saxta = object : Loglayan {\n        override fun log(m: String) { say++ }\n    }\n    Servis(saxta).isle()\n    // çağrı sayısını kontrol et\n    println(\"kecdi\")\n}"
         },
         "test-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "suspend fonksiyonu runBlocking ile test et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlin.test.assertEquals\n\nsuspend fun getir(): String {\n    delay(50)\n    return \"melumat\"\n}\n\nfun main() {\n    runBlocking {\n        // sonucu kontrol et\n    }\n    println(\"kecdi\")\n}"
         },
         "test-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Flow'un yaydığı değerleri test et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\nimport kotlin.test.assertContentEquals\n\nfun main() {\n    runBlocking {\n        val n = flowOf(1, 2, 3).map { it * 2 }.toList()\n        // kontrol et\n    }\n    println(\"kecdi\")\n}"
         },
         "test-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Coroutine hatasının test edilmesi: assertFailsWith ile kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlin.test.assertFailsWith\n\nsuspend fun cok(): String {\n    delay(10)\n    throw IllegalStateException(\"cokdu\")\n}\n\nfun main() {\n    runBlocking {\n        val e = // assertFailsWith'i yaz\n        println(e.message)\n    }\n}"
         },
         "test-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Basit bir test seti kur: birkaç testi fonksiyon olarak yazıp sırayla çalıştır.",
+          "ipucu": "Backtick'li adlar çağrıda da backtick ile yazılır.",
+          "starter": "import kotlin.test.assertEquals\n\nfun `toplama duzgun isleyir`() = assertEquals(5, 2 + 3)\nfun `vurma duzgun isleyir`() = assertEquals(6, 2 * 3)\n\nfun main() {\n    // ikisini de çağır\n    println(\"2 test kecdi\")\n}"
         }
       }
     },
     "java-muqayise": {
-      "title": "",
+      "title": "Kotlin ve Java",
       "nezeri": {
         "java-muqayise-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin ve Java aynı projede birlikte çalışabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — aynı bayt koduna derlenirler",
+            "Yalnızca Android'de",
+            "Yalnızca ayrı modüllerde"
+          ],
+          "exp": "Tam karşılıklı uyumluluk vardır. Kotlin dosyası Java sınıfını, Java dosyası Kotlin sınıfını doğrudan kullanabilir."
         },
         "java-muqayise-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de noktalı virgül zorunlu mu?",
+          "opts": [
+            "Evet",
+            "Hayır",
+            "Yalnızca sınıflarda",
+            "Yalnızca fonksiyonlarda"
+          ],
+          "exp": "Java'da her ifadeden sonra zorunludur, Kotlin'de ise neredeyse hiçbir zaman gerekmez."
         },
         "java-muqayise-n-03": {
-          "q": "",
+          "q": "Java'daki POJO sınıfının Kotlin karşılığı nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Java'da 50+ satır (alanlar, getter/setter, equals, hashCode, toString) — Kotlin'de tek satır."
         },
         "java-muqayise-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'daki static üyelerin Kotlin karşılığı nedir?",
+          "opts": [
+            "object",
+            "companion object veya top-level bildirim",
+            "static anahtar kelimesi",
+            "const"
+          ],
+          "exp": "Kotlin'de static anahtar kelimesi yoktur. Sınıfa bağlı üyeler companion object'e, bağımsız fonksiyonlar ise doğrudan dosyaya yazılır."
         },
         "java-muqayise-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de == operatörü Java'dan neyle ayrılır?",
+          "opts": [
+            "Ayrılmaz",
+            "Kotlin'de içeriği, Java'da referansı karşılaştırır",
+            "Kotlin'de daha hızlıdır",
+            "Yalnızca sayılarda ayrılır"
+          ],
+          "exp": "Java'da metinleri karşılaştırırken equals() yazmak gerekir. Kotlin'de == zaten equals()'ı çağırır — bu, klasik bir hatayı ortadan kaldırır."
         },
         "java-muqayise-n-06": {
-          "q": "",
+          "q": "Java'daki final değişkenin Kotlin karşılığı nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "val salt okunurdur. Java'da final yazmak isteğe bağlıdır, Kotlin'de ise val kullanmak standart yaklaşımdır."
         },
         "java-muqayise-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de sınıflar varsayılan olarak nasıldır?",
+          "opts": [
+            "open — kalıtıma açık (Java gibi)",
+            "final — kalıtıma kapalı",
+            "abstract",
+            "private"
+          ],
+          "exp": "Java'da sınıflar varsayılan olarak kalıtıma açıktır. Kotlin tersini seçmiştir: kalıtıma bilerek izin verilmelidir."
         },
         "java-muqayise-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'daki switch'in Kotlin karşılığı nedir?",
+          "opts": [
+            "switch",
+            "when — daha güçlü",
+            "case",
+            "match"
+          ],
+          "exp": "when her türü, aralıkları, tür kontrollerini kabul eder ve değer döndürür. break yazmaya da gerek yoktur."
         },
         "java-muqayise-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de üçlü operatör (a ? b : c) var mı?",
+          "opts": [
+            "Evet",
+            "Hayır — if ifadesi onun yerini alır",
+            "Yalnızca Boolean için",
+            "Yalnızca when içinde"
+          ],
+          "exp": "if kendisi değer döndürdüğü için ayrı bir operatöre gerek kalmaz: val m = if (a > b) a else b."
         },
         "java-muqayise-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Checked exception hangi dilde var?",
+          "opts": [
+            "İkisinde de",
+            "Yalnızca Java'da",
+            "Yalnızca Kotlin'de",
+            "Hiçbirinde"
+          ],
+          "exp": "Kotlin checked exception'dan vazgeçmiştir. Java metodunu çağırırken try/catch yazma zorunluluğu yoktur."
         },
         "java-muqayise-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'dan gelen türler Kotlin'de nasıl görünür?",
+          "opts": [
+            "Her zaman nullable",
+            "Platform türü (String!) — derleyici kontrol etmez",
+            "Her zaman non-null",
+            "Derleme hatası"
+          ],
+          "exp": "Java'da null bilgisi yoktur. Bu yüzden Java API'lerinden gelen değerleri nullable kabul etmek güvenlidir."
         },
         "java-muqayise-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@JvmStatic ne yapar?",
+          "opts": [
+            "Fonksiyonu hızlandırır",
+            "companion üyesini Java için gerçek static yapar",
+            "Sınıfı final yapar",
+            "Null kontrol eder"
+          ],
+          "exp": "Onsuz Java tarafında Sinif.Companion.metod() yazmak gerekir. Anotasyonla Sinif.metod() mümkün olur."
         },
         "java-muqayise-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@JvmOverloads ne içindir?",
+          "opts": [
+            "Fonksiyonu overload etmek",
+            "Varsayılan parametreler için Java overload'ları oluşturmak",
+            "Türü değiştirmek",
+            "Statik yapmak"
+          ],
+          "exp": "Java varsayılan parametreleri bilmez. Bu anotasyon her parametre kombinasyonu için ayrı bir metot oluşturur."
         },
         "java-muqayise-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'daki util sınıfının Kotlin karşılığı nedir?",
+          "opts": [
+            "object",
+            "Top-level fonksiyonlar veya uzantılar",
+            "abstract class",
+            "interface"
+          ],
+          "exp": "StringUtils.qisalt(s, 10) yerine bir uzantı yazıp s.qisalt(10) denebilir. Sınıfa sarmaya gerek kalmaz."
         },
         "java-muqayise-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de ilkel türler var mı?",
+          "opts": [
+            "Evet, int ve Integer ayrıdır",
+            "Hayır — yalnızca Int vardır, derleyici gerektiğinde ilkele çevirir",
+            "Yalnızca Boolean ilkeldir",
+            "Hepsi nesnedir ve optimize edilmez"
+          ],
+          "exp": "Java'da int/Integer ayrımı vardır. Kotlin bunu gizler: Int nullable olmadığında JVM'de ilkel int olarak tutulur."
         },
         "java-muqayise-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'daki String.format() ile Kotlin şablonu arasında ne fark var?",
+          "opts": [
+            "Fark yok",
+            "Şablon değişkeni doğrudan metne yerleştirir ve daha okunaklıdır",
+            "format daha hızlıdır",
+            "Şablon yalnızca Android'de var"
+          ],
+          "exp": "\"Salam, $ad!\" biçiminde değişken doğrudan yazılır. Format dizgelerinde parametre sırasını izlemek gerekmez."
         },
         "java-muqayise-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java 21'in record'u Kotlin'in data class'ına ne kadar yakındır?",
+          "opts": [
+            "Tamamen aynıdır",
+            "Yakındır — ama copy() ve adlandırılmış argümanlar yoktur",
+            "Hiç benzemez",
+            "Record daha güçlüdür"
+          ],
+          "exp": "Java record'u equals/hashCode/toString oluşturur, ama Kotlin'in copy() metodu ve varsayılan/adlandırılmış argümanları yoktur."
         },
         "java-muqayise-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin dosyasındaki top-level fonksiyon Java'da nasıl görünür?",
+          "opts": [
+            "Görünmez",
+            "DosyaAdiKt sınıfının statik metodu olarak",
+            "Arayüz metodu olarak",
+            "Yapıcı olarak"
+          ],
+          "exp": "Komekci.kt dosyasındaki fonksiyonlar KomekciKt sınıfında toplanır. Ad @file:JvmName ile değiştirilebilir."
         },
         "java-muqayise-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'dan Kotlin'e geçişin en iyi stratejisi nedir?",
+          "opts": [
+            "Her şeyi tek seferde yeniden yazmak",
+            "Testlerden ve yeni dosyalardan başlamak, adım adım genişletmek",
+            "Yalnızca yeni projelerde kullanmak",
+            "Hiç geçmemek"
+          ],
+          "exp": "İki dil aynı projede sorunsuz yaşar. Büyük bir yeniden yazım riskli ve gereksizdir — model sınıfları en büyük kazancı veren başlangıç noktasıdır."
         },
         "java-muqayise-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "IDE'nin otomatik Java→Kotlin dönüştürmesinden sonra ne yapmak gerekir?",
+          "opts": [
+            "Hiçbir şey",
+            "Elle temizlemek — dönüştürücü çok sayıda !! ve gereksiz tür bildirimi bırakır",
+            "Testleri silmek",
+            "Yeniden dönüştürmek"
+          ],
+          "exp": "Dönüştürücü güvenli tarafı seçer ve her yere !! koyar. Onları ?. ve ?: ile değiştirmek gerekir, yoksa null güvenliğinin faydası kaybolur."
         },
         "java-muqayise-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@JvmField ne yapar?",
+          "opts": [
+            "Alanı gizler",
+            "Özelliği getter/setter olmadan doğrudan alan olarak açar",
+            "Statik yapar",
+            "Final yapar"
+          ],
+          "exp": "Java tarafından obyekt.xasse biçiminde doğrudan erişim mümkün olur. Performansın kritik olduğu yerlerde veya API uyumluluğu için kullanılır."
         },
         "java-muqayise-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'in performansı Java'ya kıyasla nasıldır?",
+          "opts": [
+            "Epey yavaştır",
+            "Pratikte aynıdır — aynı bayt koduna derlenir",
+            "Epey hızlıdır",
+            "Yalnızca Android'de yavaştır"
+          ],
+          "exp": "Fark ölçülebilir düzeyde değildir. Derleme süresi eskiden sorundu, K2 derleyicisi bunu çözdü."
         },
         "java-muqayise-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de Java'daki static initializer bloğu nasıl yazılır?",
+          "opts": [
+            "static { }",
+            "companion object içinde init { }",
+            "Mümkün değil",
+            "begin { }"
+          ],
+          "exp": "companion object kendisi bir nesnedir, bu yüzden onun da bir init bloğu olabilir ve ilk erişimde bir kez çalışır."
         },
         "java-muqayise-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'nın Optional'ının Kotlin karşılığı nedir?",
+          "opts": [
+            "Optional",
+            "Nullable tür (T?) — dilin kendisinde",
+            "Maybe",
+            "Result"
+          ],
+          "exp": "Kotlin null güvenliğini tür sistemine işlediği için ayrı bir sarmalayıcı sınıfa gerek kalmaz. Bu hem daha kısa hem de daha hızlıdır."
         },
         "java-muqayise-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin Java'nın yerini alacak mı?",
+          "opts": [
+            "Evet, tamamen",
+            "Android'de pratikte zaten aldı, backend'de ise Java uzun süre kalacak",
+            "Hayır, asla",
+            "Java zaten öldü"
+          ],
+          "exp": "Google 2019'dan beri Android için «Kotlin-first» politikası izliyor. Backend'de ise Java'nın ekosistemi ve kararlılığı güçlü kalıyor — ikisi rakip değil."
         }
       },
       "praktiki": {
         "java-muqayise-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Java POJO'sunun Kotlin karşılığını yaz: tek satırlık bir data class.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// Java'da bu 50+ satır olurdu\n// data class'ı yaz\n\nfun main() {\n    println(Istifadeci(\"Aysel\", 24))\n}"
         },
         "java-muqayise-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Java'da equals() gereken yerde Kotlin'de == kullan.",
+          "ipucu": "println(a == b) — Kotlin'de == zaten equals()'ı çağırır.",
+          "starter": "fun main() {\n    val a = \"Kotlin\"\n    val b = StringBuilder(\"Kot\").append(\"lin\").toString()\n    // Java'da a.equals(b) yazılırdı\n}"
         },
         "java-muqayise-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Java'daki üçlü operatörün Kotlin karşılığını yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val a = 10\n    val b = 20\n    // Java: int m = a > b ? a : b;\n    val m = // Kotlin karşılığını yaz\n    println(m)\n}"
         },
         "java-muqayise-p-04": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Java switch'inin karşılığını when ile yaz (break gerekmez).",
+          "ipucu": "3 -> \"cersenbe\" ve else -> \"namelum\"",
+          "starter": "fun main() {\n    val gun = 3\n    val ad = when (gun) {\n        // 1, 2, 3 için adlar, geri kalanlar için \"namelum\"\n    }\n    println(ad)\n}"
         },
         "java-muqayise-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Java StringBuilder yerine Kotlin metin şablonu kullan.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Java final yerine val kullan ve değeri yazdır.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Java util sınıfı yerine bir top-level fonksiyon yaz.",
+          "ipucu": "fun bosdur(s: String) = s.isEmpty() — sınıfa sarmaya gerek yok.",
+          "starter": "// Java: public class StringUtils { public static boolean bosdur(String s) {...} }\n// Kotlin: top-level fonksiyon yaz\n\nfun main() {\n    println(bosdur(\"\"))\n}"
         },
         "java-muqayise-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Java util sınıfını bir uzantıya çevir: daha doğal bir sözdizimi.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// StringUtils.bosdur(s) yerine s.bosdur() yazmak istiyoruz\n// uzantıyı yaz\n\nfun main() {\n    println(\"\".bosdur())\n}"
         },
         "java-muqayise-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Java Optional yerine nullable tür kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // Java: Optional<String> tap(int id)\n    val n: String? = null\n    // elvis ile yedek değer ver\n}"
         },
         "java-muqayise-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Java overload zincirini varsayılan parametrelerle değiştir: üç çağrı biçimini tek bir fonksiyonla çöz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// Java'da bu 3 ayrı metot olurdu\n// tek bir fonksiyon yaz\n\nfun main() {\n    println(salamla())\n    println(salamla(\"Aysel\"))\n    println(salamla(\"Aysel\", \"!!!\"))\n}"
         },
         "java-muqayise-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Java static sabitinin karşılığını companion object ile yaz.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-12": {
-          "tapsiriq": "",
-          "ipucu": "",
+          "tapsiriq": "Java Stream zincirini Kotlin koleksiyon fonksiyonlarıyla yaz.",
+          "ipucu": "Kotlin'de stream() ve collect() gerekmez: s.filter { }.map { }",
           "starter": ""
         },
         "java-muqayise-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Java null kontrolü zincirini safe call ile değiştir.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Java getter/setter yerine bir Kotlin özelliği kullan.",
+          "ipucu": "var ad: String = \"\" — getter/setter otomatik oluşturulur.",
+          "starter": "class Profil {\n    // Java: private String ad; getAd(); setAd();\n    // Kotlin: tek bir özellik\n}\n\nfun main() {\n    val p = Profil()\n    p.ad = \"Aysel\"\n    println(p.ad)\n}"
         },
         "java-muqayise-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
+          "tapsiriq": "Java'daki instanceof + cast'i is + smart cast ile değiştir.",
+          "ipucu": "if (o is String) println(o.length) — ek cast gerekmez.",
           "starter": ""
         },
         "java-muqayise-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Java singleton kalıbını object ile yaz.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Java'daki checked exception zorunluluğunun olmadığını göster: try yazmadan çağır.",
+          "ipucu": "println(riskli()) — Kotlin'de checked exception yoktur.",
+          "starter": "fun riskli(): String {\n    // Java'da bu metot throws bildirmek zorunda olurdu\n    return \"ok\"\n}\n\nfun main() {\n    // try/catch yazmadan çağır\n}"
         },
         "java-muqayise-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Java'nın uzun for döngüsünü bir Kotlin aralığıyla değiştir.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Java'da Map oluşturmanın uzun biçimini Kotlin ile kısalt.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // Java: Map<String,Integer> m = new HashMap<>(); m.put(...)\n    val m = // Kotlin karşılığını yaz\n    println(m[\"yas\"])\n}"
         },
         "java-muqayise-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "@JvmOverloads kullan: Java için overload'lar oluşsun (kod derlensin).",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Servis {\n    // @JvmOverloads ile varsayılan parametreli metot yaz\n}\n\nfun main() {\n    Servis().gonder(\"salam\")\n}"
         },
         "java-muqayise-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "@JvmStatic kullan: companion metodunu Java için statik yap.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Servis {\n    companion object {\n        // @JvmStatic ile metot yaz\n    }\n}\n\nfun main() {\n    println(Servis.yarat())\n}"
         },
         "java-muqayise-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Java static initializer'ının karşılığını companion init ile yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Konfiq {\n    companion object {\n        val url: String\n        // init bloğu yaz\n    }\n}\n\nfun main() {\n    println(Konfiq.url)\n}"
         },
         "java-muqayise-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Java'dan gelen platform türünü güvenle işle: nullable olarak kabul et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun javaDan(): String? = null   // Java API'si böyle davranabilir\n\nfun main() {\n    val s = javaDan()\n    // güvenli şekilde işle\n}"
         },
         "java-muqayise-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Java record ile Kotlin data class farkını göster: copy() kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val a = U(\"Aysel\", 24)\n    // Java record'unda copy() yoktur\n    \n}"
         },
         "java-muqayise-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Java'nın uzun builder kalıbını apply ile değiştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Sorgu {\n    var url = \"\"\n    var metod = \"\"\n    override fun toString() = \"$metod $url\"\n}\n\nfun main() {\n    // apply ile kur ve yazdır\n}"
         }
       }
     },
