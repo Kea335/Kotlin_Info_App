@@ -4948,195 +4948,998 @@
       }
     },
     "kolleksiyalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Коллекции",
+      "heading": "Коллекции",
+      "kicker": "Раздел 15",
+      "group": "Безопасность и данные",
       "blocks": {
         "kolleksiyalar.p.b139ebbb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin делит коллекции на две группы:"
+            },
+            {
+              "k": "b",
+              "v": "неизменяемые"
+            },
+            {
+              "k": "t",
+              "v": " (read-only) и"
+            },
+            {
+              "k": "b",
+              "v": "изменяемые"
+            },
+            {
+              "k": "t",
+              "v": " (mutable). В Java такого разделения нет, а оно предотвращает массу ошибок."
+            }
+          ]
         },
         "kolleksiyalar.h3.823b09ff": {
-          "text": ""
+          "text": "Три основных типа"
         },
         "kolleksiyalar.table.b29c3f53": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Тип"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Особенности"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Создание (read-only)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Создание (mutable)"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "List"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Упорядочен, допускает повторы"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "listOf(1, 2)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mutableListOf(1, 2)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Set"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Без повторов, без порядка по индексу"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "setOf(1, 2)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mutableSetOf(1, 2)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Map"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Пары ключ → значение"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mapOf(\"a\" to 1)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mutableMapOf(\"a\" to 1)"
+                }
+              ]
+            ]
+          ]
         },
         "kolleksiyalar.code.9b676a3e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // List — порядок сохраняется, повторы допустимы\n    val diller = listOf(\"Kotlin\", \"Java\", \"Kotlin\")\n    println(diller)\n\n    // Set — повторы отбрасываются автоматически\n    val unikal = setOf(\"Kotlin\", \"Java\", \"Kotlin\")\n    println(unikal)\n\n    // Map — ключ/значение\n    val istifadeci = mapOf(\"ad\" to \"Aysel\", \"yas\" to 24)\n    println(istifadeci)\n\n    // Mutable — можно изменять\n    val siyahi = mutableListOf(\"Kotlin\", \"Java\")\n    siyahi.add(\"Swift\")\n    println(siyahi)\n\n    // Обращение к элементу\n    println(istifadeci[\"yas\"])\n}"
         },
         "kolleksiyalar.callout.b4056a5a": {
-          "title": ""
+          "title": "«Только для чтения» ≠ «неизменяемый»"
         },
         "kolleksiyalar.p.ba2a989e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "У интерфейса"
+            },
+            {
+              "k": "code",
+              "v": "List"
+            },
+            {
+              "k": "t",
+              "v": " нет метода"
+            },
+            {
+              "k": "code",
+              "v": "add()"
+            },
+            {
+              "k": "t",
+              "v": " — это защищает от случайных изменений. Но если нижележащий объект на самом деле"
+            },
+            {
+              "k": "code",
+              "v": "MutableList"
+            },
+            {
+              "k": "t",
+              "v": " и кто-то держит на него ссылку, он всё равно может измениться. Для полной неизменяемости сделай копию через"
+            },
+            {
+              "k": "code",
+              "v": "toList()"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "kolleksiyalar.h3.9140c87c": {
-          "text": ""
+          "text": "Операции преобразования"
         },
         "kolleksiyalar.code.296b77eb": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val reqemler = listOf(1, 2, 3, 4)\n\n    println(reqemler.map { it * 2 })              // преобразует каждый элемент\n    println(reqemler.filter { it % 2 == 1 })      // оставляет подходящие под условие\n    println(listOf(\"kotlin\", \"java\").map { it.uppercase() })\n\n    // flatten / flatMap — делает вложенные списки плоскими\n    println(listOf(listOf(1, 2), listOf(3, 4)).flatten())\n\n    // zip — объединяет два списка в пары\n    println(listOf(1, 2).zip(listOf(\"a\", \"b\")))\n}"
         },
         "kolleksiyalar.h3.0d8556e1": {
-          "text": ""
+          "text": "Агрегация"
         },
         "kolleksiyalar.code.71f49d7f": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val r = listOf(1, 2, 3, 4, 5)\n\n    println(r.sum())\n    println(r.average())\n    println(r.maxOrNull())\n    println(r.minOrNull())\n    println(r.count())\n    println(r.any { it > 4 })      // хотя бы один\n    println(r.all { it > 4 })      // все\n    println(r.count { it > 3 })\n\n    // reduce / fold — своя агрегация\n    val hasil = r.reduce { akk, x -> akk * x }        // 120\n    val cemPlus10 = r.fold(10) { akk, x -> akk + x }  // 25 (начиная с 10)\n}"
         },
         "kolleksiyalar.h3.4c2f479a": {
-          "text": ""
+          "text": "Группировка и сортировка"
         },
         "kolleksiyalar.code.d18e4219": {
           "title": "",
-          "code": ""
+          "code": "data class Isci(val ad: String, val sobe: String, val maas: Int)\n\nfun main() {\n    val diller = listOf(\"Kotlin\", \"Java\", \"JS\")\n\n    // groupBy — группирует по ключу\n    println(diller.groupBy { if (it.startsWith(\"K\")) \"c\" else \"q\" })\n\n    // sortedBy / sortedByDescending\n    println(diller.sortedBy { it.length })\n    println(diller.sortedByDescending { it.length })\n\n    // associateWith — строит map ключ→значение\n    println(diller.associateWith { it.length })\n\n    // Реальный пример: средняя зарплата по отделам\n    val iscilder = listOf(\n        Isci(\"Aysel\", \"IT\", 3000),\n        Isci(\"Kamran\", \"IT\", 3500),\n        Isci(\"Leyla\", \"Satış\", 2000)\n    )\n    val ortaMaas = iscilder.groupBy { it.sobe }\n        .mapValues { (_, siyahi) -> siyahi.map { it.maas }.average() }\n}"
         },
         "kolleksiyalar.h3.fa777003": {
-          "text": ""
+          "text": "Самые используемые функции"
         },
         "kolleksiyalar.table.743f7a6e": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функция"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Что делает"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Тип результата"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "map { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Преобразует каждый элемент"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "mapNotNull { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Преобразует + отбрасывает null"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filter { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Оставляет подходящие под условие"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filterNot { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Оставляет неподходящие под условие"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "find { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Первый подходящий элемент (null, если нет)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "first() / last()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Первый / последний элемент (ошибка, если пусто)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "firstOrNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Первый элемент или null"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "take(n) / drop(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Взять / пропустить первые n"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "chunked(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Делит на куски по n"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List<List>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "windowed(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Скользящее окно"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List<List>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "distinct()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Убирает повторы"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "distinctBy { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Убирает повторы по ключу"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "partition { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Делит на две части (подходящие / нет)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Pair"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "sumOf { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Преобразует и суммирует"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Int/Double"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "joinToString()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Склеивает в строку"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "String"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Разворачивает порядок"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "shuffled()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Перемешивает"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ]
+          ]
         },
         "kolleksiyalar.h3.cb1d095b": {
-          "text": ""
+          "text": "Sequence — ленивые вычисления"
         },
         "kolleksiyalar.p.00753936": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Каждая операция в цепочке создаёт новый список. На больших коллекциях это дорого."
+            },
+            {
+              "k": "code",
+              "v": "Sequence"
+            },
+            {
+              "k": "t",
+              "v": " обрабатывает элементы по одному и не создаёт промежуточных списков."
+            }
+          ]
         },
         "kolleksiyalar.code.76102d7b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val boyuk = (1..1_000_000).toList()\n\n    // ОБЫЧНЫЙ СПИСОК — на каждом шаге новый список из миллиона элементов!\n    val a = boyuk\n        .map { it * 2 }        // 1 000 000 элементов\n        .filter { it > 10 }    // 999 995 элементов\n        .take(2)               // а нужно было всего 2...\n\n    // SEQUENCE — элементы идут по одному, работы ровно столько, сколько нужно\n    val b = boyuk.asSequence()\n        .map { it * 2 }\n        .filter { it > 10 }\n        .take(2)\n        .toList()              // ← терминальная операция запускает вычисление\n\n    // generateSequence — бесконечная последовательность\n    val fibonacci = generateSequence(1 to 1) { (a, b) -> b to (a + b) }\n        .map { it.first }\n        .take(10)\n        .toList()              // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]\n}"
         },
         "kolleksiyalar.callout.4ba1a663": {
-          "title": ""
+          "title": "Когда использовать Sequence?"
         },
         "kolleksiyalar.p.dc1b0aed": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Когда элементов много (примерно от 1000) и в цепочке несколько шагов. На маленьких коллекциях обычный List быстрее, потому что у Sequence есть свои накладные расходы."
+            }
+          ]
         },
         "kolleksiyalar.h3.ce49b31e": {
-          "text": ""
+          "text": "Деструктуризация"
         },
         "kolleksiyalar.code.17bfa588": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(val ad: String, val yas: Int)\n\nfun main() {\n    val u = Istifadeci(\"Aysel\", 24)\n    val (ad, yas) = u                 // data class поддерживает это автоматически\n    println(\"$ad $yas\")\n\n    // По Map\n    val melumat = mapOf(\"ad\" to \"Aysel\", \"yas\" to \"24\")\n    for ((acar, deyer) in melumat) {\n        println(\"$acar = $deyer\")\n    }\n\n    // С withIndex\n    for ((i, dil) in listOf(\"Kotlin\", \"Java\").withIndex()) {\n        println(\"${i + 1} - $dil\")\n    }\n\n    // Ненужное значение отбрасываем через _\n    val (_, yalnizYas) = u\n}"
         }
       }
     },
     "oop": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Классы и объекты",
+      "heading": "Классы и объекты",
+      "kicker": "Раздел 16",
+      "group": "Объектно-ориентированное программирование",
       "blocks": {
         "oop.p.478f3eba": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Объявление класса в Kotlin занимает одну строку. Конструктор — часть заголовка класса, свойства автоматически получают геттеры и сеттеры, а шаблонный код исчезает."
+            }
+          ]
         },
         "oop.h3.f02538d8": {
-          "text": ""
+          "text": "Простейший класс"
         },
         "oop.code.d629fbc9": {
           "title": "",
-          "code": ""
+          "code": "// Весь класс — одна строка\nclass Istifadeci(val ad: String, var yas: Int)\n\n// Классу без тела даже фигурные скобки не нужны\nclass BosSinif\n\nfun main() {\n    val u = Istifadeci(\"Aysel\", 24)   // ключевого слова \"new\" нет\n\n    println(u.ad)      // геттер автоматически\n    println(u.yas)\n    u.yas = 25         // сеттер автоматически (потому что var)\n    println(u.yas)\n    // u.ad = \"Leyla\"  ← ОШИБКА: val только для чтения\n}"
         },
         "oop.h3.8601d61c": {
-          "text": ""
+          "text": "Конструкторы"
         },
         "oop.code.ad72a289": {
           "title": "",
-          "code": ""
+          "code": "class Istifadeci(\n    val ad: String,           // первичный (primary) конструктор\n    var yas: Int = 0          // значение по умолчанию\n) {\n    // блок init — выполняется при создании объекта\n    init {\n        require(ad.isNotBlank()) { \"Ad boş ola bilməz\" }\n        println(\"Yaradıldı: $ad\")\n        println(\"Yaş: $yas\")\n    }\n\n    // Вторичный (secondary) конструктор — должен делегировать первичному\n    constructor() : this(\"Qonaq\", 0) {\n        println(\"İkinci konstruktor: $ad\")\n        println(\"Yaş: $yas\")\n    }\n}\n\nfun main() {\n    Istifadeci(\"Aysel\", 24)\n    Istifadeci()\n}"
         },
         "oop.callout.9ed492d6": {
-          "title": ""
+          "title": "Вторичный конструктор нужен редко"
         },
         "oop.p.b5831c1e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Благодаря значениям параметров по умолчанию в Kotlin почти никогда не приходится писать несколько конструкторов."
+            },
+            {
+              "k": "code",
+              "v": "class A(val x: Int = 0, val y: Int = 0)"
+            },
+            {
+              "k": "t",
+              "v": " поддерживает три разные формы вызова."
+            }
+          ]
         },
         "oop.h3.4e45d0d6": {
-          "text": ""
+          "text": "Свойства: геттеры и сеттеры"
         },
         "oop.code.cda2a5e0": {
           "title": "",
-          "code": ""
+          "code": "class Profil(val ad: String, val soyad: String) {\n\n    // Вычисляемое свойство — не хранит поле, считается каждый раз\n    val tamAd: String\n        get() = \"$ad $soyad\".uppercase()\n\n    val adUzunlugu: Int\n        get() = ad.length\n\n    // Свой сеттер — backing field называется \"field\"\n    var yas: Int = 0\n        set(deyer) {\n            println(\"Yeni dəyər təyin olunur: $deyer\")\n            field = if (deyer < 0) 0 else deyer\n        }\n\n    // Свойство, которое нельзя записать снаружи\n    var status: String = \"aktiv\"\n        private set\n}\n\nfun main() {\n    val p = Profil(\"Aysel\", \"Memmedova\")\n    println(p.tamAd)\n    println(p.adUzunlugu)\n    p.yas = 30\n    println(p.yas)\n}"
         },
         "oop.h3.df05b83d": {
-          "text": ""
+          "text": "Модификаторы видимости"
         },
         "oop.table.79e055f4": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Модификатор"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Для членов класса"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Для top-level"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "public"
+                },
+                {
+                  "k": "t",
+                  "v": " (по умолчанию)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Виден везде"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Везде"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "internal"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Внутри того же модуля"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Внутри того же модуля"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "protected"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Класс + его наследники"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нельзя использовать"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "private"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Только внутри этого класса"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Только внутри этого файла"
+                }
+              ]
+            ]
+          ]
         },
         "oop.h3.70076017": {
-          "text": ""
+          "text": "Методы"
         },
         "oop.code.2dd409d4": {
           "title": ""
         },
         "oop.h3.ba5b5119": {
-          "text": ""
+          "text": "Вложенные и внутренние классы"
         },
         "oop.code.01063e33": {
           "title": "",
-          "code": ""
+          "code": "class Xarici {\n    private val deyer = 10\n\n    // nested (по умолчанию) — НЕТ доступа к членам внешнего класса\n    class IcerideNested {\n        fun cap() = println(\"Nested sinif\")\n        // println(deyer)  ← ОШИБКА\n    }\n\n    // inner — хранит ссылку на внешний класс и ИМЕЕТ доступ к его членам\n    inner class Daxili {\n        fun cap() = println(\"Dəyər: $deyer\")           // работает\n        fun xariciyeMuraciet() = this@Xarici.deyer     // явная форма\n    }\n}\n\nfun main() {\n    Xarici.IcerideNested().cap()      // внешний объект не нужен\n    Xarici().Daxili().cap()           // нужен внешний объект\n}"
         }
       }
     },
     "miras": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Наследование и интерфейсы",
+      "heading": "Наследование и интерфейсы",
+      "kicker": "Раздел 17",
+      "group": "Объектно-ориентированное программирование",
       "blocks": {
         "miras.p.b1ef11ae": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin все классы по умолчанию"
+            },
+            {
+              "k": "b",
+              "v": "final"
+            },
+            {
+              "k": "t",
+              "v": " — закрыты для наследования. Это принцип «проектируй для наследования или запрещай его», встроенный в язык."
+            }
+          ]
         },
         "miras.h3.21dc5a17": {
-          "text": ""
+          "text": "open и override"
         },
         "miras.code.f48e0d42": {
           "title": "",
-          "code": ""
+          "code": "// open — от этого класса можно наследоваться\nopen class Heyvan(val ad: String) {\n    open val ayaqSayi: Int = 4          // open, чтобы можно было переопределить\n\n    open fun sesCixar() = println(\"Heyvan səs çıxarır\")\n\n    fun tesvir() = println(\"Ad: $ad, $ayaqSayi ayaq\")   // final — переопределить нельзя\n}\n\nclass It(ad: String) : Heyvan(ad) {\n    override fun sesCixar() = println(\"Hav-hav!\")\n}\n\nclass Pisik(ad: String) : Heyvan(ad) {\n    override fun sesCixar() {\n        super.sesCixar()      // вызвать метод родительского класса (если нужно)\n        println(\"Miyav!\")\n    }\n}\n\nfun main() {\n    val heyvanlar = listOf(It(\"Reks\"), Pisik(\"Mırcık\"))\n    heyvanlar[1].sesCixar()\n    heyvanlar[0].tesvir()\n}"
         },
         "miras.h3.48c19f5d": {
-          "text": ""
+          "text": "Абстрактные классы"
         },
         "miras.code.84d91e64": {
           "title": "",
-          "code": ""
+          "code": "abstract class Fiqur(val ad: String) {\n    // Метод без тела — наследники обязаны его реализовать\n    abstract fun sahe(): Double\n\n    // Метод с телом — переопределять по желанию\n    open fun cap() = println(\"$ad sahəsi: ${\"%.2f\".format(sahe())}\")\n}\n\nclass Daire(val radius: Double) : Fiqur(\"Dairənin\") {\n    override fun sahe() = Math.PI * radius * radius\n}\n\nclass Duzbucaqli(val en: Double, val boy: Double) : Fiqur(\"Düzbucaqlının\") {\n    override fun sahe() = en * boy\n}\n\nfun main() {\n    val fiqurlar = listOf(Daire(5.0), Duzbucaqli(4.0, 6.0))\n    fiqurlar.forEach { it.cap() }\n    println(\"Cəmi sahə: ${\"%.2f\".format(fiqurlar.sumOf { it.sahe() })}\")\n}"
         },
         "miras.h3.4966f923": {
-          "text": ""
+          "text": "Интерфейсы"
         },
         "miras.code.ea2e7954": {
           "title": "",
-          "code": ""
+          "code": "interface Ucan {\n    val maksimumHundurluk: Int          // абстрактное свойство (не может хранить поле)\n\n    fun uc()                            // абстрактный метод\n\n    fun hereket() = println(\"Defolt: bu heyvan hərəkət edir\")   // тело по умолчанию\n}\n\ninterface Uzen {\n    fun uz()\n}\n\n// В Kotlin класс наследуется от ОДНОГО класса, но от ЛЮБОГО ЧИСЛА интерфейсов\nclass Ordek : Ucan, Uzen {\n    override val maksimumHundurluk = 1000\n\n    override fun uc() = println(\"Uçur...\")\n    override fun uz() = println(\"Üzür...\")\n}\n\nfun main() {\n    val o = Ordek()\n    o.uc()\n    o.uz()\n    o.hereket()\n    println(\"Ördək hər ikisini bacarır\")\n}"
         },
         "miras.h3.df0080f1": {
-          "text": ""
+          "text": "Разрешение конфликтов — super<T>"
         },
         "miras.code.e981d6a1": {
           "title": "",
-          "code": ""
+          "code": "interface A { fun salamla() = println(\"A-dan\") }\ninterface B { fun salamla() = println(\"B-dən\") }\n\n// В обоих интерфейсах есть метод по умолчанию с одним именем — конфликт нужно разрешить\nclass C : A, B {\n    override fun salamla() {\n        super<A>.salamla()\n        super<B>.salamla()\n        println(\"Hər ikisi\")\n    }\n}\n\nfun main() = C().salamla()"
         },
         "miras.h3.02fdf069": {
-          "text": ""
+          "text": "Абстрактный класс или интерфейс?"
         },
         "miras.table.b3aa05f0": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [],
+              [
+                {
+                  "k": "t",
+                  "v": "Абстрактный класс"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Интерфейс"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "От скольких можно наследоваться"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Только от 1"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Сколько угодно"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Может ли хранить состояние"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Да — есть поля"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет — только абстрактные свойства"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Конструктор"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Есть"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Нет"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Реализация по умолчанию"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Есть"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Есть"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Когда использовать"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Общее состояние + отношение «is-a»"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Возможность / контракт («can-do»)"
+                }
+              ]
+            ]
+          ]
         },
         "miras.h3.a489d246": {
-          "text": ""
+          "text": "Делегирование — ключевое слово by"
         },
         "miras.p.7c9d3938": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Композиция лучше наследования. В Kotlin её можно сделать одним ключевым словом."
+            }
+          ]
         },
         "miras.code.ed963b92": {
           "title": "",
-          "code": ""
+          "code": "// \"by\" — передаёт все методы MutableList внутреннему списку\nclass LoglayanSiyahi<T>(\n    private val daxili: MutableList<T> = mutableListOf()\n) : MutableList<T> by daxili {\n\n    // Переопределяем только нужный метод\n    override fun add(element: T): Boolean {\n        println(\"Loglanır: $element əlavə olundu\")\n        return daxili.add(element)\n    }\n\n    // toString — член Any, а не интерфейса, поэтому \"by\" его не передаёт\n    override fun toString() = daxili.toString()\n}\n\nfun main() {\n    val s = LoglayanSiyahi<String>()\n    s.add(\"Kotlin\")\n    println(s)          // [Kotlin] — наш собственный toString\n    println(s.size)     // а size передан внутреннему списку\n}"
         }
       }
     },
