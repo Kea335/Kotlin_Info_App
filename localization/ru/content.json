@@ -4082,202 +4082,868 @@
       }
     },
     "scope-funksiyalari": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Функции области видимости",
+      "heading": "Функции области видимости (scope functions)",
+      "kicker": "Раздел 12",
+      "group": "Функции",
       "blocks": {
         "scope-funksiyalari.p.7a40de82": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Пять функций —"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "run"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "with"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "also"
+            },
+            {
+              "k": "t",
+              "v": ". Все они создают временную область видимости (scope) вокруг объекта. Разница между ними сводится лишь к двум вещам:"
+            },
+            {
+              "k": "b",
+              "v": "как обращаться к объекту"
+            },
+            {
+              "k": "t",
+              "v": " и"
+            },
+            {
+              "k": "b",
+              "v": "что возвращается"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "scope-funksiyalari.h3.3b397afe": {
-          "text": ""
+          "text": "Сводная таблица"
         },
         "scope-funksiyalari.table.b628e4ec": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функция"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Объект"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Возвращает"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Типичное применение"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "let"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "it"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "результат лямбды"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Проверка на null + преобразование"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "run"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "результат лямбды"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Настройка + вычисление результата"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "with"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "результат лямбды"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Много операций с одним объектом"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "apply"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "сам объект"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Построение объекта (builder)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "also"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "it"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "сам объект"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Побочные эффекты: лог, проверка"
+                }
+              ]
+            ]
+          ]
         },
         "scope-funksiyalari.callout.3dbbc2f6": {
-          "title": ""
+          "title": "Как выбрать"
         },
         "scope-funksiyalari.p.9f1141ea": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "Нужен сам объект?"
+            },
+            {
+              "k": "t",
+              "v": " →"
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": " (this) или"
+            },
+            {
+              "k": "code",
+              "v": "also"
+            },
+            {
+              "k": "t",
+              "v": " (it)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Нужен вычисленный результат?"
+            },
+            {
+              "k": "t",
+              "v": " →"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": " (it),"
+            },
+            {
+              "k": "code",
+              "v": "run"
+            },
+            {
+              "k": "t",
+              "v": " /"
+            },
+            {
+              "k": "code",
+              "v": "with"
+            },
+            {
+              "k": "t",
+              "v": " (this)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Есть проверка на null?"
+            },
+            {
+              "k": "t",
+              "v": " →"
+            },
+            {
+              "k": "code",
+              "v": "?.let { }"
+            },
+            {
+              "k": "t",
+              "v": " — всегда правильный выбор."
+            }
+          ]
         },
         "scope-funksiyalari.h3.df101ed5": {
-          "text": ""
+          "text": "Практические примеры"
         },
         "scope-funksiyalari.code.f38ac2cd": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(var ad: String = \"\", var yas: Int = 0)\n\nfun main() {\n    // apply — построение объекта\n    val istifadeci = Istifadeci().apply {\n        ad = \"Aysel\"\n        yas = 24\n    }\n    println(\"Yükləndi: ${istifadeci.ad} (${istifadeci.yas})\")\n\n    // also — побочный эффект, не ломая цепочку\n    val yol = \"/tmp/hesabat.txt\"\n        .also { println(\"Fayl hazırdır: $it\") }\n\n    // let — проверка на null + преобразование\n    val ad: String? = \"Kotlin\"\n    val uzunluq = ad?.let { it.length } ?: 0\n    println(\"Uzunluq: $uzunluq\")\n\n    // run — настройка + результат\n    val cavabKodu = \"https://api.numune.az\".run {\n        // здесь this = строка URL\n        if (startsWith(\"https\")) 200 else 400\n    }\n    println(\"Cavab: $cavabKodu\")\n}"
         },
         "scope-funksiyalari.h3.0530ced8": {
-          "text": ""
+          "text": "takeIf и takeUnless"
         },
         "scope-funksiyalari.code.6bf2318e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // takeIf — возвращает объект, если условие выполнено, иначе null\n    val bosMetn = \"\".takeIf { it.isNotBlank() }\n    println(bosMetn)                     // null\n\n    val email = \"kotlin@mail.az\".takeIf { it.contains(\"@\") }\n    println(email)                       // kotlin@mail.az\n\n    // takeUnless — работает наоборот\n    val netice = \"abc\"\n        .takeUnless { it.contains(\"@\") }\n        ?.let { \"Düzgün deyil\" }\n        ?: \"Düzgündür\"\n    println(netice)\n}"
         },
         "scope-funksiyalari.callout.1c84e4a8": {
-          "title": ""
+          "title": "Не злоупотребляй"
         },
         "scope-funksiyalari.p.eee66178": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Три вложенных блока"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": " делают код нечитаемым. Функции области видимости нужны, чтобы сокращать код, а не прятать его. Сомневаешься — пиши обычный"
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": " и переменную."
+            }
+          ]
         }
       }
     },
     "genislenmeler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Расширения (extensions)",
+      "heading": "Расширения (extensions)",
+      "kicker": "Раздел 13",
+      "group": "Функции",
       "blocks": {
         "genislenmeler.p.465423aa": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "К существующему классу — даже к таким, как"
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " или"
+            },
+            {
+              "k": "code",
+              "v": "List"
+            },
+            {
+              "k": "t",
+              "v": ", исходного кода которых у тебя нет, — можно добавить новые функции и свойства. Без наследования и без изменения класса."
+            }
+          ]
         },
         "genislenmeler.h3.75ec6b08": {
-          "text": ""
+          "text": "Функция-расширение"
         },
         "genislenmeler.code.e5dbbd79": {
           "title": "",
-          "code": ""
+          "code": "// Добавляем новую функцию в класс String\n// \"this\" — объект, на котором вызвана функция (receiver)\nfun String.emailDirmi(): Boolean =\n    this.contains(\"@\") && this.contains(\".\")\n\nfun String.qisalt(maks: Int): String =\n    if (length <= maks) this else take(maks) + \"...\"\n\n// Расширение можно использовать в цепочке\nfun String.tersUst(): String = reversed().uppercase()\n\n// Для коллекций тоже работает\nfun List<Int>.ciftlerinCemi(): Int = filter { it % 2 == 0 }.sum()\n\nfun main() {\n    println(\"aysel@mail.az\".emailDirmi())\n    println(\"Kotlin dilini öyrənirəm\".qisalt(6))\n    println(\"Kotlin\".tersUst().take(5))\n    println(listOf(1, 2, 3, 4).ciftlerinCemi().toString().length + 4)\n}"
         },
         "genislenmeler.h3.826073af": {
-          "text": ""
+          "text": "Свойство-расширение (extension property)"
         },
         "genislenmeler.code.1caff14b": {
           "title": "",
-          "code": ""
+          "code": "// Свойство-расширение не может хранить поле (field) — только getter\nval String.ilkHerfBoyukdurmu: Boolean\n    get() = isNotEmpty() && first().isUpperCase()\n\nval <T> List<T>.sonIndeks: Int\n    get() = size - 1\n\nval Int.kb: String\n    get() = \"$this KB\"\n\nfun main() {\n    println(\"kotlin\".ilkHerfBoyukdurmu)\n    println(listOf(\"Java\", \"Kotlin\")[listOf(\"Java\", \"Kotlin\").sonIndeks])\n    println(1024.kb)\n}"
         },
         "genislenmeler.h3.c269533d": {
-          "text": ""
+          "text": "Расширения для nullable-типов"
         },
         "genislenmeler.code.37454cc1": {
           "title": "",
-          "code": ""
+          "code": "// Receiver может быть nullable — проверку на null делаем внутри\nfun String?.bosVeYaNull(): Boolean = this == null || this.isBlank()\n\nfun String?.veYaDefolt(defolt: String): String =\n    if (this.isNullOrBlank()) defolt else this\n\nfun main() {\n    val a: String? = null\n    println(if (a.bosVeYaNull()) \"Boşdur\" else \"Dolu\")   // ?. не нужен!\n\n    println(\"Kotlin\".veYaDefolt(\"yoxdur\"))\n    println(null.veYaDefolt(\"Dəyər yoxdur\"))\n}"
         },
         "genislenmeler.h3.c7bc634d": {
-          "text": ""
+          "text": "Важно: расширения статичны"
         },
         "genislenmeler.callout.70e206dd": {
-          "title": ""
+          "title": "Полиморфизм не работает"
         },
         "genislenmeler.p.acdd59fb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Функция-расширение на самом деле не добавляется в класс — компилятор превращает её в обычный вызов статической функции. Поэтому какая функция сработает, определяется"
+            },
+            {
+              "k": "b",
+              "v": "объявленным типом"
+            },
+            {
+              "k": "t",
+              "v": " переменной, а не её реальным типом."
+            }
+          ]
         },
         "genislenmeler.code.49ac3433": {
           "title": "",
-          "code": ""
+          "code": "open class Ana\nclass Ovlad : Ana()\n\n// Расширения разрешаются СТАТИЧЕСКИ\nfun Ana.tesvir() = \"Ana sinif\"\nfun Ovlad.tesvir() = \"Övlad sinifi\"\n\n// Методы-члены разрешаются ВИРТУАЛЬНО\nopen class Ana2 { open fun tesvir() = \"Üzv metod: Ana\" }\nclass Ovlad2 : Ana2() { override fun tesvir() = \"Üzv metod: Övlad sinifi\" }\n\nfun main() {\n    val obyekt: Ana = Ovlad()\n    println(obyekt.tesvir())        // \"Ana sinif\" — по объявленному типу!\n\n    val obyekt2: Ana2 = Ovlad2()\n    println(obyekt2.tesvir())       // \"Övlad sinifi\" — по реальному типу\n}"
         },
         "genislenmeler.callout.4995b7da": {
-          "title": ""
+          "title": "Другие ограничения"
         },
         "genislenmeler.p.38f7a2de": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Функция-расширение не имеет доступа к"
+            },
+            {
+              "k": "code",
+              "v": "private"
+            },
+            {
+              "k": "t",
+              "v": " и"
+            },
+            {
+              "k": "code",
+              "v": "protected"
+            },
+            {
+              "k": "t",
+              "v": " членам класса. Кроме того, если в классе есть"
+            },
+            {
+              "k": "b",
+              "v": "метод-член"
+            },
+            {
+              "k": "t",
+              "v": " с той же сигнатурой, всегда побеждает он — расширение никогда не вызывается."
+            }
+          ]
         },
         "genislenmeler.h3.bf40edb8": {
-          "text": ""
+          "text": "Практичная библиотека помощников"
         },
         "genislenmeler.code.ba2b9d29": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.ext\n\n// Текст\nfun String.slugla() = lowercase()\n    .replace(Regex(\"[^a-z0-9]+\"), \"-\")\n    .trim('-')\n\nfun String.ilkHerfBoyuk() = replaceFirstChar { it.uppercase() }\n\n// Числа\nfun Double.azn() = \"%.2f ₼\".format(this)\nfun Int.faiz(hissə: Int) = if (this == 0) 0.0 else hissə * 100.0 / this\n\n// Коллекции\nfun <T> List<T>.ikinci(): T? = getOrNull(1)\nfun <T> List<T>.tesadufi(): T? = if (isEmpty()) null else random()\n\n// Пример для Android\n// fun View.gorunsun() { visibility = View.VISIBLE }\n// fun View.gizlensin() { visibility = View.GONE }\n// fun Context.toast(metn: String) =\n//     Toast.makeText(this, metn, Toast.LENGTH_SHORT).show()"
         }
       }
     },
     "null-safety": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Null-безопасность",
+      "heading": "Null-безопасность",
+      "kicker": "Раздел 14",
+      "group": "Безопасность и данные",
       "blocks": {
         "null-safety.p.71e03f26": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Тони Хоар назвал нулевую ссылку «моей ошибкой на миллиард долларов». Kotlin решает эту проблему прямо в системе типов:"
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " никогда не может быть null, а"
+            },
+            {
+              "k": "code",
+              "v": "String?"
+            },
+            {
+              "k": "t",
+              "v": " — может. Компилятор знает разницу и заставляет тебя её учитывать."
+            }
+          ]
         },
         "null-safety.h3.44ad617e": {
-          "text": ""
+          "text": "Nullable- и non-null-типы"
         },
         "null-safety.code.a24fd805": {
           "title": "",
-          "code": ""
+          "code": "// Non-null-тип — не принимает null\nvar ad: String = \"Aysel\"\n// ad = null                 ← ОШИБКА КОМПИЛЯЦИИ\n\n// Nullable-тип — ? в конце\nvar soyad: String? = \"Məmmədova\"\nsoyad = null                 // разрешено\n\n// С параметрами функций так же\nfun cap(metn: String) { }      // null передать нельзя\nfun capNullable(metn: String?) { }   // можно\n\n// Тип возврата\nfun tap(id: Int): Istifadeci? = null   // может не найтись"
         },
         "null-safety.h3.3515f27c": {
-          "text": ""
+          "text": "6 способов работы с null"
         },
         "null-safety.h4.e583cf1c": {
           "text": ""
         },
         "null-safety.code.4284bb02": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a: String? = null\n    val b: String? = \"Kotlin\"\n\n    println(a?.length)     // null — вызов вообще не выполняется\n    println(b?.length)     // 6\n\n    // В цепочке: если любое звено null, результат null\n    // val seher = istifadeci?.unvan?.seher?.ad\n    val bos: List<String>? = null\n    println(bos?.firstOrNull()?.uppercase())\n}"
         },
         "null-safety.h4.14b8b165": {
-          "text": ""
+          "text": "2 · Оператор Elvis — ?:"
         },
         "null-safety.code.c96c19c7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = null\n\n    // Запасное значение\n    println(ad ?: \"Qonaq\")\n    println(ad?.length ?: 0)\n\n    // Ранний выход (early return) — очень полезная идиома\n    fun emalEt(giris: String?): String {\n        val temiz = giris?.trim() ?: return \"Giriş boşdur\"\n        return temiz.uppercase()\n    }\n\n    println(\"Kotlin\")\n\n    // Elvis + throw\n    // val id = param ?: throw IllegalArgumentException(\"id tələb olunur\")\n}"
         },
         "null-safety.h4.b6357838": {
           "text": ""
         },
         "null-safety.code.219048bd": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n\n    // после проверки на null компилятор видит ad как String\n    if (ad != null) {\n        println(\"Uzunluq: ${ad.length}\")   // ?. не нужен\n    }\n\n    // вместе с is\n    val obyekt: Any = listOf(1, 2, 3)\n    if (obyekt is List<*>) {\n        println(\"Sayı: ${obyekt.size}\")    // автоматически List\n    }\n}"
         },
         "null-safety.callout.e8dea34f": {
-          "title": ""
+          "title": "Когда smart cast не работает?"
         },
         "null-safety.p.de6a159f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Для свойств"
+            },
+            {
+              "k": "code",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": " (их может изменить другой поток), для свойств с собственным"
+            },
+            {
+              "k": "code",
+              "v": "get()"
+            },
+            {
+              "k": "t",
+              "v": " и для"
+            },
+            {
+              "k": "code",
+              "v": "open val"
+            },
+            {
+              "k": "t",
+              "v": "-свойств или объявленных в другом модуле. В таких случаях сначала скопируй значение в локальный"
+            },
+            {
+              "k": "code",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": ":"
+            },
+            {
+              "k": "code",
+              "v": "val yerli = xasse ?: return"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "null-safety.h4.01746fa3": {
-          "text": ""
+          "text": "4 · Блок let"
         },
         "null-safety.code.5b2ebd0e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n    ad?.let {\n        println(\"Uzunluq ${it.length}\")   // выполняется, только если не null\n    }\n\n    val bos: String? = null\n    bos?.let {\n        println(\"Bu heç vaxt çap olunmayacaq\")\n    } ?: println(\"İşlənmədi\")\n}"
         },
         "null-safety.h4.707259b2": {
-          "text": ""
+          "text": "5 · Безопасное приведение — as?"
         },
         "null-safety.code.d39e73a1": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val obyekt: Any = 42\n\n    // as — при неудаче бросает ClassCastException\n    // val metn = obyekt as String    ← падает\n\n    // as? — при неудаче возвращает null\n    val metn: String? = obyekt as? String\n    println(metn)      // null\n\n    val duzgun: Any = \"Kotlin\"\n    println(duzgun as? String)\n}"
         },
         "null-safety.h4.7f3a4e91": {
-          "text": ""
+          "text": "6 · lateinit и by lazy"
         },
         "null-safety.code.43f813ed": {
           "title": "",
-          "code": ""
+          "code": "class Servis {\n    // lateinit — \"присвоят позже, но null не будет\"\n    // Только с var и только с непримитивными типами\n    lateinit var baza: Baza\n\n    fun basla() {\n        baza = Baza()\n    }\n\n    fun istifade() {\n        // Если не присвоено: UninitializedPropertyAccessException\n        if (::baza.isInitialized) {\n            baza.sorgu()\n        }\n    }\n\n    // by lazy — вычисляется один раз при первом обращении, потом кешируется\n    val agirObyekt: Konfiq by lazy {\n        println(\"Yalnız bir dəfə yaradılır\")\n        Konfiq.yukle()\n    }\n}"
         },
         "null-safety.h3.0bf47d49": {
-          "text": ""
+          "text": "Nullable-коллекции"
         },
         "null-safety.code.22fadaf5": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // Список, элементы которого nullable\n    val siyahi: List<String?> = listOf(\"Kotlin\", null, \"Java\")\n    println(siyahi.filterNotNull())    // отбрасывает null\n\n    // САМ список nullable\n    val bosOlaBiler: List<String>? = null\n    println(bosOlaBiler?.size ?: 3)\n\n    // orEmpty() — если null, возвращает пустую коллекцию\n    val etibarli: List<String> = bosOlaBiler.orEmpty()\n\n    val digeri: List<String>? = listOf(\"a\", \"b\")\n    println(digeri.orEmpty())\n}"
         },
         "null-safety.h3.48e23484": {
-          "text": ""
+          "text": "Взаимодействие с Java — платформенные типы"
         },
         "null-safety.callout.b1486b00": {
-          "title": ""
+          "title": "Значения из Java"
         },
         "null-safety.p.c1e98c78": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В коде Java нет информации о null. Kotlin показывает такие типы как"
+            },
+            {
+              "k": "code",
+              "v": "String!"
+            },
+            {
+              "k": "t",
+              "v": " — «платформенный тип». Компилятор их не проверяет, поэтому"
+            },
+            {
+              "k": "b",
+              "v": "NPE всё ещё возможен"
+            },
+            {
+              "k": "t",
+              "v": ". Всегда считай значения из Java API nullable:"
+            },
+            {
+              "k": "code",
+              "v": "val ad: String? = javaObyekt.getAd()"
+            },
+            {
+              "k": "t",
+              "v": ". Если на стороне Java есть аннотации"
+            },
+            {
+              "k": "code",
+              "v": "@Nullable"
+            },
+            {
+              "k": "t",
+              "v": " /"
+            },
+            {
+              "k": "code",
+              "v": "@NotNull"
+            },
+            {
+              "k": "t",
+              "v": ", Kotlin их учитывает."
+            }
+          ]
         },
         "null-safety.h3.0c30ce47": {
-          "text": ""
+          "text": "Полезные функции для null"
         },
         "null-safety.table.be28499f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Функция"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Что делает"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isNullOrEmpty()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null или пусто?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isNullOrBlank()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null, пусто или только пробелы?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "orEmpty()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "если null — \"\" или пустая коллекция"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filterNotNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Отбрасывает null из коллекции"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "requireNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "если null — IllegalArgumentException"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "checkNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "если null — IllegalStateException"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "mapNotNull { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Преобразует и отбрасывает null-результаты"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "getOrNull(i)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null, если индекса нет (без падения)"
+                }
+              ]
+            ]
+          ]
         },
         "null-safety.callout.6be44e69": {
-          "title": ""
+          "title": "Золотое правило"
         },
         "null-safety.p.b7acba6d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Каждое место, где ты пишешь оператор"
+            },
+            {
+              "k": "code",
+              "v": "!!"
+            },
+            {
+              "k": "t",
+              "v": ", — потенциальная точка падения. Увидев"
+            },
+            {
+              "k": "code",
+              "v": "!!"
+            },
+            {
+              "k": "t",
+              "v": " в коде, спроси себя: «Почему именно это значение не может быть null?» Если ответ есть — сделай тип non-null с самого начала. Если нет — используй"
+            },
+            {
+              "k": "code",
+              "v": "?.let"
+            },
+            {
+              "k": "t",
+              "v": " или"
+            },
+            {
+              "k": "code",
+              "v": "?:"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         }
       }
     },
