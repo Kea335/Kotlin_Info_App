@@ -3752,556 +3752,2513 @@
       }
     },
     "lambda": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Lambda ve HOF",
+      "heading": "Lambda ve yüksek mertebeden fonksiyonlar",
+      "kicker": "Bölüm 11",
+      "group": "Fonksiyonlar",
       "blocks": {
         "lambda.p.0ce05bb0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Yüksek mertebeden fonksiyon (higher-order function), parametre olarak fonksiyon alan veya fonksiyon döndüren fonksiyondur. Lambda ise adı olmayan bir fonksiyondur. Bu ikisi Kotlin'in en güçlü yanıdır."
+            }
+          ]
         },
         "lambda.h3.4379bf27": {
-          "text": ""
+          "text": "Lambda sözdizimi"
         },
         "lambda.code.75d87bb8": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // Tam biçim: { parametreler -> gövde }\n    val topla: (Int, Int) -> Int = { a, b -> a + b }\n    println(topla(5, 3))\n\n    // Tür açıkça yazıldığında parametre türleri gerekmez\n    val topla2 = { a: Int, b: Int -> a + b }\n    println(topla2(5, 3))\n\n    // Tek parametre varsa adını yazmadan \"it\" kullanılır\n    val kvadrat: (Int) -> Int = { it * it }\n    println(kvadrat(5))\n\n    // Son satır otomatik döndürülür — return yazılmaz\n    val salamla: (String) -> String = { ad ->\n        val prefix = \"Salam\"\n        \"$prefix $ad\"\n    }\n    println(salamla(\"Aysel\"))\n}"
         },
         "lambda.h3.9f9f1d9c": {
-          "text": ""
+          "text": "Fonksiyon türleri"
         },
         "lambda.table.326ff4a6": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Anlamı"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek lambda"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "() -> Unit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Parametresiz, sonuçsuz"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ println(\"salam\") }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(Int) -> String"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Int alır, String döndürür"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ it.toString() }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(Int, Int) -> Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İki Int alır"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ a, b -> a + b }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(String) -> Boolean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yüklem (predicate)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ it.isNotEmpty() }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "String.() -> Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Receiver'lı lambda"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ length }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "((Int) -> Int)?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nullable fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "suspend () -> Unit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Coroutine lambda"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ delay(100) }"
+                }
+              ]
+            ]
+          ]
         },
         "lambda.h3.059d57b8": {
-          "text": ""
+          "text": "Yüksek mertebeden fonksiyon yazmak"
         },
         "lambda.code.aaadc4c8": {
           "title": "",
-          "code": ""
+          "code": "// 1) Fonksiyonu parametre olarak alır\ninline fun <T> olcuVaxt(blok: () -> T): T {\n    val basla = System.currentTimeMillis()\n    val netice = blok()\n    println(\"Əməliyyat ${System.currentTimeMillis() - basla} ms çəkdi\")\n    return netice\n}\n\n// 2) Kendi map fonksiyonumuz\nfun <T, R> List<T>.menimMap(cevir: (T) -> R): List<R> {\n    val netice = mutableListOf<R>()\n    for (element in this) netice.add(cevir(element))\n    return netice\n}\n\n// 3) Fonksiyon DÖNDÜREN fonksiyon\nfun vurucuYarat(k: Int): (Int) -> Int = { it * k }\n\nfun main() {\n    val cem = olcuVaxt {\n        (1..1_000_000L).sum()\n    }\n    println(\"Nəticə: $cem\")\n\n    println(listOf(1, 2, 3).menimMap { it * 2 })\n\n    val ikiyeVur = vurucuYarat(2)\n    println(\"Uğurlu: ${ikiyeVur(21)}\")\n}"
         },
         "lambda.h3.73b80066": {
-          "text": ""
+          "text": "Sondaki lambda kuralı (trailing lambda)"
         },
         "lambda.p.14316fdd": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Lambda fonksiyonun"
+            },
+            {
+              "k": "b",
+              "v": "son"
+            },
+            {
+              "k": "t",
+              "v": " parametresiyse, parantezin dışına çıkarılabilir. Bu, Kotlin DSL'lerinin temelidir."
+            }
+          ]
         },
         "lambda.code.2aca7508": {
           "title": "",
-          "code": ""
+          "code": "// Bu üçü aynı şeydir:\nlistOf(1, 2, 3).filter({ it > 1 })     // olağan biçim\nlistOf(1, 2, 3).filter() { it > 1 }    // lambda dışarıda\nlistOf(1, 2, 3).filter { it > 1 }      // boş parantez silinir ← idiomatik\n\n// Birden fazla parametre varsa yalnızca SONUNCUSU dışarı çıkabilir\nfold(0) { akk, x -> akk + x }\n\n// DSL örneği — trailing lambda sayesinde böyle görünür\nval html = buildString {\n    append(\"<div>\")\n    append(\"Salam\")\n    append(\"</div>\")\n}"
         },
         "lambda.h3.d001a331": {
-          "text": ""
+          "text": "Anonim fonksiyonlar"
         },
         "lambda.code.0027d1c9": {
           "title": "",
-          "code": ""
+          "code": "// Lambda'dan farkı: dönüş türü açıkça yazılabilir ve\n// içindeki \"return\" yalnızca bu fonksiyondan çıkar\nval bol = fun(a: Int, b: Int): Int {\n    if (b == 0) return 0      // lambda'da bu mümkün değil\n    return a / b\n}\n\nfun main() {\n    println(bol(10, 2))   // 5\n    println(bol(10, 0))   // 0\n}"
         },
         "lambda.h3.f243fd7e": {
-          "text": ""
+          "text": "Fonksiyon referansları (::)"
         },
         "lambda.code.7f9b02a4": {
           "title": "",
-          "code": ""
+          "code": "fun ciftdir(x: Int) = x % 2 == 0\n\nfun main() {\n    // { ciftdir(it) } yerine ::ciftdir\n    println(listOf(1, 2, 3, 4).filterNot(::ciftdir))\n\n    // Metot referansı\n    println(listOf(\"kotlin\", \"java\").map(String::uppercase))\n\n    // Yapıcı referansı — tür hangi yapıcının seçileceğini belirler\n    val yarat: (String) -> StringBuilder = ::StringBuilder\n    println(yarat(\"Kotlin\").length)\n}"
         },
         "lambda.h3.679fc6ba": {
           "text": ""
         },
         "lambda.p.bc6e3d9e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Her lambda aslında bir nesnedir — çok çağrıldığında bu, bellek yükü oluşturur."
+            },
+            {
+              "k": "code",
+              "v": "inline"
+            },
+            {
+              "k": "t",
+              "v": " anahtar kelimesi derleyiciye fonksiyonun gövdesini doğrudan çağrı yerine kopyalamasını söyler."
+            }
+          ]
         },
         "lambda.code.c922ebc0": {
           "title": "",
-          "code": ""
+          "code": "// inline — lambda nesnesi oluşturulmaz, kod yerinde açılır\ninline fun tekrarla(n: Int, emel: (Int) -> Unit) {\n    for (i in 0 until n) emel(i)\n}\n\n// noinline — bu lambda inline edilmesin (nesne olarak saklanacaksa)\ninline fun numune(\n    inlineOlan: () -> Unit,\n    noinline saxlanan: () -> Unit\n) {\n    inlineOlan()\n    val referans = saxlanan   // noinline olmasa bu mümkün değil\n}\n\n// crossinline — lambda içinde \"return\" ile dış fonksiyondan\n// çıkmayı yasaklar (başka bağlamda çağrılacaksa önemlidir)\ninline fun asinxronIsle(crossinline emel: () -> Unit) {\n    Thread { emel() }.start()\n}\n\n// reified — inline fonksiyonda türü çalışma zamanında görmek\ninline fun <reified T> List<*>.yalnizTipi(): List<T> =\n    this.filterIsInstance<T>()\n\nfun main() {\n    val qarisiq = listOf(1, \"iki\", 3, \"dörd\")\n    println(qarisiq.yalnizTipi<String>())   // [iki, dörd]\n}"
         },
         "lambda.callout.710ff33c": {
-          "title": ""
+          "title": "Ne zaman inline?"
         },
         "lambda.p.c481e3c5": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Yalnızca lambda alan"
+            },
+            {
+              "k": "b",
+              "v": "küçük"
+            },
+            {
+              "k": "t",
+              "v": " fonksiyonlarda. Büyük bir fonksiyonu inline yapmak bayt kodunu şişirir. Standart kütüphanedeki"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "filter"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "map"
+            },
+            {
+              "k": "t",
+              "v": " — hepsi inline'dır."
+            }
+          ]
         }
       }
     },
     "scope-funksiyalari": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Scope fonksiyonları",
+      "heading": "Scope fonksiyonları",
+      "kicker": "Bölüm 12",
+      "group": "Fonksiyonlar",
       "blocks": {
         "scope-funksiyalari.p.7a40de82": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Beş fonksiyon —"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "run"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "with"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "also"
+            },
+            {
+              "k": "t",
+              "v": ". Hepsi bir nesne üzerinde geçici bir kapsam (scope) oluşturur. Aralarındaki fark yalnızca iki şeydedir:"
+            },
+            {
+              "k": "b",
+              "v": "nesneye nasıl erişilir"
+            },
+            {
+              "k": "t",
+              "v": " ve"
+            },
+            {
+              "k": "b",
+              "v": "ne döndürülür"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "scope-funksiyalari.h3.3b397afe": {
-          "text": ""
+          "text": "Özet tablosu"
         },
         "scope-funksiyalari.table.b628e4ec": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nesne"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Döndürür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tipik kullanım"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "let"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "it"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "lambda sonucu"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Null kontrolü + dönüştürme"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "run"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "lambda sonucu"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yapılandırma + sonuç hesaplama"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "with"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "lambda sonucu"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bir nesneyle çok sayıda işlem"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "apply"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "nesnenin kendisi"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nesne kurma (builder)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "also"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "it"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "nesnenin kendisi"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yan etkiler: log, doğrulama"
+                }
+              ]
+            ]
+          ]
         },
         "scope-funksiyalari.callout.3dbbc2f6": {
-          "title": ""
+          "title": "Seçim kuralı"
         },
         "scope-funksiyalari.p.9f1141ea": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "Nesnenin kendisi mi gerekiyor?"
+            },
+            {
+              "k": "t",
+              "v": " →"
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": " (this) veya"
+            },
+            {
+              "k": "code",
+              "v": "also"
+            },
+            {
+              "k": "t",
+              "v": " (it)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Hesaplanmış bir sonuç mu gerekiyor?"
+            },
+            {
+              "k": "t",
+              "v": " →"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": " (it),"
+            },
+            {
+              "k": "code",
+              "v": "run"
+            },
+            {
+              "k": "t",
+              "v": " /"
+            },
+            {
+              "k": "code",
+              "v": "with"
+            },
+            {
+              "k": "t",
+              "v": " (this)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Null kontrolü var mı?"
+            },
+            {
+              "k": "t",
+              "v": " →"
+            },
+            {
+              "k": "code",
+              "v": "?.let { }"
+            },
+            {
+              "k": "t",
+              "v": " her zaman doğru seçimdir."
+            }
+          ]
         },
         "scope-funksiyalari.h3.df101ed5": {
-          "text": ""
+          "text": "Pratik örnekler"
         },
         "scope-funksiyalari.code.f38ac2cd": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(var ad: String = \"\", var yas: Int = 0)\n\nfun main() {\n    // apply — nesne kurmak\n    val istifadeci = Istifadeci().apply {\n        ad = \"Aysel\"\n        yas = 24\n    }\n    println(\"Yükləndi: ${istifadeci.ad} (${istifadeci.yas})\")\n\n    // also — zinciri bozmadan yan etki\n    val yol = \"/tmp/hesabat.txt\"\n        .also { println(\"Fayl hazırdır: $it\") }\n\n    // let — null kontrolü + dönüştürme\n    val ad: String? = \"Kotlin\"\n    val uzunluq = ad?.let { it.length } ?: 0\n    println(\"Uzunluq: $uzunluq\")\n\n    // run — yapılandırma + sonuç\n    val cavabKodu = \"https://api.numune.az\".run {\n        // burada this = URL metnidir\n        if (startsWith(\"https\")) 200 else 400\n    }\n    println(\"Cavab: $cavabKodu\")\n}"
         },
         "scope-funksiyalari.h3.0530ced8": {
-          "text": ""
+          "text": "takeIf ve takeUnless"
         },
         "scope-funksiyalari.code.6bf2318e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // takeIf — koşul sağlanıyorsa nesneyi, yoksa null döndürür\n    val bosMetn = \"\".takeIf { it.isNotBlank() }\n    println(bosMetn)                     // null\n\n    val email = \"kotlin@mail.az\".takeIf { it.contains(\"@\") }\n    println(email)                       // kotlin@mail.az\n\n    // takeUnless — tersine çalışır\n    val netice = \"abc\"\n        .takeUnless { it.contains(\"@\") }\n        ?.let { \"Düzgün deyil\" }\n        ?: \"Düzgündür\"\n    println(netice)\n}"
         },
         "scope-funksiyalari.callout.1c84e4a8": {
-          "title": ""
+          "title": "Aşırıya kaçma"
         },
         "scope-funksiyalari.p.eee66178": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "İç içe üç"
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": " bloğu kodu okunmaz hâle getirir. Scope fonksiyonları kısaltmak içindir, gizlemek için değil. Şüphedeysen düz bir"
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": " ve değişken yaz."
+            }
+          ]
         }
       }
     },
     "genislenmeler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Uzantılar (extensions)",
+      "heading": "Uzantılar (extensions)",
+      "kicker": "Bölüm 13",
+      "group": "Fonksiyonlar",
       "blocks": {
         "genislenmeler.p.465423aa": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Mevcut bir sınıfa — hatta kaynak koduna erişimin olmayan"
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " veya"
+            },
+            {
+              "k": "code",
+              "v": "List"
+            },
+            {
+              "k": "t",
+              "v": " gibi sınıflara — yeni fonksiyon ve özellik eklenebilir. Kalıtım almadan, sınıfı değiştirmeden."
+            }
+          ]
         },
         "genislenmeler.h3.75ec6b08": {
-          "text": ""
+          "text": "Uzantı fonksiyonu"
         },
         "genislenmeler.code.e5dbbd79": {
           "title": "",
-          "code": ""
+          "code": "// String sınıfına yeni bir fonksiyon ekliyoruz\n// \"this\" — fonksiyonun çağrıldığı nesnedir (receiver)\nfun String.emailDirmi(): Boolean =\n    this.contains(\"@\") && this.contains(\".\")\n\nfun String.qisalt(maks: Int): String =\n    if (length <= maks) this else take(maks) + \"...\"\n\n// Uzantı zincirde kullanılabilir\nfun String.tersUst(): String = reversed().uppercase()\n\n// Koleksiyonlara da eklenebilir\nfun List<Int>.ciftlerinCemi(): Int = filter { it % 2 == 0 }.sum()\n\nfun main() {\n    println(\"aysel@mail.az\".emailDirmi())\n    println(\"Kotlin dilini öyrənirəm\".qisalt(6))\n    println(\"Kotlin\".tersUst().take(5))\n    println(listOf(1, 2, 3, 4).ciftlerinCemi().toString().length + 4)\n}"
         },
         "genislenmeler.h3.826073af": {
-          "text": ""
+          "text": "Uzantı özelliği (extension property)"
         },
         "genislenmeler.code.1caff14b": {
           "title": "",
-          "code": ""
+          "code": "// Uzantı özelliği — alan (field) tutamaz, yalnızca getter\nval String.ilkHerfBoyukdurmu: Boolean\n    get() = isNotEmpty() && first().isUpperCase()\n\nval <T> List<T>.sonIndeks: Int\n    get() = size - 1\n\nval Int.kb: String\n    get() = \"$this KB\"\n\nfun main() {\n    println(\"kotlin\".ilkHerfBoyukdurmu)\n    println(listOf(\"Java\", \"Kotlin\")[listOf(\"Java\", \"Kotlin\").sonIndeks])\n    println(1024.kb)\n}"
         },
         "genislenmeler.h3.c269533d": {
-          "text": ""
+          "text": "Nullable türlere uzantı"
         },
         "genislenmeler.code.37454cc1": {
           "title": "",
-          "code": ""
+          "code": "// Receiver nullable olabilir — içeride null kontrolü yapıyoruz\nfun String?.bosVeYaNull(): Boolean = this == null || this.isBlank()\n\nfun String?.veYaDefolt(defolt: String): String =\n    if (this.isNullOrBlank()) defolt else this\n\nfun main() {\n    val a: String? = null\n    println(if (a.bosVeYaNull()) \"Boşdur\" else \"Dolu\")   // ?. gerekmez!\n\n    println(\"Kotlin\".veYaDefolt(\"yoxdur\"))\n    println(null.veYaDefolt(\"Dəyər yoxdur\"))\n}"
         },
         "genislenmeler.h3.c7bc634d": {
-          "text": ""
+          "text": "Önemli: uzantılar statiktir"
         },
         "genislenmeler.callout.70e206dd": {
-          "title": ""
+          "title": "Çok biçimlilik çalışmaz"
         },
         "genislenmeler.p.acdd59fb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Uzantı fonksiyonu sınıfa gerçekten eklenmez — derleyici onu sıradan bir statik fonksiyon çağrısına dönüştürür. Bu yüzden hangi fonksiyonun çalışacağı, değişkenin gerçek türüne göre değil,"
+            },
+            {
+              "k": "b",
+              "v": "bildirilen türüne"
+            },
+            {
+              "k": "t",
+              "v": " göre seçilir."
+            }
+          ]
         },
         "genislenmeler.code.49ac3433": {
           "title": "",
-          "code": ""
+          "code": "open class Ana\nclass Ovlad : Ana()\n\n// Uzantılar — STATİK olarak çözümlenir\nfun Ana.tesvir() = \"Ana sinif\"\nfun Ovlad.tesvir() = \"Övlad sinifi\"\n\n// Üye metotlar — SANAL olarak çözümlenir\nopen class Ana2 { open fun tesvir() = \"Üzv metod: Ana\" }\nclass Ovlad2 : Ana2() { override fun tesvir() = \"Üzv metod: Övlad sinifi\" }\n\nfun main() {\n    val obyekt: Ana = Ovlad()\n    println(obyekt.tesvir())        // \"Ana sinif\" — bildirilen türe göre!\n\n    val obyekt2: Ana2 = Ovlad2()\n    println(obyekt2.tesvir())       // \"Övlad sinifi\" — gerçek türe göre\n}"
         },
         "genislenmeler.callout.4995b7da": {
-          "title": ""
+          "title": "Diğer kısıtlamalar"
         },
         "genislenmeler.p.38f7a2de": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Uzantı fonksiyonu sınıfın"
+            },
+            {
+              "k": "code",
+              "v": "private"
+            },
+            {
+              "k": "t",
+              "v": " ve"
+            },
+            {
+              "k": "code",
+              "v": "protected"
+            },
+            {
+              "k": "t",
+              "v": " üyelerine erişemez. Ayrıca sınıfta aynı imzalı bir"
+            },
+            {
+              "k": "b",
+              "v": "üye metot"
+            },
+            {
+              "k": "t",
+              "v": " varsa her zaman o önceliklidir — uzantı asla çağrılmaz."
+            }
+          ]
         },
         "genislenmeler.h3.bf40edb8": {
-          "text": ""
+          "text": "Pratik yardımcı kütüphane"
         },
         "genislenmeler.code.ba2b9d29": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.ext\n\n// Metin\nfun String.slugla() = lowercase()\n    .replace(Regex(\"[^a-z0-9]+\"), \"-\")\n    .trim('-')\n\nfun String.ilkHerfBoyuk() = replaceFirstChar { it.uppercase() }\n\n// Sayı\nfun Double.azn() = \"%.2f ₼\".format(this)\nfun Int.faiz(hissə: Int) = if (this == 0) 0.0 else hissə * 100.0 / this\n\n// Koleksiyon\nfun <T> List<T>.ikinci(): T? = getOrNull(1)\nfun <T> List<T>.tesadufi(): T? = if (isEmpty()) null else random()\n\n// Android örneği\n// fun View.gorunsun() { visibility = View.VISIBLE }\n// fun View.gizlensin() { visibility = View.GONE }\n// fun Context.toast(metn: String) =\n//     Toast.makeText(this, metn, Toast.LENGTH_SHORT).show()"
         }
       }
     },
     "null-safety": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Null güvenliği",
+      "heading": "Null güvenliği",
+      "kicker": "Bölüm 14",
+      "group": "Güvenlik ve veri",
       "blocks": {
         "null-safety.p.71e03f26": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tony Hoare null referansı «milyar dolarlık hatam» diye adlandırmıştı. Kotlin bu sorunu tür sisteminin kendisinde çözer:"
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " asla null olamaz,"
+            },
+            {
+              "k": "code",
+              "v": "String?"
+            },
+            {
+              "k": "t",
+              "v": " olabilir. Derleyici farkı bilir ve seni bunu hesaba katmaya zorlar."
+            }
+          ]
         },
         "null-safety.h3.44ad617e": {
-          "text": ""
+          "text": "Nullable ve non-null türler"
         },
         "null-safety.code.a24fd805": {
           "title": "",
-          "code": ""
+          "code": "// Non-null tür — null kabul etmez\nvar ad: String = \"Aysel\"\n// ad = null                 ← DERLEME HATASI\n\n// Nullable tür — sonda ?\nvar soyad: String? = \"Məmmədova\"\nsoyad = null                 // izin verilir\n\n// Fonksiyon parametreleri de böyledir\nfun cap(metn: String) { }      // null aktarılamaz\nfun capNullable(metn: String?) { }   // aktarılabilir\n\n// Dönüş türü\nfun tap(id: Int): Istifadeci? = null   // bulunamayabilir"
         },
         "null-safety.h3.3515f27c": {
-          "text": ""
+          "text": "Null ile çalışmanın 6 yolu"
         },
         "null-safety.h4.e583cf1c": {
           "text": ""
         },
         "null-safety.code.4284bb02": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a: String? = null\n    val b: String? = \"Kotlin\"\n\n    println(a?.length)     // null — çağrı hiç yapılmaz\n    println(b?.length)     // 6\n\n    // Zincirde: herhangi biri null ise sonuç null'dır\n    // val seher = istifadeci?.unvan?.seher?.ad\n    val bos: List<String>? = null\n    println(bos?.firstOrNull()?.uppercase())\n}"
         },
         "null-safety.h4.14b8b165": {
-          "text": ""
+          "text": "2 · Elvis operatörü — ?:"
         },
         "null-safety.code.c96c19c7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = null\n\n    // Yedek değer\n    println(ad ?: \"Qonaq\")\n    println(ad?.length ?: 0)\n\n    // Erken çıkış (early return) — çok faydalı bir deyim\n    fun emalEt(giris: String?): String {\n        val temiz = giris?.trim() ?: return \"Giriş boşdur\"\n        return temiz.uppercase()\n    }\n\n    println(\"Kotlin\")\n\n    // Elvis + throw\n    // val id = param ?: throw IllegalArgumentException(\"id tələb olunur\")\n}"
         },
         "null-safety.h4.b6357838": {
           "text": ""
         },
         "null-safety.code.219048bd": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n\n    // null kontrolünden sonra derleyici ad'ı String olarak görür\n    if (ad != null) {\n        println(\"Uzunluq: ${ad.length}\")   // ?. gerekmez\n    }\n\n    // is ile birlikte\n    val obyekt: Any = listOf(1, 2, 3)\n    if (obyekt is List<*>) {\n        println(\"Sayı: ${obyekt.size}\")    // otomatik List\n    }\n}"
         },
         "null-safety.callout.e8dea34f": {
-          "title": ""
+          "title": "Smart cast ne zaman çalışmaz?"
         },
         "null-safety.p.de6a159f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": " özelliklerinde (başka bir thread değiştirebilir), açık"
+            },
+            {
+              "k": "code",
+              "v": "get()"
+            },
+            {
+              "k": "t",
+              "v": "'ı olan özelliklerde ve başka bir modülde tanımlanan"
+            },
+            {
+              "k": "code",
+              "v": "open val"
+            },
+            {
+              "k": "t",
+              "v": "'larda. Böyle durumlarda değeri önce yerel bir"
+            },
+            {
+              "k": "code",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": "'a kopyala:"
+            },
+            {
+              "k": "code",
+              "v": "val yerli = xasse ?: return"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "null-safety.h4.01746fa3": {
-          "text": ""
+          "text": "4 · let bloğu"
         },
         "null-safety.code.5b2ebd0e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n    ad?.let {\n        println(\"Uzunluq ${it.length}\")   // yalnızca null değilse çalışır\n    }\n\n    val bos: String? = null\n    bos?.let {\n        println(\"Bu heç vaxt çap olunmayacaq\")\n    } ?: println(\"İşlənmədi\")\n}"
         },
         "null-safety.h4.707259b2": {
-          "text": ""
+          "text": "5 · Güvenli dönüşüm — as?"
         },
         "null-safety.code.d39e73a1": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val obyekt: Any = 42\n\n    // as — başarısız olursa ClassCastException fırlatır\n    // val metn = obyekt as String    ← çöker\n\n    // as? — başarısız olursa null döndürür\n    val metn: String? = obyekt as? String\n    println(metn)      // null\n\n    val duzgun: Any = \"Kotlin\"\n    println(duzgun as? String)\n}"
         },
         "null-safety.h4.7f3a4e91": {
-          "text": ""
+          "text": "6 · lateinit ve by lazy"
         },
         "null-safety.code.43f813ed": {
           "title": "",
-          "code": ""
+          "code": "class Servis {\n    // lateinit — \"sonra atanacak ama null olmayacak\"\n    // Yalnızca var ile, yalnızca ilkel olmayan türlerle\n    lateinit var baza: Baza\n\n    fun basla() {\n        baza = Baza()\n    }\n\n    fun istifade() {\n        // Atanmamışsa: UninitializedPropertyAccessException\n        if (::baza.isInitialized) {\n            baza.sorgu()\n        }\n    }\n\n    // by lazy — ilk erişimde bir kez hesaplanır, sonra önbelleğe alınır\n    val agirObyekt: Konfiq by lazy {\n        println(\"Yalnız bir dəfə yaradılır\")\n        Konfiq.yukle()\n    }\n}"
         },
         "null-safety.h3.0bf47d49": {
-          "text": ""
+          "text": "Nullable koleksiyonlar"
         },
         "null-safety.code.22fadaf5": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // Elemanları nullable olan liste\n    val siyahi: List<String?> = listOf(\"Kotlin\", null, \"Java\")\n    println(siyahi.filterNotNull())    // null'ları atar\n\n    // Listenin KENDİSİ nullable\n    val bosOlaBiler: List<String>? = null\n    println(bosOlaBiler?.size ?: 3)\n\n    // orEmpty() — null ise boş koleksiyon döndürür\n    val etibarli: List<String> = bosOlaBiler.orEmpty()\n\n    val digeri: List<String>? = listOf(\"a\", \"b\")\n    println(digeri.orEmpty())\n}"
         },
         "null-safety.h3.48e23484": {
-          "text": ""
+          "text": "Java ile birlikte çalışma — platform türleri"
         },
         "null-safety.callout.b1486b00": {
-          "title": ""
+          "title": "Java'dan gelen değerler"
         },
         "null-safety.p.c1e98c78": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Java kodunda null bilgisi yoktur. Kotlin bu tür türleri"
+            },
+            {
+              "k": "code",
+              "v": "String!"
+            },
+            {
+              "k": "t",
+              "v": " olarak gösterir — «platform türü». Derleyici onları kontrol etmez, bu yüzden"
+            },
+            {
+              "k": "b",
+              "v": "NPE yine de mümkündür"
+            },
+            {
+              "k": "t",
+              "v": ". Java API'lerinden gelen değerleri her zaman nullable kabul et:"
+            },
+            {
+              "k": "code",
+              "v": "val ad: String? = javaObyekt.getAd()"
+            },
+            {
+              "k": "t",
+              "v": ". Java tarafında"
+            },
+            {
+              "k": "code",
+              "v": "@Nullable"
+            },
+            {
+              "k": "t",
+              "v": " /"
+            },
+            {
+              "k": "code",
+              "v": "@NotNull"
+            },
+            {
+              "k": "t",
+              "v": " anotasyonları varsa Kotlin onlara uyar."
+            }
+          ]
         },
         "null-safety.h3.0c30ce47": {
-          "text": ""
+          "text": "Faydalı null fonksiyonları"
         },
         "null-safety.table.be28499f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne yapar"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isNullOrEmpty()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null mı veya boş mu"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isNullOrBlank()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null, boş veya yalnızca boşluk mu"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "orEmpty()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null ise \"\" veya boş koleksiyon"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filterNotNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Koleksiyondaki null'ları atar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "requireNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null ise IllegalArgumentException"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "checkNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null ise IllegalStateException"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "mapNotNull { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Dönüştürür ve null sonuçları atar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "getOrNull(i)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İndeks yoksa null (çökmez)"
+                }
+              ]
+            ]
+          ]
         },
         "null-safety.callout.6be44e69": {
-          "title": ""
+          "title": "Altın kural"
         },
         "null-safety.p.b7acba6d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "!!"
+            },
+            {
+              "k": "t",
+              "v": " operatörünü yazdığın her yer potansiyel bir çökme noktasıdır. Kodda"
+            },
+            {
+              "k": "code",
+              "v": "!!"
+            },
+            {
+              "k": "t",
+              "v": " gördüğünde kendine sor: «Bu değer gerçekten neden null olamaz?» Cevabın varsa — türü baştan non-null yap. Cevabın yoksa —"
+            },
+            {
+              "k": "code",
+              "v": "?.let"
+            },
+            {
+              "k": "t",
+              "v": " veya"
+            },
+            {
+              "k": "code",
+              "v": "?:"
+            },
+            {
+              "k": "t",
+              "v": " kullan."
+            }
+          ]
         }
       }
     },
     "kolleksiyalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Koleksiyonlar",
+      "heading": "Koleksiyonlar",
+      "kicker": "Bölüm 15",
+      "group": "Güvenlik ve veri",
       "blocks": {
         "kolleksiyalar.p.b139ebbb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin koleksiyonları iki gruba ayırır:"
+            },
+            {
+              "k": "b",
+              "v": "değişmez"
+            },
+            {
+              "k": "t",
+              "v": " (read-only) ve"
+            },
+            {
+              "k": "b",
+              "v": "değiştirilebilir"
+            },
+            {
+              "k": "t",
+              "v": " (mutable). Bu ayrım Java'da yoktur ve birçok hatanın önüne geçer."
+            }
+          ]
         },
         "kolleksiyalar.h3.823b09ff": {
-          "text": ""
+          "text": "Üç temel tür"
         },
         "kolleksiyalar.table.b29c3f53": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Özellik"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Oluşturma (read-only)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Oluşturma (mutable)"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "List"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sıralı, tekrar olabilir"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "listOf(1, 2)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mutableListOf(1, 2)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Set"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tekrarsız, sırasız"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "setOf(1, 2)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mutableSetOf(1, 2)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Map"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Anahtar → değer çiftleri"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mapOf(\"a\" to 1)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "mutableMapOf(\"a\" to 1)"
+                }
+              ]
+            ]
+          ]
         },
         "kolleksiyalar.code.9b676a3e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // List — sıra korunur, tekrar mümkündür\n    val diller = listOf(\"Kotlin\", \"Java\", \"Kotlin\")\n    println(diller)\n\n    // Set — tekrarlar otomatik atılır\n    val unikal = setOf(\"Kotlin\", \"Java\", \"Kotlin\")\n    println(unikal)\n\n    // Map — anahtar/değer\n    val istifadeci = mapOf(\"ad\" to \"Aysel\", \"yas\" to 24)\n    println(istifadeci)\n\n    // Mutable — değiştirilebilir\n    val siyahi = mutableListOf(\"Kotlin\", \"Java\")\n    siyahi.add(\"Swift\")\n    println(siyahi)\n\n    // Elemana erişim\n    println(istifadeci[\"yas\"])\n}"
         },
         "kolleksiyalar.callout.b4056a5a": {
-          "title": ""
+          "title": "«Salt okunur» ≠ «değişmez»"
         },
         "kolleksiyalar.p.ba2a989e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "List"
+            },
+            {
+              "k": "t",
+              "v": " arayüzünde"
+            },
+            {
+              "k": "code",
+              "v": "add()"
+            },
+            {
+              "k": "t",
+              "v": " metodu yoktur — bu, kazara değişikliği önler. Ama alttaki nesne gerçekten"
+            },
+            {
+              "k": "code",
+              "v": "MutableList"
+            },
+            {
+              "k": "t",
+              "v": " ise ve biri ona referans tutuyorsa değişebilir. Tam değişmezlik için"
+            },
+            {
+              "k": "code",
+              "v": "toList()"
+            },
+            {
+              "k": "t",
+              "v": " ile kopya al."
+            }
+          ]
         },
         "kolleksiyalar.h3.9140c87c": {
-          "text": ""
+          "text": "Dönüştürme işlemleri"
         },
         "kolleksiyalar.code.296b77eb": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val reqemler = listOf(1, 2, 3, 4)\n\n    println(reqemler.map { it * 2 })              // her elemanı dönüştürür\n    println(reqemler.filter { it % 2 == 1 })      // koşula uyanları tutar\n    println(listOf(\"kotlin\", \"java\").map { it.uppercase() })\n\n    // flatten / flatMap — iç içe listeleri düzleştirir\n    println(listOf(listOf(1, 2), listOf(3, 4)).flatten())\n\n    // zip — iki listeyi eşleştirir\n    println(listOf(1, 2).zip(listOf(\"a\", \"b\")))\n}"
         },
         "kolleksiyalar.h3.0d8556e1": {
-          "text": ""
+          "text": "Toplama (agregasyon)"
         },
         "kolleksiyalar.code.71f49d7f": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val r = listOf(1, 2, 3, 4, 5)\n\n    println(r.sum())\n    println(r.average())\n    println(r.maxOrNull())\n    println(r.minOrNull())\n    println(r.count())\n    println(r.any { it > 4 })      // en az biri\n    println(r.all { it > 4 })      // hepsi\n    println(r.count { it > 3 })\n\n    // reduce / fold — kendi toplamanı yaz\n    val hasil = r.reduce { akk, x -> akk * x }        // 120\n    val cemPlus10 = r.fold(10) { akk, x -> akk + x }  // 25 (başlangıç 10)\n}"
         },
         "kolleksiyalar.h3.4c2f479a": {
-          "text": ""
+          "text": "Gruplama ve sıralama"
         },
         "kolleksiyalar.code.d18e4219": {
           "title": "",
-          "code": ""
+          "code": "data class Isci(val ad: String, val sobe: String, val maas: Int)\n\nfun main() {\n    val diller = listOf(\"Kotlin\", \"Java\", \"JS\")\n\n    // groupBy — anahtara göre gruplar\n    println(diller.groupBy { if (it.startsWith(\"K\")) \"c\" else \"q\" })\n\n    // sortedBy / sortedByDescending\n    println(diller.sortedBy { it.length })\n    println(diller.sortedByDescending { it.length })\n\n    // associateWith — anahtar→değer map'i oluşturur\n    println(diller.associateWith { it.length })\n\n    // Gerçek örnek: departmanlara göre ortalama maaş\n    val iscilder = listOf(\n        Isci(\"Aysel\", \"IT\", 3000),\n        Isci(\"Kamran\", \"IT\", 3500),\n        Isci(\"Leyla\", \"Satış\", 2000)\n    )\n    val ortaMaas = iscilder.groupBy { it.sobe }\n        .mapValues { (_, siyahi) -> siyahi.map { it.maas }.average() }\n}"
         },
         "kolleksiyalar.h3.fa777003": {
-          "text": ""
+          "text": "En çok kullanılan fonksiyonlar"
         },
         "kolleksiyalar.table.743f7a6e": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne yapar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sonuç türü"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "map { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Her elemanı dönüştürür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "mapNotNull { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Dönüştürür + null'ları atar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filter { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Koşula uyanları tutar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filterNot { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Koşula uymayanları tutar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "find { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İlk uyan eleman (yoksa null)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "first() / last()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İlk / son eleman (boşsa hata)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "firstOrNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İlk eleman veya null"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "take(n) / drop(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İlk n tanesini al / at"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "chunked(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "n'lik parçalara böler"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List<List>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "windowed(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kayan pencere"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List<List>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "distinct()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tekrarları atar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "distinctBy { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Anahtara göre tekilleştirir"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "partition { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İkiye böler (uyan / uymayan)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Pair"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "sumOf { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Dönüştürüp toplar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Int/Double"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "joinToString()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Metne birleştirir"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "String"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ters çevirir"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "shuffled()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Karıştırır"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "List"
+                }
+              ]
+            ]
+          ]
         },
         "kolleksiyalar.h3.cb1d095b": {
-          "text": ""
+          "text": "Sequence — tembel hesaplama"
         },
         "kolleksiyalar.p.00753936": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Zincirdeki her işlem yeni bir liste oluşturur. Büyük koleksiyonlarda bu pahalıdır."
+            },
+            {
+              "k": "code",
+              "v": "Sequence"
+            },
+            {
+              "k": "t",
+              "v": " elemanları tek tek işler ve ara liste oluşturmaz."
+            }
+          ]
         },
         "kolleksiyalar.code.76102d7b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val boyuk = (1..1_000_000).toList()\n\n    // SIRADAN LİSTE — her adımda 1 milyon elemanlık yeni liste!\n    val a = boyuk\n        .map { it * 2 }        // 1 000 000 eleman\n        .filter { it > 10 }    // 999 995 eleman\n        .take(2)               // yalnızca 2 gerekiyordu...\n\n    // SEQUENCE — eleman eleman akar, yalnızca gerektiği kadar çalışır\n    val b = boyuk.asSequence()\n        .map { it * 2 }\n        .filter { it > 10 }\n        .take(2)\n        .toList()              // ← terminal işlem hesaplamayı başlatır\n\n    // generateSequence — sonsuz dizi\n    val fibonacci = generateSequence(1 to 1) { (a, b) -> b to (a + b) }\n        .map { it.first }\n        .take(10)\n        .toList()              // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]\n}"
         },
         "kolleksiyalar.callout.4ba1a663": {
-          "title": ""
+          "title": "Ne zaman Sequence?"
         },
         "kolleksiyalar.p.dc1b0aed": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Eleman sayısı büyükse (yaklaşık 1000+) ve zincirde birkaç adım varsa. Küçük koleksiyonlarda sıradan List daha hızlıdır, çünkü Sequence'in kendi ek yükü vardır."
+            }
+          ]
         },
         "kolleksiyalar.h3.ce49b31e": {
-          "text": ""
+          "text": "Yapı çözümleme (destructuring)"
         },
         "kolleksiyalar.code.17bfa588": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(val ad: String, val yas: Int)\n\nfun main() {\n    val u = Istifadeci(\"Aysel\", 24)\n    val (ad, yas) = u                 // data class bunu otomatik destekler\n    println(\"$ad $yas\")\n\n    // Map üzerinde\n    val melumat = mapOf(\"ad\" to \"Aysel\", \"yas\" to \"24\")\n    for ((acar, deyer) in melumat) {\n        println(\"$acar = $deyer\")\n    }\n\n    // withIndex ile\n    for ((i, dil) in listOf(\"Kotlin\", \"Java\").withIndex()) {\n        println(\"${i + 1} - $dil\")\n    }\n\n    // Gereksiz değeri _ ile atmak\n    val (_, yalnizYas) = u\n}"
         }
       }
     },
     "oop": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Sınıflar ve nesneler",
+      "heading": "Sınıflar ve nesneler",
+      "kicker": "Bölüm 16",
+      "group": "Nesne yönelimli",
       "blocks": {
         "oop.p.478f3eba": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de sınıf bildirmek tek satır tutar. Yapıcı, sınıf başlığının bir parçasıdır; özellikler otomatik getter/setter alır ve boilerplate ortadan kalkar."
+            }
+          ]
         },
         "oop.h3.f02538d8": {
-          "text": ""
+          "text": "En basit sınıf"
         },
         "oop.code.d629fbc9": {
           "title": "",
-          "code": ""
+          "code": "// Tüm sınıf — tek satır\nclass Istifadeci(val ad: String, var yas: Int)\n\n// Gövdesiz sınıf için süslü parantez de gerekmez\nclass BosSinif\n\nfun main() {\n    val u = Istifadeci(\"Aysel\", 24)   // \"new\" anahtar kelimesi yok\n\n    println(u.ad)      // getter otomatik\n    println(u.yas)\n    u.yas = 25         // setter otomatik (var olduğu için)\n    println(u.yas)\n    // u.ad = \"Leyla\"  ← HATA: val salt okunurdur\n}"
         },
         "oop.h3.8601d61c": {
-          "text": ""
+          "text": "Yapıcılar"
         },
         "oop.code.ad72a289": {
           "title": "",
-          "code": ""
+          "code": "class Istifadeci(\n    val ad: String,           // birincil (primary) yapıcı\n    var yas: Int = 0          // varsayılan değer\n) {\n    // init bloğu — nesne oluşturulurken çalışır\n    init {\n        require(ad.isNotBlank()) { \"Ad boş ola bilməz\" }\n        println(\"Yaradıldı: $ad\")\n        println(\"Yaş: $yas\")\n    }\n\n    // İkincil (secondary) yapıcı — birincile yönlendirmelidir\n    constructor() : this(\"Qonaq\", 0) {\n        println(\"İkinci konstruktor: $ad\")\n        println(\"Yaş: $yas\")\n    }\n}\n\nfun main() {\n    Istifadeci(\"Aysel\", 24)\n    Istifadeci()\n}"
         },
         "oop.callout.9ed492d6": {
-          "title": ""
+          "title": "İkincil yapıcıya nadiren ihtiyaç duyulur"
         },
         "oop.p.b5831c1e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Varsayılan parametre değerleri sayesinde Kotlin'de birden fazla yapıcı yazmaya neredeyse hiç gerek kalmaz."
+            },
+            {
+              "k": "code",
+              "v": "class A(val x: Int = 0, val y: Int = 0)"
+            },
+            {
+              "k": "t",
+              "v": " — üç farklı çağrı biçimini destekler."
+            }
+          ]
         },
         "oop.h3.4e45d0d6": {
-          "text": ""
+          "text": "Özellikler: getter ve setter"
         },
         "oop.code.cda2a5e0": {
           "title": "",
-          "code": ""
+          "code": "class Profil(val ad: String, val soyad: String) {\n\n    // Hesaplanan özellik — alan (field) tutmaz, her seferinde hesaplanır\n    val tamAd: String\n        get() = \"$ad $soyad\".uppercase()\n\n    val adUzunlugu: Int\n        get() = ad.length\n\n    // Özel setter — backing field \"field\" olarak adlandırılır\n    var yas: Int = 0\n        set(deyer) {\n            println(\"Yeni dəyər təyin olunur: $deyer\")\n            field = if (deyer < 0) 0 else deyer\n        }\n\n    // Dışarıdan yazılamayan özellik\n    var status: String = \"aktiv\"\n        private set\n}\n\nfun main() {\n    val p = Profil(\"Aysel\", \"Memmedova\")\n    println(p.tamAd)\n    println(p.adUzunlugu)\n    p.yas = 30\n    println(p.yas)\n}"
         },
         "oop.h3.df05b83d": {
-          "text": ""
+          "text": "Görünürlük belirleyicileri"
         },
         "oop.table.79e055f4": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Belirleyici"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sınıf üyesi için"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Top-level için"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "public"
+                },
+                {
+                  "k": "t",
+                  "v": " (varsayılan)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Her yerden görünür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Her yerden"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "internal"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aynı modül içinde"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aynı modül içinde"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "protected"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sınıf + alt sınıfları"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kullanılamaz"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "private"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yalnızca o sınıfın içinde"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yalnızca o dosyanın içinde"
+                }
+              ]
+            ]
+          ]
         },
         "oop.h3.70076017": {
-          "text": ""
+          "text": "Metotlar"
         },
         "oop.code.2dd409d4": {
           "title": ""
         },
         "oop.h3.ba5b5119": {
-          "text": ""
+          "text": "İç içe ve iç sınıflar"
         },
         "oop.code.01063e33": {
           "title": "",
-          "code": ""
+          "code": "class Xarici {\n    private val deyer = 10\n\n    // nested (varsayılan) — dış sınıfın üyelerine erişimi YOK\n    class IcerideNested {\n        fun cap() = println(\"Nested sinif\")\n        // println(deyer)  ← HATA\n    }\n\n    // inner — dış sınıfa referans tutar, üyelerine erişimi VAR\n    inner class Daxili {\n        fun cap() = println(\"Dəyər: $deyer\")           // çalışır\n        fun xariciyeMuraciet() = this@Xarici.deyer     // açık biçim\n    }\n}\n\nfun main() {\n    Xarici.IcerideNested().cap()      // dış nesne gerekmez\n    Xarici().Daxili().cap()           // dış nesne gerekir\n}"
         }
       }
     },
     "miras": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Kalıtım ve arayüzler",
+      "heading": "Kalıtım ve arayüzler",
+      "kicker": "Bölüm 17",
+      "group": "Nesne yönelimli",
       "blocks": {
         "miras.p.b1ef11ae": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de tüm sınıflar varsayılan olarak"
+            },
+            {
+              "k": "b",
+              "v": "final"
+            },
+            {
+              "k": "t",
+              "v": "'dır — kalıtıma kapalıdır. Bu, «kalıtım için tasarla ya da yasakla» ilkesinin dile işlenmiş hâlidir."
+            }
+          ]
         },
         "miras.h3.21dc5a17": {
-          "text": ""
+          "text": "open ve override"
         },
         "miras.code.f48e0d42": {
           "title": "",
-          "code": ""
+          "code": "// open — bu sınıftan kalıtım alınabilir\nopen class Heyvan(val ad: String) {\n    open val ayaqSayi: Int = 4          // override edilmek için open\n\n    open fun sesCixar() = println(\"Heyvan səs çıxarır\")\n\n    fun tesvir() = println(\"Ad: $ad, $ayaqSayi ayaq\")   // final — override edilemez\n}\n\nclass It(ad: String) : Heyvan(ad) {\n    override fun sesCixar() = println(\"Hav-hav!\")\n}\n\nclass Pisik(ad: String) : Heyvan(ad) {\n    override fun sesCixar() {\n        super.sesCixar()      // üst sınıfın metodunu çağırmak (istersek)\n        println(\"Miyav!\")\n    }\n}\n\nfun main() {\n    val heyvanlar = listOf(It(\"Reks\"), Pisik(\"Mırcık\"))\n    heyvanlar[1].sesCixar()\n    heyvanlar[0].tesvir()\n}"
         },
         "miras.h3.48c19f5d": {
-          "text": ""
+          "text": "Soyut sınıflar"
         },
         "miras.code.84d91e64": {
           "title": "",
-          "code": ""
+          "code": "abstract class Fiqur(val ad: String) {\n    // Gövdesiz metot — alt sınıflar zorunlu olarak uygular\n    abstract fun sahe(): Double\n\n    // Gövdeli metot — isteğe bağlı olarak override edilir\n    open fun cap() = println(\"$ad sahəsi: ${\"%.2f\".format(sahe())}\")\n}\n\nclass Daire(val radius: Double) : Fiqur(\"Dairənin\") {\n    override fun sahe() = Math.PI * radius * radius\n}\n\nclass Duzbucaqli(val en: Double, val boy: Double) : Fiqur(\"Düzbucaqlının\") {\n    override fun sahe() = en * boy\n}\n\nfun main() {\n    val fiqurlar = listOf(Daire(5.0), Duzbucaqli(4.0, 6.0))\n    fiqurlar.forEach { it.cap() }\n    println(\"Cəmi sahə: ${\"%.2f\".format(fiqurlar.sumOf { it.sahe() })}\")\n}"
         },
         "miras.h3.4966f923": {
-          "text": ""
+          "text": "Arayüzler"
         },
         "miras.code.ea2e7954": {
           "title": "",
-          "code": ""
+          "code": "interface Ucan {\n    val maksimumHundurluk: Int          // soyut özellik (alan tutamaz)\n\n    fun uc()                            // soyut metot\n\n    fun hereket() = println(\"Defolt: bu heyvan hərəkət edir\")   // varsayılan gövde\n}\n\ninterface Uzen {\n    fun uz()\n}\n\n// Kotlin'de bir sınıf BİR sınıftan, ama İSTENİLEN SAYIDA arayüzden kalıtım alır\nclass Ordek : Ucan, Uzen {\n    override val maksimumHundurluk = 1000\n\n    override fun uc() = println(\"Uçur...\")\n    override fun uz() = println(\"Üzür...\")\n}\n\nfun main() {\n    val o = Ordek()\n    o.uc()\n    o.uz()\n    o.hereket()\n    println(\"Ördək hər ikisini bacarır\")\n}"
         },
         "miras.h3.df0080f1": {
-          "text": ""
+          "text": "Çakışma çözümü — super<T>"
         },
         "miras.code.e981d6a1": {
           "title": "",
-          "code": ""
+          "code": "interface A { fun salamla() = println(\"A-dan\") }\ninterface B { fun salamla() = println(\"B-dən\") }\n\n// İki arayüzde de aynı adlı varsayılan metot var — çözmek zorunludur\nclass C : A, B {\n    override fun salamla() {\n        super<A>.salamla()\n        super<B>.salamla()\n        println(\"Hər ikisi\")\n    }\n}\n\nfun main() = C().salamla()"
         },
         "miras.h3.02fdf069": {
-          "text": ""
+          "text": "Soyut sınıf mı, arayüz mü?"
         },
         "miras.table.b3aa05f0": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [],
+              [
+                {
+                  "k": "t",
+                  "v": "Soyut sınıf"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Arayüz"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Kaç tanesinden kalıtım"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yalnızca 1"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İstenildiği kadar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Durum (state) tutabilir mi"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Evet — alanlar var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hayır — yalnızca soyut özellik"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Yapıcı"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yok"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Varsayılan uygulama"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Var"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Ne zaman"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ortak durum + «is-a» ilişkisi"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yetenek / sözleşme («can-do»)"
+                }
+              ]
+            ]
+          ]
         },
         "miras.h3.a489d246": {
-          "text": ""
+          "text": "Delegasyon — by anahtar kelimesi"
         },
         "miras.p.7c9d3938": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kompozisyon kalıtımdan üstündür. Kotlin'de bunu tek bir anahtar kelimeyle yapabilirsin."
+            }
+          ]
         },
         "miras.code.ed963b92": {
           "title": "",
-          "code": ""
+          "code": "// \"by\" — tüm MutableList metotlarını içteki listeye aktarır\nclass LoglayanSiyahi<T>(\n    private val daxili: MutableList<T> = mutableListOf()\n) : MutableList<T> by daxili {\n\n    // Yalnızca gereken metodu override ediyoruz\n    override fun add(element: T): Boolean {\n        println(\"Loglanır: $element əlavə olundu\")\n        return daxili.add(element)\n    }\n\n    // toString arayüzün değil, Any'nin üyesidir — \"by\" onu aktarmaz\n    override fun toString() = daxili.toString()\n}\n\nfun main() {\n    val s = LoglayanSiyahi<String>()\n    s.add(\"Kotlin\")\n    println(s)          // [Kotlin] — kendi toString'imiz\n    println(s.size)     // size ise içteki listeye aktarıldı\n}"
         }
       }
     },
     "xususi-sinifler": {
       "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "heading": "Özel sınıf türleri",
+      "kicker": "Bölüm 18",
+      "group": "Nesne yönelimli",
       "blocks": {
         "xususi-sinifler.p.59d8033b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'in en sevilen özelliklerinden biri — belirli amaçlar için hazır sınıf türleri: veri tutmak, sınırlı bir hiyerarşi kurmak, sabit bir küme oluşturmak ve tek örnek (singleton) sağlamak."
+            }
+          ]
         },
         "xususi-sinifler.h3.0609fa01": {
-          "text": ""
+          "text": "data class — veri sınıfı"
         },
         "xususi-sinifler.code.f8f1c366": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(val ad: String, val yas: Int)\n\nfun main() {\n    val a = Istifadeci(\"Aysel\", 24)\n    val b = Istifadeci(\"Aysel\", 24)\n\n    println(a)             // toString() otomatik\n    println(a == b)        // equals() otomatik — içeriğe göre\n    println(a === b)       // farklı nesnelerdir\n\n    // copy() — bir alanı değiştirip kopya almak\n    println(a.copy(yas = 25))\n\n    // componentN() — yapı çözümleme\n    val (ad, yas) = a\n    println(\"$ad / $yas\")\n}"
         },
         "xususi-sinifler.callout.423646ba": {
-          "title": ""
+          "title": "data class kuralları"
         },
         "xususi-sinifler.p.d87232f7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Birincil yapıcıda en az bir parametre olmalı ve hepsi"
+            },
+            {
+              "k": "code",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": "/"
+            },
+            {
+              "k": "code",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": " ile işaretlenmelidir."
+            },
+            {
+              "k": "b",
+              "v": "Önemli:"
+            },
+            {
+              "k": "t",
+              "v": " otomatik oluşturulan"
+            },
+            {
+              "k": "code",
+              "v": "equals"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "hashCode"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "toString"
+            },
+            {
+              "k": "t",
+              "v": " yalnızca"
+            },
+            {
+              "k": "b",
+              "v": "birincil yapıcıdaki"
+            },
+            {
+              "k": "t",
+              "v": " özellikleri hesaba katar — gövdede bildirilenler sayılmaz."
+            }
+          ]
         },
         "xususi-sinifler.h3.ba3f320c": {
-          "text": ""
+          "text": "enum class — sabit küme"
         },
         "xususi-sinifler.code.74107a1a": {
           "title": "",
-          "code": ""
+          "code": "enum class Isiq(val kod: String) {\n    QIRMIZI(\"#FF0000\") {\n        override fun emr() = \"Dayan!\"\n    },\n    YASIL(\"#00FF00\") {\n        override fun emr() = \"Get!\"\n    },\n    MAVI(\"#0000FF\") {\n        override fun emr() = \"Gözlə\"\n    };\n\n    abstract fun emr(): String  // her sabit kendi varyantını verir\n}\n\nfun main() {\n    // values() / entries — tüm sabitler\n    Isiq.entries.forEach { println(\"${it.name} ${it.kod}\") }\n\n    println(Isiq.QIRMIZI.emr())\n    println(\"QIRMIZI indeksi: ${Isiq.QIRMIZI.ordinal}\")\n    println(Isiq.entries.map { it.name })\n\n    // Metinden enum'a\n    val r = Isiq.valueOf(\"YASIL\")\n    // Güvenli seçenek:\n    val t = Isiq.entries.find { it.name == \"NAMELUM\" }   // null\n}"
         },
         "xususi-sinifler.h3.6c209cda": {
-          "text": ""
+          "text": "sealed class — sınırlı hiyerarşi"
         },
         "xususi-sinifler.p.d9a9d274": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tüm alt sınıfları derleme zamanında bilinen sınıf. Durum (state) modellemesi için ideal."
+            }
+          ]
         },
         "xususi-sinifler.code.50738001": {
           "title": "",
-          "code": ""
+          "code": "sealed class Netice<out T> {\n    data object Yuklenir : Netice<Nothing>()\n    data class Ugurlu<T>(val data: T) : Netice<T>()\n    data class Xeta(val mesaj: String, val kod: Int) : Netice<Nothing>()\n}\n\nfun emalEt(n: Netice<List<String>>): String = when (n) {\n    // else GEREKMEZ — derleyici tüm durumları bilir\n    is Netice.Yuklenir -> \"Yüklənir...\"\n    is Netice.Ugurlu -> \"Uğurlu: ${n.data.size} element\"   // smart cast\n    is Netice.Xeta -> \"Xəta: ${n.mesaj} (kod ${n.kod})\"\n}\n\nfun main() {\n    println(emalEt(Netice.Yuklenir))\n    println(emalEt(Netice.Ugurlu(listOf(\"a\", \"b\", \"c\"))))\n    println(emalEt(Netice.Xeta(\"Şəbəkə əlçatmazdır\", 503)))\n}"
         },
         "xususi-sinifler.callout.7f3a2165": {
-          "title": ""
+          "title": "sealed'ın asıl faydası"
         },
         "xususi-sinifler.p.2ac5211a": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Yeni bir durum eklediğinde (örneğin"
+            },
+            {
+              "k": "code",
+              "v": "Netice.Bos"
+            },
+            {
+              "k": "t",
+              "v": "), bu türü kullanan tüm"
+            },
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " blokları derleme hatası verir. Derleyici sana hangi yerleri güncellemen gerektiğini gösterir — hiçbir şey unutulmaz."
+            },
+            {
+              "k": "code",
+              "v": "else"
+            },
+            {
+              "k": "t",
+              "v": " yazsaydın bu koruma kaybolurdu."
+            }
+          ]
         },
         "xususi-sinifler.h3.ac0dc1a1": {
           "text": ""
         },
         "xususi-sinifler.code.d4294568": {
           "title": "",
-          "code": ""
+          "code": "// Sınıf hiyerarşisi gerektirmez — daha esnektir\nsealed interface Hadise {\n    data class Klik(val x: Int, val y: Int) : Hadise\n    data class Yazma(val metn: String) : Hadise\n    data object Geri : Hadise\n}\n\nfun idareEt(h: Hadise) = when (h) {\n    is Hadise.Klik -> \"Klik: (${h.x}, ${h.y})\"\n    is Hadise.Yazma -> \"Yazıldı: ${h.metn}\"\n    Hadise.Geri -> \"Geri qayıdıldı\"\n}"
         },
         "xususi-sinifler.h3.d46d5a7e": {
-          "text": ""
+          "text": "object — tekil nesne (singleton)"
         },
         "xususi-sinifler.code.dd693c32": {
           "title": "",
-          "code": ""
+          "code": "// object — dilde hazır singleton. Thread-safe, tembel oluşturulur.\nobject Konfiq {\n    val apiUrl = \"https://api.numune.az\"\n    var debugRejimi = true\n    private var sayqac = 0\n\n    init {\n        println(\"Konfiq yükləndi\")     // yalnızca BİR kez\n    }\n\n    fun artir() {\n        sayqac++\n        println(\"Sayqac: $sayqac\")\n    }\n}\n\nfun main() {\n    println(Konfiq.apiUrl)\n    println(Konfiq.debugRejimi)\n    Konfiq.artir()\n    Konfiq.artir()\n}"
         },
         "xususi-sinifler.h3.5ae8d6ee": {
-          "text": ""
+          "text": "companion object — «statik» üyeler"
         },
         "xususi-sinifler.code.535c9c28": {
           "title": "",
-          "code": ""
+          "code": "class Istifadeci private constructor(val ad: String) {\n\n    companion object {\n        const val MAKSIMUM = 100\n        private var yaradilanSay = 0\n\n        // Fabrika metodu — yapıcı private olduğu için tek yol\n        fun yarat(ad: String): Istifadeci {\n            yaradilanSay++\n            return Istifadeci(ad)\n        }\n\n        fun say() = yaradilanSay\n    }\n}\n\nfun main() {\n    val u = Istifadeci.yarat(\"Aysel\")\n    Istifadeci.yarat(\"Kamran\")\n\n    println(u.ad)\n    println(Istifadeci.say())\n    println(\"Maksimum: ${Istifadeci.MAKSIMUM}\")\n}"
         },
         "xususi-sinifler.h3.a8173b29": {
-          "text": ""
+          "text": "Anonim nesneler"
         },
         "xususi-sinifler.code.754f8445": {
           "title": "",
-          "code": ""
+          "code": "interface Dinleyici {\n    fun basladi()\n    fun bitdi(netice: String)\n}\n\nfun isleAt(dinleyici: Dinleyici) { /* ... */ }\n\nfun main() {\n    // object : Arayuz { } — Java'daki anonim sınıfın karşılığı\n    isleAt(object : Dinleyici {\n        override fun basladi() = println(\"Başladı\")\n        override fun bitdi(netice: String) = println(\"Bitdi: $netice\")\n    })\n\n    // Türsüz anonim nesne — sadece bir veri grubu\n    val noqte = object {\n        val x = 10\n        val y = 20\n    }\n    println(noqte.x + noqte.y)\n}"
         },
         "xususi-sinifler.h3.948e5a45": {
-          "text": ""
+          "text": "value class — sıfır maliyetli sarmalayıcı"
         },
         "xususi-sinifler.code.635e12d3": {
           "title": "",
-          "code": ""
+          "code": "// Çalışma zamanında sadece String olarak tutulur — nesne oluşturulmaz\n@JvmInline\nvalue class Email(val deyer: String) {\n    init {\n        require(deyer.contains(\"@\")) { \"Yanlış email\" }\n    }\n}\n\n@JvmInline\nvalue class IstifadeciId(val deyer: Long)\n\n// Tür güvenliği: id'leri karıştırmak mümkün değil\nfun tap(id: IstifadeciId) { }\n\nfun main() {\n    val e = Email(\"aysel@mail.az\")\n    println(e.deyer)\n\n    // tap(5L)                   ← HATA: Long aktarılamaz\n    tap(IstifadeciId(5L))        // doğru\n}"
         },
         "xususi-sinifler.h3.f4f8f522": {
-          "text": ""
+          "text": "Özet"
         },
         "xususi-sinifler.table.e82ab62c": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne için"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tipik örnek"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "data class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Veri taşıyıcı"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "API yanıtı, DTO, model"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "enum class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sabit, sınırlı küme"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Durum, renk, gün"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "sealed class/interface"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sınırlı hiyerarşi"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "UI durumu, sonuç türü"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "object"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Singleton"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yapılandırma, önbellek, repository"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "companion object"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sınıfa bağlı statik üyeler"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Fabrika metodu, sabitler"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "value class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tür güvenliği, sıfır maliyet"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Id, Email, Para"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "annotation class"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Meta veri"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "@Serializable, @Test"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
