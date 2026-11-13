@@ -3246,252 +3246,838 @@
       }
     },
     "sertler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Условия: if и when",
+      "heading": "Условия: if и when",
+      "kicker": "Раздел 08",
+      "group": "Основы языка",
       "blocks": {
         "sertler.p.1f37735b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin условные конструкции — это выражения, возвращающие значение. Это сокращает код и позволяет сразу инициализировать переменные значением."
+            }
+          ]
         },
         "sertler.h3.e2af7a1d": {
-          "text": ""
+          "text": "if как выражение"
         },
         "sertler.code.579820d0": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val yas = 25\n\n    // Классическая форма\n    if (yas >= 18) {\n        println(\"Böyük\")\n    } else {\n        println(\"Kiçik\")\n    }\n\n    // Как выражение — возвращает значение\n    val a = 10\n    val b = 15\n    val maks = if (a > b) a else b\n    println(\"Ən böyük: $maks\")\n\n    // Выражение с блоками — возвращается ПОСЛЕДНЯЯ строка\n    val bal = 85\n    val qiymet = if (bal >= 90) {\n        \"Əla\"\n    } else if (bal >= 70) {\n        \"Yaxşı\"\n    } else {\n        \"Qənaətbəxş\"\n    }\n    println(\"Qiymət: $qiymet\")\n}"
         },
         "sertler.callout.ea8c1a77": {
-          "title": ""
+          "title": "Тернарного оператора нет"
         },
         "sertler.p.2f4efd63": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin нет"
+            },
+            {
+              "k": "code",
+              "v": "şərt ? a : b"
+            },
+            {
+              "k": "t",
+              "v": ", потому что"
+            },
+            {
+              "k": "code",
+              "v": "if (şərt) a else b"
+            },
+            {
+              "k": "t",
+              "v": " и так делает то же самое и читается лучше. Когда"
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": " используется как выражение,"
+            },
+            {
+              "k": "code",
+              "v": "else"
+            },
+            {
+              "k": "t",
+              "v": " — "
+            },
+            {
+              "k": "b",
+              "v": "обязателен"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "sertler.h3.0321cb67": {
-          "text": ""
+          "text": "when — мощное многоветочное условие"
         },
         "sertler.p.1a57945e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " похож на"
+            },
+            {
+              "k": "code",
+              "v": "switch"
+            },
+            {
+              "k": "t",
+              "v": " из Java, но гораздо мощнее: принимает любой тип, поддерживает диапазоны, проверки типов и произвольные условия."
+            }
+          ]
         },
         "sertler.code.f83969db": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // 1) Простое сопоставление значения\n    val x = 2\n    when (x) {\n        1 -> println(\"Bir\")\n        2, 3 -> println(\"Kiçik rəqəm: $x\")   // несколько значений через запятую\n        else -> println(\"Digər\")\n    }\n\n    // 2) Как выражение + диапазон\n    val gun = 3\n    val tip = when (gun) {\n        in 1..5 -> \"İş günü\"\n        6, 7 -> \"İstirahət\"\n        else -> \"Yanlış gün\"\n    }\n    println(tip)\n\n    // 3) Проверка типа (is) — работает smart cast\n    val obyekt: Any = 42\n    when (obyekt) {\n        is Int -> println(\"Rəqəm\")\n        is String -> println(\"Uzunluq: ${obyekt.length}\")  // автоматически String\n        is List<*> -> println(\"Siyahı, ${obyekt.size} element\")\n        else -> println(\"Naməlum tip\")\n    }\n\n    // 4) when без аргумента — заменяет цепочку if-else\n    val temperatur = 5\n    val geyim = when {\n        temperatur < 0 -> \"Qalın palto\"\n        temperatur in 1..10 -> \"1-dən 10-a qədər\"\n        temperatur in 11..20 -> \"Yüngül gödəkçə\"\n        else -> \"Köynək\"\n    }\n    println(geyim)\n\n    // 5) Возврат результата when напрямую\n    println(olcuAdi(150))\n}\n\nfun olcuAdi(sm: Int): String = when {\n    sm < 100 -> \"Kiçik\"\n    sm < 180 -> \"Böyük\"\n    else -> \"Nəhəng\"\n}"
         },
         "sertler.h3.f8574870": {
-          "text": ""
+          "text": "when с переменной-субъектом"
         },
         "sertler.code.8e65c394": {
           "title": "",
-          "code": ""
+          "code": "// Сохранить результат в переменной и сразу проверить\nfun emalEt(cavab: Cavab) = when (val netice = cavab.oxu()) {\n    is Ugurlu -> \"Data: ${netice.data}\"\n    is Xeta -> \"Xəta kodu: ${netice.kod}\"\n}\n\n// С enum — else не нужен, потому что все случаи покрыты\nenum class Status { GOZLEYIR, ISLENIR, BITDI }\n\nfun mesaj(s: Status) = when (s) {\n    Status.GOZLEYIR -> \"Növbədədir\"\n    Status.ISLENIR -> \"İşlənir…\"\n    Status.BITDI -> \"Hazırdır\"\n}"
         },
         "sertler.callout.73574f69": {
           "title": ""
         },
         "sertler.p.3689c31f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Когда"
+            },
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " используется как выражение (возвращает значение), он должен покрывать все случаи. Для типов"
+            },
+            {
+              "k": "code",
+              "v": "enum"
+            },
+            {
+              "k": "t",
+              "v": " и"
+            },
+            {
+              "k": "code",
+              "v": "sealed"
+            },
+            {
+              "k": "t",
+              "v": " компилятор проверяет это сам — при добавлении нового случая ты получишь ошибку компиляции и ничего не забудешь."
+            }
+          ]
         }
       }
     },
     "dovrler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Циклы и диапазоны",
+      "heading": "Циклы и диапазоны",
+      "kicker": "Раздел 09",
+      "group": "Основы языка",
       "blocks": {
         "dovrler.p.a07e9238": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin нет классической формы"
+            },
+            {
+              "k": "code",
+              "v": "for (i = 0; i < n; i++)"
+            },
+            {
+              "k": "t",
+              "v": ". Вместо неё используются диапазоны (ranges) и"
+            },
+            {
+              "k": "code",
+              "v": "for"
+            },
+            {
+              "k": "t",
+              "v": " на основе итератора — короче и без ошибок."
+            }
+          ]
         },
         "dovrler.h3.33f37383": {
-          "text": ""
+          "text": "Диапазоны (ranges)"
         },
         "dovrler.code.0ead546a": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // 1..5  — оба конца включены\n    for (i in 1..5) print(\"$i \")\n    println()\n\n    // 0..<5  — конец не включён (раньше: until)\n    for (i in 0..<5) print(\"$i \")\n    println()\n\n    // step — шаг\n    for (i in 10 downTo 2 step 2) print(\"$i \")\n    println()\n\n    // downTo — по убыванию\n    for (i in 5 downTo 1) print(\"$i \")\n    println()\n\n    // Диапазон Char\n    for (c in 'a'..'e') print(\"$c \")\n    println()\n}"
         },
         "dovrler.h3.6004e4e6": {
-          "text": ""
+          "text": "Цикл for"
         },
         "dovrler.code.7c309284": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val diller = listOf(\"Kotlin\", \"Java\", \"Swift\")\n\n    // Простой перебор\n    for (dil in diller) println(dil)\n\n    // Если нужен индекс\n    for ((index, dil) in diller.withIndex()) {\n        println(\"$index: $dil\")\n    }\n\n    // Только индексы\n    for (i in diller.indices) { /* diller[i] */ }\n\n    // По map — с деструктуризацией\n    val melumat = mapOf(\"ad\" to \"Aysel\", \"yas\" to \"24\")\n    for ((acar, deyer) in melumat) {\n        println(\"$acar -> $deyer\")\n    }\n}"
         },
         "dovrler.h3.e88682b6": {
-          "text": ""
+          "text": "while и do-while"
         },
         "dovrler.code.e786f4ba": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // while — условие проверяется в начале\n    var n = 3\n    while (n > 0) {\n        print(\"$n \")\n        n--\n    }\n    println()\n\n    // do-while — тело выполняется хотя бы один раз\n    var sayqac = 0\n    do {\n        sayqac++\n        println(\"Sayqac: $sayqac\")\n    } while (sayqac < 3)\n}"
         },
         "dovrler.h3.7cfeb028": {
-          "text": ""
+          "text": "break, continue и метки (labels)"
         },
         "dovrler.code.b3693b05": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // break — полностью останавливает цикл\n    for (i in 1..5) {\n        if (i == 3) break\n        print(\"$i \")\n    }\n    println()\n\n    // continue — пропускает текущий шаг\n    for (i in 1..5) {\n        if (i % 2 == 0) continue\n        print(\"$i \")\n    }\n    println()\n\n    // Метка — чтобы выйти из вложенных циклов\n    xarici@ for (i in 1..3) {\n        for (j in 1..3) {\n            if (i * j == 2) {\n                println(\"Tapıldı: ($i, $j)\")\n                break@xarici     // выходит из обоих циклов\n            }\n        }\n    }\n}"
         },
         "dovrler.callout.081841d2": {
-          "title": ""
+          "title": "return внутри лямбды"
         },
         "dovrler.p.6ae1c199": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Внутри"
+            },
+            {
+              "k": "code",
+              "v": "forEach { }"
+            },
+            {
+              "k": "t",
+              "v": " обычный"
+            },
+            {
+              "k": "code",
+              "v": "return"
+            },
+            {
+              "k": "t",
+              "v": " выходит из всей функции. Чтобы выйти только из лямбды, нужна метка:"
+            },
+            {
+              "k": "code",
+              "v": "return@forEach"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "dovrler.code.c325ec87": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    listOf(1, 2, 3, 4, 5).forEach {\n        if (it == 3) return@forEach   // пропускает только этот шаг (как continue)\n        println(it)\n    }\n    println(\"Bitdi\")\n}"
         },
         "dovrler.h3.dd6e6ff7": {
-          "text": ""
+          "text": "Функции диапазонов"
         },
         "dovrler.table.d9808f9a": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Выражение"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Результат"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 2, …, 10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..<10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 2, …, 9"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "10 downTo 1"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10, 9, …, 1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..10 step 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 4, 7, 10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10, 9, …, 1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).toList()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "[1, 2, …, 10]"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "5 in 1..10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).sum()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "55"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "repeat(3) { … }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Выполняет блок 3 раза"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "funksiyalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Функции",
+      "heading": "Функции",
+      "kicker": "Раздел 10",
+      "group": "Функции",
       "blocks": {
         "funksiyalar.p.2ad85a88": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "В Kotlin функции — полноправные граждане: им не обязательно находиться внутри класса, их можно хранить в переменной и передавать как параметр."
+            }
+          ]
         },
         "funksiyalar.h3.2c252c35": {
-          "text": ""
+          "text": "Базовая форма"
         },
         "funksiyalar.code.7ca21690": {
           "title": "",
-          "code": ""
+          "code": "// Полная форма\nfun topla(a: Int, b: Int): Int {\n    return a + b\n}\n\n// Функция из одного выражения — без тела и return, тип выводится\nfun salamla(ad: String) = \"Salam, $ad!\"\n\n// Явный тип возврата улучшает читаемость\nfun kvadrat(x: Int): Int = x * x\n\n// Функция, которая ничего не возвращает — Unit (писать не нужно)\nfun cap(metn: String) {\n    println(metn)\n}\n\nfun main() {\n    println(topla(5, 3))\n    println(salamla(\"Aysel\"))\n    println(kvadrat(4))\n}"
         },
         "funksiyalar.h3.c5281f44": {
-          "text": ""
+          "text": "Аргументы по умолчанию и именованные аргументы"
         },
         "funksiyalar.p.40b6dd92": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Вместе они заменяют десятки перегрузок, которые пришлось бы писать в Java."
+            }
+          ]
         },
         "funksiyalar.code.4aad7d11": {
           "title": "",
-          "code": ""
+          "code": "fun salamla(\n    ad: String = \"Dünya\",\n    boyukHerf: Boolean = false,\n    sonluq: String = \"!\"\n): String {\n    val metn = \"Salam, $ad$sonluq\"\n    return if (boyukHerf) metn.uppercase() else metn\n}\n\nfun main() {\n    println(salamla())                          // всё по умолчанию\n    println(salamla(\"Aysel\", boyukHerf = true)) // именованный аргумент\n    println(salamla(\"Leyla\", sonluq = \"!!!\"))   // средний можно пропустить\n    println(salamla(ad = \"Kamran\"))             // имя для ясности\n}"
         },
         "funksiyalar.callout.dde1267d": {
-          "title": ""
+          "title": "Правило читаемости"
         },
         "funksiyalar.p.baf6a7e3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Если у функции больше 3 параметров или передаётся"
+            },
+            {
+              "k": "code",
+              "v": "Boolean"
+            },
+            {
+              "k": "t",
+              "v": ", пиши имена при вызове:"
+            },
+            {
+              "k": "code",
+              "v": "yarat(gorunen = true, aktiv = false)"
+            },
+            {
+              "k": "t",
+              "v": ". Через полгода"
+            },
+            {
+              "k": "code",
+              "v": "yarat(true, false)"
+            },
+            {
+              "k": "t",
+              "v": " тебе ничего не скажет."
+            }
+          ]
         },
         "funksiyalar.h3.b2f63d43": {
-          "text": ""
+          "text": "vararg — переменное число аргументов"
         },
         "funksiyalar.code.2d5ad4b0": {
           "title": "",
-          "code": ""
+          "code": "fun cemle(vararg reqemler: Int): Int {\n    var cem = 0\n    for (r in reqemler) cem += r\n    return cem\n}\n\nfun main() {\n    println(\"Cəmi: ${cemle(1, 2, 3, 4, 5)}\")\n    println(\"Cəmi: ${cemle(1, 2, 3)}\")\n\n    // Передать существующий массив — оператор spread (*)\n    val massiv = intArrayOf(10, 20, 30)\n    println(\"Siyahıdan: ${cemle(*massiv)}\")\n}"
         },
         "funksiyalar.h3.2d1fbc89": {
-          "text": ""
+          "text": "Локальные функции"
         },
         "funksiyalar.code.3e7addae": {
           "title": "",
-          "code": ""
+          "code": "fun yoxla(istifadeci: String, sifre: String): Boolean {\n    // Вспомогательная функция, видимая только внутри этой функции\n    fun bosDeyil(deyer: String, ad: String): Boolean {\n        if (deyer.isBlank()) {\n            println(\"$ad boş ola bilməz\")\n            return false\n        }\n        return true\n    }\n\n    return bosDeyil(istifadeci, \"İstifadəçi\") && bosDeyil(sifre, \"Şifrə\")\n}\n\nfun main() {\n    println(\"Düzgün: ${yoxla(\"aysel\", \"12345\")}\")\n    println(\"Düzgün: ${yoxla(\"\", \"12345\")}\")\n}"
         },
         "funksiyalar.h3.1c99daa2": {
-          "text": ""
+          "text": "Инфиксные функции (infix)"
         },
         "funksiyalar.code.476fc415": {
           "title": "",
-          "code": ""
+          "code": "// infix: можно вызывать без точки и скобок\n// Условия: функция-член или расширение, ОДИН параметр, без значения по умолчанию\ninfix fun Int.veya(digeri: Int) = \"($this, $digeri)\"\n\ninfix fun Int.vur(k: Int) = this * k\n\nfun main() {\n    println(3 veya 4)          // то же, что 3.veya(4)\n    println(3 vur 5)\n\n    // Примеры infix из стандартной библиотеки\n    val cut = \"ad\" to \"Aysel\"          // создаёт Pair\n    val netice = 5 in 1..10            // contains\n    println(netice)\n}"
         },
         "funksiyalar.h3.c5c73f7f": {
-          "text": ""
+          "text": "tailrec — хвостовая рекурсия"
         },
         "funksiyalar.code.12eb92c6": {
           "title": "",
-          "code": ""
+          "code": "// tailrec говорит компилятору: преврати эту рекурсию в цикл\ntailrec fun faktorial(n: Int, akkumulyator: Long = 1): Long =\n    if (n <= 1) akkumulyator else faktorial(n - 1, akkumulyator * n)\n\ntailrec fun cemle(n: Long, akk: Long = 0): Long =\n    if (n == 0L) akk else cemle(n - 1, akk + n)\n\nfun main() {\n    println(faktorial(10))\n    // Нет StackOverflowError даже на глубине 1 миллион\n    println(\"StackOverflow olmadan: ${cemle(1_000_000)}\")\n}"
         },
         "funksiyalar.callout.945f5fe9": {
-          "title": ""
+          "title": "Условие tailrec"
         },
         "funksiyalar.p.08b6f1ae": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Рекурсивный вызов должен быть"
+            },
+            {
+              "k": "b",
+              "v": "самой последней операцией"
+            },
+            {
+              "k": "t",
+              "v": " функции."
+            },
+            {
+              "k": "code",
+              "v": "return n * faktorial(n-1)"
+            },
+            {
+              "k": "t",
+              "v": " — не хвостовая рекурсия (умножение происходит после) — компилятор выдаст предупреждение."
+            }
+          ]
         },
         "funksiyalar.h3.a14fcc6e": {
-          "text": ""
+          "text": "Функции верхнего уровня"
         },
         "funksiyalar.code.32ae746d": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.util\n\n// Класс не нужен — функция живёт прямо в файле\nfun formatlaQiymet(deyer: Double) = \"%.2f AZN\".format(deyer)\n\nfun emailDuzgundur(email: String) =\n    Regex(\"^[\\\\w.-]+@[\\\\w.-]+\\\\.\\\\w{2,}$\").matches(email)\n\n// Из Java эти функции видны как статические методы класса KomekcilerKt\n// Чтобы сменить имя:\n// @file:JvmName(\"Komekciler\")   ← в самом начале файла"
         }
       }
     },
     "lambda": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Лямбды и HOF",
+      "heading": "Лямбды и функции высшего порядка",
+      "kicker": "Раздел 11",
+      "group": "Функции",
       "blocks": {
         "lambda.p.0ce05bb0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Функция высшего порядка (higher-order function) — это функция, которая принимает функцию как параметр или возвращает функцию. Лямбда — это функция без имени. Эти две вещи — самая сильная сторона Kotlin."
+            }
+          ]
         },
         "lambda.h3.4379bf27": {
-          "text": ""
+          "text": "Синтаксис лямбды"
         },
         "lambda.code.75d87bb8": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // Полная форма: { параметры -> тело }\n    val topla: (Int, Int) -> Int = { a, b -> a + b }\n    println(topla(5, 3))\n\n    // Без явного типа переменной параметрам лямбды нужны типы\n    val topla2 = { a: Int, b: Int -> a + b }\n    println(topla2(5, 3))\n\n    // С одним параметром имя можно не писать и использовать \"it\"\n    val kvadrat: (Int) -> Int = { it * it }\n    println(kvadrat(5))\n\n    // Последняя строка возвращается автоматически — return не нужен\n    val salamla: (String) -> String = { ad ->\n        val prefix = \"Salam\"\n        \"$prefix $ad\"\n    }\n    println(salamla(\"Aysel\"))\n}"
         },
         "lambda.h3.9f9f1d9c": {
-          "text": ""
+          "text": "Функциональные типы"
         },
         "lambda.table.326ff4a6": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Тип"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Значение"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Пример лямбды"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "() -> Unit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Без параметров, без результата"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ println(\"salam\") }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(Int) -> String"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Принимает Int, возвращает String"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ it.toString() }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(Int, Int) -> Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Принимает два Int"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ a, b -> a + b }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(String) -> Boolean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Предикат"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ it.isNotEmpty() }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "String.() -> Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Лямбда с receiver"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ length }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "((Int) -> Int)?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nullable-функция"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "suspend () -> Unit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Лямбда для корутин"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ delay(100) }"
+                }
+              ]
+            ]
+          ]
         },
         "lambda.h3.059d57b8": {
-          "text": ""
+          "text": "Пишем функцию высшего порядка"
         },
         "lambda.code.aaadc4c8": {
           "title": "",
-          "code": ""
+          "code": "// 1) Принимает функцию как параметр\ninline fun <T> olcuVaxt(blok: () -> T): T {\n    val basla = System.currentTimeMillis()\n    val netice = blok()\n    println(\"Əməliyyat ${System.currentTimeMillis() - basla} ms çəkdi\")\n    return netice\n}\n\n// 2) Наша собственная функция map\nfun <T, R> List<T>.menimMap(cevir: (T) -> R): List<R> {\n    val netice = mutableListOf<R>()\n    for (element in this) netice.add(cevir(element))\n    return netice\n}\n\n// 3) Функция, ВОЗВРАЩАЮЩАЯ функцию\nfun vurucuYarat(k: Int): (Int) -> Int = { it * k }\n\nfun main() {\n    val cem = olcuVaxt {\n        (1..1_000_000L).sum()\n    }\n    println(\"Nəticə: $cem\")\n\n    println(listOf(1, 2, 3).menimMap { it * 2 })\n\n    val ikiyeVur = vurucuYarat(2)\n    println(\"Uğurlu: ${ikiyeVur(21)}\")\n}"
         },
         "lambda.h3.73b80066": {
-          "text": ""
+          "text": "Правило trailing lambda"
         },
         "lambda.p.14316fdd": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Если лямбда —"
+            },
+            {
+              "k": "b",
+              "v": "последний"
+            },
+            {
+              "k": "t",
+              "v": " параметр функции, её можно вынести за скобки. На этом построены DSL в Kotlin."
+            }
+          ]
         },
         "lambda.code.2aca7508": {
           "title": "",
-          "code": ""
+          "code": "// Эти три записи одинаковы:\nlistOf(1, 2, 3).filter({ it > 1 })     // обычная форма\nlistOf(1, 2, 3).filter() { it > 1 }    // лямбда снаружи\nlistOf(1, 2, 3).filter { it > 1 }      // пустые скобки убраны ← идиоматично\n\n// Если параметров несколько, наружу выносится только ПОСЛЕДНИЙ\nfold(0) { akk, x -> akk + x }\n\n// Пример DSL — так он выглядит благодаря trailing lambda\nval html = buildString {\n    append(\"<div>\")\n    append(\"Salam\")\n    append(\"</div>\")\n}"
         },
         "lambda.h3.d001a331": {
-          "text": ""
+          "text": "Анонимные функции"
         },
         "lambda.code.0027d1c9": {
           "title": "",
-          "code": ""
+          "code": "// Отличие от лямбды: можно явно указать тип возврата, и\n// \"return\" внутри выходит только из этой функции\nval bol = fun(a: Int, b: Int): Int {\n    if (b == 0) return 0      // в лямбде так нельзя\n    return a / b\n}\n\nfun main() {\n    println(bol(10, 2))   // 5\n    println(bol(10, 0))   // 0\n}"
         },
         "lambda.h3.f243fd7e": {
-          "text": ""
+          "text": "Ссылки на функции (::)"
         },
         "lambda.code.7f9b02a4": {
           "title": "",
-          "code": ""
+          "code": "fun ciftdir(x: Int) = x % 2 == 0\n\nfun main() {\n    // ::ciftdir вместо { ciftdir(it) }\n    println(listOf(1, 2, 3, 4).filterNot(::ciftdir))\n\n    // Ссылка на метод\n    println(listOf(\"kotlin\", \"java\").map(String::uppercase))\n\n    // Ссылка на конструктор — тип определяет, какой конструктор выбрать\n    val yarat: (String) -> StringBuilder = ::StringBuilder\n    println(yarat(\"Kotlin\").length)\n}"
         },
         "lambda.h3.679fc6ba": {
           "text": ""
         },
         "lambda.p.bc6e3d9e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Каждая лямбда на самом деле объект — при частых вызовах это нагружает память. Ключевое слово"
+            },
+            {
+              "k": "code",
+              "v": "inline"
+            },
+            {
+              "k": "t",
+              "v": " говорит компилятору вставить тело функции прямо в место вызова."
+            }
+          ]
         },
         "lambda.code.c922ebc0": {
           "title": "",
-          "code": ""
+          "code": "// inline — объект лямбды не создаётся, код разворачивается на месте\ninline fun tekrarla(n: Int, emel: (Int) -> Unit) {\n    for (i in 0 until n) emel(i)\n}\n\n// noinline — эту лямбду не встраивать (если её нужно хранить как объект)\ninline fun numune(\n    inlineOlan: () -> Unit,\n    noinline saxlanan: () -> Unit\n) {\n    inlineOlan()\n    val referans = saxlanan   // без noinline так нельзя\n}\n\n// crossinline — запрещает \"return\" внутри лямбды выходить из\n// внешней функции (важно, если её вызовут в другом контексте)\ninline fun asinxronIsle(crossinline emel: () -> Unit) {\n    Thread { emel() }.start()\n}\n\n// reified — видеть тип во время выполнения в inline-функции\ninline fun <reified T> List<*>.yalnizTipi(): List<T> =\n    this.filterIsInstance<T>()\n\nfun main() {\n    val qarisiq = listOf(1, \"iki\", 3, \"dörd\")\n    println(qarisiq.yalnizTipi<String>())   // [iki, dörd]\n}"
         },
         "lambda.callout.710ff33c": {
-          "title": ""
+          "title": "Когда использовать inline?"
         },
         "lambda.p.c481e3c5": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Только в"
+            },
+            {
+              "k": "b",
+              "v": "небольших"
+            },
+            {
+              "k": "t",
+              "v": " функциях, принимающих лямбды. Встраивание большой функции раздувает байт-код."
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "filter"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "map"
+            },
+            {
+              "k": "t",
+              "v": " из стандартной библиотеки — все inline."
+            }
+          ]
         }
       }
     },
