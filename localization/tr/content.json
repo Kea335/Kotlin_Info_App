@@ -6,728 +6,3748 @@
   },
   "sections": {
     "giris": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Kotlin nedir?",
+      "heading": "Kotlin nedir?",
+      "kicker": "Bölüm 00",
+      "group": "Başlangıç",
       "blocks": {
         "giris.hero.80bd415e": {
-          "badge": "",
-          "title": [],
-          "sub": "",
+          "badge": "Kotlin 2.x · Türkçe eksiksiz rehber",
+          "title": [
+            {
+              "k": "t",
+              "v": "Kotlin'i"
+            },
+            {
+              "k": "grad",
+              "v": "sıfırdan"
+            },
+            {
+              "k": "t",
+              "v": " ileri seviyeye kadar öğren"
+            }
+          ],
+          "sub": "32 bölüm, 149 çalışan kod örneği, canlı kod oyun alanı ve 1250 alıştırma — hepsi tek bir yerde, Türkçe.",
           "stats": {
             "0": {
-              "lbl": ""
+              "lbl": "İlk duyuru"
             },
             "1": {
-              "lbl": ""
+              "lbl": "Geliştiren şirket"
             },
             "2": {
-              "lbl": ""
+              "lbl": "Android için resmî dil"
             },
             "3": {
-              "lbl": ""
+              "lbl": "Açık kaynak lisansı"
             }
           }
         },
         "giris.p.4f1b598a": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin, JetBrains tarafından geliştirilmiş, statik tipli, modern bir programlama dilidir. JVM (Java Virtual Machine) üzerinde çalışır; ayrıca JavaScript'e, native makine koduna ve WebAssembly'ye derlenebilir."
+            }
+          ]
         },
         "giris.p.61d0b647": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'in ortaya çıkış nedeni basittir: JetBrains kendi ürünlerini (IntelliJ IDEA vb.) Java ile yazıyordu ve Java'nın ayrıntıcılığı, null hataları, eski tür sistemi onları yoruyordu. Mevcut alternatifler (Scala, Groovy) ya çok karmaşıktı ya da çok yavaş derleniyordu. Sonunda kendi dillerini yarattılar —"
+            },
+            {
+              "k": "b",
+              "v": "pratik, Java ile %100 uyumlu ve kısa"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "giris.h3.82d109d7": {
-          "text": ""
+          "text": "Kotlin'i öne çıkaran 6 özellik"
         },
         "giris.cards.45037a00": {
           "items": {
             "0": {
-              "title": ""
+              "title": "Null güvenliği"
             },
             "1": {
-              "title": ""
+              "title": "Az kod, çok iş"
             },
             "2": {
-              "title": ""
+              "title": "Java ile tam uyumluluk"
             },
             "3": {
-              "title": ""
+              "title": "Coroutine'ler"
             },
             "4": {
               "title": ""
             },
             "5": {
-              "title": ""
+              "title": "Sektör desteği"
             }
           }
         },
         "giris.p.9293a34f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tür sistemi null değer alabilen ve alamayan türleri ayırır. «Milyar dolarlık hata» kullanıcının telefonunda değil, derleme zamanında yakalanır."
+            }
+          ]
         },
         "giris.p.509353d8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Aynı işlevsellik Java'ya kıyasla ortalama %30–40 daha az satır gerektirir."
+            },
+            {
+              "k": "code",
+              "v": "data class"
+            },
+            {
+              "k": "t",
+              "v": " tek satırda 5 metot oluşturur."
+            }
+          ]
         },
         "giris.p.d6e0a6d5": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Aynı projede Java ve Kotlin dosyaları yan yana yaşayabilir. Mevcut Java kütüphanelerinin hepsi çalışır — hiçbir şey yeniden yazılmaz."
+            }
+          ]
         },
         "giris.p.b3076627": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Asenkron kodu senkron kod gibi yazma imkânı. Binlerce eşzamanlı işlem thread oluşturmadan yönetilir."
+            }
+          ]
         },
         "giris.p.7db1a4da": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tek bir iş mantığı — Android, iOS, masaüstü, backend ve web. Yalnızca arayüz kısmı platforma özgü yazılır."
+            }
+          ]
         },
         "giris.p.e811d50a": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Google, Android için «Kotlin-first» yaklaşımını ilan etti. Netflix, Uber, Pinterest, Trello, Duolingo onu üretimde kullanıyor."
+            }
+          ]
         },
         "giris.h3.8caf489e": {
-          "text": ""
+          "text": "İlk bakışta fark"
         },
         "giris.p.a2ba22da": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Aynı veri sınıfı — solda Java, sağda Kotlin. Sekmeleri değiştirerek karşılaştır:"
+            }
+          ]
         },
         "giris.tabs.b1880dd6": {
           "tabs": {
             "0": {
-              "label": ""
+              "label": "Kotlin — 1 satır"
             },
             "1": {
-              "label": ""
+              "label": "Java — 50+ satır"
             }
           }
         },
         "giris.code.ae120c87": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(val ad: String, val yas: Int, val email: String)\n\nfun main() {\n    val a = Istifadeci(\"Aysel\", 24, \"aysel@mail.az\")\n    val b = Istifadeci(\"Aysel\", 24, \"aysel@mail.az\")\n\n    println(a)          // toString() hazır\n    println(a == b)     // equals() hazır\n    println(a.copy(yas = 25))   // copy() hazır\n}"
         },
         "giris.code.31da4116": {
           "title": ""
         },
         "giris.callout.a85f49eb": {
-          "title": ""
+          "title": "Bu uygulama nasıl çalışır?"
         },
         "giris.p.86b925f2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Menüden istediğin bölüme geç. Kod bloklarında"
+            },
+            {
+              "k": "b",
+              "v": "Çalıştır"
+            },
+            {
+              "k": "t",
+              "v": " düğmesi beklenen sonucu gösterir,"
+            },
+            {
+              "k": "b",
+              "v": "Kopyala"
+            },
+            {
+              "k": "t",
+              "v": " kodu panoya kopyalar."
+            },
+            {
+              "k": "kbd",
+              "v": "Ctrl"
+            },
+            {
+              "k": "t",
+              "v": " +"
+            },
+            {
+              "k": "kbd",
+              "v": "K"
+            },
+            {
+              "k": "t",
+              "v": " ile istediğin an arama aç. Okuduğun bölümler otomatik olarak kaydedilir."
+            }
+          ]
         },
         "giris.h3.a765df87": {
-          "text": ""
+          "text": "Kotlin nerede çalışır?"
         },
         "giris.table.434e2c85": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Hedef"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Neye dönüşür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kullanım alanı"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Kotlin/JVM"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Java bayt kodu (.class)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Android, backend (Spring, Ktor), masaüstü"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Kotlin/Native"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Makine kodu (LLVM)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "iOS, macOS, Linux, Windows, gömülü sistemler"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Kotlin/JS"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "JavaScript"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tarayıcı, Node.js, React uygulamaları"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Kotlin/Wasm"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "WebAssembly"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yüksek performanslı web (Compose for Web)"
+                }
+              ]
+            ]
+          ]
         },
         "giris.h3.9d286303": {
-          "text": ""
+          "text": "Bu uygulama kimler için?"
         },
         "giris.list.94e5ee6b": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Yeni başlayanlar"
+              },
+              {
+                "k": "t",
+                "v": " — programlamayı Kotlin ile öğrenenler. Her kavram sıfırdan açıklanır."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Java geliştiricileri"
+              },
+              {
+                "k": "t",
+                "v": " — «Kotlin vs Java» bölümü geçişi kolaylaştırır."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Android geliştiricileri"
+              },
+              {
+                "k": "t",
+                "v": " — coroutine'ler, null-safety ve scope fonksiyonları günlük işlerinin temelidir."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Mülakata hazırlananlar"
+              },
+              {
+                "k": "t",
+                "v": " — sonda 15 soruluk bir test var."
+              }
+            ]
+          ]
         }
       }
     },
     "tarixce": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Tarihçe ve ekosistem",
+      "heading": "Tarihçe ve ekosistem",
+      "kicker": "Bölüm 01",
+      "group": "Başlangıç",
       "blocks": {
         "tarixce.p.0b143a22": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin bir gecede ortaya çıkmadı. Her sürümü somut, pratik bir sorunu çözdü. Aşağıdaki kronoloji dilin nasıl şekillendiğini gösteriyor."
+            }
+          ]
         },
         "tarixce.timeline.4393cfe1": {
           "items": {
             "0": {
-              "title": "",
-              "desc": []
+              "title": "Projenin başlangıcı",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "JetBrains'in Sankt-Peterburg ekibi, şirket içi bir ihtiyaç için yeni bir dil üzerinde çalışmaya başlar. Hedef: Java kadar hızlı derleme, Scala kadar güçlü bir tür sistemi."
+                }
+              ]
             },
             "1": {
-              "title": "",
-              "desc": []
+              "title": "Kamuya duyuru",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Dil resmî olarak tanıtılır. Adı Sankt-Peterburg yakınlarındaki"
+                },
+                {
+                  "k": "b",
+                  "v": "Kotlin Adası'ndan"
+                },
+                {
+                  "k": "t",
+                  "v": " gelir — Java'nın adını Cava Adası'ndan alması geleneğine uygun olarak."
+                }
+              ]
             },
             "2": {
-              "title": "",
-              "desc": []
+              "title": "Açık kaynak",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Kaynak kodu Apache 2.0 lisansıyla GitHub'a yüklenir. Topluluk katkıları başlar."
+                }
+              ]
             },
             "3": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin 1.0 — kararlı sürüm",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Üretime hazır ilk sürüm. Geriye dönük uyumluluk garantisi verilir: bugün yazılan kod gelecekteki 1.x sürümlerinde çalışacaktır."
+                }
+              ]
             },
             "4": {
-              "title": "",
-              "desc": []
+              "title": "Google Android için resmî desteği duyurur",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Google I/O konferansında Kotlin, Android'in birinci sınıf dili ilan edilir. Bu, dilin kaderini değiştiren andı."
+                }
+              ]
             },
             "5": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin 1.3 — coroutine'ler kararlı",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Asenkron programlama için coroutine API'si deneysel statüden çıkar. Callback cehenneminin sonu."
+                }
+              ]
             },
             "6": {
-              "title": "",
-              "desc": []
+              "title": "«Kotlin-first» yaklaşımı",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Google, bundan sonra yeni Android API'lerinin önce Kotlin için hazırlanacağını açıklar (Jetpack KTX kütüphaneleri)."
+                }
+              ]
             },
             "7": {
               "title": "",
-              "desc": []
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Tamamen Kotlin tabanlı bildirimsel UI çatısı kararlı hâle gelir. XML layout'lar yavaş yavaş arka plana çekilir."
+                }
+              ]
             },
             "8": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin Multiplatform kararlı",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "KMP üretime hazır ilan edilir. Android ile iOS arasında ortak iş mantığı gerçek bir seçeneğe dönüşür."
+                }
+              ]
             },
             "9": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin 2.0 — K2 derleyicisi",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Tamamen yeniden yazılmış frontend. Derleme 2 kata kadar hızlanır, smart cast daha akıllı çalışır, IDE yanıt süresi kısalır."
+                }
+              ]
             },
             "10": {
-              "title": "",
-              "desc": []
+              "title": "Süren gelişim",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Kotlin/Wasm, bağlam parametreleri, zengin hata yönetimi ve Compose Multiplatform'un iOS desteği üzerindeki çalışmalar sürüyor."
+                }
+              ]
             }
           }
         },
         "tarixce.h3.0aeaca9e": {
-          "text": ""
+          "text": "Ekosistemin temel bileşenleri"
         },
         "tarixce.table.00c5a49f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Araç / Kütüphane"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne işe yarar"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Gradle (Kotlin DSL)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Proje derleme sistemi."
+                },
+                {
+                  "k": "code",
+                  "v": "build.gradle.kts"
+                },
+                {
+                  "k": "t",
+                  "v": " dosyası da Kotlin ile yazılır."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "kotlinx.coroutines"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Asenkron programlama: launch, async, Flow, Channel."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "kotlinx.serialization"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "JSON/Protobuf ↔ nesne dönüşümü. Yansımasız, derleyici eklentisiyle."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Ktor"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hem sunucu hem istemci için hafif HTTP çatısı. Tamamen Kotlin."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Exposed"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "SQL kütüphanesi — DSL veya hafif bir ORM olarak kullanılabilir."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Jetpack Compose"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Android ve masaüstü için bildirimsel UI."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Arrow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyonel programlama kütüphanesi: Either, Option, doğrulama."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Koin / Hilt"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bağımlılık enjeksiyonu (dependency injection)."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "MockK"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kotlin için tasarlanmış mock kütüphanesi."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Detekt / ktlint"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Statik analiz ve kod biçimlendirme."
+                }
+              ]
+            ]
+          ]
         },
         "tarixce.callout.6a86eb13": {
-          "title": ""
+          "title": "Sürüm seçimi"
         },
         "tarixce.p.2bf6dd15": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Yeni projeler için"
+            },
+            {
+              "k": "b",
+              "v": "Kotlin 2.x"
+            },
+            {
+              "k": "t",
+              "v": " kullan — K2 derleyicisi hızlıdır ve tüm modern kütüphaneler onu destekler. Eski projelerde 1.9'dan 2.0'a geçiş genellikle sorunsuz olur."
+            }
+          ]
         }
       }
     },
     "qurasdirma": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Kurulum ve ilk program",
+      "heading": "Kurulum ve ilk program",
+      "kicker": "Bölüm 02",
+      "group": "Başlangıç",
       "blocks": {
         "qurasdirma.p.bb45558e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin yazmaya başlamak için en azından JDK gerekir. Aşağıda üç yol var — tarayıcıdan (hiçbir şey kurmadan), IDE ile ve terminal ile."
+            }
+          ]
         },
         "qurasdirma.h3.a4cededd": {
-          "text": ""
+          "text": "Yol 1 — Hiçbir şey kurmadan"
         },
         "qurasdirma.p.bf981d07": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Resmî çevrimiçi ortam"
+            },
+            {
+              "k": "b",
+              "v": "play.kotlinlang.org"
+            },
+            {
+              "k": "t",
+              "v": " adresinde çalışır. Kodu yazıp sonucu hemen görürsün. Öğrenmenin ilk günleri için ideal bir seçimdir."
+            }
+          ]
         },
         "qurasdirma.h3.441868e5": {
-          "text": ""
+          "text": "Yol 2 — IntelliJ IDEA (önerilen)"
         },
         "qurasdirma.list.b9c588eb": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "JDK kur"
+              },
+              {
+                "k": "t",
+                "v": " — JDK 17 veya 21 (LTS sürümleri). Kaynak: Eclipse Temurin, Oracle JDK veya Amazon Corretto."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "IntelliJ IDEA Community Edition"
+              },
+              {
+                "k": "t",
+                "v": " indir — ücretsizdir ve Kotlin desteği yerleşiktir (Kotlin bir JetBrains ürünüdür)."
+              }
+            ],
+            [
+              {
+                "k": "t",
+                "v": "IDEA'da"
+              },
+              {
+                "k": "code",
+                "v": "New Project"
+              },
+              {
+                "k": "t",
+                "v": " → dil olarak"
+              },
+              {
+                "k": "b",
+                "v": "Kotlin"
+              },
+              {
+                "k": "t",
+                "v": ", derleme sistemi olarak"
+              },
+              {
+                "k": "b",
+                "v": "Gradle"
+              },
+              {
+                "k": "t",
+                "v": " seç."
+              }
+            ],
+            [
+              {
+                "k": "code",
+                "v": "src/main/kotlin/Main.kt"
+              },
+              {
+                "k": "t",
+                "v": " dosyasını aç ve kod yaz."
+              }
+            ],
+            [
+              {
+                "k": "t",
+                "v": "Sol taraftaki yeşil ▶ düğmesine bas."
+              }
+            ]
+          ]
         },
         "qurasdirma.callout.38824775": {
-          "title": ""
+          "title": "Android için"
         },
         "qurasdirma.p.d06bdd97": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Android uygulaması yazacaksan doğrudan"
+            },
+            {
+              "k": "b",
+              "v": "Android Studio"
+            },
+            {
+              "k": "t",
+              "v": " kur — IntelliJ tabanlıdır; Kotlin, Gradle ve Android SDK'nın hepsi dahildir."
+            }
+          ]
         },
         "qurasdirma.h3.5118b8b3": {
-          "text": ""
+          "text": "Yol 3 — Terminal (doğrudan derleyici)"
         },
         "qurasdirma.p.43a58fb4": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Komut satırından çalışmak isteyenler için:"
+            }
+          ]
         },
         "qurasdirma.code.fb20acfd": {
-          "title": ""
+          "title": "terminal — kurulum"
         },
         "qurasdirma.h3.51ae7c4f": {
-          "text": ""
+          "text": "İlk program: Merhaba, dünya"
         },
         "qurasdirma.p.081d64b0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Bir dosya oluştur — adı"
+            },
+            {
+              "k": "code",
+              "v": "Salam.kt"
+            },
+            {
+              "k": "t",
+              "v": " olsun:"
+            }
+          ]
         },
         "qurasdirma.code.943096ad": {
           "title": ""
         },
         "qurasdirma.p.c40c8afe": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Terminalden çalıştırmak:"
+            }
+          ]
         },
         "qurasdirma.code.716a1a51": {
           "title": ""
         },
         "qurasdirma.h3.0d9ace09": {
-          "text": ""
+          "text": "Gradle projesinin yapısı"
         },
         "qurasdirma.code.cc760d95": {
-          "title": ""
+          "title": "proje ağacı"
         },
         "qurasdirma.h4.25963746": {
-          "text": ""
+          "text": "build.gradle.kts örneği"
         },
         "qurasdirma.code.18420166": {
           "title": "",
-          "code": ""
+          "code": "plugins {\n    kotlin(\"jvm\") version \"2.0.20\"\n    application\n}\n\ngroup = \"az.kotlin.numune\"\nversion = \"1.0.0\"\n\nrepositories {\n    mavenCentral()\n}\n\ndependencies {\n    implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1\")\n    testImplementation(kotlin(\"test\"))\n}\n\nkotlin {\n    jvmToolchain(17)   // hangi JDK sürümüyle derlensin\n}\n\napplication {\n    mainClass.set(\"az.kotlin.numune.MainKt\")\n}\n\ntasks.test {\n    useJUnitPlatform()\n}"
         },
         "qurasdirma.h4.42757315": {
-          "text": ""
+          "text": "Gradle komutları"
         },
         "qurasdirma.table.fdf8abdd": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Komut"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne yapar"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew build"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Derleme + test + paketleme"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew run"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Uygulamayı çalıştırır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew test"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yalnızca testleri çalıştırır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew clean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "build klasörünü temizler"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew tasks"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Mevcut tüm görevleri gösterir"
+                }
+              ]
+            ]
+          ]
         },
         "qurasdirma.callout.fe0a16e9": {
-          "title": ""
+          "title": "Windows'ta not"
         },
         "qurasdirma.p.09d77442": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Windows'ta"
+            },
+            {
+              "k": "code",
+              "v": "./gradlew"
+            },
+            {
+              "k": "t",
+              "v": " yerine"
+            },
+            {
+              "k": "code",
+              "v": "gradlew.bat"
+            },
+            {
+              "k": "t",
+              "v": " ya da sadece"
+            },
+            {
+              "k": "code",
+              "v": "gradlew"
+            },
+            {
+              "k": "t",
+              "v": " yaz. PowerShell'de"
+            },
+            {
+              "k": "code",
+              "v": ".\\gradlew build"
+            },
+            {
+              "k": "t",
+              "v": " biçimini kullan."
+            }
+          ]
         }
       }
     },
     "kod-meydani": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Kod oyun alanı",
+      "heading": "Kod oyun alanı",
+      "kicker": "Bölüm 03",
+      "group": "Başlangıç",
       "blocks": {
         "kod-meydani.p.f0f09342": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Burada Kotlin kodu yazıp hemen çalıştırabilirsin. Kod"
+            },
+            {
+              "k": "b",
+              "v": "gerçekten derlenir"
+            },
+            {
+              "k": "t",
+              "v": " — JetBrains'in resmî sunucularında, tıpkı"
+            },
+            {
+              "k": "code",
+              "v": "play.kotlinlang.org"
+            },
+            {
+              "k": "t",
+              "v": " sitesindeki gibi. Hiçbir şey kurmana gerek yok."
+            }
+          ]
         },
         "kod-meydani.callout.95e8f6e5": {
-          "title": ""
+          "title": "Nasıl çalışır?"
         },
         "kod-meydani.p.7d870dcf": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Yazdığın kod JetBrains sunucusuna gönderilir, orada derlenip çalıştırılır ve sonuç geri döner. Bu, tarayıcıda sahte bir simülasyon değil — gerçek Kotlin derleyicisidir. Bu yüzden bu bölüm"
+            },
+            {
+              "k": "b",
+              "v": "internet bağlantısı gerektirir"
+            },
+            {
+              "k": "t",
+              "v": "; uygulamanın geri kalanı ise bağlantı olmadan da çalışır."
+            }
+          ]
         },
         "kod-meydani.h3.48d73cd4": {
-          "text": ""
+          "text": "Neleri deneyebilirsin"
         },
         "kod-meydani.list.a94459fb": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Örneği değiştir"
+              },
+              {
+                "k": "t",
+                "v": " — sayıları, metinleri, koşulları değiştir ve sonucun nasıl değiştiğini gör."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Bilerek hata yap"
+              },
+              {
+                "k": "t",
+                "v": " — noktalı virgül ekle, türü yanlış yaz,"
+              },
+              {
+                "k": "code",
+                "v": "val"
+              },
+              {
+                "k": "t",
+                "v": "'a yeni değer ver. Derleyicinin hata mesajlarını okumak öğrenmenin en hızlı yoludur."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Null güvenliğini dene"
+              },
+              {
+                "k": "t",
+                "v": " — «Null güvenliği» örneğinde"
+              },
+              {
+                "k": "code",
+                "v": "?."
+              },
+              {
+                "k": "t",
+                "v": " işaretini sil ve ne olduğuna bak."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Kendi alıştırmanı yaz"
+              },
+              {
+                "k": "t",
+                "v": " — «Boş düzenleyici» düğmesiyle temiz bir sayfadan başla."
+              }
+            ]
+          ]
         },
         "kod-meydani.callout.bb847b9e": {
-          "title": ""
+          "title": "Faydalı kısayollar"
         },
         "kod-meydani.p.f3dc61d3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Düzenleyici içinde:"
+            },
+            {
+              "k": "kbd",
+              "v": "Ctrl"
+            },
+            {
+              "k": "t",
+              "v": "+"
+            },
+            {
+              "k": "kbd",
+              "v": "Space"
+            },
+            {
+              "k": "t",
+              "v": " otomatik tamamlama,"
+            },
+            {
+              "k": "kbd",
+              "v": "Ctrl"
+            },
+            {
+              "k": "t",
+              "v": "+"
+            },
+            {
+              "k": "kbd",
+              "v": "/"
+            },
+            {
+              "k": "t",
+              "v": " satırı yoruma çevirir,"
+            },
+            {
+              "k": "kbd",
+              "v": "Tab"
+            },
+            {
+              "k": "t",
+              "v": " girinti ekler."
+            }
+          ]
         },
         "kod-meydani.h3.5a70e292": {
-          "text": ""
+          "text": "Bilgisayarında çalıştırmak"
         },
         "kod-meydani.p.5d3da3b0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kod oyun alanı öğrenmek ve hızlı denemeler içindir. Gerçek bir proje yazmaya başladığında"
+            },
+            {
+              "k": "link",
+              "v": "Kurulum",
+              "href": "#qurasdirma"
+            },
+            {
+              "k": "t",
+              "v": " bölümüne dön — IntelliJ IDEA veya Android Studio ile tam bir ortam kurman gerekecek."
+            }
+          ]
         }
       }
     },
     "sintaksis": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Temel sözdizimi",
+      "heading": "Temel sözdizimi",
+      "kicker": "Bölüm 04",
+      "group": "Dilin temelleri",
       "blocks": {
         "sintaksis.p.b6250dd9": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin sözdizimi Java'ya benzer ama daha az gürültülüdür: noktalı virgül zorunlu değildir, tür çoğu zaman yazılmaz, her şey bir ifade (expression) olabilir."
+            }
+          ]
         },
         "sintaksis.h3.2d4d2623": {
-          "text": ""
+          "text": "Programın giriş noktası"
         },
         "sintaksis.p.f679b026": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Her Kotlin programı"
+            },
+            {
+              "k": "code",
+              "v": "main"
+            },
+            {
+              "k": "t",
+              "v": " fonksiyonundan başlar. Bir sınıfın içinde olmak zorunda değildir — bu, Java'dan büyük bir farktır."
+            }
+          ]
         },
         "sintaksis.code.d2babc57": {
           "title": "",
-          "code": ""
+          "code": "// En basit biçim — parametresiz\nfun main() {\n    println(\"Salam!\")\n}\n\n// Komut satırı argümanları gerekiyorsa\nfun main(args: Array<String>) {\n    println(\"Arqumentlər: ${args.toList()}\")\n}"
         },
         "sintaksis.h3.5f156308": {
-          "text": ""
+          "text": "Yorumlar"
         },
         "sintaksis.code.1850694e": {
           "title": "",
-          "code": ""
+          "code": "// Tek satırlık yorum\n\n/* Çok satırlı\n   yorum */\n\n/* Kotlin'de blok yorumlar\n   /* iç içe */ olabilir — Java'da olmaz */\n\n/**\n * KDoc — belgeleme yorumu.\n * @param ad Kullanıcının adı\n * @return Selamlama metni\n */\nfun salamla(ad: String) = \"Salam, $ad!\""
         },
         "sintaksis.h3.2dec28d2": {
-          "text": ""
+          "text": "Paketler ve import"
         },
         "sintaksis.code.58b05db7": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.tetbiq        // dosyanın başında, en üstte\n\nimport kotlin.math.PI\nimport kotlin.math.abs\nimport java.time.LocalDate\n\nimport kotlin.math.max as boyuk   // yeniden adlandırma (alias)\nimport az.numune.model.*          // tüm paketi içe aktar\n\nfun main() {\n    println(PI)              // 3.141592653589793\n    println(abs(-7))         // 7\n    println(boyuk(3, 9))     // 9\n    println(LocalDate.now())\n}"
         },
         "sintaksis.callout.6c93dba0": {
-          "title": ""
+          "title": "Otomatik içe aktarılanlar"
         },
         "sintaksis.p.18005fbc": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "kotlin.*"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "kotlin.collections.*"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "kotlin.io.*"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "kotlin.text.*"
+            },
+            {
+              "k": "t",
+              "v": " ve JVM için"
+            },
+            {
+              "k": "code",
+              "v": "java.lang.*"
+            },
+            {
+              "k": "t",
+              "v": " paketleri her dosyaya otomatik olarak dahil edilir."
+            },
+            {
+              "k": "code",
+              "v": "println"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "listOf"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " — hepsi buradan gelir."
+            }
+          ]
         },
         "sintaksis.h3.7d7c42e2": {
-          "text": ""
+          "text": "Her şey bir ifadedir"
         },
         "sintaksis.p.740f380b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de"
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "try"
+            },
+            {
+              "k": "t",
+              "v": " değer döndürür. Bu, Java'nın üçlü operatörüne ("
+            },
+            {
+              "k": "code",
+              "v": "?:"
+            },
+            {
+              "k": "t",
+              "v": ") olan ihtiyacı ortadan kaldırır."
+            }
+          ]
         },
         "sintaksis.code.13900582": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val yas = 20\n\n    // if bir ifadedir — değer döndürür\n    val netice = if (yas >= 18) \"Böyükdür\" else \"Kiçikdir\"\n    println(netice)\n\n    // when de bir ifadedir\n    val gun = 5\n    val ad = when (gun) {\n        1 -> \"Bazar ertəsi\"\n        5 -> \"Cümə\"\n        else -> \"Naməlum\"\n    }\n    println(ad)\n\n    // try da bir ifadedir\n    val reqem = try {\n        \"42\".toInt()\n    } catch (e: NumberFormatException) {\n        0\n    }\n    println(\"Dəyər: $reqem\")\n}"
         },
         "sintaksis.h3.f5917877": {
-          "text": ""
+          "text": "Noktalı virgül"
         },
         "sintaksis.p.f655461d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Satır sonunda"
+            },
+            {
+              "k": "code",
+              "v": ";"
+            },
+            {
+              "k": "t",
+              "v": " yazmak gerekmez. Yalnızca bir satırda birden fazla ifade olduğunda kullanılır — bu da önerilmez."
+            }
+          ]
         },
         "sintaksis.code.3c1e5adc": {
           "title": "",
-          "code": ""
+          "code": "val a = 5           // doğru\nval b = 10;         // çalışır ama gereksiz\n\nval x = 1; val y = 2   // tek gerçek ihtiyaç — önerilmez\n\n// İstisna: enum'da sabitlerden sonra üyeler varsa zorunludur\nenum class Reng(val kod: String) {\n    QIRMIZI(\"#F00\"), YASIL(\"#0F0\");   // ← bu ; zorunludur\n\n    fun cap() = println(kod)\n}"
         },
         "sintaksis.h3.089054e7": {
-          "text": ""
+          "text": "Adlandırma kuralları"
         },
         "sintaksis.table.42beaf83": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Öğe"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Stil"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Paket"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "hepsi küçük harf, alt çizgi yok"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "az.numune.model"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Sınıf / arayüz"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "PascalCase"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "IstifadeciProfili"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon / değişken"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "camelCase"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "hesablaCemi()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Sabit (top-level const)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "SCREAMING_SNAKE_CASE"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "MAX_OLCU"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Test fonksiyonu"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "backtick içinde boşlukla"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "`bos siyahi 0 qaytarir`()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Dosya adı"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "içeriği yansıtan PascalCase"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "IstifadeciRepo.kt"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "deyisenler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Değişkenler ve türler",
+      "heading": "Değişkenler ve türler",
+      "kicker": "Bölüm 05",
+      "group": "Dilin temelleri",
       "blocks": {
         "deyisenler.p.659074b6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin statik tipli bir dildir — her değişkenin türü derleme zamanında bilinir. Ama çoğu zaman türü yazmaya gerek yoktur: derleyici onu kendisi belirler."
+            }
+          ]
         },
         "deyisenler.h3.acaa755c": {
-          "text": ""
+          "text": "val ve var"
         },
         "deyisenler.code.b7c4a939": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // val — salt okunur (read-only), yeniden atanamaz\n    val ad = \"Aysel\"\n    // ad = \"Leyla\"        ← DERLEME HATASI\n\n    // var — değiştirilebilir\n    var sayqac = 0\n    println(\"Ad: $ad\")\n    println(\"Sayqac: $sayqac\")\n    sayqac++\n    println(\"Sayqac: $sayqac\")\n\n    // DİKKAT: val referansı sabitler, nesnenin kendisini DEĞİL\n    val siyahi = mutableListOf(\"a\")\n    siyahi.add(\"b\")          // izin verilir!\n    // siyahi = mutableListOf()   ← hata\n    println(\"Siyahı: $siyahi\")\n}"
         },
         "deyisenler.callout.e11e6a14": {
-          "title": ""
+          "title": "Kural"
         },
         "deyisenler.p.962bfa8e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Her zaman"
+            },
+            {
+              "k": "b",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": " ile başla. Yalnızca değeri gerçekten değiştirmen gerektiğinde"
+            },
+            {
+              "k": "b",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": "'a geç. Bu, hataları azaltır ve kodu daha öngörülebilir kılar."
+            }
+          ]
         },
         "deyisenler.h3.d2bd2b6b": {
-          "text": ""
+          "text": "Tür çıkarımı (type inference) — canlı deneme"
         },
         "deyisenler.p.8c0a1307": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Aşağıya bir değer yaz veya örneklerden seç — derleyicinin hangi türü çıkaracağını gör:"
+            }
+          ]
         },
         "deyisenler.h3.3e164a6a": {
-          "text": ""
+          "text": "Temel türler"
         },
         "deyisenler.table.69721b7f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aralık / açıklama"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Byte"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "8"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "−128 … 127"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val b: Byte = 100"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Short"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "16"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "−32768 … 32767"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val s: Short = 1000"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "32"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "≈ ±2,1 milyar (varsayılan)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val i = 42"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Long"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "64"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "≈ ±9,2 kentilyon"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val l = 42L"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Float"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "32"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~6–7 ondalık basamak hassasiyeti"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val f = 3.14f"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Double"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "64"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~15–16 basamak (varsayılan)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val d = 3.14"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Boolean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "true"
+                },
+                {
+                  "k": "t",
+                  "v": " /"
+                },
+                {
+                  "k": "code",
+                  "v": "false"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val ok = true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Char"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "16"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tek karakter, tek tırnak içinde"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val c = 'K'"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "String"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "—"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Değişmez karakter dizisi"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val s = \"Kotlin\""
+                }
+              ]
+            ]
+          ]
         },
         "deyisenler.h3.6a135f51": {
-          "text": ""
+          "text": "Sayı sabitleri"
         },
         "deyisenler.code.8dc9066e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val boyuk = 1_000_000        // alt çizgi okunabilirlik için (değere etkisi yok)\n    val onaltiliq = 0xFF         // 255\n    val ikilik = 0b1010          // 10\n    val uzun = 1_000_000_000_000L\n    val onluq = 3.14\n    val eksponent = 2.5e10\n\n    println(boyuk)\n    println(onaltiliq)\n    println(ikilik)\n    println(uzun)\n    println(onluq)\n    println(eksponent)\n}"
         },
         "deyisenler.h3.b574b02e": {
-          "text": ""
+          "text": "Tür dönüşümü — otomatik DEĞİL"
         },
         "deyisenler.callout.cd415ca6": {
-          "title": ""
+          "title": "Kotlin örtük sayı dönüşümü yapmaz"
         },
         "deyisenler.p.f22ed486": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Java'da"
+            },
+            {
+              "k": "code",
+              "v": "long x = intDeyer;"
+            },
+            {
+              "k": "t",
+              "v": " çalışır. Kotlin'de çalışmaz — açıkça"
+            },
+            {
+              "k": "code",
+              "v": ".toLong()"
+            },
+            {
+              "k": "t",
+              "v": " yazmalısın. Bu, gizli veri kaybının önüne geçer."
+            }
+          ]
         },
         "deyisenler.code.dbded1a7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val i: Int = 42\n\n    // val l: Long = i        ← HATA: Type mismatch\n    val l: Long = i.toLong()  // doğru\n    val d: Double = i.toDouble()\n    val s: String = i.toString()\n\n    println(i)\n    println(l)\n    println(d)\n    println(s)\n\n    // Char ile Int arasında\n    val c: Char = 'K'\n    println(c)\n    println(c.code)           // 75 — Unicode kodu\n\n    // Metinden sayıya — güvenli seçenek\n    val bosla: Int? = \"abc\".toIntOrNull()   // null, hata fırlatmaz\n    val yaxsi: Int = \"123\".toInt()          // 123\n}"
         },
         "deyisenler.h3.9bdee4fe": {
-          "text": ""
+          "text": "Sabitler: const val"
         },
         "deyisenler.code.ddb77550": {
           "title": "",
-          "code": ""
+          "code": "// Dosya düzeyinde — derleme zamanı sabiti\nconst val API_URL = \"https://api.numune.az\"\nconst val MAX_CEHD = 3\n\n// const yalnızca ilkel türler ve String için çalışır\n// const val TARIX = LocalDate.now()   ← HATA: çalışma zamanında hesaplanır\n\nclass Konfiq {\n    companion object {\n        const val VERSIYA = \"1.0.0\"      // sınıf içinde companion'da\n        val YARADILMA = System.currentTimeMillis()  // const olamaz\n    }\n}\n\nfun main() {\n    println(API_URL)\n    println(Konfiq.VERSIYA)\n}"
         },
         "deyisenler.table.031831c9": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Anahtar kelime"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne zaman atanır"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nerede kullanılabilir"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "const val"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Derleme zamanında"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "top-level, object, companion object — yalnızca ilkel/String"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "val"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Çalışma zamanında, bir kez"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "her yerde"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İstenildiği zaman değişebilir"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "her yerde"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "lateinit var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sonradan, kullanımdan önce"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "yalnızca ilkel olmayan türler"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "by lazy"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İlk okumada (bir kez)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "yalnızca"
+                },
+                {
+                  "k": "code",
+                  "v": "val"
+                },
+                {
+                  "k": "t",
+                  "v": " ile"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "metnler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Metinlerle çalışma (String)",
+      "heading": "Metinlerle çalışma (String)",
+      "kicker": "Bölüm 06",
+      "group": "Dilin temelleri",
       "blocks": {
         "metnler.p.16c0b11a": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de String değişmezdir (immutable). Ama şablon ifadeleri, çok satırlı metinler ve zengin standart fonksiyonlar metinle çalışmayı çok kolaylaştırır."
+            }
+          ]
         },
         "metnler.h3.5d49873e": {
-          "text": ""
+          "text": "Şablon ifadeleri (string templates)"
         },
         "metnler.code.07a176c3": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad = \"Aysel\"\n    val yas = 24\n    val qiymet = 15.0\n    val say = 2\n\n    // Basit değişken — $ad\n    println(\"Salam, $ad!\")\n\n    // İfade — ${...}\n    println(\"Yaş: $yas, gələn il: ${yas + 1}\")\n    println(\"Uzunluq: ${ad.length}\")\n    println(\"Cəmi: ${qiymet * say} AZN\")\n\n    // Gerçek $ karakteri gerekiyorsa\n    val qiymetMetni = \"Qiymət: \\$100\"\n}"
         },
         "metnler.h3.4123b296": {
-          "text": ""
+          "text": "Çok satırlı metinler"
         },
         "metnler.code.eca899b7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad = \"Aysel\"\n    val yas = 24\n\n    // Üç tırnak — kaçış gerekmez, satır sonları korunur\n    val json = \"\"\"\n        {\n          \"ad\": \"$ad\",\n          \"yas\": $yas\n        }\n    \"\"\".trimIndent()      // ← soldaki fazla boşlukları siler\n\n    println(json)\n\n    // trimMargin() — | işaretine kadar olanı siler\n    val metn = \"\"\"\n        |Birinci sətir\n        |İkinci sətir\n    \"\"\".trimMargin()\n}"
         },
         "metnler.h3.c61caaf9": {
-          "text": ""
+          "text": "En çok kullanılan String fonksiyonları"
         },
         "metnler.table.78ed8043": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne yapar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek → sonuç"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "length"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Karakter sayısı"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".length"
+                },
+                {
+                  "k": "t",
+                  "v": " → 6"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "uppercase() / lowercase()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Büyük/küçük harfe çevirir"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"az\".uppercase()"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"AZ\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "trim()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kenardaki boşlukları siler"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"  a  \".trim()"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"a\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isEmpty() / isBlank()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Boş mu / yalnızca boşluk mu"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"  \".isBlank()"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "contains(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İçinde var mı"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".contains(\"lin\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "startsWith / endsWith"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Başlıyor mu / bitiyor mu"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"a.kt\".endsWith(\".kt\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "split(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Listeye böler"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"a,b\".split(\",\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → [a, b]"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "replace(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Değiştirir"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"aaa\".replace(\"a\",\"b\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"bbb\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "substring(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Parça çıkarır"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".substring(0,3)"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"Kot\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "indexOf(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Konum (yoksa −1)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".indexOf(\"t\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → 2"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "padStart(n, c)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Soldan doldurur"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"7\".padStart(3,'0')"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"007\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "repeat(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tekrarlar"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"ab\".repeat(2)"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"abab\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ters çevirir"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"abc\".reversed()"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"cba\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "toIntOrNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Güvenli dönüşüm"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"x\".toIntOrNull()"
+                },
+                {
+                  "k": "t",
+                  "v": " → null"
+                }
+              ]
+            ]
+          ]
         },
         "metnler.code.44902cfe": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val s = \"  Kotlin dili  \"\n\n    println(s.trim().replace(\"Kotlin\", \"KOTLIN\"))\n    println(\"Kotlin\".length)\n\n    val diller = \"Kotlin,Java,Swift\".split(\",\")\n    println(diller)\n\n    // Maskeleme\n    val gizli = \"Kotlin\".replaceRange(2, 5, \"***\")\n    println(gizli)\n\n    // Slug oluşturmak\n    val basliq = \"Salam Dünya\"\n    println(basliq.lowercase().replace(\" \", \"-\").replace(\"ü\", \"u\"))\n\n    // Sıfırla doldurma\n    println(\"7\".padStart(3, '0'))\n}"
         },
         "metnler.h3.aab57097": {
-          "text": ""
+          "text": "String karşılaştırması"
         },
         "metnler.code.5a87d89e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a = \"Kotlin\"\n    val b = StringBuilder(\"Kot\").append(\"lin\").toString()\n\n    println(a == b)    // true  — içerik karşılaştırması (equals)\n    println(a === b)   // false — referans karşılaştırması\n\n    // Büyük/küçük harften bağımsız karşılaştırma\n    println(\"KOTLIN\".equals(\"kotlin\", ignoreCase = true))\n}"
         },
         "metnler.callout.404a2b61": {
-          "title": ""
+          "title": "Java'dan gelenler için"
         },
         "metnler.p.507fbce7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Java'da"
+            },
+            {
+              "k": "code",
+              "v": "=="
+            },
+            {
+              "k": "t",
+              "v": " referans karşılaştırmasıdır ve"
+            },
+            {
+              "k": "code",
+              "v": ".equals()"
+            },
+            {
+              "k": "t",
+              "v": " yazmak gerekir. Kotlin'de tam tersidir:"
+            },
+            {
+              "k": "code",
+              "v": "=="
+            },
+            {
+              "k": "t",
+              "v": " içeriği kontrol eder, referans için"
+            },
+            {
+              "k": "code",
+              "v": "==="
+            },
+            {
+              "k": "t",
+              "v": " vardır. Bu, en sık karşılaşılan hata kaynaklarından birini ortadan kaldırır."
+            }
+          ]
         }
       }
     },
     "operatorlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Operatörler",
+      "heading": "Operatörler",
+      "kicker": "Bölüm 07",
+      "group": "Dilin temelleri",
       "blocks": {
         "operatorlar.p.e5bbefe9": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de operatörler aslında fonksiyon çağrılarıdır."
+            },
+            {
+              "k": "code",
+              "v": "a + b"
+            },
+            {
+              "k": "t",
+              "v": " ifadesi arka planda"
+            },
+            {
+              "k": "code",
+              "v": "a.plus(b)"
+            },
+            {
+              "k": "t",
+              "v": " anlamına gelir — bu, kendi türlerin için operatör aşırı yüklemeye olanak tanır."
+            }
+          ]
         },
         "operatorlar.h3.2fed7f21": {
-          "text": ""
+          "text": "Aritmetik operatörler"
         },
         "operatorlar.table.80d73024": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operatör"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sonuç"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "+"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "plus()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 + 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "-"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "minus()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 - 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "4"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "*"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "times()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 * 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "21"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "/"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "div()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 / 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "2 (tam bölme!)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "/"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "div()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7.0 / 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "2.333…"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "%"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "rem()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 % 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1"
+                }
+              ]
+            ]
+          ]
         },
         "operatorlar.callout.3ac3c666": {
-          "title": ""
+          "title": "Tam sayı bölmesi"
         },
         "operatorlar.p.f0674e2e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "7 / 2"
+            },
+            {
+              "k": "t",
+              "v": " sonucu"
+            },
+            {
+              "k": "b",
+              "v": "3"
+            },
+            {
+              "k": "t",
+              "v": "'tür, 3.5 değil. Her iki işlenen de Int olduğunda sonuç da Int olur ve ondalık kısım atılır. Ondalıklı sonuç için en az biri Double olmalıdır:"
+            },
+            {
+              "k": "code",
+              "v": "7.0 / 2"
+            },
+            {
+              "k": "t",
+              "v": " veya"
+            },
+            {
+              "k": "code",
+              "v": "7 / 2.0"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "operatorlar.h3.767c7db7": {
-          "text": ""
+          "text": "Karşılaştırma ve eşitlik"
         },
         "operatorlar.table.54171e7d": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operatör"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Anlamı"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Not"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "=="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yapısal eşitlik"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "a?.equals(b) ?: (b === null)"
+                },
+                {
+                  "k": "t",
+                  "v": " çağırır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Yapısal eşitsizlik"
+                }
+              ],
+              []
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "==="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Referans eşitliği"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aynı nesne mi"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!=="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Referans eşitsizliği"
+                }
+              ],
+              []
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "< > <= >="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Karşılaştırma"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "compareTo()"
+                },
+                {
+                  "k": "t",
+                  "v": " çağırır"
+                }
+              ]
+            ]
+          ]
         },
         "operatorlar.h3.662f2b2e": {
-          "text": ""
+          "text": "Mantıksal operatörler"
         },
         "operatorlar.code.1c96e22b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a = true\n    val b = false\n\n    println(a || b)   // VEYA — kısa devre (short-circuit)\n    println(a && b)   // VE    — kısa devre\n    println(!b)       // DEĞİL\n    println(a xor a)  // ÖZEL VEYA\n\n    // Kısa devre: sol taraf sonucu belirliyorsa sağ taraf hiç çalışmaz\n    val siyahi: List<Int>? = null\n    if (siyahi != null && siyahi.isNotEmpty()) {\n        println(\"dolu\")   // siyahi null ise ikinci koşul hiç kontrol edilmez\n    }\n}"
         },
         "operatorlar.h3.334d3864": {
-          "text": ""
+          "text": "Kotlin'e özgü operatörler"
         },
         "operatorlar.table.66c0a15c": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operatör"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ad"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "?."
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Safe call"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "ad?.length"
+                },
+                {
+                  "k": "t",
+                  "v": " — null ise null döndürür"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "?:"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Elvis"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "ad ?: \"naməlum\""
+                },
+                {
+                  "k": "t",
+                  "v": " — null ise yedek değer"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!!"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Not-null assertion"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "ad!!"
+                },
+                {
+                  "k": "t",
+                  "v": " — null ise NPE fırlatır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": ".."
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aralık"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "1..10"
+                },
+                {
+                  "k": "t",
+                  "v": " — 1'den 10'a kadar (dahil)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "..<"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Açık aralık"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "0..<10"
+                },
+                {
+                  "k": "t",
+                  "v": " — 0'dan 9'a kadar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "in"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Üyelik"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "5 in 1..10"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!in"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Üye değil"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "15 !in 1..10"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "is"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tür kontrolü"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "x is String"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "as"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tür dönüşümü"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "x as String"
+                },
+                {
+                  "k": "t",
+                  "v": " — başarısız olursa hata"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "as?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Güvenli dönüşüm"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "x as? String"
+                },
+                {
+                  "k": "t",
+                  "v": " — başarısız olursa null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "to"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Çift oluşturma (infix)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"a\" to 1"
+                },
+                {
+                  "k": "t",
+                  "v": " → Pair(\"a\", 1)"
+                }
+              ]
+            ]
+          ]
         },
         "operatorlar.h3.126c7a56": {
-          "text": ""
+          "text": "Operatör aşırı yükleme (overloading)"
         },
         "operatorlar.p.0e54f5f7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kendi sınıflarına operatör davranışı eklenebilir. Bu, matematiksel türler ve DSL'ler için çok faydalıdır."
+            }
+          ]
         },
         "operatorlar.code.2070e32a": {
           "title": "",
-          "code": ""
+          "code": "data class Noqte(val x: Int, val y: Int) {\n\n    operator fun plus(digeri: Noqte) = Noqte(x + digeri.x, y + digeri.y)\n    operator fun minus(digeri: Noqte) = Noqte(x - digeri.x, y - digeri.y)\n    operator fun times(k: Int) = Noqte(x * k, y * k)\n\n    // in operatörü\n    operator fun contains(deyer: Int) = deyer == x || deyer == y\n\n    // indeksleme: p[0], p[1]\n    operator fun get(index: Int) = when (index) {\n        0 -> x\n        1 -> y\n        else -> throw IndexOutOfBoundsException()\n    }\n}\n\nfun main() {\n    val a = Noqte(1, 2)\n    val b = Noqte(3, 4)\n\n    println(a + b)\n    println(b - a)\n    println(Noqte(2, 3) * 3)\n    println(2 in a)          // contains() çağrılır\n    println(\"x = ${a[0]}\")   // get() çağrılır\n}"
         },
         "operatorlar.table.67bbd125": {
-          "head": [],
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operatör"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon adı"
+                }
+              ]
+            ]
+          ],
           "rows": []
         }
       }
     },
     "sertler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Koşullar: if ve when",
+      "heading": "Koşullar: if ve when",
+      "kicker": "Bölüm 08",
+      "group": "Dilin temelleri",
       "blocks": {
         "sertler.p.1f37735b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de koşul yapıları değer döndüren ifadelerdir. Bu, kodu kısaltır ve değişkenlere hemen başlangıç değeri atamaya olanak tanır."
+            }
+          ]
         },
         "sertler.h3.e2af7a1d": {
-          "text": ""
+          "text": "if — ifade olarak"
         },
         "sertler.code.579820d0": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val yas = 25\n\n    // Klasik biçim\n    if (yas >= 18) {\n        println(\"Böyük\")\n    } else {\n        println(\"Kiçik\")\n    }\n\n    // İfade olarak — değer döndürür\n    val a = 10\n    val b = 15\n    val maks = if (a > b) a else b\n    println(\"Ən böyük: $maks\")\n\n    // Bloklu ifade — SON satır döndürülür\n    val bal = 85\n    val qiymet = if (bal >= 90) {\n        \"Əla\"\n    } else if (bal >= 70) {\n        \"Yaxşı\"\n    } else {\n        \"Qənaətbəxş\"\n    }\n    println(\"Qiymət: $qiymet\")\n}"
         },
         "sertler.callout.ea8c1a77": {
-          "title": ""
+          "title": "Üçlü operatör yok"
         },
         "sertler.p.2f4efd63": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de"
+            },
+            {
+              "k": "code",
+              "v": "şərt ? a : b"
+            },
+            {
+              "k": "t",
+              "v": " yoktur, çünkü"
+            },
+            {
+              "k": "code",
+              "v": "if (şərt) a else b"
+            },
+            {
+              "k": "t",
+              "v": " zaten aynı işi görür ve daha okunaklıdır. İfade olarak kullanılan"
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": "'de"
+            },
+            {
+              "k": "code",
+              "v": "else"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "zorunludur"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "sertler.h3.0321cb67": {
-          "text": ""
+          "text": "when — güçlü çok dallı koşul"
         },
         "sertler.p.1a57945e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " Java'nın"
+            },
+            {
+              "k": "code",
+              "v": "switch"
+            },
+            {
+              "k": "t",
+              "v": "'ine benzer ama kat kat güçlüdür: her türü kabul eder; aralıkları, tür kontrollerini ve keyfî koşulları destekler."
+            }
+          ]
         },
         "sertler.code.f83969db": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // 1) Basit değer eşleştirme\n    val x = 2\n    when (x) {\n        1 -> println(\"Bir\")\n        2, 3 -> println(\"Kiçik rəqəm: $x\")   // birden fazla değer virgülle\n        else -> println(\"Digər\")\n    }\n\n    // 2) İfade olarak + aralık\n    val gun = 3\n    val tip = when (gun) {\n        in 1..5 -> \"İş günü\"\n        6, 7 -> \"İstirahət\"\n        else -> \"Yanlış gün\"\n    }\n    println(tip)\n\n    // 3) Tür kontrolü (is) — smart cast çalışır\n    val obyekt: Any = 42\n    when (obyekt) {\n        is Int -> println(\"Rəqəm\")\n        is String -> println(\"Uzunluq: ${obyekt.length}\")  // otomatik String\n        is List<*> -> println(\"Siyahı, ${obyekt.size} element\")\n        else -> println(\"Naməlum tip\")\n    }\n\n    // 4) Argümansız when — if-else zincirinin yerini alır\n    val temperatur = 5\n    val geyim = when {\n        temperatur < 0 -> \"Qalın palto\"\n        temperatur in 1..10 -> \"1-dən 10-a qədər\"\n        temperatur in 11..20 -> \"Yüngül gödəkçə\"\n        else -> \"Köynək\"\n    }\n    println(geyim)\n\n    // 5) when sonucunu doğrudan döndürmek\n    println(olcuAdi(150))\n}\n\nfun olcuAdi(sm: Int): String = when {\n    sm < 100 -> \"Kiçik\"\n    sm < 180 -> \"Böyük\"\n    else -> \"Nəhəng\"\n}"
         },
         "sertler.h3.f8574870": {
-          "text": ""
+          "text": "when + subject değişkeni"
         },
         "sertler.code.8e65c394": {
           "title": "",
-          "code": ""
+          "code": "// Sonucu değişkende tutup hemen kontrol etmek\nfun emalEt(cavab: Cavab) = when (val netice = cavab.oxu()) {\n    is Ugurlu -> \"Data: ${netice.data}\"\n    is Xeta -> \"Xəta kodu: ${netice.kod}\"\n}\n\n// Enum ile — else gerekmez, çünkü tüm durumlar kapsanmış\nenum class Status { GOZLEYIR, ISLENIR, BITDI }\n\nfun mesaj(s: Status) = when (s) {\n    Status.GOZLEYIR -> \"Növbədədir\"\n    Status.ISLENIR -> \"İşlənir…\"\n    Status.BITDI -> \"Hazırdır\"\n}"
         },
         "sertler.callout.73574f69": {
           "title": ""
         },
         "sertler.p.3689c31f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " ifade olarak kullanıldığında (değer döndürdüğünde) tüm durumları kapsamalıdır."
+            },
+            {
+              "k": "code",
+              "v": "enum"
+            },
+            {
+              "k": "t",
+              "v": " ve"
+            },
+            {
+              "k": "code",
+              "v": "sealed"
+            },
+            {
+              "k": "t",
+              "v": " türlerde derleyici bunu kendisi kontrol eder — yeni bir durum eklediğinde derleme hatası alırsın ve hiçbir yeri unutmazsın."
+            }
+          ]
         }
       }
     },
     "dovrler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Döngüler ve aralıklar",
+      "heading": "Döngüler ve aralıklar",
+      "kicker": "Bölüm 09",
+      "group": "Dilin temelleri",
       "blocks": {
         "dovrler.p.a07e9238": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de klasik"
+            },
+            {
+              "k": "code",
+              "v": "for (i = 0; i < n; i++)"
+            },
+            {
+              "k": "t",
+              "v": " biçimi yoktur. Onun yerine aralıklar (ranges) ve iteratör tabanlı"
+            },
+            {
+              "k": "code",
+              "v": "for"
+            },
+            {
+              "k": "t",
+              "v": " kullanılır — daha kısa ve hatasızdır."
+            }
+          ]
         },
         "dovrler.h3.33f37383": {
-          "text": ""
+          "text": "Aralıklar (ranges)"
         },
         "dovrler.code.0ead546a": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // 1..5  — her iki uç dahil\n    for (i in 1..5) print(\"$i \")\n    println()\n\n    // 0..<5  — son dahil değil (eskiden: until)\n    for (i in 0..<5) print(\"$i \")\n    println()\n\n    // step — adım\n    for (i in 10 downTo 2 step 2) print(\"$i \")\n    println()\n\n    // downTo — azalan\n    for (i in 5 downTo 1) print(\"$i \")\n    println()\n\n    // Char aralığı\n    for (c in 'a'..'e') print(\"$c \")\n    println()\n}"
         },
         "dovrler.h3.6004e4e6": {
-          "text": ""
+          "text": "for döngüsü"
         },
         "dovrler.code.7c309284": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val diller = listOf(\"Kotlin\", \"Java\", \"Swift\")\n\n    // Basit yineleme\n    for (dil in diller) println(dil)\n\n    // İndeks gerekiyorsa\n    for ((index, dil) in diller.withIndex()) {\n        println(\"$index: $dil\")\n    }\n\n    // Yalnızca indeksler\n    for (i in diller.indices) { /* diller[i] */ }\n\n    // Map üzerinde — yapı çözümleme ile\n    val melumat = mapOf(\"ad\" to \"Aysel\", \"yas\" to \"24\")\n    for ((acar, deyer) in melumat) {\n        println(\"$acar -> $deyer\")\n    }\n}"
         },
         "dovrler.h3.e88682b6": {
-          "text": ""
+          "text": "while ve do-while"
         },
         "dovrler.code.e786f4ba": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // while — koşul başta kontrol edilir\n    var n = 3\n    while (n > 0) {\n        print(\"$n \")\n        n--\n    }\n    println()\n\n    // do-while — gövde en az bir kez çalışır\n    var sayqac = 0\n    do {\n        sayqac++\n        println(\"Sayqac: $sayqac\")\n    } while (sayqac < 3)\n}"
         },
         "dovrler.h3.7cfeb028": {
-          "text": ""
+          "text": "break, continue ve etiketler (labels)"
         },
         "dovrler.code.b3693b05": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // break — döngüyü tamamen durdurur\n    for (i in 1..5) {\n        if (i == 3) break\n        print(\"$i \")\n    }\n    println()\n\n    // continue — mevcut adımı atlar\n    for (i in 1..5) {\n        if (i % 2 == 0) continue\n        print(\"$i \")\n    }\n    println()\n\n    // Etiket — iç içe döngülerden çıkmak için\n    xarici@ for (i in 1..3) {\n        for (j in 1..3) {\n            if (i * j == 2) {\n                println(\"Tapıldı: ($i, $j)\")\n                break@xarici     // her iki döngüden çıkar\n            }\n        }\n    }\n}"
         },
         "dovrler.callout.081841d2": {
-          "title": ""
+          "title": "Lambda içinde return"
         },
         "dovrler.p.6ae1c199": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "forEach { }"
+            },
+            {
+              "k": "t",
+              "v": " içinde düz"
+            },
+            {
+              "k": "code",
+              "v": "return"
+            },
+            {
+              "k": "t",
+              "v": " tüm fonksiyondan çıkar. Yalnızca lambda'dan çıkmak için etiket gerekir:"
+            },
+            {
+              "k": "code",
+              "v": "return@forEach"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "dovrler.code.c325ec87": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    listOf(1, 2, 3, 4, 5).forEach {\n        if (it == 3) return@forEach   // yalnızca bu adımı atlar (continue gibi)\n        println(it)\n    }\n    println(\"Bitdi\")\n}"
         },
         "dovrler.h3.dd6e6ff7": {
-          "text": ""
+          "text": "Aralık fonksiyonları"
         },
         "dovrler.table.d9808f9a": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "İfade"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sonuç"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 2, …, 10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..<10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 2, …, 9"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "10 downTo 1"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10, 9, …, 1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..10 step 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 4, 7, 10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10, 9, …, 1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).toList()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "[1, 2, …, 10]"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "5 in 1..10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).sum()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "55"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "repeat(3) { … }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bloğu 3 kez çalıştırır"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "funksiyalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Fonksiyonlar",
+      "heading": "Fonksiyonlar",
+      "kicker": "Bölüm 10",
+      "group": "Fonksiyonlar",
       "blocks": {
         "funksiyalar.p.2ad85a88": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de fonksiyonlar birinci sınıf vatandaştır: bir sınıfın içinde olmayabilir, bir değişkende saklanabilir, parametre olarak aktarılabilir."
+            }
+          ]
         },
         "funksiyalar.h3.2c252c35": {
-          "text": ""
+          "text": "Temel biçim"
         },
         "funksiyalar.code.7ca21690": {
           "title": "",
-          "code": ""
+          "code": "// Tam biçim\nfun topla(a: Int, b: Int): Int {\n    return a + b\n}\n\n// Tek ifadeli fonksiyon — gövde ve return yok, tür çıkarılır\nfun salamla(ad: String) = \"Salam, $ad!\"\n\n// Dönüş türünü açıkça yazmak okunabilirliği artırır\nfun kvadrat(x: Int): Int = x * x\n\n// Hiçbir şey döndürmeyen fonksiyon — Unit (yazmaya gerek yok)\nfun cap(metn: String) {\n    println(metn)\n}\n\nfun main() {\n    println(topla(5, 3))\n    println(salamla(\"Aysel\"))\n    println(kvadrat(4))\n}"
         },
         "funksiyalar.h3.c5281f44": {
-          "text": ""
+          "text": "Varsayılan ve adlandırılmış argümanlar"
         },
         "funksiyalar.p.40b6dd92": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Bu ikisi birlikte Java'daki onlarca overload varyantının yerini alır."
+            }
+          ]
         },
         "funksiyalar.code.4aad7d11": {
           "title": "",
-          "code": ""
+          "code": "fun salamla(\n    ad: String = \"Dünya\",\n    boyukHerf: Boolean = false,\n    sonluq: String = \"!\"\n): String {\n    val metn = \"Salam, $ad$sonluq\"\n    return if (boyukHerf) metn.uppercase() else metn\n}\n\nfun main() {\n    println(salamla())                          // hepsi varsayılan\n    println(salamla(\"Aysel\", boyukHerf = true)) // adlandırılmış argüman\n    println(salamla(\"Leyla\", sonluq = \"!!!\"))   // ortadakini atlayabiliriz\n    println(salamla(ad = \"Kamran\"))             // açıklık için adı yazmak\n}"
         },
         "funksiyalar.callout.dde1267d": {
-          "title": ""
+          "title": "Okunabilirlik kuralı"
         },
         "funksiyalar.p.baf6a7e3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Fonksiyonda 3'ten fazla parametre varsa veya"
+            },
+            {
+              "k": "code",
+              "v": "Boolean"
+            },
+            {
+              "k": "t",
+              "v": " aktarılıyorsa, çağrıda adları yaz:"
+            },
+            {
+              "k": "code",
+              "v": "yarat(gorunen = true, aktiv = false)"
+            },
+            {
+              "k": "t",
+              "v": "."
+            },
+            {
+              "k": "code",
+              "v": "yarat(true, false)"
+            },
+            {
+              "k": "t",
+              "v": " altı ay sonra hiçbir şey anlatmaz."
+            }
+          ]
         },
         "funksiyalar.h3.b2f63d43": {
-          "text": ""
+          "text": "vararg — değişken sayıda argüman"
         },
         "funksiyalar.code.2d5ad4b0": {
           "title": "",
-          "code": ""
+          "code": "fun cemle(vararg reqemler: Int): Int {\n    var cem = 0\n    for (r in reqemler) cem += r\n    return cem\n}\n\nfun main() {\n    println(\"Cəmi: ${cemle(1, 2, 3, 4, 5)}\")\n    println(\"Cəmi: ${cemle(1, 2, 3)}\")\n\n    // Mevcut diziyi aktarmak — spread operatörü (*)\n    val massiv = intArrayOf(10, 20, 30)\n    println(\"Siyahıdan: ${cemle(*massiv)}\")\n}"
         },
         "funksiyalar.h3.2d1fbc89": {
-          "text": ""
+          "text": "Yerel (local) fonksiyonlar"
         },
         "funksiyalar.code.3e7addae": {
           "title": "",
-          "code": ""
+          "code": "fun yoxla(istifadeci: String, sifre: String): Boolean {\n    // Yalnızca bu fonksiyonun içinde görünen yardımcı fonksiyon\n    fun bosDeyil(deyer: String, ad: String): Boolean {\n        if (deyer.isBlank()) {\n            println(\"$ad boş ola bilməz\")\n            return false\n        }\n        return true\n    }\n\n    return bosDeyil(istifadeci, \"İstifadəçi\") && bosDeyil(sifre, \"Şifrə\")\n}\n\nfun main() {\n    println(\"Düzgün: ${yoxla(\"aysel\", \"12345\")}\")\n    println(\"Düzgün: ${yoxla(\"\", \"12345\")}\")\n}"
         },
         "funksiyalar.h3.1c99daa2": {
-          "text": ""
+          "text": "infix fonksiyonlar"
         },
         "funksiyalar.code.476fc415": {
           "title": "",
-          "code": ""
+          "code": "// infix: nokta ve parantez olmadan çağrılabilir\n// Koşullar: üye/extension fonksiyon olmalı, TEK parametre, varsayılan değer olmamalı\ninfix fun Int.veya(digeri: Int) = \"($this, $digeri)\"\n\ninfix fun Int.vur(k: Int) = this * k\n\nfun main() {\n    println(3 veya 4)          // 3.veya(4) ile aynıdır\n    println(3 vur 5)\n\n    // Standart kütüphaneden infix örnekleri\n    val cut = \"ad\" to \"Aysel\"          // Pair oluşturur\n    val netice = 5 in 1..10            // contains\n    println(netice)\n}"
         },
         "funksiyalar.h3.c5c73f7f": {
-          "text": ""
+          "text": "tailrec — kuyruk özyinelemesi"
         },
         "funksiyalar.code.12eb92c6": {
           "title": "",
-          "code": ""
+          "code": "// tailrec derleyiciye şunu söyler: bu özyinelemeyi döngüye çevir\ntailrec fun faktorial(n: Int, akkumulyator: Long = 1): Long =\n    if (n <= 1) akkumulyator else faktorial(n - 1, akkumulyator * n)\n\ntailrec fun cemle(n: Long, akk: Long = 0): Long =\n    if (n == 0L) akk else cemle(n - 1, akk + n)\n\nfun main() {\n    println(faktorial(10))\n    // 1 milyon derinlikte bile StackOverflowError vermez\n    println(\"StackOverflow olmadan: ${cemle(1_000_000)}\")\n}"
         },
         "funksiyalar.callout.945f5fe9": {
-          "title": ""
+          "title": "tailrec koşulu"
         },
         "funksiyalar.p.08b6f1ae": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Özyinelemeli çağrı fonksiyonun"
+            },
+            {
+              "k": "b",
+              "v": "en son işlemi"
+            },
+            {
+              "k": "t",
+              "v": " olmalıdır."
+            },
+            {
+              "k": "code",
+              "v": "return n * faktorial(n-1)"
+            },
+            {
+              "k": "t",
+              "v": " kuyruk özyinelemesi değildir (çarpma sonra gerçekleşir) — derleyici uyarı verir."
+            }
+          ]
         },
         "funksiyalar.h3.a14fcc6e": {
-          "text": ""
+          "text": "Dosya düzeyinde fonksiyonlar"
         },
         "funksiyalar.code.32ae746d": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.util\n\n// Sınıf gerekmez — fonksiyon doğrudan dosyada yaşar\nfun formatlaQiymet(deyer: Double) = \"%.2f AZN\".format(deyer)\n\nfun emailDuzgundur(email: String) =\n    Regex(\"^[\\\\w.-]+@[\\\\w.-]+\\\\.\\\\w{2,}$\").matches(email)\n\n// Java'dan bu fonksiyonlar KomekcilerKt sınıfının statik metotları olarak görünür\n// Adı değiştirmek için:\n// @file:JvmName(\"Komekciler\")   ← dosyanın en üstünde"
         }
       }
     },
