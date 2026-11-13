@@ -67,7 +67,7 @@
       "ar": "تعدد الأشكال", "fa": "چندریختی", "hi": "पॉलीमॉर्फ़िज़्म", "id": "polimorfisme",
       "zh-CN": "多态", "ja": "ポリモーフィズム", "ko": "다형성",
       "_formalar": {
-        "tr": ["polimorfizm"], "de": ["polymorphismus"], "hi": ["बहुरूपता"], "ja": ["多態性", "多相性"]
+        "tr": ["çok biçimlili", "polimorfizm"], "de": ["polymorphismus"], "hi": ["बहुरूपता"], "ja": ["多態性", "多相性"]
       }
     },
     "dependency-injection": {

@@ -3001,7 +3001,7 @@
         "scope-funksiyalari-p-11": {
           "tapsiriq": "takeIf ile elvis'i birleştir: boş girdi için \"Qonaq\" yazdır.",
           "ipucu": "",
-          "starter": "fun main() {\n    val giris = \"\"\n    val ad = // takeIf + elvis yaz\n    println(ad)\n}"
+          "starter": "fun main() {\n    val giris = \"\"\n    val ad = // takeIf + elvis kullan\n    println(ad)\n}"
         },
         "scope-funksiyalari-p-12": {
           "tapsiriq": "takeUnless kullan: boş OLMAYAN metin için kendisini yazdır.",
@@ -3073,516 +3073,716 @@
       }
     },
     "oop": {
-      "title": "",
+      "title": "Sınıflar ve nesneler",
       "nezeri": {
         "oop-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de nesne oluşturmak için new anahtar kelimesi gerekir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — sadece Sinif() yazılır",
+            "Yalnızca data class için",
+            "Yalnızca abstract sınıflarda"
+          ],
+          "exp": "Kotlin'de new yoktur. Nesne yapıcısı sıradan bir fonksiyon gibi çağrılır: val u = Istifadeci(\"Aysel\")."
         },
         "oop-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Birincil (primary) yapıcı nereye yazılır?",
+          "opts": [
+            "Sınıf gövdesine",
+            "Sınıf adından hemen sonra, parantez içinde",
+            "init bloğuna",
+            "companion object'e"
+          ],
+          "exp": "class Istifadeci(val ad: String) — yapıcı sınıf başlığının bir parçasıdır. Bu, Kotlin'i epey kısaltan özelliklerden biridir."
         },
         "oop-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yapıcı parametresini val ile yazmak ne yapar?",
+          "opts": [
+            "Hiçbir şey",
+            "Onu aynı zamanda bir sınıf özelliğine çevirir",
+            "Onu sabit yapar",
+            "Onu gizler"
+          ],
+          "exp": "class A(val x: Int) — x hem parametre hem de özelliktir. val yazılmazsa yalnızca bir yapıcı parametresi olur ve gövdede erişilemez kalır."
         },
         "oop-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "init bloğu ne zaman çalışır?",
+          "opts": [
+            "Program başladığında",
+            "Nesne oluşturulduğunda",
+            "Metot çağrıldığında",
+            "Hiçbir zaman"
+          ],
+          "exp": "init bloğu nesne kurulurken, birincil yapıcının bir parçası olarak çalışır. Birden fazla init bloğu olabilir — yazıldıkları sırayla çalıştırılırlar."
         },
         "oop-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de özellikler için getter/setter elle yazılmalı mı?",
+          "opts": [
+            "Evet, her zaman",
+            "Hayır — otomatik oluşturulur",
+            "Yalnızca var için",
+            "Yalnızca private olduğunda"
+          ],
+          "exp": "val için getter, var için hem getter hem setter otomatik oluşturulur. Yalnızca özel bir davranış gerektiğinde elle yazılır."
         },
         "oop-n-06": {
-          "q": "",
+          "q": "Varsayılan görünürlük belirleyicisi hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de her şey varsayılan olarak public'tir. Java'dan farklıdır — orada varsayılan package-private'tır."
         },
         "oop-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "internal belirleyicisi ne anlama gelir?",
+          "opts": [
+            "Yalnızca sınıf içinde",
+            "Aynı modül içinde görünür",
+            "Yalnızca alt sınıflarda",
+            "Her yerde"
+          ],
+          "exp": "internal aynı derleme modülü (Gradle modülü) içinde görünür. Kütüphane yazarken iç API'yi gizlemek için faydalıdır."
         },
         "oop-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod kaç özellik oluşturur?",
+          "opts": [
+            "2",
+            "1 — yalnızca x",
+            "0",
+            "3"
+          ],
+          "exp": "Yalnızca x bir özelliktir, çünkü val ile işaretlenmiştir. y sadece bir yapıcı parametresidir ve init bloğunun dışında erişilemez."
         },
         "oop-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sınıf gövdesi boşsa süslü parantez gerekir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — class BosSinif yeterlidir",
+            "Yalnızca data class'ta",
+            "Yalnızca abstract'ta"
+          ],
+          "exp": "Gövde boşsa parantezler tamamen atlanabilir. Bu, işaretçi (marker) sınıflar için elverişlidir."
         },
         "oop-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İkincil (secondary) yapıcı ne yapmalıdır?",
+          "opts": [
+            "Hiçbir şey",
+            "Birincil yapıcıya yönlendirmelidir: this(...)",
+            "Mutlaka init çağırmalıdır",
+            "private olmalıdır"
+          ],
+          "exp": "Birincil yapıcı varsa ikincil yapıcı mutlaka ona yönlendirmelidir. Kotlin'de varsayılan parametreler sayesinde ikincil yapıcıya nadiren ihtiyaç duyulur."
         },
         "oop-n-11": {
-          "q": "",
+          "q": "Özel setter'da backing field'a nasıl erişilir?",
           "opts": [],
-          "exp": ""
+          "exp": "field özel bir tanımlayıcıdır ve yalnızca accessor içinde erişilebilir. this.xasse yazarsan sonsuz özyineleme oluşur."
         },
         "oop-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Hesaplanan özellik (custom getter) alan tutar mı?",
+          "opts": [
+            "Evet",
+            "Hayır — her erişimde yeniden hesaplanır",
+            "Yalnızca ilk seferde",
+            "Duruma bağlı"
+          ],
+          "exp": "Backing field yalnızca field tanımlayıcısı kullanıldığında oluşturulur. Burada değer her seferinde yeniden hesaplanır — önbellek gerekiyorsa by lazy kullanılır."
         },
         "oop-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "private set ne yapar?",
+          "opts": [
+            "Özelliği gizler",
+            "Okumaya izin verir, yazmayı yalnızca sınıf içinde tutar",
+            "Özelliği siler",
+            "Setter'ı iptal eder"
+          ],
+          "exp": "var status: String = \"aktiv\"\n    private set — dışarıdan okunur ama değiştirilemez. Değişmez gibi görünen, içeride yönetilen bir durum için idealdir."
         },
         "oop-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "nested ile inner sınıf arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "inner dış sınıfın üyelerine erişebilir, nested erişemez",
+            "nested daha hızlıdır",
+            "inner yalnızca Java'da var"
+          ],
+          "exp": "Kotlin'de iç içe sınıf varsayılan olarak statiktir (nested). Dış nesneye bir referans gerekiyorsa inner anahtar kelimesi yazılır."
         },
         "oop-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "-7",
+            "0",
+            "7",
+            "Derleme hatası"
+          ],
+          "exp": "Özel setter negatif değeri 0'a çevirir. field doğrudan backing field'a yazar, bu yüzden özyineleme olmaz."
         },
         "oop-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "require() yapıcıda neden kullanılır?",
+          "opts": [
+            "Performans için",
+            "Yanlış argümanla nesnenin hiç oluşmamasını sağlamak için",
+            "Bellek için",
+            "Loglama için"
+          ],
+          "exp": "init bloğuna require(ad.isNotBlank()) yazarak geçersiz bir nesnenin oluşturulması hemen durdurulur. Bu, «geçerli durum» ilkesidir."
         },
         "oop-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de sınıf üyelerinin varsayılan durumu nedir?",
+          "opts": [
+            "open",
+            "final — override edilemez",
+            "abstract",
+            "private"
+          ],
+          "exp": "Hem sınıflar hem de metot ve özellikler varsayılan olarak final'dır. Override için hem sınıf hem de üye open olarak bildirilmelidir."
         },
         "oop-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yapıcıyı private yapmak ne için gerekir?",
+          "opts": [
+            "Performans için",
+            "Nesne oluşturmayı bir fabrika metoduyla yönetmek için",
+            "Bellek tasarrufu için",
+            "Hiçbir şey için"
+          ],
+          "exp": "private constructor + companion object'te fabrika metodu — böylece nesne yalnızca kontrollü şekilde (önbellekle, doğrulamayla) oluşturulabilir."
         },
         "oop-n-19": {
-          "q": "",
+          "q": "Bu kodda init ve özellik ataması hangi sırayla çalışır?",
           "opts": [],
-          "exp": ""
+          "exp": "Özellik atamaları ve init blokları sınıf gövdesinde YAZILDIKLARI sırayla çalıştırılır. Bu yüzden birinci, init, sonuncu sırası elde edilir."
         },
         "oop-n-20": {
-          "q": "",
+          "q": "inner sınıftan dış sınıfın this'ine nasıl erişilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Etiketli this kullanılır: this@Xarici.deyer. Sadece this iç sınıfın kendisini gösterir."
         },
         "oop-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Özelliğin başlangıç değeri yapıcı parametresini kullanabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — parametre özellik atamasında ve init bloğunda erişilebilir",
+            "Yalnızca val olduğunda",
+            "Derleme hatası"
+          ],
+          "exp": "val yazılmasa da parametre özellik başlatmalarında ve init bloklarında kullanılabilir. Sadece metotlarda erişilemez olur."
         },
         "oop-n-22": {
-          "q": "",
+          "q": "Kotlin'de tüm sınıfların ortak atası hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Any, equals(), hashCode() ve toString() metotlarını sunar. Java'daki Object'ten farkı: wait(), notify() gibi metotları yoktur."
         },
         "oop-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yapıcıya anotasyon veya belirleyici eklendiğinde ne değişir?",
+          "opts": [
+            "Hiçbir şey",
+            "constructor anahtar kelimesi zorunlu olur",
+            "Sınıf abstract olur",
+            "Özellik kaybolur"
+          ],
+          "exp": "Genellikle constructor kelimesi atlanır. Ama görünürlük belirleyicisi veya anotasyon yazılıyorsa onu açıkça göstermek gerekir."
         },
         "oop-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de doğrudan alan (field) bildirilebilir mi?",
+          "opts": [
+            "Evet, olağan şekilde",
+            "Hayır — yalnızca özellikler bildirilir, alan gerektiğinde derleyici kendisi oluşturur",
+            "Yalnızca private olduğunda",
+            "Yalnızca Java ile"
+          ],
+          "exp": "Kotlin'de dil düzeyinde alan kavramı yoktur. Özellik bildirirsin, derleyici gerektiğinde ona bir backing field ayırır."
         },
         "oop-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Aynı sınıfın iki örneği varsayılan olarak nasıl karşılaştırılır?",
+          "opts": [
+            "true",
+            "false — Any'den gelen equals referansı karşılaştırır",
+            "Derleme hatası",
+            "null"
+          ],
+          "exp": "Sıradan sınıfta equals override edilmemiştir, bu yüzden referans karşılaştırması yapılır. İçerik karşılaştırması gerekiyorsa data class kullanılır."
         }
       },
       "praktiki": {
         "oop-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Istifadeci sınıfını oluştur (ad özelliğiyle), bir nesne oluşturup adı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val u = Istifadeci(\"Aysel\")\n    println(u.ad)\n}\n\n// sınıfı yaz"
         },
         "oop-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "İki özellikli bir sınıf oluştur ve ikisini de yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val u = Istifadeci(\"Aysel\", 24)\n    println(\"${u.ad} ${u.yas}\")\n}\n\n// sınıfı yaz"
         },
         "oop-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "var özellikli bir sınıf oluştur, değeri değiştirip yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val u = Sayqac()\n    u.deyer = 7\n    println(u.deyer)\n}\n\n// sınıfı yaz (deyer özelliği 0'dan başlasın)"
         },
         "oop-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Metotlu bir sınıf oluştur: salamla() \"Salam, Aysel!\" yazdırsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    Istifadeci(\"Aysel\").salamla()\n}\n\n// sınıfı metoduyla birlikte yaz"
         },
         "oop-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "init bloğu yaz: nesne oluşturulduğunda \"Yaradildi\" yazdırılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    Istifadeci(\"Aysel\")\n}\n\n// init bloklu sınıf yaz"
         },
         "oop-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Varsayılan parametreli yapıcı yaz: argümansız nesne \"Qonaq\" adıyla oluşsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Istifadeci().ad)\n}\n\n// varsayılan parametreli sınıf yaz"
         },
         "oop-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Hesaplanan özellik yaz: tamAd adı ve soyadı birleştirsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Profil(\"Aysel\", \"Memmedova\").tamAd)\n}\n\n// hesaplanan özellikli sınıf yaz"
         },
         "oop-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İki nesne oluştur ve FARKLI olduklarını göster (sıradan sınıfta == referans karşılaştırmasıdır).",
+          "ipucu": "println(A(1) == A(1)) — sıradan sınıfta equals override edilmemiştir.",
+          "starter": "class A(val x: Int)\n\nfun main() {\n    // iki nesne oluştur ve == sonucunu yazdır\n}"
         },
         "oop-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Gövdesiz bir sınıf bildir, nesne oluşturup \"yarandi\" yazdır.",
+          "ipucu": "class Bos — parantez gerekmez.",
+          "starter": "fun main() {\n    Bos()\n    println(\"yarandi\")\n}\n\n// gövdesiz sınıf bildir"
         },
         "oop-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Özel setter yaz: negatif değer 0'a çevrilsin. -7 atayıp sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Hesab {\n    var balans: Int = 0\n        // özel setter yaz\n}\n\nfun main() {\n    val h = Hesab()\n    h.balans = -7\n    println(h.balans)\n}"
         },
         "oop-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "private set kullan: status dışarıdan okunsun ama değiştirilmesin. Metotla değiştirip yazdır.",
+          "ipucu": "Sadece private set satırını ekle.",
+          "starter": "class Servis {\n    var status: String = \"dayanib\"\n        // private set ekle\n\n    fun basla() {\n        status = \"isleyir\"\n    }\n}\n\nfun main() {\n    val s = Servis()\n    s.basla()\n    println(s.status)\n}"
         },
         "oop-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "İkincil yapıcı yaz: argümansız çağrıda ad \"Qonaq\" olsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    // ikincil yapıcı yaz\n}\n\nfun main() {\n    println(Istifadeci().ad)\n}"
         },
         "oop-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "init bloğunda require() kullan: boş ad için istisna fırlatılsın, onu yakalayıp mesajı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    init {\n        // require çağrısını ekle\n    }\n}\n\nfun main() {\n    try {\n        Istifadeci(\"\")\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}"
         },
         "oop-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "nested sınıf oluştur ve dış nesne olmadan çağır.",
+          "ipucu": "class Daxili { fun ad() = \"nested\" } — inner KULLANMA.",
+          "starter": "class Xarici {\n    // nested sınıf yaz\n}\n\nfun main() {\n    println(Xarici.Daxili().ad())\n}"
         },
         "oop-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "inner sınıf oluştur: dış sınıfın özelliğine erişsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Xarici {\n    private val deyer = 10\n    // inner sınıf yaz\n}\n\nfun main() {\n    println(Xarici().Daxili().al())\n}"
         },
         "oop-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Yapıcı parametresini özellik atamasında kullan: adı büyük harflerle sakla.",
+          "ipucu": "val boyukAd = ad.uppercase() — val yazılmasa da parametre burada erişilebilir.",
+          "starter": "class Profil(ad: String) {\n    // boyukAd özelliğini yaz\n}\n\nfun main() {\n    println(Profil(\"aysel\").boyukAd)\n}"
         },
         "oop-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Durumu değiştiren bir metot yaz: medaxil() bakiyeyi artırsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Hesab(var balans: Int) {\n    // medaxil metodunu ekle\n}\n\nfun main() {\n    val h = Hesab(100)\n    h.medaxil(50)\n    println(h.balans)\n}"
         },
         "oop-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "toString()'i override et: nesne yazdırıldığında \"Istifadeci: Aysel\" görünsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    // toString'i override et\n}\n\nfun main() {\n    println(Istifadeci(\"Aysel\"))\n}"
         },
         "oop-p-19": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "private bir özellik oluştur: dışarıdan görünmesin, yalnızca bir metot aracılığıyla okunsun.",
+          "ipucu": "private val kod = 42 ve fun goster() = kod",
+          "starter": "class Sirr {\n    // private özellik ve onu döndüren metot yaz\n}\n\nfun main() {\n    println(Sirr().goster())\n}"
         },
         "oop-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Başlatma sırasını göster: özellik, init, özellik — üç satır yazdırılsın.",
+          "ipucu": "init { println(\"ikinci\") } — bloklar yazıldıkları sırayla çalışır.",
+          "starter": "class A {\n    val x = \"birinci\".also { println(it) }\n    // init bloğu yaz\n    val y = \"ucuncu\".also { println(it) }\n}\n\nfun main() {\n    A()\n}"
         },
         "oop-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "this@Xarici kullan: inner sınıftan dış sınıfın özelliğine açıkça eriş.",
+          "ipucu": "println(ad) ve println(this@Xarici.ad)",
+          "starter": "class Xarici {\n    val ad = \"xarici\"\n    inner class Daxili {\n        val ad = \"daxili\"\n        fun cap() {\n            // ikisini de yazdır\n        }\n    }\n}\n\nfun main() {\n    Xarici().Daxili().cap()\n}"
         },
         "oop-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "private yapıcı + fabrika metodu yaz: nesne yalnızca yarat() ile oluşturulsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci private constructor(val ad: String) {\n    companion object {\n        // fabrika metodunu yaz\n    }\n}\n\nfun main() {\n    println(Istifadeci.yarat(\"Aysel\").ad)\n}"
         },
         "oop-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "equals()'ı override et: iki nesne x değerine göre eşit sayılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class A(val x: Int) {\n    // equals ve hashCode'u override et\n}\n\nfun main() {\n    println(A(1) == A(1))\n}"
         },
         "oop-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İki init bloğu yaz ve ikisinin de çalıştığını göster.",
+          "ipucu": "init { println(\"bir\") } ve init { println(\"iki\") } — sırayla çalışırlar.",
+          "starter": "class A {\n    // iki init bloğu yaz\n}\n\nfun main() {\n    A()\n}"
         },
         "oop-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Hesaplanan özelliğin her seferinde yeniden hesaplandığını göster: sayacı iki erişimden sonra yazdır.",
+          "ipucu": "get() { say++; return say } — getter her erişimde çalışır.",
+          "starter": "class A {\n    var say = 0\n    val deyer: Int\n        get() {\n            // sayacı artır ve döndür\n        }\n}\n\nfun main() {\n    val a = A()\n    a.deyer\n    a.deyer\n    println(a.say)\n}"
         }
       }
     },
     "miras": {
-      "title": "",
+      "title": "Kalıtım ve arayüzler",
       "nezeri": {
         "miras-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de sınıflar varsayılan olarak nasıldır?",
+          "opts": [
+            "open — kalıtıma açık",
+            "final — kalıtıma kapalı",
+            "abstract",
+            "internal"
+          ],
+          "exp": "Tüm sınıflar varsayılan olarak final'dır. Bu, «kalıtım için tasarla ya da yasakla» ilkesinin dile işlenmiş hâlidir."
         },
         "miras-n-02": {
-          "q": "",
+          "q": "Kalıtıma izin vermek için hangi anahtar kelime yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "open class Heyvan — ancak bundan sonra sınıftan kalıtım alınabilir. Metot ve özellikler de ayrıca open olarak bildirilmelidir."
         },
         "miras-n-03": {
-          "q": "",
+          "q": "Kalıtım sözdizimi nasıldır?",
           "opts": [],
-          "exp": ""
+          "exp": "İki nokta kullanılır ve üst sınıfın yapıcısı çağrılır: class It(ad: String) : Heyvan(ad)."
         },
         "miras-n-04": {
-          "q": "",
+          "q": "Bir metodu override etmek için ne yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de override bir anotasyon değil, bir anahtar kelimedir ve ZORUNLUDUR. Bu, kazara override etmeyi önler."
         },
         "miras-n-05": {
-          "q": "",
+          "q": "Üst sınıfın metodunu çağırmak için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "super.metod() üst sınıfın uygulamasını çağırır. Birden fazla arayüz olduğunda super<Arayuz>.metod() biçimi kullanılır."
         },
         "miras-n-06": {
-          "q": "",
+          "q": "Arayüz nasıl bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "interface anahtar kelimesiyle. Arayüzde soyut metotlar, varsayılan gövdeli metotlar ve soyut özellikler olabilir."
         },
         "miras-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir sınıf kaç arayüzden kalıtım alabilir?",
+          "opts": [
+            "1",
+            "2",
+            "İstenildiği kadar",
+            "Hiçbirinden"
+          ],
+          "exp": "Bir sınıf YALNIZCA BİR sınıftan, ama istenen sayıda arayüzden kalıtım alabilir: class Ordek : Heyvan(), Ucan, Uzen."
         },
         "miras-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Soyut metot nedir?",
+          "opts": [
+            "Gövdesi olmayan metot — alt sınıflar onu uygulamalıdır",
+            "private metot",
+            "Statik metot",
+            "Hızlı metot"
+          ],
+          "exp": "abstract fun sahe(): Double — gövdesi yoktur. Soyut üyeleri olan bir sınıfın kendisi de abstract olarak bildirilmelidir."
         },
         "miras-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Soyut bir sınıftan nesne oluşturulabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — yalnızca alt sınıflarından",
+            "Yalnızca companion ile",
+            "Yalnızca Java'da"
+          ],
+          "exp": "Soyut sınıf eksiktir — soyut üyelerinin uygulaması yoktur. Nesne yalnızca onu tamamlayan bir alt sınıftan oluşturulabilir."
         },
         "miras-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Arayüz durum (state) tutabilir mi?",
+          "opts": [
+            "Evet, sıradan alanlar",
+            "Hayır — backing field olamaz, yalnızca soyut veya hesaplanan özellik",
+            "Yalnızca val",
+            "Yalnızca private"
+          ],
+          "exp": "Arayüzde val ad: String yazılabilir ama ona değer verilemez — soyuttur. Hesaplanan özellik (get() ile) ise mümkündür."
         },
         "miras-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İki arayüzde aynı adlı varsayılan metot varsa ne yapılmalıdır?",
+          "opts": [
+            "Hiçbir şey",
+            "Sınıfta override edip super<Arayuz>.metod() ile çözmek",
+            "Birini silmek",
+            "Derleme hatası, çözüm yok"
+          ],
+          "exp": "Derleyici çakışmanın çözülmesini ister. override fun f() { super<A>.f(); super<B>.f() } biçiminde hangi uygulamanın çalışacağını kendin seçersin."
         },
         "miras-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir özelliği override etmek için üst sınıfta ne gerekir?",
+          "opts": [
+            "Hiçbir şey",
+            "open val / open var",
+            "private",
+            "const"
+          ],
+          "exp": "Metotlar gibi özellikler de varsayılan olarak final'dır. Override için üst sınıfta open olarak bildirilmelidir."
         },
         "miras-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "val özelliği var olarak override edilebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — val, var olarak override edilebilir, tersi olmaz",
+            "Yalnızca arayüzde",
+            "Hiçbir zaman"
+          ],
+          "exp": "val yalnızca getter ister; var ise hem getter hem setter verir — yani sözleşmeyi genişletir. Ters yönde geçiş sözleşmeyi bozardı, bu yüzden yasaktır."
         },
         "miras-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "A",
+            "B",
+            "Önce A, sonra B",
+            "Önce B, sonra A"
+          ],
+          "exp": "super.f() önce üst sınıfın uygulamasını çalıştırır (\"A\"), ardından kendi kodu çalışır (\"B\")."
         },
         "miras-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Soyut sınıf ile arayüz arasında hangi fark VARDIR?",
+          "opts": [
+            "Soyut sınıfın yapıcısı vardır, arayüzün yoktur",
+            "İkisi de aynıdır",
+            "Arayüz daha hızlıdır",
+            "Soyut sınıfta varsayılan metot olamaz"
+          ],
+          "exp": "Soyut sınıf durum tutabilir ve yapıcıya sahip olabilir. Arayüz ise yalnızca bir sözleşme tanımlar — yapıcısı ve backing field'ı yoktur."
         },
         "miras-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "by anahtar kelimesi sınıf düzeyinde ne yapar?",
+          "opts": [
+            "Özellik delegasyonu",
+            "Arayüz uygulamasını başka bir nesneye devreder",
+            "Türü dönüştürür",
+            "Kalıtım alır"
+          ],
+          "exp": "class Loglayan(d: Cap) : Cap by d — tüm Cap metotları otomatik olarak d nesnesine aktarılır. Yalnızca gerekeni override etmek yeterlidir."
         },
         "miras-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Çok biçimlilik (polimorfizm) nedir?",
+          "opts": [
+            "Çok sayıda sınıf oluşturmak",
+            "Üst türdeki bir değişkenin alt sınıf nesnesi tutması ve gerçek türün metodunun çalışması",
+            "Türü değiştirmek",
+            "Arayüz oluşturmak"
+          ],
+          "exp": "val h: Heyvan = It() — h.sesCixar() çağrısında It sınıfının uygulaması çalışır. Bu, dinamik (sanal) çözümlemedir."
         },
         "miras-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonları çok biçimli midir?",
+          "opts": [
+            "Evet",
+            "Hayır — statik olarak çözümlenir, bildirilen türe göre seçilir",
+            "Yalnızca open olduğunda",
+            "Yalnızca arayüzlerde"
+          ],
+          "exp": "Uzantılar sınıfa eklenmez, statik bir fonksiyona dönüştürülür. Bu yüzden hangi fonksiyonun çalışacağı değişkenin BİLDİRİLEN türüne göre belirlenir."
         },
         "miras-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Üst sınıfın yapıcısında çağrılan open metot neden tehlikelidir?",
+          "opts": [
+            "Yavaş çalışır",
+            "Alt sınıfın özellikleri henüz başlatılmamıştır — override edilen metot eksik bir nesneyle çalışır",
+            "Derleme hatası verir",
+            "Tehlikeli değil"
+          ],
+          "exp": "Üst yapıcı alt sınıfın özelliklerinden önce çalışır. Override edilen metot bu özelliklere erişirse, onlar hâlâ null veya 0 olur."
         },
         "miras-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Arayüzde hesaplanan özellik yazılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — getter sağlanabilir, backing field ise olamaz",
+            "Yalnızca var ile",
+            "Yalnızca abstract ile"
+          ],
+          "exp": "Getter arayüzde varsayılan uygulama sayılır. Backing field ise durum demektir ve arayüzde yasaktır."
         },
         "miras-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sealed bir sınıftan başka bir modülde kalıtım alınabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — alt sınıflar aynı modülde olmalıdır",
+            "Yalnızca open ile",
+            "Yalnızca arayüz için"
+          ],
+          "exp": "Tam da bu kısıtlama derleyicinin tüm alt sınıfları tanımasını sağlar ve when'i exhaustive yapar."
         },
         "miras-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kompozisyon neden kalıtımdan üstün sayılır?",
+          "opts": [
+            "Daha hızlıdır",
+            "Daha esnektir — sınıf hiyerarşisine bağlanmaz, davranış çalışma zamanında değiştirilebilir",
+            "Daha az bellek tutar",
+            "Fark yok"
+          ],
+          "exp": "Kalıtım güçlü bir bağımlılık oluşturur ve üst sınıftaki bir değişiklik tüm alt sınıfları bozabilir. Kompozisyon (Kotlin'de by ile kolaylaşır) daha gevşek bağlı ve daha test edilebilir bir tasarım sağlar."
         },
         "miras-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "Ovlad",
+            "Ana",
+            "Derleme hatası",
+            "null"
+          ],
+          "exp": "Uzantılar statik olarak çözümlenir. Değişken Ana türüyle bildirilmiştir, bu yüzden Ana.tesvir() seçilir — gerçek tür dikkate alınmaz."
         },
         "miras-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Override edilmiş bir üyeyi sonraki alt sınıflarda kapatmak için ne yazılır?",
+          "opts": [
+            "final override",
+            "close override",
+            "sealed override",
+            "Mümkün değil"
+          ],
+          "exp": "final override fun f() — bu metot bu sınıftan sonra artık override edilemez. Override edilmiş üye varsayılan olarak open kalır."
         },
         "miras-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Arayüz delegasyonunda override edilen metot delegeye aktarılır mı?",
+          "opts": [
+            "Evet, ikisi de çalışır",
+            "Hayır — override edilen metot delegenin yerini alır",
+            "Derleme hatası",
+            "Rastgele"
+          ],
+          "exp": "Kendi uygulaman varsa o önceliklidir. Delege yalnızca override edilmemiş üyeler için çalışır."
         }
       },
       "praktiki": {
         "miras-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "open bir sınıf oluştur ve ondan kalıtım alan bir sınıf yap. Alt sınıfın metodunu çağır.",
+          "ipucu": "open class Heyvan { open fun sesCixar() = println(\"ses\") } ardından class It : Heyvan()",
+          "starter": "fun main() {\n    It().sesCixar()\n}\n\n// open Heyvan sınıfını ve It alt sınıfını yaz"
         },
         "miras-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Üst sınıfın yapıcısına değer aktar: alt sınıf adı üst sınıfa versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan(val ad: String)\n\n// It alt sınıfını yaz\n\nfun main() {\n    println(It(\"Reks\").ad)\n}"
         },
         "miras-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "super kullan: alt sınıf üst sınıfın metodunu çağırıp sonra kendi mesajını yazsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class A {\n    open fun f() = println(\"A\")\n}\n\nclass B : A() {\n    // override et ve super'i çağır\n}\n\nfun main() { B().f() }"
         },
         "miras-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir arayüz oluştur ve onu uygula.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan {\n    fun uc()\n}\n\n// Ordek sınıfını yaz\n\nfun main() {\n    Ordek().uc()\n}"
         },
         "miras-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Arayüzde varsayılan gövdeli bir metot yaz ve onu override ETMEDEN çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan {\n    // varsayılan gövdeli metot yaz\n}\n\nclass Ordek : Ucan\n\nfun main() {\n    Ordek().hereket()\n}"
         },
         "miras-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Soyut bir sınıf oluştur: sahe() soyut olsun, alt sınıf onu uygulasın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "abstract class Fiqur {\n    abstract fun sahe(): Int\n}\n\n// Kvadrat alt sınıfını yaz\n\nfun main() {\n    println(Kvadrat(5).sahe())\n}"
         },
         "miras-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "İki arayüzü aynı anda uygula.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan { fun uc() }\ninterface Uzen { fun uz() }\n\n// Ordek sınıfını yaz\n\nfun main() {\n    val o = Ordek()\n    o.uc()\n    o.uz()\n}"
         },
         "miras-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Özelliği override et: üst sınıfta open val olsun, alt sınıf onu değiştirsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan {\n    open val ayaqSayi = 4\n}\n\n// Qus alt sınıfını yaz (2 ayak)\n\nfun main() {\n    println(Qus().ayaqSayi)\n}"
         },
         "miras-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Çok biçimliliği göster: Heyvan türündeki bir değişkende It nesnesi tut ve metodunu çağır.",
+          "ipucu": "val h: Heyvan = It() — gerçek türün metodu çalışır.",
+          "starter": "open class Heyvan {\n    open fun ses() = println(\"ses\")\n}\nclass It : Heyvan() {\n    override fun ses() = println(\"hav\")\n}\n\nfun main() {\n    // Heyvan türündeki değişkende It tut ve ses() çağır\n}"
         },
         "miras-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Çok biçimliliği bir listeyle göster: farklı hayvanları gezip seslerini yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan { open fun ses() = println(\"ses\") }\nclass It : Heyvan() { override fun ses() = println(\"hav\") }\nclass Pisik : Heyvan() { override fun ses() = println(\"miyav\") }\n\nfun main() {\n    // liste oluştur ve gez\n}"
         },
         "miras-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "İki arayüzdeki aynı adlı varsayılan metot çakışmasını çöz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface A { fun f() = println(\"A\") }\ninterface B { fun f() = println(\"B\") }\n\nclass C : A, B {\n    // çakışmayı çöz - ikisini de çağır\n}\n\nfun main() { C().f() }"
         },
         "miras-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Arayüzde soyut bir özellik yaz ve alt sınıf ona değer versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan {\n    val maksHundurluk: Int\n}\n\n// Ordek sınıfını yaz (1000)\n\nfun main() {\n    println(Ordek().maksHundurluk)\n}"
         },
         "miras-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Arayüzde hesaplanan bir özellik yaz (varsayılan getter) ve override etmeden kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface A {\n    // hesaplanan özellik yaz\n}\n\nclass B : A\n\nfun main() {\n    println(B().ad)\n}"
         },
         "miras-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Soyut sınıfta hem soyut hem de sıradan bir metot yaz. Alt sınıfta yalnızca soyut olanı uygula.",
           "ipucu": "",
-          "starter": ""
+          "starter": "abstract class Fiqur(val ad: String) {\n    abstract fun sahe(): Int\n    fun cap() = println(\"$ad: ${sahe()}\")\n}\n\n// Kvadrat alt sınıfını yaz\n\nfun main() {\n    Kvadrat(4).cap()\n}"
         },
         "miras-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Arayüz delegasyonu (by) kullan: tüm metotlar içteki nesneye aktarılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Cap { fun cap() }\nclass CapImpl : Cap {\n    override fun cap() = println(\"impl\")\n}\n\n// by ile delege sınıf yaz\n\nfun main() {\n    Delegat(CapImpl()).cap()\n}"
         },
         "miras-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Delegasyonda bir metodu override et: kendi uygulaman çalışsın.",
+          "ipucu": "override fun cap() = println(\"oz\") — kendi uygulaman delegenin yerini alır.",
+          "starter": "interface Cap { fun cap() }\nclass CapImpl : Cap { override fun cap() = println(\"impl\") }\n\nclass Delegat(c: Cap) : Cap by c {\n    // cap() metodunu burada override et\n}\n\nfun main() {\n    Delegat(CapImpl()).cap()\n}"
         },
         "miras-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "is operatörüyle gerçek türü kontrol et: listede yalnızca It nesnelerini say ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan\nclass It : Heyvan()\nclass Pisik : Heyvan()\n\nfun main() {\n    val s = listOf(It(), Pisik(), It())\n    // It olanları say\n}"
         },
         "miras-p-18": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "val özelliği var olarak override et.",
+          "ipucu": "override var deyer: Int = 1 — val, var olarak override edilebilir.",
+          "starter": "open class A {\n    open val deyer: Int = 1\n}\n\nclass B : A() {\n    // var olarak override et\n}\n\nfun main() {\n    val b = B()\n    b.deyer = 9\n    println(b.deyer)\n}"
         },
         "miras-p-19": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Üç seviyeli kalıtım kur: A → B → C, her biri kendi mesajını eklesin.",
+          "ipucu": "Her seviyede super.f() çağır, sonra kendi mesajını yaz.",
+          "starter": "// A, B, C sınıflarını yaz\n\nfun main() { C().f() }"
         },
         "miras-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "final override kullan: B'de metodu kapat ki C onu override edemesin (kod derlensin).",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class A { open fun f() = println(\"A\") }\n\nopen class B : A() {\n    // final override ekle\n}\n\nclass C : B()\n\nfun main() { C().f() }"
         },
         "miras-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Uzantıların statik olarak çözümlendiğini göster: Ana türündeki değişkende Ovlad tut.",
+          "ipucu": "Uzantı bildirilen türe göre seçilir — gerçek tür dikkate alınmaz.",
+          "starter": "open class Ana\nclass Ovlad : Ana()\n\nfun Ana.tesvir() = \"Ana\"\nfun Ovlad.tesvir() = \"Ovlad\"\n\nfun main() {\n    // Ana türündeki değişkende Ovlad tut ve tesvir() sonucunu yazdır\n}"
         },
         "miras-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Üye metodun çok biçimli olduğunu göster: aynı senaryoyu üye metotla tekrarla.",
+          "ipucu": "Üye metotlar sanal olarak çözümlenir — gerçek türün uygulaması çalışır.",
+          "starter": "open class Ana {\n    // open tesvir() metodu \"Ana\" döndürsün\n}\nclass Ovlad : Ana() {\n    // override edip \"Ovlad\" döndür\n}\n\nfun main() {\n    val o: Ana = Ovlad()\n    println(o.tesvir())\n}"
         },
         "miras-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "MutableList'e delege et: eklemeyi loglayan bir liste yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class LoglayanSiyahi<T>(\n    private val daxili: MutableList<T> = mutableListOf()\n) : MutableList<T> by daxili {\n    // add metodunu override et - \"elave: X\" yazdırsın\n}\n\nfun main() {\n    val s = LoglayanSiyahi<String>()\n    s.add(\"Kotlin\")\n    println(s.size)\n}"
         },
         "miras-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Soyut sınıfta template method kalıbını kur: adımların sırası üst sınıfta, ayrıntılar alt sınıfta olsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "abstract class Emal {\n    fun isle() {\n        println(\"basladi\")\n        addim()\n        println(\"bitdi\")\n    }\n    protected abstract fun addim()\n}\n\n// alt sınıfı yaz\n\nfun main() { MenimEmal().isle() }"
         },
         "miras-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Any'den gelen toString'i override et ve çok biçimli çağrıda çalıştığını göster.",
+          "ipucu": "override fun toString() = \"It\" — toString sanal bir metottur.",
+          "starter": "open class Heyvan {\n    override fun toString() = \"Heyvan\"\n}\nclass It : Heyvan() {\n    // toString'i override et\n}\n\nfun main() {\n    val h: Heyvan = It()\n    println(h)\n}"
         }
       }
     },
@@ -3590,256 +3790,376 @@
       "title": "",
       "nezeri": {
         "xususi-sinifler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "data class hangi fonksiyonları otomatik oluşturur?",
+          "opts": [
+            "Yalnızca toString()",
+            "equals(), hashCode(), toString(), copy(), componentN()",
+            "Yalnızca yapıcı",
+            "Hiçbir şey"
+          ],
+          "exp": "Bu beş fonksiyon grubu birincil yapıcıdaki özelliklere göre oluşturulur. Java'da aynı iş 50+ satır gerektirir."
         },
         "xususi-sinifler-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "data class'ın birincil yapıcısında en az kaç parametre olmalıdır?",
+          "opts": [
+            "0",
+            "1",
+            "2",
+            "Farketmez"
+          ],
+          "exp": "En az bir parametre olmalı ve hepsi val/var ile işaretlenmelidir — aksi hâlde oluşturulan fonksiyonların dayanacağı veri olmaz."
         },
         "xususi-sinifler-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "copy() ne yapar?",
+          "opts": [
+            "Nesneyi siler",
+            "Bazı alanları değiştirip yeni bir kopya oluşturur",
+            "Referansı kopyalar",
+            "Nesneyi yazdırır"
+          ],
+          "exp": "a.copy(yas = 25) — kalan alanlar orijinalden alınır. Değişmez (immutable) nesnelerle çalışmanın temel yoludur."
         },
         "xususi-sinifler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "enum class ne içindir?",
+          "opts": [
+            "Sayılar için",
+            "Sabit, sınırlı bir küme için — durum, renk, gün",
+            "Listeler için",
+            "Metinler için"
+          ],
+          "exp": "Olası değerler önceden bilinen ve sınırlı ise enum kullanılır. Bu, metin sabitlerinden kat kat daha güvenlidir."
         },
         "xususi-sinifler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "object anahtar kelimesi ne oluşturur?",
+          "opts": [
+            "Sıradan bir sınıf",
+            "Singleton — tek örneği olan nesne",
+            "Arayüz",
+            "Dizi"
+          ],
+          "exp": "object Konfiq { } — dilde hazır singleton. Thread-safe ve tembeldir; ayrıca örnek oluşturmaya gerek yoktur."
         },
         "xususi-sinifler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "companion object neyin karşılığıdır?",
+          "opts": [
+            "Yapıcının",
+            "Java'daki static üyelerin",
+            "Arayüzün",
+            "Döngünün"
+          ],
+          "exp": "Sınıfa bağlı olan ama örnekten bağımsız üyeler companion object içine yazılır: sabitler, fabrika metotları."
         },
         "xususi-sinifler-n-07": {
-          "q": "",
+          "q": "enum sabitinin adını almak için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Reng.QIRMIZI.name → \"QIRMIZI\". Sıra numarası için ordinal özelliği vardır (0'dan başlar)."
         },
         "xususi-sinifler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "U@1a2b3c",
+            "U(ad=Aysel, yas=24)",
+            "Aysel 24",
+            "Derleme hatası"
+          ],
+          "exp": "data class otomatik olarak toString() oluşturur ve bu, sınıf adıyla birlikte tüm özellikleri gösterir."
         },
         "xususi-sinifler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Aynı değerlere sahip iki data class nesnesi == karşılaştırmasında ne verir?",
+          "opts": [
+            "false",
+            "true — equals içeriğe göre çalışır",
+            "Derleme hatası",
+            "null"
+          ],
+          "exp": "data class equals()'ı özelliklere göre oluşturur. Sıradan sınıfta ise referans karşılaştırması yapılır ve false elde edilirdi."
         },
         "xususi-sinifler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "data class'ta GÖVDEDE bildirilen özellik equals'a dahil edilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — yalnızca birincil yapıcıdaki özellikler dikkate alınır",
+            "Yalnızca val olduğunda",
+            "Duruma bağlı"
+          ],
+          "exp": "Bu, gizli bir hata kaynağıdır. Gövdedeki özellik farklı olsa bile iki nesne eşit sayılabilir. Eşitliği etkilemesi gereken alanlar birincil yapıcıda olmalıdır."
         },
         "xususi-sinifler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sealed class'ın temel avantajı nedir?",
+          "opts": [
+            "Hız",
+            "Tüm alt sınıflar bilinir — when exhaustive olur, else gerekmez",
+            "Az bellek",
+            "Otomatik JSON"
+          ],
+          "exp": "Yeni bir alt sınıf eklediğinde onu işlemeyen tüm when blokları derleme hatası verir. Bu, hiçbir durumun unutulmamasını garanti eder."
         },
         "xususi-sinifler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "enum sabitlerine özellik eklenebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — yapıcı aracılığıyla",
+            "Yalnızca String olabilir",
+            "Yalnızca companion ile"
+          ],
+          "exp": "Enum bir yapıcıya sahip olabilir ve her sabit ona kendi değerini aktarır. Metotlar da eklenebilir."
         },
         "xususi-sinifler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "entries ile values() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "entries daha moderndir ve her çağrıda yeni dizi oluşturmaz",
+            "values() daha hızlıdır",
+            "entries yalnızca Java'da var"
+          ],
+          "exp": "values() her çağrıda yeni bir dizi döndürür. entries ise değişmez bir listedir ve Kotlin 1.9'dan beri önerilen biçimdir."
         },
         "xususi-sinifler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "object içindeki init bloğu kaç kez çalışır?",
+          "opts": [
+            "Her erişimde",
+            "Bir kez — ilk erişimde",
+            "Hiçbir zaman",
+            "İki kez"
+          ],
+          "exp": "Singleton tembel oluşturulur: ilk erişimde başlatılır ve bir daha tekrarlanmaz."
         },
         "xususi-sinifler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yapı çözümleme data class'ta nasıl çalışır?",
+          "opts": [
+            "Özel kod gerekir",
+            "componentN() fonksiyonları sayesinde otomatik çalışır",
+            "Yalnızca Pair ile",
+            "Çalışmaz"
+          ],
+          "exp": "data class component1(), component2()... oluşturur. Yapı çözümleme tam olarak bu fonksiyonları çağırır — sıra yapıcıdaki gibidir."
         },
         "xususi-sinifler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "false",
+            "true — b gövdededir, equals'a dahil değildir",
+            "Derleme hatası",
+            "null"
+          ],
+          "exp": "equals yalnızca birincil yapıcıdaki a özelliğini karşılaştırır. b farklı olsa da nesneler eşit sayılır — bu, pratikte sık sık hataya yol açar."
         },
         "xususi-sinifler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sealed interface ile sealed class arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "sealed interface daha esnektir — alt tür başka bir hiyerarşiye de dahil olabilir",
+            "sealed class daha hızlıdır",
+            "sealed interface yoktur"
+          ],
+          "exp": "Bir sınıf yalnızca bir üst sınıftan, arayüzlerden ise birçoğundan kalıtım alabilir. Bu yüzden sealed interface daha az kısıtlama getirir."
         },
         "xususi-sinifler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "value class ne içindir?",
+          "opts": [
+            "Hız için",
+            "Tür güvenliği için — çalışma zamanında nesne oluşturulmaz",
+            "Bellek için",
+            "Kalıtım için"
+          ],
+          "exp": "@JvmInline value class Email(val deyer: String) — derleyici onu sıradan bir String gibi tutar, ama tür sistemi Email ile String'in karıştırılmasına izin vermez."
         },
         "xususi-sinifler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "data object ne zaman kullanılır?",
+          "opts": [
+            "Hiçbir zaman",
+            "Durumu olmayan sealed alt türler için — doğru toString ve equals verir",
+            "Yalnızca Java ile",
+            "Diziler için"
+          ],
+          "exp": "Sıradan object'in toString'i okunaksızdır. data object açık bir ad yazdırır ve singleton olduğu için equals de doğru çalışır."
         },
         "xususi-sinifler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Anonim nesne (object : Arayuz) nedir?",
+          "opts": [
+            "Yeni bir sınıf",
+            "Java'daki anonim sınıfın karşılığı — tek seferlik bir uygulama",
+            "Singleton",
+            "Dizi"
+          ],
+          "exp": "object : Dinleyici { override fun ... } — adı olmayan, yerinde oluşturulan bir nesne. Callback'ler için elverişlidir."
         },
         "xususi-sinifler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "companion object üyesini Java'dan doğrudan static olarak çağırmak için ne gerekir?",
+          "opts": [
+            "Hiçbir şey",
+            "@JvmStatic anotasyonu",
+            "@JvmField",
+            "const"
+          ],
+          "exp": "@JvmStatic olmadan Java'da Sinif.Companion.metod() yazmak gerekir. Anotasyonla Sinif.metod() mümkün olur."
         },
         "xususi-sinifler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "enum'da her sabit için farklı davranış nasıl yazılır?",
+          "opts": [
+            "Mümkün değil",
+            "Her sabitin kendi gövdesinde soyut metodu override ederek",
+            "when ile",
+            "Arayüz ile"
+          ],
+          "exp": "enum'da abstract fun emr() bildirilir ve her sabit onu kendi süslü parantezinde uygular. Bu, «durum kalıbının» (state pattern) kısa bir biçimidir."
         },
         "xususi-sinifler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sealed hiyerarşide when'de else yazmak neden kötüdür?",
+          "opts": [
+            "Kötü değil",
+            "Yeni bir alt tür eklendiğinde derleyici uyarmaz — else onu yutar",
+            "Yavaş çalışır",
+            "Derleme hatası verir"
+          ],
+          "exp": "sealed'ın asıl faydası tam da derleyici kontrolüdür. else yazarsan yeni durum sessizce else dalına düşer ve hata çalışma zamanına kadar gizli kalır."
         },
         "xususi-sinifler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jenerik sealed class'ta out ne için kullanılır?",
+          "opts": [
+            "Hız için",
+            "Netice<It> türünü Netice<Heyvan> bekleyen yere vermek için (kovaryans)",
+            "Bellek için",
+            "Hiçbir şey için"
+          ],
+          "exp": "out T, türün yalnızca çıkışta kullanıldığını belirtir. Bu, Netice<Nothing> gibi durumsuz alt türlerin her yerde kullanılmasını mümkün kılar."
         },
         "xususi-sinifler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "data class'ın copy() metodu derin (deep) kopya oluşturur mu?",
+          "opts": [
+            "Evet",
+            "Hayır — sığ (shallow) kopyadır, iç nesneler paylaşılır",
+            "Yalnızca val ile",
+            "Duruma bağlı"
+          ],
+          "exp": "copy() yalnızca üst seviyeyi kopyalar. İç nesnelere aynı referanslar kalır — onlar değiştirilebilirse iki kopya da etkilenir."
         }
       },
       "praktiki": {
         "xususi-sinifler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir data class oluştur ve nesneyi yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Istifadeci(\"Aysel\", 24))\n}\n\n// data class'ı yaz"
         },
         "xususi-sinifler-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "data class'ta == karşılaştırmasını göster: aynı değerli iki nesne eşit olsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String)\n\nfun main() {\n    // iki nesne oluştur ve karşılaştır\n}"
         },
         "xususi-sinifler-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "copy() kullan: yalnızca yaşı değiştirip yeni bir nesne oluştur ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val a = U(\"Aysel\", 24)\n    // copy ile yaşı 25 yap\n}"
         },
         "xususi-sinifler-p-04": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Yapı çözümleme kullan: data class'ı iki değişkene ayır ve yazdır.",
+          "ipucu": "val (ad, yas) = u ardından println(\"$ad / $yas\")",
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val u = U(\"Aysel\", 24)\n    // yapı çözümleme yaz\n}"
         },
         "xususi-sinifler-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir enum oluştur ve bir sabitin adını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Status.AKTIV.name)\n}\n\n// enum'u yaz"
         },
         "xususi-sinifler-p-06": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "enum sabitinin sıra numarasını (ordinal) yazdır.",
+          "ipucu": "println(Status.PASSIV.ordinal) — 0'dan başlar.",
+          "starter": "enum class Status { AKTIV, PASSIV, SILINMIS }\n\nfun main() {\n    // PASSIV'in ordinal değerini yazdır\n}"
         },
         "xususi-sinifler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir object (singleton) oluştur ve özelliğini yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Konfiq.url)\n}\n\n// object'i yaz"
         },
         "xususi-sinifler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "companion object'te bir sabit oluştur ve sınıf adıyla çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Konfiq {\n    // companion object'i yaz\n}\n\nfun main() {\n    println(Konfiq.VERSIYA)\n}"
         },
         "xususi-sinifler-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "enum'un tüm sabitlerini liste olarak yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "enum class Reng { QIRMIZI, YASIL }\n\nfun main() {\n    // tüm sabitleri yazdır\n}"
         },
         "xususi-sinifler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Özellikli bir enum oluştur: her rengin bir kodu olsun ve birini yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Reng.QIRMIZI.kod)\n}\n\n// özellikli enum yaz"
         },
         "xususi-sinifler-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "enum ile when kullan: AKTIV için \"isleyir\" döndür, else YAZMA.",
+          "ipucu": "Tüm enum sabitleri sıralanmışsa else gerekmez.",
+          "starter": "enum class Status { AKTIV, PASSIV }\n\nfun main() {\n    val s = Status.AKTIV\n    val n = when (s) {\n        // tüm sabitleri sırala\n    }\n    println(n)\n}"
         },
         "xususi-sinifler-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "valueOf kullan: metinden enum sabiti al ve ordinal'ını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "enum class Status { AKTIV, PASSIV }\n\nfun main() {\n    // \"PASSIV\" metnini enum'a çevir\n}"
         },
         "xususi-sinifler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir sealed class oluştur ve when ile işle (else yazmadan).",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed class Netice {\n    data class Ugurlu(val data: String) : Netice()\n    data class Xeta(val kod: Int) : Netice()\n}\n\nfun main() {\n    val n: Netice = Netice.Xeta(404)\n    // when ile işle\n}"
         },
         "xususi-sinifler-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "data object kullan: durumsuz bir sealed alt türü oluştur ve yazdır.",
+          "ipucu": "data object Yuklenir : Veziyyet() — sıradan object okunaksız bir toString verirdi.",
+          "starter": "sealed class Veziyyet {\n    // data object Yuklenir'i yaz\n}\n\nfun main() {\n    println(Veziyyet.Yuklenir)\n}"
         },
         "xususi-sinifler-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "object'te init bloğunun bir kez çalıştığını göster: iki kez eriş.",
+          "ipucu": "init { println(\"yuklendi\") } — singleton yalnızca bir kez başlatılır.",
+          "starter": "object Konfiq {\n    val url = \"x\"\n    // init bloğu yaz\n}\n\nfun main() {\n    println(Konfiq.url)\n    println(Konfiq.url)\n}"
         },
         "xususi-sinifler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "companion object'te bir fabrika metodu yaz ve nesne oluştur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci private constructor(val ad: String) {\n    companion object {\n        // fabrika metodunu yaz\n    }\n}\n\nfun main() {\n    println(Istifadeci.yarat(\"Aysel\").ad)\n}"
         },
         "xususi-sinifler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Anonim bir nesne oluştur: arayüzü yerinde uygula.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Dinleyici {\n    fun bitdi(): String\n}\n\nfun main() {\n    val d = // anonim nesne yaz\n    println(d.bitdi())\n}"
         },
         "xususi-sinifler-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "data class'ı bir listede kullan: adlara göre sırala ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val s = listOf(U(\"Kamran\", 30), U(\"Aysel\", 24))\n    // ada göre sırala ve adları yazdır\n}"
         },
         "xususi-sinifler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir value class oluştur ve değerini yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Email(\"aysel@mail.az\").deyer)\n}\n\n// value class'ı yaz"
         },
         "xususi-sinifler-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "data class tuzağını göster: gövdedeki özellik equals'a dahil değildir — sonucu yazdır.",
+          "ipucu": "println(x == y) — b gövdede olduğu için equals'a dahil edilmez.",
+          "starter": "data class D(val a: Int) {\n    var b: Int = 0\n}\n\nfun main() {\n    val x = D(1).apply { b = 5 }\n    val y = D(1).apply { b = 9 }\n    // karşılaştırmayı yazdır\n}"
         },
         "xususi-sinifler-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "enum'da her sabit için farklı davranış yaz (soyut metot).",
           "ipucu": "",
-          "starter": ""
+          "starter": "enum class Isiq {\n    // QIRMIZI ve YASIL sabitleri, her biri emr()'i override etsin\n    ;\n    abstract fun emr(): String\n}\n\nfun main() {\n    println(Isiq.QIRMIZI.emr())\n}"
         },
         "xususi-sinifler-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "sealed interface kullan: üç durumu işleyen bir fonksiyon yaz ve birini çağır.",
+          "ipucu": "is Hadise.Klik -> \"Klik: ${h.x}\" ve Hadise.Geri -> \"Geri\"",
+          "starter": "sealed interface Hadise {\n    data class Klik(val x: Int) : Hadise\n    data object Geri : Hadise\n}\n\nfun idareEt(h: Hadise): String = when (h) {\n    // tüm durumları işle\n}\n\nfun main() {\n    println(idareEt(Hadise.Klik(5)))\n}"
         },
         "xususi-sinifler-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Jenerik bir sealed class yaz (out ile) ve başarılı durumu işle.",
+          "ipucu": "is Netice.Ugurlu -> println(n.data) ve Netice.Bos -> println(\"bos\")",
+          "starter": "sealed class Netice<out T> {\n    data class Ugurlu<T>(val data: T) : Netice<T>()\n    data object Bos : Netice<Nothing>()\n}\n\nfun main() {\n    val n: Netice<String> = Netice.Ugurlu(\"data\")\n    // when ile işle\n}"
         },
         "xususi-sinifler-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "copy()'nin sığ kopya olduğunu göster: iç liste paylaşılsın.",
+          "ipucu": "println(a.siyahi) — copy() iç nesneleri kopyalamaz, referans paylaşılır.",
+          "starter": "data class Q(val ad: String, val siyahi: MutableList<Int>)\n\nfun main() {\n    val a = Q(\"a\", mutableListOf(1))\n    val b = a.copy(ad = \"b\")\n    b.siyahi.add(2)\n    // a'nın listesini yazdır\n}"
         },
         "xususi-sinifler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "object'i arayüz uygulaması olarak kullan: singleton bir arayüzü gerçeklesin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Loglayan {\n    fun log(m: String)\n}\n\n// object olarak uygula\n\nfun main() {\n    KonsolLog.log(\"salam\")\n}"
         }
       }
     },
