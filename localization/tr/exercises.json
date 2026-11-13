@@ -7912,7 +7912,7 @@
         "android-p-01": {
           "tapsiriq": "UI durumunu sealed interface ile modelle ve yükleniyor durumunu yazdır.",
           "ipucu": "data object Yuklenir : EkranVeziyyeti — data object açık bir toString verir.",
-          "starter": "sealed interface EkranVeziyyeti {\n    // Yuklenir, Ugurlu(data), Xeta(mesaj) yaz\n}\n\nfun main() {\n    val v: EkranVeziyyeti = EkranVeziyyeti.Yuklenir\n    println(v)\n}"
+          "starter": "sealed interface EkranVeziyyeti {\n    // Yuklenir, Ugurlu(data), Xeta(mesaj) türlerini yaz\n}\n\nfun main() {\n    val v: EkranVeziyyeti = EkranVeziyyeti.Yuklenir\n    println(v)\n}"
         },
         "android-p-02": {
           "tapsiriq": "Durumu when ile işle: her durum için bir UI metni döndür.",
@@ -7972,7 +7972,7 @@
         "android-p-13": {
           "tapsiriq": "Dependency injection modelini kur: bağımlılığı yapıcıdan aktar.",
           "ipucu": "",
-          "starter": "interface Repo { fun al(): String }\n\nclass ViewModel(private val repo: Repo) {\n    // yukle() metodunu yaz\n}\n\nfun main() {\n    val saxta = object : Repo { override fun al() = \"test\" }\n    println(ViewModel(saxta).yukle())\n}"
+          "starter": "interface Repo { fun al(): String }\n\nclass ViewModel(private val repo: Repo) {\n    // yukle() metodunu ekle\n}\n\nfun main() {\n    val saxta = object : Repo { override fun al() = \"test\" }\n    println(ViewModel(saxta).yukle())\n}"
         },
         "android-p-14": {
           "tapsiriq": "Asenkron yükleme modelini kur: coroutine ile durumu değiştir.",
@@ -8040,513 +8040,718 @@
       "title": "",
       "nezeri": {
         "multiplatform-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin Multiplatform'un temel fikri nedir?",
+          "opts": [
+            "UI'ı her yerde aynı yapmak",
+            "İş mantığını bir kez yazıp arayüzü native tutmak",
+            "Java'nın yerini almak",
+            "Hızı artırmak"
+          ],
+          "exp": "KMP UI'ın yerini almaz. Ağ, veritabanı, doğrulama gibi mantık paylaşılır, ekranlar ise her platformda native kalır."
         },
         "multiplatform-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "commonMain klasörü ne içindir?",
+          "opts": [
+            "Android kodu",
+            "Tüm platformlar için ortak kod",
+            "iOS kodu",
+            "Test kodu"
+          ],
+          "exp": "Buraya platformdan bağımsız kod yazılır. Platforma özgü kısımlar androidMain, iosMain gibi klasörlere gider."
         },
         "multiplatform-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "expect anahtar kelimesi ne yapar?",
+          "opts": [
+            "Uygulama sağlar",
+            "Ortak kodda yalnızca imzayı bildirir",
+            "Hata fırlatır",
+            "Tür dönüştürür"
+          ],
+          "exp": "expect fun platformaAdi(): String — ortak kod bu fonksiyonun var olacağını bekler, her platform ise kendi actual sürümünü sağlar."
         },
         "multiplatform-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "actual anahtar kelimesi ne yapar?",
+          "opts": [
+            "Bildirir",
+            "Platforma özgü uygulamayı sağlar",
+            "Siler",
+            "Test eder"
+          ],
+          "exp": "Her hedef platform, expect bildirimine uygun bir actual uygulama sunmalıdır — yoksa derleme başarısız olur."
         },
         "multiplatform-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "KMP hangi platformları destekler?",
+          "opts": [
+            "Yalnızca Android",
+            "Android, iOS, masaüstü (JVM), web, native",
+            "Yalnızca JVM",
+            "Yalnızca iOS"
+          ],
+          "exp": "Kotlin/JVM, Kotlin/Native ve Kotlin/JS arka planda farklı hedefler için derleme yapar."
         },
         "multiplatform-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Compose Multiplatform ne yapar?",
+          "opts": [
+            "Yalnızca mantığı paylaşır",
+            "UI'ı da paylaşmaya olanak tanır",
+            "Test eder",
+            "Veritabanı kurar"
+          ],
+          "exp": "Sıradan KMP'de UI native kalır. Compose Multiplatform ise arayüzün kendisini de Android, iOS, masaüstü ve web arasında paylaşır."
         },
         "multiplatform-n-07": {
-          "q": "",
+          "q": "KMP'de ağ için genellikle hangi kütüphane kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Retrofit yalnızca JVM'dedir. Ktor Client ise çok platformludur ve her hedef için kendi motorunu kullanır."
         },
         "multiplatform-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "KMP'de veritabanı için ne kullanılır?",
+          "opts": [
+            "Room",
+            "SQLDelight",
+            "Yalnızca Realm",
+            "Hiçbir şey"
+          ],
+          "exp": "Room JVM/Android'e bağlıdır. SQLDelight, SQL'den çok platformlu Kotlin kodu üretir."
         },
         "multiplatform-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "KMP, React Native'den neyle ayrılır?",
+          "opts": [
+            "Ayrılmaz",
+            "UI'ın yerini almaz — native arayüz kalır",
+            "Daha yavaştır",
+            "Yalnızca Android içindir"
+          ],
+          "exp": "React Native UI'ı kendi bileşenleriyle kurar. KMP ise yalnızca mantığı paylaşır, ekranlar SwiftUI ve Compose ile native yazılır."
         },
         "multiplatform-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "expect/actual yerine hangi yaklaşım da kullanılabilir?",
+          "opts": [
+            "Hiçbiri",
+            "Arayüz + platforma özgü uygulama (dependency injection)",
+            "Yansıma",
+            "Anotasyon"
+          ],
+          "exp": "Ortak kodda bir arayüz bildirilir, her platform kendi sınıfını verir. Bu, expect/actual'dan daha esnektir ve test etmesi kolaydır."
         },
         "multiplatform-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Hangi kod paylaşmaya uygundur?",
+          "opts": [
+            "UI bileşenleri",
+            "İş mantığı, veri modelleri, doğrulama, ağ katmanı",
+            "Push bildirimleri",
+            "Kamera"
+          ],
+          "exp": "Platformdan bağımsız her şey paylaşılabilir. Derin OS entegrasyonu ise native kalmalıdır."
         },
         "multiplatform-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Hangi kod native tutulmalıdır?",
+          "opts": [
+            "Veri modelleri",
+            "İzinler, kamera, push bildirimleri, ödeme entegrasyonları",
+            "Doğrulama",
+            "Ağ"
+          ],
+          "exp": "Bu alanlar platform API'lerine sıkı sıkıya bağlıdır ve paylaşmaya çalışmak faydadan çok karmaşıklık getirir."
         },
         "multiplatform-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "commonTest klasörü ne içindir?",
+          "opts": [
+            "Android testleri",
+            "Ortak kodun testleri — tüm platformlarda çalışır",
+            "iOS testleri",
+            "UI testleri"
+          ],
+          "exp": "Bir kez yazılan test her hedefte çalıştırılır. kotlin.test kütüphanesi bu yüzden platformdan bağımsızdır."
         },
         "multiplatform-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "expect class'ın actual sürümü ne yapmalıdır?",
+          "opts": [
+            "Yalnızca adı uysun",
+            "Tüm expect üyelerini aynı imzayla sunmalıdır",
+            "Boş olabilir",
+            "Farklı imzalı olabilir"
+          ],
+          "exp": "İmzalar uyuşmazsa derleyici hata verir. Bu, ortak kodun her platformda çalışacağını garanti eder."
         },
         "multiplatform-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir KMP projesinde Gradle'da hedefler nasıl bildirilir?",
+          "opts": [
+            "Otomatik",
+            "kotlin { androidTarget(); iosArm64(); jvm() } bloğunda",
+            "Manifest dosyasında",
+            "Bildirilmez"
+          ],
+          "exp": "Her hedef için ayrı bir source set ve bağımlılıklar belirlenir: commonMain, androidMain, iosMain."
         },
         "multiplatform-n-16": {
-          "q": "",
+          "q": "Ortak kodda tarih/saat için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "java.time yalnızca JVM'dedir. kotlinx-datetime çok platformludur ve ortak kodda kullanılabilir."
         },
         "multiplatform-n-17": {
-          "q": "",
+          "q": "KMP'de JSON için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Diğerleri yansımaya dayanır ve yalnızca JVM'de çalışır. kotlinx.serialization bir derleyici eklentisiyle çalıştığı için her platformda mümkündür."
         },
         "multiplatform-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "iOS tarafında Kotlin kodu nasıl kullanılır?",
+          "opts": [
+            "Mümkün değil",
+            "Bir framework olarak derlenip Swift'ten çağrılır",
+            "JVM ile",
+            "Yansıma ile"
+          ],
+          "exp": "Kotlin/Native, iOS için Objective-C uyumlu bir framework üretir. Swift kodu onu sıradan bir kütüphane gibi kullanır."
         },
         "multiplatform-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "KMP'de yaklaşık ne kadar kod paylaşılabilir?",
+          "opts": [
+            "%100",
+            "Mantık paylaşıldığında %50-70, Compose Multiplatform ile %85-95",
+            "%10",
+            "%30"
+          ],
+          "exp": "Rakam projeye bağlıdır. UI ağırlıklı bir uygulamada pay az, mantık ağırlıklı bir uygulamada çok olur."
         },
         "multiplatform-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "expect/actual'ın arayüz yaklaşımına göre eksiği nedir?",
+          "opts": [
+            "Yok",
+            "Test etmek zordur — uygulamayı değiştirmek mümkün olmaz",
+            "Yavaştır",
+            "Çok kod olur"
+          ],
+          "exp": "Arayüz yaklaşımında testte sahte bir uygulama vermek kolaydır. expect/actual ise derleme zamanında bağlanır."
         },
         "multiplatform-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ortak kodda platforma özgü bir kütüphane kullanılabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — yalnızca çok platformlu kütüphaneler",
+            "Yalnızca Android'de",
+            "Yalnızca test kodunda"
+          ],
+          "exp": "commonMain yalnızca tüm hedeflerde bulunan API'leri görür. Platforma özgü kod ilgili source set'e gitmelidir."
         },
         "multiplatform-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "KMP'ye geçişin en iyi başlangıç noktası hangisidir?",
+          "opts": [
+            "Tüm uygulamayı yeniden yazmak",
+            "Veri modelleri ve doğrulama mantığı gibi küçük, temiz bir parça",
+            "UI",
+            "Gezinme"
+          ],
+          "exp": "KMP mevcut bir projeye adım adım eklenebilir. Küçük, platformdan bağımsız bir modülle başlamak risksizdir."
         },
         "multiplatform-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin/Native'de bellek yönetimi nasıldır?",
+          "opts": [
+            "GC yok",
+            "Yeni bellek modelinde GC var ve JVM'e benzer",
+            "Elle yönetilir",
+            "Referans sayacı yok"
+          ],
+          "exp": "Eski modelde ciddi kısıtlamalar vardı. Yeni bellek modeli (1.7.20'den beri varsayılan) bunları ortadan kaldırdı."
         },
         "multiplatform-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ortak bir ViewModel yazmak mümkün mü?",
+          "opts": [
+            "Hayır",
+            "Evet — durum ve mantık ortak, UI ise native olur",
+            "Yalnızca Android'de",
+            "Yalnızca Compose ile"
+          ],
+          "exp": "StateFlow ortak koddadır, Compose ve SwiftUI ise ona abone olur. Bu, KMP'nin en çok fayda sağladığı yerlerden biridir."
         },
         "multiplatform-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "KMP'de en çok zaman alan kısım hangisidir?",
+          "opts": [
+            "Kod yazmak",
+            "Derleme yapılandırması ve iOS tarafının entegrasyonu",
+            "Test",
+            "Debug"
+          ],
+          "exp": "Kotlin kodu genellikle sorunsuzdur. Gradle hedefleri, framework kurulumu ve Xcode entegrasyonu daha fazla dikkat ister."
         }
       },
       "praktiki": {
         "multiplatform-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Platform soyutlaması kur: bir arayüz bildir ve bir uygulama yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma {\n    fun ad(): String\n}\n\n// Android uygulamasını yaz\n\nfun main() {\n    val p: Platforma = AndroidPlatforma()\n    println(p.ad())\n}"
         },
         "multiplatform-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İki platform uygulaması yaz ve ikisini de çağır.",
+          "ipucu": "İki sınıf yaz, her biri Platforma'yı uygulasın.",
+          "starter": "interface Platforma { fun ad(): String }\n\n// iki uygulama yaz\n\nfun main() {\n    listOf(AndroidPlatforma(), IosPlatforma()).forEach { println(it.ad()) }\n}"
         },
         "multiplatform-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak iş mantığı yaz: platformdan bağımsız bir selamlama.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma { fun ad(): String }\n\nclass SalamlamaServisi(private val p: Platforma) {\n    // salamla() metodunu ekle\n}\n\nfun main() {\n    val saxta = object : Platforma { override fun ad() = \"Test\" }\n    println(SalamlamaServisi(saxta).salamla())\n}"
         },
         "multiplatform-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak bir veri modeli yaz: platformdan bağımsız bir kullanıcı.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// ortak data class yaz\n\nfun main() {\n    println(Istifadeci(1, \"Aysel\"))\n}"
         },
         "multiplatform-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak doğrulama mantığı yaz: e-posta kontrolü.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// ortak doğrulama fonksiyonu yaz\n\nfun main() {\n    println(emailDuzgundur(\"aysel@mail.az\"))\n    println(emailDuzgundur(\"yanlis\"))\n}"
         },
         "multiplatform-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak sabitler için object kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// ortak yapılandırma object'ini yaz\n\nfun main() {\n    println(Konfiq.API_URL)\n}"
         },
         "multiplatform-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Platforma göre farklı davranış: arayüzü parametre olarak aktar.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma { fun ad(): String }\n\nfun tesvir(p: Platforma) = \"Isleyir: ${p.ad()}\"\n\nfun main() {\n    // anonim nesne ile çağır\n}"
         },
         "multiplatform-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak bir sonuç türü yaz: sealed ile başarı/hata modeli.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// ortak sealed sonuç türü yaz\n\nfun main() {\n    val n: Netice = Netice.Ugur(\"data\")\n    println(n)\n}"
         },
         "multiplatform-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak bir uzantı yaz: metni slug biçimine getirsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// ortak uzantı yaz\n\nfun main() {\n    println(\"Kotlin Multiplatform\".slugla())\n}"
         },
         "multiplatform-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Platform soyutlamasını test et: sahte bir uygulama aktar.",
+          "ipucu": "object : Saat { override fun indi() = 1000L } — testte zaman sabit olmalıdır.",
+          "starter": "interface Saat {\n    fun indi(): Long\n}\n\nclass Servis(private val s: Saat) {\n    fun damga() = \"vaxt: ${s.indi()}\"\n}\n\nfun main() {\n    // sabit değer döndüren sahte bir Saat oluştur\n}"
         },
         "multiplatform-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak bir repository yaz: kaynak bir arayüzden gelsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Menbe { fun al(): List<String> }\n\nclass Repo(private val m: Menbe) {\n    // hamisi() metodunu yaz - sıralı döndürsün\n}\n\nfun main() {\n    val saxta = object : Menbe { override fun al() = listOf(\"b\", \"a\") }\n    println(Repo(saxta).hamisi())\n}"
         },
         "multiplatform-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak ViewModel modelini kur: durum platformdan bağımsız olsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.flow.*\n\nclass OrtakViewModel {\n    private val _v = MutableStateFlow(\"bos\")\n    val v: StateFlow<String> = _v.asStateFlow()\n    // yukle() metodunu ekle\n}\n\nfun main() {\n    val vm = OrtakViewModel()\n    vm.yukle()\n    println(vm.v.value)\n}"
         },
         "multiplatform-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak suspend mantık yaz: platformdan bağımsız bir asenkron işlem.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\n// ortak suspend fonksiyon yaz\n\nfun main() = runBlocking {\n    println(melumatYukle())\n}"
         },
         "multiplatform-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak hata modelini işle: when ile her durumu yönet.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed interface Netice {\n    data class Ugur(val d: String) : Netice\n    data class Xeta(val kod: Int) : Netice\n}\n\nfun emal(n: Netice): String = when (n) {\n    // durumları işle\n}\n\nfun main() {\n    println(emal(Netice.Xeta(503)))\n}"
         },
         "multiplatform-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Ortak biçimlendirme yaz: yerel ayardan bağımsız şekilde.",
+          "ipucu": "fun qiymetFormatla(q: Int) = \"$q AZN\" — String.format yerel ayara bağlıdır, ondan kaçın.",
+          "starter": "// ortak fonksiyon yaz - fiyatı \"1200 AZN\" biçiminde versin\n\nfun main() {\n    println(qiymetFormatla(1200))\n}"
         },
         "multiplatform-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Ortak bir önbellek modeli kur: map ile basit saklama.",
+          "ipucu": "fun yaz(a: String, d: String) { m[a] = d } ve fun oxu(a: String) = m[a]",
+          "starter": "class Kes {\n    private val m = mutableMapOf<String, String>()\n    // yaz() ve oxu() metotlarını yaz\n}\n\nfun main() {\n    val k = Kes()\n    k.yaz(\"ad\", \"Aysel\")\n    println(k.oxu(\"ad\"))\n    println(k.oxu(\"yoxdur\"))\n}"
         },
         "multiplatform-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Ortak bir test yaz: platformdan bağımsız mantığı kontrol et.",
+          "ipucu": "assertEquals(true, emailDuzgundur(\"a@b\")) ve assertEquals(false, emailDuzgundur(\"x\"))",
+          "starter": "import kotlin.test.assertEquals\n\nfun emailDuzgundur(e: String) = e.contains(\"@\")\n\nfun main() {\n    // iki durumu kontrol et\n    println(\"kecdi\")\n}"
         },
         "multiplatform-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Platforma göre farklı yapılandırma seç: when ile modelle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun konfiq(platforma: String): String = when (platforma) {\n    // android ve ios için farklı url, diğerleri için varsayılan\n}\n\nfun main() {\n    println(konfiq(\"ios\"))\n}"
         },
         "multiplatform-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak liste işleme yaz: her platformda aynı sonucu versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun aktivler(s: List<Pair<String, Boolean>>): List<String> {\n    // yalnızca aktif olanların adlarını döndür\n}\n\nfun main() {\n    println(aktivler(listOf(\"a\" to true, \"b\" to false, \"c\" to true)))\n}"
         },
         "multiplatform-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Fabrika fonksiyonu yaz: platforma uygun uygulamayı döndürsün.",
+          "ipucu": "\"ios\" -> Ios() ve else -> Android()",
+          "starter": "interface Platforma { fun ad(): String }\nclass Android : Platforma { override fun ad() = \"Android\" }\nclass Ios : Platforma { override fun ad() = \"iOS\" }\n\nfun yarat(hedef: String): Platforma = when (hedef) {\n    // uygun uygulamayı döndür\n}\n\nfun main() {\n    println(yarat(\"ios\").ad())\n}"
         },
         "multiplatform-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak ViewModel'i test et: sahte bir repository ile durumu kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\nimport kotlin.test.assertEquals\n\ninterface Repo { suspend fun al(): String }\n\nclass VM(private val r: Repo) {\n    private val _v = MutableStateFlow(\"bos\")\n    val v: StateFlow<String> = _v.asStateFlow()\n    suspend fun yukle() { _v.value = r.al() }\n}\n\nfun main() = runBlocking {\n    val saxta = object : Repo { override suspend fun al() = \"test-data\" }\n    val vm = VM(saxta)\n    vm.yukle()\n    // durumu kontrol et\n    println(\"kecdi\")\n}"
         },
         "multiplatform-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Ortak kodda jenerik bir önbellek yaz: her tür için çalışsın.",
+          "ipucu": "fun yaz(a: K, d: V) { m[a] = d } ve fun oxu(a: K): V? = m[a]",
+          "starter": "class Kes<K, V> {\n    private val m = mutableMapOf<K, V>()\n    // yaz ve oxu metotlarını yaz\n}\n\nfun main() {\n    val k = Kes<Int, String>()\n    k.yaz(1, \"bir\")\n    println(k.oxu(1))\n}"
         },
         "multiplatform-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak ağ katmanının modelini kur: arayüz + sahte yanıt.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\ninterface HttpClient {\n    suspend fun get(url: String): String\n}\n\nclass Api(private val c: HttpClient) {\n    // istifadeciler() metodunu ekle\n}\n\nfun main() = runBlocking {\n    val saxta = object : HttpClient {\n        override suspend fun get(url: String) = \"[Aysel]\"\n    }\n    println(Api(saxta).istifadeciler())\n}"
         },
         "multiplatform-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak mantığın platformdan bağımsız olduğunu göster: aynı servis iki platformla.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma { fun ad(): String }\n\nclass Servis(private val p: Platforma) {\n    fun tesvir() = \"Servis ${p.ad()} uzerinde isleyir\"\n}\n\nfun main() {\n    val a = object : Platforma { override fun ad() = \"Android\" }\n    val i = object : Platforma { override fun ad() = \"iOS\" }\n    // ikisi için de yazdır\n}"
         },
         "multiplatform-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Ortak kodda Result kullan: platformdan bağımsız hata işleme.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun yukle(ugurlu: Boolean): Result<String> = runCatching {\n    if (ugurlu) \"data\" else error(\"xeta\")\n}\n\nfun main() {\n    // başarısız durumu işle ve yedek değeri yazdır\n}"
         }
       }
     },
     "backend": {
-      "title": "",
+      "title": "Backend: Ktor ve Spring",
       "nezeri": {
         "backend-n-01": {
-          "q": "",
+          "q": "Ktor'u kim geliştirdi?",
           "opts": [],
-          "exp": ""
+          "exp": "Ktor, Kotlin'in yaratıcısı olan JetBrains tarafından yazılmıştır ve tamamen Kotlin tabanlıdır — coroutine desteği yerleşiktir."
         },
         "backend-n-02": {
-          "q": "",
+          "q": "Ktor'da bir rota nasıl bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Ktor DSL tabanlıdır: routing bloğu içinde get, post, put, delete fonksiyonları kullanılır."
         },
         "backend-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Spring Boot'ta bir REST controller nasıl işaretlenir?",
+          "opts": [
+            "Yalnızca @Controller",
+            "@RestController",
+            "@Service",
+            "@Component"
+          ],
+          "exp": "@RestController her metodun sonucunu doğrudan yanıt gövdesine yazar — ayrıca @ResponseBody gerekmez."
         },
         "backend-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "HTTP 404 kodu ne anlama gelir?",
+          "opts": [
+            "Sunucu hatası",
+            "Bulunamadı",
+            "Başarılı",
+            "İzin yok"
+          ],
+          "exp": "2xx başarı, 4xx istemci hatası, 5xx sunucu hatasıdır. 404, istenen kaynağın mevcut olmadığını bildirir."
         },
         "backend-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "HTTP 500 kodu ne anlama gelir?",
+          "opts": [
+            "Bulunamadı",
+            "Dahili sunucu hatası",
+            "Başarılı",
+            "Yönlendirme"
+          ],
+          "exp": "5xx grubu sorunun sunucunun kendisinde olduğunu gösterir — istemci isteği düzelterek bunu çözemez."
         },
         "backend-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ktor'da JSON desteği için ne kurulur?",
+          "opts": [
+            "Hiçbir şey",
+            "ContentNegotiation eklentisi + kotlinx.serialization",
+            "Gson",
+            "Yalnızca Jackson"
+          ],
+          "exp": "install(ContentNegotiation) { json() } — bundan sonra data class'lar otomatik olarak JSON'a dönüştürülür."
         },
         "backend-n-07": {
-          "q": "",
+          "q": "Bir data class'ı JSON'a çevirmek için hangi anotasyon gerekir?",
           "opts": [],
-          "exp": ""
+          "exp": "kotlinx.serialization derleyici eklentisi @Serializable işaretine göre serileştirme kodunu kendisi üretir — yansıma kullanmaz."
         },
         "backend-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ktor'un Spring Boot'a göre avantajı nedir?",
+          "opts": [
+            "Daha çok özellik",
+            "Hafiftir ve çok hızlı başlar",
+            "Daha iyi belgeler",
+            "Daha çok kullanıcı"
+          ],
+          "exp": "Ktor yaklaşık 300 ms'de başlar, Spring ise 2-5 saniyede. Mikroservislerde ve serverless ortamlarda bu önemlidir."
         },
         "backend-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Spring Boot'un Ktor'a göre avantajı nedir?",
+          "opts": [
+            "Hız",
+            "Devasa ve olgun bir ekosistem — çok sayıda hazır çözüm",
+            "Az bellek",
+            "Sadelik"
+          ],
+          "exp": "Güvenlik, toplu işleme, entegrasyonlar için hazır modüller vardır. Kurumsal ortamda bu büyük bir avantajdır."
         },
         "backend-n-10": {
-          "q": "",
+          "q": "Ktor'da yol parametresi nasıl okunur?",
           "opts": [],
-          "exp": ""
+          "exp": "get(\"/istifadeciler/{id}\") rotasında call.parameters[\"id\"] kullanılır ve sonuç String? olur."
         },
         "backend-n-11": {
-          "q": "",
+          "q": "Spring'de yol parametresi nasıl okunur?",
           "opts": [],
-          "exp": ""
+          "exp": "@PathVariable yolun bir parçasını, @RequestParam ise sorgu dizesindeki parametreyi okur."
         },
         "backend-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Exposed nedir?",
+          "opts": [
+            "Ağ kütüphanesi",
+            "JetBrains'in tür güvenli SQL kütüphanesi",
+            "Test aracı",
+            "UI kütüphanesi"
+          ],
+          "exp": "SQL sorgularını bir Kotlin DSL'iyle yazmayı sağlar — sütun adları ve türler derleme zamanında kontrol edilir."
         },
         "backend-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ktor'da rota içinde suspend fonksiyon kullanılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — rota işleyicileri zaten suspend bağlamındadır",
+            "Yalnızca runBlocking ile",
+            "Yalnızca GET'te"
+          ],
+          "exp": "Ktor tamamen coroutine tabanlıdır. Veritabanına veya başka bir servise suspend çağrı doğrudan yazılabilir."
         },
         "backend-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "REST'te POST metodu ne içindir?",
+          "opts": [
+            "Okumak",
+            "Yeni bir kaynak oluşturmak",
+            "Silmek",
+            "Güncellemek"
+          ],
+          "exp": "GET okur, POST oluşturur, PUT/PATCH günceller, DELETE siler. Başarılı oluşturma genellikle 201 koduyla yanıtlanır."
         },
         "backend-n-15": {
-          "q": "",
+          "q": "Yanlış girdi için hangi durum kodu döndürülmelidir?",
           "opts": [],
-          "exp": ""
+          "exp": "400 Bad Request isteğin kendisinin hatalı olduğunu bildirir. 404 ise kaynağın bulunamadığını gösterir."
         },
         "backend-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Backend'de doğrulama nerede yapılmalıdır?",
+          "opts": [
+            "Yalnızca istemcide",
+            "Mutlaka sunucuda — istemci doğrulaması yalnızca kullanıcı rahatlığı içindir",
+            "Veritabanında",
+            "Hiçbir yerde"
+          ],
+          "exp": "İstemci kodu istenildiği gibi değiştirilebilir. Sunucu gelen hiçbir veriye güvenmemelidir."
         },
         "backend-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ktor'da hata yönetimi için ne kullanılır?",
+          "opts": [
+            "Yalnızca try/catch",
+            "StatusPages eklentisi",
+            "@ExceptionHandler",
+            "Hiçbir şey"
+          ],
+          "exp": "StatusPages istisnaları merkezi olarak durum kodlarına dönüştürür — her rotada tekrar try/catch yazmaya gerek kalmaz."
         },
         "backend-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Projede katman ayrımı neden önemlidir?",
+          "opts": [
+            "Önemli değil",
+            "Rota, servis ve repository ayrı olduğunda test ve değişiklik kolaylaşır",
+            "Hız için",
+            "Bellek için"
+          ],
+          "exp": "Rota yalnızca HTTP ile ilgilenmeli, iş mantığı serviste, veri erişimi ise repository'de tutulmalıdır."
         },
         "backend-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ktor'da kimlik doğrulama için ne kullanılır?",
+          "opts": [
+            "Hiçbir şey",
+            "Authentication eklentisi — JWT, Basic, OAuth",
+            "@Secured",
+            "Filter"
+          ],
+          "exp": "install(Authentication) { jwt { ... } } — ardından rotalar authenticate bloğuyla korunur."
         },
         "backend-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bloklayan bir JDBC çağrısı coroutine içinde nasıl yapılmalıdır?",
+          "opts": [
+            "Doğrudan",
+            "withContext(Dispatchers.IO) içinde",
+            "runBlocking ile",
+            "Yeni bir thread oluşturarak"
+          ],
+          "exp": "JDBC bloklayıcıdır. Onu doğrudan çağırmak coroutine thread'ini bloklar ve tüm sunucunun işlem kapasitesini düşürür."
         },
         "backend-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "API'de DTO ile domain modelini ayırmak neden önemlidir?",
+          "opts": [
+            "Önemli değil",
+            "İç model değiştiğinde API sözleşmesi bozulmasın diye",
+            "Hız için",
+            "Bellek için"
+          ],
+          "exp": "Domain modeli iç ihtiyaçlara göre değişir. DTO ise dış sözleşmedir ve sabit kalmalıdır."
         },
         "backend-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "REST'te idempotentlik ne anlama gelir?",
+          "opts": [
+            "İstek hızlıdır",
+            "Aynı isteği tekrarlamak sonucu değiştirmez",
+            "İstek şifrelenmiştir",
+            "İstek asenkrondur"
+          ],
+          "exp": "GET, PUT ve DELETE idempotenttir. POST ise değildir — iki kez gönderirsen iki kaynak oluşur."
         },
         "backend-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sunucuda yapılandırma (şifreler, anahtarlar) nerede saklanmalıdır?",
+          "opts": [
+            "Kodda",
+            "Ortam değişkenlerinde veya bir secret yöneticisinde",
+            "Veritabanında açık şekilde",
+            "Log dosyasında"
+          ],
+          "exp": "Kodda saklanan bir sır depoya girer ve geçmişte sonsuza kadar kalır. Ortam değişkenleri asgari standarttır."
         },
         "backend-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ktor'da bir eklenti (plugin) ne yapar?",
+          "opts": [
+            "UI ekler",
+            "İstek işleme zincirine davranış ekler — JSON, log, CORS, auth",
+            "Veritabanı oluşturur",
+            "Test eder"
+          ],
+          "exp": "Ktor minimal bir çekirdekten oluşur. Gereken her işlevsellik açıkça bir eklenti olarak kurulur — hiçbir şey gizlice çalışmaz."
         },
         "backend-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yeni bir proje için Ktor mu, Spring mi seçilmeli?",
+          "opts": [
+            "Her zaman Spring",
+            "Her zaman Ktor",
+            "Projeye bağlı — mikroservis ve KMP için Ktor, kurumsal hazır çözümler için Spring",
+            "Farketmez"
+          ],
+          "exp": "Ktor hafif ve Kotlin'e özgüdür. Spring ise olgun ekosistemiyle karmaşık kurumsal gereksinimleri hazır olarak çözer."
         }
       },
       "praktiki": {
         "backend-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Rota tablosunu map ile modelle ve bir yolu bul.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val marsrutlar = mapOf(\n        \"/istifadeciler\" to \"siyahi\",\n        \"/mehsullar\" to \"mehsul siyahisi\"\n    )\n    // \"/mehsullar\" yolunu bul ve yazdır\n}"
         },
         "backend-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Var olmayan bir rota için 404 modeli kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val m = mapOf(\"/api\" to \"ok\")\n    // olmayan yol için \"404\" yazdır\n}"
         },
         "backend-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "İstek ve yanıt modellerini data class ile yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// Sorgu ve Cavab data class'larını yaz\n\nfun main() {\n    println(Cavab(200, \"ok\"))\n}"
         },
         "backend-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Durum kodunun anlamını döndüren bir fonksiyon yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun tesvir(kod: Int): String = when (kod) {\n    // 200, 404, 500 ve else dalları\n}\n\nfun main() {\n    println(tesvir(404))\n}"
         },
         "backend-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Durum grubunu belirle: 2xx, 4xx, 5xx.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun qrup(kod: Int): String = when (kod) {\n    // aralıklarla yaz\n}\n\nfun main() {\n    println(qrup(503))\n}"
         },
         "backend-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "HTTP metoduna göre işlem seç.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun emeliyyat(metod: String): String = when (metod) {\n    // GET, POST, DELETE ve else dalları\n}\n\nfun main() {\n    println(emeliyyat(\"POST\"))\n}"
         },
         "backend-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Bellekteki \"veritabanından\" kullanıcıyı id ile bul.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Istifadeci(val id: Int, val ad: String)\n\nfun main() {\n    val baza = listOf(Istifadeci(1, \"Aysel\"), Istifadeci(2, \"Kamran\"))\n    // id = 2 olanı bul ve adını yazdır\n}"
         },
         "backend-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Bulunamayan id için null döndür (404 durumu).",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Istifadeci(val id: Int, val ad: String)\n\nfun main() {\n    val baza = listOf(Istifadeci(1, \"Aysel\"))\n    // olmayan id için sonuç\n}"
         },
         "backend-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Basit bir JSON metnini elle kur.",
+          "ipucu": "Tırnakları kaçırmak için ters eğik çizgi kullan.",
+          "starter": "data class U(val id: Int, val ad: String)\n\nfun json(u: U): String {\n    // {\"id\":1,\"ad\":\"Aysel\"} biçiminde döndür\n}\n\nfun main() {\n    println(json(U(1, \"Aysel\")))\n}"
         },
         "backend-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Yol parametresini ayrıştır: metinden id'yi çıkarıp sayıya çevir.",
           "ipucu": "",
           "starter": ""
         },
         "backend-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Yanlış id için null döndür (400 durumu).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun idAl(yol: String): Int? = yol.substringAfterLast(\"/\").toIntOrNull()\n\nfun main() {\n    // yanlış id ile çağır\n}"
         },
         "backend-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Sorgu dizesini ayrıştır: \"ad=Aysel&yas=24\" metninden bir map kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun parse(s: String): Map<String, String> {\n    // & ile böl, sonra = ile\n}\n\nfun main() {\n    println(parse(\"ad=Aysel&yas=24\")[\"yas\"])\n}"
         },
         "backend-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Doğrulama yaz: boş ad için 400 döndür.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Cavab(val kod: Int, val govde: String)\n\nfun yarat(ad: String): Cavab {\n    // boş ad için 400, değilse 201\n}\n\nfun main() {\n    println(yarat(\"\"))\n}"
         },
         "backend-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Başarılı oluşturma için 201 döndür.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Cavab(val kod: Int, val govde: String)\n\nfun yarat(ad: String): Cavab =\n    if (ad.isBlank()) Cavab(400, \"xeta\") else Cavab(201, ad)\n\nfun main() {\n    // doğru bir adla çağır\n}"
         },
         "backend-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Rota işleyicisini fonksiyon olarak sakla: map'te bir lambda tut.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val marsrutlar = mapOf<String, () -> String>(\n        \"/salam\" to { \"Salam!\" }\n    )\n    // rotayı çağır\n}"
         },
         "backend-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir servis katmanı kur: repository bir arayüzden gelsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Repo { fun hamisi(): List<String> }\n\nclass Servis(private val r: Repo) {\n    // siyahi() metodunu yaz - sıralı döndürsün\n}\n\nfun main() {\n    val saxta = object : Repo { override fun hamisi() = listOf(\"b\", \"a\") }\n    println(Servis(saxta).siyahi())\n}"
         },
         "backend-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Sayfalama (pagination) mantığı yaz: sayfaya ve boyuta göre kes.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun sehife(s: List<Int>, sehife: Int, olcu: Int): List<Int> {\n    // drop ile take kullan\n}\n\nfun main() {\n    println(sehife((1..10).toList(), 2, 3))\n}"
         },
         "backend-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "DTO ile domain modelini ayır: bir dönüştürme fonksiyonu yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class IstifadeciDto(val id: Int, val ad: String, val sifre: String)\ndata class Istifadeci(val id: Int, val ad: String)\n\n// dönüştürmeyi yaz - şifre dışarı çıkmasın\n\nfun main() {\n    println(IstifadeciDto(1, \"Aysel\", \"gizli\").toModel())\n}"
         },
         "backend-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Asenkron bir rota işleyicisi yaz: suspend fonksiyonla.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nsuspend fun idareEt(yol: String): String {\n    delay(30)\n    // yola göre yanıt döndür\n}\n\nfun main() = runBlocking {\n    println(idareEt(\"/salam\"))\n}"
         },
         "backend-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Merkezi hata işleme kur: istisnayı bir durum koduna çevir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Cavab(val kod: Int, val govde: String)\n\nfun idareEt(blok: () -> String): Cavab = try {\n    Cavab(200, blok())\n} catch (e: IllegalArgumentException) {\n    // 400 döndür\n} catch (e: Exception) {\n    Cavab(500, \"server xetasi\")\n}\n\nfun main() {\n    println(idareEt { require(false) { \"yanlis giris\" }; \"ok\" })\n}"
         },
         "backend-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Hata işlemenin başarılı yolunu dene: 200 döndürülsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Cavab(val kod: Int, val govde: String)\n\nfun idareEt(blok: () -> String): Cavab = try {\n    Cavab(200, blok())\n} catch (e: Exception) {\n    Cavab(500, \"xeta\")\n}\n\nfun main() {\n    // başarılı bir blokla çağır\n}"
         },
         "backend-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Bloklayan işlemi IO dispatcher'a taşı (JDBC örneğinin modeli).",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun bazaSorgusu(): String {\n    // bloklayan işlem\n    return \"netice\"\n}\n\nsuspend fun al(): String {\n    // IO dispatcher'da çalıştır\n}\n\nfun main() = runBlocking {\n    println(al())\n}"
         },
         "backend-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Kimlik doğrulama kontrolünün modelini kur: token yoksa 401.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Cavab(val kod: Int, val govde: String)\n\nfun qorunanYol(token: String?): Cavab {\n    // token null veya boşsa 401\n}\n\nfun main() {\n    println(qorunanYol(null))\n}"
         },
         "backend-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Yapılandırmayı ortam değişkeninden oku (sırrı kodda saklama).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun konfiq(muhit: Map<String, String>): String {\n    // API_URL'i oku, yoksa varsayılan ver\n}\n\nfun main() {\n    println(konfiq(emptyMap()))\n}"
         },
         "backend-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Tam rota zincirini modelle: yol → işleyici → yanıt.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Cavab(val kod: Int, val govde: String)\n\nval marsrutlar = mapOf<String, () -> Cavab>(\n    \"/salam\" to { Cavab(200, \"Salam!\") }\n)\n\nfun emalEt(yol: String): Cavab {\n    // rota yoksa 404 döndür\n}\n\nfun main() {\n    println(emalEt(\"/salam\"))\n    println(emalEt(\"/yoxdur\"))\n}"
         }
       }
     }
