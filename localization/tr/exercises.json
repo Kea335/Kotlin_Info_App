@@ -6,1438 +6,2003 @@
   },
   "topics": {
     "sintaksis": {
-      "title": "",
+      "title": "Temel sözdizimi",
       "nezeri": {
         "sintaksis-n-01": {
-          "q": "",
+          "q": "Kotlin programı hangi fonksiyondan başlar?",
           "opts": [],
-          "exp": ""
+          "exp": "Her Kotlin programının giriş noktası main() fonksiyonudur. Java'dan farklı olarak bir sınıfın içinde olmak zorunda değildir — doğrudan dosyada yaşayabilir."
         },
         "sintaksis-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de satır sonuna noktalı virgül (;) koymak zorunlu mu?",
+          "opts": [
+            "Evet, her zaman",
+            "Hayır, gerekmez",
+            "Yalnızca fonksiyonlarda",
+            "Yalnızca sınıflarda"
+          ],
+          "exp": "Noktalı virgül isteğe bağlıdır. Yalnızca bir satıra birden fazla ifade yazıldığında gerekir — bu da önerilmez. Tek zorunlu durum: enum'da sabitlerden sonra ek üyeler varsa."
         },
         "sintaksis-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ekrana metin yazdırmak için hangi fonksiyon kullanılır?",
+          "opts": [
+            "print() ve println()",
+            "Yalnızca System.out.println()",
+            "write()",
+            "echo()"
+          ],
+          "exp": "println() metni yazdırıp yeni satıra geçer, print() ise satırı değiştirmez. İkisi de kotlin.io paketindedir ve otomatik olarak içe aktarılır."
         },
         "sintaksis-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Tek satırlık yorum nasıl yazılır?",
+          "opts": [
+            "# yorum",
+            "// yorum",
+            "-- yorum",
+            "<!-- yorum -->"
+          ],
+          "exp": "Kotlin'de tek satırlık yorum // ile, blok yorum ise /* ... */ ile yazılır. Belgeleme için /** ... */ (KDoc) kullanılır."
         },
         "sintaksis-n-05": {
-          "q": "",
+          "q": "Bu kod ne yazdırır?",
           "opts": [],
-          "exp": ""
+          "exp": "println() sonuna satır sonu koyar, print() koymaz. Bu yüzden \"Salam\" ayrı satırda, \"AB\" ise bitişik çıkar."
         },
         "sintaksis-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Paket bildirimi dosyanın neresine yazılır?",
+          "opts": [
+            "En sona",
+            "Herhangi bir yere",
+            "En üste, import'lardan önce",
+            "main() içine"
+          ],
+          "exp": "package bildirimi dosyanın ilk anlamlı satırı olmalıdır — ondan önce yalnızca yorumlar ve dosya anotasyonları gelebilir. Ardından import'lar yazılır."
         },
         "sintaksis-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de blok yorumlar iç içe olabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır",
+            "Yalnızca KDoc'ta",
+            "Yalnızca fonksiyon içinde"
+          ],
+          "exp": "Evet — Kotlin'de /* /* iç içe */ */ doğru çalışır. Java'da bu mümkün değildir ve derleme hatası verir."
         },
         "sintaksis-n-08": {
-          "q": "",
+          "q": "Aşağıdakilerden hangisi doğru bir fonksiyon bildirimidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de fonksiyon fun anahtar kelimesiyle bildirilir. Dönüş türü fonksiyon adından ve parametrelerden sonra iki nokta ile yazılır: fun ad(): Int."
         },
         "sintaksis-n-09": {
-          "q": "",
+          "q": "Metin şablonuna değişkeni nasıl yerleştirirsin?",
           "opts": [],
-          "exp": ""
+          "exp": "Basit değişken için $ad, ifade için ise ${ad.length} biçimi kullanılır. Gerçek $ karakteri gerekiyorsa \\$ yazılır."
         },
         "sintaksis-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "Kotlin dilinin adında 6 hərf var",
+            "$ad dilinin adında ${ad.length} hərf var",
+            "Kotlin dilinin adında ad.length hərf var",
+            "Derleme hatası"
+          ],
+          "exp": "$ad basit değişkenin yerine geçer, ${ad.length} ise süslü parantez içindeki ifadeyi hesaplayıp sonucunu koyar. \"Kotlin\" kelimesinde 6 harf var."
         },
         "sintaksis-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de if nedir?",
+          "opts": [
+            "Yalnızca bir ifadedir (expression)",
+            "Yalnızca bir deyimdir (statement)",
+            "Hem deyim hem de değer döndüren bir ifadedir",
+            "Java'daki gibi yalnızca bir deyimdir"
+          ],
+          "exp": "Kotlin'de if değer döndürür: val maks = if (a > b) a else b. Tam da bu yüzden dilde üçlü operatör (?:) yoktur — gerek kalmaz."
         },
         "sintaksis-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İfade olarak kullanılan if'te else dalı zorunlu mu?",
+          "opts": [
+            "Hayır, isteğe bağlıdır",
+            "Evet, zorunludur",
+            "Yalnızca Boolean döndürürken",
+            "Yalnızca when içinde"
+          ],
+          "exp": "İfade her zaman bir değer döndürmelidir. else olmasaydı, koşul yanlış olduğunda hangi değerin döneceği bilinmezdi — bu yüzden derleyici else ister."
         },
         "sintaksis-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "boyuk",
+            "kicik",
+            "true",
+            "Derleme hatası"
+          ],
+          "exp": "if ifade olarak kullanılmıştır: koşul doğru olduğu için \"boyuk\" değeri netice değişkenine atanır."
         },
         "sintaksis-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Hangi paketler her Kotlin dosyasına otomatik olarak içe aktarılır?",
+          "opts": [
+            "Hiçbiri",
+            "kotlin.*, kotlin.collections.*, kotlin.io.* vb.",
+            "Yalnızca java.util.*",
+            "Yalnızca kotlin.math.*"
+          ],
+          "exp": "kotlin.*, kotlin.collections.*, kotlin.io.*, kotlin.text.*, kotlin.ranges.* ve JVM için java.lang.* otomatik olarak dahil edilir. println, listOf, String — hepsi buradan gelir."
         },
         "sintaksis-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "import kotlin.math.max as boyuk satırı ne yapar?",
+          "opts": [
+            "max fonksiyonunu siler",
+            "max fonksiyonuna boyuk adıyla erişmeyi sağlar",
+            "Yeni bir fonksiyon oluşturur",
+            "Hatadır — as kullanılamaz"
+          ],
+          "exp": "as anahtar kelimesi import için bir takma ad (alias) oluşturur. Bu, iki farklı paketten aynı adlı öğeler geldiğinde özellikle faydalıdır."
         },
         "sintaksis-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Tek ifadeli fonksiyonda dönüş türünü yazmak zorunlu mu?",
+          "opts": [
+            "Evet, her zaman",
+            "Hayır, derleyici kendisi çıkarır",
+            "Yalnızca Int için",
+            "Yalnızca public fonksiyonlarda"
+          ],
+          "exp": "Tek ifadeli (= ile yazılan) fonksiyonda tür çıkarımı çalışır. Ama public API'de türü açıkça yazmak önerilir — okunabilirliği artırır ve kazara değişikliği önler."
         },
         "sintaksis-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod derlenir mi?",
+          "opts": [
+            "Evet, 42 yazdırır",
+            "Hayır, try ifade olamaz",
+            "Evet, ama 0 yazdırır",
+            "Hayır, catch'te return gerekir"
+          ],
+          "exp": "Kotlin'de try da bir ifadedir ve değer döndürür. \"42\".toInt() başarılı olduğu için try bloğunun son ifadesi — yani 42 — döndürülür."
         },
         "sintaksis-n-18": {
-          "q": "",
+          "q": "Sınıf adları için hangi adlandırma stili önerilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Sınıflar ve arayüzler PascalCase (IstifadeciProfili), fonksiyon ve değişkenler camelCase (hesablaCemi), top-level const'lar ise SCREAMING_SNAKE_CASE (MAX_OLCU) ile yazılır."
         },
         "sintaksis-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu iki fonksiyon aynı işi yapıyor mu?",
+          "opts": [
+            "Evet, tamamen aynı",
+            "Hayır, b() değer döndürmez",
+            "Hayır, b() Unit döndürür",
+            "Hayır, a() daha hızlıdır"
+          ],
+          "exp": "Tek ifadeli biçim sadece kısa bir yazımdır. Derleyici ikisi için de aynı bayt kodunu üretir; b()'nin dönüş türü Int olarak çıkarılır."
         },
         "sintaksis-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "main(args: Array<String>) biçiminde args neyi ifade eder?",
+          "opts": [
+            "Ortam değişkenlerini",
+            "Komut satırı argümanlarını",
+            "Sistem yapılandırmasını",
+            "Dosyanın yolunu"
+          ],
+          "exp": "args, program başlatılırken aktarılan komut satırı argümanlarını tutar. Argüman gerekmiyorsa parametresiz main() yazmak yeterlidir."
         },
         "sintaksis-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Enum'da noktalı virgül ne zaman zorunludur?",
+          "opts": [
+            "Hiçbir zaman",
+            "Sabitlerden sonra ek üyeler (fonksiyon, özellik) varsa",
+            "Her zaman",
+            "Yalnızca yapıcı olduğunda"
+          ],
+          "exp": "Sabitlerin listesini sınıf gövdesinin geri kalanından ayırmak için noktalı virgül gerekir. Yalnızca sabitler varsa gerekmez."
         },
         "sintaksis-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Test fonksiyonlarının adında boşluk kullanmak için ne yapılır?",
+          "opts": [
+            "Alt çizgi konur",
+            "Backtick (`) içine alınır",
+            "Tırnak içine alınır",
+            "Mümkün değil"
+          ],
+          "exp": "Backtick içinde Kotlin adları boşluk ve özel karakterler içerebilir: fun `bos siyahi 0 qaytarir`() { }. Bu, testleri cümle gibi okunur kılar ve çoğunlukla test kodunda kullanılır."
         },
         "sintaksis-n-23": {
-          "q": "",
+          "q": "Dosyanın Java tarafında görünen sınıf adını değiştirmek için hangi anotasyon kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "@file:JvmName(\"Komekciler\") dosyanın en üstüne yazılır ve Java'dan görünen adı KomekcilerKt yerine Komekciler yapar."
         },
         "sintaksis-n-24": {
-          "q": "",
+          "q": "Bu kodda kaç satır yazdırılır?",
           "opts": [],
-          "exp": ""
+          "exp": "when ifade olarak kullanılmıştır — yalnızca eşleşen dalın değerini döndürür, hiçbir şey yazdırmaz. Yazdırma yalnızca bir kez, son println() ile gerçekleşir."
         },
         "sintaksis-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin dosyasında top-level (sınıf dışında) fonksiyon bildirmek mümkün mü?",
+          "opts": [
+            "Hayır, her şey bir sınıfta olmalı",
+            "Evet, fonksiyonlar doğrudan dosyada yaşayabilir",
+            "Yalnızca main() için",
+            "Yalnızca private olduğunda"
+          ],
+          "exp": "Bu, Kotlin'in Java'dan önemli bir farkıdır. Fonksiyon ve özellikler doğrudan dosyada bildirilebilir; JVM'de DosyaAdiKt sınıfının statik üyelerine dönüşürler."
         }
       },
       "praktiki": {
         "sintaksis-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Ekrana \"Salam, Kotlin!\" metnini yazdır.",
+          "ipucu": "println() fonksiyonunu kullan.",
+          "starter": "fun main() {\n    // Kodunu buraya yaz\n}"
         },
         "sintaksis-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İki satır yazdır: birinci satırda \"Birinci\", ikinci satırda \"Ikinci\".",
+          "ipucu": "println()'i iki kez çağır."
         },
         "sintaksis-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "ad değişkenini oluştur ve \"Salam, Aysel!\" yazdır — adı metin şablonuyla yerleştir.",
+          "ipucu": "Tırnak içine $ad yaz.",
+          "starter": "fun main() {\n    val ad = \"Aysel\"\n    // Şablon kullanarak yazdır\n}"
         },
         "sintaksis-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "5 ile 3 sayılarının toplamını yazdır.",
+          "ipucu": "println(5 + 3) yazman yeterli."
         },
         "sintaksis-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "print() kullanarak \"A\", \"B\", \"C\" harflerini bitişik yazdır, sonra satırı bitir.",
+          "ipucu": "Üç kez print(), ardından println() çağır."
         },
         "sintaksis-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "salamla adında bir fonksiyon yaz — hiçbir şey döndürmesin, sadece \"Xos geldin\" yazdırsın. main()'den çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    salamla()\n}\n\n// Fonksiyonu buraya yaz"
         },
         "sintaksis-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "İki sayıyı toplayıp döndüren topla fonksiyonunu yaz ve 7 ile 8'in toplamını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(topla(7, 8))\n}\n\n// topla fonksiyonunu yaz"
         },
         "sintaksis-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir sayının karesini döndüren kvadrat fonksiyonunu TEK İFADELİ biçimde yaz ve 9'un karesini yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(kvadrat(9))\n}\n\n// Tek ifadeli fonksiyon yaz (= işaretiyle)"
         },
         "sintaksis-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "hell": ""
+          "tapsiriq": "Tek satırlık ve blok yorum yaz, sonra \"Serhler oyrenildi\" yazdır. Yorumlar sonucu etkilememelidir.",
+          "ipucu": "// ve /* */ kullan, sonra println() çağır.",
+          "hell": "fun main() {\n    // Bu tek satırlık bir yorumdur\n    /* Bu bir\n       blok yorumdur */\n    println(\"Serhler oyrenildi\")\n}"
         },
         "sintaksis-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "yas değişkeni 20'dir. if'i İFADE olarak kullanıp \"boyuk\" veya \"kicik\" sonucunu status değişkenine yaz ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val yas = 20\n    val status = // burayı tamamla\n    println(status)\n}"
         },
         "sintaksis-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "İki sayıdan büyüğünü döndüren boyuk fonksiyonunu if ifadesiyle yaz. 14 ve 27 için sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(boyuk(14, 27))\n}\n\n// boyuk fonksiyonunu yaz"
         },
         "sintaksis-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "ad ve yas değişkenlerini kullanarak \"Aysel 24 yasindadir\" metnini tek bir println() ile yazdır.",
           "ipucu": ""
         },
         "sintaksis-p-13": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metin şablonunda İFADE kullan: \"Kotlin sozunde 6 herf var\" yazdır. Sayıyı elle yazma — length kullan.",
+          "ipucu": "${soz.length} biçimini kullan."
         },
         "sintaksis-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "when ifadesiyle gun = 3 için \"Is gunu\" sonucunu hesaplayıp yazdır. 1..5 iş günü, 6 ve 7 tatildir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val gun = 3\n    val tip = // burayı tamamla\n    println(tip)\n}"
         },
         "sintaksis-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "kotlin.math paketinden abs fonksiyonunu içe aktarıp -15 sayısının mutlak değerini yazdır.",
+          "ipucu": "import kotlin.math.abs — ardından println(abs(-15)).",
+          "starter": "// Import'u buraya yaz\n\nfun main() {\n    \n}"
         },
         "sintaksis-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "try ifadesini kullanarak \"abc\" metnini sayıya çevirmeyi dene. Olmazsa 0 döndürsün ve sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val netice = // try ifadesini buraya yaz\n    println(netice)\n}"
         },
         "sintaksis-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Varsayılan parametreli salamla fonksiyonu yaz: argüman verilmezse \"Dunya\" kullansın. Hem argümansız hem de \"Kotlin\" ile çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    salamla()\n    salamla(\"Kotlin\")\n}\n\n// Varsayılan parametreli fonksiyon yaz"
         },
         "sintaksis-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Adlandırılmış argümanla çağır: melumat(ad = \"Aysel\", yas = 24) biçimini kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun melumat(ad: String, yas: Int) {\n    println(\"$ad - $yas\")\n}\n\nfun main() {\n    // Adlandırılmış argümanlarla çağır\n}"
         },
         "sintaksis-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Gerçek dolar işareti yazdır: \"Qiymet: $100\" metnini göster.",
+          "ipucu": "Dolar işaretinden önce ters eğik çizgi koy: \\$"
         },
         "sintaksis-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Çok satırlı metin (üç tırnak) kullanarak iki satır yazdır: \"Birinci setir\" ve \"Ikinci setir\". trimIndent() kullan.",
+          "ipucu": "Üç tırnak açıp satırları yaz, sonuna .trimIndent() ekle.",
+          "starter": "fun main() {\n    val metn = // üç tırnaklı metin yaz\n    println(metn)\n}"
         },
         "sintaksis-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "main() fonksiyonunu komut satırı argümanlarını kabul eden biçimde yaz ve boş olmayan argümanların sayısını yazdır (argümansız çalıştırılacak).",
+          "ipucu": "fun main(args: Array<String>) { println(args.count { it.isNotEmpty() }) } — kod oyun alanı argümansız başlatıldığında da bir boş argüman aktarır, bu yüzden args.size 1 olur.",
+          "starter": "// main fonksiyonunu args parametresiyle yaz"
         },
         "sintaksis-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "when'i argümansız biçimde kullan: temperatur = 25 için 21'den yüksekse \"Isti\", 11..20 arasıysa \"Ilig\", değilse \"Soyuq\" yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val temperatur = 25\n    val netice = when {\n        // dalları yaz\n    }\n    println(netice)\n}"
         },
         "sintaksis-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Yerel (local) fonksiyon yaz: main() içinde ikiqat adlı bir fonksiyon bildir ve 21'in iki katını yazdır.",
+          "ipucu": "main() içine fun ikiqat(x: Int) = x * 2 yaz.",
+          "starter": "fun main() {\n    // yerel fonksiyonu buraya yaz\n    println(ikiqat(21))\n}"
         },
         "sintaksis-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Backtick içinde boşluklu adı olan bir fonksiyon bildir — adı `salam de` olsun — ve onu çağır.",
+          "ipucu": "fun `salam de`() { println(\"Salam!\") } — çağrı da backtick ile.",
+          "starter": "fun main() {\n    // fonksiyonu çağır\n}\n\n// backtick içinde fonksiyon bildir"
         },
         "sintaksis-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "vararg kullanarak istenen sayıda sayıyı toplayan cemle fonksiyonunu yaz. 1, 2, 3, 4 için toplamı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cemle(1, 2, 3, 4))\n}\n\n// vararg parametreli fonksiyon yaz"
         }
       }
     },
     "deyisenler": {
-      "title": "",
+      "title": "Değişkenler ve türler",
       "nezeri": {
         "deyisenler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "val ile var arasındaki fark nedir?",
+          "opts": [
+            "val değiştirilemez, var değiştirilebilir",
+            "val yalnızca sayılar içindir",
+            "Fark yok",
+            "var yalnızca sınıf içinde kullanılır"
+          ],
+          "exp": "val salt okunur bir referanstır — bir kez atandıktan sonra yeniden atanamaz. var ise değiştirilebilir. Her zaman val ile başlamak önerilir."
         },
         "deyisenler-n-02": {
-          "q": "",
+          "q": "Tam sayılar için varsayılan tür hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "val x = 42 yazdığında derleyici Int türünü seçer (32 bit). Değer Int sınırından büyükse otomatik olarak Long olur."
         },
         "deyisenler-n-03": {
-          "q": "",
+          "q": "Ondalık sayılar için varsayılan tür hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "val pi = 3.14 ifadesinde tür Double'dır (64 bit). Float elde etmek için f soneki gerekir: 3.14f."
         },
         "deyisenler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod çalışır mı?",
+          "opts": [
+            "Evet",
+            "Hayır — val yeniden atanamaz",
+            "Evet, ama uyarıyla",
+            "Yalnızca main() içinde"
+          ],
+          "exp": "val salt okunurdur. Değeri değiştirmek gerekiyorsa var kullanılmalıdır."
         },
         "deyisenler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Char türü hangi tırnakla yazılır?",
+          "opts": [
+            "Çift tırnak: \"A\"",
+            "Tek tırnak: 'A'",
+            "Backtick: `A`",
+            "Tırnaksız: A"
+          ],
+          "exp": "Char tek tırnakla ('A'), String ise çift tırnakla (\"A\") yazılır. Bunlar Kotlin'de farklı türlerdir."
         },
         "deyisenler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "1_000_000 yazımında alt çizgi ne yapar?",
+          "opts": [
+            "Değeri 1000 kat artırır",
+            "Yalnızca okunabilirlik içindir, değere etkisi yoktur",
+            "Onu metne çevirir",
+            "Hatadır"
+          ],
+          "exp": "Alt çizgi büyük sayıları okunur kılar. Derleyici onu tamamen yok sayar — 1_000_000 ile 1000000 aynı değerdir."
         },
         "deyisenler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Boolean türü hangi değerleri kabul eder?",
+          "opts": [
+            "0 ve 1",
+            "true ve false",
+            "yes ve no",
+            "null veya sayı"
+          ],
+          "exp": "Kotlin'de Boolean yalnızca true ve false kabul eder. C dilinden farklı olarak sayı Boolean olarak kullanılamaz."
         },
         "deyisenler-n-08": {
-          "q": "",
+          "q": "Metni sayıya çevirmek için hangi fonksiyon kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "\"42\".toInt() metni Int'e çevirir. Dönüşüm başarısız olursa NumberFormatException fırlatılır — güvenli seçenek toIntOrNull()'dur."
         },
         "deyisenler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "0xFF sabiti hangi sayı sistemindedir?",
+          "opts": [
+            "Onluk",
+            "İkilik",
+            "Onaltılık (hex)",
+            "Sekizlik"
+          ],
+          "exp": "0x öneki onaltılık sistemi belirtir. 0xFF onluk sistemde 255'e eşittir. İkilik için 0b öneki kullanılır."
         },
         "deyisenler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod derlenir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — açık dönüşüm gerekir: x.toLong()",
+            "Evet, ama değer kaybolur",
+            "Yalnızca x sabit olduğunda"
+          ],
+          "exp": "Kotlin otomatik sayı dönüşümü yapmaz — Java'dan önemli bir farktır. Bu, gizli veri kaybını önler. Açıkça x.toLong() yazmak gerekir."
         },
         "deyisenler-n-11": {
-          "q": "",
+          "q": "7 / 2 ifadesinin sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Her iki işlenen de Int olduğu için tam sayı bölmesi yapılır ve ondalık kısım atılır. Ondalıklı sonuç için en az biri Double olmalıdır: 7.0 / 2 → 3.5."
         },
         "deyisenler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "\"abc\".toIntOrNull() ne döndürür?",
+          "opts": [
+            "0",
+            "null",
+            "NumberFormatException fırlatır",
+            "-1"
+          ],
+          "exp": "toIntOrNull() dönüşüm mümkün olmadığında istisna fırlatmaz, null döndürür. Bu, kullanıcı girdisini işlerken en güvenli yaklaşımdır."
         },
         "deyisenler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "const val ile sıradan val arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "const val derleme zamanı sabitidir ve yalnızca ilkel/String olabilir",
+            "const val daha fazla bellek tutar",
+            "const val yalnızca sınıf içinde olur"
+          ],
+          "exp": "const val'in değeri derleme zamanında bilinmeli ve yalnızca top-level, object veya companion object içinde bildirilebilir. Çalışma zamanında hesaplanan değerler için sıradan val kullanılır."
         },
         "deyisenler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "lateinit hangi türlerle ÇALIŞMAZ?",
+          "opts": [
+            "String",
+            "Sınıf türleri",
+            "İlkel türler (Int, Double, Boolean)",
+            "List"
+          ],
+          "exp": "lateinit ilkel türlerle çalışmaz, çünkü onların «henüz atanmadı» durumunu belirten dahili bir null değeri yoktur. Bunun için by Delegates.notNull() kullanılır."
         },
         "deyisenler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "by lazy ne zaman hesaplanır?",
+          "opts": [
+            "Program başladığında",
+            "Her erişimde yeniden",
+            "İlk erişimde bir kez, sonra önbelleğe alınır",
+            "Hiçbir zaman"
+          ],
+          "exp": "by lazy değeri ilk okumada hesaplar ve sonucu saklar. Sonraki erişimlerde hesaplama tekrarlanmaz. Yalnızca val ile kullanılabilir."
         },
         "deyisenler-n-16": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "== içeriği karşılaştırır (equals) — iki metin de \"Kotlin\" olduğu için true. === ise referansı kontrol eder; StringBuilder yeni bir nesne oluşturduğu için false."
         },
         "deyisenler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "val siyahi = mutableListOf(1); siyahi.add(2) — bu çalışır mı?",
+          "opts": [
+            "Hayır, val değişmezdir",
+            "Evet — val referansı sabitler, nesnenin içeriğini değil",
+            "Yalnızca var olursa",
+            "Derleme hatası"
+          ],
+          "exp": "val yalnızca referansın yeniden atanmasını yasaklar. Nesnenin kendisi değiştirilebilirse (MutableList), içeriği değiştirilebilir."
         },
         "deyisenler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "'K'.code ifadesi ne döndürür?",
+          "opts": [
+            "'K' karakterini",
+            "Unicode kodunu (75)",
+            "\"K\" metnini",
+            "Hata"
+          ],
+          "exp": "Char.code karakterin Unicode kod noktasını Int olarak döndürür. Ters dönüşüm için 75.toChar() kullanılır."
         },
         "deyisenler-n-19": {
-          "q": "",
+          "q": "Int türünün maksimum değeri nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Int 32 bittir: −2 147 483 648 … 2 147 483 647. Daha büyük değerler için Long (64 bit) kullanılır."
         },
         "deyisenler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Int.MAX_VALUE + 1 ifadesinin sonucu nedir?",
+          "opts": [
+            "Hata fırlatır",
+            "Long'a çevrilir",
+            "Int.MIN_VALUE (−2147483648)",
+            "0"
+          ],
+          "exp": "Kotlin'de tam sayı taşması (overflow) sessizce gerçekleşir — değer aralığın başına döner. Hata fırlatılmaz, bu yüzden büyük hesaplamalarda Long kullanmak gerekir."
         },
         "deyisenler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de Unit nedir?",
+          "opts": [
+            "null'ın başka bir adı",
+            "Java'daki void'in karşılığı — gerçek bir türdür ve tek bir örneği vardır",
+            "Boş liste",
+            "Hata türü"
+          ],
+          "exp": "Unit, hiçbir şey döndürmeyen fonksiyonların dönüş türüdür. void'den farkı: Unit gerçek bir türdür, jeneriklerde kullanılabilir ve yalnızca tek bir örneği vardır."
         },
         "deyisenler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Nothing türü ne zaman kullanılır?",
+          "opts": [
+            "Boş değer için",
+            "Hiçbir zaman dönmeyen ifadeler için (throw, sonsuz döngü)",
+            "null için",
+            "Boolean için"
+          ],
+          "exp": "Nothing hiçbir değeri olmayan bir türdür. throw ifadesinin türü Nothing'dir, bu yüzden val x = y ?: throw Xeta() yapısı çalışır — Nothing tüm türlerin alt türüdür."
         },
         "deyisenler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodda x'in türü nedir?",
+          "opts": [
+            "Int",
+            "Long",
+            "Double",
+            "Derleme hatası"
+          ],
+          "exp": "Değer Int sınırından (2 147 483 647) büyük olduğu için derleyici otomatik olarak Long seçer. L soneki yazmak zorunlu değildir."
         },
         "deyisenler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de ilkel türler var mı?",
+          "opts": [
+            "Evet, int ve Integer ayrıdır",
+            "Hayır — dilde yalnızca Int vardır, derleyici gerektiğinde onu ilkele çevirir",
+            "Yalnızca Boolean ilkeldir",
+            "Hepsi nesnedir ve hiçbir zaman optimize edilmez"
+          ],
+          "exp": "Kotlin düzeyinde her şey nesnedir, ama JVM'de derleyici Int'i mümkün olan yerlerde ilkel int olarak tutar. Nullable olduğunda (Int?) ise boxing gerçekleşir."
         },
         "deyisenler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "val x: Int? = null; val y = x?.plus(1) — y'nin türü nedir?",
+          "opts": [
+            "Int",
+            "Int?",
+            "Nothing",
+            "Derleme hatası"
+          ],
+          "exp": "Safe call (?.) sonucu her zaman nullable'dır, çünkü receiver null ise sonuç da null olur. Bu yüzden y'nin türü Int?'dir."
         }
       },
       "praktiki": {
         "deyisenler-p-01": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "ad adında değişmez bir değişken oluştur, değeri \"Kotlin\" olsun ve yazdır.",
+          "ipucu": "val anahtar kelimesini kullan."
         },
         "deyisenler-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "sayqac adında değiştirilebilir bir değişken oluştur (0'dan başlasın), üç kez bir artır ve sonucu yazdır.",
+          "ipucu": "Üç kez sayqac++, sonra println(sayqac)."
         },
         "deyisenler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Int türündeki 7 ile Double türündeki 2.0 değerlerini böl ve sonucu yazdır.",
+          "ipucu": "println(a / b) — biri Double olduğu için sonuç Double olur."
         },
         "deyisenler-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İki Int sayının tam bölme sonucunu yazdır: 7, 2'ye bölünsün.",
+          "ipucu": "Her iki işlenen de Int olduğunda ondalık kısım atılır."
         },
         "deyisenler-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "1_000_000 değerini bir değişkende tut ve yazdır.",
+          "ipucu": "Alt çizgi yalnızca okunabilirlik içindir."
         },
         "deyisenler-p-06": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Onaltılık 0xFF değerini yazdır.",
+          "ipucu": "println(0xFF) yazman yeterli."
         },
         "deyisenler-p-07": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İkilik 0b1010 değerini yazdır.",
+          "ipucu": "0b öneki ikilik sayı sistemini belirtir."
         },
         "deyisenler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "\"42\" metnini Int'e çevirip 8 ekle ve sonucu yazdır.",
           "ipucu": ""
         },
         "deyisenler-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Bir Boolean değişken oluştur (true) ve onun değilini yazdır.",
+          "ipucu": "Değil işlemi için ! işareti kullanılır."
         },
         "deyisenler-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Bir Int değeri açıkça Long'a çevirip yazdır. Değer 42 olsun.",
+          "ipucu": "x.toLong() kullan — Kotlin otomatik çevirmez.",
+          "starter": "fun main() {\n    val x: Int = 42\n    val y: Long = // burayı tamamla\n    println(y)\n}"
         },
         "deyisenler-p-11": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "\"abc\" metnini güvenli şekilde sayıya çevirmeyi dene ve sonucu yazdır (istisna fırlatılmamalı).",
+          "ipucu": "toIntOrNull() istisna fırlatmaz, null döndürür."
         },
         "deyisenler-p-12": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "'K' karakterinin Unicode kodunu yazdır.",
+          "ipucu": "Char.code özelliğini kullan."
         },
         "deyisenler-p-13": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "75 kodunu karaktere çevirip yazdır.",
+          "ipucu": "Int.toChar() kullan."
         },
         "deyisenler-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Int türünün maksimum ve minimum değerlerini iki satırda yazdır.",
+          "ipucu": "Int.MAX_VALUE ve Int.MIN_VALUE."
         },
         "deyisenler-p-15": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "val ile mutableListOf(1, 2) oluştur, ona 3 ekle ve listeyi yazdır. (val referansı sabitler, içeriği değil.)",
+          "ipucu": "siyahi.add(3) çalışır, çünkü nesnenin kendisi değiştirilebilir."
         },
         "deyisenler-p-16": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İki metni karşılaştır: biri sıradan bir sabit, diğeri StringBuilder ile kurulsun. == ve === sonuçlarını iki satırda yazdır.",
+          "ipucu": "== içeriği, === referansı karşılaştırır."
         },
         "deyisenler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Top-level const val ile MAX_OLCU sabitini oluştur (değeri 100) ve main() içinde yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// const val sabitini buraya yaz\n\nfun main() {\n    println(MAX_OLCU)\n}"
         },
         "deyisenler-p-18": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Değişkenin türünü yazdır: 3.14 değerinin basit sınıf adını göster.",
+          "ipucu": "pi::class.simpleName kullan."
         },
         "deyisenler-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Kalan (mod) işlemiyle 17'nin 5'e bölümünden kalanı yazdır.",
+          "ipucu": "% operatörünü kullan."
         },
         "deyisenler-p-20": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Int taşmasını göster: Int.MAX_VALUE'ya 1 ekleyip sonucu yazdır.",
+          "ipucu": "Kotlin'de taşma sessizce gerçekleşir — değer aralığın başına döner."
         },
         "deyisenler-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "by lazy kullanarak agir adında bir değer oluştur — hesaplanırken \"Hesablanir\" yazdırsın. Sonra ona İKİ kez eriş.",
+          "ipucu": "Blok içine println(\"Hesablanir\") yaz, sonra 42 döndür. lazy yalnızca bir kez hesaplar.",
+          "starter": "val agir: Int by lazy {\n    // burayı tamamla\n}\n\nfun main() {\n    println(agir)\n    println(agir)\n}"
         },
         "deyisenler-p-22": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Nullable bir Int değişkeni null olsun. Safe call ile ona 1 eklemeyi dene ve sonucu yazdır.",
+          "ipucu": "x?.plus(1) yaz — receiver null olduğu için sonuç null olur."
         },
         "deyisenler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Elvis operatörüyle nullable değeri işle: x null olduğunda 0 yazdırılsın.",
           "ipucu": ""
         },
         "deyisenler-p-24": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "is operatörüyle tür kontrolü yap: Any türündeki değişken String tutuyorsa uzunluğunu yazdır.",
+          "ipucu": "if (obyekt is String) — smart cast sayesinde obyekt.length çalışır."
         },
         "deyisenler-p-25": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Char üzerinde aritmetik: 'a' karakterine 1 ekleyip sonucu yazdır.",
+          "ipucu": "'a' + 1 sonucu Char türündedir."
         }
       }
     },
     "sertler": {
-      "title": "",
+      "title": "Koşullar: if ve when",
       "nezeri": {
         "sertler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de üçlü operatör (koşul ? a : b) var mı?",
+          "opts": [
+            "Evet",
+            "Hayır — if ifadesi onun yerini alır",
+            "Yalnızca Boolean için",
+            "Yalnızca when içinde"
+          ],
+          "exp": "Kotlin'de üçlü operatör yoktur, çünkü if kendisi değer döndürür: val maks = if (a > b) a else b. Bu biçim daha okunaklıdır."
         },
         "sertler-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İfade olarak kullanılan if'te else zorunlu mu?",
+          "opts": [
+            "Hayır",
+            "Evet",
+            "Yalnızca Int döndürürken",
+            "Yalnızca fonksiyon içinde"
+          ],
+          "exp": "İfade her zaman bir değer döndürmelidir. else olmazsa, koşul yanlış olduğunda hangi değerin döneceği bilinmez — bu yüzden derleyici else ister."
         },
         "sertler-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "when neyin karşılığıdır?",
+          "opts": [
+            "Java'daki switch — ama daha güçlü",
+            "for döngüsünün",
+            "try bloğunun",
+            "Fonksiyon bildiriminin"
+          ],
+          "exp": "when switch'e benzer, ama her türü, aralıkları, tür kontrollerini ve keyfî koşulları kabul eder. Ayrıca değer döndürebilir."
         },
         "sertler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "when'de birden fazla değer aynı dala nasıl toplanır?",
+          "opts": [
+            "Virgülle: 1, 2, 3 ->",
+            "Noktalı virgülle",
+            "|| operatörüyle",
+            "Mümkün değil"
+          ],
+          "exp": "Değerler virgülle sıralanır: 1, 2, 3 -> \"kiçik\". Java'daki gibi ardışık case yazmaya gerek yoktur."
         },
         "sertler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "boyuk",
+            "kicik",
+            "İkisi de",
+            "Hiçbir şey"
+          ],
+          "exp": "5 > 3 koşulu doğrudur, bu yüzden if dalı çalışır ve \"boyuk\" yazdırılır."
         },
         "sertler-n-06": {
-          "q": "",
+          "q": "when'de «geri kalan tüm durumlar» için hangi anahtar kelime kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de else kullanılır. İfade olarak kullanılan when'de zorunludur — enum ve sealed türlerde ise tüm durumlar kapsanmışsa gerekmez."
         },
         "sertler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bloklu if ifadesinde hangi değer döndürülür?",
+          "opts": [
+            "İlk satır",
+            "Son satır",
+            "return yazılan satır",
+            "Hiçbiri"
+          ],
+          "exp": "Bloğun son ifadesi sonuç olur. Bu yüzden if bloklarında ayrıca return yazmaya gerek yoktur."
         },
         "sertler-n-08": {
-          "q": "",
+          "q": "Koşulda «ve» işlemi hangi operatörle yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Mantıksal «ve» için && kullanılır ve kısa devre (short-circuit) uygulanır — sol taraf false ise sağ taraf hiç hesaplanmaz."
         },
         "sertler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "Ela",
+            "Yaxsi",
+            "Kafi",
+            "Derleme hatası"
+          ],
+          "exp": "85 >= 90 yanlıştır, 85 >= 70 doğrudur — bu yüzden \"Yaxsi\" seçilir ve q değişkenine atanır."
         },
         "sertler-n-10": {
-          "q": "",
+          "q": "when'de aralık kontrolü nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "in anahtar kelimesiyle: in 1..10 -> \"kicik\". Tersi için !in kullanılır."
         },
         "sertler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Argümansız when ne zaman faydalıdır?",
+          "opts": [
+            "Hiçbir zaman",
+            "Birbirinden bağımsız koşulları kontrol etmek için — if-else zincirinin yerini alır",
+            "Yalnızca enum ile",
+            "Yalnızca null kontrolü için"
+          ],
+          "exp": "when { a > 10 -> ...; b.isEmpty() -> ... } biçiminde her dal bağımsız bir Boolean koşuldur. Bu, uzun if-else if zincirlerini daha okunaklı yapar."
         },
         "sertler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "when içinde is kullanıldığında smart cast gerçekleşir mi?",
+          "opts": [
+            "Hayır, elle çevirmek gerekir",
+            "Evet — dal içinde nesne otomatik olarak String gibi görünür",
+            "Yalnızca val olduğunda",
+            "Yalnızca as kullanıldığında"
+          ],
+          "exp": "is kontrolünden sonra derleyici değişkeni o türde görür. Ek olarak (obyekt as String) yazmaya gerek kalmaz."
         },
         "sertler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "is",
+            "istirahet",
+            "yanlis",
+            "Derleme hatası"
+          ],
+          "exp": "6 değeri ilk dalın aralığına (1..5) girmez, ikinci dalda ise açıkça sıralanmıştır — bu yüzden \"istirahet\" seçilir."
         },
         "sertler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "when (val n = hesabla()) { ... } yapısı ne yapar?",
+          "opts": [
+            "Hatadır",
+            "Sonucu bir değişkende tutar ve o when içinde kullanır",
+            "Fonksiyonu iki kez çağırır",
+            "Yalnızca Java'da çalışır"
+          ],
+          "exp": "when'in subject'inde değişken bildirilebilir. Fonksiyon yalnızca bir kez çağrılır ve sonuç tüm dallarda erişilebilir olur."
         },
         "sertler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "enum ile kullanılan when'de else ne zaman GEREKMEZ?",
+          "opts": [
+            "Hiçbir zaman gerekmez",
+            "Tüm enum sabitleri kapsanmışsa",
+            "Yalnızca iki sabit olduğunda",
+            "Her zaman gerekir"
+          ],
+          "exp": "Derleyici enum'un tüm değerlerini tanır. Hepsi sıralanmışsa when exhaustive sayılır ve else gerekmez."
         },
         "sertler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "&& operatöründe kısa devre ne anlama gelir?",
+          "opts": [
+            "Her iki taraf her zaman hesaplanır",
+            "Sol taraf false ise sağ taraf hesaplanmaz",
+            "Önce sağ taraf hesaplanır",
+            "Sonuç her zaman true olur"
+          ],
+          "exp": "Sol taraf sonucu belirliyorsa sağ taraf çalıştırılmaz. Bu, siyahi != null && siyahi.isNotEmpty() gibi kontrolleri güvenli kılar."
         },
         "sertler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "if ifadesi fonksiyondan doğrudan döndürülebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — tek ifadeli fonksiyon biçimi",
+            "Yalnızca return ile",
+            "Yalnızca Unit döndürürken"
+          ],
+          "exp": "if değer döndürdüğü için tek ifadeli bir fonksiyonun gövdesi olabilir. Bu, çok kullanılan idiomatik bir biçimdir."
         },
         "sertler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sealed class ile when'in avantajı nedir?",
+          "opts": [
+            "Daha hızlı çalışır",
+            "Tüm alt sınıflar bilindiği için else gerekmez ve yeni alt sınıf eklendiğinde derleyici uyarır",
+            "Bellekten tasarruf eder",
+            "Fark yok"
+          ],
+          "exp": "sealed hiyerarşinin tüm alt sınıfları derleyiciye bilinir. Yeni bir alt sınıf eklediğinde onu işlemeyen tüm when blokları derleme hatası verir — hiçbir durum unutulmaz."
         },
         "sertler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu when exhaustive mi?",
+          "opts": [
+            "Hayır, else gerekir",
+            "Evet — tüm enum değerleri kapsanmış",
+            "Yalnızca else eklersek",
+            "Derleme hatası verir"
+          ],
+          "exp": "İki enum sabiti de sıralanmış, bu yüzden when exhaustive'dir ve else gerekmez."
         },
         "sertler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "when'de dallar hangi sırayla kontrol edilir?",
+          "opts": [
+            "Rastgele",
+            "Yukarıdan aşağıya, ilk eşleşen çalışır",
+            "Aşağıdan yukarıya",
+            "Hepsi aynı anda"
+          ],
+          "exp": "Dallar yazıldıkları sırayla kontrol edilir ve ilk eşleşen çalıştırılır. Bu yüzden daha özel koşullar yukarıda yazılmalıdır."
         },
         "sertler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "if'in sonucu doğrudan string şablonuna konabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — ${if (x > 0) \"musbet\" else \"menfi\"}",
+            "Yalnızca bir değişken aracılığıyla",
+            "Yalnızca when ile"
+          ],
+          "exp": "${...} içine herhangi bir ifade yazılabilir, if de dahil. Ama okunabilirlik için karmaşık mantığı ayrı bir değişkene çıkarmak daha iyidir."
         },
         "sertler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Boolean değeri if ile kontrol edip true/false döndürmek neden kötüdür?",
+          "opts": [
+            "Kötü değil",
+            "Gereksizdir — x > 5 zaten kendisi Boolean döndürür",
+            "Hata verir",
+            "Yavaş çalışır"
+          ],
+          "exp": "Karşılaştırmanın sonucu zaten Boolean'dır. Sadece x > 5 yazmak yeterlidir — bu, yaygın bir kod kokusu (code smell) sayılır."
         },
         "sertler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "when'in tüm dalları farklı tür döndürüyorsa sonucun türü ne olur?",
+          "opts": [
+            "String",
+            "Int",
+            "En yakın ortak üst tür (bu durumda Any?)",
+            "Derleme hatası"
+          ],
+          "exp": "Derleyici tüm dalların ortak üst türünü seçer. String, Int ve null için bu Any?'dir. Böyle durumlardan kaçınmak ve türü tek tip tutmak önerilir."
         },
         "sertler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İç içe çok sayıda if yerine hangi yaklaşım önerilir?",
+          "opts": [
+            "Daha çok if yazmak",
+            "Erken çıkış (early return) veya argümansız when",
+            "goto kullanmak",
+            "Hepsini tek satırda yazmak"
+          ],
+          "exp": "Erken çıkış (val x = giris ?: return) ve argümansız when kodu düzleştirir. Derin iç içe koşullar «piramit» oluşturur ve okunabilirliği azaltır."
         },
         "sertler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "uzun",
+            "qisa ve ya null",
+            "NullPointerException",
+            "Derleme hatası"
+          ],
+          "exp": "s null olduğu için ilk koşul yanlıştır ve kısa devre sayesinde s.length hiç hesaplanmaz — NPE riski yoktur. else dalı çalışır."
         }
       },
       "praktiki": {
         "sertler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "yas 20'dir. 18'den büyük veya eşitse \"boyuk\", değilse \"kicik\" yazdır.",
           "ipucu": ""
         },
         "sertler-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "if'i İFADE olarak kullanıp 12 ile 30 sayılarından büyüğünü yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val a = 12\n    val b = 30\n    val maks = // burayı tamamla\n    println(maks)\n}"
         },
         "sertler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Sayının çift mi tek mi olduğunu kontrol et: 7 için \"tek\" yazdır.",
+          "ipucu": "n % 2 == 0 koşulunu kontrol et."
         },
         "sertler-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "when ile reqem = 2 için \"Iki\" yazdır. 1, 2, 3 için ilgili adları, geri kalanlar için \"Diger\" yaz.",
           "ipucu": ""
         },
         "sertler-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "when'de birden fazla değeri tek dala topla: 6 ve 7 için \"istirahet\" yazdır. gun = 7 olsun.",
+          "ipucu": "Değerleri virgülle sırala: 6, 7 -> ..."
         },
         "sertler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "İki koşulu && ile birleştir: yas 25 ve aktivdir true olduğunda \"qebul edildi\" yazdır.",
           "ipucu": ""
         },
         "sertler-p-07": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Üç sayıdan en büyüğünü bul ve yazdır: 14, 8, 23.",
+          "ipucu": "İç içe if veya maxOf(a, b, c) kullan."
         },
         "sertler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "|| operatörüyle kontrol et: reqem 0'dan küçük VEYA 100'den büyükse \"araliqdan kenar\" yazdır. reqem = 150.",
           "ipucu": ""
         },
         "sertler-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Boolean değişkenin değilini yazdır: aktivdir = false olsun, \"!aktivdir\" sonucunu göster.",
           "ipucu": ""
         },
         "sertler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "when'de ARALIK kontrol et: bal = 85 için 90+ \"Ela\", 70..89 \"Yaxsi\", geri kalanı \"Kafi\" olsun. Sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val bal = 85\n    val q = when {\n        // dalları yaz\n    }\n    println(q)\n}"
         },
         "sertler-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "when + in operatörü: gun = 3 için 1..5 aralığındaysa \"is gunu\" sonucunu döndür ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val gun = 3\n    val tip = when (gun) {\n        // dalları yaz\n    }\n    println(tip)\n}"
         },
         "sertler-p-12": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "is ile tür kontrolü yap: Any türündeki değişken String tutuyorsa uzunluğunu, Int tutuyorsa kendisini yazdır. Değer \"Kotlin\" olsun.",
+          "ipucu": "is String -> println(obyekt.length) — smart cast çalışır.",
+          "starter": "fun main() {\n    val obyekt: Any = \"Kotlin\"\n    when (obyekt) {\n        // dalları yaz\n    }\n}"
         },
         "sertler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Tek ifadeli fonksiyon yaz: qiymet(bal) 50'den büyük olduğunda \"kecdi\", değilse \"kecmedi\" döndürsün. 60 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(qiymet(60))\n}\n\n// fonksiyonu yaz"
         },
         "sertler-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Null güvenli koşul: s null olduğunda \"bosdur\" yazdır. Kısa devreden yararlan.",
           "ipucu": ""
         },
         "sertler-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "when'in subject'inde değişken bildir: hesabla() sonucunu n değişkeninde tut ve 10'dan büyükse \"boyuk\" yazdır.",
+          "ipucu": "in Int.MIN_VALUE..10 -> ... ; else -> println(\"boyuk\") — veya argümansız when.",
+          "starter": "fun hesabla() = 42\n\nfun main() {\n    when (val n = hesabla()) {\n        // dalları yaz\n    }\n}"
         },
         "sertler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Metin şablonunda if kullan: reqem = -5 için \"-5 menfidir\" yazdır.",
           "ipucu": ""
         },
         "sertler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "İki koşullu kontrol yaz: 2024 yılı hem 4'e bölünür hem de 100'e bölünmez — \"uzun il\" yazdır.",
           "ipucu": ""
         },
         "sertler-p-18": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "enum oluştur (AKTIV, PASSIV) ve when ile AKTIV için \"isleyir\" yazdır — else YAZMA.",
+          "ipucu": "Tüm enum sabitlerini sırala — o zaman else gerekmez.",
+          "starter": "enum class Status { AKTIV, PASSIV }\n\nfun main() {\n    val s = Status.AKTIV\n    val netice = when (s) {\n        // dalları yaz (else yazma)\n    }\n    println(netice)\n}"
         },
         "sertler-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İç içe if kullan: yas 25, ehtiyat 500 — ikisi de yeterliyse \"tesdiq\" yazdır.",
+          "ipucu": "Dıştaki if yaşı, içteki if ehtiyatı kontrol etsin."
         },
         "sertler-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "sealed class ile when yaz: Ugurlu(\"data\") durumu için \"Ugurlu: data\" yazdır. else yazma.",
+          "ipucu": "is Netice.Ugurlu -> \"Ugurlu: ${n.data}\" — smart cast çalışır.",
+          "starter": "sealed class Netice {\n    data class Ugurlu(val data: String) : Netice()\n    data class Xeta(val kod: Int) : Netice()\n}\n\nfun main() {\n    val n: Netice = Netice.Ugurlu(\"data\")\n    val metn = when (n) {\n        // dalları yaz\n    }\n    println(metn)\n}"
         },
         "sertler-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Erken çıkış (early return) yaz: emal(null) çağrısında \"bos giris\" döndürülsün ve yazdırılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(null))\n}\n\nfun emal(giris: String?): String {\n    // erken çıkış yaz\n    return giris.uppercase()\n}"
         },
         "sertler-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Kod kokusunu düzelt: \"if (x > 5) true else false\" yerine doğrudan karşılaştırma yaz. x = 8 için sonucu yazdır.",
+          "ipucu": "Karşılaştırma zaten Boolean döndürür: val netice = x > 5",
+          "starter": "fun main() {\n    val x = 8\n    val netice = // sade biçimde yaz\n    println(netice)\n}"
         },
         "sertler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "when ile HTTP kodunu işle: 404 için \"Tapilmadi\", 500..599 için \"Server xetasi\", 200 için \"OK\" döndür. Kod 503 olsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tesvir(503))\n}\n\nfun tesvir(kod: Int): String = when {\n    // dalları yaz\n}"
         },
         "sertler-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "!in operatörünü kullan: reqem 1..10 aralığında DEĞİLSE \"kenar\" yazdır. reqem = 42.",
           "ipucu": ""
         },
         "sertler-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "when dallarının sırasını göster: bal = 95 için İLK eşleşen dal çalışmalı. \"Ela\" yazdırılsın.",
+          "ipucu": "Daha özel koşul (bal >= 90) yukarıda yazılmalıdır.",
+          "starter": "fun main() {\n    val bal = 95\n    val q = when {\n        bal >= 50 -> \"Kafi\"\n        bal >= 90 -> \"Ela\"\n        else -> \"Zeif\"\n    }\n    println(q)\n    // Dikkat: \"Ela\" çıksın diye dalların sırasını düzelt\n}"
         }
       }
     },
     "dovrler": {
-      "title": "",
+      "title": "Döngüler ve aralıklar",
       "nezeri": {
         "dovrler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de klasik for (i = 0; i < n; i++) biçimi var mı?",
+          "opts": [
+            "Evet",
+            "Hayır — aralıklar ve iteratör tabanlı for kullanılır",
+            "Yalnızca dizilerde",
+            "Yalnızca while ile"
+          ],
+          "exp": "Kotlin'de C tarzı for yoktur. Onun yerine for (i in 0 until n) veya for (element in kolleksiya) biçimleri kullanılır — daha kısa ve hatasızdır."
         },
         "dovrler-n-02": {
-          "q": "",
+          "q": "1..5 aralığı hangi sayıları kapsar?",
           "opts": [],
-          "exp": ""
+          "exp": ".. operatörü her iki ucu da dahil eder (closed range). Son sayıyı dışarıda bırakmak için ..< veya until kullanılır."
         },
         "dovrler-n-03": {
-          "q": "",
+          "q": "0..<5 aralığı kaç sayı verir?",
           "opts": [],
-          "exp": ""
+          "exp": "0, 1, 2, 3, 4 — yani 5 sayı. ..< son sayıyı dahil etmez (eskiden until olarak adlandırılırdı)."
         },
         "dovrler-n-04": {
-          "q": "",
+          "q": "Azalan aralık için hangi anahtar kelime kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "10 downTo 1 azalan bir dizi oluşturur. Sadece 10..1 yazarsan aralık boş olur ve döngü hiç çalışmaz."
         },
         "dovrler-n-05": {
-          "q": "",
+          "q": "Adımı değiştirmek için hangi anahtar kelime kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "1..10 step 2 → 1, 3, 5, 7, 9. step her zaman pozitif olmalıdır; azaltmak için downTo ile birlikte kullanılır."
         },
         "dovrler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "while ile do-while arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "do-while gövdeyi en az bir kez çalıştırır",
+            "while daha hızlıdır",
+            "do-while yalnızca Java'da var"
+          ],
+          "exp": "while koşulu başta kontrol eder — koşul yanlışsa gövde hiç çalışmaz. do-while ise gövdeyi çalıştırıp sonra koşulu kontrol eder, bu yüzden en az bir kez çalışır."
         },
         "dovrler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "break ne yapar?",
+          "opts": [
+            "Mevcut adımı atlar",
+            "Döngüyü tamamen durdurur",
+            "Fonksiyondan çıkar",
+            "Hata fırlatır"
+          ],
+          "exp": "break döngüyü hemen durdurur ve çalışma döngüden sonraki satırdan devam eder. Yalnızca mevcut adımı atlamak için continue kullanılır."
         },
         "dovrler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "continue ne yapar?",
+          "opts": [
+            "Döngüyü durdurur",
+            "Mevcut adımı atlayıp bir sonrakine geçer",
+            "Döngüyü yeniden başlatır",
+            "Programı bitirir"
+          ],
+          "exp": "continue gövdenin kalanını atlar ve bir sonraki yinelemeye geçer. Döngü devam eder."
         },
         "dovrler-n-09": {
-          "q": "",
+          "q": "Bu kod ne yazdırır?",
           "opts": [],
-          "exp": ""
+          "exp": "1..3 aralığı her iki ucu da dahil eder: 1, 2, 3. print() satırı değiştirmediği için hepsi tek satırda çıkar."
         },
         "dovrler-n-10": {
-          "q": "",
+          "q": "Bir koleksiyonu indeksiyle birlikte gezmek için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "for ((index, deyer) in siyahi.withIndex()) biçiminde hem indeks hem değer alınır. Yalnızca indeksler gerekiyorsa siyahi.indices kullanılır."
         },
         "dovrler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "repeat(3) { ... } ne yapar?",
+          "opts": [
+            "Bloğu 3 kez çalıştırır",
+            "Listeyi 3 kez tekrarlar",
+            "3 saniye bekler",
+            "3 sayı döndürür"
+          ],
+          "exp": "repeat(), standart kütüphanenin inline fonksiyonudur. Sadece bloğu n kez çalıştırır ve yineleme indeksini lambda parametresi olarak verir."
         },
         "dovrler-n-12": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "10'dan başlayıp her seferinde 3 azalır: 10, 7, 4, 1. Sonraki değer (−2) aralığın dışında kalır."
         },
         "dovrler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Map üzerinde for nasıl yazılır?",
+          "opts": [
+            "for (m in map)",
+            "for ((acar, deyer) in map)",
+            "for (map.each)",
+            "Mümkün değil"
+          ],
+          "exp": "Map'in elemanları Entry'dir ve yapı çözümlemeyi destekler, bu yüzden for ((acar, deyer) in map) yazılabilir."
         },
         "dovrler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "forEach içinde düz return ne yapar?",
+          "opts": [
+            "Yalnızca mevcut adımı atlar",
+            "TÜM fonksiyondan çıkar",
+            "Döngüyü yeniden başlatır",
+            "Derleme hatası"
+          ],
+          "exp": "forEach inline olduğu için return dış fonksiyondan çıkar (non-local return). Yalnızca adımı atlamak için return@forEach yazmak gerekir."
         },
         "dovrler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İç içe döngülerden tek seferde çıkmak için ne kullanılır?",
+          "opts": [
+            "break break",
+            "Etiketle (label): break@xarici",
+            "exit()",
+            "goto"
+          ],
+          "exp": "Döngüye bir etiket verilir (xarici@ for ...) ve break@xarici yazılır. Etiketsiz break yalnızca en içteki döngüden çıkar."
         },
         "dovrler-n-16": {
-          "q": "",
+          "q": "(1..10).sum() ne döndürür?",
           "opts": [],
-          "exp": ""
+          "exp": "1'den 10'a kadar sayıların toplamı: 10 × 11 / 2 = 55. Aralıklar koleksiyon fonksiyonlarını destekler."
         },
         "dovrler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod kaç kez çalışır?",
+          "opts": [
+            "5 kez",
+            "6 kez",
+            "Hiç",
+            "Sonsuz"
+          ],
+          "exp": "Koşul başta kontrol edilir: 0 > 5 yanlıştır, bu yüzden gövde hiç çalışmaz. do-while olsaydı bir kez çalışırdı."
         },
         "dovrler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Char aralığı yazılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — abcde yazdırır",
+            "Yalnızca sayılarla",
+            "Derleme hatası"
+          ],
+          "exp": "Char da Comparable olduğu için aralık oluşturulabilir. Unicode kodları ardışık olan karakterler üzerinde gezer."
         },
         "dovrler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Aralık (IntRange) nesne oluşturur mu, yoksa optimize mi edilir?",
+          "opts": [
+            "Her zaman nesne oluşturur",
+            "for döngüsünde derleyici onu sıradan bir sayaca çevirir — nesne oluşmaz",
+            "Hiçbir zaman çalışmaz",
+            "Yalnızca Long için optimize edilir"
+          ],
+          "exp": "for (i in 1..n) yapısında derleyici IntRange nesnesi oluşturmaz, sıradan indeksli döngüye çevirir. Ama aralığı bir değişkende tutarsan nesne oluşur."
         },
         "dovrler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "return@forEach ne yapar?",
+          "opts": [
+            "Fonksiyondan çıkar",
+            "Yalnızca mevcut lambda çağrısından çıkar — continue gibi çalışır",
+            "Döngüyü durdurur",
+            "Hata fırlatır"
+          ],
+          "exp": "Etiketli return yalnızca lambda'dan çıkar, yani o adımı atlar. Dış fonksiyon çalışmaya devam eder."
         },
         "dovrler-n-21": {
-          "q": "",
+          "q": "Bu kod ne yazdırır?",
           "opts": [],
-          "exp": ""
+          "exp": "Her dış adımda j=1 yazdırılır, j=2 olduğunda continue@xarici iç döngüyü terk edip bir sonraki i'ye geçer. Sonuç: 11, 21, 31."
         },
         "dovrler-n-22": {
-          "q": "",
+          "q": "Sonsuz döngü yazmanın idiomatik yolu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "while (true) en açık biçimdir. Kotlin'de for (;;) sözdizimi yoktur. Böyle döngüler mutlaka break veya return ile terk edilmelidir."
         },
         "dovrler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Büyük bir koleksiyonda zincirleme işlemler için ne önerilir?",
+          "opts": [
+            "Sıradan List işlemleri",
+            "asSequence() — ara listeler oluşmaz",
+            "İç içe for döngüleri",
+            "Fark yok"
+          ],
+          "exp": "Sıradan zincirde her adım yeni bir liste oluşturur. Sequence elemanları tek tek işler ve ara koleksiyon oluşturmaz — büyük verilerde ciddi tasarruf sağlar."
         },
         "dovrler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "indices özelliği ne döndürür?",
+          "opts": [
+            "Elemanları",
+            "Geçerli indekslerin aralığını (0..size-1)",
+            "Eleman sayısını",
+            "Son indeksi"
+          ],
+          "exp": "siyahi.indices → IntRange. for (i in siyahi.indices) biçiminde indekslerle gezmek için kullanılır. Son indeks için lastIndex vardır."
         },
         "dovrler-n-25": {
-          "q": "",
+          "q": "Bu döngü kaç eleman yazdırır?",
           "opts": [],
-          "exp": ""
+          "exp": "indices → 0..4, step 2 ile 0, 2, 4 indeksleri seçilir — yani 3 eleman (1, 3, 5) yazdırılır."
         }
       },
       "praktiki": {
         "dovrler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "1'den 5'e kadar sayıları tek satırda, aralarında boşlukla yazdır.",
           "ipucu": ""
         },
         "dovrler-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "0'dan 4'e kadar (5 dahil değil) sayıları tek satırda yazdır.",
+          "ipucu": "0..<5 aralığını kullan."
         },
         "dovrler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "5'ten 1'e kadar azalan sırayla yazdır.",
+          "ipucu": "downTo anahtar kelimesini kullan."
         },
         "dovrler-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "1'den 10'a kadar sayıları 2'şer adımla yazdır.",
+          "ipucu": "step 2 ekle."
         },
         "dovrler-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Listeyi gezip her elemanı ayrı satırda yazdır: \"Kotlin\", \"Java\", \"Swift\".",
           "ipucu": ""
         },
         "dovrler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "while döngüsüyle 3'ten 1'e kadar say ve tek satırda yazdır.",
           "ipucu": ""
         },
         "dovrler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "repeat() kullanarak \"Salam\" metnini 3 kez ayrı satırlarda yazdır.",
           "ipucu": ""
         },
         "dovrler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "'a'dan 'e'ye kadar karakterleri bitişik yazdır.",
           "ipucu": ""
         },
         "dovrler-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "1'den 10'a kadar sayıların toplamını hesaplayıp yazdır.",
+          "ipucu": "(1..10).sum() kullan veya döngüyle topla."
         },
         "dovrler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "withIndex() ile listeyi numarala: \"1. Kotlin\", \"2. Java\" biçiminde yazdır.",
           "ipucu": ""
         },
         "dovrler-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "break kullan: 1'den 10'a kadar gez, 4'e ulaşınca dur. Yazdırılanlar tek satırda olsun.",
           "ipucu": ""
         },
         "dovrler-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "continue kullan: 1'den 6'ya kadar yalnızca TEK sayıları tek satırda yazdır.",
           "ipucu": ""
         },
         "dovrler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "do-while kullan: sayqac 0'dan başlasın, 3'e ulaşana kadar her seferinde artırıp \"Sayqac: N\" yazdır.",
           "ipucu": ""
         },
         "dovrler-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Map üzerinde gez ve \"acar -> deyer\" biçiminde yazdır. Map: ad=Aysel, yas=24.",
           "ipucu": ""
         },
         "dovrler-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "indices ile gez: listenin indekslerini ve elemanlarını \"0:a\" biçiminde tek satırda yazdır.",
           "ipucu": ""
         },
         "dovrler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Çarpım tablosunun bir satırını yaz: 3'ün 1..5 ile çarpımlarını tek satırda yazdır.",
           "ipucu": ""
         },
         "dovrler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Döngüyle faktöriyel hesapla: 5! sonucunu yazdır.",
           "ipucu": ""
         },
         "dovrler-p-18": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İç içe döngü yaz: 1..2 ve 1..2 için çiftleri \"11 12 21 22\" biçiminde tek satırda yazdır.",
+          "ipucu": "İki for'u iç içe yaz ve print(\"$i$j \") kullan."
         },
         "dovrler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Listedeki sayıların toplamını döngüyle hesaplayıp yazdır: 4, 8, 15, 16.",
           "ipucu": ""
         },
         "dovrler-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Etiket kullan: iç içe döngüde i*j == 4 olduğunda HER İKİ döngüden çık ve \"Tapildi\" yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // etiketli döngüyü yaz\n}"
         },
         "dovrler-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "return@forEach kullan: 1..5 listesinde 3'ü atla, geri kalanları tek satırda yazdır.",
+          "ipucu": "if (it == 3) return@forEach — düz return tüm fonksiyondan çıkardı.",
+          "starter": "fun main() {\n    listOf(1, 2, 3, 4, 5).forEach {\n        // burayı tamamla\n    }\n    println()\n}"
         },
         "dovrler-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "continue@etiket kullan: i*j'lerden yalnızca j==1 olanları \"11 21 31\" biçiminde yazdır.",
+          "ipucu": "j == 2 olduğunda continue@xarici yaz.",
+          "starter": "fun main() {\n    // etiketli continue kullan\n    println()\n}"
         },
         "dovrler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "while (true) ve break kullan: sayaç 3'e ulaşınca dur ve son değeri yazdır.",
           "ipucu": ""
         },
         "dovrler-p-24": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Fibonacci dizisinin ilk 7 terimini tek satırda yazdır (1'den başla).",
+          "ipucu": "İki değişkenin yerini değiştirerek döngüde ilerle."
         },
         "dovrler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "indices step 2 kullan: listenin çift indeksli elemanlarını bitişik yazdır.",
           "ipucu": ""
         }
       }
     },
     "null-safety": {
-      "title": "",
+      "title": "Null güvenliği",
       "nezeri": {
         "null-safety-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "String ile String? arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "String? null tutabilir, String ise tutamaz",
+            "String? daha fazla bellek tutar",
+            "String? yalnızca Java'da var"
+          ],
+          "exp": "Sondaki soru işareti türün nullable olduğunu belirtir. String türündeki bir değişkene null atamak derleme hatasıdır — bu, NPE'leri önler."
         },
         "null-safety-n-02": {
-          "q": "",
+          "q": "Safe call operatörü hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "?. operatörü receiver null olduğunda çağrıyı tamamen atlar ve sonuç null olur. Çökme olmaz."
         },
         "null-safety-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "ad?.length ifadesinde ad null ise sonuç ne olur?",
+          "opts": [
+            "0",
+            "null",
+            "NPE fırlatılır",
+            "-1"
+          ],
+          "exp": "Safe call null receiver için null döndürür. Yedek değer gerekiyorsa elvis operatörü eklenir: ad?.length ?: 0."
         },
         "null-safety-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Elvis operatörü (?:) ne yapar?",
+          "opts": [
+            "Türü dönüştürür",
+            "Sol taraf null olduğunda sağ taraftaki değeri döndürür",
+            "İki değeri toplar",
+            "Null kontrolü yapıp hata fırlatır"
+          ],
+          "exp": "ad ?: \"Qonaq\" — ad null değilse onu, null ise \"Qonaq\" döndürür. Adını Elvis Presley'nin saç modeline benzemesinden alır."
         },
         "null-safety-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "!! operatörü ne yapar?",
+          "opts": [
+            "Değeri iki katına çıkarır",
+            "Nullable değeri zorla non-null'a çevirir, null ise NPE fırlatır",
+            "Mantıksal değil işlemi yapar",
+            "Değeri kopyalar"
+          ],
+          "exp": "!! bir «not-null assertion»dır. Yanılırsan KotlinNullPointerException alırsın. Koddaki her !! potansiyel bir çökme noktasıdır."
         },
         "null-safety-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Hangi yaklaşım daha güvenlidir?",
+          "opts": [
+            "ad!!.length",
+            "ad?.length ?: 0",
+            "İkisi aynı",
+            "Hiçbiri"
+          ],
+          "exp": "Safe call ve elvis birlikte asla çökmez — null durumunda belirlenmiş yedek değeri döndürür. !! ise çalışma zamanında çökebilir."
         },
         "null-safety-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "isNullOrEmpty() neyi kontrol eder?",
+          "opts": [
+            "Yalnızca null'ı",
+            "Yalnızca boşluğu",
+            "Hem null hem de boş olmasını",
+            "Uzunluğun 1'den büyük olmasını"
+          ],
+          "exp": "Değişken null ise VEYA boşsa true döndürür. Yalnızca boşluklardan oluşan metni de yakalamak gerekiyorsa isNullOrBlank() kullanılır."
         },
         "null-safety-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "orEmpty() fonksiyonu ne yapar?",
+          "opts": [
+            "Koleksiyonu temizler",
+            "null olduğunda boş metin veya boş koleksiyon döndürür",
+            "Hata fırlatır",
+            "Elemanları siler"
+          ],
+          "exp": "Nullable bir koleksiyonu veya metni güvenli biçime getirir: siyahi.orEmpty() null ise boş liste döndürür, böylece sonraki işlemler güvenli olur."
         },
         "null-safety-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "null",
+            "Qonaq",
+            "Boş satır",
+            "NPE"
+          ],
+          "exp": "ad null olduğu için elvis operatörü sağ taraftaki \"Qonaq\" değerini döndürür."
         },
         "null-safety-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Smart cast nedir?",
+          "opts": [
+            "Türün elle dönüştürülmesi",
+            "Null kontrolünden sonra derleyicinin değişkeni otomatik olarak non-null görmesi",
+            "Özel bir kütüphane",
+            "Bir yansıma türü"
+          ],
+          "exp": "if (ad != null) bloğunda derleyici ad'ı String olarak görür — ?. yazmaya gerek kalmaz. Aynı şey is kontrolünden sonra da olur."
         },
         "null-safety-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Smart cast hangi durumda ÇALIŞMAZ?",
+          "opts": [
+            "val yerel değişkenlerde",
+            "var sınıf özelliklerinde — başka bir thread değiştirebilir",
+            "Fonksiyon parametrelerinde",
+            "Çalışmadığı bir durum yok"
+          ],
+          "exp": "Değiştirilebilir bir sınıf özelliği, kontrol ile kullanım arasında değişebilir, bu yüzden derleyici garanti veremez. Çözüm: değeri yerel bir val'a kopyalamak."
         },
         "null-safety-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "as? operatörü ne yapar?",
+          "opts": [
+            "Türü zorla dönüştürür",
+            "Dönüşüm mümkün değilse null döndürür",
+            "Hata fırlatır",
+            "Türü kontrol eder"
+          ],
+          "exp": "Güvenli dönüşümdür: başarısız olursa ClassCastException yerine null döndürür. Genellikle elvis ile birlikte kullanılır: x as? String ?: \"defolt\"."
         },
         "null-safety-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "?.let { } yapısı ne zaman çalışır?",
+          "opts": [
+            "Her zaman",
+            "Yalnızca receiver null OLMADIĞINDA",
+            "Yalnızca receiver null olduğunda",
+            "Yalnızca koleksiyonlarda"
+          ],
+          "exp": "Safe call, let'i yalnızca değer mevcut olduğunda çağırır. Blok içinde it zaten non-null türündedir."
         },
         "null-safety-n-14": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "s null olmadığı için safe call length değerini (6) döndürür ve elvis operatörünün sağ tarafı hiç çalışmaz."
         },
         "null-safety-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "lateinit ne içindir?",
+          "opts": [
+            "Değeri geciktirmek için",
+            "Non-null bir değişkeni sonradan atamak için — null kontrolü yazmadan",
+            "Performansı artırmak için",
+            "Hata yönetimi için"
+          ],
+          "exp": "Dependency injection veya onCreate() gibi durumlarda değer sonra gelir, ama mantıken asla null olmaz. lateinit her erişimde ?. yazmaktan kurtarır."
         },
         "null-safety-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "lateinit değişken atanmadan kullanılırsa ne olur?",
+          "opts": [
+            "null döndürür",
+            "UninitializedPropertyAccessException fırlatılır",
+            "0 döndürür",
+            "Derleme hatası"
+          ],
+          "exp": "Çalışma zamanında özel bir istisna fırlatılır. Atanıp atanmadığı ::xasse.isInitialized ile kontrol edilebilir."
         },
         "null-safety-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "filterNotNull() ne yapar?",
+          "opts": [
+            "null elemanları null'a çevirir",
+            "Koleksiyondaki null elemanları atar ve türü non-null yapar",
+            "Koleksiyonu temizler",
+            "null olup olmadığını kontrol eder"
+          ],
+          "exp": "List<String?> türünü List<String> türüne çevirir ve bu sırada null'ları atar — sonraki işlemler için ideal."
         },
         "null-safety-n-18": {
-          "q": "",
+          "q": "Elvis operatörüyle erken çıkış nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "return ifadesinin türü Nothing olduğu için elvis'in sağ tarafında durabilir. Bu, çok kullanılan idiomatik bir biçimdir."
         },
         "null-safety-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Java'dan gelen türler Kotlin'de nasıl görünür?",
+          "opts": [
+            "Her zaman nullable",
+            "Her zaman non-null",
+            "Platform türü (String!) — derleyici onları kontrol etmez",
+            "Derleme hatası verir"
+          ],
+          "exp": "Java'da null bilgisi yoktur. Kotlin bu tür türleri String! olarak gösterir ve kontrol yapmaz — yani NPE yine mümkündür. Java tarafında @Nullable/@NotNull anotasyonları varsa Kotlin onlara uyar."
         },
         "null-safety-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "requireNotNull() ile checkNotNull() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "require IllegalArgumentException, check ise IllegalStateException fırlatır",
+            "require daha hızlıdır",
+            "check yalnızca testlerde kullanılır"
+          ],
+          "exp": "require argümanların doğrulanması içindir (girdi yanlış), check ise nesnenin durumu içindir (iç mantık bozulmuş). Fırlatılan istisna türü buna göre seçilir."
         },
         "null-safety-n-21": {
-          "q": "",
+          "q": "val x: Int? = null; val y = x?.plus(1) — y'nin türü nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Safe call sonucu her zaman nullable'dır, çünkü receiver null ise sonuç da null olur."
         },
         "null-safety-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Nullable bir türe uzantı fonksiyonu yazılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — receiver null olabilir ve içeride kontrol edilir",
+            "Yalnızca private olduğunda",
+            "Yalnızca inline olduğunda"
+          ],
+          "exp": "Receiver nullable bildirildiğinde fonksiyon ?. olmadan çağrılabilir. İçeride this null olabilir, bu yüzden kontrol fonksiyonun kendi sorumluluğundadır. isNullOrEmpty() tam olarak böyle yazılmıştır."
         },
         "null-safety-n-23": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "filterNotNull() null elemanı atar, geriye \"a\" ve \"b\" kalır — yani 2 eleman."
         },
         "null-safety-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "mapNotNull { } ne yapar?",
+          "opts": [
+            "Yalnızca dönüştürür",
+            "Dönüştürür ve sonucu null olan elemanları atar",
+            "Yalnızca null'ları tutar",
+            "Hata fırlatır"
+          ],
+          "exp": "map ile filterNotNull'ın birleşimidir. Dönüştürme fonksiyonu null döndürdüğünde eleman sonuca girmez — ayrıştırma (parsing) için çok elverişlidir."
         },
         "null-safety-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de !! operatörünü kullanmak ne zaman kabul edilebilir?",
+          "opts": [
+            "Her zaman — kısadır",
+            "Neredeyse hiçbir zaman; yalnızca null olmadığına kod dışından bir garanti varsa",
+            "Yalnızca testlerde",
+            "Yalnızca Java ile çalışırken"
+          ],
+          "exp": "Her !! potansiyel bir çökmedir. Kodda onu gördüğünde sor: bu değer neden null olamaz? Cevabın varsa türü baştan non-null yap; yoksa ?. veya ?: kullan."
         }
       },
       "praktiki": {
         "null-safety-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable değişken null. Safe call ile uzunluğunu yazdır (çökmemeli).",
           "ipucu": ""
         },
         "null-safety-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable değişken \"Kotlin\". Safe call ile uzunluğunu yazdır.",
           "ipucu": ""
         },
         "null-safety-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Elvis operatörüyle yedek değer ver: ad null olduğunda \"Qonaq\" yazdır.",
           "ipucu": ""
         },
         "null-safety-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Safe call ile elvis'i birleştir: null değerin uzunluğu yerine 0 yazdır.",
           "ipucu": ""
         },
         "null-safety-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "isNullOrEmpty() ile kontrol et: null değer için sonucu yazdır.",
+          "ipucu": "println(s.isNullOrEmpty()) — ?. gerekmez."
         },
         "null-safety-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "orEmpty() kullan: null listeyi boş listeye çevirip yazdır.",
           "ipucu": ""
         },
         "null-safety-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "let bloğu kullan: ad null olmadığı için büyük harflerle yazdırılsın.",
           "ipucu": ""
         },
         "null-safety-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Null kontrolünden sonra smart cast kullan: uzunluğu ?. olmadan yazdır.",
+          "ipucu": "Kontrolden sonra derleyici ad'ı String olarak görür: println(ad.length)",
+          "starter": "fun main() {\n    val ad: String? = \"Kotlin\"\n    if (ad != null) {\n        // ?. kullanılmamalı\n    }\n}"
         },
         "null-safety-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "isNullOrBlank() kullan: yalnızca boşluklardan oluşan bir metin için sonucu yazdır.",
+          "ipucu": "isNullOrBlank() boşlukları da yakalar, isNullOrEmpty() ise yakalamaz."
         },
         "null-safety-p-10": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "as? ile güvenli dönüşüm yap: Any türündeki bir Int değeri String'e çevirmeyi dene ve sonucu yazdır.",
+          "ipucu": "println(obyekt as? String) — başarısız dönüşüm null verir."
         },
         "null-safety-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "as? ile elvis'i birleştir: dönüşüm olmazsa \"uygun deyil\" yazdır.",
           "ipucu": ""
         },
         "null-safety-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "filterNotNull() kullan: listeden null'ları atıp kalanları yazdır.",
           "ipucu": ""
         },
         "null-safety-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Zincirli safe call yaz: null listenin ilk elemanını büyük harfle yazdırmayı dene.",
           "ipucu": ""
         },
         "null-safety-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "mapNotNull() kullan: metinlerden yalnızca sayıya çevrilebilenleri listede toplayıp yazdır.",
           "ipucu": ""
         },
         "null-safety-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "getOrNull() kullan: listede olmayan bir indekse eriş ve sonucu yazdır (çökmemeli).",
           "ipucu": ""
         },
         "null-safety-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Erken çıkış yaz: emal(null) çağrısı \"bos\" döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(null))\n}\n\nfun emal(giris: String?): String {\n    // elvis ile erken çıkış yaz\n    return giris.uppercase()\n}"
         },
         "null-safety-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable parametreli fonksiyon yaz: salamla(null) çağrısı \"Salam, Qonaq!\" döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(salamla(null))\n    println(salamla(\"Aysel\"))\n}\n\n// fonksiyonu yaz"
         },
         "null-safety-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "let + elvis birleşimi: null değer için \"islenmedi\" yazdır.",
           "ipucu": ""
         },
         "null-safety-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "!! operatörünü null OLMAYAN bir değerle kullan ve uzunluğu yazdır.",
+          "ipucu": "println(ad!!.length) — değer mevcut olduğu için çökmez."
         },
         "null-safety-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "lateinit kullan: sınıfta bir lateinit özellik oluştur, atanmadan önce ve atandıktan sonra isInitialized sonucunu yazdır.",
+          "ipucu": "::ad.isInitialized biçimini kullan.",
+          "starter": "class Servis {\n    lateinit var ad: String\n    fun hazirdirmi() = // burayı tamamla\n}\n\nfun main() {\n    val s = Servis()\n    println(s.hazirdirmi())\n    s.ad = \"Kotlin\"\n    println(s.hazirdirmi())\n}"
         },
         "null-safety-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable türe uzantı fonksiyonu yaz: bosdurmu() — null veya boş olduğunda true döndürsün. null için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s: String? = null\n    println(s.bosdurmu())\n}\n\n// uzantı fonksiyonunu yaz"
         },
         "null-safety-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "takeIf ile koşullu null oluştur: boş metin için null yazdırılsın.",
           "ipucu": ""
         },
         "null-safety-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "requireNotNull() kullan ve fırlatılan istisnayı yakala: mesajı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x: String? = null\n    try {\n        // requireNotNull kullan\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}"
         },
         "null-safety-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Smart cast'in çalışmamasını çöz: var özelliği yerel bir val'a kopyalayıp uzunluğu yazdır.",
+          "ipucu": "val yerli = p.ad ?: return — sonra yerli.length kullanılır.",
+          "starter": "class Profil {\n    var ad: String? = \"Kotlin\"\n}\n\nfun main() {\n    val p = Profil()\n    // yerel val'a kopyala ve uzunluğu yazdır\n}"
         },
         "null-safety-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable zincir kur: iç içe nesnelerde şehir adını güvenli şekilde oku. Adres null olduğu için \"namelum\" çıkmalı.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Unvan(val seher: String?)\nclass Istifadeci(val unvan: Unvan?)\n\nfun main() {\n    val u = Istifadeci(null)\n    // zincirli safe call + elvis yaz\n}"
         }
       }
     },
     "kolleksiyalar": {
-      "title": "",
+      "title": "Koleksiyonlar",
       "nezeri": {
         "kolleksiyalar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "listOf() hangi koleksiyonu döndürür?",
+          "opts": [
+            "Değiştirilebilir liste",
+            "Salt okunur (read-only) liste",
+            "Dizi",
+            "Set"
+          ],
+          "exp": "listOf() bir List arayüzü döndürür — onda add() ve remove() metotları yoktur. Değiştirmek gerekiyorsa mutableListOf() kullanılır."
         },
         "kolleksiyalar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Set'in List'ten temel farkı nedir?",
+          "opts": [
+            "Set sıralıdır",
+            "Set tekrarlanan elemanları tutmaz",
+            "Set daha hızlıdır",
+            "Fark yok"
+          ],
+          "exp": "Set benzersiz elemanlar tutar — aynı değer ikinci kez eklenmez. List ise tekrarlara izin verir ve sırayı korur."
         },
         "kolleksiyalar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Map nedir?",
+          "opts": [
+            "Sıralı liste",
+            "Anahtar–değer çiftlerinden oluşan koleksiyon",
+            "Tekrarsız küme",
+            "Dizinin başka bir adı"
+          ],
+          "exp": "Map her anahtarı bir değere bağlar. Anahtarlar benzersizdir; mapOf(\"ad\" to \"Aysel\") biçiminde oluşturulur."
         },
         "kolleksiyalar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "map { } fonksiyonu ne yapar?",
+          "opts": [
+            "Elemanları süzer",
+            "Her elemanı dönüştürüp yeni bir liste döndürür",
+            "Elemanları sıralar",
+            "Toplamı hesaplar"
+          ],
+          "exp": "map() her eleman üzerinde dönüşüm yapar ve sonuçlardan yeni bir liste kurar. Orijinal koleksiyon değişmez."
         },
         "kolleksiyalar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "filter { } fonksiyonu ne yapar?",
+          "opts": [
+            "Elemanları dönüştürür",
+            "Koşula uyan elemanları tutar",
+            "Koleksiyonu sıralar",
+            "Tekrarları atar"
+          ],
+          "exp": "filter() yüklemin true döndürdüğü elemanları seçer. Tersini almak için filterNot() kullanılır."
         },
         "kolleksiyalar-n-06": {
-          "q": "",
+          "q": "Bir koleksiyonun eleman sayısını nasıl öğrenirsin?",
           "opts": [],
-          "exp": ""
+          "exp": "Koleksiyonlarda size özelliği vardır. String'de ise length kullanılır — bu ikisi sık karıştırılır. Koşulla da çalışabilen bir count() fonksiyonu da vardır."
         },
         "kolleksiyalar-n-07": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "map() her elemanı ikiyle çarpar: 1→2, 2→4, 3→6."
         },
         "kolleksiyalar-n-08": {
-          "q": "",
+          "q": "Listenin ilk elemanını güvenli şekilde almak için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "first() boş koleksiyonda NoSuchElementException fırlatır. firstOrNull() ise null döndürür — daha güvenlidir."
         },
         "kolleksiyalar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sum() fonksiyonu ne döndürür?",
+          "opts": [
+            "Eleman sayısını",
+            "Tüm elemanların toplamını",
+            "En büyük elemanı",
+            "Ortalamayı"
+          ],
+          "exp": "sum() sayı koleksiyonlarının toplamını hesaplar. Nesnelerden toplam almak için sumOf { it.qiymet } kullanılır."
         },
         "kolleksiyalar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "«Read-only» List gerçekten değişmez mi?",
+          "opts": [
+            "Evet, tamamen değişmezdir",
+            "Hayır — alttaki nesne MutableList ise ve ona bir referans kalmışsa değişebilir",
+            "Yalnızca Java'da değişir",
+            "Her zaman kopya oluşturur"
+          ],
+          "exp": "List arayüzü değiştirme metotları sunmaz, ama tam değişmezlik garantisi vermez. Gerçek bir kopya için toList() kullanılır."
         },
         "kolleksiyalar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "groupBy { } ne döndürür?",
+          "opts": [
+            "List",
+            "Map — anahtar seçiciye, değer eleman listesine karşılık gelir",
+            "Set",
+            "Pair"
+          ],
+          "exp": "groupBy() elemanları anahtara göre gruplar ve Map<K, List<T>> döndürür. Örneğin çalışanları departmanlara göre gruplamak için."
         },
         "kolleksiyalar-n-12": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Önce filter çift sayıları seçer → [2, 4]. Ardından map her birinin karesini alır → [4, 16]."
         },
         "kolleksiyalar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "fold() ile reduce() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "fold başlangıç değeri alır, reduce ise ilk elemandan başlar",
+            "reduce daha hızlıdır",
+            "fold yalnızca sayılarla çalışır"
+          ],
+          "exp": "fold(0) { akk, x -> ... } — başlangıç değerini kendin verirsin, boş koleksiyonda da çalışır. reduce ise ilk elemanı başlangıç olarak alır ve boş koleksiyonda istisna fırlatır."
         },
         "kolleksiyalar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "any { } ve all { } ne döndürür?",
+          "opts": [
+            "Eleman listesi",
+            "Boolean — en az biri / hepsi koşulu sağlıyor mu",
+            "Eleman sayısı",
+            "İlk eşleşen eleman"
+          ],
+          "exp": "any() en az bir eleman koşulu sağlıyorsa true, all() ise tüm elemanlar sağlıyorsa true döndürür. none() tersini kontrol eder."
         },
         "kolleksiyalar-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "flatten() ne yapar?",
+          "opts": [
+            "Koleksiyonu sıralar",
+            "İç içe koleksiyonları tek seviyeye düzleştirir",
+            "Tekrarları atar",
+            "Elemanları dönüştürür"
+          ],
+          "exp": "listOf(listOf(1,2), listOf(3)) → [1, 2, 3]. Hem dönüştürme hem düzleştirme gerekiyorsa flatMap { } kullanılır."
         },
         "kolleksiyalar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "zip() fonksiyonu ne yapar?",
+          "opts": [
+            "Koleksiyonu sıkıştırır",
+            "İki koleksiyonu eşleştirir",
+            "Dosyayı arşivler",
+            "Elemanları karıştırır"
+          ],
+          "exp": "listOf(1,2).zip(listOf(\"a\",\"b\")) → [(1, a), (2, b)]. Uzunluklar farklıysa kısa olanın uzunluğu kadar çift oluşur."
         },
         "kolleksiyalar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "partition { } ne döndürür?",
+          "opts": [
+            "İki listeden oluşan bir Pair — uyan ve uymayan",
+            "Map",
+            "Tek liste",
+            "Set"
+          ],
+          "exp": "val (cutler, tekler) = r.partition { it % 2 == 0 } — koleksiyonu tek geçişte iki parçaya böler."
         },
         "kolleksiyalar-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "distinct() ne yapar?",
+          "opts": [
+            "Elemanları sıralar",
+            "Tekrarlanan elemanları atar, sırayı korur",
+            "Koleksiyonu dönüştürür",
+            "Boş elemanları atar"
+          ],
+          "exp": "İlk karşılaşılan kopyayı tutar ve sırayı bozmaz. Anahtara göre tekilleştirmek için distinctBy { } vardır."
         },
         "kolleksiyalar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "associateWith { } ne döndürür?",
+          "opts": [
+            "List",
+            "Map — elemanlar anahtar, lambda sonucu değer olur",
+            "Set",
+            "Pair"
+          ],
+          "exp": "listOf(\"a\",\"bb\").associateWith { it.length } → {a=1, bb=2}. Tersi için associateBy { } kullanılır — orada anahtarı lambda verir."
         },
         "kolleksiyalar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sequence ne zaman List'ten üstündür?",
+          "opts": [
+            "Her zaman",
+            "Büyük koleksiyonda çok adımlı zincirde — ara listeler oluşmaz",
+            "Küçük koleksiyonlarda",
+            "Yalnızca sıralamada"
+          ],
+          "exp": "Sıradan zincirde her adım yeni bir liste oluşturur. Sequence tembeldir ve elemanları tek tek işler. Küçük koleksiyonlarda ise kendi ek yükü nedeniyle daha yavaş olabilir."
         },
         "kolleksiyalar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sequence'te hesaplama ne zaman başlar?",
+          "opts": [
+            "Hemen",
+            "Terminal bir işlem (toList, sum, first) çağrıldığında",
+            "Hiçbir zaman",
+            "map çağrıldığında"
+          ],
+          "exp": "map ve filter gibi ara işlemler yalnızca bir plan kurar. Hesaplama toList(), sum(), first() gibi terminal bir işlem çağrıldığında başlar."
         },
         "kolleksiyalar-n-22": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "groupBy ilk harfe göre gruplar: a ile başlayanlar bir listede, b ile başlayan ayrı. Sonuç Map<Char, List<String>>'dir."
         },
         "kolleksiyalar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "chunked(2) ne yapar?",
+          "opts": [
+            "Her 2. elemanı seçer",
+            "Koleksiyonu 2 elemanlık parçalara böler",
+            "İki koleksiyon oluşturur",
+            "Elemanları iki katına çıkarır"
+          ],
+          "exp": "listOf(1,2,3,4,5).chunked(2) → [[1, 2], [3, 4], [5]]. Son parça eksik olabilir. Kayan pencere için windowed() vardır."
         },
         "kolleksiyalar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "sumOf { } ile sum() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "sumOf önce dönüştürür, sonra toplar",
+            "sum daha hassastır",
+            "sumOf yalnızca Double ile çalışır"
+          ],
+          "exp": "sum() doğrudan sayı koleksiyonlarında çalışır. sumOf { it.qiymet } ise nesnelerden alan çıkarıp toplar — map { }.sum() zincirinin yerini alır."
         },
         "kolleksiyalar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "MutableList'i List'e çevirmek neden faydalıdır?",
+          "opts": [
+            "Bellek tasarrufu için",
+            "API'den döndürürken dışarıdan değiştirilmesini önlemek için",
+            "Daha hızlı olduğu için",
+            "Faydası yok"
+          ],
+          "exp": "İçteki değiştirilebilir listeyi toList() ile kopyalayıp döndürürsen çağıran taraf onu değiştiremez. Sadece türü List yazmak yetmez — alttaki nesne yine değiştirilebilir kalır."
         }
       },
       "praktiki": {
         "kolleksiyalar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Üç dilden oluşan bir liste oluştur ve yazdır: Kotlin, Java, Swift.",
           "ipucu": ""
         },
         "kolleksiyalar-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Listenin eleman sayısını yazdır.",
+          "ipucu": "size özelliğini kullan."
         },
         "kolleksiyalar-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "map ile her elemanı ikiyle çarp ve sonucu yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "filter ile yalnızca çift sayıları seç ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Listedeki sayıların toplamını yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir Set oluştur ve tekrarların atıldığını göster: 1, 2, 2, 3, 3.",
           "ipucu": ""
         },
         "kolleksiyalar-p-07": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Bir Map oluştur ve \"yas\" anahtarının değerini yazdır.",
+          "ipucu": "m[\"yas\"] biçimini kullan."
         },
         "kolleksiyalar-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir MutableList oluştur, ona eleman ekle ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Listenin en büyük elemanını yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "filter ile map'i zincirle: çift sayıları seçip karelerini yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "sorted() ile listeyi artan sırayla diz ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "sortedBy ile metinleri uzunluğa göre diz ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "groupBy ile metinleri ilk harfe göre grupla ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "any ve all kullan: listede 4'ten büyük eleman var mı ve hepsi pozitif mi — iki satırda yazdır.",
+          "ipucu": "s.any { it > 4 } ve s.all { it > 0 }"
         },
         "kolleksiyalar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "distinct() ile tekrarları at ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-16": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "take ve drop kullan: ilk 2 elemanı ve kalanları iki satırda yazdır.",
+          "ipucu": "s.take(2) ve s.drop(2)"
         },
         "kolleksiyalar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "zip ile iki listeyi eşleştir ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "flatten ile iç içe listeleri düzleştir ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "joinToString ile listeyi \" - \" ayırıcısıyla metne çevir ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "fold ile başlangıç değeri 100'den başlayarak elemanları topla ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "reduce ile tüm elemanların çarpımını hesapla ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "partition ile listeyi çift ve tek parçalara böl, ikisini ayrı satırlarda yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "chunked ile listeyi 2'lik parçalara böl ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "associateWith ile metinleri uzunluklarına bağla ve yazdır.",
           "ipucu": ""
         },
         "kolleksiyalar-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "asSequence ile tembel bir zincir kur: ilk 2 elemanı seçip yazdır. Sonuç bir liste olsun.",
           "ipucu": ""
         }
       }
