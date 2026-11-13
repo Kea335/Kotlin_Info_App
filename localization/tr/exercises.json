@@ -7293,516 +7293,746 @@
       }
     },
     "idiomlar": {
-      "title": "",
+      "title": "Deyimler ve en iyi uygulamalar",
       "nezeri": {
         "idiomlar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Değişken bildirirken hangisiyle başlamak önerilir?",
+          "opts": [
+            "var — sonra val yaparsın",
+            "val — yalnızca gerektiğinde var'a geçersin",
+            "lateinit var",
+            "Farketmez"
+          ],
+          "exp": "Değişmezlik varsayılan olmalıdır. val ile başladığında derleyici kazara değişikliği önler ve kodu izlemek kolaylaşır."
         },
         "idiomlar-n-02": {
-          "q": "",
+          "q": "Null kontrolünün en idiomatik biçimi hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Safe call ile let'in birleşimi hem kısadır hem de blok içinde non-null tür verir. Basit durumlarda if de tamamen normaldir."
         },
         "idiomlar-n-03": {
-          "q": "",
+          "q": "Yedek değer vermek için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Elvis operatörü bu kalıbın standart biçimidir ve tek satırda okunur."
         },
         "idiomlar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir koleksiyonu işlemek için ne önerilir?",
+          "opts": [
+            "for döngüsü ve mutableListOf",
+            "filter/map zinciri",
+            "while döngüsü",
+            "İndeksli for"
+          ],
+          "exp": "Zincir ne yaptığını, döngü ise nasıl yaptığını anlatır. İlki daha okunaklı ve hatasızdır."
         },
         "idiomlar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Nesne kurmanın en idiomatik yolu hangisidir?",
+          "opts": [
+            "Ayrı ayrı atamalar",
+            "apply { }",
+            "let { }",
+            "run { }"
+          ],
+          "exp": "apply içinde this kullanılır ve sonunda nesnenin kendisi döner — builder tarzı için idealdir."
         },
         "idiomlar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Tek ifadeli fonksiyon ne zaman kullanılmalıdır?",
+          "opts": [
+            "Hiçbir zaman",
+            "Gövde tek bir ifadeden oluştuğunda",
+            "Her zaman",
+            "Yalnızca private fonksiyonlarda"
+          ],
+          "exp": "fun kvadrat(x: Int) = x * x — süslü parantez ve return yazmaya gerek kalmaz."
         },
         "idiomlar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Fonksiyon adları nasıl olmalıdır?",
+          "opts": [
+            "İsim",
+            "Fiil — ne yaptığını anlatmalı",
+            "Kısaltma",
+            "Harf"
+          ],
+          "exp": "hesabla(), yukle(), tesdiqle() — ne yaptığı açıktır. data() veya info() hiçbir şey söylemez."
         },
         "idiomlar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Boolean değişken adı nasıl olmalıdır?",
+          "opts": [
+            "Soru biçiminde: aktivdir, bosdur",
+            "Sayı",
+            "Tek harf",
+            "Fiil"
+          ],
+          "exp": "Adın kendisi doğru/yanlış sorusuna cevap vermelidir. if (aktivdir) okunaklıdır, if (status) ise belirsizdir."
         },
         "idiomlar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodda sorun ne?",
+          "opts": [
+            "Sorun yok",
+            "Gereksiz — x > 5 kendisi Boolean döndürür",
+            "Hata verir",
+            "Yavaştır"
+          ],
+          "exp": "Klasik bir kod kokusudur. Sadece val netice = x > 5 yazmak yeterlidir."
         },
         "idiomlar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İç içe derin if bloklarını nasıl düzeltmek gerekir?",
+          "opts": [
+            "Daha çok if yazmak",
+            "Erken çıkış (early return) veya argümansız when",
+            "Hepsini tek satırda yazmak",
+            "goto"
+          ],
+          "exp": "val x = giris ?: return biçiminde erken çıkış kodu düzleştirir. Derin iç içe bloklar «piramit» oluşturur."
         },
         "idiomlar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Büyük bir koleksiyonda çok adımlı zincir için ne önerilir?",
+          "opts": [
+            "Sıradan List",
+            "asSequence() — ara listeler oluşmaz",
+            "İç içe döngüler",
+            "Dizi"
+          ],
+          "exp": "Her adım yeni bir liste oluşturmaz, elemanlar tek tek akar. Küçük koleksiyonlarda ise sıradan List daha hızlıdır."
         },
         "idiomlar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Döngü içinde metin birleştirmek yerine ne kullanılmalıdır?",
+          "opts": [
+            "Daha fazla değişken",
+            "buildString { }",
+            "Dizi",
+            "Özyineleme"
+          ],
+          "exp": "String immutable olduğu için her birleştirme yeni bir nesne oluşturur. buildString tek bir StringBuilder ile çalışır."
         },
         "idiomlar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Fonksiyonda üçten fazla parametre olduğunda ne önerilir?",
+          "opts": [
+            "Hiçbir şey",
+            "Çağrıda adlandırılmış argümanlar kullanmak",
+            "Parametreleri silmek",
+            "Global değişken"
+          ],
+          "exp": "yarat(true, false, true) altı ay sonra hiçbir şey anlatmaz. yarat(gorunen = true, aktiv = false) ise kendini açıklar."
         },
         "idiomlar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "data class'lar nasıl tutulmalıdır?",
+          "opts": [
+            "Tüm alanlar var olsun",
+            "Mümkün olduğunca immutable — tüm alanlar val",
+            "Alansız",
+            "Yalnızca private"
+          ],
+          "exp": "Değişmez nesneler thread-safe olur ve beklenmedik değişikliklerden korur. Değişiklik gerekiyorsa copy() kullanılır."
         },
         "idiomlar-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonları nerede tutulmalıdır?",
+          "opts": [
+            "Her dosyada ayrı ayrı",
+            "Tek bir yerde toplanmalı — örneğin Genislenmeler.kt",
+            "Sınıf içinde",
+            "Test klasöründe"
+          ],
+          "exp": "Tek bir yer olmazsa aynı uzantı birkaç yerde tekrarlanır ve bulmak zorlaşır."
         },
         "idiomlar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Scope fonksiyonlarını kaç seviye iç içe yazmak kabul edilebilir?",
+          "opts": [
+            "İstenildiği kadar",
+            "En fazla iki — sonra okunabilirlik kaybolur",
+            "Beş",
+            "Hiç"
+          ],
+          "exp": "İç içe bloklarda this ve it karışır. Derinleştiğinde düz bir değişken ve if daha açıktır."
         },
         "idiomlar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sabit bir küme için metin yerine ne kullanılmalıdır?",
+          "opts": [
+            "Int",
+            "enum veya sealed",
+            "String",
+            "Boolean"
+          ],
+          "exp": "Metin sabitlerinde yazım hatası derlemeden geçer. enum'da ise derleyici her durumu kontrol eder."
         },
         "idiomlar-n-18": {
-          "q": "",
+          "q": "Sonucu gerekmeyen bir koleksiyon işlemi için ne kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "map yeni bir liste oluşturur — sonuç gerekmiyorsa bu, boşuna bellek harcar. Yan etki için forEach vardır."
         },
         "idiomlar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "!! (not-null assertion) operatörü ne zaman kabul edilebilir?",
+          "opts": [
+            "Her zaman",
+            "Neredeyse hiçbir zaman — her biri potansiyel bir çökmedir",
+            "Testlerde",
+            "Android'de"
+          ],
+          "exp": "Kodda !! gördüğünde sor: bu değer neden null olamaz? Cevap varsa türü baştan non-null yap."
         },
         "idiomlar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "API'den MutableList döndürmek neden kötüdür?",
+          "opts": [
+            "Yavaştır",
+            "Çağıran taraf iç durumu değiştirebilir",
+            "Bellek sızdırır",
+            "Kötü değil"
+          ],
+          "exp": "toList() ile kopya döndürmek kapsüllemeyi korur. Sadece türü List yazmak yetmez — alttaki nesne yine değiştirilebilir kalır."
         },
         "idiomlar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "ktlint ve detekt ne yapar?",
+          "opts": [
+            "Kod yazar",
+            "Biçimlendirmeyi ve kod kokularını otomatik kontrol eder",
+            "Test çalıştırır",
+            "Derler"
+          ],
+          "exp": "CI'a bağlandığında kod incelemelerinde stil tartışması tamamen ortadan kalkar — dikkat mantığa yönelir."
         },
         "idiomlar-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Id türleri için ne önerilir?",
+          "opts": [
+            "Doğrudan Int veya String",
+            "value class — tür güvenliği, sıfır çalışma zamanı yükü",
+            "data class",
+            "enum"
+          ],
+          "exp": "@JvmInline value class IstifadeciId(val deyer: Long) — id'leri karıştırmak mümkün olmaz, ama çalışma zamanında sıradan bir Long olarak tutulur."
         },
         "idiomlar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ağır nesneler için hangi yaklaşım önerilir?",
+          "opts": [
+            "Yapıcıda oluşturmak",
+            "by lazy — gerekmezse hiç oluşturulmaz",
+            "Global değişken",
+            "Her seferinde yeniden oluşturmak"
+          ],
+          "exp": "Tembel başlatma hem başlangıç süresini kısaltır hem de kullanılmayan kaynağı oluşturmaz."
         },
         "idiomlar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Public API'de dönüş türü ne zaman açıkça yazılmalıdır?",
+          "opts": [
+            "Hiçbir zaman",
+            "Her zaman — okunabilirliği artırır ve kazara değişikliği önler",
+            "Yalnızca Int için",
+            "Yalnızca jeneriklerde"
+          ],
+          "exp": "Tür çıkarımı yerel değişkenlerde harikadır. Ama public bir fonksiyonda gövdeyi değiştirdiğinde dönüş türü de sessizce değişebilir — bu, API'yi bozar."
         },
         "idiomlar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kodun okunabilirliği için en önemli kural nedir?",
+          "opts": [
+            "Kısa olsun",
+            "Niyeti açıkça ifade etsin — kısalık kendi başına amaç değildir",
+            "Çok yorum olsun",
+            "Tek satırda olsun"
+          ],
+          "exp": "Aşırı sıkıştırılmış bir zincir kısa olsa da okunmaz olur. Ara bir değişkene ad vermek çoğu zaman daha iyidir."
         }
       },
       "praktiki": {
         "idiomlar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Kod kokusunu düzelt: if ile true/false döndürmek yerine doğrudan karşılaştırma yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x = 8\n    val netice = if (x > 5) true else false   // koku\n    println(netice)\n}"
         },
         "idiomlar-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "İç içe null kontrolünü safe call zinciriyle değiştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad: String? = \"kotlin\"\n    // iç içe if yerine ?.let kullan\n}"
         },
         "idiomlar-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "if-else yerine elvis operatörü kullan.",
           "ipucu": "",
           "starter": ""
         },
         "idiomlar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Döngü ve mutableListOf yerine bir filter/map zinciri yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3, 4)\n    // for döngüsü yerine zincir yaz (pozitifleri seç, iki katına çıkar)\n}"
         },
         "idiomlar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Ayrı ayrı atamaları apply ile değiştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci {\n    var ad = \"\"\n    var yas = 0\n    override fun toString() = \"$ad $yas\"\n}\n\nfun main() {\n    // apply ile kur ve yazdır\n}"
         },
         "idiomlar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Bloklu fonksiyonu tek ifadeli biçime çevir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// fun kvadrat(x: Int): Int { return x * x }\n// tek ifadeli biçime çevir\n\nfun main() {\n    println(kvadrat(7))\n}"
         },
         "idiomlar-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "var yerine val kullan: değeri bir zincirle hesapla.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // var netice = 0; for (...) netice += ... yerine\n    val netice = // zincirle hesapla\n    println(netice)\n}"
         },
         "idiomlar-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Boolean değişkene soru biçiminde bir ad ver.",
+          "ipucu": "Adın kendisi doğru/yanlış sorusuna cevap vermelidir.",
+          "starter": "fun main() {\n    // val status = true  <- kötü ad\n    val aktivdir = true\n    if (aktivdir) println(\"isleyir\")\n}"
         },
         "idiomlar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "forEach kullan: sonucun gerekmediği yerde map yazma.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(\"a\", \"b\")\n    // map yerine forEach kullan\n}"
         },
         "idiomlar-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Erken çıkış yaz: derin iç içe if yerine elvis + return kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(null))\n    println(emal(\"  kotlin  \"))\n}\n\nfun emal(giris: String?): String {\n    // erken çıkışla yaz\n}"
         },
         "idiomlar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Döngüde metin birleştirmek yerine buildString kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // var s = \"\"; for (...) s += ... yerine\n    val s = buildString {\n        // 1..5 rakamlarını ekle\n    }\n    println(s)\n}"
         },
         "idiomlar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Adlandırılmış argümanlarla okunaklı bir çağrı yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun yarat(gorunen: Boolean, aktiv: Boolean, secili: Boolean) =\n    \"$gorunen-$aktiv-$secili\"\n\nfun main() {\n    // yarat(true, false, true) yerine adlandırılmış yaz\n}"
         },
         "idiomlar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Metin sabitleri yerine enum kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// val status = \"AKTIV\"  <- yazım hatası yakalanmaz\n// enum'u yaz\n\nfun main() {\n    val s = Status.AKTIV\n    println(s.name)\n}"
         },
         "idiomlar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "API'den değişmez bir kopya döndür: içteki listeyi koru.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Sebet {\n    private val m = mutableListOf(\"alma\")\n    // hamisi() metodunu yaz - değişmez bir kopya döndürsün\n}\n\nfun main() {\n    println(Sebet().hamisi())\n}"
         },
         "idiomlar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "when'i ifade olarak kullan: uzun bir if-else zincirinin yerini alsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tesvir(503))\n}\n\nfun tesvir(kod: Int): String = when {\n    // dalları yaz\n}"
         },
         "idiomlar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "buildList kullan: koşullu eleman eklemeyle bir liste kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val serait = true\n    val s = buildList {\n        add(\"Kotlin\")\n        // serait doğruysa Java ekle\n    }\n    println(s)\n}"
         },
         "idiomlar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "associateBy kullan: listeyi id'ye göre bir map'e çevir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val id: Int, val ad: String)\n\nfun main() {\n    val s = listOf(U(1, \"Aysel\"), U(2, \"Kamran\"))\n    // id'ye göre map oluştur ve 2. elemanın adını yazdır\n}"
         },
         "idiomlar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Pair döndür ve yapı çözümlemeyle oku.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun minMaks(s: List<Int>) = s.min() to s.max()\n\nfun main() {\n    // yapı çözümlemeyle oku ve yazdır\n}"
         },
         "idiomlar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "all kullan: birkaç koşulu aynı anda kontrol et.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad = \"Aysel\"\n    val email = \"a@b.az\"\n    val telefon = \"055\"\n    // hepsi boş değil mi - all ile kontrol et\n}"
         },
         "idiomlar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "!! operatörünü güvenli bir biçimle değiştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad: String? = null\n    // val n = ad!!.length  <- çöker\n    val n = // güvenli yaz\n    println(n)\n}"
         },
         "idiomlar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "value class kullan: id'lerin karıştırılmasını önle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// value class'ı yaz\n\nfun tap(id: IstifadeciId) = \"istifadeci-${id.deyer}\"\n\nfun main() {\n    println(tap(IstifadeciId(5)))\n}"
         },
         "idiomlar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "by lazy kullan: ağır nesne yalnızca gerektiğinde oluşsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Servis {\n    // ağır özelliği lazy yaz\n}\n\nfun main() {\n    val s = Servis()\n    println(\"yaradildi\")\n    println(s.agir)\n}"
         },
         "idiomlar-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "sealed ile durumu modelle: else yazmadan işle.",
+          "ipucu": "is Veziyyet.Ugur -> println(v.d) ve Veziyyet.Yuklenir -> println(\"yuklenir\")",
+          "starter": "sealed interface Veziyyet {\n    data object Yuklenir : Veziyyet\n    data class Ugur(val d: String) : Veziyyet\n}\n\nfun main() {\n    val v: Veziyyet = Veziyyet.Ugur(\"data\")\n    // when ile işle (else yazma)\n}"
         },
         "idiomlar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "asSequence kullan: büyük koleksiyonda ara liste oluşmasın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = (1..1000).toList()\n    // sequence ile ilk 3 çift sayının karesini al\n}"
         },
         "idiomlar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Karmaşık zinciri okunaklı yap: ara sonuca bir ad ver.",
+          "ipucu": "Ara değişkene bir ad ver: val itcilar = i.filter { it.sobe == \"IT\" }",
+          "starter": "data class Isci(val ad: String, val sobe: String, val maas: Int)\n\nfun main() {\n    val i = listOf(\n        Isci(\"Aysel\", \"IT\", 3000),\n        Isci(\"Kamran\", \"IT\", 3500),\n        Isci(\"Leyla\", \"Satis\", 2000)\n    )\n    // IT departmanının ortalama maaşını hesapla\n}"
         }
       }
     },
     "android": {
-      "title": "",
+      "title": "Android uygulamaları",
       "nezeri": {
         "android-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Google Android için hangi dili öneriyor?",
+          "opts": [
+            "Java",
+            "Kotlin — 2019'dan beri «Kotlin-first» politikası",
+            "C++",
+            "Dart"
+          ],
+          "exp": "Yeni Android API'leri önce Kotlin için hazırlanır. Jetpack kütüphanelerinin büyük kısmı Kotlin ile yazılmıştır."
         },
         "android-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jetpack Compose nedir?",
+          "opts": [
+            "Veritabanı",
+            "Bildirimsel UI kütüphanesi",
+            "Ağ kütüphanesi",
+            "Test aracı"
+          ],
+          "exp": "XML layout yerine UI doğrudan Kotlin fonksiyonlarıyla tanımlanır. Durum değiştiğinde arayüz otomatik olarak güncellenir."
         },
         "android-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@Composable fonksiyon ne yapar?",
+          "opts": [
+            "Veri döndürür",
+            "UI'ın bir parçasını tanımlar",
+            "Ağ isteği gönderir",
+            "Veritabanına yazar"
+          ],
+          "exp": "Composable fonksiyonlar sonuç döndürmez — UI ağacına ne ekleneceğini bildirirler."
         },
         "android-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "ViewModel ne içindir?",
+          "opts": [
+            "UI çizmek",
+            "UI durumunu tutmak ve ekran döndüğünde kaybetmemek",
+            "Ağ isteği",
+            "Dosya okumak"
+          ],
+          "exp": "Yapılandırma değişikliğinde (ekran döndürme) Activity yeniden oluşturulur, ViewModel ise hayatta kalır."
         },
         "android-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "remember { mutableStateOf(0) } ne yapar?",
+          "opts": [
+            "Değeri siler",
+            "Durum oluşturur — değiştiğinde UI yeniden çizilir",
+            "Veritabanına yazar",
+            "Log yazar"
+          ],
+          "exp": "mutableStateOf gözlemlenebilir bir durum oluşturur, remember ise onu yeniden çizimler arasında korur."
         },
         "android-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Android'de UI hangi thread'de güncellenmelidir?",
+          "opts": [
+            "Herhangi biri",
+            "Main (UI) thread",
+            "IO thread",
+            "Default thread"
+          ],
+          "exp": "Başka bir thread'den UI'a dokunmak çökmeye yol açar. Coroutine'lerde Dispatchers.Main kullanılır."
         },
         "android-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Room nedir?",
+          "opts": [
+            "UI kütüphanesi",
+            "SQLite üzerine kurulu bir veritabanı kütüphanesi",
+            "Ağ kütüphanesi",
+            "Görsel kütüphanesi"
+          ],
+          "exp": "SQL sorgularını derleme zamanında kontrol eder ve sonuçları Kotlin nesnelerine dönüştürür."
         },
         "android-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Retrofit ne içindir?",
+          "opts": [
+            "UI",
+            "REST API istekleri",
+            "Veritabanı",
+            "Test"
+          ],
+          "exp": "Bir arayüz bildirirsin, Retrofit uygulamayı kendisi oluşturur. suspend fonksiyonları doğrudan destekler."
         },
         "android-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Android'de en çok kullanılan mimari kalıp hangisidir?",
+          "opts": [
+            "MVC",
+            "MVVM — ViewModel + gözlemlenebilir durum",
+            "Singleton",
+            "Hiçbiri"
+          ],
+          "exp": "View durumu gözlemler, ViewModel mantığı tutar, Repository ise veri kaynaklarını birleştirir."
         },
         "android-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "viewModelScope ne zaman iptal edilir?",
+          "opts": [
+            "Hiçbir zaman",
+            "ViewModel yok edildiğinde — tüm coroutine'ler otomatik olarak durur",
+            "Ekran kapandığında",
+            "Her istekten sonra"
+          ],
+          "exp": "Bu, yapılandırılmış eşzamanlılığın pratik faydasıdır: sızıntı ve «kayıp» istekler olmaz."
         },
         "android-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "UI durumunu modellemek için ne önerilir?",
+          "opts": [
+            "Birkaç ayrı Boolean",
+            "sealed interface — Yuklenir, Ugurlu, Xeta",
+            "String",
+            "Map"
+          ],
+          "exp": "Ayrı bayraklarla imkânsız kombinasyonlar oluşur (hem yükleniyor hem hata). sealed bunu imkânsız kılar."
         },
         "android-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "StateFlow UI için neden uygundur?",
+          "opts": [
+            "Hızlıdır",
+            "Her zaman güncel değeri tutar — abone olan son durumu hemen alır",
+            "Bellek tutmaz",
+            "Yalnızca Compose ile çalışır"
+          ],
+          "exp": "Ekran yeniden oluşturulup abone olduğunda son durum hemen gelir. Tek seferlik olaylar için ise SharedFlow kullanılır."
         },
         "android-n-13": {
-          "q": "",
+          "q": "Ağ isteği hangi dispatcher'da yapılmalıdır?",
           "opts": [],
-          "exp": ""
+          "exp": "IO havuzu beklemesi çok olan işler içindir. Sonucu UI'a vermek için Main'e geri dönülür."
         },
         "android-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Room DAO'nun Flow döndürmesi ne sağlar?",
+          "opts": [
+            "Hız",
+            "Veritabanı değiştiğinde UI otomatik olarak güncellenir",
+            "Bellek tasarrufu",
+            "Hiçbir şey"
+          ],
+          "exp": "Tabloda bir değişiklik olur olmaz Flow yeni bir liste yayar — elle yenileme çağırmaya gerek kalmaz."
         },
         "android-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Repository kalıbı ne içindir?",
+          "opts": [
+            "UI çizmek",
+            "Veri kaynaklarını (ağ, veritabanı) tek bir arayüzün arkasında birleştirmek",
+            "Test yazmak",
+            "Log yazmak"
+          ],
+          "exp": "ViewModel verinin nereden geldiğini bilmez. Bu, testi kolaylaştırır ve kaynağı değiştirmeyi mümkün kılar."
         },
         "android-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Compose'da durum değiştiğinde ne olur?",
+          "opts": [
+            "Hiçbir şey",
+            "O durumu okuyan composable'lar yeniden çizilir (recomposition)",
+            "Tüm ekran yeniden oluşturulur",
+            "Uygulama yeniden başlar"
+          ],
+          "exp": "Compose yalnızca etkilenen kısımları yeniden çizer — tüm ağacı değil."
         },
         "android-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Android'de dependency injection için ne kullanılır?",
+          "opts": [
+            "Hiçbir şey",
+            "Hilt veya Koin",
+            "Room",
+            "Retrofit"
+          ],
+          "exp": "Bağımlılıkların elle aktarılmasını otomatikleştirir ve testte değiştirmeyi kolaylaştırır."
         },
         "android-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonları Android'de neden çok kullanılır?",
+          "opts": [
+            "Zorunludur",
+            "Framework sınıflarına (View, Context) dokunmadan yardımcı fonksiyon eklemeyi sağlar",
+            "Hız için",
+            "Bellek için"
+          ],
+          "exp": "fun View.gorunsun() { visibility = View.VISIBLE } — framework sınıfını değiştirmeden API'yi kendi ihtiyacına uyarlarsın."
         },
         "android-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Activity'de uzun bir coroutine çalıştırırken hangi scope kullanılmalıdır?",
+          "opts": [
+            "GlobalScope",
+            "lifecycleScope veya viewModelScope",
+            "runBlocking",
+            "Yeni bir thread"
+          ],
+          "exp": "GlobalScope hiçbir zaman iptal edilmez ve bellek sızıntısına yol açar. Yaşam döngüsüne bağlı scope'lar otomatik olarak temizlenir."
         },
         "android-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "collectAsStateWithLifecycle() ne içindir?",
+          "opts": [
+            "Hız",
+            "Ekran arka plandayken akışı durdurmak",
+            "Bellek",
+            "Test"
+          ],
+          "exp": "Sıradan collectAsState ekran görünmezken de çalışmaya devam eder ve kaynak harcar. Lifecycle sürümü bunu çözer."
         },
         "android-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "UI durumu ViewModel'den nasıl dışarı açılmalıdır?",
+          "opts": [
+            "MutableStateFlow olarak",
+            "StateFlow olarak — asStateFlow() ile salt okunur yapılır",
+            "var olarak",
+            "Public bir alan olarak"
+          ],
+          "exp": "İçeride MutableStateFlow tutulur, dışarıya ise değiştirilemeyen bir StateFlow verilir — durumu yalnızca ViewModel değiştirir."
         },
         "android-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Compose'da durum neden yukarı taşınır (state hoisting)?",
+          "opts": [
+            "Hız için",
+            "Composable'ı durumsuz ve yeniden kullanılabilir yapmak için",
+            "Bellek için",
+            "Zorunludur"
+          ],
+          "exp": "Durum yukarıda tutulur ve aşağıya parametre olarak aktarılır. Böyle bir bileşen test edilebilir ve esnek olur."
         },
         "android-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Tek seferlik bir olay (toast, gezinme) için ne kullanılmalıdır?",
+          "opts": [
+            "StateFlow",
+            "SharedFlow veya Channel",
+            "LiveData",
+            "Sıradan bir değişken"
+          ],
+          "exp": "StateFlow son değeri tutar — ekran yeniden oluşturulurken toast tekrar gösterilir. SharedFlow bu sorunu çözer."
         },
         "android-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Android'de yansımadan neden kaçınmak gerekir?",
+          "opts": [
+            "Çalışmaz",
+            "Yavaştır ve APK boyutunu büyütür",
+            "Yasaktır",
+            "Bir nedeni yok"
+          ],
+          "exp": "kotlin-reflect yaklaşık 3 MB'tır. kotlinx.serialization gibi derleyici eklentileri aynı işi yansımasız yapar."
         },
         "android-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Modern Android yığınında UI testi için ne kullanılır?",
+          "opts": [
+            "Yalnızca JUnit",
+            "Compose test kütüphanesi + Espresso",
+            "Yalnızca MockK",
+            "Hiçbir şey"
+          ],
+          "exp": "Birim testleri için JUnit + MockK, UI için Compose test API'si veya Espresso, Flow için ise Turbine."
         }
       },
       "praktiki": {
         "android-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "UI durumunu sealed interface ile modelle ve yükleniyor durumunu yazdır.",
+          "ipucu": "data object Yuklenir : EkranVeziyyeti — data object açık bir toString verir.",
+          "starter": "sealed interface EkranVeziyyeti {\n    // Yuklenir, Ugurlu(data), Xeta(mesaj) yaz\n}\n\nfun main() {\n    val v: EkranVeziyyeti = EkranVeziyyeti.Yuklenir\n    println(v)\n}"
         },
         "android-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Durumu when ile işle: her durum için bir UI metni döndür.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed interface V {\n    data object Yuklenir : V\n    data class Ugurlu(val d: String) : V\n    data class Xeta(val m: String) : V\n}\n\nfun ekran(v: V): String = when (v) {\n    // tüm durumları işle\n}\n\nfun main() {\n    println(ekran(V.Xeta(\"sebeke yoxdur\")))\n}"
         },
         "android-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Basit bir sayaç durumu kur (Compose'daki remember örneğinin modeli).",
+          "ipucu": "var deyer = 0 ve fun artir() { deyer++ }",
+          "starter": "class Sayqac {\n    // durum ve artir() yaz\n}\n\nfun main() {\n    val s = Sayqac()\n    s.artir()\n    s.artir()\n    println(s.deyer)\n}"
         },
         "android-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir Android uzantısının modelini yaz: View yerine basit bir sınıfa gorunsun() ekle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class View {\n    var gorunur = false\n}\n\n// uzantıyı yaz\n\nfun main() {\n    val v = View()\n    v.gorunsun()\n    println(v.gorunur)\n}"
         },
         "android-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "DTO'yu model sınıfına dönüştür (Retrofit yanıtının işlenmesine örnek).",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class IstifadeciDto(val id: Int, val ad: String)\ndata class Istifadeci(val ad: String)\n\n// dönüştürme fonksiyonunu yaz\n\nfun main() {\n    println(IstifadeciDto(1, \"Aysel\").toModel())\n}"
         },
         "android-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Listeyi UI için hazırla: DTO listesini model listesine dönüştür.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Dto(val ad: String)\ndata class Model(val ad: String)\n\nfun main() {\n    val s = listOf(Dto(\"a\"), Dto(\"b\"))\n    // map ile dönüştür ve adları yazdır\n}"
         },
         "android-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Boş liste durumunu işle: UI'da \"melumat yoxdur\" göster.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun ekran(s: List<String>): String {\n    // boş olduğunda \"melumat yoxdur\"\n}\n\nfun main() {\n    println(ekran(emptyList()))\n}"
         },
         "android-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Context.toast() uzantısının modelini yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Context\n\n// toast uzantısını yaz\n\nfun main() {\n    Context().toast(\"salam\")\n}"
         },
         "android-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "dp dönüşümünün modelini yaz: sayıyı piksele çevir (yoğunluk 2).",
           "ipucu": "",
-          "starter": ""
+          "starter": "// dp uzantısını yaz (yoğunluk 2)\n\nfun main() {\n    println(16.dp())\n}"
         },
         "android-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "ViewModel modelini kur: durumu yalnızca içeriden değiştiren bir sınıf yaz.",
+          "ipucu": "var veziyyet = \"Yuklenir\"\n    private set — ardından yukle() içinde değiştir.",
+          "starter": "class ViewModel {\n    // veziyyet özelliği (dışarıdan okunan, içeriden değişen) ve yukle() yaz\n}\n\nfun main() {\n    val vm = ViewModel()\n    println(vm.veziyyet)\n    vm.yukle()\n    println(vm.veziyyet)\n}"
         },
         "android-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Gözlemlenebilir durum modeli kur: değiştiğinde aboneye haber versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Veziyyet(baslangic: String) {\n    private var dinleyici: ((String) -> Unit)? = null\n    var deyer = baslangic\n        set(v) {\n            field = v\n            // dinleyiciyi çağır\n        }\n    fun izle(f: (String) -> Unit) { dinleyici = f }\n}\n\nfun main() {\n    val v = Veziyyet(\"bos\")\n    v.izle { println(\"yeni: $it\") }\n    v.deyer = \"hazir\"\n}"
         },
         "android-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Repository modelini kur: veri kaynağını bir arayüzün arkasına gizle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Repo {\n    fun hamisi(): List<String>\n}\n\n// sahte bir uygulama yaz\n\nfun main() {\n    val r: Repo = SaxtaRepo()\n    println(r.hamisi())\n}"
         },
         "android-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Dependency injection modelini kur: bağımlılığı yapıcıdan aktar.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Repo { fun al(): String }\n\nclass ViewModel(private val repo: Repo) {\n    // yukle() metodunu yaz\n}\n\nfun main() {\n    val saxta = object : Repo { override fun al() = \"test\" }\n    println(ViewModel(saxta).yukle())\n}"
         },
         "android-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Asenkron yükleme modelini kur: coroutine ile durumu değiştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nclass ViewModel {\n    var veziyyet = \"Yuklenir\"\n        private set\n\n    suspend fun yukle() {\n        delay(50)\n        // durumu değiştir\n    }\n}\n\nfun main() {\n    runBlocking {\n        val vm = ViewModel()\n        println(vm.veziyyet)\n        vm.yukle()\n        println(vm.veziyyet)\n    }\n}"
         },
         "android-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Hata durumunu runCatching ile bir duruma dönüştür.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed interface V {\n    data class Ugurlu(val d: String) : V\n    data class Xeta(val m: String) : V\n}\n\nfun yukle(ugurlu: Boolean): V = runCatching {\n    if (ugurlu) \"data\" else error(\"sebeke xetasi\")\n}.fold(\n    // onSuccess ile onFailure'ı yaz\n)\n\nfun main() {\n    println(yukle(false))\n}"
         },
         "android-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "StateFlow modelini Flow ile kur: durum değişikliklerini bir akış olarak ver.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    val veziyyet = MutableStateFlow(\"bos\")\n    val is1 = launch {\n        veziyyet.take(2).collect { println(it) }\n    }\n    delay(50)\n    // durumu değiştir\n    is1.join()\n}"
         },
         "android-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "asStateFlow modelini kur: dışarıya salt okunur bir akış ver.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.flow.*\n\nclass ViewModel {\n    private val _veziyyet = MutableStateFlow(0)\n    // dışarıya salt okunur olarak ver\n\n    fun artir() { _veziyyet.value++ }\n}\n\nfun main() {\n    val vm = ViewModel()\n    vm.artir()\n    println(vm.veziyyet.value)\n}"
         },
         "android-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Listeyi UI için grupla: elemanları ilk harfe göre ayır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(\"Aysel\", \"Ayten\", \"Kamran\")\n    // ilk harfe göre grupla ve yazdır\n}"
         },
         "android-p-19": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Arama filtresi yaz: UI'daki listeyi metne göre süz (büyük-küçük harf farkı olmadan).",
+          "ipucu": "s.filter { it.contains(sorgu, ignoreCase = true) } — yalnızca \"Java\" kelimesinde a harfi var.",
+          "starter": "fun main() {\n    val s = listOf(\"Kotlin\", \"Java\", \"Swift\")\n    val sorgu = \"a\"\n    // büyük-küçük harf farkı olmadan süz\n}"
         },
         "android-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir durum reducer'ı yaz: olayı mevcut duruma uygula.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Veziyyet(val say: Int = 0)\nsealed interface Hadise {\n    data object Artir : Hadise\n    data object Sifirla : Hadise\n}\n\nfun reduce(v: Veziyyet, h: Hadise): Veziyyet = when (h) {\n    // olayları işle\n}\n\nfun main() {\n    var v = Veziyyet()\n    v = reduce(v, Hadise.Artir)\n    v = reduce(v, Hadise.Artir)\n    println(v.say)\n}"
         },
         "android-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Reducer ile sıfırlama olayını dene.",
+          "ipucu": "fold kullan veya reduce'u art arda çağır.",
+          "starter": "data class Veziyyet(val say: Int = 0)\nsealed interface Hadise {\n    data object Artir : Hadise\n    data object Sifirla : Hadise\n}\n\nfun reduce(v: Veziyyet, h: Hadise): Veziyyet = when (h) {\n    Hadise.Artir -> v.copy(say = v.say + 1)\n    Hadise.Sifirla -> Veziyyet()\n}\n\nfun main() {\n    // artır, artır, sıfırla sırasını uygula\n}"
         },
         "android-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "State hoisting modelini göster: durumsuz bir bileşen yaz.",
+          "ipucu": "println(sayqacGoster(say) { say++ }) ardından println(say)",
+          "starter": "// durumsuz bileşen: değeri ve değiştiriciyi parametre olarak alır\nfun sayqacGoster(deyer: Int, artir: () -> Unit): String {\n    artir()\n    return \"Sayqac: $deyer\"\n}\n\nfun main() {\n    var say = 0\n    // bileşeni çağır\n}"
         },
         "android-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Tek seferlik bir olayı Channel ile modelle.",
+          "ipucu": "hadiseler.send(\"toast: salam\") ardından hadiseler.close()",
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.channels.*\n\nfun main() = runBlocking {\n    val hadiseler = Channel<String>()\n    launch {\n        // bir olay gönder ve kapat\n    }\n    for (h in hadiseler) println(h)\n}"
         },
         "android-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Room DAO'nun Flow döndürmesini modelle: değişiklikte yeni bir liste gelsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    val baza = MutableStateFlow(listOf(\"alma\"))\n    val is1 = launch {\n        baza.take(2).collect { println(it) }\n    }\n    delay(50)\n    // veritabanına yeni bir eleman ekle\n    is1.join()\n}"
         },
         "android-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Scope iptalini modelle: kapsam kapandığında iş dursun.",
+          "ipucu": "scope.cancel() — ViewModel yok edildiğinde viewModelScope da böyle iptal edilir.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val scope = CoroutineScope(Dispatchers.Default)\n    scope.launch {\n        try {\n            repeat(100) { delay(50) }\n        } finally {\n            println(\"temizlendi\")\n        }\n    }\n    delay(120)\n    // scope'u iptal et\n    delay(50)\n}"
         }
       }
     },
