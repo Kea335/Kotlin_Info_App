@@ -5785,7 +5785,7 @@
         "istisnalar-p-20": {
           "tapsiriq": "Result.fold() kullan: iki durumu tek bir ifadede işle.",
           "ipucu": "",
-          "starter": "fun main() {\n    val n = runCatching { \"abc\".toInt() }.fold(\n        // onSuccess ve onFailure yaz\n    )\n    println(n)\n}"
+          "starter": "fun main() {\n    val n = runCatching { \"abc\".toInt() }.fold(\n        // onSuccess ile onFailure'ı yaz\n    )\n    println(n)\n}"
         },
         "istisnalar-p-21": {
           "tapsiriq": "Elvis ile istisna fırlat: null değer için mesajı yakala ve yazdır.",
@@ -5815,516 +5815,741 @@
       }
     },
     "delegatlar": {
-      "title": "",
+      "title": "Delegeler ve anotasyonlar",
       "nezeri": {
         "delegatlar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Özellik delegasyonu nedir?",
+          "opts": [
+            "Özelliği silmek",
+            "get/set mantığını başka bir nesneye devretmek",
+            "Özelliği kopyalamak",
+            "Bir kalıtım türü"
+          ],
+          "exp": "val x by delege — okuma ve yazma işlemleri delegenin getValue/setValue metotlarına aktarılır."
         },
         "delegatlar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "by lazy ne yapar?",
+          "opts": [
+            "Değeri geciktirir ve hiç hesaplamaz",
+            "İlk erişimde bir kez hesaplar, sonra önbelleğe alır",
+            "Her erişimde yeniden hesaplar",
+            "Değeri siler"
+          ],
+          "exp": "Ağır hesaplamalar için idealdir — değer gerekmezse hiç oluşturulmaz."
         },
         "delegatlar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "by lazy hangi anahtar kelimeyle kullanılabilir?",
+          "opts": [
+            "Yalnızca var",
+            "Yalnızca val",
+            "İkisi de",
+            "Hiçbiri"
+          ],
+          "exp": "lazy değeri bir kez hesaplayıp saklar, bu yüzden yalnızca val ile anlamlıdır. var için Delegates.observable veya notNull vardır."
         },
         "delegatlar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "lazy varsayılan olarak thread-safe mi?",
+          "opts": [
+            "Hayır",
+            "Evet — SYNCHRONIZED modu varsayılandır",
+            "Yalnızca Android'de",
+            "Yalnızca object içinde"
+          ],
+          "exp": "Varsayılan mod senkronizasyon uygular. Tek bir thread'de kullanılacaksa LazyThreadSafetyMode.NONE daha hızlıdır."
         },
         "delegatlar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Delegates.observable ne yapar?",
+          "opts": [
+            "Değişikliği engeller",
+            "Her değişiklikten SONRA haber verir",
+            "Değeri gizler",
+            "Özelliği siler"
+          ],
+          "exp": "Lambda eski ve yeni değeri alır. Değişiklik zaten gerçekleşmiştir — onu iptal etmek mümkün değildir."
         },
         "delegatlar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Delegates.vetoable ne yapar?",
+          "opts": [
+            "Değişikliği loglar",
+            "Değişikliği reddedebilir",
+            "Değeri iki katına çıkarır",
+            "Özelliği kilitler"
+          ],
+          "exp": "Lambda Boolean döndürür: false döndürürse yeni değer atanmaz ve özellik eski değerinde kalır."
         },
         "delegatlar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Delegates.notNull() ne içindir?",
+          "opts": [
+            "null kontrolü",
+            "İlkel türler için lateinit yerine geçer",
+            "Değeri silmek",
+            "Özelliği gizlemek"
+          ],
+          "exp": "lateinit, Int ve Double gibi ilkel türlerle çalışmaz. notNull() bu boşluğu doldurur."
         },
         "delegatlar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "by lazy bloğunun sonucu nasıl belirlenir?",
+          "opts": [
+            "return ile",
+            "Bloğun son ifadesi",
+            "İlk ifade",
+            "Hiçbir şey"
+          ],
+          "exp": "Lambda gibi çalışır — son ifade özelliğin değeri olur."
         },
         "delegatlar-n-09": {
-          "q": "",
+          "q": "Bu kodda \"hesablanir\" kaç kez yazdırılır?",
           "opts": [],
-          "exp": ""
+          "exp": "lazy değeri yalnızca ilk erişimde hesaplar. İkinci erişimde önbellekteki değer döndürülür."
         },
         "delegatlar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Map ile delegasyon neden faydalıdır?",
+          "opts": [
+            "Hız için",
+            "JSON veya yapılandırma map'inden doğrudan nesne kurmak için",
+            "Bellek için",
+            "Test için"
+          ],
+          "exp": "class A(m: Map<String, Any?>) { val ad: String by m } — özellik adı anahtar olarak kullanılır ve değer map'ten okunur."
         },
         "delegatlar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kendi delegeni yazmak için hangi operatör fonksiyonları gerekir?",
+          "opts": [
+            "get() ve set()",
+            "getValue() ve setValue()",
+            "read() ve write()",
+            "load() ve save()"
+          ],
+          "exp": "val için yalnızca getValue(), var için hem getValue() hem setValue() bildirilmelidir — ikisi de operator olmalıdır."
         },
         "delegatlar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "getValue() fonksiyonunun parametreleri nelerdir?",
+          "opts": [
+            "(sahip, değer)",
+            "(sahib: Any?, xassə: KProperty<*>)",
+            "(özellik, değer)",
+            "Parametresizdir"
+          ],
+          "exp": "İlk parametre özelliğin sahibi olan nesne, ikincisi ise özellik hakkındaki meta veridir (adı, türü)."
         },
         "delegatlar-n-13": {
-          "q": "",
+          "q": "setValue() kaç parametre alır?",
           "opts": [],
-          "exp": ""
+          "exp": "Sahip, özellik meta verisi ve yeni değer — üç parametre."
         },
         "delegatlar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sınıf düzeyinde by ne yapar?",
+          "opts": [
+            "Özellik delegasyonu",
+            "Arayüz uygulamasını başka bir nesneye devreder",
+            "Kalıtım alır",
+            "Tür dönüştürür"
+          ],
+          "exp": "class A(d: Cap) : Cap by d — tüm arayüz metotları otomatik olarak d nesnesine aktarılır. Kompozisyonu kolaylaştırır."
         },
         "delegatlar-n-15": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "İlk değişiklik kabul edilir (5), ikincisi ise lambda false döndürdüğü için reddedilir — özellik 5'te kalır."
         },
         "delegatlar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "lazy'nin PUBLICATION modu ne anlama gelir?",
+          "opts": [
+            "Hiçbir zaman hesaplanmaz",
+            "Birkaç thread hesaplayabilir, ilk sonuç saklanır",
+            "Her thread kendi kopyasını alır",
+            "Senkronizasyon yok"
+          ],
+          "exp": "Hesaplama tekrarlanabilir ama sonuç tektir. Hesaplama ucuzsa senkronizasyon yükünden kaçınmak için kullanılır."
         },
         "delegatlar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "observable lambda'sı kaç parametre alır?",
+          "opts": [
+            "1",
+            "2",
+            "3 — özellik, eski değer, yeni değer",
+            "4"
+          ],
+          "exp": "Genellikle ilk parametre gerekmez ve alt çizgiyle atılır: { _, kohne, yeni -> ... }"
         },
         "delegatlar-n-18": {
-          "q": "",
+          "q": "Anotasyon nasıl bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "annotation class anahtar kelimesi kullanılır. Parametreleri yapıcıda belirlenir ve yalnızca sabit değerler olabilir."
         },
         "delegatlar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@Target anotasyonu ne yapar?",
+          "opts": [
+            "Hedef platformu seçer",
+            "Anotasyonun hangi öğelere konabileceğini sınırlar",
+            "Sürümü belirler",
+            "Adı değiştirir"
+          ],
+          "exp": "@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION) — anotasyon yalnızca sınıf ve fonksiyonlara konabilir."
         },
         "delegatlar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@Retention neyi belirler?",
+          "opts": [
+            "Ne kadar süre korunacağını — kaynakta, bayt kodunda veya çalışma zamanında",
+            "Anotasyonun adını",
+            "Parametreleri",
+            "Görünürlüğü"
+          ],
+          "exp": "RUNTIME değilse yansımayla okumak mümkün değildir. Varsayılan değer RUNTIME'dır."
         },
         "delegatlar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@Deprecated anotasyonu ne yapar?",
+          "opts": [
+            "Kodu siler",
+            "Kullanımdan kalkmış olarak işaretler ve yerine geçecek olanı önerebilir",
+            "Hata fırlatır",
+            "Kodu gizler"
+          ],
+          "exp": "ReplaceWith parametresiyle IDE otomatik düzeltme önerir. level parametresi uyarıyı hataya çevirebilir."
         },
         "delegatlar-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yansıma (reflection) Kotlin'de neden pahalıdır?",
+          "opts": [
+            "Pahalı değil",
+            "kotlin-reflect bağımlılığı büyüktür ve çalışma zamanında yavaştır",
+            "Derleme hatası verir",
+            "Bellek sızdırır"
+          ],
+          "exp": "Android'de ondan kaçınmak önerilir. kotlinx.serialization gibi derleyici eklentileri aynı işi yansımasız yapar."
         },
         "delegatlar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Delege sınıfı jenerik olabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — her tür için yeniden kullanılabilir",
+            "Yalnızca String için",
+            "Yalnızca val için"
+          ],
+          "exp": "class Loglayan<T>(private var d: T) — tek bir delege tüm türler için çalışır. Standart kütüphanedeki delegeler de böyledir."
         },
         "delegatlar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "ReadWriteProperty arayüzü ne içindir?",
+          "opts": [
+            "Dosyayla çalışmak",
+            "var özellikler için hazır bir delege sözleşmesi",
+            "Ağ için",
+            "Test için"
+          ],
+          "exp": "Onu uygularsan getValue ve setValue imzalarını derleyici kontrol eder. val için karşılığı ReadOnlyProperty'dir."
         },
         "delegatlar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "lateinit ile by lazy arasındaki temel fark nedir?",
+          "opts": [
+            "Fark yok",
+            "lateinit var içindir ve dışarıdan atanır, lazy val içindir ve kendisi hesaplar",
+            "lazy daha hızlıdır",
+            "lateinit yalnızca Android'de var"
+          ],
+          "exp": "lateinit değeri kimin vereceğini bilmez ve kontrol edilmez. lazy ise değeri kendisi hesaplar ve her zaman mevcuttur."
         }
       },
       "praktiki": {
         "delegatlar-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "by lazy kullan: değer ilk erişimde hesaplansın, iki kez oku.",
+          "ipucu": "Blok içinde println(\"hesablanir\"), sonra 42 yaz.",
+          "starter": "val agir: Int by lazy {\n    // \"hesablanir\" yazdır, sonra 42 döndür\n}\n\nfun main() {\n    println(agir)\n    println(agir)\n}"
         },
         "delegatlar-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "by lazy ile bir metin değeri oluştur ve yazdır.",
+          "ipucu": "Bloğun son ifadesi değer olur.",
+          "starter": "val ad: String by lazy {\n    // Kotlin döndürsün\n}\n\nfun main() {\n    println(ad)\n}"
         },
         "delegatlar-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "lazy değerin hiç okunmadığında hesaplanmadığını göster.",
+          "ipucu": "Özelliğe erişilmediği için blok çalışmaz.",
+          "starter": "// lazy ile agir bir değer yaz: blok \"hesablandi\" yazdırıp 42 döndürsün\n\nfun main() {\n    println(\"basladi\")\n    // agir değerine ERİŞME\n}"
         },
         "delegatlar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Sınıf içinde by lazy kullan ve değeri yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Konfiq {\n    // lazy özellik yaz\n}\n\nfun main() {\n    println(Konfiq().url)\n}"
         },
         "delegatlar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "observable kullan: değişiklikte eski ve yeni değeri yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var ad: String by Delegates.observable(\"Aysel\") { _, kohne, yeni ->\n        // \"kohne -> yeni\" biçiminde yazdır\n    }\n    ad = \"Leyla\"\n}"
         },
         "delegatlar-p-06": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "observable ile iki değişikliği izle.",
+          "ipucu": "n = 1 ardından n = 2",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var n: Int by Delegates.observable(0) { _, k, y ->\n        println(\"$k -> $y\")\n    }\n    // iki kez değiştir\n}"
         },
         "delegatlar-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "vetoable kullan: negatif değeri reddet ve son değeri yazdır.",
+          "ipucu": "Lambda bir Boolean döndürmeli: yeni > 0",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var n: Int by Delegates.vetoable(1) { _, _, yeni ->\n        // negatif olmayan değerlere izin ver\n    }\n    n = 5\n    n = -3\n    println(n)\n}"
         },
         "delegatlar-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "vetoable ile boş metni reddet.",
+          "ipucu": "Boş metin reddedilir, eski değer kalır.",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    // vetoable(\"Aysel\") ile ad değişkenini yaz — boş metin reddedilsin\n    var ad = \"Aysel\"\n    ad = \"\"\n    println(ad)\n}"
         },
         "delegatlar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Delegates.notNull() kullan: ilkel bir türü sonradan ata.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.properties.Delegates\n\nclass A {\n    // notNull ile yas özelliği yaz\n}\n\nfun main() {\n    val a = A()\n    a.yas = 24\n    println(a.yas)\n}"
         },
         "delegatlar-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Map ile delegasyon kullan: özellikler map'ten okunsun.",
+          "ipucu": "val ad: String by m ve val yas: Int by m",
+          "starter": "class Istifadeci(m: Map<String, Any?>) {\n    // ad ve yas özelliklerini map'e delege et\n}\n\nfun main() {\n    val u = Istifadeci(mapOf(\"ad\" to \"Aysel\", \"yas\" to 24))\n    println(\"${u.ad} ${u.yas}\")\n}"
         },
         "delegatlar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Kendi delegeni yaz: salt okunur (getValue) bir delege kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\nclass Sabit(private val d: String) {\n    // getValue operatörünü yaz\n}\n\nclass A {\n    val ad: String by Sabit(\"Kotlin\")\n}\n\nfun main() {\n    println(A().ad)\n}"
         },
         "delegatlar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Okuma-yazma delegesi yaz: setValue de ekle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\nclass Qutu(private var d: String) {\n    operator fun getValue(s: Any?, x: KProperty<*>): String = d\n    // setValue'yu yaz\n}\n\nclass A {\n    var ad: String by Qutu(\"Aysel\")\n}\n\nfun main() {\n    val a = A()\n    a.ad = \"Leyla\"\n    println(a.ad)\n}"
         },
         "delegatlar-p-13": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Loglayan bir delege yaz: okuma ve yazmayı yazdırsın.",
+          "ipucu": "setValue içine println(\"${x.name} yazilir\") yaz.",
+          "starter": "import kotlin.reflect.KProperty\n\nclass Loglayan(private var d: String) {\n    operator fun getValue(s: Any?, x: KProperty<*>): String {\n        println(\"${x.name} oxunur\")\n        return d\n    }\n    // setValue'yu yaz - \"<ad> yazilir\" yazdırsın\n}\n\nclass P {\n    var ad: String by Loglayan(\"Aysel\")\n}\n\nfun main() {\n    val p = P()\n    p.ad = \"Leyla\"\n    println(p.ad)\n}"
         },
         "delegatlar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik bir delege yaz: her tür için çalışsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\n// jenerik Sabit delegesini yaz\n\nclass A {\n    val n: Int by Sabit(42)\n}\n\nfun main() {\n    println(A().n)\n}"
         },
         "delegatlar-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "lazy'nin NONE modunu kullan (tek thread için).",
+          "ipucu": "Bloğun son ifadesi 7 olsun.",
+          "starter": "val x: Int by lazy(LazyThreadSafetyMode.NONE) {\n    // 7 döndürsün\n}\n\nfun main() {\n    println(x)\n}"
         },
         "delegatlar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Sınıf delegasyonu (by) kullan: arayüzü içteki nesneye devret.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Cap { fun cap(): String }\nclass Impl : Cap {\n    override fun cap() = \"impl\"\n}\n\n// by ile delege sınıf yaz\n\nfun main() {\n    println(Delegat(Impl()).cap())\n}"
         },
         "delegatlar-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "observable ile bir değişiklik sayacı kur.",
+          "ipucu": "Lambda içine say++ yaz.",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var say = 0\n    var n: Int by Delegates.observable(0) { _, _, _ ->\n        // sayacı artır\n    }\n    n = 1\n    n = 2\n    n = 3\n    println(say)\n}"
         },
         "delegatlar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir anotasyon bildir ve sınıfa koy (kod derlensin).",
           "ipucu": "",
-          "starter": ""
+          "starter": "// annotation class Muellif'i yaz\n\n@Muellif(\"Aysel\")\nclass A\n\nfun main() {\n    println(\"ok\")\n}"
         },
         "delegatlar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "@Target ile anotasyonu yalnızca fonksiyonlarla sınırla.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// @Target ile anotasyon yaz\n\n@Yoxla\nfun test() = println(\"test\")\n\nfun main() {\n    test()\n}"
         },
         "delegatlar-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "ReadWriteProperty arayüzünü uygula.",
+          "ipucu": "override fun getValue(...) = d ve override fun setValue(...) { d = value }",
+          "starter": "import kotlin.properties.ReadWriteProperty\nimport kotlin.reflect.KProperty\n\nclass Qutu<T>(private var d: T) : ReadWriteProperty<Any?, T> {\n    // getValue ve setValue'yu override et\n}\n\nclass A {\n    var ad: String by Qutu(\"Aysel\")\n}\n\nfun main() {\n    val a = A()\n    a.ad = \"Leyla\"\n    println(a.ad)\n}"
         },
         "delegatlar-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Doğrulama yapan bir delege yaz: negatif değer 0'a çevrilsin.",
+          "ipucu": "setValue içinde d = if (yeni < 0) 0 else yeni",
+          "starter": "import kotlin.reflect.KProperty\n\nclass MusbetOl(private var d: Int = 0) {\n    operator fun getValue(s: Any?, x: KProperty<*>): Int = d\n    // setValue'yu yaz - negatif değer 0 olsun\n}\n\nclass Hesab {\n    var balans: Int by MusbetOl()\n}\n\nfun main() {\n    val h = Hesab()\n    h.balans = -50\n    println(h.balans)\n}"
         },
         "delegatlar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Delegede özelliğin adını kullan: KProperty.name'i yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\nclass AdCapEt {\n    // getValue'yu yaz - özelliğin adını döndürsün\n}\n\nclass A {\n    val menimXassem: String by AdCapEt()\n}\n\nfun main() {\n    println(A().menimXassem)\n}"
         },
         "delegatlar-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "lazy ile bağımlı bir zincir kur: bir lazy diğerini tetiklesin.",
+          "ipucu": "b okunduğunda önce kendi bloğu, sonra a'nın bloğu çalışır.",
+          "starter": "// a: lazy, \"a\" yazdırıp 1 döndürsün\n// b: lazy, \"b\" yazdırıp a + 1 döndürsün\n\nfun main() {\n    println(b)\n}"
         },
         "delegatlar-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Delegasyon + override'ı birleştir: bir metodu kendin üstlen.",
+          "ipucu": "override fun bir() = \"oz-bir\" — iki() delegeye aktarılır.",
+          "starter": "interface Cap {\n    fun bir(): String\n    fun iki(): String\n}\nclass Impl : Cap {\n    override fun bir() = \"impl-bir\"\n    override fun iki() = \"impl-iki\"\n}\n\nclass D(c: Cap) : Cap by c {\n    // yalnızca bir()'i override et\n}\n\nfun main() {\n    val d = D(Impl())\n    println(d.bir())\n    println(d.iki())\n}"
         },
         "delegatlar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "@Deprecated kullan ve kullanımdan kalkmış fonksiyonu yine de çağır.",
+          "ipucu": "@Deprecated(\"Evezine yeni() isledin\") satırını fonksiyondan önce yaz.",
+          "starter": "// @Deprecated ile fonksiyonu işaretle\nfun kohne() = println(\"kohne\")\n\nfun main() {\n    @Suppress(\"DEPRECATION\")\n    kohne()\n}"
         }
       }
     },
     "coroutines": {
-      "title": "",
+      "title": "Coroutine'ler",
       "nezeri": {
         "coroutines-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Coroutine nedir?",
+          "opts": [
+            "Yeni bir thread",
+            "Askıya alınıp devam ettirilebilen hafif bir görev",
+            "Bir sınıf türü",
+            "Bir kütüphane"
+          ],
+          "exp": "Coroutine işletim sistemi kaynağı tutmaz. Birkaç thread üzerinde yüz binlerce coroutine çalışabilir."
         },
         "coroutines-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "suspend anahtar kelimesi ne anlama gelir?",
+          "opts": [
+            "Fonksiyon hiçbir şey döndürmez",
+            "Fonksiyon askıya alınabilir — yalnızca coroutine içinde çağrılır",
+            "Fonksiyon senkrondur",
+            "Fonksiyon yeni bir thread oluşturur"
+          ],
+          "exp": "suspend fonksiyon thread'i bloklamadan durabilir. Yalnızca başka bir suspend fonksiyondan veya bir coroutine builder'dan çağrılabilir."
         },
         "coroutines-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "delay() ile Thread.sleep() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "delay thread'i bloklamaz, sleep bloklar",
+            "sleep daha hassastır",
+            "delay yalnızca Android'de var"
+          ],
+          "exp": "Bütün fark buradadır: delay yalnızca coroutine'i askıya alır, thread ise serbest kalıp başka coroutine'leri çalıştırır."
         },
         "coroutines-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "runBlocking ne yapar?",
+          "opts": [
+            "Coroutine oluşturur ve mevcut thread'i bloklar",
+            "Coroutine'i iptal eder",
+            "Yeni bir thread oluşturur",
+            "Hiçbir şey"
+          ],
+          "exp": "Sıradan koddan coroutine dünyasına bir köprüdür. main() ve testlerde kullanılır, üretim kodunda ise ondan kaçınmak gerekir."
         },
         "coroutines-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "launch ne döndürür?",
+          "opts": [
+            "Sonucu",
+            "Job",
+            "Deferred",
+            "Unit"
+          ],
+          "exp": "launch «başlat ve unut» içindir — sonuç döndürmez. Job ile coroutine beklenebilir (join) veya iptal edilebilir (cancel)."
         },
         "coroutines-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "async ne döndürür?",
+          "opts": [
+            "Job",
+            "Deferred<T> — sonuç await() ile alınır",
+            "Unit",
+            "Thread"
+          ],
+          "exp": "Deferred, Job'ın sonuç döndüren biçimidir. await() sonuç hazır olana kadar thread'i bloklamadan bekler."
         },
         "coroutines-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "suspend fonksiyon sıradan bir fonksiyondan çağrılabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — bir coroutine kapsamı gerekir",
+            "Yalnızca main()'den",
+            "Yalnızca Android'de"
+          ],
+          "exp": "Derleyici hata verir. Köprü olarak runBlocking veya mevcut bir scope'un launch/async'i kullanılır."
         },
         "coroutines-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "A B",
+            "B A",
+            "Yalnızca A",
+            "Hiçbir şey"
+          ],
+          "exp": "Kod sırayla çalışır: A yazdırılır, 100 ms beklenir, sonra B. delay thread'i bloklamaz, sadece coroutine'i askıya alır."
         },
         "coroutines-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "job.join() ne yapar?",
+          "opts": [
+            "Coroutine'i iptal eder",
+            "Coroutine bitene kadar bekler",
+            "Yeni bir coroutine oluşturur",
+            "Sonucu döndürür"
+          ],
+          "exp": "Bekleme thread'i bloklamaz. Sonuç gerekiyorsa async ve await() kullanılır."
         },
         "coroutines-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İki async'i art arda await etmek paralellik sağlar mı?",
+          "opts": [
+            "Hayır",
+            "Evet — async çağrılır çağrılmaz ikisi de başlar",
+            "Yalnızca Dispatchers.IO ile",
+            "Yalnızca awaitAll ile"
+          ],
+          "exp": "async hemen başlatır, await ise sadece sonucu bekler. Bu yüzden toplam süre en uzun görev kadar olur."
         },
         "coroutines-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "coroutineScope ne yapar?",
+          "opts": [
+            "Thread oluşturur",
+            "Tüm çocuk coroutine'ler bitene kadar bekler",
+            "Coroutine'i iptal eder",
+            "Dispatcher değiştirir"
+          ],
+          "exp": "Yapılandırılmış eşzamanlılığın temelidir: kapsam bitmeden hiçbir çocuk «kayıp» kalmaz."
         },
         "coroutines-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Dispatchers.IO ne içindir?",
+          "opts": [
+            "CPU hesaplamaları",
+            "Ağ, dosya, veritabanı — beklemesi çok olan işler",
+            "UI güncellemeleri",
+            "Test için"
+          ],
+          "exp": "IO havuzunda 64+ thread vardır, çünkü bu işler çoğunlukla bekler. CPU yoğun iş için Dispatchers.Default kullanılır."
         },
         "coroutines-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "withContext ne yapar?",
+          "opts": [
+            "Yeni bir coroutine oluşturur",
+            "Bloğu başka bir dispatcher'da çalıştırır ve sonucu döndürür",
+            "Coroutine'i iptal eder",
+            "Thread'i bloklar"
+          ],
+          "exp": "Dispatcher değiştirmenin standart yoludur: withContext(Dispatchers.IO) { faylOxu() }."
         },
         "coroutines-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yapılandırılmış eşzamanlılık ne anlama gelir?",
+          "opts": [
+            "Coroutine'ler sırayla çalışır",
+            "Her coroutine bir kapsama aittir ve kapsam iptal edildiğinde hepsi durur",
+            "Thread'ler paylaşılır",
+            "Hatalar yutulur"
+          ],
+          "exp": "Bu, «kayıp» görevleri önler. ViewModel yok edildiğinde viewModelScope'taki tüm işler otomatik olarak durur."
         },
         "coroutines-n-15": {
-          "q": "",
+          "q": "Bu kod hangi sırayla yazdırır?",
           "opts": [],
-          "exp": ""
+          "exp": "launch bloklamaz, bu yüzden önce S yazdırılır. Ardından gecikmelere göre A (100 ms), daha sonra B (200 ms)."
         },
         "coroutines-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "withTimeoutOrNull süre dolduğunda ne döndürür?",
+          "opts": [
+            "İstisna fırlatır",
+            "null",
+            "0",
+            "Son değeri"
+          ],
+          "exp": "withTimeout istisna fırlatır, withTimeoutOrNull ise null döndürür — koşullu işlem için daha kullanışlıdır."
         },
         "coroutines-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Flow nedir?",
+          "opts": [
+            "Liste",
+            "Zaman içinde birden fazla değer yayan asenkron bir akış",
+            "Thread",
+            "Dispatcher"
+          ],
+          "exp": "suspend fonksiyon tek bir değer döndürür, Flow ise sırayla çok sayıda değer yayar. collect ile okunur."
         },
         "coroutines-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Flow'da hesaplama ne zaman başlar?",
+          "opts": [
+            "flow { } oluşturulduğunda",
+            "collect çağrıldığında",
+            "map çağrıldığında",
+            "Hemen"
+          ],
+          "exp": "Flow soğuktur (cold) — terminal işlem olan collect çağrılana kadar hiçbir şey çalışmaz."
         },
         "coroutines-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Coroutine iptali nasıl çalışır?",
+          "opts": [
+            "Hemen durdurulur",
+            "İş birliği gerektirir — yalnızca askıya alınabilen bir noktada gerçekleşir",
+            "Thread öldürülür",
+            "İstisna fırlatılır ve yutulur"
+          ],
+          "exp": "delay, yield, withContext gibi suspend noktalarında kontrol edilir. Uzun bir CPU döngüsünde suspend noktası yoksa iptal çalışmaz — ensureActive() eklemek gerekir."
         },
         "coroutines-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "catch bloğunda yakalanan CancellationException ile ne yapılmalıdır?",
+          "opts": [
+            "Yutulmalı",
+            "Yeniden fırlatılmalı",
+            "Loglanmalı",
+            "Görmezden gelinmeli"
+          ],
+          "exp": "İptal mekanizması bu istisnanın yukarı aktarılmasına dayanır. Yutulursa coroutine iptal edilmiş sayılmaz ve kapsam beklemede kalır."
         },
         "coroutines-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "supervisorScope, coroutineScope'tan neyle ayrılır?",
+          "opts": [
+            "Daha hızlıdır",
+            "Bir çocuğun hatası diğer çocukları durdurmaz",
+            "Thread oluşturur",
+            "Sonuç döndürmez"
+          ],
+          "exp": "coroutineScope'ta bir çocuk çöktüğünde tüm kardeşleri iptal edilir. supervisorScope'ta ise her çocuk bağımsızdır."
         },
         "coroutines-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "StateFlow ile Flow arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "StateFlow sıcaktır ve her zaman güncel değeri tutar",
+            "Flow daha hızlıdır",
+            "StateFlow yalnızca Android'de var"
+          ],
+          "exp": "StateFlow UI durumu içindir — abone olan hemen son değeri alır. Tek seferlik olaylar için SharedFlow kullanılır."
         },
         "coroutines-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "runBlocking üretim kodunda neden kullanılmamalı?",
+          "opts": [
+            "Yavaştır",
+            "Mevcut thread'i bloklar — coroutine'lerin tüm faydasını yok eder",
+            "Hata verir",
+            "Bellek sızdırır"
+          ],
+          "exp": "Adı da bunu söylüyor. Yalnızca main(), testler ve eski koda köprü için yerindedir."
         },
         "coroutines-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "awaitAll() ne yapar?",
+          "opts": [
+            "Coroutine'leri iptal eder",
+            "Birkaç Deferred'i birlikte bekler",
+            "Yeni bir kapsam oluşturur",
+            "Dispatcher değiştirir"
+          ],
+          "exp": "listOf(a, b, c).awaitAll() — art arda await yazmaktan daha okunaklıdır ve herhangi biri çökerse hemen hata verir."
         },
         "coroutines-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "yield() ne içindir?",
+          "opts": [
+            "Değer döndürmek",
+            "Sırayı diğer coroutine'lere vermek ve bir iptal noktası oluşturmak",
+            "Thread oluşturmak",
+            "Akışı durdurmak"
+          ],
+          "exp": "Uzun bir hesaplama döngüsünde yield() veya ensureActive() çağırmak iptale olanak tanır."
         }
       },
       "praktiki": {
         "coroutines-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "runBlocking kullan: iki satırı gecikmeyle yazdır.",
+          "ipucu": "delay(100) yaz — Thread.sleep değil.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    println(\"A\")\n    // 100 ms bekle\n    println(\"B\")\n}"
         },
         "coroutines-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "suspend fonksiyon yaz ve runBlocking'den çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\n// suspend fonksiyon yaz\n\nfun main() = runBlocking {\n    println(melumatAl())\n}"
         },
         "coroutines-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "launch kullan: coroutine başlat ve bitmesini bekle.",
+          "ipucu": "j.join() yaz.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch {\n        delay(50)\n        println(\"is bitdi\")\n    }\n    // bekle\n    println(\"hamisi bitdi\")\n}"
         },
         "coroutines-p-04": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "launch'ın bloklamadığını göster: gecikmelere göre bir sıra kur.",
+          "ipucu": "println(\"S\") yaz — launch bloklamadığı için o, ilk çıkar.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    launch { delay(200); println(\"B\") }\n    launch { delay(100); println(\"A\") }\n    // burada bir şey yazdır\n}"
         },
         "coroutines-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "async kullan: sonucu await ile al ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val d = async {\n        delay(50)\n        42\n    }\n    // sonucu al ve yazdır\n}"
         },
         "coroutines-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "İki async ile paralel iş yap ve sonuçları birleştirip yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val a = async { delay(100); \"A\" }\n    val b = async { delay(100); \"B\" }\n    // sonuçları birleştir\n}"
         },
         "coroutines-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "repeat ile delay'i birleştir: üç kez say.",
+          "ipucu": "println(it) ardından delay(30)",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    repeat(3) {\n        // indeksi yazdır ve 30 ms bekle\n    }\n}"
         },
         "coroutines-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "suspend fonksiyonu art arda iki kez çağır.",
+          "ipucu": "println(getir(\"A\")) ardından println(getir(\"B\"))",
+          "starter": "import kotlinx.coroutines.*\n\nsuspend fun getir(ad: String): String {\n    delay(30)\n    return ad\n}\n\nfun main() = runBlocking {\n    // sırayla çağır ve yazdır\n}"
         },
         "coroutines-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Job'ın aktif olup olmadığını kontrol et: bittikten sonra durumu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch { delay(30) }\n    j.join()\n    // isCompleted özelliğini yazdır\n}"
         },
         "coroutines-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "coroutineScope kullan: tüm çocuklar bitene kadar beklesin.",
+          "ipucu": "println(\"bitdi\") — coroutineScope çocukları beklediği için o, en sonda çıkar.",
+          "starter": "import kotlinx.coroutines.*\n\nsuspend fun hamisi() = coroutineScope {\n    launch { delay(100); println(\"bir\") }\n    launch { delay(150); println(\"iki\") }\n}\n\nfun main() = runBlocking {\n    hamisi()\n    // en sonda yazdır\n}"
         },
         "coroutines-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "withContext kullan: bloğu Default dispatcher'da çalıştırıp sonucu yazdır.",
+          "ipucu": "Bloğun son ifadesi sonuç olur.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val n = withContext(Dispatchers.Default) {\n        // 6 * 7 döndürsün\n    }\n    println(n)\n}"
         },
         "coroutines-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "awaitAll kullan: üç Deferred'i birlikte bekle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val a = async { delay(50); 1 }\n    val b = async { delay(50); 2 }\n    val c = async { delay(50); 3 }\n    // awaitAll ile yazdır\n}"
         },
         "coroutines-p-13": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "withTimeoutOrNull kullan: süre dolduğunda null yazdırılsın.",
+          "ipucu": "Blok 500 ms sürüyor, sınır ise 100 ms — sonuç null olur.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    // withTimeoutOrNull(100) içinde delay(500) yap ve \"bitdi\" döndür\n    val n = null\n    println(n)\n}"
         },
         "coroutines-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "withTimeoutOrNull zamanında bittiğinde sonucu versin.",
+          "ipucu": "Blok sınırdan önce biter, bu yüzden gerçek sonuç döner.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    // withTimeoutOrNull(500) içinde delay(50) yap ve \"bitdi\" döndür\n    val n = null\n    println(n)\n}"
         },
         "coroutines-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir Flow oluştur ve collect ile oku.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun axin(): Flow<Int> = flow {\n    // 1, 2, 3 yay\n}\n\nfun main() = runBlocking {\n    axin().collect { println(it) }\n}"
         },
         "coroutines-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Flow üzerinde map kullan: her değeri iki katına çıkar.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    flowOf(1, 2, 3)\n        // map ekle\n        .collect { println(it) }\n}"
         },
         "coroutines-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Flow'da filter ve map zinciri kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    flowOf(1, 2, 3, 4)\n        // yalnızca çiftleri seç ve 10 ile çarp\n        .collect { println(it) }\n}"
         },
         "coroutines-p-18": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Flow'u listeye çevir ve yazdır.",
+          "ipucu": ".toList() terminal bir işlemdir.",
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    val s = flowOf(1, 2, 3)\n        // listeye çevir\n    println(s)\n}"
         },
         "coroutines-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "onCompletion kullan: akış bittiğinde bir mesaj yazdırılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    flowOf(1, 2)\n        // onCompletion ekle\n        .collect { println(it) }\n}"
         },
         "coroutines-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İptali göster: coroutine'i durdur ve finally bloğunun çalıştığını kontrol et.",
+          "ipucu": "finally içine println(\"temizlik\") yaz.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch {\n        try {\n            repeat(100) {\n                println(\"is $it\")\n                delay(100)\n            }\n        } finally {\n            // temizlik yazdır\n        }\n    }\n    delay(250)\n    j.cancelAndJoin()\n    println(\"bitdi\")\n}"
         },
         "coroutines-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "isActive'i kontrol et: iptalden sonra durumu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch { delay(1000) }\n    j.cancel()\n    // isActive özelliğini yazdır\n}"
         },
         "coroutines-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "supervisorScope kullan: bir çocuk çökse de diğeri çalışsın. DİKKAT: main'i blok gövdesiyle yaz.",
+          "ipucu": "println(\"ikinci ugurlu\"). Blok gövdesi şu yüzden gerekir: son ifade Job döndürür — \"fun main() = runBlocking { }\" biçiminde main'in türü Job olur ve JVM onu giriş noktası saymaz.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        supervisorScope {\n            launch {\n                try {\n                    throw RuntimeException(\"cokdu\")\n                } catch (e: RuntimeException) {\n                    println(\"birinci ugursuz\")\n                }\n            }\n            launch {\n                delay(100)\n                // ikinci ugurlu yazdır\n            }\n        }\n    }\n}"
         },
         "coroutines-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "try/catch ile coroutine hatasını yakala.",
+          "ipucu": "println(e.message). Çocuk coroutine çöktüğünde coroutineScope hatayı yukarı aktarır, bu yüzden try/catch onu yakalayabilir.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        try {\n            coroutineScope {\n                launch { throw RuntimeException(\"xeta var\") }\n            }\n        } catch (e: Exception) {\n            // mesajı yazdır\n        }\n    }\n}"
         },
         "coroutines-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "yield() kullan: iki coroutine sırayla çalışsın.",
+          "ipucu": "yield() yaz — sırayı diğer coroutine'e verir.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        launch {\n            println(\"A1\")\n            yield()\n            println(\"A2\")\n        }\n        launch {\n            println(\"B1\")\n            // sırayı ver\n            println(\"B2\")\n        }\n    }\n}"
         },
         "coroutines-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "async hatasını supervisorScope içinde yakala — sıradan kapsamda hata üst coroutine'e yayılır ve program çöker.",
+          "ipucu": "println(e.message). supervisorScope önemlidir: sıradan coroutineScope'ta async'in hatası await'ten bağımsız olarak üst kapsamı iptal eder ve yakalansa bile program çöker.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        supervisorScope {\n            val d = async { throw RuntimeException(\"async xetasi\") }\n            try {\n                d.await()\n            } catch (e: Exception) {\n                // mesajı yazdır\n            }\n        }\n    }\n}"
         }
       }
     },
