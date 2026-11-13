@@ -2008,762 +2008,1067 @@
       }
     },
     "funksiyalar": {
-      "title": "",
+      "title": "Fonksiyonlar",
       "nezeri": {
         "funksiyalar-n-01": {
-          "q": "",
+          "q": "Fonksiyon hangi anahtar kelimeyle bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de fonksiyon fun anahtar kelimesiyle bildirilir: fun ad(parametrler): DonusTuru { }"
         },
         "funksiyalar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Dönüş türü nereye yazılır?",
+          "opts": [
+            "Fonksiyon adından önce",
+            "Parametrelerden sonra, iki nokta ile",
+            "Gövde içine",
+            "Yazılmaz"
+          ],
+          "exp": "fun topla(a: Int, b: Int): Int { } — tür parametre listesinden sonra gelir. Java'dan farklıdır, orada tür addan önce yazılır."
         },
         "funksiyalar-n-03": {
-          "q": "",
+          "q": "Hiçbir şey döndürmeyen fonksiyonun türü nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Unit, Java'daki void'in karşılığıdır. Yazmak zorunlu değildir — derleyici onu kendisi ekler."
         },
         "funksiyalar-n-04": {
-          "q": "",
+          "q": "Tek ifadeli fonksiyon nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Eşittir işaretiyle: fun kvadrat(x: Int) = x * x. Süslü parantez ve return yazmaya gerek kalmaz, dönüş türü de çıkarılır."
         },
         "funksiyalar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Varsayılan parametre değeri ne içindir?",
+          "opts": [
+            "Performans için",
+            "Argüman verilmediğinde kullanılan değer — overload yazmaya gerek kalmaz",
+            "Hata yönetimi için",
+            "Türü belirlemek için"
+          ],
+          "exp": "fun salamla(ad: String = \"Dunya\") — argümansız çağrıda varsayılan değer kullanılır. Bu, Java'daki onlarca overload varyantının yerini alır."
         },
         "funksiyalar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Adlandırılmış argüman nedir?",
+          "opts": [
+            "Fonksiyonun adı",
+            "Çağrıda parametre adını açıkça yazmak: salamla(ad = \"Aysel\")",
+            "Özel bir tür",
+            "Sabit değer"
+          ],
+          "exp": "Adlandırılmış argümanlar çağrıyı okunaklı kılar ve ortadaki parametreleri atlamaya olanak tanır. Özellikle Boolean parametrelerde önemlidir."
         },
         "funksiyalar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "vararg ne yapar?",
+          "opts": [
+            "Değişken oluşturur",
+            "Fonksiyona istenen sayıda argüman aktarmayı sağlar",
+            "Türü değiştirir",
+            "Fonksiyonu tekrarlar"
+          ],
+          "exp": "fun cemle(vararg r: Int) — cemle(1, 2, 3) ve cemle(1) ikisi de çalışır. İçeride parametre bir dizi olarak görünür."
         },
         "funksiyalar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu fonksiyon ne döndürür?",
+          "opts": [
+            "Unit",
+            "String",
+            "Boolean",
+            "Hiçbir şey"
+          ],
+          "exp": "Tek ifadeli fonksiyonda dönüş türü ifadeden çıkarılır. Metin şablonu String verdiği için fonksiyonun türü String'dir."
         },
         "funksiyalar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Fonksiyonun bir sınıf içinde olması zorunlu mu?",
+          "opts": [
+            "Evet",
+            "Hayır — doğrudan dosyada (top-level) bildirilebilir",
+            "Yalnızca main() için",
+            "Yalnızca private olduğunda"
+          ],
+          "exp": "Bu, Kotlin'in Java'dan önemli bir farkıdır. Yardımcı fonksiyonları sınıfa sarmaya gerek yoktur — JVM'de DosyaAdiKt sınıfının statik metotlarına dönüşürler."
         },
         "funksiyalar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Mevcut bir diziyi vararg parametresine nasıl aktarırsın?",
+          "opts": [
+            "Doğrudan",
+            "Spread operatörüyle: cemle(*massiv)",
+            "toList() ile",
+            "Mümkün değil"
+          ],
+          "exp": "Yıldız (*) spread operatörüdür — diziyi ayrı ayrı argümanlara açar. Onsuz dizi tek argüman olarak aktarılır ve tür uyuşmazlığı oluşur."
         },
         "funksiyalar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yerel (local) fonksiyon nedir?",
+          "opts": [
+            "private fonksiyon",
+            "Başka bir fonksiyonun içinde bildirilen fonksiyon",
+            "Dosya düzeyinde fonksiyon",
+            "Uzantı fonksiyonu"
+          ],
+          "exp": "Yerel fonksiyon yalnızca onu kapsayan fonksiyonun içinde görünür ve dıştaki değişkenlere erişimi vardır. Tekrarlanan yardımcı mantığı ayırmak için elverişlidir."
         },
         "funksiyalar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "infix fonksiyon için hangi koşul YOKTUR?",
+          "opts": [
+            "Üye veya uzantı fonksiyonu olmalı",
+            "Tek parametre almalı",
+            "Parametrenin varsayılan değeri olmamalı",
+            "Mutlaka Int döndürmeli"
+          ],
+          "exp": "Dönüş türüyle ilgili bir kısıtlama yoktur. Diğer üç koşul ise zorunludur. Örnek: 1 to \"bir\" — to, standart kütüphanenin infix fonksiyonudur."
         },
         "funksiyalar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "tailrec ne yapar?",
+          "opts": [
+            "Fonksiyonu hızlandırır",
+            "Kuyruk özyinelemesini döngüye çevirir — StackOverflow'u önler",
+            "Özyinelemeyi yasaklar",
+            "Belleği temizler"
+          ],
+          "exp": "Özyinelemeli çağrı fonksiyonun SON işlemi olduğunda derleyici onu sıradan bir döngüye çevirir. Böylece milyon derinlikte bile yığın dolmaz."
         },
         "funksiyalar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu fonksiyon tailrec olabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — özyinelemeli çağrıdan sonra çarpma işlemi var",
+            "Yalnızca Long ile",
+            "Yalnızca n < 10 olduğunda"
+          ],
+          "exp": "Kuyruk özyinelemesi için özyinelemeli çağrı son işlem olmalıdır. Burada sonuç döndükten sonra n ile çarpılıyor, bu yüzden tailrec çalışmaz — bir akümülatör parametresi eklemek gerekir."
         },
         "funksiyalar-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de fonksiyonlar overload edilebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — aynı adlı, farklı parametre imzalı fonksiyonlar",
+            "Yalnızca sınıflarda",
+            "Yalnızca varsayılan parametrelerle"
+          ],
+          "exp": "Overload mümkündür, ama çoğu zaman varsayılan parametreler daha iyi bir çözümdür — daha az kod ve daha açık bir API sağlar."
         },
         "funksiyalar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "Salam, Dunya!",
+            "Salam, Dunya?",
+            "Salam, ?",
+            "Derleme hatası"
+          ],
+          "exp": "Adlandırılmış argüman sayesinde ortadaki parametre atlanıp yalnızca sonluq değiştirilebilir. ad varsayılan değerini korur."
         },
         "funksiyalar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Fonksiyon parametreleri val mı, var mı?",
+          "opts": [
+            "var — değiştirilebilir",
+            "val — fonksiyon içinde değiştirilemez",
+            "Duruma bağlı",
+            "Hiçbiri"
+          ],
+          "exp": "Kotlin'de parametreler her zaman salt okunurdur. Değeri değiştirmek gerekiyorsa yerel bir değişken oluşturmak gerekir."
         },
         "funksiyalar-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Nothing döndüren fonksiyon ne anlama gelir?",
+          "opts": [
+            "Hiçbir şey döndürmez (Unit gibi)",
+            "Hiçbir zaman normal şekilde dönmez — istisna fırlatır veya sonsuza kadar çalışır",
+            "null döndürür",
+            "Boş liste döndürür"
+          ],
+          "exp": "Unit döner ama değeri yoktur; Nothing ise hiç dönmez. TODO() ve error() fonksiyonları Nothing döndürür, bu yüzden elvis'in sağ tarafında kullanılabilirler."
         },
         "funksiyalar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Varsayılan parametreli bir Kotlin fonksiyonunu Java'dan çağırmak için ne gerekir?",
+          "opts": [
+            "Hiçbir şey",
+            "@JvmOverloads anotasyonu",
+            "@JvmStatic",
+            "Fonksiyonu public yapmak"
+          ],
+          "exp": "Java varsayılan parametreleri bilmez. @JvmOverloads derleyiciye her parametre kombinasyonu için ayrı bir overload oluşturmasını söyler."
         },
         "funksiyalar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod kaç yazdırır?",
+          "opts": [
+            "0",
+            "1",
+            "2",
+            "Derleme hatası"
+          ],
+          "exp": "Yerel fonksiyon kapsayan fonksiyonun değişkenlerine erişir ve onları değiştirebilir (closure). İki çağrı sayacı 2'ye çıkarır."
         },
         "funksiyalar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonu ile üye metot aynı imzaya sahipse hangisi çalışır?",
+          "opts": [
+            "Uzantı",
+            "Üye metot her zaman önceliklidir",
+            "Derleme hatası",
+            "Rastgele"
+          ],
+          "exp": "Üye metot her zaman kazanır. Bu yüzden mevcut bir sınıfa aynı adlı bir uzantı yazarsan o asla çağrılmaz — bu, sessiz bir hata kaynağıdır."
         },
         "funksiyalar-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu fonksiyon doğru bir tailrec mi?",
+          "opts": [
+            "Hayır",
+            "Evet — özyinelemeli çağrı son işlemdir",
+            "Yalnızca akk verilirse",
+            "Derleme hatası"
+          ],
+          "exp": "Akümülatör sayesinde sonuç çağrıdan sonra değiştirilmez — özyinelemeli çağrı gerçekten son işlemdir. Derleyici onu döngüye çevirir."
         },
         "funksiyalar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Top-level fonksiyonlar Java'da nasıl görünür?",
+          "opts": [
+            "Görünmez",
+            "DosyaAdiKt sınıfının statik metotları olarak",
+            "Arayüz metodu olarak",
+            "Yapıcı olarak"
+          ],
+          "exp": "Komekciler.kt dosyasındaki fonksiyonlar Java'da KomekcilerKt sınıfının statik metotları olur. Adı değiştirmek için @file:JvmName kullanılır."
         },
         "funksiyalar-n-24": {
-          "q": "",
+          "q": "Fonksiyon parametresi olarak fonksiyon aktarmak için tür nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Fonksiyon türü (parametreler) -> dönüş biçimindedir. Parametresiz ve sonuçsuz fonksiyon için () -> Unit yazılır."
         },
         "funksiyalar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Özyinelemeli fonksiyonda varsayılan parametre neden faydalıdır?",
+          "opts": [
+            "Hızı artırır",
+            "Akümülatörü gizler — çağıran taraf onu bilmek zorunda kalmaz",
+            "Bellekten tasarruf eder",
+            "Faydası yok"
+          ],
+          "exp": "cemle(100) yazmak yeterlidir, akümülatörün başlangıç değeri (0) varsayılan olarak atanır. Bu, iç ayrıntıyı API'den gizler."
         }
       },
       "praktiki": {
         "funksiyalar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "İki sayıyı toplayan topla fonksiyonunu yaz ve 15 ile 27'nin toplamını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(topla(15, 27))\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Tek ifadeli fonksiyon yaz: kub(x) sayının küpünü döndürsün. 3 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(kub(3))\n}\n\n// tek ifadeli fonksiyon yaz"
         },
         "funksiyalar-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Hiçbir şey döndürmeyen bir fonksiyon yaz: cap(metn) verilen metni yazdırsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    cap(\"Kotlin\")\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Varsayılan parametreli fonksiyon yaz: salamla() argümansız \"Salam, Dunya!\" versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(salamla())\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Boolean döndüren bir fonksiyon yaz: ciftdir(x) sayının çift olup olmadığını kontrol etsin. 8 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(ciftdir(8))\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "İki sayıdan büyüğünü döndüren bir fonksiyon yaz. 19 ve 7 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(boyuk(19, 7))\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Metnin uzunluğunu döndüren bir fonksiyon yaz ve \"Proqramlasdirma\" için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(uzunluq(\"Proqramlasdirma\"))\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İki parametreli fonksiyonu adlandırılmış argümanlarla çağır: melumat(yas = 24, ad = \"Aysel\").",
+          "ipucu": "Adlandırılmış argümanlarda sıranın önemi yoktur.",
+          "starter": "fun melumat(ad: String, yas: Int) {\n    println(\"$ad, $yas\")\n}\n\nfun main() {\n    // sırayı değiştirip adlandırılmış argümanlarla çağır\n}"
         },
         "funksiyalar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "vararg parametreli fonksiyon yaz: cemle() istenen sayıda sayıyı toplasın. 5, 10, 15 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cemle(5, 10, 15))\n}\n\n// vararg fonksiyonunu yaz"
         },
         "funksiyalar-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Spread operatörünü kullan: mevcut diziyi vararg fonksiyona aktar.",
+          "ipucu": "println(cemle(*m)) — yıldız diziyi argümanlara açar.",
+          "starter": "fun cemle(vararg r: Int) = r.sum()\n\nfun main() {\n    val m = intArrayOf(2, 4, 6)\n    // diziyi aktar\n}"
         },
         "funksiyalar-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Üç varsayılan parametreli bir fonksiyon yaz ve yalnızca ORTADAKİ parametreyi değiştir.",
+          "ipucu": "qur(boy = 9) — adlandırılmış argüman sayesinde diğerleri varsayılan kalır.",
+          "starter": "fun qur(en: Int = 1, boy: Int = 2, hund: Int = 3) = \"$en-$boy-$hund\"\n\nfun main() {\n    // yalnızca boy parametresini 9 yap\n}"
         },
         "funksiyalar-p-12": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Yerel fonksiyon yaz: main() içinde yoxla() fonksiyonunu bildir ve \"Kotlin\" için çağır.",
+          "ipucu": "fun yoxla(s: String) = s.isNotEmpty() — main() içine yaz.",
+          "starter": "fun main() {\n    // yerel fonksiyon bildir\n    println(yoxla(\"Kotlin\"))\n}"
         },
         "funksiyalar-p-13": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Yerel fonksiyonla closure göster: sayacı iki kez artırıp yazdır.",
+          "ipucu": "fun artir() { sayqac++ } — yerel fonksiyon dıştaki değişkeni değiştirebilir.",
+          "starter": "fun main() {\n    var sayqac = 0\n    // yerel artir() fonksiyonu yaz\n    artir()\n    artir()\n    println(sayqac)\n}"
         },
         "funksiyalar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "infix fonksiyon yaz: 3 vur 7 biçiminde çağrılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(3 vur 7)\n}\n\n// infix fonksiyonu yaz"
         },
         "funksiyalar-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Standart bir infix fonksiyon kullan: to ile çift oluştur ve yazdır.",
+          "ipucu": "val cut = \"ad\" to \"Aysel\" — Pair oluşturur.",
+          "starter": "fun main() {\n    val cut = // to ile çift oluştur\n    println(cut)\n}"
         },
         "funksiyalar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Özyinelemeli fonksiyon yaz: faktorial(5) hesaplasın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(faktorial(5))\n}\n\n// özyinelemeli fonksiyonu yaz"
         },
         "funksiyalar-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Fonksiyonu overload et: cap() hem Int hem String kabul etsin. İkisini de çağır.",
+          "ipucu": "fun cap(x: Int) { println(\"Reqem: $x\") } ve fun cap(s: String) { println(\"Metn: $s\") }",
+          "starter": "fun main() {\n    cap(42)\n    cap(\"Kotlin\")\n}\n\n// iki overload ekle"
         },
         "funksiyalar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable döndüren fonksiyon yaz: tap(id) yalnızca id == 1 için ad döndürsün, diğerleri için null. 2 ile çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tap(2))\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Fonksiyondan Pair döndür: minMaks() listenin en küçük ve en büyük elemanını versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(minMaks(listOf(3, 9, 1)))\n}\n\n// fonksiyonu yaz"
         },
         "funksiyalar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "tailrec fonksiyon yaz: 1'den 100'e kadar toplamı özyinelemeyle hesaplasın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cemle(100))\n}\n\n// tailrec fonksiyonu akümülatörle yaz"
         },
         "funksiyalar-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "tailrec ile derin özyineleme: 100000'e kadar toplamı hesapla (StackOverflow olmamalı).",
+          "ipucu": "Akümülatörü Long yap ki sonuç Int sınırını aşmasın.",
+          "starter": "fun main() {\n    println(cemle(100000))\n}\n\n// tailrec fonksiyonu Long ile yaz"
         },
         "funksiyalar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Yapı çözümlemeyle fonksiyon sonucunu iki değişkene ayır ve \"min=1 maks=9\" biçiminde yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun minMaks(s: List<Int>) = s.min() to s.max()\n\nfun main() {\n    // yapı çözümleme yaz\n}"
         },
         "funksiyalar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Nothing döndüren fonksiyon yaz: xetaAt() istisna fırlatsın. Onu yakala ve mesajı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        xetaAt()\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// Nothing döndüren fonksiyon yaz"
         },
         "funksiyalar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Uzantı fonksiyonu yaz: Int için ikiqat() ekle ve 21 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(21.ikiqat())\n}\n\n// uzantı fonksiyonunu yaz"
         },
         "funksiyalar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Üye metodun uzantıdan öncelikli olduğunu göster: sınıfta cap() metodu var, aynı adlı bir uzantı da yaz — hangisi çalışacak?",
+          "ipucu": "Üye metot her zaman kazanır — uzantı asla çağrılmaz.",
+          "starter": "class A {\n    fun cap() = println(\"uzv metod\")\n}\n\n// Aynı adlı bir uzantı yaz ve main'de A().cap() çağır — hangisi çalışacak?"
         }
       }
     },
     "lambda": {
-      "title": "",
+      "title": "Lambda ve HOF",
       "nezeri": {
         "lambda-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Lambda nedir?",
+          "opts": [
+            "Özel bir sınıf",
+            "Adı olmayan bir fonksiyon",
+            "Bir değişken türü",
+            "Bir kütüphane"
+          ],
+          "exp": "Lambda adsız bir fonksiyondur: { a, b -> a + b }. Bir değişkende saklanabilir, parametre olarak aktarılabilir ve döndürülebilir."
         },
         "lambda-n-02": {
-          "q": "",
+          "q": "Lambda hangi parantezle yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Lambda süslü parantez içinde yazılır. Parametreler ok işaretinden (->) önce gelir: { x -> x * 2 }."
         },
         "lambda-n-03": {
-          "q": "",
+          "q": "Tek parametreli lambda'da parametrenin varsayılan adı nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Parametre adı yazılmazsa Kotlin ona otomatik olarak it adını verir: list.map { it * 2 }. Bu, en çok kullanılan biçimdir."
         },
         "lambda-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Yüksek mertebeden fonksiyon (HOF) nedir?",
+          "opts": [
+            "Çok satırlı fonksiyon",
+            "Fonksiyon alan veya fonksiyon döndüren fonksiyon",
+            "Hızlı fonksiyon",
+            "Statik fonksiyon"
+          ],
+          "exp": "map, filter, forEach — hepsi HOF'tur, çünkü parametre olarak fonksiyon alırlar. Fonksiyon döndürenler de HOF sayılır."
         },
         "lambda-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Lambda'nın sonucu nasıl döndürülür?",
+          "opts": [
+            "return ile",
+            "Son satır otomatik olarak sonuç olur",
+            "yield ile",
+            "Döndürmez"
+          ],
+          "exp": "Lambda içinde return yazılmaz — son ifade sonuç sayılır. Açık return yalnızca etiketle mümkündür: return@map."
         },
         "lambda-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "(Int) -> String türü ne anlama gelir?",
+          "opts": [
+            "Int döndüren fonksiyon",
+            "Int alıp String döndüren fonksiyon",
+            "İki parametreli fonksiyon",
+            "Sınıf"
+          ],
+          "exp": "Ok işaretinden önce parametre türleri, sonra dönüş türü yazılır. Parametresiz ve sonuçsuz fonksiyon: () -> Unit."
         },
         "lambda-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "21",
+            "42",
+            "2",
+            "Derleme hatası"
+          ],
+          "exp": "Lambda bir değişkende saklanmış ve sıradan bir fonksiyon gibi çağrılmıştır: 21 * 2 = 42."
         },
         "lambda-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Trailing lambda nedir?",
+          "opts": [
+            "Son lambda'yı parantezin dışına çıkarmak",
+            "Lambda'yı silmek",
+            "Lambda'yı geciktirmek",
+            "İki lambda yazmak"
+          ],
+          "exp": "Lambda son parametreyse parantezin dışına çıkarılabilir: list.filter { it > 1 }. Bu, Kotlin DSL'lerinin temelidir."
         },
         "lambda-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "forEach ne yapar?",
+          "opts": [
+            "Yeni bir liste döndürür",
+            "Her eleman üzerinde işlem yapar, sonuç döndürmez",
+            "Elemanları süzer",
+            "Listeyi sıralar"
+          ],
+          "exp": "forEach Unit döndürür — yalnızca yan etki içindir (yazdırma, loglama). Dönüştürme gerekiyorsa map kullanılır."
         },
         "lambda-n-10": {
-          "q": "",
+          "q": "Fonksiyon referansı nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "İki iki nokta ile: list.filter(::ciftdir). Bu, { ciftdir(it) } yazmanın kısa biçimidir. Metot referansı: String::uppercase."
         },
         "lambda-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "inline anahtar kelimesi ne yapar?",
+          "opts": [
+            "Fonksiyonu hızlandırır diye işaretler",
+            "Fonksiyonun gövdesini çağrı yerine kopyalar — lambda nesnesi oluşmaz",
+            "Fonksiyonu gizler",
+            "Özyinelemeyi optimize eder"
+          ],
+          "exp": "Her lambda aslında bir nesnedir. inline derleyiciye gövdeyi doğrudan çağrı yerine açmasını söyler, bu yüzden nesne oluşturma yükü ortadan kalkar."
         },
         "lambda-n-12": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "filter 2'den büyükleri seçer → [3, 4], sonra map her birini 10 ile çarpar → [30, 40]."
         },
         "lambda-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Closure nedir?",
+          "opts": [
+            "Kapalı bir fonksiyon",
+            "Lambda'nın dış kapsamdaki değişkenleri yakalayıp kullanabilmesi",
+            "Bir hata türü",
+            "Bir sınıf türü"
+          ],
+          "exp": "Java'dan farklı olarak Kotlin lambda'ları yakalanan değişkeni okuyabilir ve DEĞİŞTİREBİLİR de — final olma koşulu yoktur."
         },
         "lambda-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Anonim fonksiyonun lambda'dan farkı nedir?",
+          "opts": [
+            "Fark yok",
+            "Anonim fonksiyonda dönüş türü açıkça yazılabilir ve return kendi içinden çıkar",
+            "Anonim fonksiyon daha hızlıdır",
+            "Lambda parametre almaz"
+          ],
+          "exp": "val bol = fun(a: Int, b: Int): Int { if (b == 0) return 0; return a / b } — burada return yalnızca anonim fonksiyondan çıkar. Lambda'da bu mümkün değildir."
         },
         "lambda-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "noinline ne içindir?",
+          "opts": [
+            "Fonksiyonu yavaşlatmak",
+            "inline fonksiyonda belirli bir lambda'nın nesne olarak saklanmasına izin vermek",
+            "Özyinelemeyi yasaklamak",
+            "Hatayı gizlemek"
+          ],
+          "exp": "inline edilmiş bir lambda değişkende saklanamaz. Onu başka yere aktarmak veya saklamak gerekiyorsa noinline ile işaretlenir."
         },
         "lambda-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "crossinline ne yapar?",
+          "opts": [
+            "Lambda içinde dış fonksiyondan return'ü yasaklar",
+            "İki fonksiyonu birleştirir",
+            "Türü dönüştürür",
+            "Lambda'yı kopyalar"
+          ],
+          "exp": "Lambda başka bir bağlamda (örneğin bir Thread içinde) çağrılacaksa non-local return tehlikeli olur. crossinline bunu yasaklar."
         },
         "lambda-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Fonksiyon döndüren bir fonksiyon nasıl yazılır?",
+          "opts": [
+            "Mümkün değil",
+            "Dönüş türü bir fonksiyon türü olur ve lambda döndürülür",
+            "Yalnızca inline ile",
+            "Yalnızca arayüz ile"
+          ],
+          "exp": "Fonksiyon türleri sıradan türler gibi kullanılabilir. vurucu(3) çağrısı (Int) -> Int döndürür, sonra o çağrılabilir: vurucu(3)(7) → 21."
         },
         "lambda-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Birden fazla parametre arasından yalnızca hangi lambda parantezin dışına çıkabilir?",
+          "opts": [
+            "İlki",
+            "Sonuncusu",
+            "Herhangi biri",
+            "Hiçbiri"
+          ],
+          "exp": "Yalnızca SON parametre trailing lambda olabilir. fold(0) { akk, x -> akk + x } — başlangıç değeri parantezde, lambda dışarıda."
         },
         "lambda-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "reified ne için gereklidir?",
+          "opts": [
+            "Hız için",
+            "inline fonksiyonda jenerik türü çalışma zamanında görmek için",
+            "Bellek için",
+            "Özyineleme için"
+          ],
+          "exp": "JVM'de jenerik türler silinir (type erasure). inline + reified, derleyicinin türü çağrı yerine yazmasını sağlar, böylece x is T kontrolü mümkün olur."
         },
         "lambda-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "0",
+            "1",
+            "2",
+            "Derleme hatası"
+          ],
+          "exp": "Lambda say değişkenini yakalar (closure) ve onu değiştirebilir. İki çağrıdan sonra değer 2 olur."
         },
         "lambda-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "forEach içinde düz return ne yapar?",
+          "opts": [
+            "Mevcut adımı atlar",
+            "Dış fonksiyondan çıkar (non-local return)",
+            "Döngüyü durdurur",
+            "Hata fırlatır"
+          ],
+          "exp": "forEach inline olduğu için return dış fonksiyondan çıkar. Yalnızca adımı atlamak için return@forEach yazmak gerekir."
         },
         "lambda-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Standart kütüphanedeki map, filter, let fonksiyonları inline mı?",
+          "opts": [
+            "Hayır",
+            "Evet — lambda nesnesi oluşturulmaz",
+            "Yalnızca map",
+            "Yalnızca büyük koleksiyonlarda"
+          ],
+          "exp": "Bu küçük HOF'ların hepsi inline olarak bildirilmiştir. Bu yüzden zincirleme işlemler ek nesne oluşturma yükü olmadan çalışır."
         },
         "lambda-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "inline kullanmak ne zaman DOĞRU DEĞİLDİR?",
+          "opts": [
+            "Lambda alan küçük fonksiyonlarda",
+            "Büyük gövdeli fonksiyonlarda — bayt kodu şişer",
+            "Uzantı fonksiyonlarında",
+            "Hiçbir zaman"
+          ],
+          "exp": "inline gövdeyi her çağrı yerine kopyalar. Büyük bir fonksiyonda bu, bayt kodunu şişirir ve faydadan çok zarar verir. Lambda almayan bir fonksiyonda ise hiç anlamı yoktur."
         },
         "lambda-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "String::uppercase ifadesi nedir?",
+          "opts": [
+            "Sınıf adı",
+            "Metot referansı — { it.uppercase() } ile aynıdır",
+            "Yeni bir fonksiyon bildirimi",
+            "Hata"
+          ],
+          "exp": "Bağlanmamış (unbound) bir metot referansıdır: receiver parametre olarak verilir. list.map(String::uppercase) biçiminde kullanılır."
         },
         "lambda-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Lambda'nın son ifadesi Unit ise sonuç ne olur?",
+          "opts": [
+            "Int",
+            "Unit",
+            "null",
+            "Derleme hatası"
+          ],
+          "exp": "Fonksiyon türü Unit gerektiriyorsa son ifadenin değeri atılır ve Unit döndürülür. Bu, forEach gibi fonksiyonlarda normaldir."
         }
       },
       "praktiki": {
         "lambda-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Bir lambda oluştur ve değişkende sakla: ikiqat(21) sonucunu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ikiqat = // lambda'yı buraya yaz\n    println(ikiqat(21))\n}"
         },
         "lambda-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "it kullan: map ile her elemanın karesini al ve yazdır.",
           "ipucu": ""
         },
         "lambda-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "forEach ile her elemanı ayrı satırda yazdır.",
           "ipucu": ""
         },
         "lambda-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "İki parametreli lambda yaz: topla(5, 7) sonucunu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val topla = // lambda'yı buraya yaz\n    println(topla(5, 7))\n}"
         },
         "lambda-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "filter ile 3'ten büyük elemanları seç ve yazdır.",
           "ipucu": ""
         },
         "lambda-p-06": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Fonksiyon türünü açıkça yaz: (Int) -> Int türünde bir değişken oluştur ve 10 için çağır.",
+          "ipucu": "Tür açıkça yazılmışsa lambda'da parametre türü gerekmez: { it + 1 }",
+          "starter": "fun main() {\n    val artir: (Int) -> Int = // lambda'yı buraya yaz\n    println(artir(10))\n}"
         },
         "lambda-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Trailing lambda biçimini kullan: parantezsiz filter yaz.",
+          "ipucu": "s.filter { it % 2 == 0 } — boş parantez silinir.",
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3, 4)\n    // parantezsiz biçimi kullan\n}"
         },
         "lambda-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Parametresiz bir lambda oluştur ve çağır: \"Salam\" yazdırsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val salam = // lambda'yı buraya yaz\n    salam()\n}"
         },
         "lambda-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Lambda'nın son satırının sonuç olduğunu göster: iki satırlı bir lambda yaz.",
+          "ipucu": "Son ifade (ikiqat + 1) otomatik olarak döndürülür — return yazılmaz.",
+          "starter": "fun main() {\n    // İki satırlı lambda: önce x * 2'yi hesapla, sonra ona 1 ekle\n    val emal = { x: Int ->\n        \n    }\n    println(emal(5))\n}"
         },
         "lambda-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Fonksiyon referansı kullan: ::ciftdir ile filtrele.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun ciftdir(x: Int) = x % 2 == 0\n\nfun main() {\n    val s = listOf(1, 2, 3, 4)\n    // fonksiyon referansıyla filtrele\n}"
         },
         "lambda-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Metot referansı kullan: String::uppercase ile metinleri büyüt.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(\"a\", \"b\")\n    // metot referansı kullan\n}"
         },
         "lambda-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Yüksek mertebeden bir fonksiyon yaz: emal(x, fonksiyon) verilen fonksiyonu x'e uygulasın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(5) { it * 3 })\n}\n\n// HOF'u yaz"
         },
         "lambda-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Fonksiyon DÖNDÜREN bir fonksiyon yaz: vurucu(3) sonra 7 ile çağrılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(vurucu(3)(7))\n}\n\n// fonksiyon döndüren fonksiyon yaz"
         },
         "lambda-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Closure göster: lambda dıştaki değişkeni artırsın, üç çağrıdan sonra değeri yazdır.",
+          "ipucu": "val artir = { say++ } — Kotlin lambda'ları yakalanan değişkeni değiştirebilir.",
+          "starter": "fun main() {\n    var say = 0\n    val artir = // lambda'yı buraya yaz\n    artir()\n    artir()\n    artir()\n    println(say)\n}"
         },
         "lambda-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Anonim fonksiyon yaz: bol(10, 0) sıfıra bölmede 0 döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val bol = // anonim fonksiyon yaz\n    println(bol(10, 0))\n}"
         },
         "lambda-p-16": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "fold'da trailing lambda kullan: başlangıç 10 ile elemanları topla.",
+          "ipucu": "s.fold(10) { akk, x -> akk + x } — başlangıç parantezde, lambda dışarıda."
         },
         "lambda-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "sortedBy'da lambda kullan: metinleri uzunluğa göre sırala.",
           "ipucu": ""
         },
         "lambda-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Yüklem alan bir fonksiyon yaz: say(siyahi, predikat) uyan elemanların sayısını versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(say(listOf(1, 2, 3, 4)) { it > 2 })\n}\n\n// fonksiyonu yaz"
         },
         "lambda-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable fonksiyon türü kullan: f null olduğunda 0 yazdırılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val f: ((Int) -> Int)? = null\n    // safe call ile çağır, null ise 0 yazdır\n}"
         },
         "lambda-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "inline fonksiyon yaz: olcuVaxt bloğu çalıştırıp sonucunu döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(olcuVaxt { 6 * 7 })\n}\n\n// inline HOF'u yaz"
         },
         "lambda-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "reified kullan: karışık listeden yalnızca String'leri seç ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val q = listOf(1, \"a\", 2, \"b\")\n    println(q.yalniz<String>())\n}\n\n// inline + reified uzantı yaz"
         },
         "lambda-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "return@forEach kullan: 3'ü atlayıp geri kalanları tek satırda yazdır.",
+          "ipucu": "if (it == 3) return@forEach — düz return tüm fonksiyondan çıkardı.",
+          "starter": "fun main() {\n    listOf(1, 2, 3, 4).forEach {\n        // 3'ü atla\n    }\n    println()\n}"
         },
         "lambda-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Lambda'ları zincirle: iki fonksiyonu birleştiren birlesdir() yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val artirVeVur = birlesdir({ x: Int -> x + 1 }, { x: Int -> x * 10 })\n    println(artirVeVur(4))\n}\n\n// birlesdir fonksiyonunu yaz"
         },
         "lambda-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Receiver'lı lambda kullan: String.() -> Int türünde bir fonksiyon yaz ve \"Kotlin\" için çağır.",
+          "ipucu": "Receiver'lı lambda içinde this receiver'dır: { length }",
+          "starter": "fun main() {\n    val uzunluq: String.() -> Int = // lambda'yı buraya yaz\n    println(\"Kotlin\".uzunluq())\n}"
         },
         "lambda-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "groupBy'da lambda kullan: sayıları çift/tek gruplarına ayır ve yazdır.",
           "ipucu": ""
         }
       }
     },
     "scope-funksiyalari": {
-      "title": "",
+      "title": "Scope fonksiyonları",
       "nezeri": {
         "scope-funksiyalari-n-01": {
-          "q": "",
+          "q": "Kotlin'de kaç temel scope fonksiyonu vardır?",
           "opts": [],
-          "exp": ""
+          "exp": "Beş tane: let, run, with, apply, also. Aralarındaki fark yalnızca iki şeydedir — nesneye nasıl erişilir (it/this) ve ne döndürülür."
         },
         "scope-funksiyalari-n-02": {
-          "q": "",
+          "q": "let fonksiyonunda bağlam nesnesine nasıl erişilir?",
           "opts": [],
-          "exp": ""
+          "exp": "let ve also it kullanır; run, with ve apply ise this. it'in yerine kendi adını verebilirsin: let { istifadeci -> ... }"
         },
         "scope-funksiyalari-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "apply ne döndürür?",
+          "opts": [
+            "Lambda sonucunu",
+            "Nesnenin kendisini",
+            "Unit",
+            "null"
+          ],
+          "exp": "apply ve also receiver nesnenin kendisini döndürür. Bu yüzden zinciri bozmazlar ve nesne kurmak için idealdirler."
         },
         "scope-funksiyalari-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "let ne döndürür?",
+          "opts": [
+            "Nesnenin kendisini",
+            "Lambda'nın son ifadesini",
+            "Unit",
+            "Boolean"
+          ],
+          "exp": "let, run ve with lambda'nın sonucunu döndürür. Bu yüzden dönüştürme işlemleri için kullanılırlar."
         },
         "scope-funksiyalari-n-05": {
-          "q": "",
+          "q": "Null kontrolü için en uygun scope fonksiyonu hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "ad?.let { } bloğu yalnızca değer null olmadığında çalışır ve içeride it zaten non-null türündedir."
         },
         "scope-funksiyalari-n-06": {
-          "q": "",
+          "q": "Nesne kurmak (builder tarzı) için hangi fonksiyon kullanılır?",
           "opts": [],
-          "exp": ""
+          "exp": "apply içinde this kullanılır, bu yüzden özellikler doğrudan yazılabilir: Istifadeci().apply { ad = \"Aysel\" }. Sonunda nesnenin kendisi döner."
         },
         "scope-funksiyalari-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "also çoğunlukla ne için kullanılır?",
+          "opts": [
+            "Nesne dönüştürmek",
+            "Yan etkiler — loglama, doğrulama, debug",
+            "Null kontrolü",
+            "Sıralama"
+          ],
+          "exp": "also nesnenin kendisini döndürdüğü için zinciri bozmaz. it kullanması onu loglama için daha okunaklı yapar."
         },
         "scope-funksiyalari-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "with diğerlerinden neyle ayrılır?",
+          "opts": [
+            "Sonuç döndürmez",
+            "Uzantı fonksiyonu değildir — nesne argüman olarak aktarılır",
+            "Yalnızca null ile çalışır",
+            "Farkı yok"
+          ],
+          "exp": "with(obyekt) { } biçimindedir, obyekt.with { } değil. Bu yüzden nullable bir nesneyle doğrudan kullanılamaz."
         },
         "scope-funksiyalari-n-09": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "let lambda'nın sonucunu döndürür. it.length değeri 6'dır, o da n değişkenine atanır."
         },
         "scope-funksiyalari-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "apply ile also arasındaki temel fark nedir?",
+          "opts": [
+            "apply nesneyi, also sonucu döndürür",
+            "İkisi de nesneyi döndürür — fark yalnızca this/it bağlamındadır",
+            "also daha hızlıdır",
+            "apply yalnızca sınıflarla çalışır"
+          ],
+          "exp": "İkisi de receiver'ı döndürür. apply içinde this (özellikler doğrudan yazılabilir), also içinde ise it (yan etkiler için daha açık)."
         },
         "scope-funksiyalari-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "run ile let arasındaki fark nedir?",
+          "opts": [
+            "run sonuç döndürmez",
+            "run this, let ise it kullanır — ikisi de sonuç döndürür",
+            "let daha hızlıdır",
+            "Fark yok"
+          ],
+          "exp": "İşlevsel açıdan aynıdırlar. Seçim bir stil meselesidir: nesnenin üyelerini çok kullanıyorsan run, değeri başka bir ada bağlamak istiyorsan let."
         },
         "scope-funksiyalari-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "0",
+            "5",
+            "null",
+            "Derleme hatası"
+          ],
+          "exp": "apply içinde this = A nesnesi, bu yüzden x = 5 doğrudan nesnenin özelliğini değiştirir. Sonunda nesnenin kendisi döner."
         },
         "scope-funksiyalari-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "takeIf ne döndürür?",
+          "opts": [
+            "Boolean",
+            "Koşul sağlanırsa nesneyi, aksi hâlde null",
+            "Her zaman nesneyi",
+            "Lambda sonucunu"
+          ],
+          "exp": "\"\".takeIf { it.isNotBlank() } → null. Koşullu null oluşturmak ve elvis ile birleştirmek için elverişlidir."
         },
         "scope-funksiyalari-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "takeUnless ne yapar?",
+          "opts": [
+            "takeIf ile aynıdır",
+            "Koşul sağlanmazsa nesneyi döndürür",
+            "Her zaman null döndürür",
+            "Hata fırlatır"
+          ],
+          "exp": "takeIf'in tersidir. x.takeUnless { it.isEmpty() } — boş DEĞİLSE nesneyi döndürür."
         },
         "scope-funksiyalari-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Nullable bir nesneyle with kullanılabilir mi?",
+          "opts": [
+            "Evet, sorunsuz",
+            "Doğrudan hayır — with uzantı fonksiyonu olmadığı için ?. uygulanamaz",
+            "Yalnızca apply ile",
+            "Her zaman null döndürür"
+          ],
+          "exp": "with(obyekt) biçiminde ?. koyacak yer yoktur. Nullable değerlerle obyekt?.let { } veya obyekt?.run { } kullanılır."
         },
         "scope-funksiyalari-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kod ne yazdırır?",
+          "opts": [
+            "evvel: [1, 2] / sonra: [1, 2, 3]",
+            "evvel: [1, 2, 3] / sonra: [1, 2, 3]",
+            "sonra: [1, 2]",
+            "Derleme hatası"
+          ],
+          "exp": "also önce mevcut durumu yazdırır ([1, 2]), ardından apply eleman ekler. İkisi de nesnenin kendisini döndürdüğü için zincir devam eder."
         },
         "scope-funksiyalari-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "let bloğu içinde it'in adı değiştirilebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet: let { istifadeci -> ... }",
+            "Yalnızca apply'da",
+            "Yalnızca Kotlin 2.0'da"
+          ],
+          "exp": "Lambda parametresine kendi adını verebilirsin. İç içe let bloklarında bu, okunabilirliği epey artırır."
         },
         "scope-funksiyalari-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Hangi durum için run daha uygundur?",
+          "opts": [
+            "Sadece loglama",
+            "Nesneyi yapılandırıp bir sonuç hesaplamak",
+            "Null kontrolü",
+            "Liste sıralamak"
+          ],
+          "exp": "run hem this bağlamını verir (üyelere doğrudan erişim) hem de sonuç döndürür. Yapılandırma + hesaplama birleşimi için idealdir."
         },
         "scope-funksiyalari-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Scope fonksiyonlarını çok iç içe kullanmak neden kötüdür?",
+          "opts": [
+            "Yavaş çalışır",
+            "this ve it karışır, kod okunmaz olur",
+            "Bellek sızıntısı oluşturur",
+            "Derleme hatası verir"
+          ],
+          "exp": "İki seviyeden fazla iç içe blokta hangi this'in hangi nesneye ait olduğunu izlemek zorlaşır. Böyle durumlarda düz bir değişken ve if kullanmak daha iyidir."
         },
         "scope-funksiyalari-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodda hangi fonksiyon yanlış seçilmiş?",
+          "opts": [
+            "Hiçbiri",
+            "apply — nesnenin kendisini döndürür, uzunluk alınmaz; let veya run gerekir",
+            "ad nullable olmalı",
+            "length yanlış"
+          ],
+          "exp": "apply receiver'ı döndürür, bu yüzden uzunluq değişkeni Int değil String olur. Sonuç gerekiyorsa run veya let kullanılmalıdır."
         },
         "scope-funksiyalari-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Scope fonksiyonları inline mı?",
+          "opts": [
+            "Hayır",
+            "Evet — lambda nesnesi oluşmaz, performans yükü yoktur",
+            "Yalnızca let",
+            "Yalnızca apply"
+          ],
+          "exp": "Hepsi inline olarak bildirilmiştir. Bu yüzden onları kullanmak sıradan koda göre ek çalışma zamanı yükü oluşturmaz."
         },
         "scope-funksiyalari-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "also'nun zincirdeki temel avantajı nedir?",
+          "opts": [
+            "Sonucu değiştirir",
+            "Zinciri bozmadan araya yan etki (log, doğrulama) eklemeyi sağlar",
+            "Türü dönüştürür",
+            "Null kontrol eder"
+          ],
+          "exp": "Nesnenin kendisini döndürdüğü için zincirin ortasına debug çıktısı veya doğrulama eklenebilir — sonraki işlemler bozulmaz."
         },
         "scope-funksiyalari-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "takeIf ile elvis birleştirildiğinde ne elde edilir?",
+          "opts": [
+            "Her zaman \"Qonaq\"",
+            "Boş olmayan girdi, boşsa \"Qonaq\"",
+            "Hata",
+            "null"
+          ],
+          "exp": "takeIf koşul sağlanmazsa null verir, elvis de onu yakalayıp yedek değeri döndürür. Bu, doğrulama için çok okunaklı bir biçimdir."
         },
         "scope-funksiyalari-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "apply içinde aynı adlı yerel değişken ve özellik varsa hangisi çalışır?",
+          "opts": [
+            "Özellik",
+            "Yerel değişken — gölgeleme (shadowing) olur",
+            "Derleme hatası",
+            "Rastgele"
+          ],
+          "exp": "En yakın kapsamdaki ad önceliklidir. Özelliğe açıkça erişmek için this.ad yazmak gerekir — bu, apply'ın gizli tuzaklarındandır."
         },
         "scope-funksiyalari-n-25": {
-          "q": "",
+          "q": "Hangi scope fonksiyonu uzantı fonksiyonu DEĞİLDİR?",
           "opts": [],
-          "exp": ""
+          "exp": "with sıradan bir fonksiyondur ve nesneyi argüman olarak alır. Diğerleri uzantı fonksiyonlarıdır, bu yüzden noktayla çağrılır ve ?. destekler."
         }
       },
       "praktiki": {
         "scope-funksiyalari-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "let kullan: \"Kotlin\" metninin uzunluğunu hesaplayıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = // let kullan\n    println(n)\n}"
         },
         "scope-funksiyalari-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "apply ile nesne kur: ad ve yas özelliklerini atayıp yazdır.",
+          "ipucu": "apply içinde this kullanılır: ad = \"Aysel\"",
+          "starter": "class Istifadeci {\n    var ad = \"\"\n    var yas = 0\n}\n\nfun main() {\n    val u = Istifadeci().apply {\n        // özellikleri ata\n    }\n    println(\"${u.ad} ${u.yas}\")\n}"
         },
         "scope-funksiyalari-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "run kullan: metni büyük harflere çevirip yazdır. this bağlamından yararlan.",
+          "ipucu": "run içinde this receiver'dır: { uppercase() }",
+          "starter": "fun main() {\n    val n = \"kotlin\".run {\n        // burayı tamamla\n    }\n    println(n)\n}"
         },
         "scope-funksiyalari-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "with kullan: metnin uzunluğunu hesaplayıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = // with kullan\n    println(n)\n}"
         },
         "scope-funksiyalari-p-05": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "also kullan: listeyi yazdırıp kendisini döndürsün, sonra boyutunu yazdır.",
+          "ipucu": "also nesnenin kendisini döndürür, bu yüzden s değişkeni bir liste olur.",
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3) // also ile listeyi yazdır\n    // boyutunu yazdır\n}"
         },
         "scope-funksiyalari-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "?.let kullan: null olmayan değeri büyük harfle yazdır.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "?.let ile null değeri kontrol et: blok çalışmamalı, sonunda \"bitdi\" yazdırılsın.",
+          "ipucu": "Safe call sayesinde let bloğu tamamen atlanır.",
+          "starter": "fun main() {\n    val ad: String? = null\n    // ?.let ile blok yaz — null olduğu için çalışmamalı\n    // sonunda \"bitdi\" yazdır\n}"
         },
         "scope-funksiyalari-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "takeIf kullan: boş olmayan metin için kendisini yazdır.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "let'te parametreye kendi adını ver: it yerine \"dil\" adını kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    \"Kotlin\".let {\n        // parametreye \"dil\" adını ver ve uzunluğu yazdır\n    }\n}"
         },
         "scope-funksiyalari-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "apply ile also'yu zincirle: listeyi yazdır, eleman ekle, yeniden yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    mutableListOf(1, 2)\n        // also ile \"evvel: [1, 2]\" yazdır\n        // apply ile 3 ekle\n        // also ile \"sonra: [1, 2, 3]\" yazdır\n}"
         },
         "scope-funksiyalari-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "takeIf ile elvis'i birleştir: boş girdi için \"Qonaq\" yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val giris = \"\"\n    val ad = // takeIf + elvis yaz\n    println(ad)\n}"
         },
         "scope-funksiyalari-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "takeUnless kullan: boş OLMAYAN metin için kendisini yazdır.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "let ile dönüştürme yap: metni sayıya çevirip iki katını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = \"21\".let {\n        // burayı tamamla\n    }\n    println(n)\n}"
         },
         "scope-funksiyalari-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "run ile koşullu sonuç hesapla: URL https ile başlıyorsa 200, değilse 400 döndür.",
+          "ipucu": "if (startsWith(\"https\")) 200 else 400 — this receiver'dır.",
+          "starter": "fun main() {\n    val kod = \"https://numune.az\".run {\n        // burayı tamamla\n    }\n    println(kod)\n}"
         },
         "scope-funksiyalari-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "with ile tek bir nesne üzerinde birkaç işlem yap: uzunluk ve büyük harf sonucunu birleştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val netice = with(\"Kotlin\") {\n        // \"KOTLIN-6\" biçiminde döndür\n    }\n    println(netice)\n}"
         },
         "scope-funksiyalari-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "apply'ın nesneyi döndürdüğünü göster: sonucu doğrudan yazdır.",
+          "ipucu": "apply receiver'ı döndürür, bu yüzden println nesneyi doğrudan alır.",
+          "starter": "class Qutu {\n    var deyer = 0\n    override fun toString() = \"Qutu($deyer)\"\n}\n\nfun main() {\n    // apply ile deyer = 7 yap ve sonucu doğrudan println'e ver\n}"
         },
         "scope-funksiyalari-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "?.let ile elvis'i birleştir: null değer için \"islenmedi\" yazdır.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "let'i zincirde kullan: listenin ilk elemanını büyük harfle yazdır.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "also ile zincirin ortasına kontrol ekle: filtreden sonra sayıyı yazdır, sonra listeyi yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3, 4)\n        .filter { it % 2 == 0 }\n        // also ile sayıyı yazdır\n    println(s)\n}"
         },
         "scope-funksiyalari-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "apply'daki gölgeleme (shadowing) sorununu çöz: this.ad kullanarak özelliği ata.",
+          "ipucu": "this.ad = \"Aysel\" — sadece ad yazarsan yerel değişken onu gölgeler.",
+          "starter": "class Profil {\n    var ad = \"\"\n}\n\nfun main() {\n    val ad = \"yerli\"\n    val p = Profil().apply {\n        // özelliğe açıkça eriş\n    }\n    println(p.ad)\n}"
         },
         "scope-funksiyalari-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Hatayı düzelt: uzunluğu almak için apply yerine doğru fonksiyonu kullan.",
+          "ipucu": "Sonuç gerekiyorsa run veya let kullanılmalıdır.",
+          "starter": "fun main() {\n    val ad = \"Kotlin\"\n    val uzunluq = ad.apply { length }   // yanlış - nesneyi döndürür\n    println(uzunluq)\n}"
         },
         "scope-funksiyalari-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "İç içe let'te parametre adlarını açık yaz: iki nullable değeri birleştir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad: String? = \"Aysel\"\n    val soyad: String? = \"Memmedova\"\n    // iç içe let ile \"Aysel Memmedova\" yazdır\n}"
         },
         "scope-funksiyalari-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "run'ı nesnesiz biçimde kullan: bir blok oluşturup sonucunu yazdır.",
+          "ipucu": "run { val a = 6; val b = 7; a * b } — receiver olmadan da çalışır.",
+          "starter": "fun main() {\n    val netice = run {\n        // iki satırlık bir hesaplama yaz, sonuç 42 olsun\n    }\n    println(netice)\n}"
         },
         "scope-funksiyalari-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "apply ile bir MutableList kur ve zincirde kullan: üç eleman ekleyip boyutu yazdır.",
+          "ipucu": "apply içine add(1); add(2); add(3) yaz — this listedir.",
+          "starter": "fun main() {\n    val s = mutableListOf<Int>().apply {\n        // üç eleman ekle\n    }\n    println(s.size)\n}"
         },
         "scope-funksiyalari-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Scope fonksiyonlarının döndürdüğü değeri karşılaştır: let ve apply sonuçlarını yazdır.",
+          "ipucu": "let lambda sonucunu, apply ise nesnenin kendisini döndürür.",
+          "starter": "fun main() {\n    val a = \"Kotlin\" // let ile uzunluğu al\n    val b = \"Kotlin\" // apply ile length'e eriş\n    println(a)\n    println(b)\n}"
         }
       }
     },
