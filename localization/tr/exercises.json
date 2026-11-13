@@ -4164,732 +4164,972 @@
       }
     },
     "metnler": {
-      "title": "",
+      "title": "Metinlerle çalışma (String)",
       "nezeri": {
         "metnler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de String değiştirilebilir (mutable) mi?",
+          "opts": [
+            "Evet",
+            "Hayır — her işlem yeni bir String oluşturur",
+            "Yalnızca var olduğunda",
+            "Yalnızca StringBuilder ile"
+          ],
+          "exp": "String immutable'dır. uppercase() veya replace() orijinali değiştirmez, yeni bir metin döndürür. Çok sayıda birleştirme gerekiyorsa StringBuilder veya buildString kullanılır."
         },
         "metnler-n-02": {
-          "q": "",
+          "q": "Metnin uzunluğunu hangi özellik verir?",
           "opts": [],
-          "exp": ""
+          "exp": "String'de length özelliği vardır. Koleksiyonlarda ise size — bu ikisi sık karıştırılır."
         },
         "metnler-n-03": {
-          "q": "",
+          "q": "Metnin bir karakterine nasıl erişilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Köşeli parantezle: s[0]. Sonuç Char türündedir. İndeks aralığın dışındaysa StringIndexOutOfBoundsException fırlatılır."
         },
         "metnler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İki metni birleştirmek için ne kullanılır?",
+          "opts": [
+            "+ operatörü veya metin şablonu",
+            "Yalnızca concat()",
+            "Yalnızca append()",
+            "merge()"
+          ],
+          "exp": "İkisi de çalışır, ama şablon (\"$a$b\") daha okunaklıdır. Döngü içinde birleştirme gerekiyorsa buildString kullanmak daha verimlidir."
         },
         "metnler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "uppercase() ne yapar?",
+          "opts": [
+            "Metni yerinde değiştirir",
+            "Büyük harflerle YENİ bir metin döndürür",
+            "Yalnızca ilk harfi büyütür",
+            "Metni siler"
+          ],
+          "exp": "Orijinal metin değişmez — sonucu bir değişkene atamak gerekir. Yalnızca ilk harf için replaceFirstChar { it.uppercase() } kullanılır."
         },
         "metnler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "trim() ne yapar?",
+          "opts": [
+            "Metni kısaltır",
+            "Baştaki ve sondaki boşlukları atar",
+            "Tüm boşlukları atar",
+            "Metni sıralar"
+          ],
+          "exp": "Yalnızca kenarlardaki boşlukları atar, ortadakiler kalır. Tek taraf için trimStart() ve trimEnd() vardır."
         },
         "metnler-n-07": {
-          "q": "",
+          "q": "split(\",\") ne döndürür?",
           "opts": [],
-          "exp": ""
+          "exp": "Ayırıcıya göre bölüp bir liste döndürür. Ters işlem joinToString()'dir."
         },
         "metnler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "isEmpty() ile isBlank() arasındaki fark nedir?",
+          "opts": [
+            "Fark yok",
+            "isBlank() yalnızca boşluklardan oluşan metni de yakalar",
+            "isEmpty() daha hızlıdır",
+            "isBlank() yalnızca null içindir"
+          ],
+          "exp": "\"   \".isEmpty() yanlıştır, ama \"   \".isBlank() doğrudur. Kullanıcı girdisini kontrol ederken neredeyse her zaman isBlank() gerekir."
         },
         "metnler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "5",
+            "6",
+            "7",
+            "Derleme hatası"
+          ],
+          "exp": "K-o-t-l-i-n — altı karakter. length bir özelliktir, fonksiyon değil, bu yüzden parantez yazılmaz."
         },
         "metnler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "substring(0, 3) hangi indeksleri döndürür?",
+          "opts": [
+            "0, 1, 2, 3",
+            "0, 1, 2 — son dahil değil",
+            "Yalnızca 3. indeksi",
+            "1, 2, 3"
+          ],
+          "exp": "Başlangıç dahil, son dahil değil. \"Kotlin\".substring(0, 3) sonucu \"Kot\"tur."
         },
         "metnler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Üç tırnaklı (raw) metnin avantajı nedir?",
+          "opts": [
+            "Daha hızlıdır",
+            "Kaçış karakteri gerekmez ve çok satırlı olabilir",
+            "Daha az bellek tutar",
+            "Otomatik olarak trim edilir"
+          ],
+          "exp": "Regex ve JSON yazarken ters eğik çizgi karmaşasından kurtarır. Girintiyi temizlemek için .trimIndent() eklenir — otomatik olmaz."
         },
         "metnler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "trimIndent() ne yapar?",
+          "opts": [
+            "Tüm boşlukları atar",
+            "Her satırdan ortak minimum girintiyi çıkarır",
+            "Metni sıralar",
+            "Satırları birleştirir"
+          ],
+          "exp": "Çok satırlı metinde koddaki girinti sonuca yansımasın diye kullanılır. En az girintili satıra göre hesaplar."
         },
         "metnler-n-13": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "replace() tüm eşleşmeleri değiştirir. \"Kotlin\" kelimesinde bir küçük t var, o da T olur."
         },
         "metnler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "indexOf() aranan bulunamazsa ne döndürür?",
+          "opts": [
+            "0",
+            "null",
+            "-1",
+            "İstisna fırlatır"
+          ],
+          "exp": "Bulunamadığında -1 döndürür. Bu yüzden sonucu her zaman kontrol etmek gerekir."
         },
         "metnler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "padStart(3, karakter) ne yapar?",
+          "opts": [
+            "Sondan 3 karakter keser",
+            "Uzunluk 3 olana kadar başa karakter ekler",
+            "Üç karakter ekler",
+            "Metni 3 kez tekrarlar"
+          ],
+          "exp": "\"7\" metni \"007\" olur. Metin zaten 3 karakterden uzunsa hiçbir şey değişmez. Sondan doldurmak için padEnd() vardır."
         },
         "metnler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "toIntOrNull() ne zaman kullanılır?",
+          "opts": [
+            "Her zaman",
+            "Metnin sayı olduğundan emin olmadığında",
+            "Yalnızca negatif sayılarda",
+            "Hiçbir zaman"
+          ],
+          "exp": "toInt() başarısız dönüşümde NumberFormatException fırlatır. toIntOrNull() ise null döndürür — kullanıcı girdisi için güvenli seçenektir."
         },
         "metnler-n-17": {
-          "q": "",
+          "q": "Metin şablonunda ifade nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Basit değişken için $s yeterlidir, ama nokta veya işlem varsa süslü parantez gerekir."
         },
         "metnler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "== operatörü metinlerde neyi karşılaştırır?",
+          "opts": [
+            "Referansı",
+            "İçeriği — equals'ı çağırır",
+            "Uzunluğu",
+            "Hiçbir şeyi"
+          ],
+          "exp": "Java'dan önemli bir fark: Kotlin'de == içeriği karşılaştırır. Referans karşılaştırması için === kullanılır."
         },
         "metnler-n-19": {
-          "q": "",
+          "q": "Büyük-küçük harf farkını gözetmeden karşılaştırma nasıl yapılır?",
           "opts": [],
-          "exp": ""
+          "exp": "equals() ikinci parametre olarak ignoreCase alır. Alternatif: a.lowercase() == b.lowercase()."
         },
         "metnler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Döngü içinde metin birleştirmek neden kötüdür?",
+          "opts": [
+            "Kötü değil",
+            "Her adımda yeni bir String nesnesi oluşur",
+            "Derleme hatası verir",
+            "Sonuç yanlış olur"
+          ],
+          "exp": "String immutable olduğu için her birleştirme yeni bir nesne oluşturur. buildString veya StringBuilder tek bir nesneyle çalışır ve çok daha hızlıdır."
         },
         "metnler-n-21": {
-          "q": "",
+          "q": "buildString { } ne döndürür?",
           "opts": [],
-          "exp": ""
+          "exp": "İçeride StringBuilder ile çalışırsın (append, appendLine), sonunda hazır bir String döner. Verimli ve okunaklı bir biçimdir."
         },
         "metnler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Metni karakter karakter gezmek için ne kullanılır?",
+          "opts": [
+            "for (c in s)",
+            "for (i in s.length)",
+            "s.each()",
+            "Mümkün değil"
+          ],
+          "exp": "String yinelenebilirdir. İndeks gerekiyorsa s.indices veya s.withIndex() kullanılır."
         },
         "metnler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "Kotlin",
+            "K",
+            "KOTLIN",
+            "Boş metin"
+          ],
+          "exp": "String koleksiyon fonksiyonlarını destekler ve filter yine String döndürür. Yalnızca K büyük harftir."
         },
         "metnler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "joinToString() ile split() arasındaki ilişki nedir?",
+          "opts": [
+            "İlişki yok",
+            "Birbirinin tersidir — biri böler, diğeri birleştirir",
+            "İkisi de böler",
+            "İkisi de birleştirir"
+          ],
+          "exp": "split ayırıcıya göre bir liste verir, joinToString listeyi yeniden metne çevirir. Ayırıcı, önek ve sonek belirlenebilir."
         },
         "metnler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "first() boş metinde ne yapar?",
+          "opts": [
+            "null döndürür",
+            "NoSuchElementException fırlatır",
+            "Boş karakter döndürür",
+            "0 döndürür"
+          ],
+          "exp": "Boş koleksiyonda first() istisna fırlatır. Güvenli seçenek firstOrNull()'dur — null döndürür."
         }
       },
       "praktiki": {
         "metnler-p-01": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "\"Kotlin\" metninin uzunluğunu yazdır.",
+          "ipucu": "length özelliğini kullan."
         },
         "metnler-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metni büyük harflerle yazdır.",
+          "ipucu": "uppercase() kullan."
         },
         "metnler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metnin kenarlarındaki boşlukları atıp yazdır.",
+          "ipucu": "trim() kullan."
         },
         "metnler-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metnin ilk üç karakterini yazdır.",
+          "ipucu": "substring(0, 3) — son indeks dahil değil."
         },
         "metnler-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metni virgüle göre böl ve listeyi yazdır.",
+          "ipucu": "split(\",\") bir liste döndürür."
         },
         "metnler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Metindeki \"t\" harfini \"T\" ile değiştirip yazdır.",
           "ipucu": ""
         },
         "metnler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Metinde \"lin\" parçasının olup olmadığını kontrol et ve sonucu yazdır.",
           "ipucu": ""
         },
         "metnler-p-08": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metni ters çevirip yazdır.",
+          "ipucu": "reversed() kullan."
         },
         "metnler-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metni üç kez tekrarlayıp yazdır.",
+          "ipucu": "repeat(3) kullan."
         },
         "metnler-p-10": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "\"7\" metnini üç karaktere kadar sıfırla doldurup yazdır.",
+          "ipucu": "padStart(3, sıfır karakteri) — Char tek tırnakla yazılır."
         },
         "metnler-p-11": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "\"t\" harfinin indeksini bul ve yazdır.",
+          "ipucu": "indexOf(\"t\") — indeksler 0'dan başlar."
         },
         "metnler-p-12": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Olmayan bir karakteri ara ve sonucu yazdır.",
+          "ipucu": "indexOf(\"z\") bulunamadığında -1 döndürür."
         },
         "metnler-p-13": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metin şablonunda İFADE kullan: \"Kotlin sozunde 6 herf var\" yazdır. Sayıyı elle yazma.",
+          "ipucu": "${s.length} biçimini kullan."
         },
         "metnler-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "isEmpty() ile isBlank() farkını göster: yalnızca boşluklardan oluşan bir metin için ikisini de yazdır.",
+          "ipucu": "Önce isEmpty(), sonra isBlank() yazdır."
         },
         "metnler-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Metni sayıya çevir, 8 ekleyip yazdır.",
           "ipucu": ""
         },
         "metnler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Büyük-küçük harf farkını gözetmeden iki metni karşılaştır.",
           "ipucu": ""
         },
         "metnler-p-17": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İlk ve son karakteri tek satırda boşlukla ayırarak yazdır.",
+          "ipucu": "first() ve last() kullan."
         },
         "metnler-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Metindeki tüm boşlukları silip yazdır.",
           "ipucu": ""
         },
         "metnler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "İlk harfi büyütüp yazdır (geri kalanı değişmesin).",
           "ipucu": ""
         },
         "metnler-p-20": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Üç tırnaklı metin kullan: iki satır yazdır, girinti sonuca yansımasın.",
+          "ipucu": "Üç tırnak içine iki satır yaz, .trimIndent() girintiyi temizler."
         },
         "metnler-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "buildString kullan: 1'den 3'e kadar sayıları bitişik bir metinde toplayıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = buildString {\n        // döngü yaz\n    }\n    println(s)\n}"
         },
         "metnler-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "split ile joinToString'i birleştir: kelimeleri tireyle birleştirip yazdır.",
           "ipucu": ""
         },
         "metnler-p-23": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metindeki \"i\" harfinin sayısını hesaplayıp yazdır.",
+          "ipucu": "count { } kullan ve Char karşılaştırması yap."
         },
         "metnler-p-24": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Metinden yalnızca büyük harfleri süzüp yazdır.",
+          "ipucu": "s.filter { it.isUpperCase() } — sonuç yine String olur."
         },
         "metnler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Palindrom kontrolü yaz: metin tersiyle aynı mı — sonucu yazdır.",
           "ipucu": ""
         }
       }
     },
     "operatorlar": {
-      "title": "",
+      "title": "Operatörler",
       "nezeri": {
         "operatorlar-n-01": {
-          "q": "",
+          "q": "5 / 2 ifadesinin sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Her iki işlenen de Int olduğu için tam sayı bölmesi yapılır ve ondalık kısım atılır. Ondalıklı sonuç için en az biri Double olmalıdır."
         },
         "operatorlar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "% operatörü ne yapar?",
+          "opts": [
+            "Yüzde hesaplar",
+            "Bölmeden kalanı verir",
+            "Çarpar",
+            "Kare alır"
+          ],
+          "exp": "17 % 5 sonucu 2'dir. Çift/tek kontrolü için en çok kullanılan operatördür: x % 2 == 0."
         },
         "operatorlar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de == operatörü nesnelerde neyi karşılaştırır?",
+          "opts": [
+            "Referansı",
+            "İçeriği — equals()'ı çağırır",
+            "Bellek adresini",
+            "Türü"
+          ],
+          "exp": "Java'dan önemli bir fark. Referans karşılaştırması için üç eşittir işareti (===) kullanılır."
         },
         "operatorlar-n-04": {
-          "q": "",
+          "q": "Mantıksal \"ve\" operatörü hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "İki ampersand kullanılır ve kısa devre uygulanır — sol taraf yanlışsa sağ taraf hiç hesaplanmaz."
         },
         "operatorlar-n-05": {
-          "q": "",
+          "q": "Değil operatörü hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Ünlem işareti Boolean değeri tersine çevirir: !true sonucu false'tur."
         },
         "operatorlar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "in operatörü neyi kontrol eder?",
+          "opts": [
+            "Türü",
+            "Elemanın koleksiyonda veya aralıkta olup olmadığını",
+            "Eşitliği",
+            "Null olup olmadığını"
+          ],
+          "exp": "5 in 1..10 ve \"a\" in siyahi biçimlerinde kullanılır. Tersi için !in vardır. İçeride contains() çağrılır."
         },
         "operatorlar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "is operatörü ne yapar?",
+          "opts": [
+            "Türü dönüştürür",
+            "Türü kontrol eder ve smart cast uygular",
+            "Değer atar",
+            "Karşılaştırır"
+          ],
+          "exp": "x is String kontrolünden sonra derleyici değişkeni o blokta String olarak görür — ek dönüşüm gerekmez."
         },
         "operatorlar-n-08": {
-          "q": "",
+          "q": "Artırma operatörü nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "İki artı işareti değeri bir artırır. Yalnızca var ile çalışır — val değiştirilemez."
         },
         "operatorlar-n-09": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "17 = 5 × 3 + 2, yani kalan 2'dir."
         },
         "operatorlar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "=== operatörü neyi kontrol eder?",
+          "opts": [
+            "İçeriği",
+            "İki referansın aynı nesneyi gösterip göstermediğini",
+            "Türü",
+            "Uzunluğu"
+          ],
+          "exp": "Referans eşitliğidir. Data class'larda == doğru, === ise yanlış verebilir — çünkü nesneler ayrıdır, içerik aynıdır."
         },
         "operatorlar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kısa devre (short-circuit) ne anlama gelir?",
+          "opts": [
+            "Her iki taraf da hesaplanır",
+            "Sonuç belli olur olmaz sağ taraf hesaplanmaz",
+            "Sonuç her zaman doğrudur",
+            "Hata fırlatılır"
+          ],
+          "exp": "siyahi != null && siyahi.isNotEmpty() — sol taraf yanlışsa sağ taraf çalışmaz, bu yüzden NPE riski olmaz."
         },
         "operatorlar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Elvis operatörü (?:) ne yapar?",
+          "opts": [
+            "Türü dönüştürür",
+            "Sol taraf null olduğunda sağ tarafı döndürür",
+            "İki değeri toplar",
+            "Koşulu kontrol eder"
+          ],
+          "exp": "ad ?: \"Qonaq\" — null durumunda yedek değer verir. Sağ tarafa return ve throw da yazılabilir."
         },
         "operatorlar-n-13": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de kalanın işareti bölünenin işaretini izler (Java gibi). Matematiksel mod için Math.floorMod() kullanılır."
         },
         "operatorlar-n-14": {
-          "q": "",
+          "q": "Operatör aşırı yükleme (overloading) için ne yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "operator anahtar kelimesiyle özel adlı bir fonksiyon bildirilir. plus, minus, times, div, get, set, contains, invoke, compareTo vb."
         },
         "operatorlar-n-15": {
-          "q": "",
+          "q": "a + b ifadesi hangi fonksiyonu çağırır?",
           "opts": [],
-          "exp": ""
+          "exp": "Her operatör belirli bir fonksiyon adına bağlıdır. Sınıfta operator fun plus() varsa nesneler artı ile toplanabilir."
         },
         "operatorlar-n-16": {
-          "q": "",
+          "q": "obyekt[i] ifadesi hangi fonksiyonu çağırır?",
           "opts": [],
-          "exp": ""
+          "exp": "operator fun get(i: Int) indeksleme olanağı verir. Yazma için operator fun set(i: Int, v: T) bildirilir."
         },
         "operatorlar-n-17": {
-          "q": "",
+          "q": "x in obyekt ifadesi hangi fonksiyonu çağırır?",
           "opts": [],
-          "exp": ""
+          "exp": "operator fun contains() yazarsan kendi sınıfın için in operatörünü kullanabilirsin."
         },
         "operatorlar-n-18": {
-          "q": "",
+          "q": "Karşılaştırma operatörleri (<, >) hangi fonksiyona bağlıdır?",
           "opts": [],
-          "exp": ""
+          "exp": "Comparable arayüzünü uygulayıp compareTo() yazarsan nesneler küçük/büyük operatörleriyle karşılaştırılabilir."
         },
         "operatorlar-n-19": {
-          "q": "",
+          "q": "obyekt() ifadesi (nesnenin fonksiyon gibi çağrılması) neye dayanır?",
           "opts": [],
-          "exp": ""
+          "exp": "operator fun invoke() bildirildiğinde nesne bir fonksiyon gibi çağrılabilir. Lambda'lar da içeride tam olarak böyle çalışır."
         },
         "operatorlar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "shl operatörü ne yapar?",
+          "opts": [
+            "Büyüktür karşılaştırması",
+            "Bitleri sola kaydırır",
+            "Sağa kaydırır",
+            "Toplar"
+          ],
+          "exp": "2 shl 3 sonucu 16'dır — her kaydırma değeri iki katına çıkarır. Kotlin'de bit operatörleri sembol değil, ad biçimindedir: shl, shr, ushr, and, or, xor, inv."
         },
         "operatorlar-n-21": {
-          "q": "",
+          "q": "12 and 10 ifadesinin sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "İkilik sistemde 1100 ve 1010 — bit bit \"ve\" işlemi 1000, yani 8 verir."
         },
         "operatorlar-n-22": {
-          "q": "",
+          "q": "12 xor 10 ifadesinin sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "1100 xor 1010 = 0110, yani 6. XOR yalnızca bitler farklı olduğunda 1 verir."
         },
         "operatorlar-n-23": {
-          "q": "",
+          "q": "plusAssign operatörü ne zaman çağrılır?",
           "opts": [],
-          "exp": ""
+          "exp": "operator fun plusAssign() varsa += onu çağırır ve nesneyi yerinde değiştirir. Yalnızca plus varsa yeni bir nesne oluşturulup atanır."
         },
         "operatorlar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Operatör aşırı yüklemedeki temel risk nedir?",
+          "opts": [
+            "Yavaş çalışır",
+            "Operatörün anlamı beklenmedik olursa kod okunmaz hâle gelir",
+            "Bellek sızar",
+            "Risk yok"
+          ],
+          "exp": "Artı işareti birleştirme veya toplama olarak anlaşılır. Onu \"sil\" anlamında kullanırsan okuyucuyu şaşırtırsın. Operatör yalnızca doğal bir anlamı olduğunda aşırı yüklenmelidir."
         },
         "operatorlar-n-25": {
-          "q": "",
+          "q": "unaryMinus operatörü neyi ifade eder?",
           "opts": [],
-          "exp": ""
+          "exp": "Tek işlenenli eksi işaretidir. Eşi unaryPlus'tır. Bunlar vektör ve para gibi türlerde faydalıdır."
         }
       },
       "praktiki": {
         "operatorlar-p-01": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "İki Int sayının tam bölme sonucunu yazdır: 17, 5'e bölünsün.",
+          "ipucu": "Her iki işlenen de Int olduğunda ondalık kısım atılır."
         },
         "operatorlar-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "17'nin 5'e bölümünden kalanı yazdır.",
+          "ipucu": "Kalan operatörünü kullan."
         },
         "operatorlar-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Ondalıklı bölme yap: 7, 2.0'a bölünsün ve sonucu yazdır.",
+          "ipucu": "İşlenenlerden biri Double ise sonuç da Double olur."
         },
         "operatorlar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Sayının çift olup olmadığını kontrol et ve sonucu yazdır: 14.",
           "ipucu": ""
         },
         "operatorlar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Mantıksal \"ve\" kullan: iki koşul da doğru olduğunda sonucu yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-06": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Değil operatörünü kullan: false değerin tersini yazdır.",
+          "ipucu": "Ünlem işaretiyle tersine çevir."
         },
         "operatorlar-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "in operatörüyle kontrol et: 5 sayısı 1..10 aralığında mı?",
           "ipucu": ""
         },
         "operatorlar-p-08": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Artırma operatörünü kullan: sayacı iki kez artırıp yazdır.",
+          "ipucu": "İki kez n++ yaz, sonra yazdır."
         },
         "operatorlar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Birleşik atama kullan: değeri 3 artırıp yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-10": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "== ile === farkını göster: data class nesneleri için ikisini de yazdır.",
+          "ipucu": "== içeriği, === referansı karşılaştırır."
         },
         "operatorlar-p-11": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Negatif bir sayının kalanını yazdır: -7, 3'e bölünsün.",
+          "ipucu": "Kalanın işareti bölünenin işaretini izler."
         },
         "operatorlar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "is operatörüyle tür kontrolü yap ve smart cast kullan: uzunluğu yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "!in operatörünü kullan: 42 sayısı 1..10 aralığında değilse \"kenar\" yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Kısa devreyi göster: s null olduğu için sağ taraf çalışmamalı.",
+          "ipucu": "println(s != null && s.length > 3) — NPE olmamalı."
         },
         "operatorlar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "plus operatörünü aşırı yükle: iki noktayı toplayıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Noqte(val x: Int, val y: Int) {\n    // plus operatörünü yaz\n}\n\nfun main() {\n    println(Noqte(1, 2) + Noqte(3, 4))\n}"
         },
         "operatorlar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "times operatörünü aşırı yükle: noktayı 3 ile çarpıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Noqte(val x: Int, val y: Int) {\n    // times operatörünü yaz\n}\n\nfun main() {\n    println(Noqte(2, 3) * 3)\n}"
         },
         "operatorlar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "get operatörünü aşırı yükle: nesneyi indeksle okuyup yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Matris(private val d: List<Int>) {\n    // get operatörünü yaz\n}\n\nfun main() {\n    println(Matris(listOf(10, 20, 30))[1])\n}"
         },
         "operatorlar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "contains operatörünü aşırı yükle: in ile kontrol edip sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Aralig(val a: Int, val b: Int) {\n    // contains operatörünü yaz\n}\n\nfun main() {\n    println(5 in Aralig(1, 10))\n}"
         },
         "operatorlar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Elvis operatörünü kullan: null değer için 0 yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Bit kaydırma kullan: 2 sayısını 3 bit sola kaydırıp yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Bit işlemlerini göster: 12 ve 10 için and, or, xor sonuçlarını ayrı satırlarda yazdır.",
           "ipucu": ""
         },
         "operatorlar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "compareTo'yu aşırı yükle: Comparable'ı uygulayıp karşılaştırma sonucunu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Pul(val m: Int) : Comparable<Pul> {\n    // compareTo'yu override et\n}\n\nfun main() {\n    println(Pul(5) < Pul(9))\n}"
         },
         "operatorlar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "invoke operatörünü aşırı yükle: nesneyi fonksiyon gibi çağırıp sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Salamla {\n    // invoke operatörünü yaz\n}\n\nfun main() {\n    println(Salamla()(\"Aysel\"))\n}"
         },
         "operatorlar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "unaryMinus'u aşırı yükle: noktanın tersini alıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Noqte(val x: Int, val y: Int) {\n    // unaryMinus operatörünü yaz\n}\n\nfun main() {\n    println(-Noqte(1, 2))\n}"
         },
         "operatorlar-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "plusAssign'ı aşırı yükle: sepete ürün ekleyip listeyi yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Sebet {\n    val mehsullar = mutableListOf<String>()\n    // plusAssign operatörünü yaz\n}\n\nfun main() {\n    val s = Sebet()\n    s += \"alma\"\n    s += \"armud\"\n    println(s.mehsullar)\n}"
         }
       }
     },
     "genislenmeler": {
-      "title": "",
+      "title": "Uzantılar (extensions)",
       "nezeri": {
         "genislenmeler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonu nedir?",
+          "opts": [
+            "Bir sınıfa kalıtım almadan yeni fonksiyon eklemek",
+            "Yeni bir sınıf oluşturmak",
+            "Fonksiyonu uzatmak",
+            "Bir arayüz türü"
+          ],
+          "exp": "Kaynak koduna erişimin olmayan sınıflara da (String, List) fonksiyon eklenebilir. Sınıf değişmez, kalıtım da gerekmez."
         },
         "genislenmeler-n-02": {
-          "q": "",
+          "q": "Uzantı fonksiyonunda receiver'a nasıl erişilir?",
           "opts": [],
-          "exp": ""
+          "exp": "fun String.uzunmu() = this.length > 10 — this, çağrıldığı nesnedir. Çoğu zaman this yazmadan da olur: length > 10."
         },
         "genislenmeler-n-03": {
-          "q": "",
+          "q": "Uzantı fonksiyonunun doğru bildirimi hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Tür adı fonksiyon adından önce noktayla yazılır: fun Tur.fonksiyonAdi()."
         },
         "genislenmeler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı özelliği backing field tutabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — yalnızca getter yazılabilir",
+            "Yalnızca val olduğunda",
+            "Yalnızca private olduğunda"
+          ],
+          "exp": "Sınıfa gerçek bir alan eklenmez, bu yüzden değer saklanamaz. Yalnızca hesaplanan özellik mümkündür: val String.ilkHerf get() = first()."
         },
         "genislenmeler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonu sınıfın private üyelerine erişebilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır",
+            "Yalnızca aynı dosyada",
+            "Yalnızca internal olduğunda"
+          ],
+          "exp": "Uzantı sınıfın içinde değil, dışındadır — bu yüzden yalnızca public (ve aynı modülde internal) üyelere erişimi vardır."
         },
         "genislenmeler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantılar nerede bildirilebilir?",
+          "opts": [
+            "Yalnızca sınıf içinde",
+            "Top-level (doğrudan dosyada), sınıf içinde veya fonksiyon içinde",
+            "Yalnızca companion object'te",
+            "Yalnızca arayüzde"
+          ],
+          "exp": "En çok kullanılan biçim top-level bildirimdir — genellikle Genislenmeler.kt gibi ayrı bir dosyada toplanır."
         },
         "genislenmeler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "21",
+            "42",
+            "2",
+            "Derleme hatası"
+          ],
+          "exp": "Int türüne ikiqat() fonksiyonu eklenmiştir. this receiver'dır, yani 21. Sonuç 42'dir."
         },
         "genislenmeler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantılar neden faydalıdır?",
+          "opts": [
+            "Kodu hızlandırır",
+            "Yardımcı fonksiyonları doğal bir sözdizimiyle çağırmayı sağlar",
+            "Bellekten tasarruf eder",
+            "Hatayı önler"
+          ],
+          "exp": "Komekci.qisalt(metn, 10) yerine metn.qisalt(10) yazılabilir. Kod daha okunaklı ve zincirlenebilir olur."
         },
         "genislenmeler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir uzantıyı kullanmak için ne gerekir?",
+          "opts": [
+            "Hiçbir şey",
+            "Başka bir paketteyse içe aktarmak (import)",
+            "Sınıfı değiştirmek",
+            "Kalıtım almak"
+          ],
+          "exp": "Uzantı, sıradan bir top-level fonksiyon gibi bir pakete aittir. Başka bir paketten kullanmak için import edilmelidir."
         },
         "genislenmeler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantılar nasıl çözümlenir?",
+          "opts": [
+            "Sanal (dinamik) — gerçek türe göre",
+            "Statik — değişkenin BİLDİRİLEN türüne göre",
+            "Rastgele",
+            "Çalışma zamanında seçilir"
+          ],
+          "exp": "Derleyici uzantıyı sıradan bir statik fonksiyon çağrısına dönüştürür. Bu yüzden çok biçimlilik çalışmaz — bu, en çok yanılınan noktadır."
         },
         "genislenmeler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Sınıfta aynı imzalı bir üye metot varsa hangisi çalışır?",
+          "opts": [
+            "Uzantı",
+            "Üye metot her zaman önceliklidir",
+            "Derleme hatası",
+            "İkisi de"
+          ],
+          "exp": "Üye metot kazanır ve uzantı asla çağrılmaz. Uyarı da verilmez — sessiz bir hata kaynağıdır."
         },
         "genislenmeler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Nullable bir türe uzantı yazılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — receiver null olabilir, kontrol fonksiyonun kendi işidir",
+            "Yalnızca inline olduğunda",
+            "Yalnızca private olduğunda"
+          ],
+          "exp": "Receiver nullable bildirildiğinde fonksiyon safe call olmadan çağrılabilir. Standart kütüphanedeki isNullOrEmpty() tam olarak böyle yazılmıştır."
         },
         "genislenmeler-n-13": {
-          "q": "",
+          "q": "Jenerik uzantı nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Tür parametresi fun anahtar kelimesinden sonra bildirilir. Bu, fonksiyonu tüm eleman türleri için çalışır kılar."
         },
         "genislenmeler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "Ovlad",
+            "Ana",
+            "Derleme hatası",
+            "null"
+          ],
+          "exp": "Statik çözümleme: değişken Ana türüyle bildirilmiştir, bu yüzden Ana.ad() seçilir. Gerçek tür dikkate alınmaz."
         },
         "genislenmeler-n-15": {
-          "q": "",
+          "q": "Uzantı özelliği nasıl bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Backing field olmadığı için değer doğrudan atanamaz — mutlaka getter yazılmalıdır."
         },
         "genislenmeler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonu Java'da nasıl görünür?",
+          "opts": [
+            "Metot olarak",
+            "Statik fonksiyon olarak — receiver ilk parametre olur",
+            "Görünmez",
+            "Yapıcı olarak"
+          ],
+          "exp": "fun String.f() Java'da FaylKt.f(String receiver) biçiminde statik bir metot olur. Uzantıların statik olarak çözümlenmesinin nedeni de budur."
         },
         "genislenmeler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı fonksiyonu zincirde kullanılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — sonuç uygun türdeyse sıradan bir fonksiyon gibi zincirlenir",
+            "Yalnızca String için",
+            "Yalnızca inline olduğunda"
+          ],
+          "exp": "metn.qisalt(10).uppercase() gibi zincirler tamamen normaldir. Bu, uzantıların asıl çekiciliğidir."
         },
         "genislenmeler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Fonksiyon içinde yerel bir uzantı bildirilebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — yalnızca o fonksiyonda görünür",
+            "Yalnızca main() içinde",
+            "Derleme hatası"
+          ],
+          "exp": "Yerel uzantı kapsamı daraltır ve yalnızca tek bir yerde gereken yardımcı mantık için elverişlidir."
         },
         "genislenmeler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "companion object'e uzantı yazılabilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — A.yarat() biçiminde çağrılır, ama sınıfta companion bildirilmiş olmalıdır",
+            "Yalnızca data class'ta",
+            "Yalnızca object'te"
+          ],
+          "exp": "Sınıfta boş da olsa bir companion object olmalıdır — yoksa uzantı için receiver bulunamaz. Bu, fabrika metotlarını dışarıdan eklemeyi sağlar."
         },
         "genislenmeler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantıları ayrı bir dosyada toplamak neden önerilir?",
+          "opts": [
+            "Hız için",
+            "Bulmak ve içe aktarmak kolay olsun diye",
+            "Derleyici gerektirir",
+            "Bellek için"
+          ],
+          "exp": "Genislenmeler.kt veya StringExt.kt gibi dosyalar projede tek bir yer oluşturur. Aksi hâlde aynı uzantı birkaç yerde tekrarlanır."
         },
         "genislenmeler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Receiver'lı lambda (String.() -> Unit) uzantıyla nasıl ilişkilidir?",
+          "opts": [
+            "İlişki yok",
+            "Aynı ilkedir — lambda içinde this receiver olur, DSL'lerin temelidir",
+            "Daha yavaştır",
+            "Yalnızca Java'da çalışır"
+          ],
+          "exp": "apply ve buildString gibi fonksiyonlar tam olarak receiver'lı lambda alır. Bu, HTML/Gradle türü DSL'leri mümkün kılar."
         },
         "genislenmeler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı bir üye metodu override edebilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — uzantılar override edilemez ve override edemez",
+            "Yalnızca open metotları",
+            "Yalnızca abstract metotları"
+          ],
+          "exp": "Uzantı sınıf hiyerarşisinin bir parçası değildir. Ne override eder ne de override edilir — sadece statik bir fonksiyondur."
         },
         "genislenmeler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Standart kütüphanedeki hangi fonksiyon bir uzantıdır?",
+          "opts": [
+            "println()",
+            "listOf()",
+            "String.uppercase()",
+            "let, apply, filter ve diğerleri"
+          ],
+          "exp": "Koleksiyon işlemlerinin ve scope fonksiyonlarının büyük kısmı uzantı olarak yazılmıştır. Bu sayede arayüzler sade kalır, işlevsellik ise zengin olur."
         },
         "genislenmeler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "İki farklı pakette aynı adlı uzantı varsa ne olur?",
+          "opts": [
+            "Derleme hatası",
+            "Hangisi import edildiyse o çalışır",
+            "Rastgele seçilir",
+            "İkisi de çağrılır"
+          ],
+          "exp": "İçe aktarma belirleyicidir. İkisi de gerekiyorsa alias kullanılır: import paket.f as digerF."
         },
         "genislenmeler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Uzantı yerine ne zaman üye metot yazılmalıdır?",
+          "opts": [
+            "Her zaman uzantı",
+            "Fonksiyon sınıfın iç durumuna erişim gerektiriyorsa üye metot",
+            "Hiçbir zaman",
+            "Farkı yok"
+          ],
+          "exp": "private alanlarla çalışan veya çok biçimli olması gereken davranış üye metot olmalıdır. Uzantı ise yardımcı, dışsal işlevsellik içindir."
         }
       },
       "praktiki": {
         "genislenmeler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Int için ikiqat() uzantısı yaz ve 21 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(21.ikiqat())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "String için tersUst() yaz: metni ters çevirip büyüterek döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(\"Kotlin\".tersUst())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "String için emailDirmi() yaz: metinde hem @ hem de nokta varsa true döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(\"aysel@mail.az\".emailDirmi())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Int için ciftdirmi() yaz ve 14 için çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(14.ciftdirmi())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-05": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Uzantı ÖZELLİĞİ yaz: String için ilkHerf.",
+          "ipucu": "val String.ilkHerf get() = first() — backing field olmadığı için getter zorunludur.",
+          "starter": "fun main() {\n    println(\"Kotlin\".ilkHerf)\n}\n\n// uzantı özelliği yaz"
         },
         "genislenmeler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Int için kb uzantı özelliği yaz: \"1024 KB\" biçiminde döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(1024.kb)\n}\n\n// uzantı özelliği yaz"
         },
         "genislenmeler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "String için qisalt(n) yaz: metin n'den uzunsa kesip üç nokta eklesin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(\"Kotlin dilini oyrenirem\".qisalt(6))\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "List<Int> için ciftlerinCemi() yaz ve sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(1, 2, 3, 4).ciftlerinCemi())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Uzantıyı zincirde kullan: sonucu büyük harflerle yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun String.qisalt(n: Int) = if (length <= n) this else take(n)\n\nfun main() {\n    // qisalt ardından uppercase zinciri kur\n}"
         },
         "genislenmeler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable receiver'lı bir uzantı yaz: null için safe call olmadan çağrılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s: String? = null\n    println(s.bosdurmu())\n}\n\n// nullable receiver'lı uzantı yaz"
         },
         "genislenmeler-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Nullable uzantıyla yedek değer ver: null için \"Qonaq\" yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s: String? = null\n    println(s.veYaDefolt(\"Qonaq\"))\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik uzantı yaz: herhangi bir listenin ikinci elemanını güvenli şekilde döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(\"a\", \"b\", \"c\").ikinci())\n}\n\n// jenerik uzantı yaz"
         },
         "genislenmeler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik uzantıyı kısa bir listede dene: ikinci eleman yoksa null döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun <T> List<T>.ikinci(): T? = getOrNull(1)\n\nfun main() {\n    // tek elemanlı bir listeyle çağır\n}"
         },
         "genislenmeler-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik uzantı özelliği yaz: listenin son indeksini versin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(\"a\", \"b\", \"c\").sonIndeks)\n}\n\n// jenerik uzantı özelliği yaz"
         },
         "genislenmeler-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Yerel uzantı yaz: main() içinde bildir ve kullan.",
+          "ipucu": "main() içine fun String.uzunmu() = length > 10 yaz.",
+          "starter": "fun main() {\n    // yerel uzantı bildir\n    println(\"Kotlin\".uzunmu())\n}"
         },
         "genislenmeler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "this anahtar kelimesini açıkça kullan: uzantıda receiver'ı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    \"Kotlin\".ozunuCapEt()\n}\n\n// uzantıyı yaz - this'i açıkça kullan"
         },
         "genislenmeler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "İki uzantıyı birlikte kullan: metni slug biçimine getir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(\"Kotlin Dili\".slugla())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Map için uzantı yaz: anahtar yoksa varsayılan değer döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val m = mapOf(\"a\" to 1)\n    println(m.alVeYa(\"b\", 0))\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Uzantıyla listeyi metne çevir: elemanları yıldızla ayır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(\"a\", \"b\", \"c\").ulduzlaBirlesdir())\n}\n\n// uzantıyı yaz"
         },
         "genislenmeler-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Statik çözümlemeyi göster: Ana türündeki değişkende Ovlad nesnesi tut ve uzantıyı çağır.",
+          "ipucu": "Uzantı bildirilen türe göre seçilir — gerçek tür dikkate alınmaz.",
+          "starter": "open class Ana\nclass Ovlad : Ana()\n\nfun Ana.ad() = \"Ana\"\nfun Ovlad.ad() = \"Ovlad\"\n\nfun main() {\n    // Ana türündeki değişkende Ovlad tut ve ad() sonucunu yazdır\n}"
         },
         "genislenmeler-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Üye metodun uzantıdan öncelikli olduğunu göster.",
+          "ipucu": "Üye metot her zaman kazanır — uzantı asla çağrılmaz.",
+          "starter": "class A {\n    fun cap() = println(\"uzv\")\n}\n\n// Aynı adlı A.cap() uzantısını yaz ve main'de çağır"
         },
         "genislenmeler-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "companion object'e uzantı yaz: fabrika metodunu dışarıdan ekle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    companion object\n}\n\n// companion'a uzantı yaz\n\nfun main() {\n    println(Istifadeci.qonaq().ad)\n}"
         },
         "genislenmeler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Receiver'lı lambda alan bir uzantı yaz: apply'a benzer bir davranış kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu {\n    var deyer = 0\n}\n\n// menimApply uzantısını yaz\n\nfun main() {\n    val q = Qutu().menimApply { deyer = 7 }\n    println(q.deyer)\n}"
         },
         "genislenmeler-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Uzantıyı infix fonksiyonla birleştir: 3 vur 7 biçiminde çağrılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(3 vur 7)\n}\n\n// infix uzantı yaz"
         },
         "genislenmeler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Uzantıyla operatör aşırı yükle: Int için get operatörü ekle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(12345.reqem(2))\n}\n\n// uzantıyı yaz - n'inci rakamı döndürsün (soldan, 0'dan)"
         }
       }
     },
