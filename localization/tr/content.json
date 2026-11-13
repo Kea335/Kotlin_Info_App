@@ -6263,362 +6263,1789 @@
       }
     },
     "generics": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Jenerikler",
+      "heading": "Jenerikler",
+      "kicker": "Bölüm 19",
+      "group": "Nesne yönelimli",
       "blocks": {
         "generics.p.40200d9c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Jenerikler, aynı kodu farklı türlerle kullanmaya olanak tanır — tür güvenliğini kaybetmeden."
+            },
+            {
+              "k": "code",
+              "v": "List<String>"
+            },
+            {
+              "k": "t",
+              "v": " ile"
+            },
+            {
+              "k": "code",
+              "v": "List<Int>"
+            },
+            {
+              "k": "t",
+              "v": " arasındaki fark buradan gelir."
+            }
+          ]
         },
         "generics.h3.67958582": {
-          "text": ""
+          "text": "Jenerik fonksiyon ve sınıf"
         },
         "generics.code.ffa36427": {
           "title": "",
-          "code": ""
+          "code": "// Jenerik fonksiyon — T herhangi bir tür olabilir\nfun <T> ilkini(siyahi: List<T>): T = siyahi.first()\n\n// Jenerik sınıf\nclass Qutu<T>(private val deyer: T) {\n    fun al(): T = deyer\n    fun cap() = println(\"Qutuda: $deyer\")\n}\n\nfun main() {\n    println(ilkini(listOf(\"Kotlin\", \"Java\")))\n    println(ilkini(listOf(42, 7)))\n\n    Qutu(\"Kotlin\").cap()\n    Qutu(42).cap()\n}"
         },
         "generics.h3.854777bc": {
-          "text": ""
+          "text": "Tür kısıtlamaları (constraints)"
         },
         "generics.code.9d717d61": {
           "title": "",
-          "code": ""
+          "code": "// T yalnızca Comparable olabilir — artık > operatörü çalışır\nfun <T : Comparable<T>> boyuk(a: T, b: T): T = if (a > b) a else b\n\n// Birden fazla kısıtlama — where ile\nfun <T> emalEt(element: T): List<T>\n    where T : Comparable<T>, T : Any = listOf(element)\n\n// Nullable olmayan tür istemek\nfun <T : Any> tələbEt(deyer: T?): T = deyer ?: error(\"null ola bilməz\")\n\nfun main() {\n    println(boyuk(9, 3))\n    println(boyuk(\"Java\", \"Kotlin\"))\n    println(listOf(1, 2, 3).sorted())\n}"
         },
         "generics.h3.8255b1ad": {
-          "text": ""
+          "text": "Varyans: in ve out"
         },
         "generics.p.3cc85d2d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Bu, jeneriklerin en zor ama en faydalı kısmıdır. Soru şu:"
+            },
+            {
+              "k": "code",
+              "v": "List<It>"
+            },
+            {
+              "k": "t",
+              "v": " türünü"
+            },
+            {
+              "k": "code",
+              "v": "List<Heyvan>"
+            },
+            {
+              "k": "t",
+              "v": " bekleyen yere verebilir miyiz?"
+            }
+          ]
         },
         "generics.table.24453c80": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Belirleyici"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ad"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Anlamı"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Örnek"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "out T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kovaryant"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T yalnızca"
+                },
+                {
+                  "k": "b",
+                  "v": "çıkış"
+                },
+                {
+                  "k": "t",
+                  "v": "tadır (döndürülür)."
+                },
+                {
+                  "k": "code",
+                  "v": "Qutu<It>"
+                },
+                {
+                  "k": "t",
+                  "v": " →"
+                },
+                {
+                  "k": "code",
+                  "v": "Qutu<Heyvan>"
+                },
+                {
+                  "k": "t",
+                  "v": " olur"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "List<out E>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "in T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kontravaryant"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T yalnızca"
+                },
+                {
+                  "k": "b",
+                  "v": "giriş"
+                },
+                {
+                  "k": "t",
+                  "v": "tedir (parametre)."
+                },
+                {
+                  "k": "code",
+                  "v": "Qebul<Heyvan>"
+                },
+                {
+                  "k": "t",
+                  "v": " →"
+                },
+                {
+                  "k": "code",
+                  "v": "Qebul<It>"
+                },
+                {
+                  "k": "t",
+                  "v": " olur"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "Comparable<in T>"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "(hiçbir şey)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İnvaryant"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tam olarak aynı tür olmalıdır"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "MutableList<E>"
+                }
+              ]
+            ]
+          ]
         },
         "generics.code.dc79a713": {
           "title": "",
-          "code": ""
+          "code": "open class Heyvan\nclass It : Heyvan()\n\n// out — üretici (producer): yalnızca T döndürür\nclass Menbe<out T>(private val deyer: T) {\n    fun al(): T = deyer\n    // fun yaz(x: T) { }    ← HATA: out türü parametre olamaz\n}\n\n// in — tüketici (consumer): yalnızca T kabul eder\nclass Hedef<in T> {\n    fun yaz(deyer: T) = println(deyer)\n    // fun al(): T          ← HATA: in türü döndürülemez\n}\n\nfun main() {\n    val itMenbe: Menbe<It> = Menbe(It())\n    val heyvanMenbe: Menbe<Heyvan> = itMenbe      // out sayesinde çalışır\n\n    val heyvanHedef: Hedef<Heyvan> = Hedef()\n    val itHedef: Hedef<It> = heyvanHedef          // in sayesinde çalışır\n\n    // MutableList invaryanttır:\n    // val a: MutableList<Heyvan> = mutableListOf<It>()  ← HATA\n    // Nedeni: sonra oraya Pisik eklenebilirdi!\n\n    // List ise kovaryanttır (List<out E>) — okumak güvenlidir:\n    val b: List<Heyvan> = listOf<It>()            // çalışır\n}"
         },
         "generics.callout.782e4b5e": {
-          "title": ""
+          "title": "PECS kuralı"
         },
         "generics.p.b478e86d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "P"
+            },
+            {
+              "k": "t",
+              "v": "roducer —"
+            },
+            {
+              "k": "b",
+              "v": "E"
+            },
+            {
+              "k": "t",
+              "v": "xtends (Kotlin'de"
+            },
+            {
+              "k": "code",
+              "v": "out"
+            },
+            {
+              "k": "t",
+              "v": "),"
+            },
+            {
+              "k": "b",
+              "v": "C"
+            },
+            {
+              "k": "t",
+              "v": "onsumer —"
+            },
+            {
+              "k": "b",
+              "v": "S"
+            },
+            {
+              "k": "t",
+              "v": "uper (Kotlin'de"
+            },
+            {
+              "k": "code",
+              "v": "in"
+            },
+            {
+              "k": "t",
+              "v": "). Kısacası: türden yalnızca"
+            },
+            {
+              "k": "b",
+              "v": "okuyorsan"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "code",
+              "v": "out"
+            },
+            {
+              "k": "t",
+              "v": ", ona yalnızca"
+            },
+            {
+              "k": "b",
+              "v": "yazıyorsan"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "code",
+              "v": "in"
+            },
+            {
+              "k": "t",
+              "v": " yaz."
+            }
+          ]
         },
         "generics.h3.6ae45d58": {
-          "text": ""
+          "text": "reified — türü çalışma zamanında görmek"
         },
         "generics.p.2efad755": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "JVM'de jenerik türler çalışma zamanında silinir (type erasure)."
+            },
+            {
+              "k": "code",
+              "v": "inline"
+            },
+            {
+              "k": "t",
+              "v": " +"
+            },
+            {
+              "k": "code",
+              "v": "reified"
+            },
+            {
+              "k": "t",
+              "v": " bu kısıtlamayı aşar."
+            }
+          ]
         },
         "generics.code.8dd0ea99": {
           "title": "",
-          "code": ""
+          "code": "// reified kullanılmazsa: \"Cannot check for instance of erased type: T\"\ninline fun <reified T> List<*>.yalnizTipi(): List<T> =\n    filterIsInstance<T>()\n\ninline fun <reified T> tipdirmi(deyer: Any): Boolean = deyer is T\n\nfun main() {\n    val qarisiq = listOf(1, \"iki\", 3, \"dörd\")\n\n    println(qarisiq.yalnizTipi<String>())\n    println(qarisiq.yalnizTipi<Int>())\n    println(tipdirmi<String>(\"Kotlin\"))\n}"
         },
         "generics.h3.0e4da712": {
           "text": ""
         },
         "generics.code.9ed6e8be": {
           "title": "",
-          "code": ""
+          "code": "// Tür ne olursa olsun — ama bir şey olduğunu biliyoruz\nfun say(siyahi: List<*>): Int = siyahi.size\n\nfun cap(siyahi: List<*>) {\n    for (element in siyahi) {\n        println(element)     // eleman türü Any?\n    }\n    // siyahi.add(...)       ← mümkün değil, tür bilinmiyor\n}\n\nfun main() {\n    println(say(listOf(1, 2, 3)))\n    println(say(listOf(\"a\", \"b\")))\n}"
         }
       }
     },
     "coroutines": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Coroutine'ler",
+      "heading": "Coroutine'ler",
+      "kicker": "Bölüm 20",
+      "group": "İleri konular",
       "blocks": {
         "coroutines.p.659d47f2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Coroutine, askıya alınıp devam ettirilebilen hafif bir «görev»dir. Thread'den farklı olarak işletim sistemi kaynağı tutmaz: birkaç thread üzerinde yüz binlerce coroutine çalışabilir."
+            }
+          ]
         },
         "coroutines.h3.7a90d74d": {
-          "text": ""
+          "text": "Kurulum"
         },
         "coroutines.code.653aeb19": {
           "title": "",
-          "code": ""
+          "code": "dependencies {\n    implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1\")\n    // Android için ek olarak:\n    // implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1\")\n}"
         },
         "coroutines.h3.7b37ec26": {
-          "text": ""
+          "text": "suspend fonksiyonlar"
         },
         "coroutines.code.afc8da1b": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\n// suspend — bu fonksiyon askıya alınabilir\n// Thread bloklanmaz: bekleme süresince thread başka işe geçer\nsuspend fun melumatYukle(): String {\n    delay(1000)                  // Thread.sleep DEĞİL — bloklamaz\n    return \"Məlumat yükləndi\"\n}\n\nfun main() = runBlocking {       // main'i coroutine kapsamına çeviriyoruz\n    println(\"Başladı\")\n    println(melumatYukle())\n    println(\"Bitdi\")\n}"
         },
         "coroutines.callout.bfb73cc8": {
           "title": ""
         },
         "coroutines.p.bad62990": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "Thread.sleep()"
+            },
+            {
+              "k": "t",
+              "v": " thread'i tamamen bloklar — o süre boyunca hiçbir şey yapamaz."
+            },
+            {
+              "k": "code",
+              "v": "delay()"
+            },
+            {
+              "k": "t",
+              "v": " yalnızca coroutine'i askıya alır, thread ise serbest kalıp başka coroutine'leri çalıştırır. Bütün fark buradadır."
+            }
+          ]
         },
         "coroutines.h3.2adfb8f8": {
-          "text": ""
+          "text": "Coroutine builder'ları"
         },
         "coroutines.table.f4cc6212": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Builder"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Döndürür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bloklar mı?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne zaman"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "launch { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Job"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hayır"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "«Başlat ve unut» — sonuç gerekmez"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "async { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Deferred<T>"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hayır"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sonuç gerekli —"
+                },
+                {
+                  "k": "code",
+                  "v": "await()"
+                },
+                {
+                  "k": "t",
+                  "v": " ile alınır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "runBlocking { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "Evet"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "main() ve testlerde köprü olarak"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "coroutineScope { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hayır (suspend)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "suspend fonksiyon içinde alt kapsam"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "supervisorScope { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hayır (suspend)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bir çocuğun hatası diğerlerini durdurmasın"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "withContext(ctx) { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "T"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hayır (suspend)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Dispatcher değiştirmek"
+                }
+              ]
+            ]
+          ]
         },
         "coroutines.h3.51979d92": {
-          "text": ""
+          "text": "launch ve async"
         },
         "coroutines.code.c1746589": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nsuspend fun getir(ad: String, vaxt: Long): String {\n    delay(vaxt)\n    return ad\n}\n\nfun main(): Unit = runBlocking {\n    println(\"Başladı\")\n    val basla = System.currentTimeMillis()\n\n    // async — ikisi de HEMEN başlar\n    val a = async { getir(\"A\", 1000) }\n    val b = async { getir(\"B\", 1000) }\n\n    // await() — sonucu bekler (thread bloklanmaz)\n    val neticeler = listOf(a.await(), b.await())\n\n    println(\"Cəmi vaxt: ~${System.currentTimeMillis() - basla} ms\")\n    println(\"Nəticələr: $neticeler\")\n\n    // launch — sonuç gerekmiyorsa\n    launch {\n        delay(100)\n        // analitikaGonder()\n    }\n}"
         },
         "coroutines.h3.d02480af": {
-          "text": ""
+          "text": "Dispatcher'lar"
         },
         "coroutines.table.07fdd8cd": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Dispatcher"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Thread havuzu"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne için"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.Default"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "CPU çekirdek sayısı kadar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "CPU yoğun iş: sıralama, hesaplama, parsing"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.IO"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "64+ thread"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ağ, dosya, veritabanı — beklemesi çok olan işler"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.Main"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "UI thread"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Android/Swing arayüz güncellemeleri"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Dispatchers.Unconfined"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sabit değil"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nadir durumlar — genellikle kullanma"
+                }
+              ]
+            ]
+          ]
         },
         "coroutines.code.0b446e82": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nsuspend fun profilYukle(id: Int): Profil {\n    // Ağ isteği — IO havuzunda\n    val xam = withContext(Dispatchers.IO) {\n        api.profilGetir(id)\n    }\n\n    // Ağır işleme — Default havuzunda\n    val emal = withContext(Dispatchers.Default) {\n        xam.tehlilEt()\n    }\n\n    return emal\n}\n\n// Android'de tipik biçim\nfun ViewModel.yukle() {\n    viewModelScope.launch {          // Main dispatcher'da başlar\n        veziyyet = Yuklenir\n        val netice = withContext(Dispatchers.IO) { repo.getir() }\n        veziyyet = Ugurlu(netice)    // yeniden Main'de\n    }\n}"
         },
         "coroutines.h3.038cf05b": {
-          "text": ""
+          "text": "Yapılandırılmış eşzamanlılık"
         },
         "coroutines.p.a08bec36": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de her coroutine bir"
+            },
+            {
+              "k": "b",
+              "v": "kapsama (scope)"
+            },
+            {
+              "k": "t",
+              "v": " aittir. Kapsam iptal edildiğinde tüm çocuk coroutine'ler otomatik olarak durur — «kayıp» görev kalmaz."
+            }
+          ]
         },
         "coroutines.code.a020deac": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nsuspend fun hamisiniIsle() = coroutineScope {\n    // coroutineScope TÜM çocuklar bitene kadar bekler\n    launch {\n        delay(100)\n        println(\"Alt tapşırıq 1 bitdi\")\n    }\n    launch {\n        delay(200)\n        println(\"Alt tapşırıq 2 bitdi\")\n    }\n}\n\nfun main() = runBlocking {\n    hamisiniIsle()\n    println(\"Bütün alt tapşırıqlar bitdi\")\n}"
         },
         "coroutines.h3.c0209457": {
-          "text": ""
+          "text": "İptal (cancellation)"
         },
         "coroutines.code.7e5eed9c": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val is1 = launch {\n        try {\n            repeat(100) { i ->\n                println(\"İşlənir $i\")\n                delay(100)          // iptale duyarlı nokta\n            }\n        } catch (e: CancellationException) {\n            println(\"Ləğv olundu\")\n            throw e                 // MUTLAKA yeniden fırlatılmalı\n        } finally {\n            // withContext(NonCancellable) { ... } — temizlik suspend ise\n            println(\"Təmizlik aparıldı\")\n        }\n    }\n\n    delay(350)\n    is1.cancelAndJoin()\n}"
         },
         "coroutines.callout.ea1343fa": {
-          "title": ""
+          "title": "İptal iş birliği gerektirir"
         },
         "coroutines.p.620377eb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Coroutine yalnızca «askıya alınabilen noktada» ("
+            },
+            {
+              "k": "code",
+              "v": "delay"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "yield"
+            },
+            {
+              "k": "t",
+              "v": ","
+            },
+            {
+              "k": "code",
+              "v": "withContext"
+            },
+            {
+              "k": "t",
+              "v": ") iptal edilir. Uzun bir CPU döngüsünde hiç suspend noktası yoksa iptal çalışmaz. Böyle durumlarda döngünün içine"
+            },
+            {
+              "k": "code",
+              "v": "ensureActive()"
+            },
+            {
+              "k": "t",
+              "v": " veya"
+            },
+            {
+              "k": "code",
+              "v": "yield()"
+            },
+            {
+              "k": "t",
+              "v": " ekle."
+            }
+          ]
         },
         "coroutines.h3.d32dd581": {
-          "text": ""
+          "text": "Hata yönetimi"
         },
         "coroutines.code.cbd72ac6": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    // 1) try/catch — normal şekilde çalışır\n    try {\n        coroutineScope {\n            launch { throw RuntimeException(\"xəta!\") }\n        }\n    } catch (e: Exception) {\n        println(\"Tutuldu: ${e.message}\")\n    }\n\n    // 2) supervisorScope — bir çocuğun hatası diğerlerini öldürmez\n    supervisorScope {\n        launch { throw RuntimeException(\"birinci uğursuz\") }\n        launch { delay(100); println(\"ikinci yenə də işlədi\") }\n    }\n\n    // 3) CoroutineExceptionHandler — launch için genel yakalayıcı\n    val handler = CoroutineExceptionHandler { _, e ->\n        println(\"Handler tutdu: ${e.message}\")\n    }\n    val scope = CoroutineScope(Dispatchers.Default + handler)\n    scope.launch { throw RuntimeException(\"arxa fonda xəta\") }\n\n    delay(300)\n}"
         },
         "coroutines.h3.3664bdb8": {
-          "text": ""
+          "text": "Flow — asenkron akış"
         },
         "coroutines.p.beb9a804": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "suspend"
+            },
+            {
+              "k": "t",
+              "v": " fonksiyon tek bir değer döndürür."
+            },
+            {
+              "k": "code",
+              "v": "Flow"
+            },
+            {
+              "k": "t",
+              "v": " ise zaman içinde birden fazla değer yayar — reaktif bir akış gibi."
+            }
+          ]
         },
         "coroutines.code.21903a52": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun reqemAxini(): Flow<Int> = flow {\n    for (i in 1..3) {\n        delay(100)\n        emit(i)            // değeri akışa yayar\n    }\n}\n\nfun main() = runBlocking {\n    reqemAxini()\n        .map { it * 2 }\n        .filter { it > 0 }\n        .onCompletion { println(\"Axın bitdi\") }\n        .collect { println(\"Alındı: $it\") }   // terminal işlem\n}"
         },
         "coroutines.table.adac1e19": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tür"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Özellik"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne için"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Flow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Soğuk — her collect'te yeniden başlar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Veritabanından okuma, ağ akışı"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "StateFlow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sıcak — her zaman güncel değeri tutar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "UI durumu (state)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "SharedFlow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sıcak — tek seferlik olaylar"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Gezinme, toast, uyarı"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Channel"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Coroutine'ler arası kuyruk"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Producer/consumer örneği"
+                }
+              ]
+            ]
+          ]
         },
         "coroutines.code.06e29e33": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.flow.*\n\nclass SayqacViewModel {\n    private val _veziyyet = MutableStateFlow(0)\n    val veziyyet: StateFlow<Int> = _veziyyet.asStateFlow()   // dışarıya read-only\n\n    fun artir() {\n        _veziyyet.value++\n    }\n}\n\n// Kullanım (Android):\n// lifecycleScope.launch {\n//     viewModel.veziyyet.collect { deyer ->\n//         textView.text = deyer.toString()\n//     }\n// }"
         },
         "coroutines.h3.c21301a5": {
-          "text": ""
+          "text": "Faydalı fonksiyonlar"
         },
         "coroutines.table.f5f56c53": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne yapar"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "delay(ms)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Coroutine'i askıya alır (thread bloklanmaz)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "withTimeout(ms) { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Süre dolarsa TimeoutCancellationException fırlatır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "withTimeoutOrNull(ms) { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Süre dolarsa null döndürür"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "job.join()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Coroutine bitene kadar bekler"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "job.cancel()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İptal eder"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "yield()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sırayı diğer coroutine'lere verir"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "ensureActive()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "İptal edildiyse hemen durur"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "awaitAll(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Birkaç Deferred'i birlikte bekler"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "istisnalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "İstisna yönetimi (exceptions)",
+      "heading": "İstisna yönetimi (exceptions)",
+      "kicker": "Bölüm 21",
+      "group": "İleri konular",
       "blocks": {
         "istisnalar.p.b88cd2a6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin'de"
+            },
+            {
+              "k": "b",
+              "v": "checked exception"
+            },
+            {
+              "k": "t",
+              "v": " yoktur — hiçbir metot"
+            },
+            {
+              "k": "code",
+              "v": "throws"
+            },
+            {
+              "k": "t",
+              "v": " bildirmek zorunda değildir. Bu, Java'nın en çok eleştirilen özelliğinden vazgeçmektir."
+            }
+          ]
         },
         "istisnalar.h3.00bd3d1f": {
           "text": ""
         },
         "istisnalar.code.8f9d1ad3": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // try bir İFADEDİR — değer döndürür\n    val netice = try {\n        \"abc\".toInt()\n    } catch (e: NumberFormatException) {\n        println(\"Xəta: ${e.message}\")\n        0\n    } finally {\n        println(\"Hər halda işlənir\")\n    }\n    println(\"Nəticə: $netice\")\n\n    // Daha basit yol — istisna hiç fırlatılmaz\n    val duzgun = \"42\".toIntOrNull() ?: 0\n    println(\"Düzgün: $duzgun\")\n}"
         },
         "istisnalar.h3.8777b853": {
-          "text": ""
+          "text": "Kendi istisnanı oluşturmak"
         },
         "istisnalar.code.cba6ba18": {
           "title": ""
         },
         "istisnalar.h3.30fbfd11": {
-          "text": ""
+          "text": "Doğrulama fonksiyonları"
         },
         "istisnalar.table.4441efdb": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Fonksiyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Koşul bozulduğunda fırlatılan"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne zaman"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "require(şərt)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Argüman yanlış"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "requireNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Argüman null olmamalı"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "check(şərt)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nesnenin durumu yanlış"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "checkNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Durum null olmamalı"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "error(\"mesaj\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ulaşılmaması gereken kod"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "TODO()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "NotImplementedError"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Henüz yazılmadı"
+                }
+              ]
+            ]
+          ]
         },
         "istisnalar.code.3491360f": {
           "title": ""
         },
         "istisnalar.h3.3eb5e1b4": {
-          "text": ""
+          "text": "Result ve runCatching — istisnasız yaklaşım"
         },
         "istisnalar.code.34a89b9b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // runCatching — sonucu Result<T> içinde döndürür\n    val ugurlu = runCatching { \"42\".toInt() }\n    ugurlu.onSuccess { println(\"Uğurlu: $it\") }\n\n    val ugursuz = runCatching { \"abc\".toInt() }\n    ugursuz.onFailure { println(\"Xəta baş verdi: ${it.message}\") }\n\n    // Zincirde kullanmak\n    val netice = runCatching { \"abc\".toInt() }\n        .map { it * 2 }\n        .getOrDefault(0)\n    println(\"Nəticə: $netice\")\n\n    // Diğer seçenekler\n    // .getOrNull()             → T?\n    // .getOrThrow()            → T, hata varsa fırlatır\n    // .getOrElse { 0 }         → lambda ile yedek değer\n    // .fold(onSuccess, onFailure)\n}"
         },
         "istisnalar.h3.2a62c3fb": {
-          "text": ""
+          "text": "Sealed class ile hata modelleme"
         },
         "istisnalar.p.e5ae6722": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Büyük projelerde istisnalar yerine türle ifade edilen sonuç daha öngörülebilirdir."
+            }
+          ]
         },
         "istisnalar.code.7c271e46": {
           "title": ""
         },
         "istisnalar.callout.08a41b3e": {
-          "title": ""
+          "title": "Ne zaman hangi yaklaşım?"
         },
         "istisnalar.p.0f74b1f3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "İstisna"
+            },
+            {
+              "k": "t",
+              "v": " — programcı hataları ve beklenmedik durumlar için (null id, bozuk yapılandırma)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Result / sealed"
+            },
+            {
+              "k": "t",
+              "v": " — beklenen başarısızlıklar için (ağ yok, doğrulama başarısız, dosya bulunamadı). Bu tür durumlar iş mantığının bir parçasıdır ve türle ifade edilmelidir."
+            }
+          ]
         },
         "istisnalar.h3.ba8bd562": {
-          "text": ""
+          "text": "Java ile ilişki: @Throws"
         },
         "istisnalar.code.7128fb2d": {
           "title": "",
-          "code": ""
+          "code": "import java.io.IOException\n\n// Kotlin'de checked exception yok, ama Java bu fonksiyonu\n// çağırırken try/catch istesin diyorsak:\n@Throws(IOException::class)\nfun faylOxu(yol: String): String {\n    // ...\n    return \"\"\n}"
         }
       }
     },
     "delegatlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Delegeler ve anotasyonlar",
+      "heading": "Delegeler ve anotasyonlar",
+      "kicker": "Bölüm 22",
+      "group": "İleri konular",
       "blocks": {
         "delegatlar.p.59ec8e7c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Özellik delegasyonu —"
+            },
+            {
+              "k": "code",
+              "v": "get"
+            },
+            {
+              "k": "t",
+              "v": "/"
+            },
+            {
+              "k": "code",
+              "v": "set"
+            },
+            {
+              "k": "t",
+              "v": " mantığını başka bir nesneye devretmektir. Kotlin'in en zarif özelliklerinden biridir."
+            }
+          ]
         },
         "delegatlar.h3.f1d925bd": {
-          "text": ""
+          "text": "by lazy — tembel başlatma"
         },
         "delegatlar.code.093a8b83": {
           "title": "",
-          "code": ""
+          "code": "val agirNetice: Long by lazy {\n    println(\"Ağır hesablama aparılır...\")\n    (1..1_000_000L).sum()\n}\n\nfun main() {\n    println(\"Proqram başladı\")     // henüz hesaplanmadı\n\n    println(\"Nəticə: $agirNetice\") // İLK erişim — şimdi hesaplanır\n    println(\"Nəticə: $agirNetice\") // İKİNCİ erişim — önbellekten gelir\n}"
         },
         "delegatlar.table.15e3f33e": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "lazy modu"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Davranış"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "SYNCHRONIZED"
+                },
+                {
+                  "k": "t",
+                  "v": " (varsayılan)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Thread-safe, yalnızca bir kez hesaplanır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "PUBLICATION"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Birkaç thread hesaplayabilir, ilk sonuç kalır"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "NONE"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Senkronizasyon yok — tek thread için, en hızlısı"
+                }
+              ]
+            ]
+          ]
         },
         "delegatlar.h3.c052735f": {
-          "text": ""
+          "text": "observable ve vetoable"
         },
         "delegatlar.code.84c84fc4": {
           "title": "",
-          "code": ""
+          "code": "import kotlin.properties.Delegates\n\nclass Istifadeci {\n    // observable — her değişiklikten SONRA haber verir\n    var ad: String by Delegates.observable(\"Aysel\") { _, kohne, yeni ->\n        println(\"Dəyişdi: $kohne -> $yeni\")\n    }\n\n    // vetoable — değişikliği REDDEDEBİLİR\n    var etibarliAd: String by Delegates.vetoable(\"Aysel\") { _, _, yeni ->\n        if (yeni.isBlank()) {\n            println(\"Rədd edildi (boş ola bilməz)\")\n            false          // değişiklik gerçekleşmez\n        } else true\n    }\n\n    // notNull — lateinit'in ilkel türler için karşılığı\n    var yas: Int by Delegates.notNull()\n}\n\nfun main() {\n    val u = Istifadeci()\n    u.ad = \"Leyla\"\n    println(\"Ad: ${u.ad}\")\n\n    u.etibarliAd = \"Leyla\"\n    u.etibarliAd = \"\"\n    println(\"Ad: ${u.etibarliAd}\")\n}"
         },
         "delegatlar.h3.5b7f9d9e": {
-          "text": ""
+          "text": "Map ile delegasyon"
         },
         "delegatlar.code.921175e9": {
           "title": "",
-          "code": ""
+          "code": "// JSON veya yapılandırma map'inden doğrudan nesne kurmak\nclass Istifadeci(melumat: Map<String, Any?>) {\n    val ad: String by melumat\n    val yas: Int by melumat\n    val email: String by melumat\n}\n\nfun main() {\n    val u = Istifadeci(mapOf(\n        \"ad\" to \"Aysel\",\n        \"yas\" to 24,\n        \"email\" to \"aysel@mail.az\"\n    ))\n\n    println(u.ad)\n    println(u.yas)\n    println(u.email)\n}"
         },
         "delegatlar.h3.d01b11d6": {
-          "text": ""
+          "text": "Kendi delegeni yazmak"
         },
         "delegatlar.code.df341210": {
           "title": ""
         },
         "delegatlar.h3.082fcf43": {
-          "text": ""
+          "text": "Anotasyonlar"
         },
         "delegatlar.code.4759bead": {
           "title": "",
-          "code": ""
+          "code": "// Kendi anotasyonunu bildirmek\n@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)\n@Retention(AnnotationRetention.RUNTIME)\nannotation class Muellif(val ad: String, val versiya: Int = 1)\n\n@Muellif(\"Aysel\", versiya = 2)\nclass Hesablayici {\n\n    @Deprecated(\"Əvəzinə hesabla2() işlədin\", ReplaceWith(\"hesabla2()\"))\n    fun hesabla() = 0\n\n    fun hesabla2() = 1\n}"
         },
         "delegatlar.h4.f10209b3": {
-          "text": ""
+          "text": "Sık kullanılan standart anotasyonlar"
         },
         "delegatlar.table.82b5410f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Anotasyon"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ne yapar"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Deprecated"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kullanımdan kalkmış olarak işaretler, yerine geçecek olanı önerir"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmStatic"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "companion üyesini Java için gerçek static yapar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmOverloads"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Varsayılan parametreler için Java overload'ları oluşturur"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmName(\"ad\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Java'da görünen adı değiştirir"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmField"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Özelliği getter/setter olmadan alan olarak açar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Throws"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Java için checked exception bildirir"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Suppress(\"...\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Derleyici uyarısını susturur"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@OptIn(...)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Deneysel API kullanımını onaylar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Serializable"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "kotlinx.serialization için JSON desteği"
+                }
+              ]
+            ]
+          ]
         },
         "delegatlar.h3.b1ab1543": {
-          "text": ""
+          "text": "Yansıma (reflection)"
         },
         "delegatlar.code.7189ac9f": {
           "title": ""
         },
         "delegatlar.callout.d145112f": {
-          "title": ""
+          "title": "Yansıma pahalıdır"
         },
         "delegatlar.p.8bc8bb1c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tam yansıma için"
+            },
+            {
+              "k": "code",
+              "v": "kotlin-reflect"
+            },
+            {
+              "k": "t",
+              "v": " bağımlılığı gerekir (yaklaşık 3 MB) ve yavaş çalışır. Android'de ondan kaçın —"
+            },
+            {
+              "k": "code",
+              "v": "kotlinx.serialization"
+            },
+            {
+              "k": "t",
+              "v": " gibi derleyici eklentileri aynı işi yansımasız yapar."
+            }
+          ]
         }
       }
     },
     "android": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Android uygulamaları",
+      "heading": "Kotlin ile Android",
+      "kicker": "Bölüm 23",
+      "group": "Uygulama alanları",
       "blocks": {
         "android.p.957cc892": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Android bugün Kotlin'in en büyük kullanım alanıdır. Google 2019'dan beri «Kotlin-first» politikası izliyor: yeni API'ler önce Kotlin için hazırlanıyor."
+            }
+          ]
         },
         "android.h3.61e216e9": {
-          "text": ""
+          "text": "Jetpack Compose — modern UI"
         },
         "android.code.c170e10d": {
           "title": "",
-          "code": ""
+          "code": "import androidx.compose.foundation.layout.*\nimport androidx.compose.material3.*\nimport androidx.compose.runtime.*\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.unit.dp\n\n@Composable\nfun SayqacEkrani() {\n    // remember + mutableStateOf — durum değiştiğinde UI otomatik güncellenir\n    var sayqac by remember { mutableStateOf(0) }\n\n    Column(\n        modifier = Modifier.fillMaxSize().padding(24.dp),\n        horizontalAlignment = Alignment.CenterHorizontally,\n        verticalArrangement = Arrangement.Center\n    ) {\n        Text(\n            text = \"Sayğac: $sayqac\",\n            style = MaterialTheme.typography.headlineMedium\n        )\n        Spacer(Modifier.height(16.dp))\n        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {\n            Button(onClick = { sayqac++ }) { Text(\"Artır\") }\n            OutlinedButton(onClick = { sayqac = 0 }) { Text(\"Sıfırla\") }\n        }\n    }\n}"
         },
         "android.h3.0bfba840": {
-          "text": ""
+          "text": "ViewModel + StateFlow mimarisi"
         },
         "android.code.7249eb58": {
           "title": "",
-          "code": ""
+          "code": "import androidx.lifecycle.ViewModel\nimport androidx.lifecycle.viewModelScope\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.launch\n\n// UI durumu — sealed interface ile modellenir\nsealed interface EkranVeziyyeti {\n    data object Yuklenir : EkranVeziyyeti\n    data class Ugurlu(val istifadeciler: List<Istifadeci>) : EkranVeziyyeti\n    data class Xeta(val mesaj: String) : EkranVeziyyeti\n}\n\nclass IstifadeciViewModel(\n    private val repo: IstifadeciRepo\n) : ViewModel() {\n\n    private val _veziyyet = MutableStateFlow<EkranVeziyyeti>(EkranVeziyyeti.Yuklenir)\n    val veziyyet: StateFlow<EkranVeziyyeti> = _veziyyet.asStateFlow()\n\n    init { yukle() }\n\n    fun yukle() {\n        viewModelScope.launch {          // ViewModel yok edildiğinde otomatik iptal edilir\n            _veziyyet.value = EkranVeziyyeti.Yuklenir\n            _veziyyet.value = runCatching { repo.hamisiniGetir() }\n                .fold(\n                    onSuccess = { EkranVeziyyeti.Ugurlu(it) },\n                    onFailure = { EkranVeziyyeti.Xeta(it.message ?: \"Naməlum xəta\") }\n                )\n        }\n    }\n}"
         },
         "android.code.7accdd68": {
           "title": "",
-          "code": ""
+          "code": "@Composable\nfun IstifadeciEkrani(vm: IstifadeciViewModel) {\n    val veziyyet by vm.veziyyet.collectAsStateWithLifecycle()\n\n    when (val v = veziyyet) {        // exhaustive — hiçbir durum unutulmaz\n        EkranVeziyyeti.Yuklenir -> CircularProgressIndicator()\n        is EkranVeziyyeti.Ugurlu -> LazyColumn {\n            items(v.istifadeciler) { istifadeci ->\n                ListItem(headlineContent = { Text(istifadeci.ad) })\n            }\n        }\n        is EkranVeziyyeti.Xeta -> Column {\n            Text(v.mesaj)\n            Button(onClick = vm::yukle) { Text(\"Yenidən cəhd et\") }\n        }\n    }\n}"
         },
         "android.h3.b10f93ad": {
-          "text": ""
+          "text": "Room — veritabanı"
         },
         "android.code.b049b3ad": {
           "title": "",
-          "code": ""
+          "code": "@Entity(tableName = \"istifadeciler\")\ndata class IstifadeciEntity(\n    @PrimaryKey(autoGenerate = true) val id: Int = 0,\n    val ad: String,\n    val email: String\n)\n\n@Dao\ninterface IstifadeciDao {\n    // Flow döndürür — veritabanı değiştiğinde UI otomatik güncellenir\n    @Query(\"SELECT * FROM istifadeciler ORDER BY ad\")\n    fun hamisi(): Flow<List<IstifadeciEntity>>\n\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\n    suspend fun elaveEt(istifadeci: IstifadeciEntity)\n\n    @Delete\n    suspend fun sil(istifadeci: IstifadeciEntity)\n}\n\n@Database(entities = [IstifadeciEntity::class], version = 1)\nabstract class AppBaza : RoomDatabase() {\n    abstract fun istifadeciDao(): IstifadeciDao\n}"
         },
         "android.h3.c5612a0b": {
-          "text": ""
+          "text": "Retrofit — ağ istekleri"
         },
         "android.code.356b92a8": {
           "title": "",
-          "code": ""
+          "code": "import retrofit2.http.*\n\n@Serializable\ndata class IstifadeciDto(val id: Int, val ad: String, val email: String)\n\ninterface Api {\n    // suspend — Retrofit'in coroutine desteği yerleşiktir\n    @GET(\"istifadeciler\")\n    suspend fun hamisi(): List<IstifadeciDto>\n\n    @GET(\"istifadeciler/{id}\")\n    suspend fun tap(@Path(\"id\") id: Int): IstifadeciDto\n\n    @POST(\"istifadeciler\")\n    suspend fun yarat(@Body istifadeci: IstifadeciDto): IstifadeciDto\n}\n\nclass IstifadeciRepo(private val api: Api, private val dao: IstifadeciDao) {\n    suspend fun hamisiniGetir(): List<Istifadeci> =\n        withContext(Dispatchers.IO) {\n            api.hamisi().map { it.toModel() }\n        }\n}"
         },
         "android.h3.67a713ab": {
-          "text": ""
+          "text": "Faydalı Android uzantıları"
         },
         "android.code.7c129c6e": {
           "title": "",
           "code": ""
         },
         "android.callout.174fcf05": {
-          "title": ""
+          "title": "Modern Android yığını (2025)"
         },
         "android.p.6c3d4702": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "UI:"
+            },
+            {
+              "k": "t",
+              "v": " Jetpack Compose + Material 3 ·"
+            },
+            {
+              "k": "b",
+              "v": "Mimari:"
+            },
+            {
+              "k": "t",
+              "v": " MVVM/MVI + ViewModel + StateFlow ·"
+            },
+            {
+              "k": "b",
+              "v": "DI:"
+            },
+            {
+              "k": "t",
+              "v": " Hilt veya Koin ·"
+            },
+            {
+              "k": "b",
+              "v": "Ağ:"
+            },
+            {
+              "k": "t",
+              "v": " Retrofit + kotlinx.serialization veya Ktor Client ·"
+            },
+            {
+              "k": "b",
+              "v": "Veritabanı:"
+            },
+            {
+              "k": "t",
+              "v": " Room ·"
+            },
+            {
+              "k": "b",
+              "v": "Gezinme:"
+            },
+            {
+              "k": "t",
+              "v": " Navigation Compose ·"
+            },
+            {
+              "k": "b",
+              "v": "Görseller:"
+            },
+            {
+              "k": "t",
+              "v": " Coil ·"
+            },
+            {
+              "k": "b",
+              "v": "Test:"
+            },
+            {
+              "k": "t",
+              "v": " JUnit5 + MockK + Turbine"
+            }
+          ]
         }
       }
     },
