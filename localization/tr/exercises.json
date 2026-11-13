@@ -5134,513 +5134,683 @@
       }
     },
     "generics": {
-      "title": "",
+      "title": "Jenerikler",
       "nezeri": {
         "generics-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jenerikler ne içindir?",
+          "opts": [
+            "Kodu hızlandırmak",
+            "Aynı kodu farklı türlerle, tür güvenliğini kaybetmeden kullanmak",
+            "Bellek tasarrufu",
+            "Hata yönetimi"
+          ],
+          "exp": "List<String> ve List<Int> aynı koddan gelir, ama derleyici her birinde türü kontrol eder. Böylece hem tekrarlanan kod hem de dönüşüm hataları ortadan kalkar."
         },
         "generics-n-02": {
-          "q": "",
+          "q": "Jenerik fonksiyon nasıl bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Tür parametresi fun anahtar kelimesinden hemen sonra, fonksiyon adından ÖNCE bildirilir."
         },
         "generics-n-03": {
-          "q": "",
+          "q": "Jenerik sınıf nasıl bildirilir?",
           "opts": [],
-          "exp": ""
+          "exp": "Tür parametresi sınıf adından sonra açılı parantez içinde yazılır ve sınıfın her yerinde kullanılabilir."
         },
         "generics-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "T harfi neyi ifade eder?",
+          "opts": [
+            "Somut bir türü",
+            "Tür parametresini — herhangi bir tür olabilir",
+            "Metin türünü",
+            "Özel bir anahtar kelimeyi"
+          ],
+          "exp": "T sadece alışılmış bir addır (Type). Herhangi bir ad kullanılabilir: E (element), K/V (key/value), R (result)."
         },
         "generics-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Qutu(\"Kotlin\") çağrısında T ne olur?",
+          "opts": [
+            "Any",
+            "String — derleyici argümandan çıkarır",
+            "Object",
+            "Bilinmez"
+          ],
+          "exp": "Tür çıkarımı jeneriklerde de çalışır. Açıkça da yazılabilir: Qutu<String>(\"Kotlin\")."
         },
         "generics-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "[7, 8, 9]",
+            "7",
+            "9",
+            "Derleme hatası"
+          ],
+          "exp": "T türü Int olarak çıkarılır ve fonksiyon listenin ilk elemanını döndürür."
         },
         "generics-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jenerik türe kısıtlama nasıl konur?",
+          "opts": [
+            "fun <T : Comparable<T>> f(a: T)",
+            "fun <T extends Comparable> f(a: T)",
+            "fun <T where Comparable> f(a: T)",
+            "Mümkün değil"
+          ],
+          "exp": "İki noktadan sonra üst sınır yazılır. Bundan sonra T üzerinde o türün metotları kullanılabilir."
         },
         "generics-n-08": {
-          "q": "",
+          "q": "Kısıtlama yazılmazsa T'nin üst sınırı ne olur?",
           "opts": [],
-          "exp": ""
+          "exp": "Varsayılan üst sınır Any?'dir, yani T nullable da olabilir. Null olmayan bir tür istemek için <T : Any> yazılır."
         },
         "generics-n-09": {
-          "q": "",
+          "q": "Map<K, V> ifadesinde kaç tür parametresi var?",
           "opts": [],
-          "exp": ""
+          "exp": "K anahtarın, V ise değerin türüdür. Bir sınıfta istenen sayıda tür parametresi olabilir."
         },
         "generics-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Birden fazla kısıtlama nasıl yazılır?",
+          "opts": [
+            "<T : A, B>",
+            "where T : A, T : B",
+            "<T : A & B>",
+            "Mümkün değil"
+          ],
+          "exp": "Tek bir kısıtlama açılı parantezde yazılabilir, ikiden fazlası için fonksiyon imzasından sonra where yan tümcesi kullanılır."
         },
         "generics-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "out T ne anlama gelir?",
+          "opts": [
+            "T yalnızca parametre olarak kullanılır",
+            "T yalnızca döndürülür — kovaryans",
+            "T değiştirilebilir",
+            "T kısıtlıdır"
+          ],
+          "exp": "Kovaryant türde Qutu<It> değeri Qutu<Heyvan> bekleyen yere verilebilir, çünkü okumak güvenlidir. List<out E> tam olarak böyledir."
         },
         "generics-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "in T ne anlama gelir?",
+          "opts": [
+            "T yalnızca döndürülür",
+            "T yalnızca kabul edilir — kontravaryans",
+            "T sabittir",
+            "T nullable'dır"
+          ],
+          "exp": "Kontravaryant türde Hedef<Heyvan> değeri Hedef<It> bekleyen yere verilebilir. Comparable<in T> buna bir örnektir."
         },
         "generics-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "MutableList<E> neden invaryanttır?",
+          "opts": [
+            "Yanlışlıkla böyledir",
+            "Hem okunur hem yazılır — kovaryant olsaydı yanlış türde eleman eklenebilirdi",
+            "Hız için",
+            "Bellek için"
+          ],
+          "exp": "MutableList<It> değerini MutableList<Heyvan> olarak kabul etseydik, oraya Pisik eklemek mümkün olurdu. Bu yüzden değiştirilebilir koleksiyonlar invaryanttır."
         },
         "generics-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "PECS kuralı ne anlama gelir?",
+          "opts": [
+            "Producer — out, Consumer — in",
+            "Producer — in, Consumer — out",
+            "İkisi de out",
+            "İkisi de in"
+          ],
+          "exp": "Türden yalnızca okuyorsan (producer) out, ona yalnızca yazıyorsan (consumer) in yaz. İkisi de gerekiyorsa invaryant kalır."
         },
         "generics-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Star projection (<*>) ne zaman kullanılır?",
+          "opts": [
+            "Tür parametresi bilinmediğinde ama bir şey olduğu bilindiğinde",
+            "Her zaman",
+            "Yalnızca Map ile",
+            "Hiçbir zaman"
+          ],
+          "exp": "List<*> herhangi bir eleman türündeki listeyi kabul eder. Elemanlar Any? olarak okunur, eklemek ise mümkün değildir."
         },
         "generics-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "JVM'de jenerik türler çalışma zamanında korunur mu?",
+          "opts": [
+            "Evet",
+            "Hayır — type erasure gerçekleşir",
+            "Yalnızca Kotlin'de",
+            "Yalnızca data class'ta"
+          ],
+          "exp": "Derlemeden sonra List<String> sadece List olur. Bu yüzden sıradan bir fonksiyonda x is T yazmak mümkün değildir."
         },
         "generics-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "reified ne için gereklidir?",
+          "opts": [
+            "Hız için",
+            "inline fonksiyonda türü çalışma zamanında erişilebilir yapmak için",
+            "Bellek için",
+            "Kalıtım için"
+          ],
+          "exp": "inline fonksiyonun gövdesi çağrı yerine kopyalandığı için derleyici T'yi somut bir türle değiştirebilir. Böylece x is T ve T::class çalışır."
         },
         "generics-n-18": {
-          "q": "",
+          "q": "reified ile birlikte hangi anahtar kelime zorunludur?",
           "opts": [],
-          "exp": ""
+          "exp": "reified yalnızca inline fonksiyonlarda mümkündür — mekanizma gövdenin çağrı yerine açılmasına dayanır."
         },
         "generics-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "[1, a, 2]",
+            "[1, 2]",
+            "[a]",
+            "Derleme hatası"
+          ],
+          "exp": "reified sayesinde filterIsInstance somut türü bilir ve yalnızca Int elemanları seçer."
         },
         "generics-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "List<Heyvan> değişkenine listOf<It>() verilebilir mi?",
+          "opts": [
+            "Hayır",
+            "Evet — List kovaryanttır (List<out E>)",
+            "Yalnızca MutableList ile",
+            "Yalnızca boş liste ile"
+          ],
+          "exp": "List yalnızca okuma arayüzüdür, bu yüzden kovaryant olarak bildirilmiştir. Bu, günlük kodda büyük kolaylık sağlar."
         },
         "generics-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jenerik türün nullable olmamasını nasıl istersin?",
+          "opts": [
+            "<T : Any>",
+            "<T : NotNull>",
+            "<T!>",
+            "Mümkün değil"
+          ],
+          "exp": "Any, nullable olmayan tüm türlerin atasıdır. <T : Any> yazarsan T? kabul edilmez."
         },
         "generics-n-22": {
-          "q": "",
+          "q": "Jenerik uzantı fonksiyonu nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Tür parametresi fun'dan sonra, receiver türünden önce bildirilir."
         },
         "generics-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "out türü fonksiyon parametresi olarak kullanılabilir mi?",
+          "opts": [
+            "Evet",
+            "Hayır — derleme hatası verir",
+            "Yalnızca private olduğunda",
+            "Yalnızca inline olduğunda"
+          ],
+          "exp": "out, türün yalnızca çıkışta olacağını garanti eder. Onu parametre olarak kullanmak bu garantiyi bozardı, bu yüzden derleyici izin vermez. Yalnızca private üyelerde istisna vardır."
         },
         "generics-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jenerik sınıfta tür parametresinden nesne oluşturulabilir mi (T())?",
+          "opts": [
+            "Evet",
+            "Hayır — type erasure buna izin vermez; bir fabrika lambda'sı aktarılır",
+            "Yalnızca data class ile",
+            "Yalnızca reified ile"
+          ],
+          "exp": "Çalışma zamanında T bilinmediği için yapıcı bulunamaz. Genellikle () -> T türünde bir fabrika fonksiyonu parametre olarak aktarılır."
         },
         "generics-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Jenerik türlerde tür çıkarımı nerede gerçekleşir?",
+          "opts": [
+            "Çalışma zamanında",
+            "Derleme zamanında — argümanlardan veya beklenen türden",
+            "Hiçbir zaman",
+            "Yalnızca reified ile"
+          ],
+          "exp": "Derleyici hem argümanlara hem de sonucun atandığı değişkenin türüne bakarak T'yi belirler."
         }
       },
       "praktiki": {
         "generics-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik fonksiyon yaz: listenin ilk elemanını döndürsün. Sayı listesiyle çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(ilkini(listOf(7, 8, 9)))\n}\n\n// jenerik fonksiyon yaz"
         },
         "generics-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Aynı jenerik fonksiyonu metin listesiyle çağır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun <T> ilkini(s: List<T>): T = s.first()\n\nfun main() {\n    // metin listesiyle çağır\n}"
         },
         "generics-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik sınıf yaz: Qutu bir değeri saklayıp döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Qutu(\"Kotlin\").al())\n}\n\n// jenerik sınıf yaz"
         },
         "generics-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Aynı jenerik sınıfı bir sayıyla kullan.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu<T>(private val deyer: T) {\n    fun al(): T = deyer\n}\n\nfun main() {\n    // sayıyla kullan\n}"
         },
         "generics-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Tür argümanını AÇIKÇA yaz: Qutu<String> oluşturup değeri yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu<T>(private val deyer: T) {\n    fun al(): T = deyer\n}\n\nfun main() {\n    // türü açıkça yazarak oluştur\n}"
         },
         "generics-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "İki tür parametreli bir sınıf yaz: Cut bir anahtar ve değer tutsun.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Cut(\"yas\", 24).tesvir())\n}\n\n// iki tür parametreli sınıf yaz"
         },
         "generics-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik fonksiyonla listenin boyutunu döndür.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(olcu(listOf(\"a\", \"b\", \"c\")))\n}\n\n// jenerik fonksiyon yaz"
         },
         "generics-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik fonksiyonla iki değeri eşleştirip yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cutle(\"ad\", 24))\n}\n\n// jenerik fonksiyon yaz"
         },
         "generics-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik fonksiyon listeyi ters çevirsin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tersine(listOf(1, 2, 3)))\n}\n\n// jenerik fonksiyon yaz"
         },
         "generics-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Tür kısıtlaması koy: Comparable gerektiren boyuk() fonksiyonunu yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(boyuk(9, 3))\n}\n\n// kısıtlamalı jenerik fonksiyon yaz"
         },
         "generics-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Aynı kısıtlamalı fonksiyonu metinlerle kullan.",
+          "ipucu": "println(boyuk(\"Java\", \"Kotlin\")) — metinler alfabetik sırayla karşılaştırılır.",
+          "starter": "fun <T : Comparable<T>> boyuk(a: T, b: T) = if (a > b) a else b\n\nfun main() {\n    // metinlerle çağır\n}"
         },
         "generics-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Null olmayan tür iste: <T : Any> ile bir fonksiyon yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(teleb(\"Kotlin\"))\n}\n\n// <T : Any> kısıtlamalı fonksiyon yaz"
         },
         "generics-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik uzantı yaz: listenin ikinci elemanını güvenli şekilde döndürsün.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(1, 2, 3).ikinci())\n}\n\n// jenerik uzantı yaz"
         },
         "generics-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Star projection kullan: herhangi bir listenin boyutunu döndüren fonksiyon yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(say(listOf(\"a\", \"b\")))\n}\n\n// star projection ile fonksiyon yaz"
         },
         "generics-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Kovaryansı göster: List<String> değerini List<Any> değişkenine ata ve boyutu yazdır.",
+          "ipucu": "List kovaryanttır — doğrudan atanabilir.",
+          "starter": "fun main() {\n    val s = listOf(\"a\", \"b\")\n    val a: List<Any> = // burayı tamamla\n    println(a.size)\n}"
         },
         "generics-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik sınıfa metot ekle: değeri dönüştüren map()'i yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu<T>(private val deyer: T) {\n    // <R> map metodunu ekle\n}\n\nfun main() {\n    println(Qutu(21).map { it * 2 })\n}"
         },
         "generics-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik fonksiyonla listeyi dönüştür: her elemana bir fonksiyon uygula.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cevir(listOf(1, 2, 3)) { it * 10 })\n}\n\n// jenerik fonksiyon yaz"
         },
         "generics-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "where yan tümcesiyle iki kısıtlama yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(\"Kotlin\"))\n}\n\n// where yan tümcesiyle fonksiyon yaz"
         },
         "generics-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Jenerik bir Map oluştur ve değeri yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Lugat(\"ad\", \"Aysel\").deyer)\n}\n\n// iki tür parametreli sınıf yaz"
         },
         "generics-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "reified kullan: karışık listeden yalnızca Int'leri seç.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(1, \"a\", 2, \"b\").yalniz<Int>())\n}\n\n// inline + reified uzantı yaz"
         },
         "generics-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "reified ile tür kontrolü yaz: değer String mi?",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tipdirmi<String>(\"Kotlin\"))\n}\n\n// inline + reified fonksiyon yaz"
         },
         "generics-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "reified ile tür adını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tipAdi<String>())\n}\n\n// inline + reified fonksiyon yaz"
         },
         "generics-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Kovaryant bir sınıf yaz: out T ile salt okunur bir kaynak kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val m: Menbe<Any> = Menbe(\"Kotlin\")\n    println(m.al())\n}\n\n// out T ile sınıf yaz"
         },
         "generics-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Kontravaryant bir sınıf yaz: in T ile yalnızca kabul eden bir hedef kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val h: Hedef<String> = Hedef<Any>()\n    h.yaz(\"Kotlin\")\n}\n\n// in T ile sınıf yaz"
         },
         "generics-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Fabrika lambda'sıyla jenerik nesne oluştur (T() mümkün olmadığı için).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(yarat { \"yeni\" })\n}\n\n// fabrika lambda'sı alan jenerik fonksiyon yaz"
         }
       }
     },
     "istisnalar": {
-      "title": "",
+      "title": "İstisna yönetimi (exceptions)",
       "nezeri": {
         "istisnalar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de checked exception var mı?",
+          "opts": [
+            "Evet",
+            "Hayır — hiçbir metot throws bildirmek zorunda değil",
+            "Yalnızca IOException için",
+            "Yalnızca Java ile çalışırken"
+          ],
+          "exp": "Java'nın en çok eleştirilen özelliğinden vazgeçilmiştir. İstisnayı yakalamak veya bildirmek tamamen isteğe bağlıdır."
         },
         "istisnalar-n-02": {
-          "q": "",
+          "q": "İstisna nasıl fırlatılır?",
           "opts": [],
-          "exp": ""
+          "exp": "throw anahtar kelimesi kullanılır. Kotlin'de throw bir ifadedir ve türü Nothing'dir."
         },
         "istisnalar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "try bloğunun hangi kısmı HER ZAMAN çalışır?",
+          "opts": [
+            "try",
+            "catch",
+            "finally",
+            "Hiçbiri"
+          ],
+          "exp": "finally, istisna fırlatılsa da fırlatılmasa da çalışır. Kaynakları kapatmak için kullanılır — ama Kotlin'de bunun için use() daha iyidir."
         },
         "istisnalar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Kotlin'de try nedir?",
+          "opts": [
+            "Yalnızca bir deyim",
+            "Değer döndüren bir ifade",
+            "Bir fonksiyon",
+            "Anahtar kelime değildir"
+          ],
+          "exp": "val n = try { \"42\".toInt() } catch (e: Exception) { 0 } — try bloğunun son ifadesi sonuç olur."
         },
         "istisnalar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "\"abc\".toInt() ne yapar?",
+          "opts": [
+            "0 döndürür",
+            "null döndürür",
+            "NumberFormatException fırlatır",
+            "-1 döndürür"
+          ],
+          "exp": "Dönüşüm mümkün olmadığında istisna fırlatılır. Güvenli seçenek toIntOrNull()'dur."
         },
         "istisnalar-n-06": {
-          "q": "",
+          "q": "catch bloğunda istisna türü nasıl yazılır?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin'de önce değişken adı, sonra tür yazılır — fonksiyon parametreleri gibi."
         },
         "istisnalar-n-07": {
-          "q": "",
+          "q": "Tüm istisnaların ortak atası hangisidir?",
           "opts": [],
-          "exp": ""
+          "exp": "Throwable'dan Exception ve Error türer. Genellikle Exception yakalanır — Error sistem düzeyindeki sorunları bildirir ve yakalanmamalıdır."
         },
         "istisnalar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bu kodun sonucu nedir?",
+          "opts": [
+            "abc",
+            "0",
+            "-1",
+            "İstisna fırlatılır"
+          ],
+          "exp": "Dönüşüm başarısız olur, catch bloğu çalışır ve onun son ifadesi (-1) sonuç olur."
         },
         "istisnalar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Bir try bloğunda kaç catch olabilir?",
+          "opts": [
+            "1",
+            "2",
+            "İstenildiği kadar — farklı türler için",
+            "0"
+          ],
+          "exp": "Dallar yukarıdan aşağıya kontrol edilir. Daha özel türler yukarıda yazılmalıdır, yoksa genel tür onları yutar."
         },
         "istisnalar-n-10": {
-          "q": "",
+          "q": "require() hangi istisnayı fırlatır?",
           "opts": [],
-          "exp": ""
+          "exp": "require() argümanları doğrular — girdi yanlışsa IllegalArgumentException fırlatılır."
         },
         "istisnalar-n-11": {
-          "q": "",
+          "q": "check() hangi istisnayı fırlatır?",
           "opts": [],
-          "exp": ""
+          "exp": "check() nesnenin iç durumunu doğrular. Durum yanlışsa IllegalStateException fırlatılır."
         },
         "istisnalar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "error(\"mesaj\") ne yapar?",
+          "opts": [
+            "Mesajı yazdırır",
+            "IllegalStateException fırlatır",
+            "null döndürür",
+            "Programı bitirir"
+          ],
+          "exp": "Dönüş türü Nothing'dir, bu yüzden elvis operatörünün sağ tarafında kullanılabilir: x ?: error(\"tapilmadi\")."
         },
         "istisnalar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "TODO() ne yapar?",
+          "opts": [
+            "Yorum ekler",
+            "NotImplementedError fırlatır",
+            "Hiçbir şey",
+            "Kodu atlar"
+          ],
+          "exp": "Henüz yazılmamış kodu işaretlemek içindir. Türü Nothing olduğu için herhangi bir dönüş türünün yerine yazılabilir."
         },
         "istisnalar-n-14": {
-          "q": "",
+          "q": "runCatching { } ne döndürür?",
           "opts": [],
-          "exp": ""
+          "exp": "Başarılı sonucu veya yakalanan istisnayı bir Result nesnesinde tutar. getOrNull(), getOrDefault(), onSuccess/onFailure ile işlenir."
         },
         "istisnalar-n-15": {
-          "q": "",
+          "q": "Kendi istisnanı nasıl oluşturursun?",
           "opts": [],
-          "exp": ""
+          "exp": "Exception'dan veya onun alt sınıflarından kalıtım alınır. Mesaj yapıcıya aktarılır: class Xeta(m: String) : Exception(m)."
         },
         "istisnalar-n-16": {
-          "q": "",
+          "q": "Bu kodun sonucu nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "try başlar (A), istisna fırlatılır, catch çalışır (B), ardından finally mutlaka çalışır (C)."
         },
         "istisnalar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "finally içinde return yazmak neden tehlikelidir?",
+          "opts": [
+            "Tehlikeli değil",
+            "Fırlatılan istisnayı yutar ve hatayı gizler",
+            "Derleme hatası verir",
+            "Yavaş çalışır"
+          ],
+          "exp": "finally'deki return istisnayı iptal eder ve fonksiyon normal şekilde döner. Sorun sessizce kaybolur — bu, zor bulunan hatalara yol açar."
         },
         "istisnalar-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "use() fonksiyonu ne içindir?",
+          "opts": [
+            "Değişken oluşturmak",
+            "Closeable bir kaynağı otomatik kapatmak",
+            "İstisna fırlatmak",
+            "Tür dönüştürmek"
+          ],
+          "exp": "Java'daki try-with-resources'ın karşılığıdır: fayl.use { ... } — blok bittiğinde, istisna olsa bile kaynak kapatılır."
         },
         "istisnalar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "@Throws anotasyonu ne içindir?",
+          "opts": [
+            "İstisnayı yakalamak",
+            "Java tarafının checked exception görmesi için",
+            "İstisnayı gizlemek",
+            "Performans için"
+          ],
+          "exp": "Kotlin'de checked exception yoktur. Java kodunun try/catch istemesini istiyorsan fonksiyonu @Throws ile işaretlersin."
         },
         "istisnalar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Ne zaman istisna, ne zaman sealed sonuç türü kullanılmalı?",
+          "opts": [
+            "Her zaman istisna",
+            "Beklenen başarısızlıklar için sealed/Result, programcı hataları için istisna",
+            "Her zaman sealed",
+            "Farkı yok"
+          ],
+          "exp": "Ağ yok veya doğrulama başarısız — bunlar iş mantığının bir parçasıdır ve türle ifade edilmelidir. Bozuk yapılandırma veya null id ise istisna gerektirir."
         },
         "istisnalar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Boş catch bloğu neden kötüdür?",
+          "opts": [
+            "Yavaştır",
+            "Hatayı tamamen gizler — sorun sonra başka bir yerde ortaya çıkar",
+            "Derleme hatası",
+            "Kötü değil"
+          ],
+          "exp": "İstisna yutulursa program yanlış bir durumda devam eder. En azından loglamak veya yeniden fırlatmak gerekir."
         },
         "istisnalar-n-22": {
-          "q": "",
+          "q": "İstisna yeniden nasıl fırlatılır?",
           "opts": [],
-          "exp": ""
+          "exp": "catch bloğunda işledikten sonra throw e yazılarak istisna yukarı aktarılır. Coroutine'lerde CancellationException mutlaka böyle aktarılmalıdır."
         },
         "istisnalar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Result.fold() ne yapar?",
+          "opts": [
+            "Listeyi toplar",
+            "Başarı ve başarısızlık durumlarını tek bir ifadede işler",
+            "İstisna fırlatır",
+            "Sonucu yazdırır"
+          ],
+          "exp": "fold(onSuccess = { ... }, onFailure = { ... }) — iki durumu tek yerde işleyip tek bir değer döndürür."
         },
         "istisnalar-n-24": {
-          "q": "",
+          "q": "throw ifadesinin türü nedir?",
           "opts": [],
-          "exp": ""
+          "exp": "Nothing hiçbir değeri olmayan bir türdür ve tüm türlerin alt türüdür. Bu yüzden val x = y ?: throw Xeta() yapısı tür kontrolünden geçer."
         },
         "istisnalar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Genel catch (e: Exception) yazmak ne zaman sorun yaratır?",
+          "opts": [
+            "Hiçbir zaman",
+            "Beklenmeyen hataları da yutar ve teşhisi zorlaştırır",
+            "Yalnızca testlerde",
+            "Derleme hatası verir"
+          ],
+          "exp": "Belirli bir türü yakalamak daha iyidir. Genel yakalamak gerekiyorsa en azından loglamak veya yeniden fırlatmak gerekir."
         }
       },
       "praktiki": {
         "istisnalar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "try/catch kullan: \"abc\" metnini sayıya çevirmeyi dene, olmazsa -1 yazdır.",
           "ipucu": ""
         },
         "istisnalar-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Başarılı dönüşümde try'ın kendi sonucunun döndüğünü göster.",
+          "ipucu": "Dönüşüm başarılı olduğu için catch çalışmaz.",
+          "starter": "fun main() {\n    // try-catch ifadesiyle \"42\".toInt()'i çevir, hatada -1 döndür\n    val n = 0\n    println(n)\n}"
         },
         "istisnalar-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "finally bloğunun her zaman çalıştığını göster: üç satır yazdırılsın.",
+          "ipucu": "catch içinde println(\"B\"), finally içinde println(\"C\").",
+          "starter": "fun main() {\n    try {\n        println(\"A\")\n        throw RuntimeException(\"x\")\n    } catch (e: Exception) {\n        // B yazdır\n    } finally {\n        // C yazdır\n    }\n}"
         },
         "istisnalar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "İstisnanın mesajını yakalayıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        throw RuntimeException(\"problem var\")\n    } catch (e: Exception) {\n        // mesajı yazdır\n    }\n}"
         },
         "istisnalar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "toIntOrNull kullan: istisnasız yolu seç, null durumunda 0 yazdır.",
           "ipucu": ""
         },
         "istisnalar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "İstisna fırlat ve yakala: sıfıra bölme için kendi kontrolünü yaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        bol(10, 0)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n\n// bol fonksiyonunu yaz"
         },
         "istisnalar-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İki catch dalı yaz: belirli tür yukarıda olsun.",
+          "ipucu": "İlk catch içine println(\"reqem deyil\").",
+          "starter": "fun main() {\n    try {\n        \"abc\".toInt()\n    } catch (e: NumberFormatException) {\n        // belirli tür\n    } catch (e: Exception) {\n        println(\"umumi\")\n    }\n}"
         },
         "istisnalar-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "İstisna türünü yazdır: hangi sınıf fırlatıldı?",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        \"abc\".toInt()\n    } catch (e: Exception) {\n        // türün adını yazdır\n    }\n}"
         },
         "istisnalar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Listede olmayan bir indekse erişimi yakala ve \"kenar\" yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(1, 2)\n    try {\n        s[5]\n    } catch (e: IndexOutOfBoundsException) {\n        // yazdır\n    }\n}"
         },
         "istisnalar-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "require() kullan: negatif yaş için istisna fırlatılsın, mesajı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        yasQur(-5)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n\n// require ile fonksiyon yaz"
         },
         "istisnalar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "check() kullan: durum yanlışsa IllegalStateException fırlatılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        gonder(false)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// check ile fonksiyon yaz"
         },
         "istisnalar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "error() kullan: ulaşılmaması gereken koda düşüldüğünde istisna fırlatılsın.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        tap(99)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// error ile fonksiyon yaz"
         },
         "istisnalar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "requireNotNull() kullan: null argüman için mesajı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x: String? = null\n    try {\n        // requireNotNull kullan\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}"
         },
         "istisnalar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Kendi istisna sınıfını oluştur ve mesajını yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        throw BalansXetasi(\"Vesait catmir\")\n    } catch (e: BalansXetasi) {\n        println(e.message)\n    }\n}\n\n// kendi istisna sınıfını yaz"
         },
         "istisnalar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Kendi istisnana ek bir alan koy: hata kodunu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        throw ApiXetasi(\"Server\", 500)\n    } catch (e: ApiXetasi) {\n        println(e.kod)\n    }\n}\n\n// ek alanlı istisna sınıfı yaz"
         },
         "istisnalar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "runCatching kullan: başarılı durumda sonucu yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = runCatching { \"42\".toInt() }\n    // getOrDefault ile yazdır\n}"
         },
         "istisnalar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "runCatching kullan: başarısız durumda yedek değer yazdır.",
           "ipucu": ""
         },
         "istisnalar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "runCatching zincirinde map kullan: sonucu iki katına çıkarıp yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = runCatching { \"21\".toInt() }\n        // map ve getOrDefault ekle\n    println(n)\n}"
         },
         "istisnalar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "onSuccess ve onFailure kullan: başarısız durumda mesajı yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    runCatching { \"abc\".toInt() }\n        .onSuccess { println(\"ugur: $it\") }\n        // onFailure ekle\n}"
         },
         "istisnalar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Result.fold() kullan: iki durumu tek bir ifadede işle.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = runCatching { \"abc\".toInt() }.fold(\n        // onSuccess ve onFailure yaz\n    )\n    println(n)\n}"
         },
         "istisnalar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Elvis ile istisna fırlat: null değer için mesajı yakala ve yazdır.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x: String? = null\n    try {\n        val y = // elvis + throw kullan\n        println(y)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}"
         },
         "istisnalar-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İstisnayı yeniden fırlat: catch'te logla, sonra yukarı aktar ve dışarıda yakala.",
+          "ipucu": "catch bloğunun sonuna throw e yaz.",
+          "starter": "fun main() {\n    try {\n        daxili()\n    } catch (e: Exception) {\n        println(\"xaric: ${e.message}\")\n    }\n}\n\nfun daxili() {\n    try {\n        throw RuntimeException(\"problem\")\n    } catch (e: Exception) {\n        println(\"daxil: ${e.message}\")\n        // yeniden fırlat\n    }\n}"
         },
         "istisnalar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "sealed bir sonuç türüyle istisnasız bir hata modeli kur.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed class Cavab {\n    data class Ugur(val data: String) : Cavab()\n    data class Xeta(val kod: Int) : Cavab()\n}\n\nfun main() {\n    val c: Cavab = Cavab.Xeta(404)\n    // when ile işle\n}"
         },
         "istisnalar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Nothing döndüren bir fonksiyon yaz ve istisnasını yakala.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        dayandir()\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// Nothing döndüren fonksiyon yaz"
         },
         "istisnalar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "İstisnanın nedenini (cause) sar: orijinal mesajı yazdır.",
+          "ipucu": "throw IllegalStateException(\"ust qat\", e) — ikinci parametre cause'dur.",
+          "starter": "fun main() {\n    try {\n        try {\n            throw RuntimeException(\"kok sebeb\")\n        } catch (e: Exception) {\n            // yeni bir istisnaya sar\n        }\n    } catch (e: Exception) {\n        println(e.cause?.message)\n    }\n}"
         }
       }
     },
