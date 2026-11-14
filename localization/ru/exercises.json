@@ -6177,773 +6177,1118 @@
       }
     },
     "coroutines": {
-      "title": "",
+      "title": "Корутины",
       "nezeri": {
         "coroutines-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое корутина?",
+          "opts": [
+            "Новый поток",
+            "Лёгкая задача, которую можно приостановить и возобновить",
+            "Разновидность класса",
+            "Библиотека"
+          ],
+          "exp": "Корутина не занимает ресурс операционной системы. Сотни тысяч корутин могут работать всего на нескольких потоках."
         },
         "coroutines-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает ключевое слово suspend?",
+          "opts": [
+            "Функция ничего не возвращает",
+            "Функцию можно приостановить — её вызывают только внутри корутины",
+            "Функция синхронная",
+            "Функция создаёт новый поток"
+          ],
+          "exp": "suspend-функция может приостанавливаться, не блокируя поток. Вызвать её можно только из другой suspend-функции или из построителя корутин."
         },
         "coroutines-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём разница между delay() и Thread.sleep()?",
+          "opts": [
+            "Разницы нет",
+            "delay не блокирует поток, а sleep — блокирует",
+            "sleep точнее",
+            "delay есть только на Android"
+          ],
+          "exp": "В этом вся разница: delay лишь приостанавливает корутину, а поток освобождается для выполнения других корутин."
         },
         "coroutines-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает runBlocking?",
+          "opts": [
+            "Создаёт корутину и блокирует текущий поток",
+            "Отменяет корутину",
+            "Создаёт новый поток",
+            "Ничего"
+          ],
+          "exp": "Это мост из обычного кода в мир корутин. Используется в main() и в тестах, но в рабочем коде его следует избегать."
         },
         "coroutines-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что возвращает launch?",
+          "opts": [
+            "Результат",
+            "Job",
+            "Deferred",
+            "Unit"
+          ],
+          "exp": "launch — для принципа «запусти и забудь», он не возвращает результат. Через Job можно дождаться корутины (join) или отменить её (cancel)."
         },
         "coroutines-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что возвращает async?",
+          "opts": [
+            "Job",
+            "Deferred<T> — результат получается через await()",
+            "Unit",
+            "Thread"
+          ],
+          "exp": "Deferred — это вариант Job, возвращающий результат. await() ждёт готовности результата, не блокируя поток."
         },
         "coroutines-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Можно ли вызвать suspend-функцию из обычной функции?",
+          "opts": [
+            "Да",
+            "Нет — нужна область видимости корутины",
+            "Только из main()",
+            "Только на Android"
+          ],
+          "exp": "Компилятор сообщит об ошибке. В качестве моста используется runBlocking или launch/async существующей области видимости."
         },
         "coroutines-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что выведет этот код?",
+          "opts": [
+            "A B",
+            "B A",
+            "Только A",
+            "Ничего"
+          ],
+          "exp": "Код выполняется последовательно: выводится A, ожидание 100 мс, затем B. delay не блокирует поток, а лишь приостанавливает корутину."
         },
         "coroutines-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает job.join()?",
+          "opts": [
+            "Отменяет корутину",
+            "Ждёт, пока корутина завершится",
+            "Создаёт новую корутину",
+            "Возвращает результат"
+          ],
+          "exp": "Ожидание не блокирует поток. Если нужен результат, используйте async и await()."
         },
         "coroutines-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Даёт ли параллельность последовательное ожидание двух async?",
+          "opts": [
+            "Нет",
+            "Да — оба стартуют сразу при вызове async",
+            "Только с Dispatchers.IO",
+            "Только с awaitAll"
+          ],
+          "exp": "async запускает работу сразу, а await лишь ждёт результат. Поэтому общее время равно времени самой долгой задачи."
         },
         "coroutines-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает coroutineScope?",
+          "opts": [
+            "Создаёт поток",
+            "Ждёт завершения всех дочерних корутин",
+            "Отменяет корутину",
+            "Меняет диспетчер"
+          ],
+          "exp": "Это основа структурированной конкурентности: ни один потомок не «теряется» до завершения области видимости."
         },
         "coroutines-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен Dispatchers.IO?",
+          "opts": [
+            "Для вычислений на CPU",
+            "Для сети, файлов, баз данных — работы с большим количеством ожидания",
+            "Для обновления UI",
+            "Для тестирования"
+          ],
+          "exp": "В пуле IO 64+ потока, потому что такая работа в основном ждёт. Для нагружающей CPU работы используется Dispatchers.Default."
         },
         "coroutines-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает withContext?",
+          "opts": [
+            "Создаёт новую корутину",
+            "Выполняет блок на другом диспетчере и возвращает результат",
+            "Отменяет корутину",
+            "Блокирует поток"
+          ],
+          "exp": "Это стандартный способ сменить диспетчер: withContext(Dispatchers.IO) { faylOxu() }."
         },
         "coroutines-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает структурированная конкурентность?",
+          "opts": [
+            "Корутины выполняются по очереди",
+            "Каждая корутина принадлежит области видимости, и при её отмене останавливаются все",
+            "Потоки разделяются",
+            "Ошибки поглощаются"
+          ],
+          "exp": "Это предотвращает «потерянные» задачи. Когда ViewModel уничтожается, вся работа в viewModelScope останавливается автоматически."
         },
         "coroutines-n-15": {
-          "q": "",
+          "q": "В каком порядке выводит этот код?",
           "opts": [],
-          "exp": ""
+          "exp": "launch не блокирует, поэтому сначала выводится S. Затем из-за задержек — A (100 мс), а после него — B (200 мс)."
         },
         "coroutines-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что возвращает withTimeoutOrNull, когда время истекло?",
+          "opts": [
+            "Выбрасывает исключение",
+            "null",
+            "0",
+            "Последнее значение"
+          ],
+          "exp": "withTimeout выбрасывает исключение, а withTimeoutOrNull возвращает null — удобнее для обработки по условию."
         },
         "coroutines-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое Flow?",
+          "opts": [
+            "Список",
+            "Асинхронный поток, выдающий несколько значений со временем",
+            "Поток выполнения (thread)",
+            "Диспетчер"
+          ],
+          "exp": "suspend-функция возвращает одно значение, а Flow выдаёт много значений последовательно. Читается через collect."
         },
         "coroutines-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда начинаются вычисления во Flow?",
+          "opts": [
+            "При создании flow { }",
+            "При вызове collect",
+            "При вызове map",
+            "Сразу"
+          ],
+          "exp": "Flow холодный — ничего не выполняется, пока не вызвана терминальная операция collect."
         },
         "coroutines-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как работает отмена корутины?",
+          "opts": [
+            "Она останавливается мгновенно",
+            "Требуется кооперация — отмена происходит только в точке приостановки",
+            "Поток уничтожается",
+            "Выбрасывается и поглощается исключение"
+          ],
+          "exp": "Проверка происходит в точках приостановки вроде delay, yield и withContext. Если в долгом CPU-цикле нет точки приостановки, отмена не сработает — нужно добавить ensureActive()."
         },
         "coroutines-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делать с CancellationException, перехваченным в блоке catch?",
+          "opts": [
+            "Поглотить",
+            "Выбросить заново",
+            "Залогировать",
+            "Проигнорировать"
+          ],
+          "exp": "Механизм отмены основан на том, что это исключение распространяется вверх. Если его поглотить, корутина не считается отменённой, и область видимости продолжает ждать."
         },
         "coroutines-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем supervisorScope отличается от coroutineScope?",
+          "opts": [
+            "Он быстрее",
+            "Ошибка в одном потомке не останавливает остальных",
+            "Он создаёт поток",
+            "Он не возвращает результат"
+          ],
+          "exp": "В coroutineScope при падении одного потомка отменяются все его соседи. В supervisorScope каждый потомок независим."
         },
         "coroutines-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём разница между StateFlow и Flow?",
+          "opts": [
+            "Разницы нет",
+            "StateFlow горячий и всегда хранит текущее значение",
+            "Flow быстрее",
+            "StateFlow есть только на Android"
+          ],
+          "exp": "StateFlow — для состояния UI: подписчик сразу получает последнее значение. Для одноразовых событий используется SharedFlow."
         },
         "coroutines-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Почему runBlocking не стоит использовать в рабочем коде?",
+          "opts": [
+            "Он медленный",
+            "Он блокирует текущий поток — сводя на нет все преимущества корутин",
+            "Он выбрасывает ошибку",
+            "Он приводит к утечке памяти"
+          ],
+          "exp": "Его имя говорит само за себя. Он уместен только в main(), в тестах и как мост к устаревшему коду."
         },
         "coroutines-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает awaitAll()?",
+          "opts": [
+            "Отменяет корутины",
+            "Ждёт несколько Deferred вместе",
+            "Создаёт новую область видимости",
+            "Меняет диспетчер"
+          ],
+          "exp": "listOf(a, b, c).awaitAll() — читается лучше последовательных await, и если любой из них упадёт, сразу завершается ошибкой."
         },
         "coroutines-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен yield()?",
+          "opts": [
+            "Чтобы вернуть значение",
+            "Чтобы уступить очередь другим корутинам и создать точку отмены",
+            "Чтобы создать поток",
+            "Чтобы остановить поток данных"
+          ],
+          "exp": "Вызов yield() или ensureActive() в долгом вычислительном цикле делает отмену возможной."
         }
       },
       "praktiki": {
         "coroutines-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте runBlocking: выведите две строки с задержкой между ними.",
+          "ipucu": "Напишите delay(100) — не Thread.sleep.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    println(\"A\")\n    // подожди 100 мс\n    println(\"B\")\n}"
         },
         "coroutines-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите suspend-функцию и вызовите её из runBlocking.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\n// напиши suspend-функцию\n\nfun main() = runBlocking {\n    println(melumatAl())\n}"
         },
         "coroutines-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте launch: запустите корутину и дождитесь её завершения.",
+          "ipucu": "Напишите j.join().",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch {\n        delay(50)\n        println(\"is bitdi\")\n    }\n    // подожди\n    println(\"hamisi bitdi\")\n}"
         },
         "coroutines-p-04": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Покажите, что launch не блокирует: постройте порядок вывода на основе задержек.",
+          "ipucu": "Напишите println(\"S\") — поскольку launch не блокирует, он выводится первым.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    launch { delay(200); println(\"B\") }\n    launch { delay(100); println(\"A\") }\n    // выведи здесь что-нибудь\n}"
         },
         "coroutines-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте async: получите результат через await и выведите его.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val d = async {\n        delay(50)\n        42\n    }\n    // получи результат и выведи его\n}"
         },
         "coroutines-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Выполните параллельную работу двумя async, затем объедините результаты и выведите их.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val a = async { delay(100); \"A\" }\n    val b = async { delay(100); \"B\" }\n    // объедини результаты\n}"
         },
         "coroutines-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Объедините repeat и delay: посчитайте три раза.",
+          "ipucu": "println(it), затем delay(30)",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    repeat(3) {\n        // выведи индекс и подожди 30 мс\n    }\n}"
         },
         "coroutines-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Вызовите suspend-функцию дважды подряд.",
+          "ipucu": "println(getir(\"A\")), затем println(getir(\"B\"))",
+          "starter": "import kotlinx.coroutines.*\n\nsuspend fun getir(ad: String): String {\n    delay(30)\n    return ad\n}\n\nfun main() = runBlocking {\n    // вызови последовательно и выведи\n}"
         },
         "coroutines-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Проверьте, активен ли Job: выведите его состояние после завершения.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch { delay(30) }\n    j.join()\n    // выведи свойство isCompleted\n}"
         },
         "coroutines-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте coroutineScope: он должен ждать завершения всех потомков.",
+          "ipucu": "println(\"bitdi\") — поскольку coroutineScope ждёт потомков, это выводится последним.",
+          "starter": "import kotlinx.coroutines.*\n\nsuspend fun hamisi() = coroutineScope {\n    launch { delay(100); println(\"bir\") }\n    launch { delay(150); println(\"iki\") }\n}\n\nfun main() = runBlocking {\n    hamisi()\n    // выведи в конце\n}"
         },
         "coroutines-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте withContext: выполните блок на диспетчере Default и выведите результат.",
+          "ipucu": "Последнее выражение блока становится результатом.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val n = withContext(Dispatchers.Default) {\n        // верни 6 * 7\n    }\n    println(n)\n}"
         },
         "coroutines-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте awaitAll: дождитесь трёх Deferred вместе.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val a = async { delay(50); 1 }\n    val b = async { delay(50); 2 }\n    val c = async { delay(50); 3 }\n    // выведи через awaitAll\n}"
         },
         "coroutines-p-13": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте withTimeoutOrNull: когда время истекло, должен вывестись null.",
+          "ipucu": "Блок длится 500 мс, а лимит — 100 мс, поэтому результат — null.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    // внутри withTimeoutOrNull(100) сделай delay(500) и верни \"bitdi\"\n    val n = null\n    println(n)\n}"
         },
         "coroutines-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Когда withTimeoutOrNull успевает вовремя, он должен вернуть результат.",
+          "ipucu": "Блок завершается раньше лимита, поэтому возвращается настоящий результат.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    // внутри withTimeoutOrNull(500) сделай delay(50) и верни \"bitdi\"\n    val n = null\n    println(n)\n}"
         },
         "coroutines-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Создайте Flow и прочитайте его через collect.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun axin(): Flow<Int> = flow {\n    // выдай 1, 2, 3 через emit\n}\n\nfun main() = runBlocking {\n    axin().collect { println(it) }\n}"
         },
         "coroutines-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте map на Flow: удвойте каждое значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    flowOf(1, 2, 3)\n        // добавь map\n        .collect { println(it) }\n}"
         },
         "coroutines-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте цепочку filter и map на Flow.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    flowOf(1, 2, 3, 4)\n        // оставь только чётные и умножь на 10\n        .collect { println(it) }\n}"
         },
         "coroutines-p-18": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Преобразуйте Flow в список и выведите его.",
+          "ipucu": ".toList() — терминальная операция.",
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    val s = flowOf(1, 2, 3)\n        // преобразуй в список\n    println(s)\n}"
         },
         "coroutines-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте onCompletion: по завершении потока должно выводиться сообщение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    flowOf(1, 2)\n        // добавь onCompletion\n        .collect { println(it) }\n}"
         },
         "coroutines-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Продемонстрируйте отмену: остановите корутину и проверьте, что блок finally выполняется.",
+          "ipucu": "Внутри finally напишите println(\"temizlik\").",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch {\n        try {\n            repeat(100) {\n                println(\"is $it\")\n                delay(100)\n            }\n        } finally {\n            // выведи temizlik\n        }\n    }\n    delay(250)\n    j.cancelAndJoin()\n    println(\"bitdi\")\n}"
         },
         "coroutines-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Проверьте isActive: выведите состояние после отмены.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val j = launch { delay(1000) }\n    j.cancel()\n    // выведи свойство isActive\n}"
         },
         "coroutines-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте supervisorScope: даже если один потомок упадёт, другой должен продолжить работу. ПРИМЕЧАНИЕ: напишите main с телом-блоком.",
+          "ipucu": "println(\"ikinci ugurlu\"). Тело-блок нужно, потому что последнее выражение возвращает Job — в форме \"fun main() = runBlocking { }\" тип main становится Job, и JVM не считает её точкой входа.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        supervisorScope {\n            launch {\n                try {\n                    throw RuntimeException(\"cokdu\")\n                } catch (e: RuntimeException) {\n                    println(\"birinci ugursuz\")\n                }\n            }\n            launch {\n                delay(100)\n                // выведи ikinci ugurlu\n            }\n        }\n    }\n}"
         },
         "coroutines-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Перехватите ошибку корутины через try/catch.",
+          "ipucu": "println(e.message). Когда дочерняя корутина падает, coroutineScope передаёт ошибку вверх, поэтому try/catch может её перехватить.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        try {\n            coroutineScope {\n                launch { throw RuntimeException(\"xeta var\") }\n            }\n        } catch (e: Exception) {\n            // выведи сообщение\n        }\n    }\n}"
         },
         "coroutines-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте yield(): две корутины должны выполняться по очереди.",
+          "ipucu": "Напишите yield() — он уступает очередь другой корутине.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        launch {\n            println(\"A1\")\n            yield()\n            println(\"A2\")\n        }\n        launch {\n            println(\"B1\")\n            // уступи очередь\n            println(\"B2\")\n        }\n    }\n}"
         },
         "coroutines-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Перехватите ошибку async внутри supervisorScope — в обычной области видимости ошибка передаётся родителю и программа падает.",
+          "ipucu": "println(e.message). supervisorScope важен: в обычном coroutineScope ошибка async отменяет родительскую область независимо от await, и программа падает, даже если её перехватить.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() {\n    runBlocking {\n        supervisorScope {\n            val d = async { throw RuntimeException(\"async xetasi\") }\n            try {\n                d.await()\n            } catch (e: Exception) {\n                // выведи сообщение\n            }\n        }\n    }\n}"
         }
       }
     },
     "test": {
-      "title": "",
+      "title": "Написание тестов",
       "nezeri": {
         "test-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какова стандартная тестовая библиотека Kotlin?",
+          "opts": [
+            "Только JUnit",
+            "kotlin.test",
+            "TestNG",
+            "Spek"
+          ],
+          "exp": "kotlin.test предоставляет платформонезависимые функции assert. На JVM под ними работает JUnit, но ваш код остаётся прежним."
         },
         "test-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каков порядок параметров assertEquals()?",
+          "opts": [
+            "(фактическое, ожидаемое)",
+            "(ожидаемое, фактическое)",
+            "Не важно",
+            "(сообщение, значение)"
+          ],
+          "exp": "Сначала пишется ожидаемое значение, затем фактическое. Неверный порядок переворачивает сообщение об ошибке и затрудняет диагностику."
         },
         "test-n-03": {
-          "q": "",
+          "q": "Как помечается тестовая функция?",
           "opts": [],
-          "exp": ""
+          "exp": "Аннотация @Test берётся из пакета kotlin.test и делает функцию видимой для запускателя тестов."
         },
         "test-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что нужно сделать, чтобы использовать пробелы в имени теста?",
+          "opts": [
+            "Поставить подчёркивания",
+            "Заключить его в обратные кавычки",
+            "Заключить его в кавычки",
+            "Это невозможно"
+          ],
+          "exp": "fun `bos siyahi ucun null qaytarir`() — тесты читаются как предложения и служат документацией."
         },
         "test-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что проверяет assertTrue()?",
+          "opts": [
+            "Что значение не null",
+            "Что условие истинно",
+            "Что два значения равны",
+            "Исключение"
+          ],
+          "exp": "Если условие ложно, выбрасывается AssertionError. Его противоположность — assertFalse()."
         },
         "test-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что происходит, когда assert не проходит?",
+          "opts": [
+            "Возвращается null",
+            "Выбрасывается AssertionError",
+            "Тест пропускается",
+            "Ничего"
+          ],
+          "exp": "AssertionError происходит от Throwable. Запускатель тестов перехватывает его и помечает тест как проваленный."
         },
         "test-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает @BeforeTest?",
+          "opts": [
+            "Выполняется после теста",
+            "Выполняется перед каждым тестом",
+            "Выполняется один раз",
+            "Ничего"
+          ],
+          "exp": "Нужна, чтобы подготовить чистое начальное состояние для каждого теста. Её пара — @AfterTest."
         },
         "test-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что проверяет assertNull()?",
+          "opts": [
+            "Что значение пустое",
+            "Что значение равно null",
+            "Что список пуст",
+            "Что тип совпадает"
+          ],
+          "exp": "Её пара — assertNotNull(), которая и проверяет, и возвращает значение с non-null типом."
         },
         "test-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает этот код?",
+          "opts": [
+            "Выбрасывает ошибку",
+            "Выводит \"kecdi\"",
+            "Ничего",
+            "Возвращает null"
+          ],
+          "exp": "Ожидаемое и фактическое значения совпадают, поэтому assert молча проходит и выполняется следующая строка."
         },
         "test-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен assertFailsWith?",
+          "opts": [
+            "Чтобы остановить тест",
+            "Чтобы проверить, что выбрасывается определённое исключение",
+            "Чтобы сравнить значение",
+            "Чтобы пропустить тест"
+          ],
+          "exp": "assertFailsWith<NumberFormatException> { ... } — проверяет, что исключение было выброшено, и возвращает объект исключения, чтобы можно было проверить и сообщение."
         },
         "test-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда используется assertContentEquals?",
+          "opts": [
+            "Для строк",
+            "Для сравнения содержимого коллекций и массивов",
+            "Для объектов",
+            "Для чисел"
+          ],
+          "exp": "Для массивов assertEquals сравнивает ссылки и даёт неверный результат. Для сравнения содержимого нужен assertContentEquals."
         },
         "test-n-12": {
-          "q": "",
+          "q": "Что означает паттерн AAA?",
           "opts": [],
-          "exp": ""
+          "exp": "Подготовка, выполнение, проверка. Разделение теста на три понятные части делает его читаемым и облегчает диагностику."
         },
         "test-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Сколько поведений должен проверять один тест?",
+          "opts": [
+            "Как можно больше",
+            "Одно — тогда причина провала сразу понятна",
+            "Не меньше трёх",
+            "Не важно"
+          ],
+          "exp": "Когда падает тест, проверяющий многое, трудно понять, какая часть сломалась. Работает принцип «один тест — одна проверка»."
         },
         "test-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что используется для тестов корутин?",
+          "opts": [
+            "runBlocking",
+            "runTest — он мгновенно пропускает задержки благодаря виртуальному времени",
+            "Thread.sleep",
+            "Ничего"
+          ],
+          "exp": "runTest находится в пакете kotlinx-coroutines-test. delay(5000) не занимает реальные 5 секунд — виртуальное время сдвигается вперёд."
         },
         "test-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое мок (mock)?",
+          "opts": [
+            "Настоящий объект",
+            "Фальшивый объект, заменяющий реальную зависимость в тесте",
+            "Разновидность ошибки",
+            "Библиотека"
+          ],
+          "exp": "Заменяет тяжёлые зависимости вроде сети или базы данных. В Kotlin чаще всего используют MockK, потому что он работает и с final-классами."
         },
         "test-n-16": {
-          "q": "",
+          "q": "Что использовать в MockK, чтобы замокать suspend-функцию?",
           "opts": [],
-          "exp": ""
+          "exp": "coEvery и coVerify — для suspend-функций. Для обычных функций используются every и verify."
         },
         "test-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём разница между assertSame() и assertEquals()?",
+          "opts": [
+            "Разницы нет",
+            "assertSame проверяет ссылку, assertEquals — содержимое",
+            "assertSame быстрее",
+            "assertEquals только для чисел"
+          ],
+          "exp": "assertSame работает как тройной знак равенства. Обычно нужно сравнение содержимого, поэтому assertEquals используется чаще."
         },
         "test-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Зачем в тестовом коде используют имена в обратных кавычках?",
+          "opts": [
+            "Ради скорости",
+            "Чтобы выразить предложением, что проверяет тест",
+            "Этого требует компилятор",
+            "Ради памяти"
+          ],
+          "exp": "Имя появляется в отчёте о тестах как есть. Хорошее имя объясняет, что делает тест, без чтения его кода."
         },
         "test-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен параметризованный тест?",
+          "opts": [
+            "Чтобы ускорить тест",
+            "Чтобы проверить одну и ту же логику с разными наборами входных данных",
+            "Чтобы создать мок",
+            "Чтобы пропустить тест"
+          ],
+          "exp": "С @ParameterizedTest и @CsvSource одна тестовая функция покрывает десятки случаев. Дублирующийся код исчезает."
         },
         "test-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой принцип важнее всего для написания тестируемого кода?",
+          "opts": [
+            "Писать много комментариев",
+            "Передавать зависимости извне (внедрение зависимостей)",
+            "Короткие функции",
+            "Глобальные переменные"
+          ],
+          "exp": "Если класс сам создаёт свою зависимость внутри, в тесте её не заменить. Передача через конструктор упрощает тестирование."
         },
         "test-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужна библиотека Turbine?",
+          "opts": [
+            "Для тестирования сети",
+            "Для тестов Flow",
+            "Для тестирования UI",
+            "Для тестирования производительности"
+          ],
+          "exp": "Позволяет проверять значения, которые выдаёт Flow, по одному: awaitItem(), awaitComplete()."
         },
         "test-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что гарантирует 100 % покрытие тестами?",
+          "opts": [
+            "Код без ошибок",
+            "Только то, что каждая строка выполнилась хотя бы раз, — но не корректность",
+            "Скорость",
+            "Безопасность"
+          ],
+          "exp": "Строка может выполниться, а её результат — не проверяться. Покрытие — полезная метрика, а не цель."
         },
         "test-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем плохо делать в тесте реальные сетевые запросы?",
+          "opts": [
+            "Это медленно и нестабильно — результат зависит от внешних факторов",
+            "Это дорого",
+            "Вызывает ошибку компиляции",
+            "Это не плохо"
+          ],
+          "exp": "Такой тест то проходит, то нет — он становится нестабильным (flaky). В юнит-тестах сеть мокают, а реальную интеграцию проверяют отдельным набором тестов."
         },
         "test-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что возвращает assertFailsWith?",
+          "opts": [
+            "Boolean",
+            "Выброшенный объект исключения",
+            "Unit",
+            "null"
+          ],
+          "exp": "У возвращённого объекта можно проверить сообщение или его собственные поля — это делает тест точнее."
         },
         "test-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что должно отражать имя теста?",
+          "opts": [
+            "Имя метода",
+            "Условие, действие и ожидаемый результат",
+            "Имя класса",
+            "Дату"
+          ],
+          "exp": "Имя вроде \"bos siyahi ucun null qaytarir\" (для пустого списка возвращает null) полностью объясняет, что проверяет тест. \"test1\" ничего не говорит."
         }
       },
       "praktiki": {
         "test-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте assertEquals: проверьте результат 2+3 и, если проверка прошла, выведите \"kecdi\".",
+          "ipucu": "assertEquals(5, 2 + 3) — сначала ожидаемое, затем фактическое.",
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    // напиши assert\n    println(\"kecdi\")\n}"
         },
         "test-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Перехватите проваленный assert: перехватите AssertionError и выведите сообщение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    try {\n        assertEquals(5, 2 + 2)\n    } catch (e: AssertionError) {\n        // выведи ugursuz\n    }\n}"
         },
         "test-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте assertTrue: проверьте, что список не пуст.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertTrue\n\nfun main() {\n    val s = listOf(1, 2)\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте assertFalse: проверьте, что в пустом списке нет элементов.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertFalse\n\nfun main() {\n    val s = emptyList<Int>()\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте assertNull: проверьте, что результат toIntOrNull равен null.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertNull\n\nfun main() {\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте assertNotNull: проверьте, что корректное преобразование не равно null.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertNotNull\n\nfun main() {\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите функцию и проверьте её через assert.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun topla(a: Int, b: Int) = a + b\n\nfun main() {\n    // проверь результат topla(2, 3)\n    println(\"kecdi\")\n}"
         },
         "test-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите несколько assert подряд: если все проходят, должно вывестись \"hamisi kecdi\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    // напиши три assert\n    println(\"hamisi kecdi\")\n}"
         },
         "test-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Проверьте строковый результат: правильно ли работает uppercase()?",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте assertFailsWith: выведите тип выброшенного исключения.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertFailsWith\n\nfun main() {\n    val e = // напиши assertFailsWith\n    println(e::class.simpleName)\n}"
         },
         "test-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "С помощью assertFailsWith проверьте и сообщение исключения.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertFailsWith\nimport kotlin.test.assertEquals\n\nfun yoxla(y: Int) {\n    require(y >= 0) { \"menfi olmaz\" }\n}\n\nfun main() {\n    val e = assertFailsWith<IllegalArgumentException> { yoxla(-1) }\n    // проверь сообщение\n    println(\"kecdi\")\n}"
         },
         "test-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте assertContentEquals: сравните содержимое двух списков.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertContentEquals\n\nfun main() {\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Проверьте результат операции map через assertContentEquals.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertContentEquals\n\nfun main() {\n    val n = listOf(1, 2, 3).map { it * 2 }\n    // напиши assert\n    println(\"kecdi\")\n}"
         },
         "test-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите тест по паттерну AAA: подготовка, действие, проверка.",
           "ipucu": "",
           "starter": ""
         },
         "test-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Проверьте равенство ссылок через assertSame.",
+          "ipucu": "assertSame(a, b) — две ссылки на один и тот же объект.",
+          "starter": "import kotlin.test.assertSame\n\nfun main() {\n    val a = listOf(1, 2)\n    val b = a\n    // напиши assert\n    println(\"ok\")\n}"
         },
         "test-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Протестируйте equals у data class.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\ndata class U(val ad: String, val yas: Int)\n\nfun main() {\n    // сравни два одинаковых объекта\n    println(\"kecdi\")\n}"
         },
         "test-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Протестируйте граничный случай: firstOrNull на пустом списке должна возвращать null.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertNull\n\nfun main() {\n    val s = emptyList<Int>()\n    // напиши assert\n    println(\"serhed hali kecdi\")\n}"
         },
         "test-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Проверьте одну и ту же логику для нескольких входных данных (упрощённая версия параметризованного теста).",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun ikiqat(x: Int) = x * 2\n\nfun main() {\n    val hallar = listOf(1 to 2, 2 to 4, 3 to 6)\n    // проверь каждый случай\n    println(\"butun hallar kecdi\")\n}"
         },
         "test-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Добавьте сообщение к assert: при провале должно появляться понятное объяснение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\nfun main() {\n    try {\n        assertEquals(5, 4, \"toplama sehvdir\")\n    } catch (e: AssertionError) {\n        // проверь, содержит ли сообщение \"toplama\"\n    }\n}"
         },
         "test-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите тестируемый класс (принцип: внедрение зависимостей): передайте зависимость через конструктор.",
+          "ipucu": "val saxta = object : Menbe { override fun al() = \"test\" }, затем assertEquals(\"TEST\", Servis(saxta).emal())",
+          "starter": "import kotlin.test.assertEquals\n\ninterface Menbe { fun al(): String }\n\nclass Servis(private val m: Menbe) {\n    fun emal() = m.al().uppercase()\n}\n\nfun main() {\n    // создай фальшивый источник и протестируй\n    println(\"kecdi\")\n}"
         },
         "test-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Проверьте, что фальшивый объект был вызван: отследите это счётчиком.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.test.assertEquals\n\ninterface Loglayan { fun log(m: String) }\n\nclass Servis(private val l: Loglayan) {\n    fun isle() { l.log(\"basladi\") }\n}\n\nfun main() {\n    var say = 0\n    val saxta = object : Loglayan {\n        override fun log(m: String) { say++ }\n    }\n    Servis(saxta).isle()\n    // проверь количество вызовов\n    println(\"kecdi\")\n}"
         },
         "test-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Протестируйте suspend-функцию через runBlocking.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlin.test.assertEquals\n\nsuspend fun getir(): String {\n    delay(50)\n    return \"melumat\"\n}\n\nfun main() {\n    runBlocking {\n        // проверь результат\n    }\n    println(\"kecdi\")\n}"
         },
         "test-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Протестируйте значения, которые выдаёт Flow.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\nimport kotlin.test.assertContentEquals\n\nfun main() {\n    runBlocking {\n        val n = flowOf(1, 2, 3).map { it * 2 }.toList()\n        // проверь\n    }\n    println(\"kecdi\")\n}"
         },
         "test-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Тестирование ошибки корутины: проверьте её через assertFailsWith.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlin.test.assertFailsWith\n\nsuspend fun cok(): String {\n    delay(10)\n    throw IllegalStateException(\"cokdu\")\n}\n\nfun main() {\n    runBlocking {\n        val e = // напиши assertFailsWith\n        println(e.message)\n    }\n}"
         },
         "test-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Постройте простой набор тестов: напишите несколько тестов как функции и запустите их по очереди.",
+          "ipucu": "Имена в обратных кавычках и при вызове пишутся в обратных кавычках.",
+          "starter": "import kotlin.test.assertEquals\n\nfun `toplama duzgun isleyir`() = assertEquals(5, 2 + 3)\nfun `vurma duzgun isleyir`() = assertEquals(6, 2 * 3)\n\nfun main() {\n    // вызови оба\n    println(\"2 test kecdi\")\n}"
         }
       }
     },
     "java-muqayise": {
-      "title": "",
+      "title": "Kotlin и Java",
       "nezeri": {
         "java-muqayise-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Могут ли Kotlin и Java работать вместе в одном проекте?",
+          "opts": [
+            "Нет",
+            "Да — они компилируются в один и тот же байт-код",
+            "Только на Android",
+            "Только в отдельных модулях"
+          ],
+          "exp": "Совместимость полная. Файл на Kotlin может напрямую использовать класс Java, а файл на Java — класс Kotlin."
         },
         "java-muqayise-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Обязательна ли точка с запятой в Kotlin?",
+          "opts": [
+            "Да",
+            "Нет",
+            "Только в классах",
+            "Только в функциях"
+          ],
+          "exp": "В Java она обязательна после каждой инструкции, а в Kotlin почти никогда не нужна."
         },
         "java-muqayise-n-03": {
-          "q": "",
+          "q": "Что в Kotlin является аналогом POJO-класса из Java?",
           "opts": [],
-          "exp": ""
+          "exp": "В Java это 50+ строк (поля, геттеры/сеттеры, equals, hashCode, toString), а в Kotlin — одна строка."
         },
         "java-muqayise-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что в Kotlin является аналогом static-членов Java?",
+          "opts": [
+            "object",
+            "companion object или объявление верхнего уровня",
+            "Ключевое слово static",
+            "const"
+          ],
+          "exp": "В Kotlin нет ключевого слова static. Члены, привязанные к классу, помещают в companion object, а самостоятельные функции пишут прямо в файле."
         },
         "java-muqayise-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем оператор == в Kotlin отличается от Java?",
+          "opts": [
+            "Ничем",
+            "В Kotlin он сравнивает содержимое, в Java — ссылки",
+            "В Kotlin он быстрее",
+            "Отличается только для чисел"
+          ],
+          "exp": "В Java при сравнении строк нужно писать equals(). В Kotlin == уже вызывает equals() — это устраняет классическую ошибку."
         },
         "java-muqayise-n-06": {
-          "q": "",
+          "q": "Что в Kotlin является аналогом переменной final из Java?",
           "opts": [],
-          "exp": ""
+          "exp": "val доступна только для чтения. В Java писать final не обязательно, а в Kotlin использование val — стандартный подход."
         },
         "java-muqayise-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какие классы в Kotlin по умолчанию?",
+          "opts": [
+            "open — открыты для наследования (как в Java)",
+            "final — закрыты для наследования",
+            "abstract",
+            "private"
+          ],
+          "exp": "В Java классы по умолчанию открыты для наследования. Kotlin выбрал обратное: наследование нужно разрешать осознанно."
         },
         "java-muqayise-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что в Kotlin является аналогом switch из Java?",
+          "opts": [
+            "switch",
+            "when — он мощнее",
+            "case",
+            "match"
+          ],
+          "exp": "when принимает любой тип, диапазоны и проверки типа и возвращает значение. Писать break тоже не нужно."
         },
         "java-muqayise-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Есть ли в Kotlin тернарный оператор (a ? b : c)?",
+          "opts": [
+            "Да",
+            "Нет — его заменяет выражение if",
+            "Только для Boolean",
+            "Только внутри when"
+          ],
+          "exp": "Поскольку if сам возвращает значение, отдельный оператор не нужен: val m = if (a > b) a else b."
         },
         "java-muqayise-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В каком языке есть проверяемые исключения?",
+          "opts": [
+            "В обоих",
+            "Только в Java",
+            "Только в Kotlin",
+            "Ни в одном"
+          ],
+          "exp": "Kotlin отказался от проверяемых исключений. При вызове метода Java вас не заставляют писать try/catch."
         },
         "java-muqayise-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как выглядят в Kotlin типы, пришедшие из Java?",
+          "opts": [
+            "Всегда nullable",
+            "Платформенный тип (String!) — компилятор его не проверяет",
+            "Всегда non-null",
+            "Ошибка компиляции"
+          ],
+          "exp": "В Java нет информации о null. Поэтому значения из Java API безопасно считать nullable."
         },
         "java-muqayise-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает @JvmStatic?",
+          "opts": [
+            "Ускоряет функцию",
+            "Делает член companion по-настоящему статическим для Java",
+            "Делает класс final",
+            "Проверяет на null"
+          ],
+          "exp": "Без неё на стороне Java придётся писать Sinif.Companion.metod(). С аннотацией становится возможным Sinif.metod()."
         },
         "java-muqayise-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужна @JvmOverloads?",
+          "opts": [
+            "Для перегрузки функции",
+            "Для генерации перегрузок Java для параметров по умолчанию",
+            "Для смены типа",
+            "Чтобы сделать статическим"
+          ],
+          "exp": "Java не знает о параметрах по умолчанию. Эта аннотация генерирует отдельный метод для каждой комбинации параметров."
         },
         "java-muqayise-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что в Kotlin является аналогом util-класса из Java?",
+          "opts": [
+            "object",
+            "Функции верхнего уровня или расширения",
+            "abstract class",
+            "interface"
+          ],
+          "exp": "Вместо StringUtils.qisalt(s, 10) можно написать расширение и вызывать s.qisalt(10). Оборачивать в класс не нужно."
         },
         "java-muqayise-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Есть ли в Kotlin примитивные типы?",
+          "opts": [
+            "Да, int и Integer — разные",
+            "Нет — есть только Int, и компилятор при необходимости превращает его в примитив",
+            "Примитивен только Boolean",
+            "Всё — объекты и не оптимизируется"
+          ],
+          "exp": "В Java есть разделение int/Integer. Kotlin его скрывает: когда Int не nullable, на JVM он хранится как примитивный int."
         },
         "java-muqayise-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём разница между String.format() из Java и шаблоном Kotlin?",
+          "opts": [
+            "Разницы нет",
+            "Шаблон вставляет переменную прямо в текст и читается лучше",
+            "format быстрее",
+            "Шаблоны есть только на Android"
+          ],
+          "exp": "В форме \"Salam, $ad!\" переменная пишется напрямую. Не нужно следить за порядком параметров, как в форматных строках."
         },
         "java-muqayise-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Насколько record из Java 21 близок к data class из Kotlin?",
+          "opts": [
+            "Полностью одинаковы",
+            "Близок — но нет copy() и именованных аргументов",
+            "Ничего общего",
+            "record мощнее"
+          ],
+          "exp": "record в Java генерирует equals/hashCode/toString, но у него нет метода copy() и аргументов по умолчанию/именованных, как в Kotlin."
         },
         "java-muqayise-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как функция верхнего уровня в файле Kotlin выглядит из Java?",
+          "opts": [
+            "Её не видно",
+            "Как статический метод класса FaylAdiKt",
+            "Как метод интерфейса",
+            "Как конструктор"
+          ],
+          "exp": "Функции из файла Komekci.kt собираются в классе KomekciKt. Имя можно изменить через @file:JvmName."
         },
         "java-muqayise-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какова лучшая стратегия перехода с Java на Kotlin?",
+          "opts": [
+            "Переписать всё сразу",
+            "Начать с тестов и новых файлов и расширять постепенно",
+            "Использовать только в новых проектах",
+            "Никогда не переходить"
+          ],
+          "exp": "Два языка без проблем уживаются в одном проекте. Большое переписывание рискованно и не нужно — классы моделей дают наибольшую отдачу как отправная точка."
         },
         "java-muqayise-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что нужно сделать после автоматического преобразования Java→Kotlin в IDE?",
+          "opts": [
+            "Ничего",
+            "Почистить вручную — конвертер оставляет много !! и лишних объявлений типов",
+            "Удалить тесты",
+            "Преобразовать ещё раз"
+          ],
+          "exp": "Конвертер перестраховывается и везде ставит !!. Их нужно заменить на ?. и ?:, иначе вы теряете пользу null-безопасности."
         },
         "java-muqayise-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает @JvmField?",
+          "opts": [
+            "Скрывает поле",
+            "Открывает свойство напрямую как поле, без геттера/сеттера",
+            "Делает его статическим",
+            "Делает его final"
+          ],
+          "exp": "Со стороны Java становится возможен прямой доступ в форме obyekt.xasse. Используется в местах, критичных к производительности, или для совместимости API."
         },
         "java-muqayise-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как производительность Kotlin соотносится с Java?",
+          "opts": [
+            "Гораздо медленнее",
+            "Практически одинакова — компилируется в тот же байт-код",
+            "Гораздо быстрее",
+            "Медленнее только на Android"
+          ],
+          "exp": "Разница неизмерима. Раньше проблемой было время компиляции; компилятор K2 это решил."
         },
         "java-muqayise-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как написать в Kotlin аналог статического блока инициализации из Java?",
+          "opts": [
+            "static { }",
+            "init { } внутри companion object",
+            "Это невозможно",
+            "begin { }"
+          ],
+          "exp": "companion object сам является объектом, поэтому у него тоже может быть блок init, который выполняется один раз при первом обращении."
         },
         "java-muqayise-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что в Kotlin является аналогом Optional из Java?",
+          "opts": [
+            "Optional",
+            "Nullable-тип (T?) — встроен в язык",
+            "Maybe",
+            "Result"
+          ],
+          "exp": "Поскольку Kotlin встраивает null-безопасность в систему типов, отдельный класс-обёртка не нужен. Это и лаконичнее, и быстрее."
         },
         "java-muqayise-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Заменит ли Kotlin Java?",
+          "opts": [
+            "Да, полностью",
+            "На Android практически заменил, а на бэкенде Java останется надолго",
+            "Нет, никогда",
+            "Java уже мертва"
+          ],
+          "exp": "С 2019 года Google придерживается политики «Kotlin-first» для Android. На бэкенде экосистема и стабильность Java остаются сильными — эти языки не соперники."
         }
       },
       "praktiki": {
         "java-muqayise-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите аналог POJO из Java на Kotlin: data class в одну строку.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// В Java это было бы 50+ строк\n// напиши data class\n\nfun main() {\n    println(Istifadeci(\"Aysel\", 24))\n}"
         },
         "java-muqayise-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Там, где Java нужен equals(), в Kotlin используйте ==.",
+          "ipucu": "println(a == b) — в Kotlin == уже вызывает equals().",
+          "starter": "fun main() {\n    val a = \"Kotlin\"\n    val b = StringBuilder(\"Kot\").append(\"lin\").toString()\n    // в Java ты написал бы a.equals(b)\n}"
         },
         "java-muqayise-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите аналог тернарного оператора Java на Kotlin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val a = 10\n    val b = 20\n    // Java: int m = a > b ? a : b;\n    val m = // напиши аналог на Kotlin\n    println(m)\n}"
         },
         "java-muqayise-p-04": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите аналог switch из Java через when (break не нужен).",
+          "ipucu": "3 -> \"cersenbe\" и else -> \"namelum\"",
+          "starter": "fun main() {\n    val gun = 3\n    val ad = when (gun) {\n        // названия для 1, 2, 3 и \"namelum\" для остальных\n    }\n    println(ad)\n}"
         },
         "java-muqayise-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте строковый шаблон Kotlin вместо StringBuilder из Java.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте val вместо final из Java и выведите значение.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите функцию верхнего уровня вместо util-класса из Java.",
+          "ipucu": "fun bosdur(s: String) = s.isEmpty() — оборачивать в класс не нужно.",
+          "starter": "// Java: public class StringUtils { public static boolean bosdur(String s) {...} }\n// Kotlin: напиши функцию верхнего уровня\n\nfun main() {\n    println(bosdur(\"\"))\n}"
         },
         "java-muqayise-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Превратите util-класс из Java в расширение: более естественный синтаксис.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// хотим писать s.bosdur() вместо StringUtils.bosdur(s)\n// напиши расширение\n\nfun main() {\n    println(\"\".bosdur())\n}"
         },
         "java-muqayise-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте nullable-тип вместо Optional из Java.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // Java: Optional<String> tap(int id)\n    val n: String? = null\n    // задай значение по умолчанию через Элвис\n}"
         },
         "java-muqayise-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените цепочку перегрузок Java параметрами по умолчанию: обработайте три формы вызова одной функцией.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// В Java это были бы 3 отдельных метода\n// напиши одну функцию\n\nfun main() {\n    println(salamla())\n    println(salamla(\"Aysel\"))\n    println(salamla(\"Aysel\", \"!!!\"))\n}"
         },
         "java-muqayise-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите аналог статической константы Java через companion object.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-12": {
-          "tapsiriq": "",
-          "ipucu": "",
+          "tapsiriq": "Запишите цепочку Java Stream функциями коллекций Kotlin.",
+          "ipucu": "В Kotlin не нужны stream() и collect(): s.filter { }.map { }",
           "starter": ""
         },
         "java-muqayise-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените цепочку проверок на null из Java безопасным вызовом.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте свойство Kotlin вместо геттеров/сеттеров Java.",
+          "ipucu": "var ad: String = \"\" — геттер/сеттер генерируются автоматически.",
+          "starter": "class Profil {\n    // Java: private String ad; getAd(); setAd();\n    // Kotlin: одно свойство\n}\n\nfun main() {\n    val p = Profil()\n    p.ad = \"Aysel\"\n    println(p.ad)\n}"
         },
         "java-muqayise-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
+          "tapsiriq": "Замените instanceof + приведение из Java на is + smart cast.",
+          "ipucu": "if (o is String) println(o.length) — лишнее приведение не нужно.",
           "starter": ""
         },
         "java-muqayise-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите паттерн singleton из Java через object.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Покажите, что требования проверяемых исключений Java нет: вызовите функцию без try.",
+          "ipucu": "println(riskli()) — в Kotlin нет проверяемых исключений.",
+          "starter": "fun riskli(): String {\n    // в Java этот метод должен был бы объявить throws\n    return \"ok\"\n}\n\nfun main() {\n    // вызови без try/catch\n}"
         },
         "java-muqayise-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените длинный цикл for из Java диапазоном Kotlin.",
           "ipucu": "",
           "starter": ""
         },
         "java-muqayise-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Сократите длинный способ создания Map из Java с помощью Kotlin.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // Java: Map<String,Integer> m = new HashMap<>(); m.put(...)\n    val m = // напиши аналог на Kotlin\n    println(m[\"yas\"])\n}"
         },
         "java-muqayise-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте @JvmOverloads: для Java должны генерироваться перегрузки (код должен компилироваться).",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Servis {\n    // напиши метод с параметром по умолчанию через @JvmOverloads\n}\n\nfun main() {\n    Servis().gonder(\"salam\")\n}"
         },
         "java-muqayise-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте @JvmStatic: сделайте метод companion статическим для Java.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Servis {\n    companion object {\n        // напиши метод с @JvmStatic\n    }\n}\n\nfun main() {\n    println(Servis.yarat())\n}"
         },
         "java-muqayise-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите аналог статического инициализатора Java через init в companion.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Konfiq {\n    companion object {\n        val url: String\n        // напиши блок init\n    }\n}\n\nfun main() {\n    println(Konfiq.url)\n}"
         },
         "java-muqayise-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Безопасно обработайте платформенный тип из Java: считайте его nullable.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun javaDan(): String? = null   // Java API может вести себя так\n\nfun main() {\n    val s = javaDan()\n    // обработай безопасно\n}"
         },
         "java-muqayise-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Покажите разницу между record из Java и data class из Kotlin: используйте copy().",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val a = U(\"Aysel\", 24)\n    // у record в Java нет copy()\n    \n}"
         },
         "java-muqayise-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените длинный паттерн builder из Java на apply.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Sorgu {\n    var url = \"\"\n    var metod = \"\"\n    override fun toString() = \"$metod $url\"\n}\n\nfun main() {\n    // построй через apply и выведи\n}"
         }
       }
     },
