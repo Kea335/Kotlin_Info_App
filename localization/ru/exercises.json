@@ -7293,516 +7293,746 @@
       }
     },
     "idiomlar": {
-      "title": "",
+      "title": "Идиомы и лучшие практики",
       "nezeri": {
         "idiomlar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "С чего рекомендуется начинать при объявлении переменной?",
+          "opts": [
+            "С var — потом можно сделать val",
+            "С val — переходить на var только при необходимости",
+            "С lateinit var",
+            "Не важно"
+          ],
+          "exp": "Неизменяемость должна быть по умолчанию. Когда вы начинаете с val, компилятор предотвращает случайные изменения, а код легче понять."
         },
         "idiomlar-n-02": {
-          "q": "",
+          "q": "Какова самая идиоматичная форма проверки на null?",
           "opts": [],
-          "exp": ""
+          "exp": "Безопасный вызов вместе с let и короток, и даёт non-null тип внутри блока. В простых случаях if тоже вполне подходит."
         },
         "idiomlar-n-03": {
-          "q": "",
+          "q": "Что используется, чтобы задать значение по умолчанию?",
           "opts": [],
-          "exp": ""
+          "exp": "Оператор Элвиса — стандартная форма этого паттерна, и читается он в одну строку."
         },
         "idiomlar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что рекомендуется для обработки коллекции?",
+          "opts": [
+            "Цикл for и mutableListOf",
+            "Цепочка filter/map",
+            "Цикл while",
+            "for по индексам"
+          ],
+          "exp": "Цепочка говорит, что она делает, а цикл — как он это делает. Первое читается лучше и реже приводит к ошибкам."
         },
         "idiomlar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каков самый идиоматичный способ построить объект?",
+          "opts": [
+            "Отдельные присваивания",
+            "apply { }",
+            "let { }",
+            "run { }"
+          ],
+          "exp": "Внутри apply используется this, а в конце возвращается сам объект — идеально для стиля builder."
         },
         "idiomlar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда стоит использовать функцию из одного выражения?",
+          "opts": [
+            "Никогда",
+            "Когда тело состоит из одного выражения",
+            "Всегда",
+            "Только в private-функциях"
+          ],
+          "exp": "fun kvadrat(x: Int) = x * x — не нужно писать фигурные скобки и return."
         },
         "idiomlar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какими должны быть имена функций?",
+          "opts": [
+            "Существительным",
+            "Глаголом — имя должно говорить, что делает функция",
+            "Сокращением",
+            "Буквой"
+          ],
+          "exp": "hesabla(), yukle(), tesdiqle() — понятно, что они делают. data() или info() ничего не говорят."
         },
         "idiomlar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каким должно быть имя переменной Boolean?",
+          "opts": [
+            "В форме вопроса: aktivdir, bosdur",
+            "Числом",
+            "Одной буквой",
+            "Глаголом"
+          ],
+          "exp": "Само имя должно отвечать на вопрос «да/нет». if (aktivdir) читается понятно, а if (status) — двусмысленно."
         },
         "idiomlar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём проблема этого кода?",
+          "opts": [
+            "Проблемы нет",
+            "Это лишнее — x > 5 и так возвращает Boolean",
+            "Он выбрасывает ошибку",
+            "Он медленный"
+          ],
+          "exp": "Это классический «запах кода». Достаточно просто написать val netice = x > 5."
         },
         "idiomlar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как исправить глубоко вложенные блоки if?",
+          "opts": [
+            "Написать ещё больше if",
+            "Ранний return или when без аргумента",
+            "Написать всё в одну строку",
+            "goto"
+          ],
+          "exp": "Ранний return в форме val x = giris ?: return делает код плоским. Глубоко вложенные блоки создают «пирамиду»."
         },
         "idiomlar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что рекомендуется для многошаговой цепочки над большой коллекцией?",
+          "opts": [
+            "Обычный List",
+            "asSequence() — промежуточные списки не создаются",
+            "Вложенные циклы",
+            "Массив"
+          ],
+          "exp": "Каждый шаг не создаёт новый список; элементы проходят по одному. Но для маленьких коллекций обычный List быстрее."
         },
         "idiomlar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что использовать вместо конкатенации строк в цикле?",
+          "opts": [
+            "Больше переменных",
+            "buildString { }",
+            "Массив",
+            "Рекурсию"
+          ],
+          "exp": "Поскольку String неизменяема, каждая конкатенация создаёт новый объект. buildString работает с одним StringBuilder."
         },
         "idiomlar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что рекомендуется, когда у функции больше трёх параметров?",
+          "opts": [
+            "Ничего",
+            "Использовать именованные аргументы при вызове",
+            "Удалить параметры",
+            "Глобальную переменную"
+          ],
+          "exp": "yarat(true, false, true) через полгода ничего не скажет. А yarat(gorunen = true, aktiv = false) объясняет сама себя."
         },
         "idiomlar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какими следует держать data class?",
+          "opts": [
+            "Все свойства var",
+            "Максимально неизменяемыми — все свойства val",
+            "Без свойств",
+            "Только private"
+          ],
+          "exp": "Неизменяемые объекты потокобезопасны и защищают от неожиданных изменений. Если нужно изменение, используйте copy()."
         },
         "idiomlar-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Где следует хранить функции-расширения?",
+          "opts": [
+            "Отдельно в каждом файле",
+            "Собранными в одном месте — например, в Genislenmeler.kt",
+            "Внутри класса",
+            "В папке тестов"
+          ],
+          "exp": "Без единого места одно и то же расширение дублируется в нескольких местах, и его трудно найти."
         },
         "idiomlar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Сколько уровней вложенности функций области видимости допустимо?",
+          "opts": [
+            "Сколько угодно",
+            "Максимум два — дальше теряется читаемость",
+            "Пять",
+            "Ни одного"
+          ],
+          "exp": "Во вложенных блоках this и it путаются. При большей глубине обычная переменная и if понятнее."
         },
         "idiomlar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что использовать вместо строк для фиксированного набора значений?",
+          "opts": [
+            "Int",
+            "enum или sealed",
+            "String",
+            "Boolean"
+          ],
+          "exp": "Опечатка в строковой константе проходит компиляцию. С enum компилятор проверяет каждый случай."
         },
         "idiomlar-n-18": {
-          "q": "",
+          "q": "Что используется для операции над коллекцией, результат которой не нужен?",
           "opts": [],
-          "exp": ""
+          "exp": "map создаёт новый список — если результат не нужен, это пустая трата памяти. Для побочных эффектов существует forEach."
         },
         "idiomlar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда допустим оператор утверждения not-null (!!)?",
+          "opts": [
+            "Всегда",
+            "Почти никогда — каждый из них потенциальное падение",
+            "В тестах",
+            "На Android"
+          ],
+          "exp": "Увидев !! в коде, спросите: почему это значение не может быть null? Если ответ есть, сделайте тип non-null с самого начала."
         },
         "idiomlar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем плохо возвращать MutableList из API?",
+          "opts": [
+            "Это медленно",
+            "Вызывающий код может изменить внутреннее состояние",
+            "Это приводит к утечке памяти",
+            "Это не плохо"
+          ],
+          "exp": "Возврат копии через toList() сохраняет инкапсуляцию. Просто объявить тип как List недостаточно — объект под ним по-прежнему изменяемый."
         },
         "idiomlar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делают ktlint и detekt?",
+          "opts": [
+            "Пишут код",
+            "Автоматически проверяют форматирование и «запахи кода»",
+            "Запускают тесты",
+            "Компилируют"
+          ],
+          "exp": "Когда они подключены к CI, споры о стиле полностью исчезают из код-ревью — фокус смещается на логику."
         },
         "idiomlar-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что рекомендуется для типов id?",
+          "opts": [
+            "Напрямую Int или String",
+            "value class — типобезопасность без накладных расходов во время выполнения",
+            "data class",
+            "enum"
+          ],
+          "exp": "@JvmInline value class IstifadeciId(val deyer: Long) — id нельзя перепутать, а во время выполнения он хранится как обычный Long."
         },
         "idiomlar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой подход рекомендуется для тяжёлых объектов?",
+          "opts": [
+            "Создавать их в конструкторе",
+            "by lazy — если объект не нужен, он не создаётся",
+            "Глобальная переменная",
+            "Создавать заново каждый раз"
+          ],
+          "exp": "Ленивая инициализация и сокращает время запуска, и не создаёт ресурсы, которые никогда не используются."
         },
         "idiomlar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда в публичном API тип возвращаемого значения нужно писать явно?",
+          "opts": [
+            "Никогда",
+            "Всегда — это улучшает читаемость и предотвращает случайные изменения",
+            "Только для Int",
+            "Только в дженериках"
+          ],
+          "exp": "Вывод типов отлично подходит для локальных переменных. Но в публичной функции при изменении тела тип возвращаемого значения может молча измениться — и это ломает API."
         },
         "idiomlar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какое правило важнее всего для читаемости кода?",
+          "opts": [
+            "Он должен быть коротким",
+            "Он должен ясно выражать намерение — краткость не самоцель",
+            "В нём должно быть много комментариев",
+            "Он должен быть в одну строку"
+          ],
+          "exp": "Слишком сжатая цепочка может быть короткой, но становится нечитаемой. Часто лучше дать промежуточной переменной имя."
         }
       },
       "praktiki": {
         "idiomlar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Исправьте «запах кода»: вместо возврата true/false через if напишите сравнение напрямую.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x = 8\n    val netice = if (x > 5) true else false   // запах кода\n    println(netice)\n}"
         },
         "idiomlar-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените вложенную проверку на null цепочкой безопасных вызовов.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad: String? = \"kotlin\"\n    // используй ?.let вместо вложенных if\n}"
         },
         "idiomlar-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте оператор Элвиса вместо if-else.",
           "ipucu": "",
           "starter": ""
         },
         "idiomlar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите цепочку filter/map вместо цикла и mutableListOf.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3, 4)\n    // напиши цепочку вместо цикла for (выбери положительные, удвой их)\n}"
         },
         "idiomlar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените отдельные присваивания на apply.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci {\n    var ad = \"\"\n    var yas = 0\n    override fun toString() = \"$ad $yas\"\n}\n\nfun main() {\n    // построй через apply и выведи\n}"
         },
         "idiomlar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Преобразуйте функцию с телом-блоком в форму из одного выражения.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// fun kvadrat(x: Int): Int { return x * x }\n// преобразуй в форму из одного выражения\n\nfun main() {\n    println(kvadrat(7))\n}"
         },
         "idiomlar-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте val вместо var: вычислите значение цепочкой.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // вместо var netice = 0; for (...) netice += ...\n    val netice = // вычисли цепочкой\n    println(netice)\n}"
         },
         "idiomlar-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Дайте переменной Boolean имя в форме вопроса.",
+          "ipucu": "Само имя должно отвечать на вопрос «да/нет».",
+          "starter": "fun main() {\n    // val status = true  <- плохое имя\n    val aktivdir = true\n    if (aktivdir) println(\"isleyir\")\n}"
         },
         "idiomlar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте forEach: не пишите map там, где результат не нужен.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(\"a\", \"b\")\n    // используй forEach вместо map\n}"
         },
         "idiomlar-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите ранний return: используйте Элвис + return вместо глубоко вложенного if.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(null))\n    println(emal(\"  kotlin  \"))\n}\n\nfun emal(giris: String?): String {\n    // напиши с ранним return\n}"
         },
         "idiomlar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте buildString вместо конкатенации строк в цикле.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // вместо var s = \"\"; for (...) s += ...\n    val s = buildString {\n        // добавь числа 1..5\n    }\n    println(s)\n}"
         },
         "idiomlar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите читаемый вызов с именованными аргументами.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun yarat(gorunen: Boolean, aktiv: Boolean, secili: Boolean) =\n    \"$gorunen-$aktiv-$secili\"\n\nfun main() {\n    // напиши с именованными аргументами вместо yarat(true, false, true)\n}"
         },
         "idiomlar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте enum вместо строковых констант.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// val status = \"AKTIV\"  <- опечатки не ловятся\n// напиши enum\n\nfun main() {\n    val s = Status.AKTIV\n    println(s.name)\n}"
         },
         "idiomlar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Верните из API неизменяемую копию: защитите внутренний список.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Sebet {\n    private val m = mutableListOf(\"alma\")\n    // напиши метод hamisi() - он должен возвращать неизменяемую копию\n}\n\nfun main() {\n    println(Sebet().hamisi())\n}"
         },
         "idiomlar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте when как выражение: замените длинную цепочку if-else.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tesvir(503))\n}\n\nfun tesvir(kod: Int): String = when {\n    // напиши ветки\n}"
         },
         "idiomlar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте buildList: постройте список с элементом, добавляемым по условию.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val serait = true\n    val s = buildList {\n        add(\"Kotlin\")\n        // добавь Java, если serait равно true\n    }\n    println(s)\n}"
         },
         "idiomlar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте associateBy: превратите список в карту с ключом id.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val id: Int, val ad: String)\n\nfun main() {\n    val s = listOf(U(1, \"Aysel\"), U(2, \"Kamran\"))\n    // создай карту по id и выведи имя элемента 2\n}"
         },
         "idiomlar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Верните Pair и прочитайте его деструктуризацией.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun minMaks(s: List<Int>) = s.min() to s.max()\n\nfun main() {\n    // прочитай деструктуризацией и выведи\n}"
         },
         "idiomlar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте all: проверьте несколько условий сразу.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad = \"Aysel\"\n    val email = \"a@b.az\"\n    val telefon = \"055\"\n    // не пусто ли ни одно из них - проверь через all\n}"
         },
         "idiomlar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Замените оператор !! безопасной формой.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad: String? = null\n    // val n = ad!!.length  <- падает\n    val n = // напиши безопасно\n    println(n)\n}"
         },
         "idiomlar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте value class: не дайте перепутать id.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши value class\n\nfun tap(id: IstifadeciId) = \"istifadeci-${id.deyer}\"\n\nfun main() {\n    println(tap(IstifadeciId(5)))\n}"
         },
         "idiomlar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте by lazy: тяжёлый объект должен создаваться только при необходимости.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Servis {\n    // напиши свойство agir как lazy\n}\n\nfun main() {\n    val s = Servis()\n    println(\"yaradildi\")\n    println(s.agir)\n}"
         },
         "idiomlar-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Смоделируйте состояние через sealed: обработайте его без else.",
+          "ipucu": "is Veziyyet.Ugur -> println(v.d) и Veziyyet.Yuklenir -> println(\"yuklenir\")",
+          "starter": "sealed interface Veziyyet {\n    data object Yuklenir : Veziyyet\n    data class Ugur(val d: String) : Veziyyet\n}\n\nfun main() {\n    val v: Veziyyet = Veziyyet.Ugur(\"data\")\n    // обработай через when (без else)\n}"
         },
         "idiomlar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте asSequence: на большой коллекции не должны создаваться промежуточные списки.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = (1..1000).toList()\n    // через sequence получи квадраты первых 3 чётных чисел\n}"
         },
         "idiomlar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Сделайте сложную цепочку читаемой: дайте промежуточному результату имя.",
+          "ipucu": "Дайте имя промежуточной переменной: val itcilar = i.filter { it.sobe == \"IT\" }",
+          "starter": "data class Isci(val ad: String, val sobe: String, val maas: Int)\n\nfun main() {\n    val i = listOf(\n        Isci(\"Aysel\", \"IT\", 3000),\n        Isci(\"Kamran\", \"IT\", 3500),\n        Isci(\"Leyla\", \"Satis\", 2000)\n    )\n    // вычисли среднюю зарплату отдела IT\n}"
         }
       }
     },
     "android": {
-      "title": "",
+      "title": "Android-приложения",
       "nezeri": {
         "android-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой язык Google рекомендует для Android?",
+          "opts": [
+            "Java",
+            "Kotlin — политика «Kotlin-first» с 2019 года",
+            "C++",
+            "Dart"
+          ],
+          "exp": "Новые API Android проектируются в первую очередь для Kotlin. Большинство библиотек Jetpack написаны на Kotlin."
         },
         "android-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое Jetpack Compose?",
+          "opts": [
+            "База данных",
+            "Декларативная UI-библиотека",
+            "Сетевая библиотека",
+            "Инструмент тестирования"
+          ],
+          "exp": "Вместо XML-разметки UI описывается прямо функциями Kotlin. Когда состояние меняется, интерфейс обновляется автоматически."
         },
         "android-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает функция @Composable?",
+          "opts": [
+            "Возвращает данные",
+            "Описывает часть UI",
+            "Отправляет сетевой запрос",
+            "Пишет в базу данных"
+          ],
+          "exp": "Composable-функции не возвращают результат — они объявляют, что нужно добавить в дерево UI."
         },
         "android-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен ViewModel?",
+          "opts": [
+            "Для отрисовки UI",
+            "Для хранения состояния UI, чтобы оно не терялось при повороте экрана",
+            "Для сетевых запросов",
+            "Для чтения файлов"
+          ],
+          "exp": "При изменении конфигурации (поворот экрана) Activity пересоздаётся, а ViewModel переживает это."
         },
         "android-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает remember { mutableStateOf(0) }?",
+          "opts": [
+            "Удаляет значение",
+            "Создаёт состояние — при его изменении UI перерисовывается",
+            "Пишет в базу данных",
+            "Пишет лог"
+          ],
+          "exp": "mutableStateOf создаёт наблюдаемое состояние, а remember сохраняет его между перерисовками."
         },
         "android-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В каком потоке нужно обновлять UI в Android?",
+          "opts": [
+            "В любом",
+            "В главном (UI) потоке",
+            "В потоке IO",
+            "В потоке Default"
+          ],
+          "exp": "Обращение к UI из другого потока приводит к падению. В корутинах используется Dispatchers.Main."
         },
         "android-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое Room?",
+          "opts": [
+            "UI-библиотека",
+            "Библиотека базы данных поверх SQLite",
+            "Сетевая библиотека",
+            "Библиотека изображений"
+          ],
+          "exp": "Она проверяет SQL-запросы на этапе компиляции и превращает результаты в объекты Kotlin."
         },
         "android-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен Retrofit?",
+          "opts": [
+            "Для UI",
+            "Для запросов к REST API",
+            "Для базы данных",
+            "Для тестирования"
+          ],
+          "exp": "Вы объявляете интерфейс, а Retrofit сам генерирует реализацию. Поддерживает suspend-функции напрямую."
         },
         "android-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой архитектурный паттерн самый распространённый в Android?",
+          "opts": [
+            "MVC",
+            "MVVM — ViewModel + наблюдаемое состояние",
+            "Singleton",
+            "Никакой"
+          ],
+          "exp": "View наблюдает за состоянием, ViewModel содержит логику, а Repository объединяет источники данных."
         },
         "android-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда отменяется viewModelScope?",
+          "opts": [
+            "Никогда",
+            "Когда ViewModel уничтожается — все корутины останавливаются автоматически",
+            "Когда экран закрывается",
+            "После каждого запроса"
+          ],
+          "exp": "Это практическая польза структурированной конкурентности: никаких утечек и «потерянных» запросов."
         },
         "android-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что рекомендуется для моделирования состояния UI?",
+          "opts": [
+            "Несколько отдельных Boolean",
+            "sealed interface — Yuklenir, Ugurlu, Xeta",
+            "String",
+            "Map"
+          ],
+          "exp": "С отдельными флагами появляются невозможные комбинации (одновременно загрузка и ошибка). sealed делает это невозможным."
         },
         "android-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Почему StateFlow хорошо подходит для UI?",
+          "opts": [
+            "Он быстрый",
+            "Он всегда хранит текущее значение — подписчик сразу получает последнее состояние",
+            "Он не использует память",
+            "Работает только с Compose"
+          ],
+          "exp": "Когда экран пересоздаётся и подписывается, последнее состояние приходит сразу. Для одноразовых событий вместо него используется SharedFlow."
         },
         "android-n-13": {
-          "q": "",
+          "q": "На каком диспетчере должен выполняться сетевой запрос?",
           "opts": [],
-          "exp": ""
+          "exp": "Пул IO — для работы с большим количеством ожидания. Чтобы передать результат в UI, переключаются обратно на Main."
         },
         "android-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что даёт возврат Flow из DAO Room?",
+          "opts": [
+            "Скорость",
+            "UI обновляется автоматически при изменении базы данных",
+            "Экономию памяти",
+            "Ничего"
+          ],
+          "exp": "Как только таблица меняется, Flow выдаёт новый список — запускать обновление вручную не нужно."
         },
         "android-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен паттерн Repository?",
+          "opts": [
+            "Для отрисовки UI",
+            "Для объединения источников данных (сеть, база данных) за единым интерфейсом",
+            "Для написания тестов",
+            "Для записи логов"
+          ],
+          "exp": "ViewModel не знает, откуда приходят данные. Это облегчает тестирование и позволяет подменить источник."
         },
         "android-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что происходит в Compose при изменении состояния?",
+          "opts": [
+            "Ничего",
+            "Перерисовываются composable-функции, читающие это состояние (рекомпозиция)",
+            "Весь экран пересоздаётся",
+            "Приложение перезапускается"
+          ],
+          "exp": "Compose перерисовывает только затронутые части — а не всё дерево."
         },
         "android-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какие библиотеки обеспечивают внедрение зависимостей в Android?",
+          "opts": [
+            "Ничего",
+            "Hilt или Koin",
+            "Room",
+            "Retrofit"
+          ],
+          "exp": "Это автоматизирует ручную передачу зависимостей и облегчает их подмену в тестах."
         },
         "android-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Почему функции-расширения так активно используются в Android?",
+          "opts": [
+            "Они обязательны",
+            "Позволяют добавлять вспомогательные функции к классам фреймворка (View, Context), не трогая их",
+            "Ради скорости",
+            "Ради памяти"
+          ],
+          "exp": "fun View.gorunsun() { visibility = View.VISIBLE } — вы подстраиваете API под свои нужды, не меняя класс фреймворка."
         },
         "android-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какую область видимости использовать для долгой корутины в Activity?",
+          "opts": [
+            "GlobalScope",
+            "lifecycleScope или viewModelScope",
+            "runBlocking",
+            "Новый поток"
+          ],
+          "exp": "GlobalScope никогда не отменяется и вызывает утечки памяти. Области, привязанные к жизненному циклу, очищаются автоматически."
         },
         "android-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен collectAsStateWithLifecycle()?",
+          "opts": [
+            "Для скорости",
+            "Чтобы останавливать поток, пока экран в фоне",
+            "Для памяти",
+            "Для тестирования"
+          ],
+          "exp": "Обычный collectAsState продолжает работать, даже когда экран не виден, и тратит ресурсы. Вариант с жизненным циклом решает эту проблему."
         },
         "android-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как следует открывать состояние UI из ViewModel?",
+          "opts": [
+            "Как MutableStateFlow",
+            "Как StateFlow — сделанный только для чтения через asStateFlow()",
+            "Как var",
+            "Как публичное свойство"
+          ],
+          "exp": "Внутри хранится MutableStateFlow, а наружу открывается StateFlow, который нельзя изменить, — состояние меняет только ViewModel."
         },
         "android-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Зачем в Compose поднимают состояние вверх (state hoisting)?",
+          "opts": [
+            "Ради скорости",
+            "Чтобы сделать Composable без состояния и переиспользуемым",
+            "Ради памяти",
+            "Это обязательно"
+          ],
+          "exp": "Состояние хранится выше и передаётся вниз параметрами. Такой компонент тестируем и гибок."
         },
         "android-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что использовать для одноразового события (toast, навигация)?",
+          "opts": [
+            "StateFlow",
+            "SharedFlow или Channel",
+            "LiveData",
+            "Обычную переменную"
+          ],
+          "exp": "StateFlow хранит последнее значение — при пересоздании экрана toast показался бы снова. SharedFlow решает эту проблему."
         },
         "android-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Почему в Android следует избегать рефлексии?",
+          "opts": [
+            "Она не работает",
+            "Она медленная и увеличивает размер APK",
+            "Она запрещена",
+            "Причин нет"
+          ],
+          "exp": "kotlin-reflect весит около 3 МБ. Плагины компилятора вроде kotlinx.serialization делают ту же работу без рефлексии."
         },
         "android-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что используется для тестирования UI в современном стеке Android?",
+          "opts": [
+            "Только JUnit",
+            "Библиотека тестирования Compose + Espresso",
+            "Только MockK",
+            "Ничего"
+          ],
+          "exp": "JUnit + MockK для юнит-тестов, API тестирования Compose или Espresso для UI и Turbine для Flow."
         }
       },
       "praktiki": {
         "android-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Смоделируйте состояние UI через sealed interface и выведите случай загрузки.",
+          "ipucu": "data object Yuklenir : EkranVeziyyeti — data object даёт понятный toString.",
+          "starter": "sealed interface EkranVeziyyeti {\n    // напиши Yuklenir, Ugurlu(data), Xeta(mesaj)\n}\n\nfun main() {\n    val v: EkranVeziyyeti = EkranVeziyyeti.Yuklenir\n    println(v)\n}"
         },
         "android-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Обработайте состояние через when: верните текст UI для каждого случая.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed interface V {\n    data object Yuklenir : V\n    data class Ugurlu(val d: String) : V\n    data class Xeta(val m: String) : V\n}\n\nfun ekran(v: V): String = when (v) {\n    // обработай все случаи\n}\n\nfun main() {\n    println(ekran(V.Xeta(\"sebeke yoxdur\")))\n}"
         },
         "android-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Постройте простое состояние счётчика (модель примера remember в Compose).",
+          "ipucu": "var deyer = 0 и fun artir() { deyer++ }",
+          "starter": "class Sayqac {\n    // напиши состояние и artir()\n}\n\nfun main() {\n    val s = Sayqac()\n    s.artir()\n    s.artir()\n    println(s.deyer)\n}"
         },
         "android-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите модель расширения Android: добавьте gorunsun() к простому классу вместо настоящего View.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class View {\n    var gorunur = false\n}\n\n// напиши расширение\n\nfun main() {\n    val v = View()\n    v.gorunsun()\n    println(v.gorunur)\n}"
         },
         "android-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Преобразуйте DTO в класс модели (пример обработки ответа Retrofit).",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class IstifadeciDto(val id: Int, val ad: String)\ndata class Istifadeci(val ad: String)\n\n// напиши функцию преобразования\n\nfun main() {\n    println(IstifadeciDto(1, \"Aysel\").toModel())\n}"
         },
         "android-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Подготовьте список для UI: преобразуйте список DTO в список моделей.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Dto(val ad: String)\ndata class Model(val ad: String)\n\nfun main() {\n    val s = listOf(Dto(\"a\"), Dto(\"b\"))\n    // преобразуй через map и выведи имена\n}"
         },
         "android-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Обработайте случай пустого списка: покажите в UI \"melumat yoxdur\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun ekran(s: List<String>): String {\n    // \"melumat yoxdur\", когда список пуст\n}\n\nfun main() {\n    println(ekran(emptyList()))\n}"
         },
         "android-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите модель расширения Context.toast().",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Context\n\n// напиши расширение toast\n\nfun main() {\n    Context().toast(\"salam\")\n}"
         },
         "android-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите модель преобразования dp: переведите число в пиксели (плотность 2).",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши расширение dp (плотность 2)\n\nfun main() {\n    println(16.dp())\n}"
         },
         "android-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Постройте модель ViewModel: напишите класс, состояние которого можно менять только изнутри.",
+          "ipucu": "var veziyyet = \"Yuklenir\"\n    private set — затем измените его внутри yukle().",
+          "starter": "class ViewModel {\n    // напиши свойство veziyyet (читается снаружи, меняется изнутри) и yukle()\n}\n\nfun main() {\n    val vm = ViewModel()\n    println(vm.veziyyet)\n    vm.yukle()\n    println(vm.veziyyet)\n}"
         },
         "android-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель наблюдаемого состояния: при изменении оно должно уведомлять подписчика.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Veziyyet(baslangic: String) {\n    private var dinleyici: ((String) -> Unit)? = null\n    var deyer = baslangic\n        set(v) {\n            field = v\n            // вызови слушателя\n        }\n    fun izle(f: (String) -> Unit) { dinleyici = f }\n}\n\nfun main() {\n    val v = Veziyyet(\"bos\")\n    v.izle { println(\"yeni: $it\") }\n    v.deyer = \"hazir\"\n}"
         },
         "android-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель Repository: спрячьте источник данных за интерфейсом.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Repo {\n    fun hamisi(): List<String>\n}\n\n// напиши фальшивую реализацию\n\nfun main() {\n    val r: Repo = SaxtaRepo()\n    println(r.hamisi())\n}"
         },
         "android-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель, где применяется внедрение зависимостей: передайте зависимость через конструктор.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Repo { fun al(): String }\n\nclass ViewModel(private val repo: Repo) {\n    // напиши метод yukle()\n}\n\nfun main() {\n    val saxta = object : Repo { override fun al() = \"test\" }\n    println(ViewModel(saxta).yukle())\n}"
         },
         "android-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель асинхронной загрузки: измените состояние в корутине.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\nclass ViewModel {\n    var veziyyet = \"Yuklenir\"\n        private set\n\n    suspend fun yukle() {\n        delay(50)\n        // измени состояние\n    }\n}\n\nfun main() {\n    runBlocking {\n        val vm = ViewModel()\n        println(vm.veziyyet)\n        vm.yukle()\n        println(vm.veziyyet)\n    }\n}"
         },
         "android-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Превратите случай ошибки в состояние через runCatching.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed interface V {\n    data class Ugurlu(val d: String) : V\n    data class Xeta(val m: String) : V\n}\n\nfun yukle(ugurlu: Boolean): V = runCatching {\n    if (ugurlu) \"data\" else error(\"sebeke xetasi\")\n}.fold(\n    // напиши onSuccess и onFailure\n)\n\nfun main() {\n    println(yukle(false))\n}"
         },
         "android-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель StateFlow с Flow: откройте изменения состояния как поток.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    val veziyyet = MutableStateFlow(\"bos\")\n    val is1 = launch {\n        veziyyet.take(2).collect { println(it) }\n    }\n    delay(50)\n    // измени состояние\n    is1.join()\n}"
         },
         "android-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель asStateFlow: открывайте наружу только поток для чтения.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.flow.*\n\nclass ViewModel {\n    private val _veziyyet = MutableStateFlow(0)\n    // открой наружу только для чтения\n\n    fun artir() { _veziyyet.value++ }\n}\n\nfun main() {\n    val vm = ViewModel()\n    vm.artir()\n    println(vm.veziyyet.value)\n}"
         },
         "android-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Сгруппируйте список для UI: разделите элементы по первой букве.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(\"Aysel\", \"Ayten\", \"Kamran\")\n    // сгруппируй по первой букве и выведи\n}"
         },
         "android-p-19": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите фильтр поиска: отфильтруйте список в UI по тексту (без учёта регистра).",
+          "ipucu": "s.filter { it.contains(sorgu, ignoreCase = true) } — букву a содержит только слово \"Java\".",
+          "starter": "fun main() {\n    val s = listOf(\"Kotlin\", \"Java\", \"Swift\")\n    val sorgu = \"a\"\n    // отфильтруй без учёта регистра\n}"
         },
         "android-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите редьюсер состояния: примените событие к текущему состоянию.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class Veziyyet(val say: Int = 0)\nsealed interface Hadise {\n    data object Artir : Hadise\n    data object Sifirla : Hadise\n}\n\nfun reduce(v: Veziyyet, h: Hadise): Veziyyet = when (h) {\n    // обработай события\n}\n\nfun main() {\n    var v = Veziyyet()\n    v = reduce(v, Hadise.Artir)\n    v = reduce(v, Hadise.Artir)\n    println(v.say)\n}"
         },
         "android-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Протестируйте событие сброса с помощью редьюсера.",
+          "ipucu": "Используйте fold или вызовите reduce несколько раз подряд.",
+          "starter": "data class Veziyyet(val say: Int = 0)\nsealed interface Hadise {\n    data object Artir : Hadise\n    data object Sifirla : Hadise\n}\n\nfun reduce(v: Veziyyet, h: Hadise): Veziyyet = when (h) {\n    Hadise.Artir -> v.copy(say = v.say + 1)\n    Hadise.Sifirla -> Veziyyet()\n}\n\nfun main() {\n    // примени последовательность artir, artir, sifirla\n}"
         },
         "android-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Продемонстрируйте модель state hoisting: напишите компонент без состояния.",
+          "ipucu": "println(sayqacGoster(say) { say++ }), затем println(say)",
+          "starter": "// компонент без состояния: принимает значение и функцию, которая его меняет, как параметры\nfun sayqacGoster(deyer: Int, artir: () -> Unit): String {\n    artir()\n    return \"Sayqac: $deyer\"\n}\n\nfun main() {\n    var say = 0\n    // вызови компонент\n}"
         },
         "android-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Смоделируйте одноразовое событие через Channel.",
+          "ipucu": "hadiseler.send(\"toast: salam\"), затем hadiseler.close()",
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.channels.*\n\nfun main() = runBlocking {\n    val hadiseler = Channel<String>()\n    launch {\n        // отправь одно событие и закрой\n    }\n    for (h in hadiseler) println(h)\n}"
         },
         "android-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Смоделируйте DAO Room, возвращающий Flow: при каждом изменении должен приходить новый список.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\n\nfun main() = runBlocking {\n    val baza = MutableStateFlow(listOf(\"alma\"))\n    val is1 = launch {\n        baza.take(2).collect { println(it) }\n    }\n    delay(50)\n    // добавь в базу данных новый элемент\n    is1.join()\n}"
         },
         "android-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Смоделируйте отмену области видимости: при закрытии области работа должна останавливаться.",
+          "ipucu": "scope.cancel() — viewModelScope отменяется так же, когда ViewModel уничтожается.",
+          "starter": "import kotlinx.coroutines.*\n\nfun main() = runBlocking {\n    val scope = CoroutineScope(Dispatchers.Default)\n    scope.launch {\n        try {\n            repeat(100) { delay(50) }\n        } finally {\n            println(\"temizlendi\")\n        }\n    }\n    delay(120)\n    // отмени область видимости\n    delay(50)\n}"
         }
       }
     },
@@ -7810,256 +8040,366 @@
       "title": "",
       "nezeri": {
         "multiplatform-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём главная идея Kotlin Multiplatform?",
+          "opts": [
+            "Сделать UI везде одинаковым",
+            "Писать бизнес-логику один раз, а интерфейс оставлять нативным",
+            "Заменить Java",
+            "Повысить скорость"
+          ],
+          "exp": "KMP не заменяет UI. Логика вроде сети, базы данных и проверки данных общая, а экраны на каждой платформе остаются нативными."
         },
         "multiplatform-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужна папка commonMain?",
+          "opts": [
+            "Для кода Android",
+            "Для кода, общего для всех платформ",
+            "Для кода iOS",
+            "Для тестового кода"
+          ],
+          "exp": "Здесь пишется платформонезависимый код. Платформенные части помещаются в папки вроде androidMain и iosMain."
         },
         "multiplatform-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает ключевое слово expect?",
+          "opts": [
+            "Предоставляет реализацию",
+            "Объявляет в общем коде только сигнатуру",
+            "Выбрасывает ошибку",
+            "Преобразует тип"
+          ],
+          "exp": "expect fun platformaAdi(): String — общий код ожидает, что эта функция существует, а каждая платформа предоставляет свою версию actual."
         },
         "multiplatform-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает ключевое слово actual?",
+          "opts": [
+            "Объявляет",
+            "Предоставляет платформенную реализацию",
+            "Удаляет",
+            "Тестирует"
+          ],
+          "exp": "Каждая целевая платформа должна предоставить реализацию actual, соответствующую объявлению expect, — иначе компиляция не пройдёт."
         },
         "multiplatform-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какие платформы поддерживает KMP?",
+          "opts": [
+            "Только Android",
+            "Android, iOS, десктоп (JVM), веб, native",
+            "Только JVM",
+            "Только iOS"
+          ],
+          "exp": "За кулисами Kotlin/JVM, Kotlin/Native и Kotlin/JS компилируют код для разных целей."
         },
         "multiplatform-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает Compose Multiplatform?",
+          "opts": [
+            "Делает общей только логику",
+            "Позволяет сделать общим и UI",
+            "Запускает тесты",
+            "Настраивает базу данных"
+          ],
+          "exp": "В обычном KMP UI остаётся нативным. Compose Multiplatform же делает общим сам интерфейс для Android, iOS, десктопа и веба."
         },
         "multiplatform-n-07": {
-          "q": "",
+          "q": "Какая библиотека обычно используется для работы с сетью в KMP?",
           "opts": [],
-          "exp": ""
+          "exp": "Retrofit работает только на JVM. Ktor Client же мультиплатформенный и использует свой движок для каждой цели."
         },
         "multiplatform-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что используется для базы данных в KMP?",
+          "opts": [
+            "Room",
+            "SQLDelight",
+            "Только Realm",
+            "Ничего"
+          ],
+          "exp": "Room привязан к JVM/Android. SQLDelight генерирует мультиплатформенный код Kotlin из SQL."
         },
         "multiplatform-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем KMP отличается от React Native?",
+          "opts": [
+            "Ничем",
+            "Он не заменяет UI — интерфейс остаётся нативным",
+            "Он медленнее",
+            "Он только для Android"
+          ],
+          "exp": "React Native строит UI собственными компонентами. KMP делает общей только логику, а экраны пишутся нативно на SwiftUI и Compose."
         },
         "multiplatform-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой ещё подход можно использовать вместо expect/actual?",
+          "opts": [
+            "Никакой",
+            "Интерфейс + платформенная реализация (внедрение зависимостей)",
+            "Рефлексию",
+            "Аннотацию"
+          ],
+          "exp": "Интерфейс объявляется в общем коде, а каждая платформа предоставляет свой класс. Это гибче, чем expect/actual, и легче тестируется."
         },
         "multiplatform-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой код подходит для того, чтобы сделать его общим?",
+          "opts": [
+            "UI-компоненты",
+            "Бизнес-логика, модели данных, проверка данных, сетевой слой",
+            "Push-уведомления",
+            "Камера"
+          ],
+          "exp": "Общим можно сделать всё, что не зависит от платформы. А глубокая интеграция с ОС должна оставаться нативной."
         },
         "multiplatform-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какой код следует оставлять нативным?",
+          "opts": [
+            "Модели данных",
+            "Разрешения, камеру, push-уведомления, интеграции платежей",
+            "Проверку данных",
+            "Сеть"
+          ],
+          "exp": "Эти области тесно связаны с API платформы, и попытка сделать их общими приносит больше сложности, чем пользы."
         },
         "multiplatform-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужна папка commonTest?",
+          "opts": [
+            "Для тестов Android",
+            "Для тестов общего кода — они выполняются на всех платформах",
+            "Для тестов iOS",
+            "Для тестов UI"
+          ],
+          "exp": "Тест, написанный один раз, выполняется на каждой цели. Поэтому библиотека kotlin.test платформонезависима."
         },
         "multiplatform-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что должна делать версия actual для класса expect?",
+          "opts": [
+            "Должно совпадать только имя",
+            "Она должна предоставить все члены expect с теми же сигнатурами",
+            "Она может быть пустой",
+            "У неё может быть другая сигнатура"
+          ],
+          "exp": "Если сигнатуры не совпадают, компилятор сообщает об ошибке. Это гарантирует, что общий код будет работать на каждой платформе."
         },
         "multiplatform-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как объявляются цели в Gradle в проекте KMP?",
+          "opts": [
+            "Автоматически",
+            "В блоке kotlin { androidTarget(); iosArm64(); jvm() }",
+            "В файле манифеста",
+            "Они не объявляются"
+          ],
+          "exp": "Каждая цель получает свой набор исходников и зависимостей: commonMain, androidMain, iosMain."
         },
         "multiplatform-n-16": {
-          "q": "",
+          "q": "Что используется для даты/времени в общем коде?",
           "opts": [],
-          "exp": ""
+          "exp": "java.time работает только на JVM. kotlinx-datetime мультиплатформенный и может использоваться в общем коде."
         },
         "multiplatform-n-17": {
-          "q": "",
+          "q": "Что используется для JSON в KMP?",
           "opts": [],
-          "exp": ""
+          "exp": "Остальные опираются на рефлексию и работают только на JVM. Поскольку kotlinx.serialization работает через плагин компилятора, она доступна на каждой платформе."
         },
         "multiplatform-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как код Kotlin используется на стороне iOS?",
+          "opts": [
+            "Это невозможно",
+            "Он компилируется как framework и вызывается из Swift",
+            "Через JVM",
+            "Через рефлексию"
+          ],
+          "exp": "Kotlin/Native создаёт для iOS framework, совместимый с Objective-C. Код на Swift использует его как обычную библиотеку."
         },
         "multiplatform-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какую долю кода примерно можно сделать общей в KMP?",
+          "opts": [
+            "100 %",
+            "50–70 % при общей логике, 85–95 % с Compose Multiplatform",
+            "10 %",
+            "30 %"
+          ],
+          "exp": "Цифра зависит от проекта. В приложении с упором на UI доля меньше, в приложении с упором на логику — больше."
         },
         "multiplatform-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём недостаток expect/actual по сравнению с подходом через интерфейс?",
+          "opts": [
+            "Его нет",
+            "Его трудно тестировать — реализацию нельзя подменить",
+            "Он медленный",
+            "Больше кода"
+          ],
+          "exp": "С подходом через интерфейс в тестах легко подставить фальшивую реализацию. expect/actual же связывается на этапе компиляции."
         },
         "multiplatform-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Можно ли использовать платформенную библиотеку в общем коде?",
+          "opts": [
+            "Да",
+            "Нет — только мультиплатформенные библиотеки",
+            "Только на Android",
+            "Только в тестовом коде"
+          ],
+          "exp": "commonMain видит только API, существующие на всех целях. Платформенный код должен находиться в соответствующем наборе исходников."
         },
         "multiplatform-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "С чего лучше всего начать внедрение KMP?",
+          "opts": [
+            "Переписать всё приложение",
+            "С небольшой чистой части вроде моделей данных и логики проверки",
+            "С UI",
+            "С навигации"
+          ],
+          "exp": "KMP можно добавлять в существующий проект постепенно. Начать с небольшого платформонезависимого модуля — без риска."
         },
         "multiplatform-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как работает управление памятью в Kotlin/Native?",
+          "opts": [
+            "GC нет",
+            "В новой модели памяти есть GC, и она похожа на JVM",
+            "Память управляется вручную",
+            "Счётчика ссылок нет"
+          ],
+          "exp": "У старой модели были серьёзные ограничения. Новая модель памяти (по умолчанию с 1.7.20) их сняла."
         },
         "multiplatform-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Можно ли написать общий ViewModel?",
+          "opts": [
+            "Нет",
+            "Да — состояние и логика общие, а UI нативный",
+            "Только на Android",
+            "Только с Compose"
+          ],
+          "exp": "StateFlow живёт в общем коде, а Compose и SwiftUI на него подписываются. Это одно из мест, где KMP особенно полезен."
         },
         "multiplatform-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какая часть KMP отнимает больше всего времени?",
+          "opts": [
+            "Написание кода",
+            "Настройка сборки и интеграция стороны iOS",
+            "Тестирование",
+            "Отладка"
+          ],
+          "exp": "Код на Kotlin обычно проблем не доставляет. Больше внимания требуют цели Gradle, настройка framework и интеграция с Xcode."
         }
       },
       "praktiki": {
         "multiplatform-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте абстракцию платформы: объявите интерфейс и напишите одну реализацию.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma {\n    fun ad(): String\n}\n\n// напиши реализацию для Android\n\nfun main() {\n    val p: Platforma = AndroidPlatforma()\n    println(p.ad())\n}"
         },
         "multiplatform-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите две платформенные реализации и вызовите обе.",
+          "ipucu": "Напишите два класса, каждый из которых реализует Platforma.",
+          "starter": "interface Platforma { fun ad(): String }\n\n// напиши две реализации\n\nfun main() {\n    listOf(AndroidPlatforma(), IosPlatforma()).forEach { println(it.ad()) }\n}"
         },
         "multiplatform-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общую бизнес-логику: платформонезависимое приветствие.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma { fun ad(): String }\n\nclass SalamlamaServisi(private val p: Platforma) {\n    // напиши метод salamla()\n}\n\nfun main() {\n    val saxta = object : Platforma { override fun ad() = \"Test\" }\n    println(SalamlamaServisi(saxta).salamla())\n}"
         },
         "multiplatform-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общую модель данных: платформонезависимого пользователя.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши общий data class\n\nfun main() {\n    println(Istifadeci(1, \"Aysel\"))\n}"
         },
         "multiplatform-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общую логику проверки: проверку email.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши общую функцию проверки\n\nfun main() {\n    println(emailDuzgundur(\"aysel@mail.az\"))\n    println(emailDuzgundur(\"yanlis\"))\n}"
         },
         "multiplatform-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте object для общих констант.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши общий объект конфигурации\n\nfun main() {\n    println(Konfiq.API_URL)\n}"
         },
         "multiplatform-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Разное поведение для каждой платформы: передайте интерфейс как параметр.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma { fun ad(): String }\n\nfun tesvir(p: Platforma) = \"Isleyir: ${p.ad()}\"\n\nfun main() {\n    // вызови с анонимным объектом\n}"
         },
         "multiplatform-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общий тип результата: модель успеха/ошибки через sealed.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши общий sealed-тип результата\n\nfun main() {\n    val n: Netice = Netice.Ugur(\"data\")\n    println(n)\n}"
         },
         "multiplatform-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общее расширение: оно должно превращать строку в форму slug.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши общее расширение\n\nfun main() {\n    println(\"Kotlin Multiplatform\".slugla())\n}"
         },
         "multiplatform-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Протестируйте абстракцию платформы: передайте фальшивую реализацию.",
+          "ipucu": "object : Saat { override fun indi() = 1000L } — в тестах время должно быть фиксированным.",
+          "starter": "interface Saat {\n    fun indi(): Long\n}\n\nclass Servis(private val s: Saat) {\n    fun damga() = \"vaxt: ${s.indi()}\"\n}\n\nfun main() {\n    // создай фальшивый Saat, возвращающий фиксированное значение\n}"
         },
         "multiplatform-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общий репозиторий: источник должен приходить из интерфейса.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Menbe { fun al(): List<String> }\n\nclass Repo(private val m: Menbe) {\n    // напиши метод hamisi() - он должен возвращать отсортированный список\n}\n\nfun main() {\n    val saxta = object : Menbe { override fun al() = listOf(\"b\", \"a\") }\n    println(Repo(saxta).hamisi())\n}"
         },
         "multiplatform-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель общего ViewModel: состояние должно быть платформонезависимым.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.flow.*\n\nclass OrtakViewModel {\n    private val _v = MutableStateFlow(\"bos\")\n    val v: StateFlow<String> = _v.asStateFlow()\n    // напиши метод yukle()\n}\n\nfun main() {\n    val vm = OrtakViewModel()\n    vm.yukle()\n    println(vm.v.value)\n}"
         },
         "multiplatform-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общую suspend-логику: платформонезависимую асинхронную операцию.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\n// напиши общую suspend-функцию\n\nfun main() = runBlocking {\n    println(melumatYukle())\n}"
         },
         "multiplatform-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Обработайте общую модель ошибок: разберите каждый случай через when.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed interface Netice {\n    data class Ugur(val d: String) : Netice\n    data class Xeta(val kod: Int) : Netice\n}\n\nfun emal(n: Netice): String = when (n) {\n    // обработай случаи\n}\n\nfun main() {\n    println(emal(Netice.Xeta(503)))\n}"
         },
         "multiplatform-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите общее форматирование, не зависящее от локали.",
+          "ipucu": "fun qiymetFormatla(q: Int) = \"$q AZN\" — String.format зависит от локали, поэтому избегайте его.",
+          "starter": "// напиши общую функцию - она должна возвращать цену в форме \"1200 AZN\"\n\nfun main() {\n    println(qiymetFormatla(1200))\n}"
         },
         "multiplatform-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Постройте модель общего кэша: простое хранилище на основе map.",
+          "ipucu": "fun yaz(a: String, d: String) { m[a] = d } и fun oxu(a: String) = m[a]",
+          "starter": "class Kes {\n    private val m = mutableMapOf<String, String>()\n    // напиши методы yaz() и oxu()\n}\n\nfun main() {\n    val k = Kes()\n    k.yaz(\"ad\", \"Aysel\")\n    println(k.oxu(\"ad\"))\n    println(k.oxu(\"yoxdur\"))\n}"
         },
         "multiplatform-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите общий тест: проверьте платформонезависимую логику.",
+          "ipucu": "assertEquals(true, emailDuzgundur(\"a@b\")) и assertEquals(false, emailDuzgundur(\"x\"))",
+          "starter": "import kotlin.test.assertEquals\n\nfun emailDuzgundur(e: String) = e.contains(\"@\")\n\nfun main() {\n    // проверь оба случая\n    println(\"kecdi\")\n}"
         },
         "multiplatform-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Выберите разную конфигурацию для каждой платформы: смоделируйте это через map.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun konfiq(platforma: String): String = when (platforma) {\n    // разный url для android и ios, значение по умолчанию для остальных\n}\n\nfun main() {\n    println(konfiq(\"ios\"))\n}"
         },
         "multiplatform-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите общую обработку списка: она должна давать одинаковый результат на каждой платформе.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun aktivler(s: List<Pair<String, Boolean>>): List<String> {\n    // верни только имена активных\n}\n\nfun main() {\n    println(aktivler(listOf(\"a\" to true, \"b\" to false, \"c\" to true)))\n}"
         },
         "multiplatform-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите фабричную функцию: она должна возвращать реализацию, соответствующую платформе.",
+          "ipucu": "\"ios\" -> Ios() и else -> Android()",
+          "starter": "interface Platforma { fun ad(): String }\nclass Android : Platforma { override fun ad() = \"Android\" }\nclass Ios : Platforma { override fun ad() = \"iOS\" }\n\nfun yarat(hedef: String): Platforma = when (hedef) {\n    // верни соответствующую реализацию\n}\n\nfun main() {\n    println(yarat(\"ios\").ad())\n}"
         },
         "multiplatform-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Протестируйте общий ViewModel: проверьте состояние с фальшивым репозиторием.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\nimport kotlinx.coroutines.flow.*\nimport kotlin.test.assertEquals\n\ninterface Repo { suspend fun al(): String }\n\nclass VM(private val r: Repo) {\n    private val _v = MutableStateFlow(\"bos\")\n    val v: StateFlow<String> = _v.asStateFlow()\n    suspend fun yukle() { _v.value = r.al() }\n}\n\nfun main() = runBlocking {\n    val saxta = object : Repo { override suspend fun al() = \"test-data\" }\n    val vm = VM(saxta)\n    vm.yukle()\n    // проверь состояние\n    println(\"kecdi\")\n}"
         },
         "multiplatform-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите generic-кэш в общем коде: он должен работать для любого типа.",
+          "ipucu": "fun yaz(a: K, d: V) { m[a] = d } и fun oxu(a: K): V? = m[a]",
+          "starter": "class Kes<K, V> {\n    private val m = mutableMapOf<K, V>()\n    // напиши методы yaz и oxu\n}\n\nfun main() {\n    val k = Kes<Int, String>()\n    k.yaz(1, \"bir\")\n    println(k.oxu(1))\n}"
         },
         "multiplatform-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель общего сетевого слоя: интерфейс + фальшивый ответ.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlinx.coroutines.*\n\ninterface HttpClient {\n    suspend fun get(url: String): String\n}\n\nclass Api(private val c: HttpClient) {\n    // напиши метод istifadeciler()\n}\n\nfun main() = runBlocking {\n    val saxta = object : HttpClient {\n        override suspend fun get(url: String) = \"[Aysel]\"\n    }\n    println(Api(saxta).istifadeciler())\n}"
         },
         "multiplatform-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Покажите, что общая логика платформонезависима: один и тот же сервис с двумя платформами.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Platforma { fun ad(): String }\n\nclass Servis(private val p: Platforma) {\n    fun tesvir() = \"Servis ${p.ad()} uzerinde isleyir\"\n}\n\nfun main() {\n    val a = object : Platforma { override fun ad() = \"Android\" }\n    val i = object : Platforma { override fun ad() = \"iOS\" }\n    // выведи для обоих\n}"
         },
         "multiplatform-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте Result в общем коде: платформонезависимая обработка ошибок.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun yukle(ugurlu: Boolean): Result<String> = runCatching {\n    if (ugurlu) \"data\" else error(\"xeta\")\n}\n\nfun main() {\n    // обработай случай неудачи и выведи значение по умолчанию\n}"
         }
       }
     },
