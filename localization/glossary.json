@@ -155,7 +155,7 @@
       "ar": "المفوَّض", "fa": "نماینده", "hi": "डेलिगेट", "id": "delegasi",
       "zh-CN": "委托", "ja": "デリゲート", "ko": "위임",
       "_formalar": {
-        "en": ["delegat"], "tr": ["delegate", "delegasyon"], "ru": ["делегат", "делегирова"], "es": ["delega"], "pt-BR": ["delega"],
+        "en": ["delegat"], "tr": ["delegate", "delegasyon"], "ru": ["делегат", "делегирова", "delegates."], "es": ["delega"], "pt-BR": ["delega"],
         "de": ["delegat", "delegier"], "fr": ["délég"], "ar": ["تفويض", "delegate"], "fa": ["delegate", "واگذاری"],
         "hi": ["delegate"], "id": ["delegate"], "ja": ["委譲", "delegate"], "ko": ["delegate", "델리게이트"]
       }
