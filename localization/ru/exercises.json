@@ -5134,770 +5134,1045 @@
       }
     },
     "generics": {
-      "title": "",
+      "title": "Дженерики",
       "nezeri": {
         "generics-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужны дженерики?",
+          "opts": [
+            "Чтобы ускорить код",
+            "Чтобы использовать один и тот же код с разными типами без потери типобезопасности",
+            "Чтобы сэкономить память",
+            "Для обработки ошибок"
+          ],
+          "exp": "List<String> и List<Int> получаются из одного и того же кода, но компилятор проверяет тип в каждом из них. Это избавляет и от дублирования кода, и от ошибок приведения."
         },
         "generics-n-02": {
-          "q": "",
+          "q": "Как объявить generic-функцию?",
           "opts": [],
-          "exp": ""
+          "exp": "Параметр типа объявляется сразу после ключевого слова fun, ПЕРЕД именем функции."
         },
         "generics-n-03": {
-          "q": "",
+          "q": "Как объявить generic-класс?",
           "opts": [],
-          "exp": ""
+          "exp": "Параметр типа пишется в угловых скобках после имени класса и может использоваться в любом месте класса."
         },
         "generics-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает буква T?",
+          "opts": [
+            "Конкретный тип",
+            "Параметр типа — это может быть любой тип",
+            "Строковый тип",
+            "Специальное ключевое слово"
+          ],
+          "exp": "T — просто условное имя (Type). Можно использовать любое: E (element), K/V (key/value), R (result)."
         },
         "generics-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем становится T при вызове Qutu(\"Kotlin\")?",
+          "opts": [
+            "Any",
+            "String — компилятор выводит его из аргумента",
+            "Object",
+            "Неизвестно"
+          ],
+          "exp": "Вывод типов работает и с дженериками. Можно указать и явно: Qutu<String>(\"Kotlin\")."
         },
         "generics-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каков результат этого кода?",
+          "opts": [
+            "[7, 8, 9]",
+            "7",
+            "9",
+            "Ошибка компиляции"
+          ],
+          "exp": "T выводится как Int, и функция возвращает первый элемент списка."
         },
         "generics-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как наложить ограничение на generic-тип?",
+          "opts": [
+            "fun <T : Comparable<T>> f(a: T)",
+            "fun <T extends Comparable> f(a: T)",
+            "fun <T where Comparable> f(a: T)",
+            "Это невозможно"
+          ],
+          "exp": "Верхняя граница пишется после двоеточия. После этого на T можно использовать методы этого типа."
         },
         "generics-n-08": {
-          "q": "",
+          "q": "Если ограничение не указано, какова верхняя граница T?",
           "opts": [],
-          "exp": ""
+          "exp": "Верхняя граница по умолчанию — Any?, поэтому T может быть и nullable. Чтобы требовать non-null тип, напишите <T : Any>."
         },
         "generics-n-09": {
-          "q": "",
+          "q": "Сколько параметров типа в Map<K, V>?",
           "opts": [],
-          "exp": ""
+          "exp": "K — тип ключа, V — тип значения. У класса может быть любое количество параметров типа."
         },
         "generics-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как записать несколько ограничений?",
+          "opts": [
+            "<T : A, B>",
+            "where T : A, T : B",
+            "<T : A & B>",
+            "Это невозможно"
+          ],
+          "exp": "Одно ограничение можно написать в угловых скобках; для нескольких используется конструкция where после сигнатуры функции."
         },
         "generics-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает out T?",
+          "opts": [
+            "T используется только как параметр",
+            "T только возвращается — ковариантность",
+            "T изменяем",
+            "T ограничен"
+          ],
+          "exp": "С ковариантным типом значение Qutu<It> можно передать туда, где ожидается Qutu<Heyvan>, потому что чтение безопасно. Именно таков List<out E>."
         },
         "generics-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает in T?",
+          "opts": [
+            "T только возвращается",
+            "T только принимается — контравариантность",
+            "T постоянен",
+            "T nullable"
+          ],
+          "exp": "С контравариантным типом значение Hedef<Heyvan> можно передать туда, где ожидается Hedef<It>. Пример — Comparable<in T>."
         },
         "generics-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Почему MutableList<E> инвариантен?",
+          "opts": [
+            "Это ошибка",
+            "Из него и читают, и в него пишут — будь он ковариантным, можно было бы добавить неверный тип",
+            "Ради скорости",
+            "Ради памяти"
+          ],
+          "exp": "Если бы мы приняли значение MutableList<It> как MutableList<Heyvan>, в него можно было бы добавить Pisik. Поэтому изменяемые коллекции инвариантны."
         },
         "generics-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает правило PECS?",
+          "opts": [
+            "Producer — out, Consumer — in",
+            "Producer — in, Consumer — out",
+            "Оба out",
+            "Оба in"
+          ],
+          "exp": "Если вы только читаете из типа (производитель), пишите out; если только пишете в него (потребитель) — in. Если нужно и то, и другое, он остаётся инвариантным."
         },
         "generics-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда используется звёздная проекция (<*>)?",
+          "opts": [
+            "Когда аргумент типа неизвестен, но известно, что он есть",
+            "Всегда",
+            "Только с Map",
+            "Никогда"
+          ],
+          "exp": "List<*> принимает список с любым типом элементов. Элементы читаются как Any?, а добавлять нельзя."
         },
         "generics-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Сохраняются ли generic-типы во время выполнения на JVM?",
+          "opts": [
+            "Да",
+            "Нет — происходит стирание типов (type erasure)",
+            "Только в Kotlin",
+            "Только в data class"
+          ],
+          "exp": "После компиляции List<String> становится просто List. Поэтому в обычной функции нельзя написать x is T."
         },
         "generics-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен reified?",
+          "opts": [
+            "Для скорости",
+            "Чтобы сделать тип доступным во время выполнения в inline-функции",
+            "Для памяти",
+            "Для наследования"
+          ],
+          "exp": "Поскольку тело inline-функции копируется в место вызова, компилятор может заменить T конкретным типом. Тогда работают x is T и T::class."
         },
         "generics-n-18": {
-          "q": "",
+          "q": "Какое ключевое слово обязательно вместе с reified?",
           "opts": [],
-          "exp": ""
+          "exp": "reified возможен только в inline-функциях — механизм основан на развёртывании тела в месте вызова."
         },
         "generics-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каков результат этого кода?",
+          "opts": [
+            "[1, a, 2]",
+            "[1, 2]",
+            "[a]",
+            "Ошибка компиляции"
+          ],
+          "exp": "Благодаря reified filterIsInstance знает конкретный тип и выбирает только элементы Int."
         },
         "generics-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Можно ли присвоить listOf<It>() переменной List<Heyvan>?",
+          "opts": [
+            "Нет",
+            "Да — List ковариантен (List<out E>)",
+            "Только с MutableList",
+            "Только с пустым списком"
+          ],
+          "exp": "List — интерфейс только для чтения, поэтому он объявлен ковариантным. Это делает повседневный код гораздо удобнее."
         },
         "generics-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как потребовать, чтобы generic-тип был не nullable?",
+          "opts": [
+            "<T : Any>",
+            "<T : NotNull>",
+            "<T!>",
+            "Это невозможно"
+          ],
+          "exp": "Any — родитель всех не-nullable типов. Если написать <T : Any>, nullable-тип не принимается в качестве T."
         },
         "generics-n-22": {
-          "q": "",
+          "q": "Как написать generic-функцию-расширение?",
           "opts": [],
-          "exp": ""
+          "exp": "Параметр типа объявляется после fun, перед типом получателя."
         },
         "generics-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Можно ли использовать out-тип как параметр функции?",
+          "opts": [
+            "Да",
+            "Нет — это вызывает ошибку компиляции",
+            "Только если он private",
+            "Только если она inline"
+          ],
+          "exp": "out гарантирует, что тип встречается только в выходных позициях. Использование в качестве параметра нарушило бы эту гарантию, поэтому компилятор не разрешает этого. Единственное исключение — private-члены."
         },
         "generics-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Можно ли создать объект из параметра типа в generic-классе (T())?",
+          "opts": [
+            "Да",
+            "Нет — стирание типов не позволяет; передают фабричную лямбду",
+            "Только с data class",
+            "Только с reified"
+          ],
+          "exp": "Поскольку T неизвестен во время выполнения, конструктор найти нельзя. Обычно передают фабричную функцию типа () -> T как параметр."
         },
         "generics-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда происходит вывод типов для generic-типов?",
+          "opts": [
+            "Во время выполнения",
+            "Во время компиляции — по аргументам или ожидаемому типу",
+            "Никогда",
+            "Только с reified"
+          ],
+          "exp": "Компилятор определяет T, глядя и на аргументы, и на тип переменной, которой присваивается результат."
         }
       },
       "praktiki": {
         "generics-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите generic-функцию: она должна возвращать первый элемент списка. Вызовите её со списком чисел.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(ilkini(listOf(7, 8, 9)))\n}\n\n// напиши generic-функцию"
         },
         "generics-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Вызовите ту же generic-функцию со списком строк.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun <T> ilkini(s: List<T>): T = s.first()\n\nfun main() {\n    // вызови со списком строк\n}"
         },
         "generics-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите generic-класс: Qutu должен хранить значение и возвращать его.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Qutu(\"Kotlin\").al())\n}\n\n// напиши generic-класс"
         },
         "generics-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте тот же generic-класс с числом.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu<T>(private val deyer: T) {\n    fun al(): T = deyer\n}\n\nfun main() {\n    // используй с числом\n}"
         },
         "generics-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Укажите аргумент типа ЯВНО: создайте Qutu<String> и выведите значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu<T>(private val deyer: T) {\n    fun al(): T = deyer\n}\n\nfun main() {\n    // создай с явно указанным типом\n}"
         },
         "generics-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите класс с двумя параметрами типа: Cut должен хранить ключ и значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Cut(\"yas\", 24).tesvir())\n}\n\n// напиши класс с двумя параметрами типа"
         },
         "generics-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Верните размер списка через generic-функцию.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(olcu(listOf(\"a\", \"b\", \"c\")))\n}\n\n// напиши generic-функцию"
         },
         "generics-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Объедините два значения в пару через generic-функцию и выведите результат.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cutle(\"ad\", 24))\n}\n\n// напиши generic-функцию"
         },
         "generics-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Пусть generic-функция переворачивает список.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tersine(listOf(1, 2, 3)))\n}\n\n// напиши generic-функцию"
         },
         "generics-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Добавьте ограничение типа: напишите функцию boyuk(), требующую Comparable.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(boyuk(9, 3))\n}\n\n// напиши generic-функцию с ограничением"
         },
         "generics-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте ту же функцию с ограничением для строк.",
+          "ipucu": "println(boyuk(\"Java\", \"Kotlin\")) — строки сравниваются в алфавитном порядке.",
+          "starter": "fun <T : Comparable<T>> boyuk(a: T, b: T) = if (a > b) a else b\n\nfun main() {\n    // вызови со строками\n}"
         },
         "generics-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Потребуйте non-null тип: напишите функцию с <T : Any>.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(teleb(\"Kotlin\"))\n}\n\n// напиши функцию с ограничением <T : Any>"
         },
         "generics-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите generic-расширение: оно должно безопасно возвращать второй элемент списка.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(1, 2, 3).ikinci())\n}\n\n// напиши generic-расширение"
         },
         "generics-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте звёздную проекцию: напишите функцию, возвращающую размер любого списка.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(say(listOf(\"a\", \"b\")))\n}\n\n// напиши функцию со звёздной проекцией"
         },
         "generics-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Покажите ковариантность: присвойте значение List<String> переменной List<Any> и выведите размер.",
+          "ipucu": "List ковариантен — можно присвоить напрямую.",
+          "starter": "fun main() {\n    val s = listOf(\"a\", \"b\")\n    val a: List<Any> = // допиши\n    println(a.size)\n}"
         },
         "generics-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Добавьте метод в generic-класс: напишите map(), преобразующий значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Qutu<T>(private val deyer: T) {\n    // напиши метод <R> map\n}\n\nfun main() {\n    println(Qutu(21).map { it * 2 })\n}"
         },
         "generics-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Преобразуйте список generic-функцией: примените функцию к каждому элементу.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cevir(listOf(1, 2, 3)) { it * 10 })\n}\n\n// напиши generic-функцию"
         },
         "generics-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Запишите два ограничения через where.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(\"Kotlin\"))\n}\n\n// напиши функцию с where"
         },
         "generics-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Создайте generic Map и выведите значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Lugat(\"ad\", \"Aysel\").deyer)\n}\n\n// напиши класс с двумя параметрами типа"
         },
         "generics-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте reified: выберите из смешанного списка только Int.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(listOf(1, \"a\", 2, \"b\").yalniz<Int>())\n}\n\n// напиши расширение inline + reified"
         },
         "generics-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите проверку типа через reified: является ли значение String?",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tipdirmi<String>(\"Kotlin\"))\n}\n\n// напиши функцию inline + reified"
         },
         "generics-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Выведите имя типа через reified.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tipAdi<String>())\n}\n\n// напиши функцию inline + reified"
         },
         "generics-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите ковариантный класс: постройте источник только для чтения с out T.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val m: Menbe<Any> = Menbe(\"Kotlin\")\n    println(m.al())\n}\n\n// напиши класс с out T"
         },
         "generics-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите контравариантный класс: постройте приёмник, который только принимает значения, с in T.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val h: Hedef<String> = Hedef<Any>()\n    h.yaz(\"Kotlin\")\n}\n\n// напиши класс с in T"
         },
         "generics-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Создайте generic-объект через фабричную лямбду (поскольку T() невозможен).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(yarat { \"yeni\" })\n}\n\n// напиши generic-функцию, принимающую фабричную лямбду"
         }
       }
     },
     "istisnalar": {
-      "title": "",
+      "title": "Исключения",
       "nezeri": {
         "istisnalar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Есть ли в Kotlin проверяемые (checked) исключения?",
+          "opts": [
+            "Да",
+            "Нет — ни один метод не обязан объявлять throws",
+            "Только для IOException",
+            "Только при работе с Java"
+          ],
+          "exp": "Kotlin отказался от одной из самых критикуемых особенностей Java. Перехватывать или объявлять исключение совершенно не обязательно."
         },
         "istisnalar-n-02": {
-          "q": "",
+          "q": "Как выбросить исключение?",
           "opts": [],
-          "exp": ""
+          "exp": "Используется ключевое слово throw. В Kotlin throw — это выражение, и его тип — Nothing."
         },
         "istisnalar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какая часть блока try выполняется ВСЕГДА?",
+          "opts": [
+            "try",
+            "catch",
+            "finally",
+            "Ни одна"
+          ],
+          "exp": "finally выполняется независимо от того, выброшено исключение или нет. Используется для закрытия ресурсов — но в Kotlin для этого лучше use()."
         },
         "istisnalar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое try в Kotlin?",
+          "opts": [
+            "Просто инструкция",
+            "Выражение, возвращающее значение",
+            "Функция",
+            "Не ключевое слово"
+          ],
+          "exp": "val n = try { \"42\".toInt() } catch (e: Exception) { 0 } — результатом становится последнее выражение блока try."
         },
         "istisnalar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает \"abc\".toInt()?",
+          "opts": [
+            "Возвращает 0",
+            "Возвращает null",
+            "Выбрасывает NumberFormatException",
+            "Возвращает -1"
+          ],
+          "exp": "Когда преобразование невозможно, выбрасывается исключение. Безопасный вариант — toIntOrNull()."
         },
         "istisnalar-n-06": {
-          "q": "",
+          "q": "Как записать тип исключения в блоке catch?",
           "opts": [],
-          "exp": ""
+          "exp": "В Kotlin сначала идёт имя переменной, а затем тип — так же, как у параметров функции."
         },
         "istisnalar-n-07": {
-          "q": "",
+          "q": "Какой из них — общий родитель всех исключений?",
           "opts": [],
-          "exp": ""
+          "exp": "Exception и Error происходят от Throwable. Обычно перехватывают Exception — Error сигнализирует о проблемах системного уровня, и его не следует перехватывать."
         },
         "istisnalar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каков результат этого кода?",
+          "opts": [
+            "abc",
+            "0",
+            "-1",
+            "Выбрасывается исключение"
+          ],
+          "exp": "Преобразование не удаётся, выполняется блок catch, и его последнее выражение (-1) становится результатом."
         },
         "istisnalar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Сколько блоков catch может быть у одного блока try?",
+          "opts": [
+            "1",
+            "2",
+            "Сколько угодно — для разных типов",
+            "0"
+          ],
+          "exp": "Ветки проверяются сверху вниз. Более конкретные типы нужно писать выше, иначе общий тип их поглотит."
         },
         "istisnalar-n-10": {
-          "q": "",
+          "q": "Какое исключение выбрасывает require()?",
           "opts": [],
-          "exp": ""
+          "exp": "require() проверяет аргументы — если ввод неверен, выбрасывается IllegalArgumentException."
         },
         "istisnalar-n-11": {
-          "q": "",
+          "q": "Какое исключение выбрасывает check()?",
           "opts": [],
-          "exp": ""
+          "exp": "check() проверяет внутреннее состояние объекта. Если состояние неверно, выбрасывается IllegalStateException."
         },
         "istisnalar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает error(\"mesaj\")?",
+          "opts": [
+            "Выводит сообщение",
+            "Выбрасывает IllegalStateException",
+            "Возвращает null",
+            "Завершает программу"
+          ],
+          "exp": "Её тип возвращаемого значения — Nothing, поэтому её можно использовать справа от оператора Элвиса: x ?: error(\"tapilmadi\")."
         },
         "istisnalar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает TODO()?",
+          "opts": [
+            "Добавляет комментарий",
+            "Выбрасывает NotImplementedError",
+            "Ничего",
+            "Пропускает код"
+          ],
+          "exp": "Нужна, чтобы пометить ещё не написанный код. Поскольку её тип — Nothing, она может заменить любой тип возвращаемого значения."
         },
         "istisnalar-n-14": {
-          "q": "",
+          "q": "Что возвращает runCatching { }?",
           "opts": [],
-          "exp": ""
+          "exp": "Он сохраняет либо успешный результат, либо перехваченное исключение в объекте Result. Обрабатывается через getOrNull(), getOrDefault(), onSuccess/onFailure."
         },
         "istisnalar-n-15": {
-          "q": "",
+          "q": "Как создать собственное исключение?",
           "opts": [],
-          "exp": ""
+          "exp": "Наследоваться от Exception или одного из его подклассов. Сообщение передаётся в конструктор: class Xeta(m: String) : Exception(m)."
         },
         "istisnalar-n-16": {
-          "q": "",
+          "q": "Каков результат этого кода?",
           "opts": [],
-          "exp": ""
+          "exp": "try начинается (A), выбрасывается исключение, выполняется catch (B), а затем всегда выполняется finally (C)."
         },
         "istisnalar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем опасен return внутри finally?",
+          "opts": [
+            "Это не опасно",
+            "Он поглощает выброшенное исключение и скрывает ошибку",
+            "Вызывает ошибку компиляции",
+            "Это медленно"
+          ],
+          "exp": "return в finally отменяет исключение, и функция завершается нормально. Проблема молча исчезает — это приводит к трудноуловимым ошибкам."
         },
         "istisnalar-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужна функция use()?",
+          "opts": [
+            "Для создания переменной",
+            "Для автоматического закрытия ресурса Closeable",
+            "Для выбрасывания исключения",
+            "Для преобразования типа"
+          ],
+          "exp": "Это аналог try-with-resources из Java: fayl.use { ... } — по завершении блока ресурс закрывается, даже если было исключение."
         },
         "istisnalar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужна аннотация @Throws?",
+          "opts": [
+            "Для перехвата исключения",
+            "Чтобы сторона Java видела проверяемое исключение",
+            "Для скрытия исключения",
+            "Для производительности"
+          ],
+          "exp": "В Kotlin нет проверяемых исключений. Если вы хотите, чтобы код на Java требовал try/catch, пометьте функцию @Throws."
         },
         "istisnalar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда использовать исключение, а когда sealed-тип результата?",
+          "opts": [
+            "Всегда исключение",
+            "sealed/Result — для ожидаемых неудач, исключения — для ошибок программиста",
+            "Всегда sealed",
+            "Не важно"
+          ],
+          "exp": "Нет сети или не прошла проверка — это часть бизнес-логики, и это следует выражать типами. А сломанная конфигурация или id, равный null, требуют исключения."
         },
         "istisnalar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем плох пустой блок catch?",
+          "opts": [
+            "Медленно",
+            "Полностью скрывает ошибку — проблема проявится позже в другом месте",
+            "Ошибка компиляции",
+            "Он не плох"
+          ],
+          "exp": "Если исключение поглощено, программа продолжает работать в некорректном состоянии. Как минимум его нужно залогировать или выбросить заново."
         },
         "istisnalar-n-22": {
-          "q": "",
+          "q": "Как выбросить исключение заново?",
           "opts": [],
-          "exp": ""
+          "exp": "После обработки в блоке catch запись throw e передаёт исключение выше. В корутинах CancellationException всегда нужно передавать дальше именно так."
         },
         "istisnalar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает Result.fold()?",
+          "opts": [
+            "Накапливает список",
+            "Обрабатывает случаи успеха и неудачи в одном выражении",
+            "Выбрасывает исключение",
+            "Выводит результат"
+          ],
+          "exp": "fold(onSuccess = { ... }, onFailure = { ... }) — обрабатывает оба случая в одном месте и возвращает одно значение."
         },
         "istisnalar-n-24": {
-          "q": "",
+          "q": "Какой тип у выражения throw?",
           "opts": [],
-          "exp": ""
+          "exp": "Nothing — тип, у которого нет значений, и он является подтипом всех типов. Поэтому конструкция val x = y ?: throw Xeta() проходит проверку типов."
         },
         "istisnalar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Когда общий catch (e: Exception) создаёт проблемы?",
+          "opts": [
+            "Никогда",
+            "Он поглощает и неожиданные ошибки и затрудняет диагностику",
+            "Только в тестах",
+            "Вызывает ошибку компиляции"
+          ],
+          "exp": "Лучше перехватывать конкретный тип. Если общий catch всё же нужен, исключение следует как минимум залогировать или выбросить заново."
         }
       },
       "praktiki": {
         "istisnalar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте try/catch: попробуйте преобразовать строку \"abc\" в число, а если не получится, выведите -1.",
           "ipucu": ""
         },
         "istisnalar-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Покажите, что при успешном преобразовании try возвращает собственный результат.",
+          "ipucu": "Поскольку преобразование успешно, catch не выполняется.",
+          "starter": "fun main() {\n    // преобразуй \"42\".toInt() выражением try-catch, при ошибке верни -1\n    val n = 0\n    println(n)\n}"
         },
         "istisnalar-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Покажите, что блок finally выполняется всегда: должны вывестись три строки.",
+          "ipucu": "println(\"B\") внутри catch, println(\"C\") внутри finally.",
+          "starter": "fun main() {\n    try {\n        println(\"A\")\n        throw RuntimeException(\"x\")\n    } catch (e: Exception) {\n        // выведи B\n    } finally {\n        // выведи C\n    }\n}"
         },
         "istisnalar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Перехватите исключение и выведите его сообщение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        throw RuntimeException(\"problem var\")\n    } catch (e: Exception) {\n        // выведи сообщение\n    }\n}"
         },
         "istisnalar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте toIntOrNull: пойдите путём без исключений и в случае null выведите 0.",
           "ipucu": ""
         },
         "istisnalar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Выбросьте и перехватите исключение: напишите собственную проверку деления на ноль.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        bol(10, 0)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n\n// напиши функцию bol"
         },
         "istisnalar-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите две ветки catch: конкретный тип должен идти первым.",
+          "ipucu": "println(\"reqem deyil\") внутри первого catch.",
+          "starter": "fun main() {\n    try {\n        \"abc\".toInt()\n    } catch (e: NumberFormatException) {\n        // конкретный\n    } catch (e: Exception) {\n        println(\"umumi\")\n    }\n}"
         },
         "istisnalar-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Выведите тип исключения: какой класс был выброшен?",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        \"abc\".toInt()\n    } catch (e: Exception) {\n        // выведи имя типа\n    }\n}"
         },
         "istisnalar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Перехватите обращение к несуществующему индексу списка и выведите \"kenar\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(1, 2)\n    try {\n        s[5]\n    } catch (e: IndexOutOfBoundsException) {\n        // выведи\n    }\n}"
         },
         "istisnalar-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте require(): для отрицательного возраста должно выбрасываться исключение; выведите сообщение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        yasQur(-5)\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}\n\n// напиши функцию с require"
         },
         "istisnalar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте check(): если состояние неверно, должно выбрасываться IllegalStateException.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        gonder(false)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// напиши функцию с check"
         },
         "istisnalar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте error(): при попадании в код, до которого не должно доходить, должно выбрасываться исключение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        tap(99)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// напиши функцию с error"
         },
         "istisnalar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте requireNotNull(): выведите сообщение для аргумента null.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x: String? = null\n    try {\n        // используй requireNotNull\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}"
         },
         "istisnalar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Создайте собственный класс исключения и выведите его сообщение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        throw BalansXetasi(\"Vesait catmir\")\n    } catch (e: BalansXetasi) {\n        println(e.message)\n    }\n}\n\n// напиши собственный класс исключения"
         },
         "istisnalar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Добавьте в собственное исключение дополнительное поле: выведите код ошибки.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        throw ApiXetasi(\"Server\", 500)\n    } catch (e: ApiXetasi) {\n        println(e.kod)\n    }\n}\n\n// напиши класс исключения с дополнительным полем"
         },
         "istisnalar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте runCatching: выведите результат в случае успеха.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = runCatching { \"42\".toInt() }\n    // выведи через getOrDefault\n}"
         },
         "istisnalar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте runCatching: выведите значение по умолчанию в случае неудачи.",
           "ipucu": ""
         },
         "istisnalar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте map в цепочке runCatching: удвойте результат и выведите его.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = runCatching { \"21\".toInt() }\n        // добавь map и getOrDefault\n    println(n)\n}"
         },
         "istisnalar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте onSuccess и onFailure: выведите сообщение в случае неудачи.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    runCatching { \"abc\".toInt() }\n        .onSuccess { println(\"ugur: $it\") }\n        // добавь onFailure\n}"
         },
         "istisnalar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте Result.fold(): обработайте оба случая в одном выражении.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = runCatching { \"abc\".toInt() }.fold(\n        // напиши onSuccess и onFailure\n    )\n    println(n)\n}"
         },
         "istisnalar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Выбросьте исключение через Элвис: перехватите сообщение для значения null и выведите его.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x: String? = null\n    try {\n        val y = // напиши Элвис + throw\n        println(y)\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}"
         },
         "istisnalar-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Выбросьте исключение заново: залогируйте его в catch, затем передайте выше и перехватите снаружи.",
+          "ipucu": "Напишите throw e в конце блока catch.",
+          "starter": "fun main() {\n    try {\n        daxili()\n    } catch (e: Exception) {\n        println(\"xaric: ${e.message}\")\n    }\n}\n\nfun daxili() {\n    try {\n        throw RuntimeException(\"problem\")\n    } catch (e: Exception) {\n        println(\"daxil: ${e.message}\")\n        // выброси заново\n    }\n}"
         },
         "istisnalar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Постройте модель ошибок без исключений с помощью sealed-типа результата.",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed class Cavab {\n    data class Ugur(val data: String) : Cavab()\n    data class Xeta(val kod: Int) : Cavab()\n}\n\nfun main() {\n    val c: Cavab = Cavab.Xeta(404)\n    // обработай через when\n}"
         },
         "istisnalar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите функцию, возвращающую Nothing, и перехватите её исключение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        dayandir()\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// напиши функцию, возвращающую Nothing"
         },
         "istisnalar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Оберните причину исключения: выведите исходное сообщение.",
+          "ipucu": "throw IllegalStateException(\"ust qat\", e) — второй параметр является причиной (cause).",
+          "starter": "fun main() {\n    try {\n        try {\n            throw RuntimeException(\"kok sebeb\")\n        } catch (e: Exception) {\n            // оберни в новое исключение\n        }\n    } catch (e: Exception) {\n        println(e.cause?.message)\n    }\n}"
         }
       }
     },
     "delegatlar": {
-      "title": "",
+      "title": "Делегаты и аннотации",
       "nezeri": {
         "delegatlar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что такое делегирование свойств?",
+          "opts": [
+            "Удаление свойства",
+            "Передача логики get/set другому объекту",
+            "Копирование свойства",
+            "Разновидность наследования"
+          ],
+          "exp": "val x by delegate — операции чтения и записи передаются методам getValue/setValue делегата."
         },
         "delegatlar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает by lazy?",
+          "opts": [
+            "Откладывает значение и никогда его не вычисляет",
+            "Вычисляет его один раз при первом обращении, затем кэширует",
+            "Вычисляет заново при каждом обращении",
+            "Удаляет значение"
+          ],
+          "exp": "Идеально для тяжёлых вычислений — если значение так и не понадобится, оно не будет создано."
         },
         "delegatlar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "С каким ключевым словом можно использовать by lazy?",
+          "opts": [
+            "Только var",
+            "Только val",
+            "С обоими",
+            "Ни с одним"
+          ],
+          "exp": "lazy вычисляет значение один раз и хранит его, поэтому имеет смысл только с val. Для var есть Delegates.observable или notNull."
         },
         "delegatlar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Потокобезопасен ли lazy по умолчанию?",
+          "opts": [
+            "Нет",
+            "Да — режим SYNCHRONIZED используется по умолчанию",
+            "Только на Android",
+            "Только внутри object"
+          ],
+          "exp": "Режим по умолчанию применяет синхронизацию. Если значение будет использоваться только в одном потоке, LazyThreadSafetyMode.NONE быстрее."
         },
         "delegatlar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает Delegates.observable?",
+          "opts": [
+            "Предотвращает изменение",
+            "Уведомляет ПОСЛЕ каждого изменения",
+            "Скрывает значение",
+            "Удаляет свойство"
+          ],
+          "exp": "Лямбда получает старое и новое значение. Изменение уже произошло — отменить его нельзя."
         },
         "delegatlar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает Delegates.vetoable?",
+          "opts": [
+            "Логирует изменение",
+            "Может отклонить изменение",
+            "Удваивает значение",
+            "Блокирует свойство"
+          ],
+          "exp": "Лямбда возвращает Boolean: если она вернёт false, новое значение не присваивается и свойство сохраняет старое."
         },
         "delegatlar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен Delegates.notNull()?",
+          "opts": [
+            "Для проверки на null",
+            "Замена lateinit для примитивных типов",
+            "Для удаления значения",
+            "Для скрытия свойства"
+          ],
+          "exp": "lateinit не работает с примитивными типами вроде Int и Double. notNull() закрывает этот пробел."
         },
         "delegatlar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Как определяется результат блока by lazy?",
+          "opts": [
+            "Через return",
+            "Последнее выражение блока",
+            "Первое выражение",
+            "Никак"
+          ],
+          "exp": "Работает как лямбда — последнее выражение становится значением свойства."
         },
         "delegatlar-n-09": {
-          "q": "",
+          "q": "Сколько раз этот код выведет \"hesablanir\"?",
           "opts": [],
-          "exp": ""
+          "exp": "lazy вычисляет значение только при первом обращении. При втором обращении возвращается кэшированное значение."
         },
         "delegatlar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Чем полезно делегирование в Map?",
+          "opts": [
+            "Скоростью",
+            "Позволяет строить объект прямо из JSON или карты конфигурации",
+            "Экономией памяти",
+            "Для тестирования"
+          ],
+          "exp": "class A(m: Map<String, Any?>) { val ad: String by m } — имя свойства используется как ключ, и значение читается из карты."
         },
         "delegatlar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Какие операторные функции нужны, чтобы написать собственный делегат?",
+          "opts": [
+            "get() и set()",
+            "getValue() и setValue()",
+            "read() и write()",
+            "load() и save()"
+          ],
+          "exp": "Для val объявляется только getValue(); для var — и getValue(), и setValue(); обе должны быть operator."
         },
         "delegatlar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Каковы параметры getValue()?",
+          "opts": [
+            "(владелец, значение)",
+            "(owner: Any?, property: KProperty<*>)",
+            "(свойство, значение)",
+            "У неё нет параметров"
+          ],
+          "exp": "Первый параметр — объект, которому принадлежит свойство, второй — метаданные свойства (имя, тип)."
         },
         "delegatlar-n-13": {
-          "q": "",
+          "q": "Сколько параметров принимает setValue()?",
           "opts": [],
-          "exp": ""
+          "exp": "Владельца, метаданные свойства и новое значение — три параметра."
         },
         "delegatlar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает by на уровне класса?",
+          "opts": [
+            "Делегирование свойств",
+            "Передаёт реализацию интерфейса другому объекту",
+            "Наследует",
+            "Преобразует тип"
+          ],
+          "exp": "class A(d: Cap) : Cap by d — все методы интерфейса автоматически перенаправляются объекту d. Это упрощает композицию."
         },
         "delegatlar-n-15": {
-          "q": "",
+          "q": "Каков результат этого кода?",
           "opts": [],
-          "exp": ""
+          "exp": "Первое изменение принимается (5), а второе отклоняется, потому что лямбда возвращает false, — свойство остаётся равным 5."
         },
         "delegatlar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что означает режим PUBLICATION у lazy?",
+          "opts": [
+            "Значение никогда не вычисляется",
+            "Вычислять могут несколько потоков, сохраняется первый результат",
+            "У каждого потока своя копия",
+            "Синхронизации нет"
+          ],
+          "exp": "Вычисление может выполниться больше одного раза, но результат один. Используется, чтобы избежать затрат на синхронизацию, когда вычисление дешёвое."
         },
         "delegatlar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Сколько параметров принимает лямбда observable?",
+          "opts": [
+            "1",
+            "2",
+            "3 — свойство, старое значение, новое значение",
+            "4"
+          ],
+          "exp": "Обычно первый параметр не нужен, и его отбрасывают подчёркиванием: { _, kohne, yeni -> ... }"
         },
         "delegatlar-n-18": {
-          "q": "",
+          "q": "Как объявить аннотацию?",
           "opts": [],
-          "exp": ""
+          "exp": "Используется ключевое слово annotation class. Её параметры задаются в конструкторе и могут быть только константными значениями."
         },
         "delegatlar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает аннотация @Target?",
+          "opts": [
+            "Выбирает целевую платформу",
+            "Ограничивает, к каким элементам можно применять аннотацию",
+            "Задаёт версию",
+            "Меняет имя"
+          ],
+          "exp": "@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION) — аннотацию можно ставить только на классы и функции."
         },
         "delegatlar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что определяет @Retention?",
+          "opts": [
+            "Как долго она сохраняется — в исходнике, в байт-коде или во время выполнения",
+            "Имя аннотации",
+            "Параметры",
+            "Видимость"
+          ],
+          "exp": "Без RUNTIME её нельзя прочитать через рефлексию. Значение по умолчанию — RUNTIME."
         },
         "delegatlar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Что делает аннотация @Deprecated?",
+          "opts": [
+            "Удаляет код",
+            "Помечает его как устаревший и может предложить замену",
+            "Выбрасывает ошибку",
+            "Скрывает код"
+          ],
+          "exp": "С параметром ReplaceWith IDE предлагает автоматическое исправление. Параметр level может превратить предупреждение в ошибку."
         },
         "delegatlar-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Почему рефлексия в Kotlin дорогая?",
+          "opts": [
+            "Она не дорогая",
+            "Зависимость kotlin-reflect большая, и во время выполнения она медленная",
+            "Вызывает ошибку компиляции",
+            "Приводит к утечке памяти"
+          ],
+          "exp": "На Android её рекомендуется избегать. Плагины компилятора вроде kotlinx.serialization делают ту же работу без рефлексии."
         },
         "delegatlar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Может ли класс-делегат быть generic?",
+          "opts": [
+            "Нет",
+            "Да — его можно переиспользовать для любого типа",
+            "Только для String",
+            "Только для val"
+          ],
+          "exp": "class Loglayan<T>(private var d: T) — один делегат работает для всех типов. Делегаты стандартной библиотеки тоже такие."
         },
         "delegatlar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Для чего нужен интерфейс ReadWriteProperty?",
+          "opts": [
+            "Для работы с файлами",
+            "Готовый контракт делегата для свойств var",
+            "Для работы с сетью",
+            "Для тестирования"
+          ],
+          "exp": "Если его реализовать, компилятор проверит сигнатуры getValue и setValue. Для val есть соответствующий ReadOnlyProperty."
         },
         "delegatlar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "В чём главное отличие lateinit от by lazy?",
+          "opts": [
+            "Разницы нет",
+            "lateinit — для var, задаётся снаружи; lazy — для val, вычисляет значение сам",
+            "lazy быстрее",
+            "lateinit есть только на Android"
+          ],
+          "exp": "lateinit не знает, кто предоставит значение, и это не проверяется. lazy вычисляет значение сам, и оно всегда доступно."
         }
       },
       "praktiki": {
         "delegatlar-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте by lazy: значение должно вычисляться при первом обращении; прочитайте его дважды.",
+          "ipucu": "Внутри блока напишите println(\"hesablanir\"), затем 42.",
+          "starter": "val agir: Int by lazy {\n    // выведи \"hesablanir\", затем верни 42\n}\n\nfun main() {\n    println(agir)\n    println(agir)\n}"
         },
         "delegatlar-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Создайте текстовое значение через by lazy и выведите его.",
+          "ipucu": "Последнее выражение блока становится значением.",
+          "starter": "val ad: String by lazy {\n    // верни Kotlin\n}\n\nfun main() {\n    println(ad)\n}"
         },
         "delegatlar-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Покажите, что ленивое значение не вычисляется, если его ни разу не прочитать.",
+          "ipucu": "Блок не выполняется, потому что к свойству ни разу не обращаются.",
+          "starter": "// напиши значение agir через lazy: блок должен выводить \"hesablandi\" и возвращать 42\n\nfun main() {\n    println(\"basladi\")\n    // НЕ обращайся к значению agir\n}"
         },
         "delegatlar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте by lazy внутри класса и выведите значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Konfiq {\n    // напиши lazy-свойство\n}\n\nfun main() {\n    println(Konfiq().url)\n}"
         },
         "delegatlar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте observable: при изменении выводите старое и новое значение.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var ad: String by Delegates.observable(\"Aysel\") { _, kohne, yeni ->\n        // выведи в форме \"kohne -> yeni\"\n    }\n    ad = \"Leyla\"\n}"
         },
         "delegatlar-p-06": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Отследите два изменения через observable.",
+          "ipucu": "n = 1, затем n = 2",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var n: Int by Delegates.observable(0) { _, k, y ->\n        println(\"$k -> $y\")\n    }\n    // измени дважды\n}"
         },
         "delegatlar-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте vetoable: отклоните отрицательное значение и выведите итоговое.",
+          "ipucu": "Лямбда должна возвращать Boolean: yeni > 0",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var n: Int by Delegates.vetoable(1) { _, _, yeni ->\n        // разреши неотрицательные значения\n    }\n    n = 5\n    n = -3\n    println(n)\n}"
         },
         "delegatlar-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Отклоните пустую строку через vetoable.",
+          "ipucu": "Пустая строка отклоняется, и старое значение остаётся.",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    // напиши переменную ad через vetoable(\"Aysel\") — пустая строка должна отклоняться\n    var ad = \"Aysel\"\n    ad = \"\"\n    println(ad)\n}"
         },
         "delegatlar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте Delegates.notNull(): задайте примитивный тип позже.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.properties.Delegates\n\nclass A {\n    // напиши свойство yas через notNull\n}\n\nfun main() {\n    val a = A()\n    a.yas = 24\n    println(a.yas)\n}"
         },
         "delegatlar-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте делегирование в Map: свойства должны читаться из карты.",
+          "ipucu": "val ad: String by m и val yas: Int by m",
+          "starter": "class Istifadeci(m: Map<String, Any?>) {\n    // делегируй свойства ad и yas карте\n}\n\nfun main() {\n    val u = Istifadeci(mapOf(\"ad\" to \"Aysel\", \"yas\" to 24))\n    println(\"${u.ad} ${u.yas}\")\n}"
         },
         "delegatlar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите собственный делегат: постройте делегат только для чтения (getValue).",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\nclass Sabit(private val d: String) {\n    // напиши оператор getValue\n}\n\nclass A {\n    val ad: String by Sabit(\"Kotlin\")\n}\n\nfun main() {\n    println(A().ad)\n}"
         },
         "delegatlar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите делегат для чтения и записи: добавьте также setValue.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\nclass Qutu(private var d: String) {\n    operator fun getValue(s: Any?, x: KProperty<*>): String = d\n    // напиши setValue\n}\n\nclass A {\n    var ad: String by Qutu(\"Aysel\")\n}\n\nfun main() {\n    val a = A()\n    a.ad = \"Leyla\"\n    println(a.ad)\n}"
         },
         "delegatlar-p-13": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите логирующий делегат: он должен выводить чтения и записи.",
+          "ipucu": "Внутри setValue напишите println(\"${x.name} yazilir\").",
+          "starter": "import kotlin.reflect.KProperty\n\nclass Loglayan(private var d: String) {\n    operator fun getValue(s: Any?, x: KProperty<*>): String {\n        println(\"${x.name} oxunur\")\n        return d\n    }\n    // напиши setValue - он должен выводить \"<ad> yazilir\"\n}\n\nclass P {\n    var ad: String by Loglayan(\"Aysel\")\n}\n\nfun main() {\n    val p = P()\n    p.ad = \"Leyla\"\n    println(p.ad)\n}"
         },
         "delegatlar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Напишите generic-делегат: он должен работать для любого типа.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\n// напиши generic-делегат Sabit\n\nclass A {\n    val n: Int by Sabit(42)\n}\n\nfun main() {\n    println(A().n)\n}"
         },
         "delegatlar-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте режим NONE у lazy (для одного потока).",
+          "ipucu": "Сделайте 7 последним выражением блока.",
+          "starter": "val x: Int by lazy(LazyThreadSafetyMode.NONE) {\n    // верни 7\n}\n\nfun main() {\n    println(x)\n}"
         },
         "delegatlar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте делегирование класса (by): передайте интерфейс внутреннему объекту.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Cap { fun cap(): String }\nclass Impl : Cap {\n    override fun cap() = \"impl\"\n}\n\n// напиши делегирующий класс через by\n\nfun main() {\n    println(Delegat(Impl()).cap())\n}"
         },
         "delegatlar-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Постройте счётчик изменений через observable.",
+          "ipucu": "Внутри лямбды напишите say++.",
+          "starter": "import kotlin.properties.Delegates\n\nfun main() {\n    var say = 0\n    var n: Int by Delegates.observable(0) { _, _, _ ->\n        // увеличь счётчик\n    }\n    n = 1\n    n = 2\n    n = 3\n    println(say)\n}"
         },
         "delegatlar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Объявите аннотацию и поставьте её на класс (код должен компилироваться).",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши annotation class Muellif\n\n@Muellif(\"Aysel\")\nclass A\n\nfun main() {\n    println(\"ok\")\n}"
         },
         "delegatlar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "С помощью @Target ограничьте аннотацию только функциями.",
           "ipucu": "",
-          "starter": ""
+          "starter": "// напиши аннотацию с @Target\n\n@Yoxla\nfun test() = println(\"test\")\n\nfun main() {\n    test()\n}"
         },
         "delegatlar-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Реализуйте интерфейс ReadWriteProperty.",
+          "ipucu": "override fun getValue(...) = d и override fun setValue(...) { d = value }",
+          "starter": "import kotlin.properties.ReadWriteProperty\nimport kotlin.reflect.KProperty\n\nclass Qutu<T>(private var d: T) : ReadWriteProperty<Any?, T> {\n    // переопредели getValue и setValue\n}\n\nclass A {\n    var ad: String by Qutu(\"Aysel\")\n}\n\nfun main() {\n    val a = A()\n    a.ad = \"Leyla\"\n    println(a.ad)\n}"
         },
         "delegatlar-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Напишите проверяющий делегат: отрицательное значение должно становиться 0.",
+          "ipucu": "Внутри setValue: d = if (yeni < 0) 0 else yeni",
+          "starter": "import kotlin.reflect.KProperty\n\nclass MusbetOl(private var d: Int = 0) {\n    operator fun getValue(s: Any?, x: KProperty<*>): Int = d\n    // напиши setValue - отрицательное значение должно становиться 0\n}\n\nclass Hesab {\n    var balans: Int by MusbetOl()\n}\n\nfun main() {\n    val h = Hesab()\n    h.balans = -50\n    println(h.balans)\n}"
         },
         "delegatlar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Используйте имя свойства в делегате: выведите KProperty.name.",
           "ipucu": "",
-          "starter": ""
+          "starter": "import kotlin.reflect.KProperty\n\nclass AdCapEt {\n    // напиши getValue - он должен возвращать имя свойства\n}\n\nclass A {\n    val menimXassem: String by AdCapEt()\n}\n\nfun main() {\n    println(A().menimXassem)\n}"
         },
         "delegatlar-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Постройте зависимую цепочку через lazy: один lazy должен запускать другой.",
+          "ipucu": "Когда читается b, сначала выполняется его собственный блок, затем блок a.",
+          "starter": "// a: lazy, должен выводить \"a\" и возвращать 1\n// b: lazy, должен выводить \"b\" и возвращать a + 1\n\nfun main() {\n    println(b)\n}"
         },
         "delegatlar-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Объедините делегирование + override: возьмите один метод на себя.",
+          "ipucu": "override fun bir() = \"oz-bir\" — iki() перенаправляется делегату.",
+          "starter": "interface Cap {\n    fun bir(): String\n    fun iki(): String\n}\nclass Impl : Cap {\n    override fun bir() = \"impl-bir\"\n    override fun iki() = \"impl-iki\"\n}\n\nclass D(c: Cap) : Cap by c {\n    // переопредели только bir()\n}\n\nfun main() {\n    val d = D(Impl())\n    println(d.bir())\n    println(d.iki())\n}"
         },
         "delegatlar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Используйте @Deprecated и всё равно вызовите устаревшую функцию.",
+          "ipucu": "Перед функцией напишите строку @Deprecated(\"Evezine yeni() isledin\").",
+          "starter": "// пометь функцию через @Deprecated\nfun kohne() = println(\"kohne\")\n\nfun main() {\n    @Suppress(\"DEPRECATION\")\n    kohne()\n}"
         }
       }
     },
