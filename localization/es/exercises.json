@@ -1031,708 +1031,978 @@
       }
     },
     "dovrler": {
-      "title": "",
+      "title": "Bucles y rangos",
       "nezeri": {
         "dovrler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Tiene Kotlin la forma clásica for (i = 0; i < n; i++)?",
+          "opts": [
+            "Sí",
+            "No: se usan rangos y un for basado en iteradores",
+            "Solo para arrays",
+            "Solo con while"
+          ],
+          "exp": "Kotlin no tiene el for al estilo C. En su lugar se usan las formas for (i in 0 until n) o for (element in kolleksiya): son más cortas y menos propensas a errores."
         },
         "dovrler-n-02": {
-          "q": "",
+          "q": "¿Qué números incluye el rango 1..5?",
           "opts": [],
-          "exp": ""
+          "exp": "El operador .. incluye ambos extremos (un rango cerrado). Para excluir el último número se usa ..< o until."
         },
         "dovrler-n-03": {
-          "q": "",
+          "q": "¿Cuántos números da el rango 0..<5?",
           "opts": [],
-          "exp": ""
+          "exp": "0, 1, 2, 3, 4: es decir, 5 números. ..< no incluye el último número (antes se llamaba until)."
         },
         "dovrler-n-04": {
-          "q": "",
+          "q": "¿Qué palabra clave se usa para un rango descendente?",
           "opts": [],
-          "exp": ""
+          "exp": "10 downTo 1 crea una secuencia descendente. Si escribes simplemente 10..1, el rango está vacío y el bucle ni siquiera se ejecuta."
         },
         "dovrler-n-05": {
-          "q": "",
+          "q": "¿Qué palabra clave se usa para cambiar el paso?",
           "opts": [],
-          "exp": ""
+          "exp": "1..10 step 2 → 1, 3, 5, 7, 9. step siempre debe ser positivo; para contar hacia atrás se usa junto con downTo."
         },
         "dovrler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre while y do-while?",
+          "opts": [
+            "No hay diferencia",
+            "do-while ejecuta el cuerpo al menos una vez",
+            "while es más rápido",
+            "do-while solo existe en Java"
+          ],
+          "exp": "while comprueba la condición al principio: si es falsa, el cuerpo no se ejecuta nunca. do-while ejecuta el cuerpo y luego comprueba la condición, así que se ejecuta al menos una vez."
         },
         "dovrler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace break?",
+          "opts": [
+            "Salta el paso actual",
+            "Detiene el bucle por completo",
+            "Sale de la función",
+            "Lanza un error"
+          ],
+          "exp": "break detiene el bucle de inmediato, y la ejecución sigue en la línea posterior al bucle. Para saltar solo el paso actual se usa continue."
         },
         "dovrler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace continue?",
+          "opts": [
+            "Detiene el bucle",
+            "Salta el paso actual y pasa al siguiente",
+            "Reinicia el bucle",
+            "Termina el programa"
+          ],
+          "exp": "continue se salta el resto del cuerpo y pasa a la siguiente iteración. El bucle continúa."
         },
         "dovrler-n-09": {
-          "q": "",
+          "q": "¿Qué imprime este código?",
           "opts": [],
-          "exp": ""
+          "exp": "El rango 1..3 incluye ambos extremos: 1, 2, 3. Como print() no cambia de línea, todos salen en una sola línea."
         },
         "dovrler-n-10": {
-          "q": "",
+          "q": "¿Qué se usa para recorrer una colección junto con su índice?",
           "opts": [],
-          "exp": ""
+          "exp": "Con la forma for ((index, deyer) in siyahi.withIndex()) obtienes tanto el índice como el valor. Si solo necesitas los índices, se usa siyahi.indices."
         },
         "dovrler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace repeat(3) { ... }?",
+          "opts": [
+            "Ejecuta el bloque 3 veces",
+            "Repite la lista 3 veces",
+            "Espera 3 segundos",
+            "Devuelve 3 números"
+          ],
+          "exp": "repeat() es una función inline de la biblioteca estándar. Simplemente ejecuta el bloque n veces y pasa el índice de la iteración como parámetro de la lambda."
         },
         "dovrler-n-12": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "Empieza en 10 y baja de 3 en 3: 10, 7, 4, 1. El siguiente valor (−2) queda fuera del rango."
         },
         "dovrler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se escribe un for sobre un Map?",
+          "opts": [
+            "for (m in map)",
+            "for ((acar, deyer) in map)",
+            "for (map.each)",
+            "No es posible"
+          ],
+          "exp": "Los elementos de un Map son objetos Entry y admiten desestructuración, así que puedes escribir for ((acar, deyer) in map)."
         },
         "dovrler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace un return simple dentro de forEach?",
+          "opts": [
+            "Salta solo el paso actual",
+            "Sale de TODA la función",
+            "Reinicia el bucle",
+            "Error de compilación"
+          ],
+          "exp": "Como forEach es inline, return sale de la función exterior (un retorno no local). Para saltar solo el paso, tienes que escribir return@forEach."
         },
         "dovrler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué se usa para salir de bucles anidados de una vez?",
+          "opts": [
+            "break break",
+            "Una etiqueta: break@xarici",
+            "exit()",
+            "goto"
+          ],
+          "exp": "Se le pone una etiqueta al bucle (xarici@ for ...) y escribes break@xarici. Un break sin etiqueta sale solo del bucle más interno."
         },
         "dovrler-n-16": {
-          "q": "",
+          "q": "¿Qué devuelve (1..10).sum()?",
           "opts": [],
-          "exp": ""
+          "exp": "La suma de los números del 1 al 10: 10 × 11 / 2 = 55. Los rangos admiten funciones de colección."
         },
         "dovrler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuántas veces se ejecuta este código?",
+          "opts": [
+            "5 veces",
+            "6 veces",
+            "Ni una vez",
+            "Infinitas veces"
+          ],
+          "exp": "La condición se comprueba al principio: 0 > 5 es falso, así que el cuerpo no se ejecuta nunca. Si fuera un do-while, se ejecutaría una vez."
         },
         "dovrler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede escribir un rango de Char?",
+          "opts": [
+            "No",
+            "Sí: imprime abcde",
+            "Solo con números",
+            "Error de compilación"
+          ],
+          "exp": "Como Char también es Comparable, se puede crear un rango con él. Recorre los caracteres cuyos códigos Unicode son consecutivos."
         },
         "dovrler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Un rango (IntRange) crea un objeto o se optimiza?",
+          "opts": [
+            "Siempre crea un objeto",
+            "En un bucle for el compilador lo convierte en un contador normal: no se crea ningún objeto",
+            "Nunca funciona",
+            "Solo se optimiza para Long"
+          ],
+          "exp": "En la construcción for (i in 1..n), el compilador no crea un objeto IntRange: lo convierte en un bucle con índice normal. Pero si guardas el rango en una variable, sí se crea un objeto."
         },
         "dovrler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace return@forEach?",
+          "opts": [
+            "Sale de la función",
+            "Sale solo de la llamada actual a la lambda: funciona como continue",
+            "Detiene el bucle",
+            "Lanza un error"
+          ],
+          "exp": "Un return con etiqueta sale solo de la lambda, es decir, salta ese paso. La función exterior sigue ejecutándose."
         },
         "dovrler-n-21": {
-          "q": "",
+          "q": "¿Qué imprime este código?",
           "opts": [],
-          "exp": ""
+          "exp": "En cada paso exterior se imprime j=1; cuando j=2, continue@xarici abandona el bucle interior y pasa al siguiente i. Resultado: 11, 21, 31."
         },
         "dovrler-n-22": {
-          "q": "",
+          "q": "¿Cuál es la forma idiomática de escribir un bucle infinito?",
           "opts": [],
-          "exp": ""
+          "exp": "while (true) es la forma más clara. Kotlin no tiene la sintaxis for (;;). De estos bucles siempre hay que salir con break o return."
         },
         "dovrler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué se recomienda para operaciones encadenadas sobre una colección grande?",
+          "opts": [
+            "Operaciones normales de List",
+            "asSequence(): no se crean listas intermedias",
+            "Bucles for anidados",
+            "No hay diferencia"
+          ],
+          "exp": "En una cadena normal, cada paso crea una lista nueva. Una Sequence procesa los elementos uno a uno y no crea colecciones intermedias: con muchos datos ahorra mucho."
         },
         "dovrler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve la propiedad indices?",
+          "opts": [
+            "Los elementos",
+            "El rango de índices válidos (0..size-1)",
+            "El número de elementos",
+            "El último índice"
+          ],
+          "exp": "siyahi.indices → IntRange. Se usa para recorrer índices con la forma for (i in siyahi.indices). Para el último índice está lastIndex."
         },
         "dovrler-n-25": {
-          "q": "",
+          "q": "¿Cuántos elementos imprime este bucle?",
           "opts": [],
-          "exp": ""
+          "exp": "indices → 0..4, y con step 2 se eligen los índices 0, 2, 4: así que se imprimen 3 elementos (1, 3, 5)."
         }
       },
       "praktiki": {
         "dovrler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Imprime los números del 1 al 5 en una línea, separados por espacios.",
           "ipucu": ""
         },
         "dovrler-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime los números del 0 al 4 (sin incluir el 5) en una línea.",
+          "ipucu": "Usa el rango 0..<5."
         },
         "dovrler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime del 5 al 1 en orden descendente.",
+          "ipucu": "Usa la palabra clave downTo."
         },
         "dovrler-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime los números del 1 al 10 con un paso de 2.",
+          "ipucu": "Añade step 2."
         },
         "dovrler-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Recorre una lista e imprime cada elemento en una línea aparte: \"Kotlin\", \"Java\", \"Swift\".",
           "ipucu": ""
         },
         "dovrler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Cuenta del 3 al 1 con un bucle while e imprímelo en una línea.",
           "ipucu": ""
         },
         "dovrler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Con repeat(), imprime el texto \"Salam\" 3 veces en líneas separadas.",
           "ipucu": ""
         },
         "dovrler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Imprime los caracteres de la 'a' a la 'e' juntos.",
           "ipucu": ""
         },
         "dovrler-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Calcula la suma de los números del 1 al 10 e imprímela.",
+          "ipucu": "(1..10).sum(), o súmalos con un bucle."
         },
         "dovrler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Numera una lista con withIndex(): imprímela en la forma \"1. Kotlin\", \"2. Java\".",
           "ipucu": ""
         },
         "dovrler-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa break: recorre del 1 al 10 y detente al llegar a 4. Los números impresos deben ir en una línea.",
           "ipucu": ""
         },
         "dovrler-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa continue: imprime solo los números IMPARES del 1 al 6 en una línea.",
           "ipucu": ""
         },
         "dovrler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa do-while: que sayqac empiece en 0; hasta que llegue a 3, increméntalo cada vez e imprime \"Sayqac: N\".",
           "ipucu": ""
         },
         "dovrler-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Recorre un Map e imprímelo en la forma \"acar -> deyer\". Map: ad=Aysel, yas=24.",
           "ipucu": ""
         },
         "dovrler-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Recorre con índices: imprime los índices y elementos de la lista en la forma \"0:a\" en una línea.",
           "ipucu": ""
         },
         "dovrler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una fila de la tabla de multiplicar: imprime los productos de 3 por 1..5 en una línea.",
           "ipucu": ""
         },
         "dovrler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Calcula un factorial con un bucle: imprime el resultado de 5!.",
           "ipucu": ""
         },
         "dovrler-p-18": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Escribe un bucle anidado: para 1..2 y 1..2, imprime los pares en la forma \"11 12 21 22\" en una línea.",
+          "ipucu": "Anida dos bucles for y usa print(\"$i$j \")."
         },
         "dovrler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Calcula con un bucle la suma de los números de una lista e imprímela: 4, 8, 15, 16.",
           "ipucu": ""
         },
         "dovrler-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una etiqueta: en un bucle anidado, cuando i*j == 4, sal de AMBOS bucles e imprime \"Tapildi\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    // escribe el bucle con etiqueta\n}"
         },
         "dovrler-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa return@forEach: en la lista 1..5, sáltate el 3 e imprime el resto en una línea.",
+          "ipucu": "if (it == 3) return@forEach: un return simple saldría de toda la función.",
+          "starter": "fun main() {\n    listOf(1, 2, 3, 4, 5).forEach {\n        // complétalo\n    }\n    println()\n}"
         },
         "dovrler-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa continue@etiqueta: de las combinaciones i*j, imprime solo las que tienen j==1, en la forma \"11 21 31\".",
+          "ipucu": "Escribe continue@xarici cuando j == 2.",
+          "starter": "fun main() {\n    // usa un continue con etiqueta\n    println()\n}"
         },
         "dovrler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa while (true) y break: detente cuando el contador llegue a 3 e imprime el valor final.",
           "ipucu": ""
         },
         "dovrler-p-24": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime los 7 primeros términos de la sucesión de Fibonacci en una línea (empieza por 1).",
+          "ipucu": "Avanza dos variables en un bucle intercambiando sus valores."
         },
         "dovrler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa indices step 2: imprime juntos los elementos de la lista en los índices pares.",
           "ipucu": ""
         }
       }
     },
     "null-safety": {
-      "title": "",
+      "title": "Seguridad frente a null",
       "nezeri": {
         "null-safety-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre String y String?",
+          "opts": [
+            "No hay diferencia",
+            "String? puede contener null, String no",
+            "String? ocupa más memoria",
+            "String? solo existe en Java"
+          ],
+          "exp": "El signo de interrogación al final indica que el tipo es anulable. Asignar null a una variable de tipo String es un error de compilación: así se evitan las NPE."
         },
         "null-safety-n-02": {
-          "q": "",
+          "q": "¿Cuál es el operador de llamada segura?",
           "opts": [],
-          "exp": ""
+          "exp": "El operador ?. se salta la llamada por completo cuando el receptor es null, y el resultado es null. No se produce ningún fallo."
         },
         "null-safety-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "En la expresión ad?.length, ¿cuál es el resultado si ad es null?",
+          "opts": [
+            "0",
+            "null",
+            "Se lanza una NPE",
+            "-1"
+          ],
+          "exp": "Una llamada segura devuelve null para un receptor null. Si necesitas un valor alternativo, añade el operador Elvis: ad?.length ?: 0."
         },
         "null-safety-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace el operador Elvis (?:)?",
+          "opts": [
+            "Convierte el tipo",
+            "Devuelve el valor de la derecha cuando el lado izquierdo es null",
+            "Suma dos valores",
+            "Comprueba si es null y lanza un error"
+          ],
+          "exp": "ad ?: \"Qonaq\": devuelve ad si no es null, y \"Qonaq\" si lo es. Debe su nombre a que se parece al peinado de Elvis Presley."
         },
         "null-safety-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace el operador !!?",
+          "opts": [
+            "Duplica el valor",
+            "Fuerza un valor anulable a no null y lanza una NPE si es null",
+            "Realiza una negación lógica",
+            "Copia el valor"
+          ],
+          "exp": "!! es la «aserción de no null». Si te equivocas, obtienes una NullPointerException. Cada !! en tu código es un posible punto de fallo."
         },
         "null-safety-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué enfoque es más seguro?",
+          "opts": [
+            "ad!!.length",
+            "ad?.length ?: 0",
+            "Los dos son iguales",
+            "Ninguno"
+          ],
+          "exp": "Una llamada segura combinada con Elvis nunca falla: en el caso null devuelve el valor alternativo que definiste. !!, en cambio, puede fallar en tiempo de ejecución."
         },
         "null-safety-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué comprueba isNullOrEmpty()?",
+          "opts": [
+            "Solo null",
+            "Solo si está vacío",
+            "Tanto null como vacío",
+            "Si la longitud es mayor que 1"
+          ],
+          "exp": "Devuelve true si la variable es null O está vacía. Si además necesitas detectar texto formado solo por espacios, usa isNullOrBlank()."
         },
         "null-safety-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la función orEmpty()?",
+          "opts": [
+            "Vacía la colección",
+            "Devuelve una cadena vacía o una colección vacía cuando el valor es null",
+            "Lanza un error",
+            "Quita los elementos"
+          ],
+          "exp": "Convierte una colección o cadena anulable en una forma segura: siyahi.orEmpty() devuelve una lista vacía si es null, así que las operaciones siguientes son seguras."
         },
         "null-safety-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué imprime este código?",
+          "opts": [
+            "null",
+            "Qonaq",
+            "Una línea vacía",
+            "NPE"
+          ],
+          "exp": "Como ad es null, el operador Elvis devuelve el valor de la derecha, \"Qonaq\"."
         },
         "null-safety-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es un smart cast?",
+          "opts": [
+            "Convertir un tipo a mano",
+            "Que el compilador trate automáticamente una variable como no null tras una comprobación de null",
+            "Una biblioteca especial",
+            "Un tipo de reflexión"
+          ],
+          "exp": "Dentro de un bloque if (ad != null), el compilador ve ad como String: ya no hace falta escribir ?.. Lo mismo ocurre tras una comprobación is."
         },
         "null-safety-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿En qué caso NO funciona el smart cast?",
+          "opts": [
+            "Con variables val locales",
+            "Con propiedades var de una clase: otro hilo podría cambiarlas",
+            "Con parámetros de función",
+            "No hay ningún caso en que no funcione"
+          ],
+          "exp": "Una propiedad mutable de una clase puede cambiar entre la comprobación y su uso, así que el compilador no puede garantizar nada. La solución: copiar el valor en un val local."
         },
         "null-safety-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace el operador as??",
+          "opts": [
+            "Fuerza una conversión de tipo",
+            "Devuelve null si la conversión no es posible",
+            "Lanza un error",
+            "Comprueba el tipo"
+          ],
+          "exp": "Es una conversión segura: si falla, devuelve null en lugar de lanzar ClassCastException. Suele usarse junto con Elvis: x as? String ?: \"defolt\"."
         },
         "null-safety-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo se ejecuta la construcción ?.let { }?",
+          "opts": [
+            "Siempre",
+            "Solo cuando el receptor NO es null",
+            "Solo cuando el receptor es null",
+            "Solo con colecciones"
+          ],
+          "exp": "La llamada segura invoca let solo cuando el valor existe. Dentro del bloque, it ya es de un tipo no anulable."
         },
         "null-safety-n-14": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "Como s no es null, la llamada segura devuelve el valor de length (6) y el lado derecho del operador Elvis nunca se ejecuta."
         },
         "null-safety-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué sirve lateinit?",
+          "opts": [
+            "Para retrasar un valor",
+            "Para asignar más tarde una variable no anulable, sin escribir comprobaciones de null",
+            "Para mejorar el rendimiento",
+            "Para manejar errores"
+          ],
+          "exp": "En casos como la inyección de dependencias (dependency injection) u onCreate(), el valor llega más tarde, pero lógicamente nunca es null. lateinit te ahorra escribir ?. en cada acceso."
         },
         "null-safety-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué pasa si se usa una variable lateinit antes de asignarla?",
+          "opts": [
+            "Devuelve null",
+            "Se lanza UninitializedPropertyAccessException",
+            "Devuelve 0",
+            "Error de compilación"
+          ],
+          "exp": "Se lanza una excepción especial en tiempo de ejecución. Puedes comprobar si ya se ha asignado con ::xasse.isInitialized."
         },
         "null-safety-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace filterNotNull()?",
+          "opts": [
+            "Convierte los elementos null en null",
+            "Descarta los elementos null de la colección y hace el tipo no anulable",
+            "Vacía la colección",
+            "Comprueba si es null"
+          ],
+          "exp": "Convierte una List<String?> en una List<String>, descartando de paso los null: ideal para las operaciones siguientes."
         },
         "null-safety-n-18": {
-          "q": "",
+          "q": "¿Cómo se escribe una salida anticipada con el operador Elvis?",
           "opts": [],
-          "exp": ""
+          "exp": "Como el tipo de una expresión return es Nothing, puede ir en el lado derecho de Elvis. Es una forma idiomática muy común."
         },
         "null-safety-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se ven en Kotlin los tipos que vienen de Java?",
+          "opts": [
+            "Siempre anulables",
+            "Siempre no anulables",
+            "Tipo de plataforma (String!): el compilador no los comprueba",
+            "Provocan un error de compilación"
+          ],
+          "exp": "Java no tiene información sobre null. Kotlin muestra esos tipos como String! y no los comprueba, así que sigue siendo posible una NPE. Si el lado de Java tiene anotaciones @Nullable/@NotNull, Kotlin las respeta."
         },
         "null-safety-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre requireNotNull() y checkNotNull()?",
+          "opts": [
+            "No hay diferencia",
+            "require lanza IllegalArgumentException, check lanza IllegalStateException",
+            "require es más rápido",
+            "check solo se usa en las pruebas"
+          ],
+          "exp": "require sirve para validar argumentos (la entrada es incorrecta), mientras que check sirve para el estado del objeto (la lógica interna está rota). El tipo de excepción se elige en consecuencia."
         },
         "null-safety-n-21": {
-          "q": "",
+          "q": "val x: Int? = null; val y = x?.plus(1): ¿cuál es el tipo de y?",
           "opts": [],
-          "exp": ""
+          "exp": "El resultado de una llamada segura siempre es anulable, porque si el receptor es null, el resultado también es null."
         },
         "null-safety-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede escribir una función de extensión para un tipo anulable?",
+          "opts": [
+            "No",
+            "Sí: el receptor puede ser null y se comprueba dentro",
+            "Solo cuando es private",
+            "Solo cuando es inline"
+          ],
+          "exp": "Cuando el receptor se declara anulable, puedes llamar a la función sin ?.. Dentro, this puede ser null, así que comprobarlo es responsabilidad de la propia función. isNullOrEmpty() está escrita exactamente así."
         },
         "null-safety-n-23": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "filterNotNull() descarta el elemento null y quedan \"a\" y \"b\": es decir, 2 elementos."
         },
         "null-safety-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace mapNotNull { }?",
+          "opts": [
+            "Solo transforma",
+            "Transforma y descarta los elementos cuyo resultado es null",
+            "Conserva solo los null",
+            "Lanza un error"
+          ],
+          "exp": "Es una combinación de map y filterNotNull. Cuando la función de transformación devuelve null, el elemento no llega al resultado: muy práctico para parsear."
         },
         "null-safety-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo es aceptable usar el operador !! en Kotlin?",
+          "opts": [
+            "Siempre: es corto",
+            "Casi nunca; solo si algo fuera del código garantiza que no es null",
+            "Solo en las pruebas",
+            "Solo al trabajar con Java"
+          ],
+          "exp": "Cada !! es un posible fallo. Cuando veas uno en el código, pregúntate: ¿por qué no puede ser null este valor? Si tienes respuesta, haz el tipo no anulable desde el principio; si no, usa ?. o ?:."
         }
       },
       "praktiki": {
         "null-safety-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "La variable anulable es null. Imprime su longitud usando una llamada segura (no debe fallar).",
           "ipucu": ""
         },
         "null-safety-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "La variable anulable es \"Kotlin\". Imprime su longitud usando una llamada segura.",
           "ipucu": ""
         },
         "null-safety-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Da un valor alternativo con el operador Elvis: imprime \"Qonaq\" cuando ad es null.",
           "ipucu": ""
         },
         "null-safety-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina una llamada segura y Elvis: imprime 0 en lugar de la longitud de un valor null.",
           "ipucu": ""
         },
         "null-safety-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Comprueba con isNullOrEmpty(): imprime el resultado para un valor null.",
+          "ipucu": "println(s.isNullOrEmpty()): no hace falta ?."
         },
         "null-safety-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa orEmpty(): convierte una lista null en una lista vacía e imprímela.",
           "ipucu": ""
         },
         "null-safety-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa un bloque let: como ad no es null, debe imprimirse en mayúsculas.",
           "ipucu": ""
         },
         "null-safety-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa un smart cast tras una comprobación de null: imprime la longitud sin ?.",
+          "ipucu": "Tras la comprobación, el compilador ve ad como String: println(ad.length)",
+          "starter": "fun main() {\n    val ad: String? = \"Kotlin\"\n    if (ad != null) {\n        // no uses ?.\n    }\n}"
         },
         "null-safety-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa isNullOrBlank(): imprime el resultado para un texto formado solo por espacios.",
+          "ipucu": "isNullOrBlank() detecta también los espacios; isNullOrEmpty() no."
         },
         "null-safety-p-10": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Haz una conversión segura con as?: intenta convertir a String un valor Int de tipo Any e imprime el resultado.",
+          "ipucu": "println(obyekt as? String): una conversión fallida da null."
         },
         "null-safety-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina as? y Elvis: si la conversión falla, imprime \"uygun deyil\".",
           "ipucu": ""
         },
         "null-safety-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa filterNotNull(): descarta los null de la lista e imprime el resto.",
           "ipucu": ""
         },
         "null-safety-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una llamada segura encadenada: intenta imprimir en mayúsculas el primer elemento de una lista null.",
           "ipucu": ""
         },
         "null-safety-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa mapNotNull(): reúne en una lista solo las cadenas que se pueden convertir en número e imprímela.",
           "ipucu": ""
         },
         "null-safety-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa getOrNull(): accede a un índice que no existe en la lista e imprime el resultado (no debe fallar).",
           "ipucu": ""
         },
         "null-safety-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una salida anticipada: la llamada emal(null) debe devolver \"bos\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(null))\n}\n\nfun emal(giris: String?): String {\n    // escribe una salida anticipada con Elvis\n    return giris.uppercase()\n}"
         },
         "null-safety-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función con un parámetro anulable: la llamada salamla(null) debe devolver \"Salam, Qonaq!\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(salamla(null))\n    println(salamla(\"Aysel\"))\n}\n\n// escribe la función"
         },
         "null-safety-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina let + Elvis: imprime \"islenmedi\" para un valor null.",
           "ipucu": ""
         },
         "null-safety-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa el operador !! con un valor que NO es null e imprime su longitud.",
+          "ipucu": "println(ad!!.length): no falla porque el valor existe."
         },
         "null-safety-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa lateinit: crea una propiedad lateinit en una clase e imprime el resultado de isInitialized antes y después de asignarla.",
+          "ipucu": "Usa la forma ::ad.isInitialized.",
+          "starter": "class Servis {\n    lateinit var ad: String\n    fun hazirdirmi() = // completa esta parte\n}\n\nfun main() {\n    val s = Servis()\n    println(s.hazirdirmi())\n    s.ad = \"Kotlin\"\n    println(s.hazirdirmi())\n}"
         },
         "null-safety-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función de extensión para un tipo anulable: bosdurmu(), que debe devolver true cuando el valor es null o está vacío. Llámala con null.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s: String? = null\n    println(s.bosdurmu())\n}\n\n// escribe la función de extensión"
         },
         "null-safety-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea un null condicional con takeIf: para una cadena vacía debe imprimirse null.",
           "ipucu": ""
         },
         "null-safety-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa requireNotNull() y captura la excepción lanzada: imprime su mensaje.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val x: String? = null\n    try {\n        // usa requireNotNull\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}"
         },
         "null-safety-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Sortea el caso en que el smart cast no funciona: copia la propiedad var en un val local e imprime su longitud.",
+          "ipucu": "val yerli = p.ad ?: return y luego usa yerli.length.",
+          "starter": "class Profil {\n    var ad: String? = \"Kotlin\"\n}\n\nfun main() {\n    val p = Profil()\n    // copia en un val local e imprime la longitud\n}"
         },
         "null-safety-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Construye una cadena anulable: lee de forma segura el nombre de la ciudad desde objetos anidados. Como la dirección es null, la salida debe ser \"namelum\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Unvan(val seher: String?)\nclass Istifadeci(val unvan: Unvan?)\n\nfun main() {\n    val u = Istifadeci(null)\n    // escribe una llamada segura encadenada + Elvis\n}"
         }
       }
     },
     "kolleksiyalar": {
-      "title": "",
+      "title": "Colecciones",
       "nezeri": {
         "kolleksiyalar-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué tipo de colección devuelve listOf()?",
+          "opts": [
+            "Una lista mutable",
+            "Una lista de solo lectura",
+            "Un array",
+            "Un Set"
+          ],
+          "exp": "listOf() devuelve la interfaz List: no tiene los métodos add() ni remove(). Si necesitas modificarla, usa mutableListOf()."
         },
         "kolleksiyalar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia principal entre un Set y una List?",
+          "opts": [
+            "Un Set está ordenado",
+            "Un Set no guarda elementos duplicados",
+            "Un Set es más rápido",
+            "No hay diferencia"
+          ],
+          "exp": "Un Set contiene elementos únicos: el mismo valor no se añade por segunda vez. Una List, en cambio, admite duplicados y conserva el orden."
         },
         "kolleksiyalar-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es un Map?",
+          "opts": [
+            "Una lista ordenada",
+            "Una colección de pares clave–valor",
+            "Un conjunto sin duplicados",
+            "Otro nombre para un array"
+          ],
+          "exp": "Un Map asocia cada clave a un valor. Las claves son únicas; se crea así: mapOf(\"ad\" to \"Aysel\")."
         },
         "kolleksiyalar-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la función map { }?",
+          "opts": [
+            "Filtra los elementos",
+            "Transforma cada elemento y devuelve una lista nueva",
+            "Ordena los elementos",
+            "Calcula la suma"
+          ],
+          "exp": "map() aplica una transformación a cada elemento y construye una lista nueva con los resultados. La colección original no cambia."
         },
         "kolleksiyalar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la función filter { }?",
+          "opts": [
+            "Transforma los elementos",
+            "Conserva los elementos que cumplen la condición",
+            "Ordena la colección",
+            "Descarta los duplicados"
+          ],
+          "exp": "filter() selecciona los elementos para los que el predicado devuelve true. Para obtener lo contrario, usa filterNot()."
         },
         "kolleksiyalar-n-06": {
-          "q": "",
+          "q": "¿Cómo se averigua el número de elementos de una colección?",
           "opts": [],
-          "exp": ""
+          "exp": "Las colecciones tienen la propiedad size. String usa length en su lugar: a menudo se confunden. También existe la función count(), que puede trabajar con una condición."
         },
         "kolleksiyalar-n-07": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "map() multiplica cada elemento por dos: 1→2, 2→4, 3→6."
         },
         "kolleksiyalar-n-08": {
-          "q": "",
+          "q": "¿Qué usas para obtener de forma segura el primer elemento de una lista?",
           "opts": [],
-          "exp": ""
+          "exp": "first() lanza NoSuchElementException con una colección vacía. firstOrNull() devuelve null en su lugar: es más seguro."
         },
         "kolleksiyalar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve la función sum()?",
+          "opts": [
+            "El número de elementos",
+            "La suma de todos los elementos",
+            "El elemento más grande",
+            "La media"
+          ],
+          "exp": "sum() calcula la suma de una colección de números. Para sumar sobre objetos, usa sumOf { it.qiymet }."
         },
         "kolleksiyalar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Una List «de solo lectura» es realmente inmutable?",
+          "opts": [
+            "Sí, es totalmente inmutable",
+            "No: si el objeto subyacente es una MutableList y queda una referencia a él, puede cambiar",
+            "Solo cambia en Java",
+            "Siempre crea una copia"
+          ],
+          "exp": "La interfaz List no ofrece métodos de modificación, pero no garantiza una inmutabilidad total. Para una copia real, usa toList()."
         },
         "kolleksiyalar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve groupBy { }?",
+          "opts": [
+            "List",
+            "Map: la clave viene del selector, el valor es una lista de elementos",
+            "Set",
+            "Pair"
+          ],
+          "exp": "groupBy() agrupa los elementos por clave y devuelve un Map<K, List<T>>. Por ejemplo, para agrupar a los empleados por departamento."
         },
         "kolleksiyalar-n-12": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "Primero, filter elige los números pares → [2, 4]. Después map calcula el cuadrado de cada uno → [4, 16]."
         },
         "kolleksiyalar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre fold() y reduce()?",
+          "opts": [
+            "No hay diferencia",
+            "fold recibe un valor inicial, mientras que reduce empieza por el primer elemento",
+            "reduce es más rápido",
+            "fold solo funciona con números"
+          ],
+          "exp": "Con fold(0) { akk, x -> ... } das tú el valor inicial: también funciona con una colección vacía. reduce toma el primer elemento como punto de partida y lanza una excepción con una colección vacía."
         },
         "kolleksiyalar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelven any { } y all { }?",
+          "opts": [
+            "Una lista de elementos",
+            "Boolean: si al menos uno / todos cumplen la condición",
+            "El número de elementos",
+            "El primer elemento que coincide"
+          ],
+          "exp": "any() devuelve true si al menos un elemento cumple la condición, y all() devuelve true si la cumplen todos. none() comprueba lo contrario."
         },
         "kolleksiyalar-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace flatten()?",
+          "opts": [
+            "Ordena la colección",
+            "Aplana las colecciones anidadas en un solo nivel",
+            "Descarta los duplicados",
+            "Transforma los elementos"
+          ],
+          "exp": "listOf(listOf(1,2), listOf(3)) → [1, 2, 3]. Si necesitas transformar y aplanar a la vez, usa flatMap { }."
         },
         "kolleksiyalar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la función zip()?",
+          "opts": [
+            "Comprime la colección",
+            "Empareja dos colecciones",
+            "Archiva un fichero",
+            "Baraja los elementos"
+          ],
+          "exp": "listOf(1,2).zip(listOf(\"a\",\"b\")) → [(1, a), (2, b)]. Si las longitudes son distintas, obtienes tantos pares como la longitud de la más corta."
         },
         "kolleksiyalar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve partition { }?",
+          "opts": [
+            "Un Pair de dos listas: las que cumplen y las que no",
+            "Map",
+            "Una sola lista",
+            "Set"
+          ],
+          "exp": "val (cutler, tekler) = r.partition { it % 2 == 0 }: divide la colección en dos partes en una sola pasada."
         },
         "kolleksiyalar-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace distinct()?",
+          "opts": [
+            "Ordena los elementos",
+            "Descarta los elementos duplicados conservando el orden",
+            "Transforma la colección",
+            "Descarta los elementos vacíos"
+          ],
+          "exp": "Conserva la primera aparición y no rompe el orden. Para quitar duplicados según una clave, existe distinctBy { }."
         },
         "kolleksiyalar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve associateWith { }?",
+          "opts": [
+            "List",
+            "Map: los elementos pasan a ser claves y el resultado de la lambda, el valor",
+            "Set",
+            "Pair"
+          ],
+          "exp": "listOf(\"a\",\"bb\").associateWith { it.length } → {a=1, bb=2}. Para lo contrario, usa associateBy { }: ahí la lambda da la clave."
         },
         "kolleksiyalar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo es mejor una Sequence que una List?",
+          "opts": [
+            "Siempre",
+            "En una cadena de varios pasos sobre una colección grande: no se crean listas intermedias",
+            "Con colecciones pequeñas",
+            "Solo para ordenar"
+          ],
+          "exp": "En una cadena normal, cada paso crea una lista nueva. Una Sequence es perezosa y procesa los elementos uno a uno. Con colecciones pequeñas, en cambio, puede ser más lenta por su propia sobrecarga."
         },
         "kolleksiyalar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo empieza el cálculo en una Sequence?",
+          "opts": [
+            "Inmediatamente",
+            "Cuando se llama a una operación terminal (toList, sum, first)",
+            "Nunca",
+            "Cuando se llama a map"
+          ],
+          "exp": "Las operaciones intermedias como map y filter solo construyen un plan. El cálculo empieza cuando se llama a una operación terminal como toList(), sum() o first()."
         },
         "kolleksiyalar-n-22": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "groupBy agrupa por la primera letra: las que empiezan por a van a una lista, y la que empieza por b, a otra. El resultado es un Map<Char, List<String>>."
         },
         "kolleksiyalar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace chunked(2)?",
+          "opts": [
+            "Elige uno de cada 2 elementos",
+            "Divide la colección en trozos de 2 elementos",
+            "Crea dos colecciones",
+            "Duplica los elementos"
+          ],
+          "exp": "listOf(1,2,3,4,5).chunked(2) → [[1, 2], [3, 4], [5]]. El último trozo puede estar incompleto. Para una ventana deslizante existe windowed()."
         },
         "kolleksiyalar-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre sumOf { } y sum()?",
+          "opts": [
+            "No hay diferencia",
+            "sumOf primero transforma y luego suma",
+            "sum es más preciso",
+            "sumOf solo funciona con Double"
+          ],
+          "exp": "sum() trabaja directamente con colecciones de números. sumOf { it.qiymet } extrae un campo de los objetos y lo suma: sustituye a la cadena map { }.sum()."
         },
         "kolleksiyalar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué es útil convertir una MutableList en una List?",
+          "opts": [
+            "Para ahorrar memoria",
+            "Para evitar que se modifique desde fuera al devolverla desde una API",
+            "Porque es más rápido",
+            "No tiene ninguna ventaja"
+          ],
+          "exp": "Si copias la lista mutable interna con toList() y devuelves esa copia, quien la llama no puede modificarla. No basta con declarar el tipo como List: el objeto subyacente sigue siendo mutable."
         }
       },
       "praktiki": {
         "kolleksiyalar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una lista de tres lenguajes e imprímela: Kotlin, Java, Swift.",
           "ipucu": ""
         },
         "kolleksiyalar-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el número de elementos de la lista.",
+          "ipucu": "Usa la propiedad size."
         },
         "kolleksiyalar-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Multiplica cada elemento por dos con map e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Selecciona solo los números pares con filter e imprímelos.",
           "ipucu": ""
         },
         "kolleksiyalar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Imprime la suma de los números de la lista.",
           "ipucu": ""
         },
         "kolleksiyalar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea un Set y muestra que los duplicados se descartan: 1, 2, 2, 3, 3.",
           "ipucu": ""
         },
         "kolleksiyalar-p-07": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Crea un Map e imprime el valor de la clave \"yas\".",
+          "ipucu": "Usa la forma m[\"yas\"]."
         },
         "kolleksiyalar-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una MutableList, añádele un elemento e imprímela.",
           "ipucu": ""
         },
         "kolleksiyalar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Imprime el elemento más grande de la lista.",
           "ipucu": ""
         },
         "kolleksiyalar-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Encadena filter y map: selecciona los números pares e imprime sus cuadrados.",
           "ipucu": ""
         },
         "kolleksiyalar-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Ordena la lista de forma ascendente con sorted() e imprímela.",
           "ipucu": ""
         },
         "kolleksiyalar-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Ordena las cadenas por longitud con sortedBy e imprímelas.",
           "ipucu": ""
         },
         "kolleksiyalar-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Agrupa las cadenas por su primera letra con groupBy e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa any y all: ¿hay algún elemento mayor que 4 en la lista, y son todos positivos? Imprímelo en dos líneas.",
+          "ipucu": "s.any { it > 4 } y s.all { it > 0 }"
         },
         "kolleksiyalar-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Descarta los duplicados con distinct() e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-16": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa take y drop: imprime los 2 primeros elementos y el resto en dos líneas.",
+          "ipucu": "s.take(2) y s.drop(2)"
         },
         "kolleksiyalar-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Empareja dos listas con zip e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Aplana listas anidadas con flatten e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Convierte la lista en una cadena con el separador \" - \" usando joinToString e imprímela.",
           "ipucu": ""
         },
         "kolleksiyalar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Con fold, suma los elementos partiendo de un valor inicial de 100 e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Calcula el producto de todos los elementos con reduce e imprímelo.",
           "ipucu": ""
         },
         "kolleksiyalar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Divide la lista en partes pares e impares con partition, e imprime ambas en líneas separadas.",
           "ipucu": ""
         },
         "kolleksiyalar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Divide la lista en trozos de 2 con chunked e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Asocia las cadenas a sus longitudes con associateWith e imprime el resultado.",
           "ipucu": ""
         },
         "kolleksiyalar-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Construye una cadena perezosa con asSequence: selecciona los 2 primeros elementos e imprímelos. El resultado debe ser una lista.",
           "ipucu": ""
         }
       }
