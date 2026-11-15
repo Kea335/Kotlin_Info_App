@@ -6,253 +6,343 @@
   },
   "topics": {
     "sintaksis": {
-      "title": "",
+      "title": "Sintaxis básica",
       "nezeri": {
         "sintaksis-n-01": {
-          "q": "",
+          "q": "¿Desde qué función empieza un programa Kotlin?",
           "opts": [],
-          "exp": ""
+          "exp": "El punto de entrada de todo programa Kotlin es la función main(). A diferencia de Java, no tiene por qué estar dentro de una clase: puede vivir directamente en un archivo."
         },
         "sintaksis-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Es obligatorio el punto y coma (;) al final de una línea en Kotlin?",
+          "opts": [
+            "Sí, siempre",
+            "No, no hace falta",
+            "Solo en las funciones",
+            "Solo en las clases"
+          ],
+          "exp": "El punto y coma es opcional. Solo lo necesitas cuando escribes varias sentencias en una misma línea, y eso no se recomienda. El único caso obligatorio: en un enum, cuando hay miembros adicionales después de las constantes."
         },
         "sintaksis-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué función se usa para mostrar texto en pantalla?",
+          "opts": [
+            "print() y println()",
+            "Solo System.out.println()",
+            "write()",
+            "echo()"
+          ],
+          "exp": "println() imprime el texto y pasa a una línea nueva, mientras que print() se queda en la misma línea. Ambas están en el paquete kotlin.io y se importan automáticamente."
         },
         "sintaksis-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se escribe un comentario de una línea?",
+          "opts": [
+            "# comentario",
+            "// comentario",
+            "-- comentario",
+            "<!-- comentario -->"
+          ],
+          "exp": "En Kotlin, un comentario de una línea se escribe con //, y uno de bloque con /* ... */. Para la documentación se usa /** ... */ (KDoc)."
         },
         "sintaksis-n-05": {
-          "q": "",
+          "q": "¿Qué imprime este código?",
           "opts": [],
-          "exp": ""
+          "exp": "println() añade un salto de línea al final, mientras que print() no. Por eso \"Salam\" aparece en su propia línea y \"AB\" sale junto."
         },
         "sintaksis-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿En qué parte del archivo se escribe la declaración package?",
+          "opts": [
+            "Al final del todo",
+            "En cualquier sitio",
+            "Al principio del todo, antes de los imports",
+            "Dentro de main()"
+          ],
+          "exp": "La declaración package debe ser la primera línea con contenido del archivo: antes solo pueden ir comentarios y anotaciones de archivo. Los imports se escriben después."
         },
         "sintaksis-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se pueden anidar los comentarios de bloque en Kotlin?",
+          "opts": [
+            "Sí",
+            "No",
+            "Solo en KDoc",
+            "Solo dentro de una función"
+          ],
+          "exp": "Sí: en Kotlin, /* /* anidado */ */ funciona correctamente. En Java no es posible y provoca un error de compilación."
         },
         "sintaksis-n-08": {
-          "q": "",
+          "q": "¿Cuál de las siguientes es una declaración de función correcta?",
           "opts": [],
-          "exp": ""
+          "exp": "En Kotlin, una función se declara con la palabra clave fun. El tipo de retorno se escribe después del nombre y los parámetros, tras dos puntos: fun ad(): Int."
         },
         "sintaksis-n-09": {
-          "q": "",
+          "q": "¿Cómo se inserta una variable en una plantilla de cadena?",
           "opts": [],
-          "exp": ""
+          "exp": "Para una variable simple se usa $ad, y para una expresión la forma ${ad.length}. Si necesitas un carácter $ literal, escribe \\$."
         },
         "sintaksis-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "Kotlin dilinin adında 6 hərf var",
+            "$ad dilinin adında ${ad.length} hərf var",
+            "Kotlin dilinin adında ad.length hərf var",
+            "Error de compilación"
+          ],
+          "exp": "$ad sustituye una variable simple, mientras que ${ad.length} evalúa la expresión entre llaves e inserta su resultado. La palabra \"Kotlin\" tiene 6 letras."
         },
         "sintaksis-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es if en Kotlin?",
+          "opts": [
+            "Solo una expresión",
+            "Solo una sentencia",
+            "Tanto una sentencia como una expresión que devuelve un valor",
+            "Solo una sentencia, como en Java"
+          ],
+          "exp": "En Kotlin, if devuelve un valor: val maks = if (a > b) a else b. Precisamente por eso el lenguaje no tiene operador ternario (? :): no hace falta."
         },
         "sintaksis-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Es obligatoria la rama else en un if usado como expresión?",
+          "opts": [
+            "No, es opcional",
+            "Sí, es obligatoria",
+            "Solo cuando devuelve un Boolean",
+            "Solo dentro de when"
+          ],
+          "exp": "Una expresión siempre debe devolver un valor. Sin else no se sabría qué valor devolver cuando la condición es falsa; por eso el compilador exige else."
         },
         "sintaksis-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué imprime este código?",
+          "opts": [
+            "boyuk",
+            "kicik",
+            "true",
+            "Error de compilación"
+          ],
+          "exp": "if se usa como expresión: como la condición es verdadera, el valor \"boyuk\" se asigna a la variable netice."
         },
         "sintaksis-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué paquetes se importan automáticamente en cada archivo Kotlin?",
+          "opts": [
+            "Ninguno",
+            "kotlin.*, kotlin.collections.*, kotlin.io.*, etc.",
+            "Solo java.util.*",
+            "Solo kotlin.math.*"
+          ],
+          "exp": "kotlin.*, kotlin.collections.*, kotlin.io.*, kotlin.text.*, kotlin.ranges.* y, en la JVM, java.lang.* se incluyen automáticamente. println, listOf, String: todo viene de aquí."
         },
         "sintaksis-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la línea import kotlin.math.max as boyuk?",
+          "opts": [
+            "Borra la función max",
+            "Permite referirse a la función max con el nombre boyuk",
+            "Crea una función nueva",
+            "Es un error: no se puede usar as"
+          ],
+          "exp": "La palabra clave as crea un alias (un cambio de nombre) para un import. Es especialmente útil cuando llegan elementos con el mismo nombre desde dos paquetes distintos."
         },
         "sintaksis-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Es obligatorio escribir el tipo de retorno en una función de una sola expresión?",
+          "opts": [
+            "Sí, siempre",
+            "No, el compilador lo infiere por sí mismo",
+            "Solo para Int",
+            "Solo en funciones public"
+          ],
+          "exp": "En una función de una sola expresión (escrita con =) funciona la inferencia de tipos. Pero en una API pública se recomienda escribir el tipo explícitamente: mejora la legibilidad y protege contra cambios accidentales."
         },
         "sintaksis-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Compila este código?",
+          "opts": [
+            "Sí, imprime 42",
+            "No, try no puede ser una expresión",
+            "Sí, pero imprime 0",
+            "No, catch necesita un return"
+          ],
+          "exp": "En Kotlin, try también es una expresión y devuelve un valor. Como \"42\".toInt() tiene éxito, se devuelve la última expresión del bloque try, es decir, 42."
         },
         "sintaksis-n-18": {
-          "q": "",
+          "q": "¿Qué estilo de nombres se recomienda para los nombres de clase?",
           "opts": [],
-          "exp": ""
+          "exp": "Las clases e interfaces se escriben en PascalCase (IstifadeciProfili), las funciones y variables en camelCase (hesablaCemi) y las const de nivel superior en SCREAMING_SNAKE_CASE (MAX_OLCU)."
         },
         "sintaksis-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Hacen lo mismo estas dos funciones?",
+          "opts": [
+            "Sí, son exactamente iguales",
+            "No, b() no devuelve un valor",
+            "No, b() devuelve Unit",
+            "No, a() es más rápida"
+          ],
+          "exp": "La forma de una sola expresión es solo una abreviatura. El compilador genera el mismo bytecode para ambas; el tipo de retorno de b() se infiere como Int."
         },
         "sintaksis-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "En la forma main(args: Array<String>), ¿qué representa args?",
+          "opts": [
+            "Las variables de entorno",
+            "Los argumentos de línea de comandos",
+            "La configuración del sistema",
+            "La ruta del archivo"
+          ],
+          "exp": "args contiene los argumentos de línea de comandos que se pasan al lanzar el programa. Si no necesitas argumentos, basta con escribir main() sin parámetros."
         },
         "sintaksis-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo es obligatorio el punto y coma en un enum?",
+          "opts": [
+            "Nunca",
+            "Cuando hay miembros adicionales (funciones, propiedades) después de las constantes",
+            "Siempre",
+            "Solo cuando hay un constructor"
+          ],
+          "exp": "El punto y coma hace falta para separar la lista de constantes del resto del cuerpo de la clase. Si solo hay constantes, no es necesario."
         },
         "sintaksis-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué haces para usar espacios en los nombres de las funciones de prueba?",
+          "opts": [
+            "Poner guiones bajos",
+            "Envolverlo en comillas invertidas (`)",
+            "Envolverlo en comillas",
+            "No es posible"
+          ],
+          "exp": "Dentro de comillas invertidas, los nombres de Kotlin pueden contener espacios y caracteres especiales: fun `bos siyahi 0 qaytarir`() { }. Así las pruebas se leen como frases; se usa sobre todo en el código de pruebas."
         },
         "sintaksis-n-23": {
-          "q": "",
+          "q": "¿Qué anotación se usa para cambiar el nombre de la clase de un archivo tal como se ve desde Java?",
           "opts": [],
-          "exp": ""
+          "exp": "@file:JvmName(\"Komekciler\") se escribe al principio del archivo y hace que el nombre visible desde Java sea Komekciler en lugar de KomekcilerKt."
         },
         "sintaksis-n-24": {
-          "q": "",
+          "q": "¿Cuántas líneas imprime este código?",
           "opts": [],
-          "exp": ""
+          "exp": "when se usa como expresión: solo devuelve el valor de la rama que coincide y no imprime nada. Solo se imprime una vez, con el último println()."
         },
         "sintaksis-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede declarar una función de nivel superior (fuera de una clase) en un archivo Kotlin?",
+          "opts": [
+            "No, todo debe estar en una clase",
+            "Sí, las funciones pueden vivir directamente en un archivo",
+            "Solo para main()",
+            "Solo si es private"
+          ],
+          "exp": "Es una diferencia importante entre Kotlin y Java. Las funciones y propiedades se pueden declarar directamente en un archivo; en la JVM se convierten en miembros estáticos de la clase FaylAdiKt."
         }
       },
       "praktiki": {
         "sintaksis-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Imprime el texto \"Salam, Kotlin!\" en pantalla.",
+          "ipucu": "Usa la función println().",
+          "starter": "fun main() {\n    // Escribe tu código aquí\n}"
         },
         "sintaksis-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime dos líneas: \"Birinci\" en la primera y \"Ikinci\" en la segunda.",
+          "ipucu": "Llama a println() dos veces."
         },
         "sintaksis-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Crea una variable ad e imprime \"Salam, Aysel!\": inserta el nombre con una plantilla de cadena.",
+          "ipucu": "Escribe $ad dentro de las comillas.",
+          "starter": "fun main() {\n    val ad = \"Aysel\"\n    // Imprime usando una plantilla\n}"
         },
         "sintaksis-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime la suma de los números 5 y 3.",
+          "ipucu": "Escribe println(5 + 3)."
         },
         "sintaksis-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Con print(), imprime las letras \"A\", \"B\", \"C\" juntas y luego termina la línea.",
+          "ipucu": "Llama a print() tres veces y después a println()."
         },
         "sintaksis-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función llamada salamla: no debe devolver nada, solo imprimir \"Xos geldin\". Llámala desde main().",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    salamla()\n}\n\n// Escribe la función aquí"
         },
         "sintaksis-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función topla que sume dos números y devuelva el resultado; luego imprime la suma de 7 y 8.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(topla(7, 8))\n}\n\n// Escribe la función topla"
         },
         "sintaksis-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función kvadrat que devuelva el cuadrado de un número en forma de UNA SOLA EXPRESIÓN, e imprime el cuadrado de 9.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(kvadrat(9))\n}\n\n// Escribe una función de una sola expresión (con el signo =)"
         },
         "sintaksis-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "hell": ""
+          "tapsiriq": "Escribe un comentario de una línea y uno de bloque, y luego imprime \"Serhler oyrenildi\". Los comentarios no deben afectar al resultado.",
+          "ipucu": "Usa // y /* */, y luego llama a println().",
+          "hell": "fun main() {\n    // Esto es un comentario de una línea\n    /* Esto\n       es un comentario de bloque */\n    println(\"Serhler oyrenildi\")\n}"
         },
         "sintaksis-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "La variable yas vale 20. Usa if como EXPRESIÓN para guardar el resultado \"boyuk\" o \"kicik\" en la variable status, e imprímela.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val yas = 20\n    val status = // complétalo\n    println(status)\n}"
         },
         "sintaksis-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función boyuk que devuelva el mayor de dos números usando una expresión if. Imprime el resultado para 14 y 27.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(boyuk(14, 27))\n}\n\n// Escribe la función boyuk"
         },
         "sintaksis-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Con las variables ad y yas, imprime el texto \"Aysel 24 yasindadir\" con un solo println().",
           "ipucu": ""
         },
         "sintaksis-p-13": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa una EXPRESIÓN en una plantilla de cadena: imprime \"Kotlin sozunde 6 herf var\". No escribas el número a mano: usa length.",
+          "ipucu": "Usa la forma ${soz.length}."
         },
         "sintaksis-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una expresión when para calcular e imprimir el resultado \"Is gunu\" para gun = 3. Del 1 al 5 son días laborables; el 6 y el 7, días libres.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val gun = 3\n    val tip = // complétalo\n    println(tip)\n}"
         },
         "sintaksis-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Importa la función abs del paquete kotlin.math e imprime el valor absoluto de -15.",
+          "ipucu": "import kotlin.math.abs y después println(abs(-15)).",
+          "starter": "// Escribe el import aquí\n\nfun main() {\n    \n}"
         },
         "sintaksis-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Con una expresión try, intenta convertir el texto \"abc\" en número. Si falla, devuelve 0, e imprime el resultado.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val netice = // escribe aquí la expresión try\n    println(netice)\n}"
         },
         "sintaksis-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función salamla con un parámetro por defecto: si no se le pasa argumento, debe usar \"Dunya\". Llámala sin argumento y con \"Kotlin\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    salamla()\n    salamla(\"Kotlin\")\n}\n\n// Escribe una función con un parámetro por defecto"
         },
         "sintaksis-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Llámala con argumentos con nombre: usa la forma melumat(ad = \"Aysel\", yas = 24).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun melumat(ad: String, yas: Int) {\n    println(\"$ad - $yas\")\n}\n\nfun main() {\n    // Llámala con argumentos con nombre\n}"
         },
         "sintaksis-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime un signo de dólar literal: muestra el texto \"Qiymet: $100\".",
+          "ipucu": "Pon una barra invertida antes del signo de dólar: \\$"
         },
         "sintaksis-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Con una cadena multilínea (comillas triples), imprime dos líneas: \"Birinci setir\" e \"Ikinci setir\". Usa trimIndent().",
+          "ipucu": "Abre comillas triples, escribe las líneas y añade .trimIndent() al final.",
+          "starter": "fun main() {\n    val metn = // escribe una cadena con comillas triples\n    println(metn)\n}"
         },
         "sintaksis-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe la función main() en la forma que acepta argumentos de línea de comandos, e imprime el número de argumentos no vacíos (se ejecutará sin argumentos).",
+          "ipucu": "fun main(args: Array<String>) { println(args.count { it.isNotEmpty() }) }: aunque el playground de código lo ejecuta sin argumentos, pasa un argumento vacío, así que args.size es 1.",
+          "starter": "// Escribe la función main con un parámetro args"
         },
         "sintaksis-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa when en su forma sin argumento: para temperatur = 25, imprime \"Isti\" si es 21 o más, \"Ilig\" si está entre 11..20 y, si no, \"Soyuq\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val temperatur = 25\n    val netice = when {\n        // escribe las ramas\n    }\n    println(netice)\n}"
         },
         "sintaksis-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe una función local: declara una función llamada ikiqat dentro de main() e imprime 21 multiplicado por dos.",
+          "ipucu": "Escribe fun ikiqat(x: Int) = x * 2 dentro de main().",
+          "starter": "fun main() {\n    // escribe aquí la función local\n    println(ikiqat(21))\n}"
         },
         "sintaksis-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Declara una función cuyo nombre contenga un espacio, entre comillas invertidas (llámala `salam de`), y llámala.",
+          "ipucu": "fun `salam de`() { println(\"Salam!\") }: la llamada también lleva comillas invertidas.",
+          "starter": "fun main() {\n    // llama a la función\n}\n\n// declara la función entre comillas invertidas"
         },
         "sintaksis-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Con vararg, escribe una función cemle que sume cualquier cantidad de números. Imprime la suma de 1, 2, 3, 4.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cemle(1, 2, 3, 4))\n}\n\n// Escribe una función con un parámetro vararg"
         }
       }
     },
