@@ -7387,212 +7387,754 @@
       }
     },
     "istisnalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Excepciones",
+      "heading": "Excepciones",
+      "kicker": "Sección 21",
+      "group": "Temas avanzados",
       "blocks": {
         "istisnalar.p.b88cd2a6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin no tiene "
+            },
+            {
+              "k": "b",
+              "v": "excepciones comprobadas"
+            },
+            {
+              "k": "t",
+              "v": " (checked exceptions): ningún método está obligado a declarar "
+            },
+            {
+              "k": "code",
+              "v": "throws"
+            },
+            {
+              "k": "t",
+              "v": ". Así desaparece una de las características más criticadas de Java."
+            }
+          ]
         },
         "istisnalar.h3.00bd3d1f": {
           "text": ""
         },
         "istisnalar.code.8f9d1ad3": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // try es una EXPRESIÓN: devuelve un valor\n    val netice = try {\n        \"abc\".toInt()\n    } catch (e: NumberFormatException) {\n        println(\"Xəta: ${e.message}\")\n        0\n    } finally {\n        println(\"Hər halda işlənir\")\n    }\n    println(\"Nəticə: $netice\")\n\n    // Una forma más sencilla: no se lanza ninguna excepción\n    val duzgun = \"42\".toIntOrNull() ?: 0\n    println(\"Düzgün: $duzgun\")\n}"
         },
         "istisnalar.h3.8777b853": {
-          "text": ""
+          "text": "Crear tu propia excepción"
         },
         "istisnalar.code.cba6ba18": {
           "title": ""
         },
         "istisnalar.h3.30fbfd11": {
-          "text": ""
+          "text": "Funciones de precondición"
         },
         "istisnalar.table.4441efdb": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Se lanza cuando falla la condición"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Cuándo"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "require(şərt)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El argumento no es válido"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "requireNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El argumento no debe ser null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "check(şərt)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El estado del objeto no es válido"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "checkNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El estado no debe ser null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "error(\"mesaj\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Código al que nunca se debería llegar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "TODO()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "NotImplementedError"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aún no está escrito"
+                }
+              ]
+            ]
+          ]
         },
         "istisnalar.code.3491360f": {
           "title": ""
         },
         "istisnalar.h3.3eb5e1b4": {
-          "text": ""
+          "text": "Result y runCatching: un enfoque sin excepciones"
         },
         "istisnalar.code.34a89b9b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // runCatching: devuelve el resultado envuelto en Result<T>\n    val ugurlu = runCatching { \"42\".toInt() }\n    ugurlu.onSuccess { println(\"Uğurlu: $it\") }\n\n    val ugursuz = runCatching { \"abc\".toInt() }\n    ugursuz.onFailure { println(\"Xəta baş verdi: ${it.message}\") }\n\n    // Usarlo en una cadena\n    val netice = runCatching { \"abc\".toInt() }\n        .map { it * 2 }\n        .getOrDefault(0)\n    println(\"Nəticə: $netice\")\n\n    // Otras opciones\n    // .getOrNull()             → T?\n    // .getOrThrow()            → T, lanza excepción si hubo un error\n    // .getOrElse { 0 }         → valor alternativo desde una lambda\n    // .fold(onSuccess, onFailure)\n}"
         },
         "istisnalar.h3.2a62c3fb": {
-          "text": ""
+          "text": "Modelar errores con una sealed class"
         },
         "istisnalar.p.e5ae6722": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En proyectos grandes, un resultado expresado mediante tipos es más predecible que las excepciones."
+            }
+          ]
         },
         "istisnalar.code.7c271e46": {
           "title": ""
         },
         "istisnalar.callout.08a41b3e": {
-          "title": ""
+          "title": "¿Qué enfoque y cuándo?"
         },
         "istisnalar.p.0f74b1f3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "Excepciones"
+            },
+            {
+              "k": "t",
+              "v": ": para errores del programador y situaciones inesperadas (un id null, una configuración rota)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "Result / sealed"
+            },
+            {
+              "k": "t",
+              "v": ": para fallos esperados (sin red, validación fallida, archivo no encontrado). Esos casos forman parte de la lógica de negocio y deben expresarse mediante tipos."
+            }
+          ]
         },
         "istisnalar.h3.ba8bd562": {
-          "text": ""
+          "text": "Interoperabilidad con Java: @Throws"
         },
         "istisnalar.code.7128fb2d": {
           "title": "",
-          "code": ""
+          "code": "import java.io.IOException\n\n// Kotlin no tiene excepciones comprobadas, pero si queremos que Java exija\n// try/catch al llamar a esta función:\n@Throws(IOException::class)\nfun faylOxu(yol: String): String {\n    // ...\n    return \"\"\n}"
         }
       }
     },
     "delegatlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Delegados y anotaciones",
+      "heading": "Delegados y anotaciones",
+      "kicker": "Sección 22",
+      "group": "Temas avanzados",
       "blocks": {
         "delegatlar.p.59ec8e7c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "La delegación de propiedades consiste en ceder la lógica de "
+            },
+            {
+              "k": "code",
+              "v": "get"
+            },
+            {
+              "k": "t",
+              "v": "/"
+            },
+            {
+              "k": "code",
+              "v": "set"
+            },
+            {
+              "k": "t",
+              "v": " a otro objeto. Es una de las características más elegantes de Kotlin."
+            }
+          ]
         },
         "delegatlar.h3.f1d925bd": {
-          "text": ""
+          "text": "by lazy: inicialización perezosa"
         },
         "delegatlar.code.093a8b83": {
           "title": "",
-          "code": ""
+          "code": "val agirNetice: Long by lazy {\n    println(\"Ağır hesablama aparılır...\")\n    (1..1_000_000L).sum()\n}\n\nfun main() {\n    println(\"Proqram başladı\")     // aún no se ha calculado\n\n    println(\"Nəticə: $agirNetice\") // PRIMER acceso: se calcula ahora\n    println(\"Nəticə: $agirNetice\") // SEGUNDO acceso: viene de la caché\n}"
         },
         "delegatlar.table.15e3f33e": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Modo de lazy"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comportamiento"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "SYNCHRONIZED"
+                },
+                {
+                  "k": "t",
+                  "v": " (por defecto)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Seguro entre hilos, se calcula una sola vez"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "PUBLICATION"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Varios hilos pueden calcularlo; se conserva el primer resultado"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "NONE"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sin sincronización: para un solo hilo, el más rápido"
+                }
+              ]
+            ]
+          ]
         },
         "delegatlar.h3.c052735f": {
-          "text": ""
+          "text": "observable y vetoable"
         },
         "delegatlar.code.84c84fc4": {
           "title": "",
-          "code": ""
+          "code": "import kotlin.properties.Delegates\n\nclass Istifadeci {\n    // observable: te avisa DESPUÉS de cada cambio\n    var ad: String by Delegates.observable(\"Aysel\") { _, kohne, yeni ->\n        println(\"Dəyişdi: $kohne -> $yeni\")\n    }\n\n    // vetoable: puede RECHAZAR un cambio\n    var etibarliAd: String by Delegates.vetoable(\"Aysel\") { _, _, yeni ->\n        if (yeni.isBlank()) {\n            println(\"Rədd edildi (boş ola bilməz)\")\n            false          // el cambio no se produce\n        } else true\n    }\n\n    // notNull: el equivalente de lateinit para tipos primitivos\n    var yas: Int by Delegates.notNull()\n}\n\nfun main() {\n    val u = Istifadeci()\n    u.ad = \"Leyla\"\n    println(\"Ad: ${u.ad}\")\n\n    u.etibarliAd = \"Leyla\"\n    u.etibarliAd = \"\"\n    println(\"Ad: ${u.etibarliAd}\")\n}"
         },
         "delegatlar.h3.5b7f9d9e": {
-          "text": ""
+          "text": "Delegar en un Map"
         },
         "delegatlar.code.921175e9": {
           "title": "",
-          "code": ""
+          "code": "// Construir un objeto directamente a partir de un map de JSON o de configuración\nclass Istifadeci(melumat: Map<String, Any?>) {\n    val ad: String by melumat\n    val yas: Int by melumat\n    val email: String by melumat\n}\n\nfun main() {\n    val u = Istifadeci(mapOf(\n        \"ad\" to \"Aysel\",\n        \"yas\" to 24,\n        \"email\" to \"aysel@mail.az\"\n    ))\n\n    println(u.ad)\n    println(u.yas)\n    println(u.email)\n}"
         },
         "delegatlar.h3.d01b11d6": {
-          "text": ""
+          "text": "Escribir tu propio delegado"
         },
         "delegatlar.code.df341210": {
           "title": ""
         },
         "delegatlar.h3.082fcf43": {
-          "text": ""
+          "text": "Anotaciones"
         },
         "delegatlar.code.4759bead": {
           "title": "",
-          "code": ""
+          "code": "// Declarar tu propia anotación\n@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)\n@Retention(AnnotationRetention.RUNTIME)\nannotation class Muellif(val ad: String, val versiya: Int = 1)\n\n@Muellif(\"Aysel\", versiya = 2)\nclass Hesablayici {\n\n    @Deprecated(\"Əvəzinə hesabla2() işlədin\", ReplaceWith(\"hesabla2()\"))\n    fun hesabla() = 0\n\n    fun hesabla2() = 1\n}"
         },
         "delegatlar.h4.f10209b3": {
-          "text": ""
+          "text": "Anotaciones estándar de uso común"
         },
         "delegatlar.table.82b5410f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Anotación"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Qué hace"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Deprecated"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Marca algo como obsoleto y sugiere un reemplazo"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmStatic"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hace que un miembro del companion sea realmente estático para Java"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmOverloads"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Genera sobrecargas de Java para los parámetros por defecto"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmName(\"ad\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Cambia el nombre visible desde Java"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@JvmField"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Expone una propiedad como campo, sin getter/setter"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Throws"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Declara excepciones comprobadas para Java"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Suppress(\"...\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Silencia una advertencia del compilador"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@OptIn(...)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Confirma el uso de una API experimental"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "@Serializable"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Soporte de JSON para kotlinx.serialization"
+                }
+              ]
+            ]
+          ]
         },
         "delegatlar.h3.b1ab1543": {
-          "text": ""
+          "text": "Reflexión"
         },
         "delegatlar.code.7189ac9f": {
           "title": ""
         },
         "delegatlar.callout.d145112f": {
-          "title": ""
+          "title": "La reflexión es cara"
         },
         "delegatlar.p.8bc8bb1c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "La reflexión completa necesita la dependencia "
+            },
+            {
+              "k": "code",
+              "v": "kotlin-reflect"
+            },
+            {
+              "k": "t",
+              "v": " (unos 3 MB) y es lenta. Evítala en Android: los plugins del compilador como "
+            },
+            {
+              "k": "code",
+              "v": "kotlinx.serialization"
+            },
+            {
+              "k": "t",
+              "v": " hacen el mismo trabajo sin reflexión."
+            }
+          ]
         }
       }
     },
     "android": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Apps de Android",
+      "heading": "Android con Kotlin",
+      "kicker": "Sección 23",
+      "group": "Áreas de aplicación",
       "blocks": {
         "android.p.957cc892": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Hoy, Android es el mayor campo de uso de Kotlin. Desde 2019, Google sigue una política «Kotlin-first»: las nuevas API se diseñan primero para Kotlin."
+            }
+          ]
         },
         "android.h3.61e216e9": {
-          "text": ""
+          "text": "Jetpack Compose: interfaz moderna"
         },
         "android.code.c170e10d": {
           "title": "",
-          "code": ""
+          "code": "import androidx.compose.foundation.layout.*\nimport androidx.compose.material3.*\nimport androidx.compose.runtime.*\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.unit.dp\n\n@Composable\nfun SayqacEkrani() {\n    // remember + mutableStateOf: la UI se actualiza automáticamente cuando cambia el estado\n    var sayqac by remember { mutableStateOf(0) }\n\n    Column(\n        modifier = Modifier.fillMaxSize().padding(24.dp),\n        horizontalAlignment = Alignment.CenterHorizontally,\n        verticalArrangement = Arrangement.Center\n    ) {\n        Text(\n            text = \"Sayğac: $sayqac\",\n            style = MaterialTheme.typography.headlineMedium\n        )\n        Spacer(Modifier.height(16.dp))\n        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {\n            Button(onClick = { sayqac++ }) { Text(\"Artır\") }\n            OutlinedButton(onClick = { sayqac = 0 }) { Text(\"Sıfırla\") }\n        }\n    }\n}"
         },
         "android.h3.0bfba840": {
-          "text": ""
+          "text": "Arquitectura ViewModel + StateFlow"
         },
         "android.code.7249eb58": {
           "title": "",
-          "code": ""
+          "code": "import androidx.lifecycle.ViewModel\nimport androidx.lifecycle.viewModelScope\nimport kotlinx.coroutines.flow.*\nimport kotlinx.coroutines.launch\n\n// Estado de la UI: modelado con una sealed interface\nsealed interface EkranVeziyyeti {\n    data object Yuklenir : EkranVeziyyeti\n    data class Ugurlu(val istifadeciler: List<Istifadeci>) : EkranVeziyyeti\n    data class Xeta(val mesaj: String) : EkranVeziyyeti\n}\n\nclass IstifadeciViewModel(\n    private val repo: IstifadeciRepo\n) : ViewModel() {\n\n    private val _veziyyet = MutableStateFlow<EkranVeziyyeti>(EkranVeziyyeti.Yuklenir)\n    val veziyyet: StateFlow<EkranVeziyyeti> = _veziyyet.asStateFlow()\n\n    init { yukle() }\n\n    fun yukle() {\n        viewModelScope.launch {          // se cancela automáticamente cuando se destruye el ViewModel\n            _veziyyet.value = EkranVeziyyeti.Yuklenir\n            _veziyyet.value = runCatching { repo.hamisiniGetir() }\n                .fold(\n                    onSuccess = { EkranVeziyyeti.Ugurlu(it) },\n                    onFailure = { EkranVeziyyeti.Xeta(it.message ?: \"Naməlum xəta\") }\n                )\n        }\n    }\n}"
         },
         "android.code.7accdd68": {
           "title": "",
-          "code": ""
+          "code": "@Composable\nfun IstifadeciEkrani(vm: IstifadeciViewModel) {\n    val veziyyet by vm.veziyyet.collectAsStateWithLifecycle()\n\n    when (val v = veziyyet) {        // exhaustivo: no se olvida ningún caso\n        EkranVeziyyeti.Yuklenir -> CircularProgressIndicator()\n        is EkranVeziyyeti.Ugurlu -> LazyColumn {\n            items(v.istifadeciler) { istifadeci ->\n                ListItem(headlineContent = { Text(istifadeci.ad) })\n            }\n        }\n        is EkranVeziyyeti.Xeta -> Column {\n            Text(v.mesaj)\n            Button(onClick = vm::yukle) { Text(\"Yenidən cəhd et\") }\n        }\n    }\n}"
         },
         "android.h3.b10f93ad": {
-          "text": ""
+          "text": "Room: la base de datos"
         },
         "android.code.b049b3ad": {
           "title": "",
-          "code": ""
+          "code": "@Entity(tableName = \"istifadeciler\")\ndata class IstifadeciEntity(\n    @PrimaryKey(autoGenerate = true) val id: Int = 0,\n    val ad: String,\n    val email: String\n)\n\n@Dao\ninterface IstifadeciDao {\n    // Devuelve un Flow: la UI se actualiza automáticamente cuando cambia la base de datos\n    @Query(\"SELECT * FROM istifadeciler ORDER BY ad\")\n    fun hamisi(): Flow<List<IstifadeciEntity>>\n\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\n    suspend fun elaveEt(istifadeci: IstifadeciEntity)\n\n    @Delete\n    suspend fun sil(istifadeci: IstifadeciEntity)\n}\n\n@Database(entities = [IstifadeciEntity::class], version = 1)\nabstract class AppBaza : RoomDatabase() {\n    abstract fun istifadeciDao(): IstifadeciDao\n}"
         },
         "android.h3.c5612a0b": {
-          "text": ""
+          "text": "Retrofit: peticiones de red"
         },
         "android.code.356b92a8": {
           "title": "",
-          "code": ""
+          "code": "import retrofit2.http.*\n\n@Serializable\ndata class IstifadeciDto(val id: Int, val ad: String, val email: String)\n\ninterface Api {\n    // suspend: Retrofit trae soporte integrado para corrutinas\n    @GET(\"istifadeciler\")\n    suspend fun hamisi(): List<IstifadeciDto>\n\n    @GET(\"istifadeciler/{id}\")\n    suspend fun tap(@Path(\"id\") id: Int): IstifadeciDto\n\n    @POST(\"istifadeciler\")\n    suspend fun yarat(@Body istifadeci: IstifadeciDto): IstifadeciDto\n}\n\nclass IstifadeciRepo(private val api: Api, private val dao: IstifadeciDao) {\n    suspend fun hamisiniGetir(): List<Istifadeci> =\n        withContext(Dispatchers.IO) {\n            api.hamisi().map { it.toModel() }\n        }\n}"
         },
         "android.h3.67a713ab": {
-          "text": ""
+          "text": "Extensiones útiles para Android"
         },
         "android.code.7c129c6e": {
           "title": "",
           "code": ""
         },
         "android.callout.174fcf05": {
-          "title": ""
+          "title": "El stack moderno de Android (2025)"
         },
         "android.p.6c3d4702": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "UI:"
+            },
+            {
+              "k": "t",
+              "v": " Jetpack Compose + Material 3 · "
+            },
+            {
+              "k": "b",
+              "v": "Arquitectura:"
+            },
+            {
+              "k": "t",
+              "v": " MVVM/MVI + ViewModel + StateFlow · "
+            },
+            {
+              "k": "b",
+              "v": "DI:"
+            },
+            {
+              "k": "t",
+              "v": " Hilt o Koin · "
+            },
+            {
+              "k": "b",
+              "v": "Red:"
+            },
+            {
+              "k": "t",
+              "v": " Retrofit + kotlinx.serialization o Ktor Client · "
+            },
+            {
+              "k": "b",
+              "v": "Base de datos:"
+            },
+            {
+              "k": "t",
+              "v": " Room · "
+            },
+            {
+              "k": "b",
+              "v": "Navegación:"
+            },
+            {
+              "k": "t",
+              "v": " Navigation Compose · "
+            },
+            {
+              "k": "b",
+              "v": "Imágenes:"
+            },
+            {
+              "k": "t",
+              "v": " Coil · "
+            },
+            {
+              "k": "b",
+              "v": "Pruebas:"
+            },
+            {
+              "k": "t",
+              "v": " JUnit5 + MockK + Turbine"
+            }
+          ]
         }
       }
     },
     "multiplatform": {
       "title": "",
       "heading": "",
-      "kicker": "",
-      "group": "",
+      "kicker": "Sección 24",
+      "group": "Áreas de aplicación",
       "blocks": {
         "multiplatform.p.ba66e4e2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "La idea de KMP es sencilla: "
+            },
+            {
+              "k": "b",
+              "v": "escribe tu lógica de negocio una sola vez"
+            },
+            {
+              "k": "t",
+              "v": " y mantén la interfaz nativa en cada plataforma. La diferencia con React Native y Flutter es que no sustituye la interfaz: cada plataforma conserva su aspecto nativo."
+            }
+          ]
         },
         "multiplatform.h3.1dccda1e": {
-          "text": ""
+          "text": "Estructura del proyecto"
         },
         "multiplatform.code.30f5e63d": {
-          "title": ""
+          "title": "árbol de un proyecto KMP"
         },
         "multiplatform.h3.3fd80c27": {
-          "text": ""
+          "text": "El mecanismo expect / actual"
         },
         "multiplatform.p.9dccb40b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cuando el código compartido necesita algo específico de una plataforma, lo declaras como «esperado» con "
+            },
+            {
+              "k": "code",
+              "v": "expect"
+            },
+            {
+              "k": "t",
+              "v": ", y cada plataforma aporta su propia versión "
+            },
+            {
+              "k": "code",
+              "v": "actual"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "multiplatform.tabs.8c18b414": {
           "tabs": {
@@ -7609,7 +8151,7 @@
         },
         "multiplatform.code.0c1c5519": {
           "title": "",
-          "code": ""
+          "code": "// Código compartido: sin implementación, solo la firma\nexpect fun platformaAdi(): String\n\nexpect class Tarix() {\n    fun indi(): Long\n    fun formatla(vaxt: Long): String\n}\n\n// Lógica de negocio compartida: funciona igual en todas las plataformas\nclass SalamlamaServisi {\n    fun salamla(): String = \"Salam, ${platformaAdi()}!\"\n}"
         },
         "multiplatform.code.9014e703": {
           "title": ""
@@ -7618,160 +8160,1034 @@
           "title": ""
         },
         "multiplatform.h3.f053eab9": {
-          "text": ""
+          "text": "Configuración de Gradle"
         },
         "multiplatform.code.1bad8a68": {
           "title": ""
         },
         "multiplatform.h3.28bf17c0": {
-          "text": ""
+          "text": "¿Qué se comparte y qué no?"
         },
         "multiplatform.cards.72f6714b": {
           "items": {
             "0": {
-              "title": ""
+              "title": "Tiene sentido compartir"
             },
             "1": {
-              "title": ""
+              "title": "Mejor mantenerlo nativo"
             }
           }
         },
         "multiplatform.p.f76bc572": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Lógica de negocio · Modelos de datos · Capa de red (Ktor) · Base de datos (SQLDelight) · Validación · Analíticas · ViewModels · Código de pruebas"
+            }
+          ]
         },
         "multiplatform.p.86d51c74": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Componentes de UI · Permisos propios de cada plataforma · Notificaciones push · Cámara/sensores · Integraciones de pago · Integración profunda con el sistema"
+            }
+          ]
         },
         "multiplatform.h3.c9a12b16": {
           "text": ""
         },
         "multiplatform.p.c736ba5b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Si también quieres compartir la interfaz, Compose Multiplatform de JetBrains te permite escribir una UI compartida para Android, iOS, escritorio y web."
+            }
+          ]
         },
         "multiplatform.code.c0cb6322": {
           "title": "",
-          "code": ""
+          "code": "@Composable\nfun App() {\n    MaterialTheme {\n        var sayqac by remember { mutableStateOf(0) }\n        Column(\n            Modifier.fillMaxSize(),\n            horizontalAlignment = Alignment.CenterHorizontally,\n            verticalArrangement = Arrangement.Center\n        ) {\n            Text(\"Sayğac: $sayqac\")\n            Button(onClick = { sayqac++ }) { Text(\"Artır\") }\n        }\n    }\n}\n// Este código funciona igual en Android, iOS, escritorio y web"
         },
         "multiplatform.table.52134558": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Enfoque"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Código compartido"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "UI"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Rendimiento"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "KMP (lógica)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~50–70%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Totalmente nativa"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nativo"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Compose Multiplatform"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~85–95%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Compartida (Compose)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Muy cercano al nativo"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Flutter"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~95%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Su propio motor de renderizado"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bueno"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "React Native"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~90%"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Componentes nativos (mediante un puente)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Medio"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "backend": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Backend: Ktor y Spring",
+      "heading": "Backend: Ktor y Spring Boot",
+      "kicker": "Sección 25",
+      "group": "Áreas de aplicación",
       "blocks": {
         "backend.p.583dab15": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin también es fuerte en el servidor. Hay dos opciones principales: "
+            },
+            {
+              "k": "b",
+              "v": "Ktor"
+            },
+            {
+              "k": "t",
+              "v": ", ligero y Kotlin puro, o "
+            },
+            {
+              "k": "b",
+              "v": "Spring Boot"
+            },
+            {
+              "k": "t",
+              "v": ", con su ecosistema maduro."
+            }
+          ]
         },
         "backend.h3.f584f673": {
-          "text": ""
+          "text": "Ktor: una API REST mínima"
         },
         "backend.code.7642f1df": {
           "title": ""
         },
         "backend.h3.35709734": {
-          "text": ""
+          "text": "Ktor: dependencias"
         },
         "backend.code.82615a39": {
           "title": ""
         },
         "backend.h3.73435695": {
-          "text": ""
+          "text": "Kotlin con Spring Boot"
         },
         "backend.code.796c71e7": {
           "title": "",
-          "code": ""
+          "code": "import org.springframework.boot.autoconfigure.SpringBootApplication\nimport org.springframework.boot.runApplication\nimport org.springframework.web.bind.annotation.*\nimport org.springframework.http.ResponseEntity\n\n@SpringBootApplication\nclass Tetbiq\n\nfun main(args: Array<String>) {\n    runApplication<Tetbiq>(*args)\n}\n\ndata class Istifadeci(val id: Long, val ad: String, val email: String)\n\n@RestController\n@RequestMapping(\"/api/istifadeciler\")\nclass IstifadeciController(private val servis: IstifadeciServisi) {\n\n    @GetMapping\n    fun hamisi(): List<Istifadeci> = servis.hamisi()\n\n    @GetMapping(\"/{id}\")\n    fun tap(@PathVariable id: Long): ResponseEntity<Istifadeci> =\n        servis.tap(id)\n            ?.let { ResponseEntity.ok(it) }\n            ?: ResponseEntity.notFound().build()\n\n    // Con Spring WebFlux, las funciones suspend se admiten directamente\n    @PostMapping\n    suspend fun yarat(@RequestBody istifadeci: Istifadeci): Istifadeci =\n        servis.yarat(istifadeci)\n}"
         },
         "backend.h3.b9395c83": {
-          "text": ""
+          "text": "Exposed: una biblioteca SQL"
         },
         "backend.code.64de14f9": {
           "title": "",
-          "code": ""
+          "code": "import org.jetbrains.exposed.sql.*\nimport org.jetbrains.exposed.sql.transactions.transaction\n\nobject Istifadeciler : Table(\"istifadeciler\") {\n    val id = integer(\"id\").autoIncrement()\n    val ad = varchar(\"ad\", 100)\n    val email = varchar(\"email\", 200).uniqueIndex()\n    val yas = integer(\"yas\").nullable()\n\n    override val primaryKey = PrimaryKey(id)\n}\n\nfun main() {\n    Database.connect(\"jdbc:postgresql://localhost:5432/baza\",\n        driver = \"org.postgresql.Driver\", user = \"admin\", password = \"sirr\")\n\n    transaction {\n        SchemaUtils.create(Istifadeciler)\n\n        // INSERT\n        Istifadeciler.insert {\n            it[ad] = \"Aysel\"\n            it[email] = \"aysel@mail.az\"\n            it[yas] = 24\n        }\n\n        // SELECT: un DSL con seguridad de tipos\n        val boyukler = Istifadeciler\n            .select { Istifadeciler.yas greaterEq 18 }\n            .orderBy(Istifadeciler.ad)\n            .map { it[Istifadeciler.ad] }\n\n        // UPDATE\n        Istifadeciler.update({ Istifadeciler.ad eq \"Aysel\" }) {\n            it[yas] = 25\n        }\n    }\n}"
         },
         "backend.table.a48580d4": {
           "head": [],
-          "rows": []
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Creado por"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "JetBrains"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "VMware / Pivotal"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Curva de aprendizaje"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sencilla, pocos conceptos"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Empinada, muchos conceptos"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tiempo de arranque"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Muy rápido (~300 ms)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Lento (~2–5 s)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Memoria"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Baja"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Alta"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Ecosistema"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Pequeño, en crecimiento"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Enorme, maduro"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Soporte de corrutinas"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nativo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Mediante WebFlux"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Cuándo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Microservicios, KMP, proyectos nuevos"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Empresas, cuando necesitas soluciones ya hechas"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "test": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Escribir pruebas",
+      "heading": "Escribir pruebas",
+      "kicker": "Sección 26",
+      "group": "Áreas de aplicación",
       "blocks": {
         "test.p.f0e21275": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Escribir pruebas en Kotlin es especialmente agradable: gracias a las comillas invertidas, los nombres de las pruebas se leen como frases normales, y las pruebas de corrutinas cuentan con una biblioteca propia."
+            }
+          ]
         },
         "test.h3.d069587a": {
-          "text": ""
+          "text": "Pruebas básicas"
         },
         "test.code.780c027f": {
           "title": "",
-          "code": ""
+          "code": "import kotlin.test.*\n\nclass HesablayiciTest {\n\n    private lateinit var hesablayici: Hesablayici\n\n    @BeforeTest\n    fun hazirla() {\n        hesablayici = Hesablayici()\n    }\n\n    // Nombres de prueba entre comillas invertidas: se leen como documentación\n    @Test\n    fun `iki musbet reqemi toplayir`() {\n        assertEquals(5, hesablayici.topla(2, 3))\n    }\n\n    @Test\n    fun `sifira bolende istisna atir`() {\n        val xeta = assertFailsWith<ArithmeticException> {\n            hesablayici.bol(10, 0)\n        }\n        assertEquals(\"Sıfıra bölmək olmaz\", xeta.message)\n    }\n\n    @Test\n    fun `bos siyahi ucun null qaytarir`() {\n        assertNull(emptyList<Int>().maxOrNull())\n    }\n\n    @Test\n    fun `siyahida element var`() {\n        val netice = listOf(1, 2, 3)\n        assertTrue(netice.contains(2))\n        assertContentEquals(listOf(1, 2, 3), netice)\n    }\n}"
         },
         "test.h3.e8e20255": {
-          "text": ""
+          "text": "Funciones de aserción"
         },
         "test.table.237604bd": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comprueba"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertEquals(g, f)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Esperado = real"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertNotEquals(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Son distintos"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertTrue(x) / assertFalse(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Una condición booleana"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertNull(x) / assertNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertSame(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Es el mismo objeto (referencia)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertContentEquals(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El contenido de una colección"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "assertFailsWith<E> { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Se lanza una excepción concreta"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "fail(\"mesaj\")"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hace fallar la prueba a propósito"
+                }
+              ]
+            ]
+          ]
         },
         "test.h3.cf856e7a": {
-          "text": ""
+          "text": "Pruebas de corrutinas"
         },
         "test.code.4e560006": {
           "title": "",
-          "code": ""
+          "code": "import kotlinx.coroutines.test.*\nimport kotlin.test.*\n\nclass RepoTest {\n\n    // runTest: se salta las esperas al instante usando tiempo virtual\n    @Test\n    fun `melumat ugurla yuklenir`() = runTest {\n        val repo = IstifadeciRepo(SaxtaApi())\n\n        val netice = repo.hamisiniGetir()   // el delay(5000) de dentro pasa al instante\n\n        assertEquals(2, netice.size)\n        assertEquals(\"Aysel\", netice.first().ad)\n    }\n\n    @Test\n    fun `sebeke xetasi duzgun idare olunur`() = runTest {\n        val repo = IstifadeciRepo(XetaliApi())\n\n        assertFailsWith<NetworkException> {\n            repo.hamisiniGetir()\n        }\n    }\n}"
         },
         "test.h3.4b7fa526": {
-          "text": ""
+          "text": "MockK: objetos simulados"
         },
         "test.code.3bfaf51c": {
           "title": "",
-          "code": ""
+          "code": "import io.mockk.*\nimport kotlin.test.*\n\nclass ServisTest {\n\n    private val repo = mockk<IstifadeciRepo>()\n    private val servis = IstifadeciServisi(repo)\n\n    @Test\n    fun `repodan gelen melumat cevrilir`() {\n        // Arrange (preparar)\n        every { repo.tap(1) } returns Istifadeci(1, \"Aysel\")\n\n        // Act (actuar)\n        val netice = servis.adiAl(1)\n\n        // Assert (comprobar)\n        assertEquals(\"Aysel\", netice)\n        verify(exactly = 1) { repo.tap(1) }\n    }\n\n    @Test\n    fun `suspend funksiya mock-lanir`() = runTest {\n        coEvery { repo.hamisiniGetir() } returns listOf(Istifadeci(1, \"Aysel\"))\n\n        val netice = servis.hamisi()\n\n        assertEquals(1, netice.size)\n        coVerify { repo.hamisiniGetir() }\n    }\n}"
         },
         "test.h3.d300c230": {
-          "text": ""
+          "text": "Pruebas parametrizadas"
         },
         "test.code.6d55ae0d": {
           "title": ""
         },
         "test.code.8d69295d": {
-          "title": "",
-          "code": ""
+          "title": "build.gradle.kts: dependencias de prueba",
+          "code": "dependencies {\n    testImplementation(kotlin(\"test\"))\n    testImplementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1\")\n    testImplementation(\"io.mockk:mockk:1.13.11\")\n    testImplementation(\"org.junit.jupiter:junit-jupiter-params:5.10.2\")\n    testImplementation(\"app.cash.turbine:turbine:1.1.0\")   // Pruebas de Flow\n}\n\ntasks.test {\n    useJUnitPlatform()\n}"
         },
         "test.callout.3fba827b": {
-          "title": ""
+          "title": "El patrón AAA"
         },
         "test.p.c23c3b86": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Divide cada prueba en tres partes: "
+            },
+            {
+              "k": "b",
+              "v": "Arrange"
+            },
+            {
+              "k": "t",
+              "v": " (preparación: datos y mocks), "
+            },
+            {
+              "k": "b",
+              "v": "Act"
+            },
+            {
+              "k": "t",
+              "v": " (ejecución: llamar a la función que se prueba), "
+            },
+            {
+              "k": "b",
+              "v": "Assert"
+            },
+            {
+              "k": "t",
+              "v": " (verificación). Comprueba un solo comportamiento por prueba: así, cuando la prueba falla, la causa queda clara al instante."
+            }
+          ]
         }
       }
     },
     "java-muqayise": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Kotlin y Java",
+      "heading": "Kotlin y Java comparados",
+      "kicker": "Sección 27",
+      "group": "Recapitulación",
       "blocks": {
         "java-muqayise.p.b8d2d2a8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin no se creó para sustituir a Java, sino para resolver sus problemas. Ambos lenguajes compilan al mismo bytecode y pueden trabajar juntos en el mismo proyecto."
+            }
+          ]
         },
         "java-muqayise.h3.ae5725ed": {
-          "text": ""
+          "text": "Diferencias clave"
         },
         "java-muqayise.table.b94a0bf2": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tema"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Java"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Kotlin"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Seguridad frente a null"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No está en el sistema de tipos"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Parte del tipo ("
+                },
+                {
+                  "k": "code",
+                  "v": "String?"
+                },
+                {
+                  "k": "t",
+                  "v": ")"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Puntos y coma"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Obligatorios"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No hacen falta"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Escribir tipos"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Casi siempre"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "A menudo no hace falta"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Data class"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "record"
+                },
+                {
+                  "k": "t",
+                  "v": " (Java 16+) o 50 líneas"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "data class"
+                },
+                {
+                  "k": "t",
+                  "v": ": 1 línea"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Funciones de extensión"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No hay"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sí"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Corrutinas"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Hilos virtuales (Java 21+)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Corrutinas + Flow"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Excepciones comprobadas"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sí"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No hay"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Parámetros por defecto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No hay (hacen falta sobrecargas)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sí"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Plantillas de cadena"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No hay (concatenación / format)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"$ad\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Clases por defecto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Abiertas (se puede heredar)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "final (hace falta "
+                },
+                {
+                  "k": "code",
+                  "v": "open"
+                },
+                {
+                  "k": "t",
+                  "v": ")"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Miembros estáticos"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "static"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "companion object"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Singletons"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "A mano (enum o holder)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "object"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "El operador "
+                },
+                {
+                  "k": "code",
+                  "v": "=="
+                },
+                {
+                  "k": "t",
+                  "v": ""
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comparación de referencias"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comparación de contenido"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tipos primitivos"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "int"
+                },
+                {
+                  "k": "t",
+                  "v": " y "
+                },
+                {
+                  "k": "code",
+                  "v": "Integer"
+                },
+                {
+                  "k": "t",
+                  "v": " están separados"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Solo "
+                },
+                {
+                  "k": "code",
+                  "v": "Int"
+                },
+                {
+                  "k": "t",
+                  "v": " (el compilador lo optimiza)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operador ternario"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "a ? b : c"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "if (a) b else c"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "switch"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tipos limitados"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "when"
+                },
+                {
+                  "k": "t",
+                  "v": ": cualquier condición"
+                }
+              ]
+            ]
+          ]
         },
         "java-muqayise.h3.ab700530": {
-          "text": ""
+          "text": "Código lado a lado"
         },
         "java-muqayise.tabs.53c96cfc": {
           "tabs": {
@@ -7790,52 +9206,143 @@
           "title": ""
         },
         "java-muqayise.h3.b1609b6e": {
-          "text": ""
+          "text": "Llamar a código Java desde Kotlin"
         },
         "java-muqayise.code.82c4adb9": {
           "title": "",
-          "code": ""
+          "code": "import java.util.ArrayList\nimport java.time.LocalDate\n\nfun main() {\n    // Las clases Java funcionan directamente\n    val siyahi = ArrayList<String>()\n    siyahi.add(\"Kotlin\")\n\n    val bugun = LocalDate.now()\n\n    // Los getters/setters de Java aparecen automáticamente como propiedades\n    // javaObyekt.getAd()  →  javaObyekt.ad\n    // javaObyekt.setAd(x) →  javaObyekt.ad = x\n\n    // CUIDADO: los tipos de plataforma (String!) no se comprueban contra null\n    val ad: String? = javaServis.tapAd()   // ten cuidado\n}"
         },
         "java-muqayise.h3.5e79c054": {
-          "text": ""
+          "text": "Llamar a código Kotlin desde Java"
         },
         "java-muqayise.code.656821fb": {
           "title": "",
-          "code": ""
+          "code": "@file:JvmName(\"Komekciler\")     // en Java se convierte en Komekciler, no en KomekcilerKt\n\npackage az.numune\n\nclass Servis {\n    companion object {\n        // sin @JvmStatic, en Java: Servis.Companion.yarat()\n        @JvmStatic\n        fun yarat() = Servis()\n    }\n\n    // Los parámetros por defecto no funcionan en Java: @JvmOverloads lo resuelve\n    @JvmOverloads\n    fun gonder(mesaj: String, tecili: Boolean = false, tekrar: Int = 1) { }\n\n    // @JvmField: un campo normal, sin getter/setter\n    @JvmField\n    val versiya = \"1.0\"\n}\n\n// En el lado de Java:\n// Servis s = Servis.yarat();\n// s.gonder(\"salam\");                  ← gracias a @JvmOverloads\n// s.gonder(\"salam\", true);\n// String v = s.versiya;               ← gracias a @JvmField"
         },
         "java-muqayise.h3.2d3d16e2": {
-          "text": ""
+          "text": "Estrategia para pasar de Java a Kotlin"
         },
         "java-muqayise.list.1471b1d5": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Empieza por las pruebas."
+              },
+              {
+                "k": "t",
+                "v": " El código de pruebas no afecta a producción: es un sitio sin riesgo para experimentar."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Escribe los archivos nuevos en Kotlin."
+              },
+              {
+                "k": "t",
+                "v": " Deja intacto el código Java existente."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Convierte las clases de modelo/DTO."
+              },
+              {
+                "k": "t",
+                "v": " Aquí está la mayor ganancia: 50 líneas → 1 línea."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Usa la conversión automática del IDE."
+              },
+              {
+                "k": "t",
+                "v": " IntelliJ: pega un archivo Java o usa "
+              },
+              {
+                "k": "code",
+                "v": "Code → Convert Java File to Kotlin"
+              },
+              {
+                "k": "t",
+                "v": "."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Limpia a mano después de convertir."
+              },
+              {
+                "k": "t",
+                "v": " La conversión automática deja muchos "
+              },
+              {
+                "k": "code",
+                "v": "!!"
+              },
+              {
+                "k": "t",
+                "v": " y declaraciones de tipo innecesarias: corrígelos."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "No tengas prisa."
+              },
+              {
+                "k": "t",
+                "v": " Ambos lenguajes conviven en el mismo proyecto sin problemas. No necesitas una «gran reescritura»."
+              }
+            ]
+          ]
         },
         "java-muqayise.callout.b313cc9a": {
-          "title": ""
+          "title": "¿Java es malo?"
         },
         "java-muqayise.p.7d88a996": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "No. Las versiones de Java hasta Java 21 trajeron records, sealed classes, pattern matching e hilos virtuales: la diferencia ya no es tan grande como antes. Kotlin sigue siendo más conciso y va por delante en seguridad frente a null, pero el ecosistema y la estabilidad de Java son impecables. "
+            },
+            {
+              "k": "b",
+              "v": "La respuesta correcta depende del proyecto."
+            }
+          ]
         }
       }
     },
     "idiomlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Modismos y buenas prácticas",
+      "heading": "Modismos y buenas prácticas",
+      "kicker": "Sección 28",
+      "group": "Recapitulación",
       "blocks": {
         "idiomlar.p.bb03f4f8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Puedes escribir Kotlin «como Java», pero la fuerza del lenguaje está en el estilo idiomático. Abajo están los patrones más comunes: a la izquierda, lo que conviene evitar; a la derecha, lo recomendado."
+            }
+          ]
         },
         "idiomlar.h3.c951ddc1": {
-          "text": ""
+          "text": "1 · Comprobaciones de null"
         },
         "idiomlar.cards.3417af8e": {
           "items": {
             "0": {
-              "title": ""
+              "title": "❌ No lo escribas así"
             },
             "1": {
-              "title": ""
+              "title": "✅ Escríbelo así"
             }
           }
         },
@@ -7846,7 +9353,7 @@
           "title": ""
         },
         "idiomlar.h3.9513e8b7": {
-          "text": ""
+          "text": "2 · Valores alternativos"
         },
         "idiomlar.cards.9a7f5b5e": {
           "items": {
@@ -7865,7 +9372,7 @@
           "title": ""
         },
         "idiomlar.h3.ddd71299": {
-          "text": ""
+          "text": "3 · Procesar colecciones"
         },
         "idiomlar.cards.ead1c088": {
           "items": {
@@ -7884,7 +9391,7 @@
           "title": ""
         },
         "idiomlar.h3.6267a5b5": {
-          "text": ""
+          "text": "4 · Construir objetos"
         },
         "idiomlar.cards.892d895b": {
           "items": {
@@ -7903,7 +9410,7 @@
           "title": ""
         },
         "idiomlar.h3.15b9411d": {
-          "text": ""
+          "text": "5 · Retorno anticipado"
         },
         "idiomlar.cards.0130b391": {
           "items": {
@@ -7922,90 +9429,501 @@
           "title": ""
         },
         "idiomlar.h3.8ef4335e": {
-          "text": ""
+          "text": "Más modismos"
         },
         "idiomlar.code.5fa7b33c": {
           "title": "",
-          "code": ""
+          "code": "// Función de una sola expresión\nfun kvadrat(x: Int) = x * x\n\n// Devolver directamente con when\nfun tesvir(kod: Int) = when (kod) {\n    200 -> \"OK\"\n    404 -> \"Tapılmadı\"\n    in 500..599 -> \"Server xətası\"\n    else -> \"Naməlum\"\n}\n\n// Construir una colección\nval siyahi = buildList {\n    add(\"Kotlin\")\n    if (serait) add(\"Java\")\n}\n\n// Construir una cadena\nval metn = buildString {\n    appendLine(\"Başlıq\")\n    repeat(3) { appendLine(\"Sətir $it\") }\n}\n\n// Devolver un par\nfun minMax(s: List<Int>) = s.min() to s.max()\nval (min, max) = minMax(listOf(3, 1, 4))\n\n// Convertir una colección en un map\nval idIleTap = istifadeciler.associateBy { it.id }\n\n// Añadir un elemento de forma condicional\nval parametrler = buildMap {\n    put(\"ad\", ad)\n    filtr?.let { put(\"filtr\", it) }\n}\n\n// Varias condiciones a la vez\nval etibarli = listOf(ad, email, telefon).all { it.isNotBlank() }\n\n// Recorrer un recurso: se cierra automáticamente\nFile(\"melumat.txt\").useLines { setirler ->\n    setirler.filter { it.isNotBlank() }.forEach(::println)\n}\n\n// sealed en lugar de enum para un conjunto fijo\n// (si necesitas guardar datos extra)"
         },
         "idiomlar.h3.1ac334d4": {
-          "text": ""
+          "text": "Reglas de estilo de código"
         },
         "idiomlar.table.3f6ab771": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Regla"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Explicación"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "val > var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Haz que la inmutabilidad sea lo predeterminado"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Escribe el tipo solo cuando haga falta"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Explícito en las API públicas, inferido en las variables locales"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Evita "
+                },
+                {
+                  "k": "code",
+                  "v": "!!"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Cada uno es un posible fallo"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Agrupa tus extensiones"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "En un único archivo "
+                },
+                {
+                  "k": "code",
+                  "v": "Genislenmeler.kt"
+                },
+                {
+                  "k": "t",
+                  "v": ""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Mantén inmutables las data classes"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Haz que todas las propiedades sean "
+                },
+                {
+                  "k": "code",
+                  "v": "val"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Los nombres de función deben ser verbos"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "hesabla()"
+                },
+                {
+                  "k": "t",
+                  "v": ", "
+                },
+                {
+                  "k": "code",
+                  "v": "yukle()"
+                },
+                {
+                  "k": "t",
+                  "v": ", no "
+                },
+                {
+                  "k": "code",
+                  "v": "data()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Los nombres booleanos se leen como preguntas"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "aktivdir"
+                },
+                {
+                  "k": "t",
+                  "v": ", "
+                },
+                {
+                  "k": "code",
+                  "v": "hasError"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Longitud de línea ≤ 120"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El límite por defecto de ktlint"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Sangría de 4 espacios"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sin tabuladores"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "No anides demasiado las funciones de alcance"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No más de 2 niveles"
+                }
+              ]
+            ]
+          ]
         },
         "idiomlar.h3.da9add51": {
-          "text": ""
+          "text": "Consejos de rendimiento"
         },
         "idiomlar.list.49973a39": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Para colecciones grandes, usa "
+              },
+              {
+                "k": "code",
+                "v": "asSequence()"
+              },
+              {
+                "k": "t",
+                "v": ": no se crean listas intermedias."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Haz "
+              },
+              {
+                "k": "code",
+                "v": "inline"
+              },
+              {
+                "k": "t",
+                "v": " las funciones pequeñas que reciben lambdas: así desaparece el coste de crear objetos."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "En lugar de concatenar String en un bucle, usa "
+              },
+              {
+                "k": "code",
+                "v": "buildString"
+              },
+              {
+                "k": "t",
+                "v": "."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Para los tipos de id, usa "
+              },
+              {
+                "k": "code",
+                "v": "value class"
+              },
+              {
+                "k": "t",
+                "v": ": seguridad de tipos sin coste en tiempo de ejecución."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Para objetos pesados, usa "
+              },
+              {
+                "k": "code",
+                "v": "by lazy"
+              },
+              {
+                "k": "t",
+                "v": ": si nunca se necesitan, nunca se crean."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Arrays primitivos"
+              },
+              {
+                "k": "t",
+                "v": " — "
+              },
+              {
+                "k": "code",
+                "v": "IntArray"
+              },
+              {
+                "k": "t",
+                "v": " es más rápido que "
+              },
+              {
+                "k": "code",
+                "v": "List<Int>"
+              },
+              {
+                "k": "t",
+                "v": " (sin boxing)."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Evita la reflexión"
+              },
+              {
+                "k": "t",
+                "v": ": los plugins del compilador (serialization) son más rápidos."
+              }
+            ]
+          ]
         },
         "idiomlar.callout.e6103dce": {
-          "title": ""
+          "title": "Pon las herramientas a trabajar"
         },
         "idiomlar.p.e96dc764": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "ktlint"
+            },
+            {
+              "k": "t",
+              "v": " automatiza el formato. "
+            },
+            {
+              "k": "b",
+              "v": "detekt"
+            },
+            {
+              "k": "t",
+              "v": " detecta code smells y complejidad. Conecta ambos a la CI: los debates de estilo desaparecen por completo de las revisiones de código."
+            }
+          ]
         }
       }
     },
     "calismalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Ejercicios",
+      "heading": "Ejercicios",
+      "kicker": "Ejercicios",
+      "group": "Recapitulación",
       "blocks": {
         "calismalar.p.f3d4c013": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cada tema tiene dos tipos de ejercicios: los de "
+            },
+            {
+              "k": "b",
+              "v": "teoría"
+            },
+            {
+              "k": "t",
+              "v": " comprueban si entiendes los conceptos, y los de "
+            },
+            {
+              "k": "b",
+              "v": "práctica"
+            },
+            {
+              "k": "t",
+              "v": " te piden escribir código y comparan el resultado automáticamente. Los ejercicios se dividen en los niveles Junior, Middle y Senior."
+            }
+          ]
         },
         "calismalar.callout.34aa3074": {
-          "title": ""
+          "title": "¿Cómo se comprueban los ejercicios prácticos?"
         },
         "calismalar.p.f03302c9": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Escribes el código en el editor y pulsas el botón "
+            },
+            {
+              "k": "b",
+              "v": "Comprobar"
+            },
+            {
+              "k": "t",
+              "v": ". El código se compila y se ejecuta en un servidor de JetBrains, y su salida se compara con la salida esperada. La solución modelo de cada ejercicio se ha comprobado de antemano con el compilador de Kotlin, así que está garantizado que la tarea tiene solución."
+            }
+          ]
         },
         "calismalar.p.eb7f2dd5": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Resueltos: 0 / 0"
+            }
+          ]
         },
         "calismalar.p.3355b8e8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Ejercicio 1 / 1"
+            }
+          ]
         },
         "calismalar.callout.1e02db9f": {
-          "title": ""
+          "title": "Tu progreso se guarda"
         },
         "calismalar.p.dd75de94": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Los ejercicios que resuelves correctamente quedan registrados en tu navegador: no se pierden si cierras la página y vuelves. Puedes ponerte a prueba cambiando el filtro de nivel: Junior comprueba lo básico, Middle las situaciones del trabajo diario y Senior los detalles finos."
+            }
+          ]
         }
       }
     },
     "quiz": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Quiz de conocimientos",
+      "heading": "Pon a prueba tus conocimientos",
+      "kicker": "Sección 29",
+      "group": "Recapitulación",
       "blocks": {
         "quiz.p.74feaad2": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "15 preguntas: de la sintaxis a las corrutinas. Después de cada respuesta se muestra una explicación. Las preguntas salen en un orden aleatorio cada vez."
+            }
+          ]
         },
         "quiz.callout.38146208": {
-          "title": ""
+          "title": "Si tu puntuación es baja"
         },
         "quiz.p.57654f01": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "No te preocupes: vuelve a las secciones "
+            },
+            {
+              "k": "link",
+              "v": "Seguridad frente a null",
+              "href": "#null-safety"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "link",
+              "v": "Colecciones",
+              "href": "#kolleksiyalar"
+            },
+            {
+              "k": "t",
+              "v": " y "
+            },
+            {
+              "k": "link",
+              "v": "Tipos especiales de clases",
+              "href": "#xususi-sinifler"
+            },
+            {
+              "k": "t",
+              "v": ". Son los tres temas que más se preguntan en las entrevistas."
+            }
+          ]
         }
       }
     },
     "resurslar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Recursos",
+      "heading": "Recursos y próximos pasos",
+      "kicker": "Sección 30",
+      "group": "Recapitulación",
       "blocks": {
         "resurslar.p.7b734f96": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Este sitio te da la base. Para ir más allá, aquí tienes algunos recursos e ideas de proyectos."
+            }
+          ]
         },
         "resurslar.h3.2b394210": {
-          "text": ""
+          "text": "Recursos oficiales"
         },
         "resurslar.cards.a7055f29": {
           "items": {
@@ -8025,100 +9943,427 @@
               "title": ""
             },
             "5": {
-              "title": ""
+              "title": "“Kotlin in Action”"
             }
           }
         },
         "resurslar.p.c01dc095": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "La documentación oficial. Aquí está la explicación más precisa y actualizada de cada tema."
+            }
+          ]
         },
         "resurslar.p.1c96219c": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Ejecuta Kotlin en tu navegador. No hace falta instalar nada y ves el resultado de tu código al instante."
+            }
+          ]
         },
         "resurslar.p.f31b8dd7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Un conjunto de ejercicios interactivos. La mejor forma de afianzar la sintaxis con práctica."
+            }
+          ]
         },
         "resurslar.p.dd787c4b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Las guías de Kotlin para Android de Google, codelabs y proyectos de ejemplo."
+            }
+          ]
         },
         "resurslar.p.d95b0d7e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Más de 50 000 desarrolladores. Los canales "
+            },
+            {
+              "k": "code",
+              "v": "#getting-started"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "#coroutines"
+            },
+            {
+              "k": "t",
+              "v": " y "
+            },
+            {
+              "k": "code",
+              "v": "#multiplatform"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "resurslar.p.89954c12": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Un libro escrito por miembros del equipo que creó el lenguaje. Para entenderlo a fondo."
+            }
+          ]
         },
         "resurslar.h3.a40eb99e": {
-          "text": ""
+          "text": "Ruta de aprendizaje"
         },
         "resurslar.timeline.e8cfbba7": {
           "items": {
             "0": {
-              "title": "",
-              "desc": []
+              "title": "Fundamentos",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Variables, tipos, condiciones, bucles, funciones. Escribe pequeños programas de consola: una calculadora, un juego de adivinanzas, un analizador de texto."
+                }
+              ]
             },
             "1": {
-              "title": "",
-              "desc": []
+              "title": "POO y colecciones",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Clases, interfaces, data/sealed classes, operaciones con colecciones. Proyecto: un sistema de gestión de biblioteca (de consola)."
+                }
+              ]
             },
             "2": {
-              "title": "",
-              "desc": []
+              "title": "Estilo funcional",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Lambdas, funciones de orden superior, funciones de alcance, extensiones. Reescribe tu código y hazlo más corto."
+                }
+              ]
             },
             "3": {
-              "title": "",
-              "desc": []
+              "title": "Asincronía",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Corrutinas, Flow, manejo de errores. Proyecto: una app de consola que obtiene datos de una API pública (el tiempo, tipos de cambio)."
+                }
+              ]
             },
             "4": {
-              "title": "",
-              "desc": []
+              "title": "Una app real",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Elige Android (Compose) o backend (Ktor). Escribe una app que funcione por completo, pruebas incluidas, y súbela a GitHub."
+                }
+              ]
             }
           }
         },
         "resurslar.h3.751b0bcd": {
-          "text": ""
+          "text": "Ideas de proyectos para practicar"
         },
         "resurslar.table.34142ba5": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Nivel"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Proyecto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Enseña"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Principiante"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Lista de tareas (consola)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Colecciones, data classes, bucles"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Principiante"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Conversor de divisas"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Funciones, when, formato"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Intermedio"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Analizador de archivos de texto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "E/S de archivos, secuencias, agrupación"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Intermedio"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Previsión del tiempo (API)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ktor Client, corrutinas, serialización"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Intermedio"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Control de gastos (Android)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Compose, Room, ViewModel, StateFlow"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Avanzado"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "API REST + autenticación (Ktor)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Backend, JWT, Exposed, pruebas"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Avanzado"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "App de notas con KMP"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "expect/actual, lógica compartida, iOS+Android"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Avanzado"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Tu propio DSL"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Lambdas con receptor, infix, sobrecarga de operadores"
+                }
+              ]
+            ]
+          ]
         },
         "resurslar.h3.7b1e6467": {
-          "text": ""
+          "text": "Preguntas frecuentes"
         },
         "resurslar.h4.f6e5ef09": {
-          "text": ""
+          "text": "¿Necesito saber Java antes de aprender Kotlin?"
         },
         "resurslar.p.29939b36": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "No. Aprender Kotlin como primer lenguaje es totalmente posible y, en muchos casos, incluso más fácil: menos código repetitivo y mensajes de error más claros. Saber Java solo ayuda cuando lees bibliotecas antiguas."
+            }
+          ]
         },
         "resurslar.h4.63590024": {
-          "text": ""
+          "text": "¿Sustituirá Kotlin a Java?"
         },
         "resurslar.p.65825c37": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Android, prácticamente ya lo ha hecho. En el backend, en cambio, Java sigue dominando y seguirá así mucho tiempo. No son rivales: conviven en la misma plataforma."
+            }
+          ]
         },
         "resurslar.h4.bbb63d35": {
-          "text": ""
+          "text": "¿Kotlin es lento?"
         },
         "resurslar.p.dec368a0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "No. Compila al mismo bytecode y su rendimiento es prácticamente el mismo que el de Java. Antes la compilación era lenta, pero el compilador K2 resolvió ese problema."
+            }
+          ]
         },
         "resurslar.h4.1735f6a0": {
-          "text": ""
+          "text": "¿Cuándo debería aprender corrutinas?"
         },
         "resurslar.p.f12187c6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cuando domines los fundamentos del lenguaje (clases, colecciones, lambdas). Las corrutinas son un tema complejo y cuesta aprenderlas sin conocer lo básico. Pero si vas a escribir apps de Android, llegarás a ellas seguro."
+            }
+          ]
         },
         "resurslar.h4.d02c37d2": {
-          "text": ""
+          "text": "¿Qué IDE?"
         },
         "resurslar.p.2d7361bd": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "IntelliJ IDEA Community"
+            },
+            {
+              "k": "t",
+              "v": " (gratis): para Kotlin en general. "
+            },
+            {
+              "k": "b",
+              "v": "Android Studio"
+            },
+            {
+              "k": "t",
+              "v": ": para Android. "
+            },
+            {
+              "k": "b",
+              "v": "Fleet"
+            },
+            {
+              "k": "t",
+              "v": ": para KMP. El soporte de Kotlin en VS Code es flojo, así que no se recomienda."
+            }
+          ]
         },
         "resurslar.callout.342c0b44": {
-          "title": ""
+          "title": "El consejo más importante"
         },
         "resurslar.p.3b7f5ec8": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Un lenguaje no se aprende leyendo. "
+            },
+            {
+              "k": "b",
+              "v": "Escribe y ejecuta"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "tú mismo"
+            },
+            {
+              "k": "t",
+              "v": " cada ejemplo de código de este sitio. Luego cámbialo, rómpelo y arréglalo. Leer los mensajes de error es la forma más rápida de aprender."
+            }
+          ]
         }
       }
     }
