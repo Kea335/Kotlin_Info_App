@@ -378,431 +378,2869 @@
       }
     },
     "tarixce": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Historia y ecosistema",
+      "heading": "Historia y ecosistema",
+      "kicker": "Sección 01",
+      "group": "Primeros pasos",
       "blocks": {
         "tarixce.p.0b143a22": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin no apareció de la noche a la mañana. Cada una de sus versiones resolvió un problema concreto y práctico. La línea de tiempo de abajo muestra cómo fue tomando forma el lenguaje."
+            }
+          ]
         },
         "tarixce.timeline.4393cfe1": {
           "items": {
             "0": {
-              "title": "",
-              "desc": []
+              "title": "Comienza el proyecto",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "El equipo de JetBrains en San Petersburgo empieza a trabajar en un nuevo lenguaje para necesidades internas. El objetivo: una compilación tan rápida como la de Java y un sistema de tipos tan potente como el de Scala."
+                }
+              ]
             },
             "1": {
-              "title": "",
-              "desc": []
+              "title": "Anuncio público",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "El lenguaje se presenta oficialmente. El nombre viene de la "
+                },
+                {
+                  "k": "b",
+                  "v": "isla de Kotlin"
+                },
+                {
+                  "k": "t",
+                  "v": ", cerca de San Petersburgo, siguiendo la tradición de Java, que se llama como la isla de Java."
+                }
+              ]
             },
             "2": {
-              "title": "",
-              "desc": []
+              "title": "Código abierto",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "El código fuente se publica en GitHub con la licencia Apache 2.0. Empiezan las contribuciones de la comunidad."
+                }
+              ]
             },
             "3": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin 1.0: versión estable",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "La primera versión lista para producción. Llega con una garantía de compatibilidad hacia atrás: el código escrito hoy funcionará en las futuras versiones 1.x."
+                }
+              ]
             },
             "4": {
-              "title": "",
-              "desc": []
+              "title": "Google anuncia el soporte oficial para Android",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "En la conferencia Google I/O, Kotlin se anuncia como lenguaje de primera clase para Android. Fue el momento que cambió el destino del lenguaje."
+                }
+              ]
             },
             "5": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin 1.3: las corrutinas pasan a estables",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "La API de corrutinas para la programación asíncrona deja el estado experimental. Se acaba el infierno de los callbacks."
+                }
+              ]
             },
             "6": {
-              "title": "",
-              "desc": []
+              "title": "El enfoque «Kotlin-first»",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Google afirma que, a partir de ahora, las nuevas API de Android se diseñarán primero para Kotlin (las bibliotecas Jetpack KTX)."
+                }
+              ]
             },
             "7": {
               "title": "",
-              "desc": []
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "El framework de interfaz declarativa basado por completo en Kotlin pasa a estable. Los layouts XML van quedando poco a poco en segundo plano."
+                }
+              ]
             },
             "8": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin Multiplatform pasa a estable",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "KMP se declara listo para producción. Compartir la lógica de negocio entre Android e iOS se convierte en una opción real."
+                }
+              ]
             },
             "9": {
-              "title": "",
-              "desc": []
+              "title": "Kotlin 2.0: el compilador K2",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Un frontend reescrito por completo. La compilación es hasta 2 veces más rápida, los smart casts son más inteligentes y el IDE responde antes."
+                }
+              ]
             },
             "10": {
-              "title": "",
-              "desc": []
+              "title": "Desarrollo continuo",
+              "desc": [
+                {
+                  "k": "t",
+                  "v": "Sigue el trabajo en Kotlin/Wasm, los context parameters, un manejo de errores más rico y el soporte de iOS en Compose Multiplatform."
+                }
+              ]
             }
           }
         },
         "tarixce.h3.0aeaca9e": {
-          "text": ""
+          "text": "Componentes clave del ecosistema"
         },
         "tarixce.table.00c5a49f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Herramienta / biblioteca"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Para qué sirve"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Gradle (Kotlin DSL)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "El sistema de compilación del proyecto. Incluso el archivo "
+                },
+                {
+                  "k": "code",
+                  "v": "build.gradle.kts"
+                },
+                {
+                  "k": "t",
+                  "v": " se escribe en Kotlin."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "kotlinx.coroutines"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Programación asíncrona: launch, async, Flow, Channel."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "kotlinx.serialization"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Conversión JSON/Protobuf ↔ objeto. Sin reflexión: usa un plugin del compilador."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Ktor"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Un framework HTTP ligero tanto para servidor como para cliente. 100 % Kotlin."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Exposed"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Una biblioteca SQL: úsala como DSL o como ORM ligero."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Jetpack Compose"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Interfaz declarativa para Android y escritorio."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Arrow"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Una biblioteca de programación funcional: Either, Option, validación."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Koin / Hilt"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Inyección de dependencias."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "MockK"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Una biblioteca de mocks diseñada para Kotlin."
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "b",
+                  "v": "Detekt / ktlint"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Análisis estático y formateo de código."
+                }
+              ]
+            ]
+          ]
         },
         "tarixce.callout.6a86eb13": {
-          "title": ""
+          "title": "Elegir una versión"
         },
         "tarixce.p.2bf6dd15": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Para proyectos nuevos, usa "
+            },
+            {
+              "k": "b",
+              "v": "Kotlin 2.x"
+            },
+            {
+              "k": "t",
+              "v": ": el compilador K2 es rápido y todas las bibliotecas modernas lo admiten. En proyectos antiguos, pasar de 1.9 a 2.0 suele ir sin problemas."
+            }
+          ]
         }
       }
     },
     "qurasdirma": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Instalación y tu primer programa",
+      "heading": "Instalación y tu primer programa",
+      "kicker": "Sección 02",
+      "group": "Primeros pasos",
       "blocks": {
         "qurasdirma.p.bb45558e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Para empezar a escribir Kotlin necesitas, como mínimo, un JDK. Abajo tienes tres formas de empezar: en el navegador (sin instalar nada), con un IDE y con la terminal."
+            }
+          ]
         },
         "qurasdirma.h3.a4cededd": {
-          "text": ""
+          "text": "Opción 1: sin instalar nada"
         },
         "qurasdirma.p.bf981d07": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "El entorno oficial en línea está en "
+            },
+            {
+              "k": "b",
+              "v": "play.kotlinlang.org"
+            },
+            {
+              "k": "t",
+              "v": ". Escribes código y ves el resultado al instante. Es la opción ideal para tus primeros días de aprendizaje."
+            }
+          ]
         },
         "qurasdirma.h3.441868e5": {
-          "text": ""
+          "text": "Opción 2: IntelliJ IDEA (recomendada)"
         },
         "qurasdirma.list.b9c588eb": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Instala un JDK"
+              },
+              {
+                "k": "t",
+                "v": ": JDK 17 o 21 (versiones LTS). Fuentes: Eclipse Temurin, Oracle JDK o Amazon Corretto."
+              }
+            ],
+            [
+              {
+                "k": "t",
+                "v": "Descarga "
+              },
+              {
+                "k": "b",
+                "v": "IntelliJ IDEA Community Edition"
+              },
+              {
+                "k": "t",
+                "v": ": es gratuito y trae soporte integrado para Kotlin (Kotlin es un producto de JetBrains)."
+              }
+            ],
+            [
+              {
+                "k": "t",
+                "v": "En IDEA, elige "
+              },
+              {
+                "k": "code",
+                "v": "New Project"
+              },
+              {
+                "k": "t",
+                "v": " → "
+              },
+              {
+                "k": "b",
+                "v": "Kotlin"
+              },
+              {
+                "k": "t",
+                "v": " como lenguaje y "
+              },
+              {
+                "k": "b",
+                "v": "Gradle"
+              },
+              {
+                "k": "t",
+                "v": " como sistema de compilación."
+              }
+            ],
+            [
+              {
+                "k": "t",
+                "v": "Abre el archivo "
+              },
+              {
+                "k": "code",
+                "v": "src/main/kotlin/Main.kt"
+              },
+              {
+                "k": "t",
+                "v": " y escribe tu código."
+              }
+            ],
+            [
+              {
+                "k": "t",
+                "v": "Haz clic en el botón verde ▶ de la izquierda."
+              }
+            ]
+          ]
         },
         "qurasdirma.callout.38824775": {
-          "title": ""
+          "title": "Para Android"
         },
         "qurasdirma.p.d06bdd97": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Si vas a crear apps de Android, instala "
+            },
+            {
+              "k": "b",
+              "v": "Android Studio"
+            },
+            {
+              "k": "t",
+              "v": " directamente: está basado en IntelliJ e incluye Kotlin, Gradle y el SDK de Android."
+            }
+          ]
         },
         "qurasdirma.h3.5118b8b3": {
-          "text": ""
+          "text": "Opción 3: terminal (el compilador directamente)"
         },
         "qurasdirma.p.43a58fb4": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Para quienes prefieren trabajar desde la línea de comandos:"
+            }
+          ]
         },
         "qurasdirma.code.fb20acfd": {
-          "title": ""
+          "title": "terminal: instalación"
         },
         "qurasdirma.h3.51ae7c4f": {
-          "text": ""
+          "text": "Tu primer programa: Hola, mundo"
         },
         "qurasdirma.p.081d64b0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Crea un archivo y llámalo "
+            },
+            {
+              "k": "code",
+              "v": "Salam.kt"
+            },
+            {
+              "k": "t",
+              "v": ":"
+            }
+          ]
         },
         "qurasdirma.code.943096ad": {
           "title": ""
         },
         "qurasdirma.p.c40c8afe": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Para ejecutarlo desde la terminal:"
+            }
+          ]
         },
         "qurasdirma.code.716a1a51": {
           "title": ""
         },
         "qurasdirma.h3.0d9ace09": {
-          "text": ""
+          "text": "Estructura de un proyecto Gradle"
         },
         "qurasdirma.code.cc760d95": {
-          "title": ""
+          "title": "árbol del proyecto"
         },
         "qurasdirma.h4.25963746": {
-          "text": ""
+          "text": "Ejemplo de build.gradle.kts"
         },
         "qurasdirma.code.18420166": {
           "title": "",
-          "code": ""
+          "code": "plugins {\n    kotlin(\"jvm\") version \"2.0.20\"\n    application\n}\n\ngroup = \"az.kotlin.numune\"\nversion = \"1.0.0\"\n\nrepositories {\n    mavenCentral()\n}\n\ndependencies {\n    implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1\")\n    testImplementation(kotlin(\"test\"))\n}\n\nkotlin {\n    jvmToolchain(17)   // con qué versión del JDK compilar\n}\n\napplication {\n    mainClass.set(\"az.kotlin.numune.MainKt\")\n}\n\ntasks.test {\n    useJUnitPlatform()\n}"
         },
         "qurasdirma.h4.42757315": {
-          "text": ""
+          "text": "Comandos de Gradle"
         },
         "qurasdirma.table.fdf8abdd": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Comando"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Qué hace"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew build"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Compilar + probar + empaquetar"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew run"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejecuta la aplicación"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew test"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejecuta solo las pruebas"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew clean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Limpia la carpeta de compilación"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "./gradlew tasks"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Muestra todas las tareas disponibles"
+                }
+              ]
+            ]
+          ]
         },
         "qurasdirma.callout.fe0a16e9": {
-          "title": ""
+          "title": "Una nota para Windows"
         },
         "qurasdirma.p.09d77442": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Windows, escribe "
+            },
+            {
+              "k": "code",
+              "v": "gradlew.bat"
+            },
+            {
+              "k": "t",
+              "v": " o simplemente "
+            },
+            {
+              "k": "code",
+              "v": "gradlew"
+            },
+            {
+              "k": "t",
+              "v": " en lugar de "
+            },
+            {
+              "k": "code",
+              "v": "./gradlew"
+            },
+            {
+              "k": "t",
+              "v": ". En PowerShell, usa la forma "
+            },
+            {
+              "k": "code",
+              "v": ".\\gradlew build"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         }
       }
     },
     "kod-meydani": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Playground de código",
+      "heading": "Playground de código",
+      "kicker": "Sección 03",
+      "group": "Primeros pasos",
       "blocks": {
         "kod-meydani.p.f0f09342": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Aquí puedes escribir código Kotlin y ejecutarlo al instante. El código "
+            },
+            {
+              "k": "b",
+              "v": "se compila de verdad"
+            },
+            {
+              "k": "t",
+              "v": ": en los servidores oficiales de JetBrains, igual que en el sitio "
+            },
+            {
+              "k": "code",
+              "v": "play.kotlinlang.org"
+            },
+            {
+              "k": "t",
+              "v": ". No hay que instalar nada."
+            }
+          ]
         },
         "kod-meydani.callout.95e8f6e5": {
-          "title": ""
+          "title": "¿Cómo funciona?"
         },
         "kod-meydani.p.7d870dcf": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "El código que escribes se envía a un servidor de JetBrains, donde se compila y se ejecuta, y el resultado vuelve. No es una simulación falsa en el navegador: es el compilador real de Kotlin. Por eso esta sección "
+            },
+            {
+              "k": "b",
+              "v": "necesita conexión a internet"
+            },
+            {
+              "k": "t",
+              "v": "; el resto del sitio también funciona sin conexión."
+            }
+          ]
         },
         "kod-meydani.h3.48d73cd4": {
-          "text": ""
+          "text": "Cosas que puedes probar"
         },
         "kod-meydani.list.a94459fb": {
-          "items": []
+          "items": [
+            [
+              {
+                "k": "b",
+                "v": "Modifica un ejemplo"
+              },
+              {
+                "k": "t",
+                "v": ": cambia los números, el texto, las condiciones y mira cómo cambia el resultado."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Equivócate a propósito"
+              },
+              {
+                "k": "t",
+                "v": ": añade un punto y coma, escribe un tipo incorrecto, asigna un valor nuevo a un "
+              },
+              {
+                "k": "code",
+                "v": "val"
+              },
+              {
+                "k": "t",
+                "v": ". Leer los mensajes de error del compilador es la forma más rápida de aprender."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Prueba la seguridad frente a null"
+              },
+              {
+                "k": "t",
+                "v": ": en el ejemplo «Seguridad frente a null», quita el operador "
+              },
+              {
+                "k": "code",
+                "v": "?."
+              },
+              {
+                "k": "t",
+                "v": " y mira qué pasa."
+              }
+            ],
+            [
+              {
+                "k": "b",
+                "v": "Escribe tu propio ejercicio"
+              },
+              {
+                "k": "t",
+                "v": ": empieza con una página limpia usando el botón «Editor vacío»."
+              }
+            ]
+          ]
         },
         "kod-meydani.callout.bb847b9e": {
-          "title": ""
+          "title": "Atajos útiles"
         },
         "kod-meydani.p.f3dc61d3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Dentro del editor: "
+            },
+            {
+              "k": "kbd",
+              "v": "Ctrl"
+            },
+            {
+              "k": "t",
+              "v": "+"
+            },
+            {
+              "k": "kbd",
+              "v": "Space"
+            },
+            {
+              "k": "t",
+              "v": " para autocompletar, "
+            },
+            {
+              "k": "kbd",
+              "v": "Ctrl"
+            },
+            {
+              "k": "t",
+              "v": "+"
+            },
+            {
+              "k": "kbd",
+              "v": "/"
+            },
+            {
+              "k": "t",
+              "v": " convierte una línea en comentario, "
+            },
+            {
+              "k": "kbd",
+              "v": "Tab"
+            },
+            {
+              "k": "t",
+              "v": " añade sangría."
+            }
+          ]
         },
         "kod-meydani.h3.5a70e292": {
-          "text": ""
+          "text": "Ejecutarlo en tu ordenador"
         },
         "kod-meydani.p.5d3da3b0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "El playground de código es para aprender y hacer experimentos rápidos. Cuando empieces un proyecto real, vuelve a la sección "
+            },
+            {
+              "k": "link",
+              "v": "Instalación",
+              "href": "#qurasdirma"
+            },
+            {
+              "k": "t",
+              "v": ": necesitarás un entorno completo con IntelliJ IDEA o Android Studio."
+            }
+          ]
         }
       }
     },
     "sintaksis": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Sintaxis básica",
+      "heading": "Sintaxis básica",
+      "kicker": "Sección 04",
+      "group": "Fundamentos del lenguaje",
       "blocks": {
         "sintaksis.p.b6250dd9": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "La sintaxis de Kotlin se parece a la de Java, pero con menos ruido: los puntos y coma son opcionales, a menudo no hace falta escribir los tipos y casi todo puede ser una expresión."
+            }
+          ]
         },
         "sintaksis.h3.2d4d2623": {
-          "text": ""
+          "text": "El punto de entrada del programa"
         },
         "sintaksis.p.f679b026": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Todo programa Kotlin empieza en la función "
+            },
+            {
+              "k": "code",
+              "v": "main"
+            },
+            {
+              "k": "t",
+              "v": ". No tiene por qué estar dentro de una clase: una gran diferencia con Java."
+            }
+          ]
         },
         "sintaksis.code.d2babc57": {
           "title": "",
-          "code": ""
+          "code": "// La forma más simple: sin parámetros\nfun main() {\n    println(\"Salam!\")\n}\n\n// Si necesitas argumentos de línea de comandos\nfun main(args: Array<String>) {\n    println(\"Arqumentlər: ${args.toList()}\")\n}"
         },
         "sintaksis.h3.5f156308": {
-          "text": ""
+          "text": "Comentarios"
         },
         "sintaksis.code.1850694e": {
           "title": "",
-          "code": ""
+          "code": "// Un comentario de una línea\n\n/* Un comentario\n   de varias líneas */\n\n/* En Kotlin, los comentarios de bloque\n   se pueden /* anidar */; en Java no */\n\n/**\n * KDoc: un comentario de documentación.\n * @param ad El nombre del usuario\n * @return El texto del saludo\n */\nfun salamla(ad: String) = \"Salam, $ad!\""
         },
         "sintaksis.h3.2dec28d2": {
-          "text": ""
+          "text": "Paquetes e imports"
         },
         "sintaksis.code.58b05db7": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.tetbiq        // al principio del archivo\n\nimport kotlin.math.PI\nimport kotlin.math.abs\nimport java.time.LocalDate\n\nimport kotlin.math.max as boyuk   // renombrar (alias)\nimport az.numune.model.*          // importar el paquete entero\n\nfun main() {\n    println(PI)              // 3.141592653589793\n    println(abs(-7))         // 7\n    println(boyuk(3, 9))     // 9\n    println(LocalDate.now())\n}"
         },
         "sintaksis.callout.6c93dba0": {
-          "title": ""
+          "title": "Importados automáticamente"
         },
         "sintaksis.p.18005fbc": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Los paquetes "
+            },
+            {
+              "k": "code",
+              "v": "kotlin.*"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "kotlin.collections.*"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "kotlin.io.*"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "kotlin.text.*"
+            },
+            {
+              "k": "t",
+              "v": ", además de "
+            },
+            {
+              "k": "code",
+              "v": "java.lang.*"
+            },
+            {
+              "k": "t",
+              "v": " en la JVM, se incluyen automáticamente en cada archivo. "
+            },
+            {
+              "k": "code",
+              "v": "println"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "listOf"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": ": todos vienen de aquí."
+            }
+          ]
         },
         "sintaksis.h3.7d7c42e2": {
-          "text": ""
+          "text": "Todo es una expresión"
         },
         "sintaksis.p.740f380b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Kotlin, "
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " y "
+            },
+            {
+              "k": "code",
+              "v": "try"
+            },
+            {
+              "k": "t",
+              "v": " devuelven un valor. Esto elimina la necesidad del operador ternario de Java ("
+            },
+            {
+              "k": "code",
+              "v": "?:"
+            },
+            {
+              "k": "t",
+              "v": ")."
+            }
+          ]
         },
         "sintaksis.code.13900582": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val yas = 20\n\n    // if es una expresión: devuelve un valor\n    val netice = if (yas >= 18) \"Böyükdür\" else \"Kiçikdir\"\n    println(netice)\n\n    // when también es una expresión\n    val gun = 5\n    val ad = when (gun) {\n        1 -> \"Bazar ertəsi\"\n        5 -> \"Cümə\"\n        else -> \"Naməlum\"\n    }\n    println(ad)\n\n    // y try también\n    val reqem = try {\n        \"42\".toInt()\n    } catch (e: NumberFormatException) {\n        0\n    }\n    println(\"Dəyər: $reqem\")\n}"
         },
         "sintaksis.h3.f5917877": {
-          "text": ""
+          "text": "Puntos y coma"
         },
         "sintaksis.p.f655461d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "No hace falta poner un "
+            },
+            {
+              "k": "code",
+              "v": ";"
+            },
+            {
+              "k": "t",
+              "v": " al final de la línea. Solo se usa cuando hay varias sentencias en una misma línea, y eso tampoco se recomienda."
+            }
+          ]
         },
         "sintaksis.code.3c1e5adc": {
           "title": "",
-          "code": ""
+          "code": "val a = 5           // correcto\nval b = 10;         // funciona, pero es innecesario\n\nval x = 1; val y = 2   // el único uso real: no recomendado\n\n// Excepción: obligatorio en un enum si hay miembros después de las constantes\nenum class Reng(val kod: String) {\n    QIRMIZI(\"#F00\"), YASIL(\"#0F0\");   // ← este ; es obligatorio\n\n    fun cap() = println(kod)\n}"
         },
         "sintaksis.h3.089054e7": {
-          "text": ""
+          "text": "Convenciones de nombres"
         },
         "sintaksis.table.42beaf83": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Elemento"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Estilo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejemplo"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Paquete"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "todo en minúsculas, sin guiones bajos"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "az.numune.model"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Clase / interfaz"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "PascalCase"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "IstifadeciProfili"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función / variable"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "camelCase"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "hesablaCemi()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Constante (const de nivel superior)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "SCREAMING_SNAKE_CASE"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "MAX_OLCU"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función de prueba"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "con espacios, entre comillas invertidas"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "`bos siyahi 0 qaytarir`()"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Nombre de archivo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "PascalCase que refleje su contenido"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "IstifadeciRepo.kt"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "deyisenler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Variables y tipos",
+      "heading": "Variables y tipos",
+      "kicker": "Sección 05",
+      "group": "Fundamentos del lenguaje",
       "blocks": {
         "deyisenler.p.659074b6": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin es un lenguaje de tipado estático: el tipo de cada variable se conoce en tiempo de compilación. Pero casi siempre no hace falta escribir el tipo: el compilador lo deduce por sí mismo."
+            }
+          ]
         },
         "deyisenler.h3.acaa755c": {
-          "text": ""
+          "text": "val y var"
         },
         "deyisenler.code.b7c4a939": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // val: solo lectura, no se puede reasignar\n    val ad = \"Aysel\"\n    // ad = \"Leyla\"        ← ERROR DE COMPILACIÓN\n\n    // var: se puede cambiar\n    var sayqac = 0\n    println(\"Ad: $ad\")\n    println(\"Sayqac: $sayqac\")\n    sayqac++\n    println(\"Sayqac: $sayqac\")\n\n    // OJO: val fija la referencia, NO el objeto en sí\n    val siyahi = mutableListOf(\"a\")\n    siyahi.add(\"b\")          // ¡permitido!\n    // siyahi = mutableListOf()   ← error\n    println(\"Siyahı: $siyahi\")\n}"
         },
         "deyisenler.callout.e11e6a14": {
-          "title": ""
+          "title": "Regla práctica"
         },
         "deyisenler.p.962bfa8e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Empieza siempre con "
+            },
+            {
+              "k": "b",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": ". Cambia a "
+            },
+            {
+              "k": "b",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": " solo cuando de verdad necesites cambiar el valor. Así hay menos errores y tu código es más predecible."
+            }
+          ]
         },
         "deyisenler.h3.d2bd2b6b": {
-          "text": ""
+          "text": "Inferencia de tipos: prueba en vivo"
         },
         "deyisenler.p.8c0a1307": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Escribe un valor abajo o elige uno de los ejemplos y mira qué tipo infiere el compilador:"
+            }
+          ]
         },
         "deyisenler.h3.3e164a6a": {
-          "text": ""
+          "text": "Tipos básicos"
         },
         "deyisenler.table.69721b7f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tipo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Bits"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Rango / descripción"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejemplo"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Byte"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "8"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "−128 … 127"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val b: Byte = 100"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Short"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "16"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "−32768 … 32767"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val s: Short = 1000"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "32"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "≈ ±2100 millones (por defecto)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val i = 42"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Long"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "64"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "≈ ±9,2 trillones"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val l = 42L"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Float"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "32"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~6–7 dígitos decimales de precisión"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val f = 3.14f"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Double"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "64"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "~15–16 dígitos (por defecto)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val d = 3.14"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Boolean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "true"
+                },
+                {
+                  "k": "t",
+                  "v": " / "
+                },
+                {
+                  "k": "code",
+                  "v": "false"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val ok = true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "Char"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "16"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Un solo carácter, entre comillas simples"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val c = 'K'"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "String"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "—"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Una secuencia inmutable de caracteres"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "val s = \"Kotlin\""
+                }
+              ]
+            ]
+          ]
         },
         "deyisenler.h3.6a135f51": {
-          "text": ""
+          "text": "Literales numéricos"
         },
         "deyisenler.code.8dc9066e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val boyuk = 1_000_000        // guiones bajos para legibilidad (no afectan al valor)\n    val onaltiliq = 0xFF         // 255\n    val ikilik = 0b1010          // 10\n    val uzun = 1_000_000_000_000L\n    val onluq = 3.14\n    val eksponent = 2.5e10\n\n    println(boyuk)\n    println(onaltiliq)\n    println(ikilik)\n    println(uzun)\n    println(onluq)\n    println(eksponent)\n}"
         },
         "deyisenler.h3.b574b02e": {
-          "text": ""
+          "text": "La conversión de tipos NO es automática"
         },
         "deyisenler.callout.cd415ca6": {
-          "title": ""
+          "title": "Kotlin no hace conversiones numéricas implícitas"
         },
         "deyisenler.p.f22ed486": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Java, "
+            },
+            {
+              "k": "code",
+              "v": "long x = intDeyer;"
+            },
+            {
+              "k": "t",
+              "v": " funciona. En Kotlin no: tienes que escribir "
+            },
+            {
+              "k": "code",
+              "v": ".toLong()"
+            },
+            {
+              "k": "t",
+              "v": " explícitamente. Así se evita la pérdida oculta de datos."
+            }
+          ]
         },
         "deyisenler.code.dbded1a7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val i: Int = 42\n\n    // val l: Long = i        ← ERROR: Type mismatch\n    val l: Long = i.toLong()  // correcto\n    val d: Double = i.toDouble()\n    val s: String = i.toString()\n\n    println(i)\n    println(l)\n    println(d)\n    println(s)\n\n    // Entre Char e Int\n    val c: Char = 'K'\n    println(c)\n    println(c.code)           // 75: el código Unicode\n\n    // De texto a número: la forma segura\n    val bosla: Int? = \"abc\".toIntOrNull()   // null, no lanza excepción\n    val yaxsi: Int = \"123\".toInt()          // 123\n}"
         },
         "deyisenler.h3.9bdee4fe": {
-          "text": ""
+          "text": "Constantes: const val"
         },
         "deyisenler.code.ddb77550": {
           "title": "",
-          "code": ""
+          "code": "// A nivel de archivo: una constante de tiempo de compilación\nconst val API_URL = \"https://api.numune.az\"\nconst val MAX_CEHD = 3\n\n// const solo funciona con tipos primitivos y String\n// const val TARIX = LocalDate.now()   ← ERROR: se calcula en tiempo de ejecución\n\nclass Konfiq {\n    companion object {\n        const val VERSIYA = \"1.0.0\"      // dentro de una clase, en el companion\n        val YARADILMA = System.currentTimeMillis()  // no puede ser const\n    }\n}\n\nfun main() {\n    println(API_URL)\n    println(Konfiq.VERSIYA)\n}"
         },
         "deyisenler.table.031831c9": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Palabra clave"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Cuándo se asigna"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Dónde se puede usar"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "const val"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "En tiempo de compilación"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "nivel superior, object, companion object: solo primitivos/String"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "val"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "En tiempo de ejecución, una vez"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "en cualquier sitio"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Puede cambiar en cualquier momento"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "en cualquier sitio"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "lateinit var"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Más tarde, antes del primer uso"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "solo tipos no primitivos"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "by lazy"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "En la primera lectura (una vez)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "solo con "
+                },
+                {
+                  "k": "code",
+                  "v": "val"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "metnler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Trabajar con texto (String)",
+      "heading": "Trabajar con texto (String)",
+      "kicker": "Sección 06",
+      "group": "Fundamentos del lenguaje",
       "blocks": {
         "metnler.p.16c0b11a": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Kotlin, un String es inmutable. Pero las plantillas de cadena, las cadenas multilínea y un rico conjunto de funciones estándar hacen que trabajar con texto sea muy cómodo."
+            }
+          ]
         },
         "metnler.h3.5d49873e": {
-          "text": ""
+          "text": "Plantillas de cadena"
         },
         "metnler.code.07a176c3": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad = \"Aysel\"\n    val yas = 24\n    val qiymet = 15.0\n    val say = 2\n\n    // Una variable simple: $ad\n    println(\"Salam, $ad!\")\n\n    // Una expresión: ${...}\n    println(\"Yaş: $yas, gələn il: ${yas + 1}\")\n    println(\"Uzunluq: ${ad.length}\")\n    println(\"Cəmi: ${qiymet * say} AZN\")\n\n    // Si necesitas un signo $ literal\n    val qiymetMetni = \"Qiymət: \\$100\"\n}"
         },
         "metnler.h3.4123b296": {
-          "text": ""
+          "text": "Cadenas multilínea"
         },
         "metnler.code.eca899b7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad = \"Aysel\"\n    val yas = 24\n\n    // Comillas triples: no hace falta escapar, los saltos de línea se conservan\n    val json = \"\"\"\n        {\n          \"ad\": \"$ad\",\n          \"yas\": $yas\n        }\n    \"\"\".trimIndent()      // ← quita la sangría sobrante de la izquierda\n\n    println(json)\n\n    // trimMargin(): quita todo hasta el carácter |\n    val metn = \"\"\"\n        |Birinci sətir\n        |İkinci sətir\n    \"\"\".trimMargin()\n}"
         },
         "metnler.h3.c61caaf9": {
-          "text": ""
+          "text": "Las funciones de String más usadas"
         },
         "metnler.table.78ed8043": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Qué hace"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejemplo → resultado"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "length"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Número de caracteres"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".length"
+                },
+                {
+                  "k": "t",
+                  "v": " → 6"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "uppercase() / lowercase()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Cambia mayúsculas/minúsculas"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"az\".uppercase()"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"AZ\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "trim()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Quita los espacios del principio y del final"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"  a  \".trim()"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"a\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isEmpty() / isBlank()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Está vacío / solo tiene espacios"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"  \".isBlank()"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "contains(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "¿Está dentro?"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".contains(\"lin\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "startsWith / endsWith"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Empieza por / termina en"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"a.kt\".endsWith(\".kt\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "split(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Divide en una lista"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"a,b\".split(\",\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → [a, b]"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "replace(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Reemplaza"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"aaa\".replace(\"a\",\"b\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"bbb\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "substring(a, b)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Extrae una parte"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".substring(0,3)"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"Kot\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "indexOf(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Posición (−1 si no se encuentra)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"Kotlin\".indexOf(\"t\")"
+                },
+                {
+                  "k": "t",
+                  "v": " → 2"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "padStart(n, c)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Rellena por la izquierda"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"7\".padStart(3,'0')"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"007\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "repeat(n)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Repite"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"ab\".repeat(2)"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"abab\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Invierte"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"abc\".reversed()"
+                },
+                {
+                  "k": "t",
+                  "v": " → \"cba\""
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "toIntOrNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Conversión segura"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"x\".toIntOrNull()"
+                },
+                {
+                  "k": "t",
+                  "v": " → null"
+                }
+              ]
+            ]
+          ]
         },
         "metnler.code.44902cfe": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val s = \"  Kotlin dili  \"\n\n    println(s.trim().replace(\"Kotlin\", \"KOTLIN\"))\n    println(\"Kotlin\".length)\n\n    val diller = \"Kotlin,Java,Swift\".split(\",\")\n    println(diller)\n\n    // Enmascarar\n    val gizli = \"Kotlin\".replaceRange(2, 5, \"***\")\n    println(gizli)\n\n    // Crear un slug\n    val basliq = \"Salam Dünya\"\n    println(basliq.lowercase().replace(\" \", \"-\").replace(\"ü\", \"u\"))\n\n    // Relleno con ceros\n    println(\"7\".padStart(3, '0'))\n}"
         },
         "metnler.h3.aab57097": {
-          "text": ""
+          "text": "Comparar cadenas"
         },
         "metnler.code.5a87d89e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a = \"Kotlin\"\n    val b = StringBuilder(\"Kot\").append(\"lin\").toString()\n\n    println(a == b)    // true  — comparación de contenido (equals)\n    println(a === b)   // false — comparación de referencias\n\n    // Comparación sin distinguir mayúsculas\n    println(\"KOTLIN\".equals(\"kotlin\", ignoreCase = true))\n}"
         },
         "metnler.callout.404a2b61": {
-          "title": ""
+          "title": "Para quienes vienen de Java"
         },
         "metnler.p.507fbce7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Java, "
+            },
+            {
+              "k": "code",
+              "v": "=="
+            },
+            {
+              "k": "t",
+              "v": " compara referencias y tienes que escribir "
+            },
+            {
+              "k": "code",
+              "v": ".equals()"
+            },
+            {
+              "k": "t",
+              "v": ". En Kotlin es al revés: "
+            },
+            {
+              "k": "code",
+              "v": "=="
+            },
+            {
+              "k": "t",
+              "v": " comprueba el contenido, y para las referencias está "
+            },
+            {
+              "k": "code",
+              "v": "==="
+            },
+            {
+              "k": "t",
+              "v": ". Así desaparece una de las fuentes de errores más comunes."
+            }
+          ]
         }
       }
     },
     "operatorlar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Operadores",
+      "heading": "Operadores",
+      "kicker": "Sección 07",
+      "group": "Fundamentos del lenguaje",
       "blocks": {
         "operatorlar.p.e5bbefe9": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Kotlin, los operadores son en realidad llamadas a funciones. Por detrás, la expresión "
+            },
+            {
+              "k": "code",
+              "v": "a + b"
+            },
+            {
+              "k": "t",
+              "v": " significa "
+            },
+            {
+              "k": "code",
+              "v": "a.plus(b)"
+            },
+            {
+              "k": "t",
+              "v": ", lo que te permite sobrecargar operadores para tus propios tipos."
+            }
+          ]
         },
         "operatorlar.h3.2fed7f21": {
-          "text": ""
+          "text": "Operadores aritméticos"
         },
         "operatorlar.table.80d73024": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operador"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Función"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejemplo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Resultado"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "+"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "plus()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 + 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "-"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "minus()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 - 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "4"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "*"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "times()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 * 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "21"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "/"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "div()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 / 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "2 (¡división entera!)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "/"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "div()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7.0 / 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "2.333…"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "%"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "rem()"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "7 % 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1"
+                }
+              ]
+            ]
+          ]
         },
         "operatorlar.callout.3ac3c666": {
-          "title": ""
+          "title": "División entera"
         },
         "operatorlar.p.f0674e2e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "El resultado de "
+            },
+            {
+              "k": "code",
+              "v": "7 / 2"
+            },
+            {
+              "k": "t",
+              "v": " es "
+            },
+            {
+              "k": "b",
+              "v": "3"
+            },
+            {
+              "k": "t",
+              "v": ", no 3.5. Cuando ambos operandos son Int, el resultado también es Int y la parte decimal se descarta. Para un resultado decimal, al menos uno de ellos debe ser Double: "
+            },
+            {
+              "k": "code",
+              "v": "7.0 / 2"
+            },
+            {
+              "k": "t",
+              "v": " o "
+            },
+            {
+              "k": "code",
+              "v": "7 / 2.0"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "operatorlar.h3.767c7db7": {
-          "text": ""
+          "text": "Comparación e igualdad"
         },
         "operatorlar.table.54171e7d": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operador"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Significado"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nota"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "=="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Igualdad estructural"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Llama a "
+                },
+                {
+                  "k": "code",
+                  "v": "a?.equals(b) ?: (b === null)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Desigualdad estructural"
+                }
+              ],
+              []
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "==="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Igualdad referencial"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "¿Es el mismo objeto?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!=="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Desigualdad referencial"
+                }
+              ],
+              []
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "< > <= >="
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comparación"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Llama a "
+                },
+                {
+                  "k": "code",
+                  "v": "compareTo()"
+                }
+              ]
+            ]
+          ]
         },
         "operatorlar.h3.662f2b2e": {
-          "text": ""
+          "text": "Operadores lógicos"
         },
         "operatorlar.code.1c96e22b": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a = true\n    val b = false\n\n    println(a || b)   // O: cortocircuito\n    println(a && b)   // Y: cortocircuito\n    println(!b)       // NO\n    println(a xor a)  // O EXCLUSIVO\n\n    // Cortocircuito: si el lado izquierdo decide el resultado, el derecho nunca se ejecuta\n    val siyahi: List<Int>? = null\n    if (siyahi != null && siyahi.isNotEmpty()) {\n        println(\"dolu\")   // si siyahi es null, la segunda condición nunca se comprueba\n    }\n}"
         },
         "operatorlar.h3.334d3864": {
-          "text": ""
+          "text": "Operadores propios de Kotlin"
         },
         "operatorlar.table.66c0a15c": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operador"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nombre"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejemplo"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "?."
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Llamada segura"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "ad?.length"
+                },
+                {
+                  "k": "t",
+                  "v": ": devuelve null si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "?:"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Elvis"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "ad ?: \"naməlum\""
+                },
+                {
+                  "k": "t",
+                  "v": ": un valor alternativo si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!!"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Aserción de no null"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "ad!!"
+                },
+                {
+                  "k": "t",
+                  "v": ": lanza una NPE si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": ".."
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Rango"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "1..10"
+                },
+                {
+                  "k": "t",
+                  "v": ": de 1 a 10 (inclusive)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "..<"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Rango abierto"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "0..<10"
+                },
+                {
+                  "k": "t",
+                  "v": ": de 0 a 9"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "in"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Pertenencia"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "5 in 1..10"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "!in"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "No pertenencia"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "15 !in 1..10"
+                },
+                {
+                  "k": "t",
+                  "v": " → true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "is"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comprobación de tipo"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "x is String"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "as"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Conversión de tipo"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "x as String"
+                },
+                {
+                  "k": "t",
+                  "v": ": error si falla"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "as?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Conversión segura"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "x as? String"
+                },
+                {
+                  "k": "t",
+                  "v": ": null si falla"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "to"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Crea un par (infix)"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "\"a\" to 1"
+                },
+                {
+                  "k": "t",
+                  "v": " → Pair(\"a\", 1)"
+                }
+              ]
+            ]
+          ]
         },
         "operatorlar.h3.126c7a56": {
-          "text": ""
+          "text": "Sobrecarga de operadores"
         },
         "operatorlar.p.0e54f5f7": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Puedes añadir comportamiento de operadores a tus propias clases. Es muy útil para tipos matemáticos y DSL."
+            }
+          ]
         },
         "operatorlar.code.2070e32a": {
           "title": "",
-          "code": ""
+          "code": "data class Noqte(val x: Int, val y: Int) {\n\n    operator fun plus(digeri: Noqte) = Noqte(x + digeri.x, y + digeri.y)\n    operator fun minus(digeri: Noqte) = Noqte(x - digeri.x, y - digeri.y)\n    operator fun times(k: Int) = Noqte(x * k, y * k)\n\n    // el operador in\n    operator fun contains(deyer: Int) = deyer == x || deyer == y\n\n    // indexación: p[0], p[1]\n    operator fun get(index: Int) = when (index) {\n        0 -> x\n        1 -> y\n        else -> throw IndexOutOfBoundsException()\n    }\n}\n\nfun main() {\n    val a = Noqte(1, 2)\n    val b = Noqte(3, 4)\n\n    println(a + b)\n    println(b - a)\n    println(Noqte(2, 3) * 3)\n    println(2 in a)          // llama a contains()\n    println(\"x = ${a[0]}\")   // llama a get()\n}"
         },
         "operatorlar.table.67bbd125": {
-          "head": [],
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Operador"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Nombre de la función"
+                }
+              ]
+            ]
+          ],
           "rows": []
         }
       }
