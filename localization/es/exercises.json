@@ -3790,488 +3790,698 @@
       "title": "",
       "nezeri": {
         "xususi-sinifler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué funciones genera automáticamente una data class?",
+          "opts": [
+            "Solo toString()",
+            "equals(), hashCode(), toString(), copy(), componentN()",
+            "Solo el constructor",
+            "Nada"
+          ],
+          "exp": "Estos cinco grupos de funciones se generan a partir de las propiedades del constructor primario. En Java, el mismo trabajo ocupa más de 50 líneas."
         },
         "xususi-sinifler-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuántos parámetros como mínimo debe tener el constructor primario de una data class?",
+          "opts": [
+            "0",
+            "1",
+            "2",
+            "Da igual"
+          ],
+          "exp": "Debe tener al menos un parámetro, y todos deben marcarse con val/var; si no, no habría datos en los que basar las funciones generadas."
         },
         "xususi-sinifler-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace copy()?",
+          "opts": [
+            "Borra el objeto",
+            "Crea una copia nueva con algunos campos cambiados",
+            "Copia la referencia",
+            "Imprime el objeto"
+          ],
+          "exp": "a.copy(yas = 25): el resto de campos se toman del original. Es la forma principal de trabajar con objetos inmutables."
         },
         "xususi-sinifler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué sirve una enum class?",
+          "opts": [
+            "Para números",
+            "Para un conjunto fijo y limitado: estado, color, día",
+            "Para listas",
+            "Para texto"
+          ],
+          "exp": "Usas un enum cuando los valores posibles se conocen de antemano y son limitados. Es mucho más seguro que las constantes de texto."
         },
         "xususi-sinifler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué crea la palabra clave object?",
+          "opts": [
+            "Una clase normal",
+            "Un singleton: un objeto con una sola instancia",
+            "Una interfaz",
+            "Un array"
+          ],
+          "exp": "object Konfiq { }: un singleton integrado en el lenguaje. Es seguro entre hilos y perezoso; no hace falta crear una instancia aparte."
         },
         "xususi-sinifler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿De qué es equivalente companion object?",
+          "opts": [
+            "Del constructor",
+            "De los miembros estáticos de Java",
+            "De una interfaz",
+            "De un bucle"
+          ],
+          "exp": "Los miembros que pertenecen a la clase pero no dependen de una instancia se escriben dentro del companion object: constantes, métodos de fábrica."
         },
         "xususi-sinifler-n-07": {
-          "q": "",
+          "q": "¿Qué usas para obtener el nombre de una constante de un enum?",
           "opts": [],
-          "exp": ""
+          "exp": "Reng.QIRMIZI.name → \"QIRMIZI\". Para el número de posición está la propiedad ordinal (empieza en 0)."
         },
         "xususi-sinifler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "U@1a2b3c",
+            "U(ad=Aysel, yas=24)",
+            "Aysel 24",
+            "Error de compilación"
+          ],
+          "exp": "Una data class genera toString() automáticamente, y muestra todas las propiedades junto con el nombre de la clase."
         },
         "xususi-sinifler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué da == para dos objetos data class con los mismos valores?",
+          "opts": [
+            "false",
+            "true: equals funciona por contenido",
+            "Error de compilación",
+            "null"
+          ],
+          "exp": "Una data class genera equals() a partir de sus propiedades. En una clase normal se haría una comparación de referencias y obtendrías false."
         },
         "xususi-sinifler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "En una data class, ¿una propiedad declarada en el CUERPO se incluye en equals?",
+          "opts": [
+            "Sí",
+            "No: solo se tienen en cuenta las propiedades del constructor primario",
+            "Solo cuando es val",
+            "Depende"
+          ],
+          "exp": "Es una fuente oculta de errores. Dos objetos pueden considerarse iguales aunque una propiedad del cuerpo sea distinta. Los campos que deban afectar a la igualdad tienen que estar en el constructor primario."
         },
         "xususi-sinifler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la ventaja principal de una sealed class?",
+          "opts": [
+            "La velocidad",
+            "Todas las subclases se conocen: when pasa a ser exhaustivo, no hace falta else",
+            "Menos memoria",
+            "JSON automático"
+          ],
+          "exp": "Cuando añades una subclase nueva, cada bloque when que no la gestiona da un error de compilación. Esto garantiza que no se olvide ningún caso."
         },
         "xususi-sinifler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se pueden añadir propiedades a las constantes de un enum?",
+          "opts": [
+            "No",
+            "Sí: mediante el constructor",
+            "Solo un String",
+            "Solo con companion"
+          ],
+          "exp": "Un enum puede tener constructor, y cada constante le pasa su propio valor. También se pueden añadir métodos."
         },
         "xususi-sinifler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre entries y values()?",
+          "opts": [
+            "No hay diferencia",
+            "entries es más moderno y no crea un array nuevo en cada llamada",
+            "values() es más rápido",
+            "entries solo existe en Java"
+          ],
+          "exp": "values() devuelve un array nuevo en cada llamada. entries, en cambio, es una lista inmutable y es la forma recomendada desde Kotlin 1.9."
         },
         "xususi-sinifler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuántas veces se ejecuta el bloque init dentro de un object?",
+          "opts": [
+            "En cada acceso",
+            "Una vez: en el primer acceso",
+            "Nunca",
+            "Dos veces"
+          ],
+          "exp": "Un singleton se crea de forma perezosa: se inicializa en el primer acceso y nunca más."
         },
         "xususi-sinifler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo funciona la desestructuración en una data class?",
+          "opts": [
+            "Necesita código especial",
+            "Funciona automáticamente gracias a las funciones componentN()",
+            "Solo con Pair",
+            "No funciona"
+          ],
+          "exp": "Una data class genera component1(), component2()... La desestructuración llama justamente a estas funciones: el orden es el mismo que en el constructor."
         },
         "xususi-sinifler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "false",
+            "true: b está en el cuerpo, así que no forma parte de equals",
+            "Error de compilación",
+            "null"
+          ],
+          "exp": "equals compara solo la propiedad a del constructor primario. Aunque b sea distinta, los objetos se consideran iguales: en la práctica esto provoca errores a menudo."
         },
         "xususi-sinifler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre una sealed interface y una sealed class?",
+          "opts": [
+            "No hay diferencia",
+            "Una sealed interface es más flexible: un subtipo también puede pertenecer a otra jerarquía",
+            "Una sealed class es más rápida",
+            "No existe la sealed interface"
+          ],
+          "exp": "Una clase solo puede heredar de una clase padre, pero de muchas interfaces. Por eso una sealed interface impone menos restricciones."
         },
         "xususi-sinifler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué sirve una value class?",
+          "opts": [
+            "Para la velocidad",
+            "Para la seguridad de tipos: no se crea ningún objeto en tiempo de ejecución",
+            "Para la memoria",
+            "Para la herencia"
+          ],
+          "exp": "@JvmInline value class Email(val deyer: String): el compilador la guarda como un String normal, pero el sistema de tipos no te deja confundir Email y String."
         },
         "xususi-sinifler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo se usa data object?",
+          "opts": [
+            "Nunca",
+            "Para subtipos sealed sin estado: da un toString y un equals adecuados",
+            "Solo con Java",
+            "Para arrays"
+          ],
+          "exp": "El toString de un object normal no es legible. Un data object imprime un nombre claro y, como es un singleton, equals también funciona correctamente."
         },
         "xususi-sinifler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es un objeto anónimo (object : Interfeys)?",
+          "opts": [
+            "Una clase nueva",
+            "El equivalente de la clase anónima de Java: una implementación de un solo uso",
+            "Un singleton",
+            "Un array"
+          ],
+          "exp": "object : Dinleyici { override fun ... }: un objeto sin nombre, creado en el sitio. Práctico para callbacks."
         },
         "xususi-sinifler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué necesitas para llamar desde Java a un miembro de un companion object directamente como estático?",
+          "opts": [
+            "Nada",
+            "La anotación @JvmStatic",
+            "@JvmField",
+            "const"
+          ],
+          "exp": "Sin @JvmStatic, en Java tienes que escribir Sinif.Companion.metod(). Con la anotación, es posible Sinif.metod()."
         },
         "xususi-sinifler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se escribe un comportamiento distinto para cada constante de un enum?",
+          "opts": [
+            "No es posible",
+            "Sobrescribiendo un método abstracto en el cuerpo propio de cada constante",
+            "Con when",
+            "Con una interfaz"
+          ],
+          "exp": "Declaras abstract fun emr() en el enum, y cada constante lo implementa entre sus propias llaves. Es una forma compacta del «patrón State»."
         },
         "xususi-sinifler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué está mal escribir else en un when sobre una jerarquía sealed?",
+          "opts": [
+            "No está mal",
+            "Cuando se añade una subclase nueva, el compilador no te avisa: else se la traga",
+            "Se ejecuta lento",
+            "Provoca un error de compilación"
+          ],
+          "exp": "La ventaja principal de sealed es precisamente la comprobación del compilador. Si escribes else, un caso nuevo cae en silencio en la rama else y el error queda oculto hasta la ejecución."
         },
         "xususi-sinifler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué se usa out en una sealed class genérica?",
+          "opts": [
+            "Para la velocidad",
+            "Para pasar un Netice<It> donde se espera un Netice<Heyvan> (covarianza)",
+            "Para la memoria",
+            "Para nada"
+          ],
+          "exp": "out T indica que el tipo solo se usa en posiciones de salida. Esto permite usar subtipos sin estado como Netice<Nothing> en cualquier sitio."
         },
         "xususi-sinifler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿El método copy() de una data class crea una copia profunda?",
+          "opts": [
+            "Sí",
+            "No: es una copia superficial, los objetos internos se comparten",
+            "Solo con val",
+            "Depende"
+          ],
+          "exp": "copy() copia solo el nivel superior. Se conservan las mismas referencias a los objetos internos: si son mutables, ambas copias se ven afectadas."
         }
       },
       "praktiki": {
         "xususi-sinifler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una data class e imprime un objeto.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Istifadeci(\"Aysel\", 24))\n}\n\n// escribe una data class"
         },
         "xususi-sinifler-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Muestra la comparación con == en una data class: dos objetos con los mismos valores deben ser iguales.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String)\n\nfun main() {\n    // crea dos objetos y compáralos\n}"
         },
         "xususi-sinifler-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa copy(): crea un objeto nuevo con solo la edad cambiada e imprímelo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val a = U(\"Aysel\", 24)\n    // usa copy para poner la edad en 25\n}"
         },
         "xususi-sinifler-p-04": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa la desestructuración: separa una data class en dos variables e imprímelas.",
+          "ipucu": "val (ad, yas) = u y luego println(\"$ad / $yas\")",
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val u = U(\"Aysel\", 24)\n    // escribe la desestructuración\n}"
         },
         "xususi-sinifler-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea un enum e imprime el nombre de una constante.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Status.AKTIV.name)\n}\n\n// escribe el enum"
         },
         "xususi-sinifler-p-06": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Imprime el número de posición (ordinal) de una constante de un enum.",
+          "ipucu": "println(Status.PASSIV.ordinal): empieza en 0.",
+          "starter": "enum class Status { AKTIV, PASSIV, SILINMIS }\n\nfun main() {\n    // imprime el valor ordinal de PASSIV\n}"
         },
         "xususi-sinifler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea un object (singleton) e imprime su propiedad.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Konfiq.url)\n}\n\n// escribe el object"
         },
         "xususi-sinifler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una constante en un companion object y accede a ella mediante el nombre de la clase.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Konfiq {\n    // escribe un companion object\n}\n\nfun main() {\n    println(Konfiq.VERSIYA)\n}"
         },
         "xususi-sinifler-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Imprime todas las constantes de un enum como una lista.",
           "ipucu": "",
-          "starter": ""
+          "starter": "enum class Reng { QIRMIZI, YASIL }\n\nfun main() {\n    // imprime todas las constantes\n}"
         },
         "xususi-sinifler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea un enum con una propiedad: cada color debe tener un código; imprime uno de ellos.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Reng.QIRMIZI.kod)\n}\n\n// escribe un enum con una propiedad"
         },
         "xususi-sinifler-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa when con un enum: devuelve \"isleyir\" para AKTIV y NO escribas else.",
+          "ipucu": "Si se enumeran todas las constantes del enum, no hace falta else.",
+          "starter": "enum class Status { AKTIV, PASSIV }\n\nfun main() {\n    val s = Status.AKTIV\n    val n = when (s) {\n        // enumera todas las constantes\n    }\n    println(n)\n}"
         },
         "xususi-sinifler-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa valueOf: obtén una constante de un enum a partir de una cadena e imprime su ordinal.",
           "ipucu": "",
-          "starter": ""
+          "starter": "enum class Status { AKTIV, PASSIV }\n\nfun main() {\n    // convierte la cadena \"PASSIV\" en el enum\n}"
         },
         "xususi-sinifler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una sealed class y gestiónala con when (sin escribir else).",
           "ipucu": "",
-          "starter": ""
+          "starter": "sealed class Netice {\n    data class Ugurlu(val data: String) : Netice()\n    data class Xeta(val kod: Int) : Netice()\n}\n\nfun main() {\n    val n: Netice = Netice.Xeta(404)\n    // gestiónala con when\n}"
         },
         "xususi-sinifler-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa data object: crea una subclase sealed sin estado e imprímela.",
+          "ipucu": "data object Yuklenir : Veziyyet(): un object normal daría un toString ilegible.",
+          "starter": "sealed class Veziyyet {\n    // escribe data object Yuklenir\n}\n\nfun main() {\n    println(Veziyyet.Yuklenir)\n}"
         },
         "xususi-sinifler-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que el bloque init de un object se ejecuta una vez: accede a él dos veces.",
+          "ipucu": "init { println(\"yuklendi\") }: un singleton se inicializa una sola vez.",
+          "starter": "object Konfiq {\n    val url = \"x\"\n    // escribe un bloque init\n}\n\nfun main() {\n    println(Konfiq.url)\n    println(Konfiq.url)\n}"
         },
         "xususi-sinifler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un método de fábrica en un companion object y crea un objeto.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci private constructor(val ad: String) {\n    companion object {\n        // escribe un método de fábrica\n    }\n}\n\nfun main() {\n    println(Istifadeci.yarat(\"Aysel\").ad)\n}"
         },
         "xususi-sinifler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea un objeto anónimo: implementa la interfaz en el sitio.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Dinleyici {\n    fun bitdi(): String\n}\n\nfun main() {\n    val d = // escribe un objeto anónimo\n    println(d.bitdi())\n}"
         },
         "xususi-sinifler-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una data class en una lista: ordénala por nombre e imprímela.",
           "ipucu": "",
-          "starter": ""
+          "starter": "data class U(val ad: String, val yas: Int)\n\nfun main() {\n    val s = listOf(U(\"Kamran\", 30), U(\"Aysel\", 24))\n    // ordena por nombre e imprime los nombres\n}"
         },
         "xususi-sinifler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una value class e imprime su valor.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Email(\"aysel@mail.az\").deyer)\n}\n\n// escribe una value class"
         },
         "xususi-sinifler-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra la trampa de las data classes: una propiedad del cuerpo no forma parte de equals; imprime el resultado.",
+          "ipucu": "println(x == y): como b está en el cuerpo, no se incluye en equals.",
+          "starter": "data class D(val a: Int) {\n    var b: Int = 0\n}\n\nfun main() {\n    val x = D(1).apply { b = 5 }\n    val y = D(1).apply { b = 9 }\n    // imprime la comparación\n}"
         },
         "xususi-sinifler-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un comportamiento distinto para cada constante de un enum (método abstracto).",
           "ipucu": "",
-          "starter": ""
+          "starter": "enum class Isiq {\n    // constantes QIRMIZI y YASIL; cada una debe sobrescribir emr()\n    ;\n    abstract fun emr(): String\n}\n\nfun main() {\n    println(Isiq.QIRMIZI.emr())\n}"
         },
         "xususi-sinifler-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa una sealed interface: escribe una función que gestione los casos y llámala con uno de ellos.",
+          "ipucu": "is Hadise.Klik -> \"Klik: ${h.x}\" y Hadise.Geri -> \"Geri\"",
+          "starter": "sealed interface Hadise {\n    data class Klik(val x: Int) : Hadise\n    data object Geri : Hadise\n}\n\nfun idareEt(h: Hadise): String = when (h) {\n    // gestiona todos los casos\n}\n\nfun main() {\n    println(idareEt(Hadise.Klik(5)))\n}"
         },
         "xususi-sinifler-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe una sealed class genérica (con out) y gestiona el caso de éxito.",
+          "ipucu": "is Netice.Ugurlu -> println(n.data) y Netice.Bos -> println(\"bos\")",
+          "starter": "sealed class Netice<out T> {\n    data class Ugurlu<T>(val data: T) : Netice<T>()\n    data object Bos : Netice<Nothing>()\n}\n\nfun main() {\n    val n: Netice<String> = Netice.Ugurlu(\"data\")\n    // gestiónala con when\n}"
         },
         "xususi-sinifler-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que copy() hace una copia superficial: la lista interna debe compartirse.",
+          "ipucu": "println(a.siyahi): copy() no copia los objetos internos, la referencia se comparte.",
+          "starter": "data class Q(val ad: String, val siyahi: MutableList<Int>)\n\nfun main() {\n    val a = Q(\"a\", mutableListOf(1))\n    val b = a.copy(ad = \"b\")\n    b.siyahi.add(2)\n    // imprime la lista de a\n}"
         },
         "xususi-sinifler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa un object como implementación de una interfaz: un singleton debe implementar la interfaz.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Loglayan {\n    fun log(m: String)\n}\n\n// impleméntala como object\n\nfun main() {\n    KonsolLog.log(\"salam\")\n}"
         }
       }
     },
     "metnler": {
-      "title": "",
+      "title": "Trabajar con texto (String)",
       "nezeri": {
         "metnler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede cambiar un String en Kotlin (es mutable)?",
+          "opts": [
+            "Sí",
+            "No: cada operación crea un String nuevo",
+            "Solo cuando es un var",
+            "Solo con StringBuilder"
+          ],
+          "exp": "String es inmutable. uppercase() o replace() no cambian el original: devuelven una cadena nueva. Si necesitas muchas concatenaciones, usa StringBuilder o buildString."
         },
         "metnler-n-02": {
-          "q": "",
+          "q": "¿Qué propiedad te da la longitud de una cadena?",
           "opts": [],
-          "exp": ""
+          "exp": "String tiene la propiedad length. Las colecciones usan size en su lugar: a menudo se confunden."
         },
         "metnler-n-03": {
-          "q": "",
+          "q": "¿Cómo se accede a un carácter de una cadena?",
           "opts": [],
-          "exp": ""
+          "exp": "Con corchetes: s[0]. El resultado es de tipo Char. Si el índice está fuera de rango, se lanza una StringIndexOutOfBoundsException."
         },
         "metnler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué usas para unir dos cadenas?",
+          "opts": [
+            "El operador + o una plantilla de cadena",
+            "Solo concat()",
+            "Solo append()",
+            "merge()"
+          ],
+          "exp": "Ambos funcionan, pero una plantilla (\"$a$b\") es más legible. Si necesitas concatenar dentro de un bucle, buildString es más eficiente."
         },
         "metnler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace uppercase()?",
+          "opts": [
+            "Cambia la cadena en su sitio",
+            "Devuelve una cadena NUEVA en mayúsculas",
+            "Pone en mayúscula solo la primera letra",
+            "Borra la cadena"
+          ],
+          "exp": "La cadena original no cambia: tienes que asignar el resultado a una variable. Para solo la primera letra, usa replaceFirstChar { it.uppercase() }."
         },
         "metnler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace trim()?",
+          "opts": [
+            "Acorta la cadena",
+            "Quita los espacios del principio y del final",
+            "Quita todos los espacios",
+            "Ordena la cadena"
+          ],
+          "exp": "Solo quita los espacios de los extremos; los del medio se quedan. Para un solo lado están trimStart() y trimEnd()."
         },
         "metnler-n-07": {
-          "q": "",
+          "q": "¿Qué devuelve split(\",\")?",
           "opts": [],
-          "exp": ""
+          "exp": "Divide por el delimitador y devuelve una lista. La operación inversa es joinToString()."
         },
         "metnler-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre isEmpty() e isBlank()?",
+          "opts": [
+            "No hay diferencia",
+            "isBlank() también detecta una cadena formada solo por espacios",
+            "isEmpty() es más rápido",
+            "isBlank() es solo para null"
+          ],
+          "exp": "\"   \".isEmpty() es false, pero \"   \".isBlank() es true. Al validar la entrada del usuario, casi siempre quieres isBlank()."
         },
         "metnler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "5",
+            "6",
+            "7",
+            "Error de compilación"
+          ],
+          "exp": "K-o-t-l-i-n: seis caracteres. length es una propiedad, no una función, así que no se escriben paréntesis."
         },
         "metnler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué índices devuelve substring(0, 3)?",
+          "opts": [
+            "0, 1, 2, 3",
+            "0, 1, 2: el final no se incluye",
+            "Solo el índice 3",
+            "1, 2, 3"
+          ],
+          "exp": "El inicio se incluye y el final no. \"Kotlin\".substring(0, 3) da \"Kot\"."
         },
         "metnler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué ventaja tiene una cadena con comillas triples (raw)?",
+          "opts": [
+            "Es más rápida",
+            "No hacen falta caracteres de escape y puede ocupar varias líneas",
+            "Usa menos memoria",
+            "Se recorta automáticamente"
+          ],
+          "exp": "Te salva de una jungla de barras invertidas al escribir regex y JSON. Para limpiar la sangría, añade .trimIndent(): no ocurre automáticamente."
         },
         "metnler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace trimIndent()?",
+          "opts": [
+            "Quita todos los espacios",
+            "Quita de cada línea la sangría mínima común",
+            "Ordena la cadena",
+            "Une las líneas"
+          ],
+          "exp": "Se usa para que la sangría de tu código no acabe en una cadena multilínea. Se calcula a partir de la línea con menos sangría."
         },
         "metnler-n-13": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "replace() sustituye todas las coincidencias. La palabra \"Kotlin\" tiene una t minúscula, y se convierte en T."
         },
         "metnler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve indexOf() si no encuentra nada?",
+          "opts": [
+            "0",
+            "null",
+            "-1",
+            "Lanza una excepción"
+          ],
+          "exp": "Si no encuentra nada, devuelve -1. Por eso siempre conviene comprobar el resultado."
         },
         "metnler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace padStart(3, carácter)?",
+          "opts": [
+            "Corta 3 caracteres del final",
+            "Añade caracteres al principio hasta que la longitud sea 3",
+            "Añade tres caracteres",
+            "Repite la cadena 3 veces"
+          ],
+          "exp": "La cadena \"7\" se convierte en \"007\". Si la cadena ya tiene más de 3 caracteres, no cambia nada. Para rellenar por el final está padEnd()."
         },
         "metnler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo se usa toIntOrNull()?",
+          "opts": [
+            "Siempre",
+            "Cuando no estás seguro de que la cadena sea un número",
+            "Solo para números negativos",
+            "Nunca"
+          ],
+          "exp": "toInt() lanza una NumberFormatException si la conversión falla. toIntOrNull() devuelve null en su lugar: es la opción segura para la entrada del usuario."
         },
         "metnler-n-17": {
-          "q": "",
+          "q": "¿Cómo se escribe una expresión en una plantilla de cadena?",
           "opts": [],
-          "exp": ""
+          "exp": "Para una variable simple basta con $s, pero si hay un punto o una operación, necesitas llaves."
         },
         "metnler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué compara el operador == en las cadenas?",
+          "opts": [
+            "La referencia",
+            "El contenido: llama a equals",
+            "La longitud",
+            "Nada"
+          ],
+          "exp": "Una diferencia importante con Java: en Kotlin, == compara el contenido. Para comparar referencias, usa ===."
         },
         "metnler-n-19": {
-          "q": "",
+          "q": "¿Cómo se comparan cadenas sin distinguir mayúsculas y minúsculas?",
           "opts": [],
-          "exp": ""
+          "exp": "equals() acepta ignoreCase como segundo parámetro. Alternativa: a.lowercase() == b.lowercase()."
         },
         "metnler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué está mal concatenar cadenas dentro de un bucle?",
+          "opts": [
+            "No está mal",
+            "En cada paso se crea un objeto String nuevo",
+            "Provoca un error de compilación",
+            "El resultado es incorrecto"
+          ],
+          "exp": "Como String es inmutable, cada concatenación crea un objeto nuevo. buildString o StringBuilder trabajan con un solo objeto y son mucho más rápidos."
         },
         "metnler-n-21": {
-          "q": "",
+          "q": "¿Qué devuelve buildString { }?",
           "opts": [],
-          "exp": ""
+          "exp": "Dentro trabajas con un StringBuilder (append, appendLine), y al final recibes un String terminado. Es una forma eficiente y legible."
         },
         "metnler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué usas para recorrer una cadena carácter a carácter?",
+          "opts": [
+            "for (c in s)",
+            "for (i in s.length)",
+            "s.each()",
+            "No es posible"
+          ],
+          "exp": "String es iterable. Si necesitas el índice, usa s.indices o s.withIndex()."
         },
         "metnler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "Kotlin",
+            "K",
+            "KOTLIN",
+            "Cadena vacía"
+          ],
+          "exp": "String admite funciones de colección, y filter vuelve a devolver un String. Solo la K está en mayúscula."
         },
         "metnler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué relación hay entre joinToString() y split()?",
+          "opts": [
+            "No tienen relación",
+            "Son opuestas: una divide y la otra une",
+            "Ambas dividen",
+            "Ambas unen"
+          ],
+          "exp": "split te da una lista según el delimitador, y joinToString vuelve a convertir la lista en una cadena. Puedes fijar el separador, el prefijo y el sufijo."
         },
         "metnler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace first() con una cadena vacía?",
+          "opts": [
+            "Devuelve null",
+            "Lanza NoSuchElementException",
+            "Devuelve un carácter vacío",
+            "Devuelve 0"
+          ],
+          "exp": "Con una colección vacía, first() lanza una excepción. La opción segura es firstOrNull(): devuelve null."
         }
       },
       "praktiki": {
         "metnler-p-01": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime la longitud de la cadena \"Kotlin\".",
+          "ipucu": "Usa la propiedad length."
         },
         "metnler-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime la cadena en mayúsculas.",
+          "ipucu": "Usa uppercase()."
         },
         "metnler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Quita los espacios de los extremos de la cadena e imprímela.",
+          "ipucu": "Usa trim()."
         },
         "metnler-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime los tres primeros caracteres de la cadena.",
+          "ipucu": "substring(0, 3): el índice final no se incluye."
         },
         "metnler-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Divide la cadena por las comas e imprime la lista.",
+          "ipucu": "split(\",\") devuelve una lista."
         },
         "metnler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Sustituye la letra \"t\" por \"T\" en la cadena e imprímela.",
           "ipucu": ""
         },
         "metnler-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Comprueba si la cadena contiene \"lin\" e imprime el resultado.",
           "ipucu": ""
         },
         "metnler-p-08": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Invierte la cadena e imprímela.",
+          "ipucu": "Usa reversed()."
         },
         "metnler-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Repite la cadena tres veces e imprímela.",
+          "ipucu": "Usa repeat(3)."
         },
         "metnler-p-10": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Rellena la cadena \"7\" con ceros hasta tres caracteres e imprímela.",
+          "ipucu": "padStart(3, el carácter cero): un Char se escribe entre comillas simples."
         },
         "metnler-p-11": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Encuentra el índice de la letra \"t\" e imprímelo.",
+          "ipucu": "indexOf(\"t\"): los índices empiezan en 0."
         },
         "metnler-p-12": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Busca un carácter que no está e imprime el resultado.",
+          "ipucu": "indexOf(\"z\") devuelve -1 cuando no encuentra nada."
         },
         "metnler-p-13": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa una EXPRESIÓN en una plantilla de cadena: imprime \"Kotlin sozunde 6 herf var\". No escribas el número a mano.",
+          "ipucu": "Usa la forma ${s.length}."
         },
         "metnler-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Muestra la diferencia entre isEmpty() e isBlank(): imprime ambos para una cadena formada solo por espacios.",
+          "ipucu": "Imprime primero isEmpty() y luego isBlank()."
         },
         "metnler-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Convierte la cadena en número, súmale 8 e imprímelo.",
           "ipucu": ""
         },
         "metnler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Compara dos cadenas sin distinguir mayúsculas y minúsculas.",
           "ipucu": ""
         },
         "metnler-p-17": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el primer y el último carácter en una línea, separados por un espacio.",
+          "ipucu": "Usa first() y last()."
         },
         "metnler-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Quita todos los espacios de la cadena e imprímela.",
           "ipucu": ""
         },
         "metnler-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Pon en mayúscula la primera letra e imprímela (el resto no cambia).",
           "ipucu": ""
         },
         "metnler-p-20": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa una cadena con comillas triples: imprime dos líneas sin que la sangría acabe en el resultado.",
+          "ipucu": "Escribe dos líneas dentro de las comillas triples; .trimIndent() limpia la sangría."
         },
         "metnler-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa buildString: reúne los números del 1 al 3 en una sola cadena sin separador e imprímela.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = buildString {\n        // escribe un bucle\n    }\n    println(s)\n}"
         },
         "metnler-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina split y joinToString: une las palabras con guiones e imprime el resultado.",
           "ipucu": ""
         },
         "metnler-p-23": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Cuenta cuántas veces aparece la letra \"i\" en la cadena e imprímelo.",
+          "ipucu": "Usa count { } y compara Char."
         },
         "metnler-p-24": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Filtra solo las letras mayúsculas de la cadena e imprímelas.",
+          "ipucu": "s.filter { it.isUpperCase() }: el resultado sigue siendo un String."
         },
         "metnler-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una comprobación de palíndromo: ¿es la cadena igual a su inversa? Imprime el resultado.",
           "ipucu": ""
         }
       }
