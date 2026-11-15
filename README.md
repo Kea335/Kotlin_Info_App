@@ -49,7 +49,7 @@ yarımçıq dil yalnız debug build-də, tərcüməçi üçündür.
 |---|---|---|---|
 | Azərbaycan | `az` | 100 % | baza |
 | English | `en` | 100 % | tətbiqdə |
-| Español | `es` | 10 % | hazırlanır (yalnız debug build) |
+| Español | `es` | 64 % | hazırlanır (yalnız debug build) |
 | Русский | `ru` | 100 % | tətbiqdə |
 | Türkçe | `tr` | 100 % | tətbiqdə |
 

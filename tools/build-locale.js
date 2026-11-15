@@ -15,6 +15,7 @@
      main/assets/content/locales.json    baza + tam dillər (release)
      debug/assets/content/locales.json   + yarımçıq dillər (debug)
      main/res/xml/locales_config.xml     release-in sistem menyusu
+     README.md                           dil cədvəli və nişan (validate-locales --readme)
 
    İşlətmək:  node tools/build-locale.js en
               node tools/build-locale.js --all
@@ -114,5 +115,14 @@ fs.writeFileSync(L.LOCALE_CONFIG, L.localeConfigMetni(release), 'utf8');
 console.log('');
 console.log('release: ' + release.join(', '));
 console.log('debug:   ' + (debugYalniz.length ? release.concat(debugYalniz).join(', ') : '(release ile eyni)'));
+
+// README-dəki dil cədvəli və nişan tamamlanma faizindən asılıdır. Əl ilə
+// yenilənəndə unudulur və CI-ın «README dil cədvəli təzədir» addımı main-i
+// qırmızı saxlayır (2026-11-15: es 10 % yazılmışdı, əslində 64 % idi). Ona
+// görə aktivlər qurulan kimi cədvəl də yenilənir. Validatorun çıxış kodu
+// burada nəzərə alınmır — yoxlama ayrıca addımdır.
+const { spawnSync } = require('child_process');
+const readme = spawnSync(process.execPath, [path.join(__dirname, 'validate-locales.js'), '--readme'], { encoding: 'utf8' });
+console.log(readme.error ? 'XEBERDARLIQ: README dil cedveli yenilenmedi: ' + readme.error.message : 'README:  dil cedveli yenilendi');
 
 if (ugursuz) process.exit(1);
