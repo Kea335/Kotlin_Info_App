@@ -347,481 +347,686 @@
       }
     },
     "deyisenler": {
-      "title": "",
+      "title": "Variables y tipos",
       "nezeri": {
         "deyisenler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre val y var?",
+          "opts": [
+            "val no se puede cambiar, var sí",
+            "val es solo para números",
+            "No hay diferencia",
+            "var solo se usa dentro de una clase"
+          ],
+          "exp": "val es una referencia de solo lectura: una vez asignada, no se puede reasignar. var, en cambio, sí se puede cambiar. Se recomienda empezar siempre con val."
         },
         "deyisenler-n-02": {
-          "q": "",
+          "q": "¿Cuál es el tipo por defecto de los números enteros?",
           "opts": [],
-          "exp": ""
+          "exp": "Cuando escribes val x = 42, el compilador elige el tipo Int (32 bits). Si el valor supera el rango de Int, pasa automáticamente a ser Long."
         },
         "deyisenler-n-03": {
-          "q": "",
+          "q": "¿Cuál es el tipo por defecto de los números decimales?",
           "opts": [],
-          "exp": ""
+          "exp": "En val pi = 3.14, el tipo es Double (64 bits). Para obtener un Float necesitas el sufijo f: 3.14f."
         },
         "deyisenler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Funciona este código?",
+          "opts": [
+            "Sí",
+            "No: un val no se puede reasignar",
+            "Sí, pero con una advertencia",
+            "Solo dentro de main()"
+          ],
+          "exp": "val es de solo lectura. Si necesitas cambiar el valor, debes usar var."
         },
         "deyisenler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Con qué comillas se escribe el tipo Char?",
+          "opts": [
+            "Comillas dobles: \"A\"",
+            "Comillas simples: 'A'",
+            "Comillas invertidas: `A`",
+            "Sin comillas: A"
+          ],
+          "exp": "Un Char se escribe entre comillas simples ('A'), y un String entre comillas dobles (\"A\"). En Kotlin son tipos distintos."
         },
         "deyisenler-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace el guion bajo en 1_000_000?",
+          "opts": [
+            "Multiplica el valor por 1000",
+            "Es solo para legibilidad y no afecta al valor",
+            "Lo convierte en texto",
+            "Es un error"
+          ],
+          "exp": "El guion bajo hace legibles los números grandes. El compilador lo ignora por completo: 1_000_000 y 1000000 son el mismo valor."
         },
         "deyisenler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué valores acepta el tipo Boolean?",
+          "opts": [
+            "0 y 1",
+            "true y false",
+            "yes y no",
+            "null o un número"
+          ],
+          "exp": "En Kotlin, Boolean solo acepta true y false. A diferencia de C, un número no se puede usar como Boolean."
         },
         "deyisenler-n-08": {
-          "q": "",
+          "q": "¿Qué función se usa para convertir texto en número?",
           "opts": [],
-          "exp": ""
+          "exp": "\"42\".toInt() convierte el texto en un Int. Si la conversión falla, se lanza una NumberFormatException; la opción segura es toIntOrNull()."
         },
         "deyisenler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿En qué sistema numérico está el literal 0xFF?",
+          "opts": [
+            "Decimal",
+            "Binario",
+            "Hexadecimal (hex)",
+            "Octal"
+          ],
+          "exp": "El prefijo 0x indica el sistema hexadecimal. 0xFF equivale a 255 en decimal. Para binario se usa el prefijo 0b."
         },
         "deyisenler-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Compila este código?",
+          "opts": [
+            "Sí",
+            "No: hace falta una conversión explícita: x.toLong()",
+            "Sí, pero el valor se pierde",
+            "Solo cuando x es una constante"
+          ],
+          "exp": "Kotlin no hace conversiones numéricas automáticas: una diferencia importante con Java. Así se evita la pérdida oculta de datos. Tienes que escribir x.toLong() explícitamente."
         },
         "deyisenler-n-11": {
-          "q": "",
+          "q": "¿Cuál es el resultado de la expresión 7 / 2?",
           "opts": [],
-          "exp": ""
+          "exp": "Como ambos operandos son Int, se hace una división entera y se descarta la parte decimal. Para un resultado decimal, al menos uno debe ser Double: 7.0 / 2 → 3.5."
         },
         "deyisenler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve \"abc\".toIntOrNull()?",
+          "opts": [
+            "0",
+            "null",
+            "Lanza NumberFormatException",
+            "-1"
+          ],
+          "exp": "Cuando la conversión no es posible, toIntOrNull() no lanza ninguna excepción: devuelve null. Es el enfoque más seguro al procesar la entrada del usuario."
         },
         "deyisenler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre const val y un val normal?",
+          "opts": [
+            "No hay diferencia",
+            "const val es una constante de tiempo de compilación y solo puede ser un primitivo/String",
+            "const val ocupa más memoria",
+            "const val solo existe dentro de una clase"
+          ],
+          "exp": "El valor de un const val debe conocerse en tiempo de compilación, y solo se puede declarar en el nivel superior o dentro de un object o companion object. Para valores calculados en tiempo de ejecución se usa un val normal."
         },
         "deyisenler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Con qué tipos NO funciona lateinit?",
+          "opts": [
+            "String",
+            "Tipos de clase",
+            "Tipos primitivos (Int, Double, Boolean)",
+            "List"
+          ],
+          "exp": "lateinit no funciona con tipos primitivos, porque no tienen un valor null interno para representar el estado «aún no asignado». Para eso se usa by Delegates.notNull()."
         },
         "deyisenler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo se evalúa by lazy?",
+          "opts": [
+            "Al arrancar el programa",
+            "De nuevo en cada acceso",
+            "Una vez, en el primer acceso; después se guarda en caché",
+            "Nunca"
+          ],
+          "exp": "by lazy calcula el valor en la primera lectura y guarda el resultado. En los accesos siguientes el cálculo no se repite. Solo se puede usar con val."
         },
         "deyisenler-n-16": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "== compara el contenido (equals): como ambas cadenas son \"Kotlin\", es true. === comprueba la referencia; como StringBuilder crea un objeto nuevo, es false."
         },
         "deyisenler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "val siyahi = mutableListOf(1); siyahi.add(2): ¿funciona?",
+          "opts": [
+            "No, val es inmutable",
+            "Sí: val fija la referencia, no el contenido del objeto",
+            "Solo si es var",
+            "Error de compilación"
+          ],
+          "exp": "val solo prohíbe reasignar la referencia. Si el objeto en sí es mutable (MutableList), su contenido se puede cambiar."
         },
         "deyisenler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve la expresión 'K'.code?",
+          "opts": [
+            "El carácter 'K'",
+            "El código Unicode (75)",
+            "La cadena \"K\"",
+            "Un error"
+          ],
+          "exp": "Char.code devuelve el punto de código Unicode del carácter como Int. Para la conversión inversa se usa 75.toChar()."
         },
         "deyisenler-n-19": {
-          "q": "",
+          "q": "¿Cuál es el valor máximo del tipo Int?",
           "opts": [],
-          "exp": ""
+          "exp": "Int tiene 32 bits: −2 147 483 648 … 2 147 483 647. Para valores mayores se usa Long (64 bits)."
         },
         "deyisenler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de la expresión Int.MAX_VALUE + 1?",
+          "opts": [
+            "Lanza un error",
+            "Se convierte en Long",
+            "Int.MIN_VALUE (−2147483648)",
+            "0"
+          ],
+          "exp": "En Kotlin, el desbordamiento de enteros (overflow) ocurre en silencio: el valor vuelve al principio del rango. No se lanza ningún error, así que para cálculos grandes debes usar Long."
         },
         "deyisenler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es Unit en Kotlin?",
+          "opts": [
+            "Otro nombre para null",
+            "El equivalente del void de Java: es un tipo real y tiene una única instancia",
+            "Una lista vacía",
+            "Un tipo de error"
+          ],
+          "exp": "Unit es el tipo de retorno de las funciones que no devuelven nada. La diferencia con void: Unit es un tipo real, se puede usar en genéricos y solo existe una instancia de él."
         },
         "deyisenler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo se usa el tipo Nothing?",
+          "opts": [
+            "Para un valor vacío",
+            "Para expresiones que nunca retornan (throw, un bucle infinito)",
+            "Para null",
+            "Para Boolean"
+          ],
+          "exp": "Nothing es un tipo que no tiene valores. El tipo de una expresión throw es Nothing; por eso funciona la construcción val x = y ?: throw Xeta(): Nothing es subtipo de todos los tipos."
         },
         "deyisenler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el tipo de x en este código?",
+          "opts": [
+            "Int",
+            "Long",
+            "Double",
+            "Error de compilación"
+          ],
+          "exp": "El valor supera el rango de Int (2 147 483 647), así que el compilador elige Long automáticamente. No es obligatorio escribir el sufijo L."
         },
         "deyisenler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Tiene Kotlin tipos primitivos?",
+          "opts": [
+            "Sí, int e Integer están separados",
+            "No: el lenguaje solo tiene Int, y el compilador lo convierte en primitivo cuando hace falta",
+            "Solo Boolean es primitivo",
+            "Todo es un objeto y nunca se optimiza"
+          ],
+          "exp": "A nivel de Kotlin todo es un objeto, pero en la JVM el compilador guarda Int como int primitivo siempre que puede. Cuando es anulable (Int?), se produce boxing."
         },
         "deyisenler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "val x: Int? = null; val y = x?.plus(1): ¿cuál es el tipo de y?",
+          "opts": [
+            "Int",
+            "Int?",
+            "Nothing",
+            "Error de compilación"
+          ],
+          "exp": "El resultado de una llamada segura (?.) siempre es anulable, porque si el receptor es null, el resultado también es null. Por eso el tipo de y es Int?."
         }
       },
       "praktiki": {
         "deyisenler-p-01": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Crea una variable inmutable llamada ad con el valor \"Kotlin\" e imprímela.",
+          "ipucu": "Usa la palabra clave val."
         },
         "deyisenler-p-02": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Crea una variable mutable llamada sayqac (empezando en 0), increméntala en uno tres veces e imprime el resultado.",
+          "ipucu": "sayqac++ tres veces y luego println(sayqac)."
         },
         "deyisenler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Divide el valor Int 7 entre el valor Double 2.0 e imprime el resultado.",
+          "ipucu": "println(a / b): como uno de ellos es Double, el resultado es Double."
         },
         "deyisenler-p-04": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el resultado de la división entera de dos números Int: 7 entre 2.",
+          "ipucu": "Cuando ambos operandos son Int, la parte decimal se descarta."
         },
         "deyisenler-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Guarda el valor 1_000_000 en una variable e imprímelo.",
+          "ipucu": "El guion bajo es solo para legibilidad."
         },
         "deyisenler-p-06": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el valor hexadecimal 0xFF.",
+          "ipucu": "Escribe println(0xFF)."
         },
         "deyisenler-p-07": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el valor binario 0b1010.",
+          "ipucu": "El prefijo 0b indica el sistema numérico binario."
         },
         "deyisenler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Convierte el texto \"42\" en Int, súmale 8 e imprime el resultado.",
           "ipucu": ""
         },
         "deyisenler-p-09": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Crea una variable Boolean (true) e imprime su negación.",
+          "ipucu": "Para la negación se usa el signo !."
         },
         "deyisenler-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Convierte explícitamente un valor Int en Long e imprímelo. Que el valor sea 42.",
+          "ipucu": "Usa x.toLong(): Kotlin no convierte automáticamente.",
+          "starter": "fun main() {\n    val x: Int = 42\n    val y: Long = // complétalo\n    println(y)\n}"
         },
         "deyisenler-p-11": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Intenta convertir de forma segura el texto \"abc\" en número e imprime el resultado (no debe lanzarse ninguna excepción).",
+          "ipucu": "toIntOrNull() no lanza excepciones, devuelve null."
         },
         "deyisenler-p-12": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el código Unicode del carácter 'K'.",
+          "ipucu": "Usa la propiedad Char.code."
         },
         "deyisenler-p-13": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Convierte el código 75 en un carácter e imprímelo.",
+          "ipucu": "Usa Int.toChar()."
         },
         "deyisenler-p-14": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime los valores máximo y mínimo del tipo Int en dos líneas.",
+          "ipucu": "Int.MAX_VALUE e Int.MIN_VALUE."
         },
         "deyisenler-p-15": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Crea mutableListOf(1, 2) con val, añádele 3 e imprime la lista. (val fija la referencia, no el contenido.)",
+          "ipucu": "siyahi.add(3) funciona porque el objeto en sí es mutable."
         },
         "deyisenler-p-16": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Compara dos cadenas: una, un literal normal; la otra, construida con StringBuilder. Imprime los resultados de == y === en dos líneas.",
+          "ipucu": "== compara el contenido, === compara la referencia."
         },
         "deyisenler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una constante MAX_OLCU de nivel superior con const val (valor 100) e imprímela dentro de main().",
           "ipucu": "",
-          "starter": ""
+          "starter": "// Escribe aquí la constante const val\n\nfun main() {\n    println(MAX_OLCU)\n}"
         },
         "deyisenler-p-18": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Imprime el tipo de una variable: muestra el nombre simple de la clase del valor 3.14.",
+          "ipucu": "Usa pi::class.simpleName."
         },
         "deyisenler-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Con la operación de resto (mod), imprime el resto de dividir 17 entre 5.",
+          "ipucu": "Usa el operador %."
         },
         "deyisenler-p-20": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Demuestra el desbordamiento de Int: suma 1 a Int.MAX_VALUE e imprime el resultado.",
+          "ipucu": "En Kotlin, el desbordamiento ocurre en silencio: el valor vuelve al principio del rango."
         },
         "deyisenler-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Con by lazy, crea un valor llamado agir: mientras se calcula, debe imprimir \"Hesablanir\". Luego accede a él DOS veces.",
+          "ipucu": "Escribe println(\"Hesablanir\") dentro del bloque y luego devuelve 42. lazy calcula una sola vez.",
+          "starter": "val agir: Int by lazy {\n    // complétalo\n}\n\nfun main() {\n    println(agir)\n    println(agir)\n}"
         },
         "deyisenler-p-22": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Haz que una variable Int anulable sea null. Intenta sumarle 1 con una llamada segura e imprime el resultado.",
+          "ipucu": "Escribe x?.plus(1): como el receptor es null, el resultado es null."
         },
         "deyisenler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Gestiona un valor anulable con el operador Elvis: cuando x es null, debe imprimirse 0.",
           "ipucu": ""
         },
         "deyisenler-p-24": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Comprueba el tipo con el operador is: si una variable de tipo Any contiene un String, imprime su longitud.",
+          "ipucu": "if (obyekt is String): gracias al smart cast, obyekt.length funciona."
         },
         "deyisenler-p-25": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Aritmética con Char: suma 1 al carácter 'a' e imprime el resultado.",
+          "ipucu": "El resultado de 'a' + 1 es de tipo Char."
         }
       }
     },
     "sertler": {
-      "title": "",
+      "title": "Condiciones: if y when",
       "nezeri": {
         "sertler-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Tiene Kotlin operador ternario (condición ? a : b)?",
+          "opts": [
+            "Sí",
+            "No: la expresión if lo sustituye",
+            "Solo para Boolean",
+            "Solo dentro de when"
+          ],
+          "exp": "Kotlin no tiene operador ternario, porque if ya devuelve un valor: val maks = if (a > b) a else b. Esta forma es más legible."
         },
         "sertler-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Es obligatorio else en un if usado como expresión?",
+          "opts": [
+            "No",
+            "Sí",
+            "Solo cuando devuelve un Int",
+            "Solo dentro de una función"
+          ],
+          "exp": "Una expresión siempre debe devolver un valor. Sin else no se sabría qué valor devolver cuando la condición es falsa; por eso el compilador exige else."
         },
         "sertler-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿De qué es equivalente when?",
+          "opts": [
+            "Del switch de Java, pero más potente",
+            "Del bucle for",
+            "Del bloque try",
+            "De una declaración de función"
+          ],
+          "exp": "when se parece a switch, pero acepta cualquier tipo, rangos, comprobaciones de tipo y condiciones arbitrarias. Además puede devolver un valor."
         },
         "sertler-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se agrupan varios valores en la misma rama de when?",
+          "opts": [
+            "Con comas: 1, 2, 3 ->",
+            "Con puntos y coma",
+            "Con el operador ||",
+            "No es posible"
+          ],
+          "exp": "Los valores se enumeran con comas: 1, 2, 3 -> \"kiçik\". No hace falta escribir casos consecutivos como en Java."
         },
         "sertler-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué imprime este código?",
+          "opts": [
+            "boyuk",
+            "kicik",
+            "Ambos",
+            "Nada"
+          ],
+          "exp": "La condición 5 > 3 es verdadera, así que se ejecuta la rama if y se imprime \"boyuk\"."
         },
         "sertler-n-06": {
-          "q": "",
+          "q": "¿Qué palabra clave se usa en when para «todos los casos restantes»?",
           "opts": [],
-          "exp": ""
+          "exp": "Kotlin usa else. Es obligatorio en un when usado como expresión, pero con tipos enum y sealed no hace falta si se cubren todos los casos."
         },
         "sertler-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué valor se devuelve en una expresión if con bloque?",
+          "opts": [
+            "La primera línea",
+            "La última línea",
+            "La línea con return",
+            "Ninguna"
+          ],
+          "exp": "La última expresión del bloque se convierte en el resultado. Por eso no hace falta escribir un return aparte en los bloques if."
         },
         "sertler-n-08": {
-          "q": "",
+          "q": "¿Qué operador se usa para escribir la operación «y» en una condición?",
           "opts": [],
-          "exp": ""
+          "exp": "Para el «y» lógico se usa &&, y se aplica la evaluación en cortocircuito: si el lado izquierdo es false, el derecho ni siquiera se evalúa."
         },
         "sertler-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "Ela",
+            "Yaxsi",
+            "Kafi",
+            "Error de compilación"
+          ],
+          "exp": "85 >= 90 es falso, 85 >= 70 es verdadero: así que se elige \"Yaxsi\" y se asigna a la variable q."
         },
         "sertler-n-10": {
-          "q": "",
+          "q": "¿Cómo se escribe una comprobación de rango en when?",
           "opts": [],
-          "exp": ""
+          "exp": "Con la palabra clave in: in 1..10 -> \"kicik\". Para lo contrario se usa !in."
         },
         "sertler-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo es útil un when sin argumento?",
+          "opts": [
+            "Nunca",
+            "Para comprobar condiciones que no dependen unas de otras: sustituye a una cadena if-else",
+            "Solo con enum",
+            "Solo para comprobaciones de null"
+          ],
+          "exp": "En la forma when { a > 10 -> ...; b.isEmpty() -> ... }, cada rama es una condición Boolean independiente. Así las largas cadenas if-else if son más legibles."
         },
         "sertler-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se produce un smart cast cuando usas is dentro de when?",
+          "opts": [
+            "No, hay que convertir a mano",
+            "Sí: dentro de la rama el objeto se ve automáticamente como String",
+            "Solo cuando es un val",
+            "Solo cuando se usa as"
+          ],
+          "exp": "Tras una comprobación is, el compilador ve la variable como ese tipo. No hace falta escribir un (obyekt as String) extra."
         },
         "sertler-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "is",
+            "istirahet",
+            "yanlis",
+            "Error de compilación"
+          ],
+          "exp": "El valor 6 no entra en el rango de la primera rama (1..5), pero aparece explícitamente en la segunda: así que se elige \"istirahet\"."
         },
         "sertler-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la construcción when (val n = hesabla()) { ... }?",
+          "opts": [
+            "Es un error",
+            "Guarda el resultado en una variable y lo usa dentro de ese when",
+            "Llama a la función dos veces",
+            "Solo funciona en Java"
+          ],
+          "exp": "Puedes declarar una variable en el sujeto de when. La función se llama una sola vez, y el resultado está disponible en todas las ramas."
         },
         "sertler-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo NO hace falta else en un when usado con un enum?",
+          "opts": [
+            "Nunca hace falta",
+            "Si se cubren todas las constantes del enum",
+            "Solo cuando hay dos constantes",
+            "Siempre hace falta"
+          ],
+          "exp": "El compilador conoce todos los valores del enum. Si se enumeran todos, el when se considera exhaustivo y no se exige else."
         },
         "sertler-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué significa el cortocircuito para el operador &&?",
+          "opts": [
+            "Siempre se evalúan ambos lados",
+            "Si el lado izquierdo es false, el derecho no se evalúa",
+            "Primero se evalúa el lado derecho",
+            "El resultado siempre es true"
+          ],
+          "exp": "Si el lado izquierdo determina el resultado, el derecho no se ejecuta. Esto hace seguras comprobaciones como siyahi != null && siyahi.isNotEmpty()."
         },
         "sertler-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede devolver directamente una expresión if desde una función?",
+          "opts": [
+            "No",
+            "Sí: en la forma de función de una sola expresión",
+            "Solo con return",
+            "Solo cuando devuelve Unit"
+          ],
+          "exp": "Como if devuelve un valor, puede ser el cuerpo de una función de una sola expresión. Es una forma idiomática muy usada."
         },
         "sertler-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué ventaja tiene when con una sealed class?",
+          "opts": [
+            "Se ejecuta más rápido",
+            "Como se conocen todas las subclases, no hace falta else, y el compilador te avisa cuando añades una subclase nueva",
+            "Ahorra memoria",
+            "No hay diferencia"
+          ],
+          "exp": "El compilador conoce todas las subclases de una jerarquía sealed. Cuando añades una subclase nueva, cada bloque when que no la gestiona da un error de compilación: no se olvida ningún caso."
         },
         "sertler-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Es exhaustivo este when?",
+          "opts": [
+            "No, hace falta else",
+            "Sí: se cubren todos los valores del enum",
+            "Solo si añadimos else",
+            "Da un error de compilación"
+          ],
+          "exp": "Se enumeran las dos constantes del enum, así que el when es exhaustivo y no se exige else."
         },
         "sertler-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿En qué orden se comprueban las ramas de when?",
+          "opts": [
+            "Al azar",
+            "De arriba abajo; se ejecuta la primera que coincide",
+            "De abajo arriba",
+            "Todas a la vez"
+          ],
+          "exp": "Las ramas se comprueban en el orden en que están escritas, y se ejecuta la primera que coincide. Por eso las condiciones más específicas deben ir más arriba."
         },
         "sertler-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede poner el resultado de un if directamente en una plantilla de cadena?",
+          "opts": [
+            "No",
+            "Sí: ${if (x > 0) \"musbet\" else \"menfi\"}",
+            "Solo a través de una variable",
+            "Solo con when"
+          ],
+          "exp": "Dentro de ${...} se puede escribir cualquier expresión, también if. Pero por legibilidad, es mejor sacar la lógica compleja a una variable aparte."
         },
         "sertler-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué está mal comprobar un valor Boolean con if y devolver true/false?",
+          "opts": [
+            "No está mal",
+            "Es innecesario: x > 5 ya devuelve un Boolean por sí mismo",
+            "Da un error",
+            "Se ejecuta lento"
+          ],
+          "exp": "El resultado de una comparación ya es un Boolean. Basta con escribir x > 5: esto se considera un code smell habitual."
         },
         "sertler-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Si todas las ramas de un when devuelven tipos distintos, ¿cuál es el tipo del resultado?",
+          "opts": [
+            "String",
+            "Int",
+            "El supertipo común más cercano (en este caso Any?)",
+            "Error de compilación"
+          ],
+          "exp": "El compilador elige el supertipo común de todas las ramas. Para String, Int y null, es Any?. Se recomienda evitar estos casos y mantener un tipo uniforme."
         },
         "sertler-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué enfoque se recomienda en lugar de muchos if anidados?",
+          "opts": [
+            "Escribir más if",
+            "Un retorno anticipado o un when sin argumento",
+            "Usar goto",
+            "Escribirlo todo en una línea"
+          ],
+          "exp": "Un retorno anticipado (val x = giris ?: return) y un when sin argumento aplanan el código. Las condiciones muy anidadas crean una «pirámide» y reducen la legibilidad."
         },
         "sertler-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué imprime este código?",
+          "opts": [
+            "uzun",
+            "qisa ve ya null",
+            "NullPointerException",
+            "Error de compilación"
+          ],
+          "exp": "Como s es null, la primera condición es falsa y, gracias al cortocircuito, s.length nunca se evalúa: no hay riesgo de NPE. Se ejecuta la rama else."
         }
       },
       "praktiki": {
         "sertler-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "yas vale 20. Si es mayor o igual que 18, imprime \"boyuk\"; si no, imprime \"kicik\".",
           "ipucu": ""
         },
         "sertler-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa if como EXPRESIÓN para imprimir el mayor de los números 12 y 30.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val a = 12\n    val b = 30\n    val maks = // complétalo\n    println(maks)\n}"
         },
         "sertler-p-03": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Comprueba si un número es par o impar: para 7, imprime \"tek\".",
+          "ipucu": "Comprueba la condición n % 2 == 0."
         },
         "sertler-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Con when, imprime \"Iki\" para reqem = 2. Escribe los nombres correspondientes para 1, 2, 3, y \"Diger\" para todo lo demás.",
           "ipucu": ""
         },
         "sertler-p-05": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Agrupa varios valores en una rama de when: imprime \"istirahet\" para 6 y 7. Que gun = 7.",
+          "ipucu": "Enumera los valores con comas: 6, 7 -> ..."
         },
         "sertler-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina dos condiciones con &&: cuando yas es 25 y aktivdir es true, imprime \"qebul edildi\".",
           "ipucu": ""
         },
         "sertler-p-07": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Encuentra el mayor de tres números e imprímelo: 14, 8, 23.",
+          "ipucu": "Usa if anidados o maxOf(a, b, c)."
         },
         "sertler-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Comprueba con el operador ||: si reqem es menor que 0 O mayor que 100, imprime \"araliqdan kenar\". reqem = 150.",
           "ipucu": ""
         },
         "sertler-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Niega una variable Boolean e imprímela: que aktivdir = false, y muestra el resultado de \"!aktivdir\".",
           "ipucu": ""
         },
         "sertler-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Comprueba un RANGO en when: para bal = 85, 90 o más es \"Ela\", 70..89 es \"Yaxsi\" y el resto es \"Kafi\". Imprime el resultado.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val bal = 85\n    val q = when {\n        // escribe las ramas\n    }\n    println(q)\n}"
         },
         "sertler-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "when + el operador in: para gun = 3, si está en el rango 1..5, devuelve el resultado \"is gunu\" e imprímelo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val gun = 3\n    val tip = when (gun) {\n        // escribe las ramas\n    }\n    println(tip)\n}"
         },
         "sertler-p-12": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Comprueba el tipo con is: si una variable de tipo Any contiene un String, imprime su longitud; si contiene un Int, imprime el propio valor. Que el valor sea \"Kotlin\".",
+          "ipucu": "is String -> println(obyekt.length): el smart cast funciona.",
+          "starter": "fun main() {\n    val obyekt: Any = \"Kotlin\"\n    when (obyekt) {\n        // escribe las ramas\n    }\n}"
         },
         "sertler-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función de una sola expresión: qiymet(bal) debe devolver \"kecdi\" cuando es mayor que 50 y, si no, \"kecmedi\". Llámala con 60.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(qiymet(60))\n}\n\n// escribe la función"
         },
         "sertler-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Una condición segura frente a null: cuando s es null, imprime \"bosdur\". Usa el cortocircuito.",
           "ipucu": ""
         },
         "sertler-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Declara una variable en el sujeto de when: guarda el resultado de hesabla() en la variable n y, si es mayor que 10, imprime \"boyuk\".",
+          "ipucu": "in Int.MIN_VALUE..10 -> ... ; else -> println(\"boyuk\"), o un when sin argumento.",
+          "starter": "fun hesabla() = 42\n\nfun main() {\n    when (val n = hesabla()) {\n        // escribe las ramas\n    }\n}"
         },
         "sertler-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa if en una plantilla de cadena: para reqem = -5, imprime \"-5 menfidir\".",
           "ipucu": ""
         },
         "sertler-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una comprobación con dos condiciones: el año 2024 es divisible entre 4 y no es divisible entre 100; imprime \"uzun il\".",
           "ipucu": ""
         },
         "sertler-p-18": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Crea un enum (AKTIV, PASSIV) y con when imprime \"isleyir\" para AKTIV, SIN escribir else.",
+          "ipucu": "Enumera todas las constantes del enum: así no hace falta else.",
+          "starter": "enum class Status { AKTIV, PASSIV }\n\nfun main() {\n    val s = Status.AKTIV\n    val netice = when (s) {\n        // escribe las ramas (no escribas else)\n    }\n    println(netice)\n}"
         },
         "sertler-p-19": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa if anidados: yas es 25, ehtiyat es 500; si ambos son suficientes, imprime \"tesdiq\".",
+          "ipucu": "Que el if exterior compruebe la edad y el interior, la reserva."
         },
         "sertler-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe un when con una sealed class: para el caso Ugurlu(\"data\"), imprime \"Ugurlu: data\". No escribas else.",
+          "ipucu": "is Netice.Ugurlu -> \"Ugurlu: ${n.data}\": el smart cast funciona.",
+          "starter": "sealed class Netice {\n    data class Ugurlu(val data: String) : Netice()\n    data class Xeta(val kod: Int) : Netice()\n}\n\nfun main() {\n    val n: Netice = Netice.Ugurlu(\"data\")\n    val metn = when (n) {\n        // escribe las ramas\n    }\n    println(metn)\n}"
         },
         "sertler-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un retorno anticipado: para la llamada emal(null), debe devolverse e imprimirse \"bos giris\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(null))\n}\n\nfun emal(giris: String?): String {\n    // escribe un retorno anticipado\n    return giris.uppercase()\n}"
         },
         "sertler-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Corrige el code smell: en lugar de \"if (x > 5) true else false\", escribe directamente la comparación. Imprime el resultado para x = 8.",
+          "ipucu": "Una comparación ya devuelve un Boolean: val netice = x > 5",
+          "starter": "fun main() {\n    val x = 8\n    val netice = // escríbelo en la forma simple\n    println(netice)\n}"
         },
         "sertler-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Gestiona un código HTTP con when: devuelve \"Tapilmadi\" para 404, \"Server xetasi\" para 500..599 y \"OK\" para 200. Que el código sea 503.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tesvir(503))\n}\n\nfun tesvir(kod: Int): String = when {\n    // escribe las ramas\n}"
         },
         "sertler-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa el operador !in: si reqem NO está en el rango 1..10, imprime \"kenar\". reqem = 42.",
           "ipucu": ""
         },
         "sertler-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra el orden de las ramas de when: para bal = 95, debe ejecutarse la PRIMERA rama que coincida. Debe imprimirse \"Ela\".",
+          "ipucu": "La condición más específica (bal >= 90) debe ir más arriba.",
+          "starter": "fun main() {\n    val bal = 95\n    val q = when {\n        bal >= 50 -> \"Kafi\"\n        bal >= 90 -> \"Ela\"\n        else -> \"Zeif\"\n    }\n    println(q)\n    // Nota: corrige el orden de las ramas para que se imprima \"Ela\"\n}"
         }
       }
     },
