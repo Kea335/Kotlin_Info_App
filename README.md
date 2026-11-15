@@ -49,10 +49,11 @@ yarımçıq dil yalnız debug build-də, tərcüməçi üçündür.
 |---|---|---|---|
 | Azərbaycan | `az` | 100 % | baza |
 | English | `en` | 100 % | tətbiqdə |
+| Español | `es` | 10 % | hazırlanır (yalnız debug build) |
 | Русский | `ru` | 100 % | tətbiqdə |
 | Türkçe | `tr` | 100 % | tətbiqdə |
 
-Planlaşdırılan (overlay hələ yoxdur): Español, Português (Brasil), Deutsch, Français, العربية, فارسی, हिन्दी, Bahasa Indonesia, 简体中文, 日本語, 한국어.
+Planlaşdırılan (overlay hələ yoxdur): Português (Brasil), Deutsch, Français, العربية, فارسی, हिन्दी, Bahasa Indonesia, 简体中文, 日本語, 한국어.
 <!-- diller:son -->
 
 ---
