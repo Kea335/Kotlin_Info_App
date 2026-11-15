@@ -3246,452 +3246,1704 @@
       }
     },
     "sertler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Condiciones: if y when",
+      "heading": "Condiciones: if y when",
+      "kicker": "Sección 08",
+      "group": "Fundamentos del lenguaje",
       "blocks": {
         "sertler.p.1f37735b": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Kotlin, las construcciones condicionales son expresiones que devuelven un valor. Así el código es más corto y puedes inicializar variables con un valor desde el principio."
+            }
+          ]
         },
         "sertler.h3.e2af7a1d": {
-          "text": ""
+          "text": "if como expresión"
         },
         "sertler.code.579820d0": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val yas = 25\n\n    // La forma clásica\n    if (yas >= 18) {\n        println(\"Böyük\")\n    } else {\n        println(\"Kiçik\")\n    }\n\n    // Como expresión: devuelve un valor\n    val a = 10\n    val b = 15\n    val maks = if (a > b) a else b\n    println(\"Ən böyük: $maks\")\n\n    // Expresión con bloques: se devuelve la ÚLTIMA línea\n    val bal = 85\n    val qiymet = if (bal >= 90) {\n        \"Əla\"\n    } else if (bal >= 70) {\n        \"Yaxşı\"\n    } else {\n        \"Qənaətbəxş\"\n    }\n    println(\"Qiymət: $qiymet\")\n}"
         },
         "sertler.callout.ea8c1a77": {
-          "title": ""
+          "title": "No hay operador ternario"
         },
         "sertler.p.2f4efd63": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin no tiene "
+            },
+            {
+              "k": "code",
+              "v": "şərt ? a : b"
+            },
+            {
+              "k": "t",
+              "v": ", porque "
+            },
+            {
+              "k": "code",
+              "v": "if (şərt) a else b"
+            },
+            {
+              "k": "t",
+              "v": " ya hace lo mismo y es más legible. Cuando "
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": " se usa como expresión, "
+            },
+            {
+              "k": "code",
+              "v": "else"
+            },
+            {
+              "k": "t",
+              "v": " es "
+            },
+            {
+              "k": "b",
+              "v": "obligatorio"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "sertler.h3.0321cb67": {
-          "text": ""
+          "text": "when: una condición de múltiples ramas muy potente"
         },
         "sertler.p.1a57945e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " se parece al "
+            },
+            {
+              "k": "code",
+              "v": "switch"
+            },
+            {
+              "k": "t",
+              "v": " de Java, pero es mucho más potente: acepta cualquier tipo y admite rangos, comprobaciones de tipo y condiciones arbitrarias."
+            }
+          ]
         },
         "sertler.code.f83969db": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // 1) Coincidencia simple de valores\n    val x = 2\n    when (x) {\n        1 -> println(\"Bir\")\n        2, 3 -> println(\"Kiçik rəqəm: $x\")   // varios valores, separados por comas\n        else -> println(\"Digər\")\n    }\n\n    // 2) Como expresión + un rango\n    val gun = 3\n    val tip = when (gun) {\n        in 1..5 -> \"İş günü\"\n        6, 7 -> \"İstirahət\"\n        else -> \"Yanlış gün\"\n    }\n    println(tip)\n\n    // 3) Comprobación de tipo (is): entra en juego el smart cast\n    val obyekt: Any = 42\n    when (obyekt) {\n        is Int -> println(\"Rəqəm\")\n        is String -> println(\"Uzunluq: ${obyekt.length}\")  // automáticamente es un String\n        is List<*> -> println(\"Siyahı, ${obyekt.size} element\")\n        else -> println(\"Naməlum tip\")\n    }\n\n    // 4) when sin argumento: sustituye a una cadena if-else\n    val temperatur = 5\n    val geyim = when {\n        temperatur < 0 -> \"Qalın palto\"\n        temperatur in 1..10 -> \"1-dən 10-a qədər\"\n        temperatur in 11..20 -> \"Yüngül gödəkçə\"\n        else -> \"Köynək\"\n    }\n    println(geyim)\n\n    // 5) Devolver directamente el resultado de when\n    println(olcuAdi(150))\n}\n\nfun olcuAdi(sm: Int): String = when {\n    sm < 100 -> \"Kiçik\"\n    sm < 180 -> \"Böyük\"\n    else -> \"Nəhəng\"\n}"
         },
         "sertler.h3.f8574870": {
-          "text": ""
+          "text": "when con una variable sujeto"
         },
         "sertler.code.8e65c394": {
           "title": "",
-          "code": ""
+          "code": "// Guarda el resultado en una variable y compruébalo enseguida\nfun emalEt(cavab: Cavab) = when (val netice = cavab.oxu()) {\n    is Ugurlu -> \"Data: ${netice.data}\"\n    is Xeta -> \"Xəta kodu: ${netice.kod}\"\n}\n\n// Con un enum no hace falta else, porque se cubren todos los casos\nenum class Status { GOZLEYIR, ISLENIR, BITDI }\n\nfun mesaj(s: Status) = when (s) {\n    Status.GOZLEYIR -> \"Növbədədir\"\n    Status.ISLENIR -> \"İşlənir…\"\n    Status.BITDI -> \"Hazırdır\"\n}"
         },
         "sertler.callout.73574f69": {
           "title": ""
         },
         "sertler.p.3689c31f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cuando "
+            },
+            {
+              "k": "code",
+              "v": "when"
+            },
+            {
+              "k": "t",
+              "v": " se usa como expresión (cuando devuelve un valor), debe cubrir todos los casos. Con los tipos "
+            },
+            {
+              "k": "code",
+              "v": "enum"
+            },
+            {
+              "k": "t",
+              "v": " y "
+            },
+            {
+              "k": "code",
+              "v": "sealed"
+            },
+            {
+              "k": "t",
+              "v": ", el compilador lo comprueba por ti: si añades un caso nuevo, obtienes un error de compilación, así que nunca se te olvida ningún sitio."
+            }
+          ]
         }
       }
     },
     "dovrler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Bucles y rangos",
+      "heading": "Bucles y rangos",
+      "kicker": "Sección 09",
+      "group": "Fundamentos del lenguaje",
       "blocks": {
         "dovrler.p.a07e9238": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Kotlin no tiene la forma clásica "
+            },
+            {
+              "k": "code",
+              "v": "for (i = 0; i < n; i++)"
+            },
+            {
+              "k": "t",
+              "v": ". En su lugar, usas rangos y un "
+            },
+            {
+              "k": "code",
+              "v": "for"
+            },
+            {
+              "k": "t",
+              "v": " basado en iteradores: más corto y menos propenso a errores."
+            }
+          ]
         },
         "dovrler.h3.33f37383": {
-          "text": ""
+          "text": "Rangos"
         },
         "dovrler.code.0ead546a": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // 1..5: ambos extremos incluidos\n    for (i in 1..5) print(\"$i \")\n    println()\n\n    // 0..<5: el final no se incluye (antes: until)\n    for (i in 0..<5) print(\"$i \")\n    println()\n\n    // step: el tamaño del paso\n    for (i in 10 downTo 2 step 2) print(\"$i \")\n    println()\n\n    // downTo: descendente\n    for (i in 5 downTo 1) print(\"$i \")\n    println()\n\n    // Un rango de Char\n    for (c in 'a'..'e') print(\"$c \")\n    println()\n}"
         },
         "dovrler.h3.6004e4e6": {
-          "text": ""
+          "text": "El bucle for"
         },
         "dovrler.code.7c309284": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val diller = listOf(\"Kotlin\", \"Java\", \"Swift\")\n\n    // Iteración simple\n    for (dil in diller) println(dil)\n\n    // Si necesitas el índice\n    for ((index, dil) in diller.withIndex()) {\n        println(\"$index: $dil\")\n    }\n\n    // Solo los índices\n    for (i in diller.indices) { /* diller[i] */ }\n\n    // Sobre un map, con desestructuración\n    val melumat = mapOf(\"ad\" to \"Aysel\", \"yas\" to \"24\")\n    for ((acar, deyer) in melumat) {\n        println(\"$acar -> $deyer\")\n    }\n}"
         },
         "dovrler.h3.e88682b6": {
-          "text": ""
+          "text": "while y do-while"
         },
         "dovrler.code.e786f4ba": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // while: la condición se comprueba primero\n    var n = 3\n    while (n > 0) {\n        print(\"$n \")\n        n--\n    }\n    println()\n\n    // do-while: el cuerpo se ejecuta al menos una vez\n    var sayqac = 0\n    do {\n        sayqac++\n        println(\"Sayqac: $sayqac\")\n    } while (sayqac < 3)\n}"
         },
         "dovrler.h3.7cfeb028": {
-          "text": ""
+          "text": "break, continue y etiquetas"
         },
         "dovrler.code.b3693b05": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // break: detiene el bucle por completo\n    for (i in 1..5) {\n        if (i == 3) break\n        print(\"$i \")\n    }\n    println()\n\n    // continue: salta el paso actual\n    for (i in 1..5) {\n        if (i % 2 == 0) continue\n        print(\"$i \")\n    }\n    println()\n\n    // Una etiqueta: para salir de bucles anidados\n    xarici@ for (i in 1..3) {\n        for (j in 1..3) {\n            if (i * j == 2) {\n                println(\"Tapıldı: ($i, $j)\")\n                break@xarici     // sale de ambos bucles\n            }\n        }\n    }\n}"
         },
         "dovrler.callout.081841d2": {
-          "title": ""
+          "title": "return dentro de una lambda"
         },
         "dovrler.p.6ae1c199": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Dentro de "
+            },
+            {
+              "k": "code",
+              "v": "forEach { }"
+            },
+            {
+              "k": "t",
+              "v": ", un "
+            },
+            {
+              "k": "code",
+              "v": "return"
+            },
+            {
+              "k": "t",
+              "v": " simple sale de toda la función. Para salir solo de la lambda, necesitas una etiqueta: "
+            },
+            {
+              "k": "code",
+              "v": "return@forEach"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "dovrler.code.c325ec87": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    listOf(1, 2, 3, 4, 5).forEach {\n        if (it == 3) return@forEach   // salta solo este paso (como continue)\n        println(it)\n    }\n    println(\"Bitdi\")\n}"
         },
         "dovrler.h3.dd6e6ff7": {
-          "text": ""
+          "text": "Funciones de rango"
         },
         "dovrler.table.d9808f9a": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Expresión"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Resultado"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 2, …, 10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..<10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 2, …, 9"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "10 downTo 1"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10, 9, …, 1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "1..10 step 3"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "1, 4, 7, 10"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).reversed()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "10, 9, …, 1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).toList()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "[1, 2, …, 10]"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "5 in 1..10"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "true"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(1..10).sum()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "55"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "repeat(3) { … }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Ejecuta el bloque 3 veces"
+                }
+              ]
+            ]
+          ]
         }
       }
     },
     "funksiyalar": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Funciones",
+      "heading": "Funciones",
+      "kicker": "Sección 10",
+      "group": "Funciones",
       "blocks": {
         "funksiyalar.p.2ad85a88": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "En Kotlin, las funciones son ciudadanas de primera clase: no tienen por qué estar dentro de una clase, y se pueden guardar en una variable y pasar como parámetro."
+            }
+          ]
         },
         "funksiyalar.h3.2c252c35": {
-          "text": ""
+          "text": "La forma básica"
         },
         "funksiyalar.code.7ca21690": {
           "title": "",
-          "code": ""
+          "code": "// La forma completa\nfun topla(a: Int, b: Int): Int {\n    return a + b\n}\n\n// Función de una sola expresión: sin cuerpo ni return, el tipo se infiere\nfun salamla(ad: String) = \"Salam, $ad!\"\n\n// Escribir el tipo de retorno explícitamente mejora la legibilidad\nfun kvadrat(x: Int): Int = x * x\n\n// Una función que no devuelve nada: Unit (no hace falta escribirlo)\nfun cap(metn: String) {\n    println(metn)\n}\n\nfun main() {\n    println(topla(5, 3))\n    println(salamla(\"Aysel\"))\n    println(kvadrat(4))\n}"
         },
         "funksiyalar.h3.c5281f44": {
-          "text": ""
+          "text": "Argumentos por defecto y con nombre"
         },
         "funksiyalar.p.40b6dd92": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Juntos, estos dos sustituyen las docenas de sobrecargas que escribirías en Java."
+            }
+          ]
         },
         "funksiyalar.code.4aad7d11": {
           "title": "",
-          "code": ""
+          "code": "fun salamla(\n    ad: String = \"Dünya\",\n    boyukHerf: Boolean = false,\n    sonluq: String = \"!\"\n): String {\n    val metn = \"Salam, $ad$sonluq\"\n    return if (boyukHerf) metn.uppercase() else metn\n}\n\nfun main() {\n    println(salamla())                          // todo por defecto\n    println(salamla(\"Aysel\", boyukHerf = true)) // argumento con nombre\n    println(salamla(\"Leyla\", sonluq = \"!!!\"))   // podemos saltarnos el del medio\n    println(salamla(ad = \"Kamran\"))             // lo nombramos para mayor claridad\n}"
         },
         "funksiyalar.callout.dde1267d": {
-          "title": ""
+          "title": "Una regla de legibilidad"
         },
         "funksiyalar.p.baf6a7e3": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Si una función tiene más de 3 parámetros o recibe un "
+            },
+            {
+              "k": "code",
+              "v": "Boolean"
+            },
+            {
+              "k": "t",
+              "v": ", escribe los nombres al llamarla: "
+            },
+            {
+              "k": "code",
+              "v": "yarat(gorunen = true, aktiv = false)"
+            },
+            {
+              "k": "t",
+              "v": ". Dentro de seis meses, "
+            },
+            {
+              "k": "code",
+              "v": "yarat(true, false)"
+            },
+            {
+              "k": "t",
+              "v": " no te dirá nada."
+            }
+          ]
         },
         "funksiyalar.h3.b2f63d43": {
-          "text": ""
+          "text": "vararg: un número variable de argumentos"
         },
         "funksiyalar.code.2d5ad4b0": {
           "title": "",
-          "code": ""
+          "code": "fun cemle(vararg reqemler: Int): Int {\n    var cem = 0\n    for (r in reqemler) cem += r\n    return cem\n}\n\nfun main() {\n    println(\"Cəmi: ${cemle(1, 2, 3, 4, 5)}\")\n    println(\"Cəmi: ${cemle(1, 2, 3)}\")\n\n    // Pasar un array existente: el operador de propagación (*)\n    val massiv = intArrayOf(10, 20, 30)\n    println(\"Siyahıdan: ${cemle(*massiv)}\")\n}"
         },
         "funksiyalar.h3.2d1fbc89": {
-          "text": ""
+          "text": "Funciones locales"
         },
         "funksiyalar.code.3e7addae": {
           "title": "",
-          "code": ""
+          "code": "fun yoxla(istifadeci: String, sifre: String): Boolean {\n    // Una función auxiliar visible solo dentro de esta función\n    fun bosDeyil(deyer: String, ad: String): Boolean {\n        if (deyer.isBlank()) {\n            println(\"$ad boş ola bilməz\")\n            return false\n        }\n        return true\n    }\n\n    return bosDeyil(istifadeci, \"İstifadəçi\") && bosDeyil(sifre, \"Şifrə\")\n}\n\nfun main() {\n    println(\"Düzgün: ${yoxla(\"aysel\", \"12345\")}\")\n    println(\"Düzgün: ${yoxla(\"\", \"12345\")}\")\n}"
         },
         "funksiyalar.h3.1c99daa2": {
-          "text": ""
+          "text": "Funciones infix"
         },
         "funksiyalar.code.476fc415": {
           "title": "",
-          "code": ""
+          "code": "// infix: se puede llamar sin el punto ni los paréntesis\n// Requisitos: debe ser una función miembro/de extensión, con UN SOLO parámetro y sin valor por defecto\ninfix fun Int.veya(digeri: Int) = \"($this, $digeri)\"\n\ninfix fun Int.vur(k: Int) = this * k\n\nfun main() {\n    println(3 veya 4)          // igual que 3.veya(4)\n    println(3 vur 5)\n\n    // ejemplos de infix de la biblioteca estándar\n    val cut = \"ad\" to \"Aysel\"          // crea un Pair\n    val netice = 5 in 1..10            // contains\n    println(netice)\n}"
         },
         "funksiyalar.h3.c5c73f7f": {
-          "text": ""
+          "text": "tailrec: recursión de cola"
         },
         "funksiyalar.code.12eb92c6": {
           "title": "",
-          "code": ""
+          "code": "// tailrec le dice al compilador: convierte esta recursión en un bucle\ntailrec fun faktorial(n: Int, akkumulyator: Long = 1): Long =\n    if (n <= 1) akkumulyator else faktorial(n - 1, akkumulyator * n)\n\ntailrec fun cemle(n: Long, akk: Long = 0): Long =\n    if (n == 0L) akk else cemle(n - 1, akk + n)\n\nfun main() {\n    println(faktorial(10))\n    // Ningún StackOverflowError ni siquiera con una profundidad de 1 millón\n    println(\"StackOverflow olmadan: ${cemle(1_000_000)}\")\n}"
         },
         "funksiyalar.callout.945f5fe9": {
-          "title": ""
+          "title": "El requisito de tailrec"
         },
         "funksiyalar.p.08b6f1ae": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "La llamada recursiva debe ser la "
+            },
+            {
+              "k": "b",
+              "v": "última operación"
+            },
+            {
+              "k": "t",
+              "v": ". "
+            },
+            {
+              "k": "code",
+              "v": "return n * faktorial(n-1)"
+            },
+            {
+              "k": "t",
+              "v": " no es recursión de cola (la multiplicación ocurre después): el compilador te dará una advertencia."
+            }
+          ]
         },
         "funksiyalar.h3.a14fcc6e": {
-          "text": ""
+          "text": "Funciones de nivel superior"
         },
         "funksiyalar.code.32ae746d": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.util\n\n// No hace falta una clase: la función vive directamente en el archivo\nfun formatlaQiymet(deyer: Double) = \"%.2f AZN\".format(deyer)\n\nfun emailDuzgundur(email: String) =\n    Regex(\"^[\\\\w.-]+@[\\\\w.-]+\\\\.\\\\w{2,}$\").matches(email)\n\n// Desde Java, estas funciones aparecen como métodos estáticos de la clase KomekcilerKt\n// Para cambiar el nombre:\n// @file:JvmName(\"Komekciler\")   ← al principio del archivo"
         }
       }
     },
     "lambda": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Lambdas y HOF",
+      "heading": "Lambdas y funciones de orden superior",
+      "kicker": "Sección 11",
+      "group": "Funciones",
       "blocks": {
         "lambda.p.0ce05bb0": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Una función de orden superior es una función que recibe una función como parámetro o devuelve una función. Una lambda es una función sin nombre. Estas dos son la característica más fuerte de Kotlin."
+            }
+          ]
         },
         "lambda.h3.4379bf27": {
-          "text": ""
+          "text": "Sintaxis de las lambdas"
         },
         "lambda.code.75d87bb8": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // Forma completa: { parámetros -> cuerpo }\n    val topla: (Int, Int) -> Int = { a, b -> a + b }\n    println(topla(5, 3))\n\n    // Sin un tipo de variable explícito, los parámetros de la lambda necesitan tipos\n    val topla2 = { a: Int, b: Int -> a + b }\n    println(topla2(5, 3))\n\n    // Con un solo parámetro puedes omitir el nombre y usar \"it\"\n    val kvadrat: (Int) -> Int = { it * it }\n    println(kvadrat(5))\n\n    // La última línea se devuelve automáticamente: no hace falta return\n    val salamla: (String) -> String = { ad ->\n        val prefix = \"Salam\"\n        \"$prefix $ad\"\n    }\n    println(salamla(\"Aysel\"))\n}"
         },
         "lambda.h3.9f9f1d9c": {
-          "text": ""
+          "text": "Tipos de función"
         },
         "lambda.table.326ff4a6": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Tipo"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Significado"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Lambda de ejemplo"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "() -> Unit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Sin parámetros ni resultado"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ println(\"salam\") }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(Int) -> String"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Recibe un Int, devuelve un String"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ it.toString() }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(Int, Int) -> Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Recibe dos Int"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ a, b -> a + b }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "(String) -> Boolean"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Predicado"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ it.isNotEmpty() }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "String.() -> Int"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Lambda con receptor"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ length }"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "((Int) -> Int)?"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Función anulable"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "suspend () -> Unit"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Lambda de corrutina"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "{ delay(100) }"
+                }
+              ]
+            ]
+          ]
         },
         "lambda.h3.059d57b8": {
-          "text": ""
+          "text": "Escribir una función de orden superior"
         },
         "lambda.code.aaadc4c8": {
           "title": "",
-          "code": ""
+          "code": "// 1) Recibe una función como parámetro\ninline fun <T> olcuVaxt(blok: () -> T): T {\n    val basla = System.currentTimeMillis()\n    val netice = blok()\n    println(\"Əməliyyat ${System.currentTimeMillis() - basla} ms çəkdi\")\n    return netice\n}\n\n// 2) Nuestra propia función map\nfun <T, R> List<T>.menimMap(cevir: (T) -> R): List<R> {\n    val netice = mutableListOf<R>()\n    for (element in this) netice.add(cevir(element))\n    return netice\n}\n\n// 3) Una función que DEVUELVE una función\nfun vurucuYarat(k: Int): (Int) -> Int = { it * k }\n\nfun main() {\n    val cem = olcuVaxt {\n        (1..1_000_000L).sum()\n    }\n    println(\"Nəticə: $cem\")\n\n    println(listOf(1, 2, 3).menimMap { it * 2 })\n\n    val ikiyeVur = vurucuYarat(2)\n    println(\"Uğurlu: ${ikiyeVur(21)}\")\n}"
         },
         "lambda.h3.73b80066": {
-          "text": ""
+          "text": "La regla de la lambda final"
         },
         "lambda.p.14316fdd": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Si una lambda es el "
+            },
+            {
+              "k": "b",
+              "v": "último"
+            },
+            {
+              "k": "t",
+              "v": " parámetro de una función, puedes sacarla fuera de los paréntesis. Esta es la base de los DSL de Kotlin."
+            }
+          ]
         },
         "lambda.code.2aca7508": {
           "title": "",
-          "code": ""
+          "code": "// Estas tres son iguales:\nlistOf(1, 2, 3).filter({ it > 1 })     // forma normal\nlistOf(1, 2, 3).filter() { it > 1 }    // lambda fuera\nlistOf(1, 2, 3).filter { it > 1 }      // sin paréntesis vacíos ← idiomático\n\n// Con varios parámetros, solo el ÚLTIMO puede ir fuera\nfold(0) { akk, x -> akk + x }\n\n// Ejemplo de DSL: se ve así gracias a la lambda final\nval html = buildString {\n    append(\"<div>\")\n    append(\"Salam\")\n    append(\"</div>\")\n}"
         },
         "lambda.h3.d001a331": {
-          "text": ""
+          "text": "Funciones anónimas"
         },
         "lambda.code.0027d1c9": {
           "title": "",
-          "code": ""
+          "code": "// A diferencia de una lambda: el tipo de retorno se puede escribir explícitamente y\n// un \"return\" dentro sale solo de esta función\nval bol = fun(a: Int, b: Int): Int {\n    if (b == 0) return 0      // no es posible en una lambda\n    return a / b\n}\n\nfun main() {\n    println(bol(10, 2))   // 5\n    println(bol(10, 0))   // 0\n}"
         },
         "lambda.h3.f243fd7e": {
-          "text": ""
+          "text": "Referencias a funciones (::)"
         },
         "lambda.code.7f9b02a4": {
           "title": "",
-          "code": ""
+          "code": "fun ciftdir(x: Int) = x % 2 == 0\n\nfun main() {\n    // ::ciftdir en lugar de { ciftdir(it) }\n    println(listOf(1, 2, 3, 4).filterNot(::ciftdir))\n\n    // Referencia a un método\n    println(listOf(\"kotlin\", \"java\").map(String::uppercase))\n\n    // Referencia a un constructor: el tipo elige qué constructor\n    val yarat: (String) -> StringBuilder = ::StringBuilder\n    println(yarat(\"Kotlin\").length)\n}"
         },
         "lambda.h3.679fc6ba": {
           "text": ""
         },
         "lambda.p.bc6e3d9e": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cada lambda es en realidad un objeto: si se llama mucho, esto añade sobrecarga de memoria. La palabra clave "
+            },
+            {
+              "k": "code",
+              "v": "inline"
+            },
+            {
+              "k": "t",
+              "v": " le dice al compilador que copie el cuerpo de la función directamente en el lugar de la llamada."
+            }
+          ]
         },
         "lambda.code.c922ebc0": {
           "title": "",
-          "code": ""
+          "code": "// inline: no se crea ningún objeto lambda, el código se expande en el sitio\ninline fun tekrarla(n: Int, emel: (Int) -> Unit) {\n    for (i in 0 until n) emel(i)\n}\n\n// noinline: no insertar esta lambda (si hay que conservarla como objeto)\ninline fun numune(\n    inlineOlan: () -> Unit,\n    noinline saxlanan: () -> Unit\n) {\n    inlineOlan()\n    val referans = saxlanan   // no es posible sin noinline\n}\n\n// crossinline: prohíbe que un \"return\" dentro de la lambda salga de\n// la función exterior (importante si se va a llamar en otro contexto)\ninline fun asinxronIsle(crossinline emel: () -> Unit) {\n    Thread { emel() }.start()\n}\n\n// reified: ver el tipo en tiempo de ejecución en una función inline\ninline fun <reified T> List<*>.yalnizTipi(): List<T> =\n    this.filterIsInstance<T>()\n\nfun main() {\n    val qarisiq = listOf(1, \"iki\", 3, \"dörd\")\n    println(qarisiq.yalnizTipi<String>())   // [iki, dörd]\n}"
         },
         "lambda.callout.710ff33c": {
-          "title": ""
+          "title": "¿Cuándo usar inline?"
         },
         "lambda.p.c481e3c5": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Solo en funciones "
+            },
+            {
+              "k": "b",
+              "v": "pequeñas"
+            },
+            {
+              "k": "t",
+              "v": " que reciben lambdas. Hacer inline una función grande infla el bytecode. Las de la biblioteca estándar, "
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "filter"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "map"
+            },
+            {
+              "k": "t",
+              "v": ", son todas inline."
+            }
+          ]
         }
       }
     },
     "scope-funksiyalari": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Funciones de alcance",
+      "heading": "Funciones de alcance",
+      "kicker": "Sección 12",
+      "group": "Funciones",
       "blocks": {
         "scope-funksiyalari.p.7a40de82": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cinco funciones: "
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "run"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "with"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": ", "
+            },
+            {
+              "k": "code",
+              "v": "also"
+            },
+            {
+              "k": "t",
+              "v": ". Todas crean un alcance temporal alrededor de un objeto. La diferencia entre ellas se reduce a solo dos cosas: "
+            },
+            {
+              "k": "b",
+              "v": "cómo te refieres al objeto"
+            },
+            {
+              "k": "t",
+              "v": " y "
+            },
+            {
+              "k": "b",
+              "v": "qué se devuelve"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "scope-funksiyalari.h3.3b397afe": {
-          "text": ""
+          "text": "Tabla resumen"
         },
         "scope-funksiyalari.table.b628e4ec": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Objeto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Devuelve"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Uso típico"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "let"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "it"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "resultado de la lambda"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Comprobación de null + transformación"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "run"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "resultado de la lambda"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Configuración + cálculo de un resultado"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "with"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "resultado de la lambda"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Muchas operaciones sobre un objeto"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "apply"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "this"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "el propio objeto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Construir un objeto (builder)"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "also"
+                }
+              ],
+              [
+                {
+                  "k": "code",
+                  "v": "it"
+                }
+              ],
+              [
+                {
+                  "k": "b",
+                  "v": "el propio objeto"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Efectos secundarios: registro, validación"
+                }
+              ]
+            ]
+          ]
         },
         "scope-funksiyalari.callout.3dbbc2f6": {
-          "title": ""
+          "title": "Cómo elegir"
         },
         "scope-funksiyalari.p.9f1141ea": {
-          "spans": []
+          "spans": [
+            {
+              "k": "b",
+              "v": "¿Necesitas el propio objeto?"
+            },
+            {
+              "k": "t",
+              "v": " → "
+            },
+            {
+              "k": "code",
+              "v": "apply"
+            },
+            {
+              "k": "t",
+              "v": " (this) o "
+            },
+            {
+              "k": "code",
+              "v": "also"
+            },
+            {
+              "k": "t",
+              "v": " (it)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "¿Necesitas un resultado calculado?"
+            },
+            {
+              "k": "t",
+              "v": " → "
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": " (it), "
+            },
+            {
+              "k": "code",
+              "v": "run"
+            },
+            {
+              "k": "t",
+              "v": " / "
+            },
+            {
+              "k": "code",
+              "v": "with"
+            },
+            {
+              "k": "t",
+              "v": " (this)."
+            },
+            {
+              "k": "br"
+            },
+            {
+              "k": "t",
+              "v": " "
+            },
+            {
+              "k": "b",
+              "v": "¿Haces una comprobación de null?"
+            },
+            {
+              "k": "t",
+              "v": " → "
+            },
+            {
+              "k": "code",
+              "v": "?.let { }"
+            },
+            {
+              "k": "t",
+              "v": " es siempre la opción correcta."
+            }
+          ]
         },
         "scope-funksiyalari.h3.df101ed5": {
-          "text": ""
+          "text": "Ejemplos prácticos"
         },
         "scope-funksiyalari.code.f38ac2cd": {
           "title": "",
-          "code": ""
+          "code": "data class Istifadeci(var ad: String = \"\", var yas: Int = 0)\n\nfun main() {\n    // apply: construir un objeto\n    val istifadeci = Istifadeci().apply {\n        ad = \"Aysel\"\n        yas = 24\n    }\n    println(\"Yükləndi: ${istifadeci.ad} (${istifadeci.yas})\")\n\n    // also: un efecto secundario sin romper la cadena\n    val yol = \"/tmp/hesabat.txt\"\n        .also { println(\"Fayl hazırdır: $it\") }\n\n    // let: comprobación de null + transformación\n    val ad: String? = \"Kotlin\"\n    val uzunluq = ad?.let { it.length } ?: 0\n    println(\"Uzunluq: $uzunluq\")\n\n    // run: configuración + resultado\n    val cavabKodu = \"https://api.numune.az\".run {\n        // aquí this = la cadena de la URL\n        if (startsWith(\"https\")) 200 else 400\n    }\n    println(\"Cavab: $cavabKodu\")\n}"
         },
         "scope-funksiyalari.h3.0530ced8": {
-          "text": ""
+          "text": "takeIf y takeUnless"
         },
         "scope-funksiyalari.code.6bf2318e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // takeIf: devuelve el objeto si se cumple la condición; si no, null\n    val bosMetn = \"\".takeIf { it.isNotBlank() }\n    println(bosMetn)                     // null\n\n    val email = \"kotlin@mail.az\".takeIf { it.contains(\"@\") }\n    println(email)                       // kotlin@mail.az\n\n    // takeUnless: funciona al revés\n    val netice = \"abc\"\n        .takeUnless { it.contains(\"@\") }\n        ?.let { \"Düzgün deyil\" }\n        ?: \"Düzgündür\"\n    println(netice)\n}"
         },
         "scope-funksiyalari.callout.1c84e4a8": {
-          "title": ""
+          "title": "No te pases"
         },
         "scope-funksiyalari.p.eee66178": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tres bloques "
+            },
+            {
+              "k": "code",
+              "v": "let"
+            },
+            {
+              "k": "t",
+              "v": " anidados hacen el código ilegible. Las funciones de alcance sirven para acortar el código, no para esconderlo. Si dudas, escribe un "
+            },
+            {
+              "k": "code",
+              "v": "if"
+            },
+            {
+              "k": "t",
+              "v": " normal y una variable."
+            }
+          ]
         }
       }
     },
     "genislenmeler": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Extensiones",
+      "heading": "Extensiones",
+      "kicker": "Sección 13",
+      "group": "Funciones",
       "blocks": {
         "genislenmeler.p.465423aa": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Puedes añadir funciones y propiedades nuevas a una clase existente, incluso a clases como "
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " o "
+            },
+            {
+              "k": "code",
+              "v": "List"
+            },
+            {
+              "k": "t",
+              "v": " cuyo código fuente no puedes tocar. Sin herencia y sin cambiar la clase."
+            }
+          ]
         },
         "genislenmeler.h3.75ec6b08": {
-          "text": ""
+          "text": "Funciones de extensión"
         },
         "genislenmeler.code.e5dbbd79": {
           "title": "",
-          "code": ""
+          "code": "// Añadimos una función nueva a la clase String\n// \"this\" es el objeto sobre el que se llama la función (receptor)\nfun String.emailDirmi(): Boolean =\n    this.contains(\"@\") && this.contains(\".\")\n\nfun String.qisalt(maks: Int): String =\n    if (length <= maks) this else take(maks) + \"...\"\n\n// Puedes usar una extensión en una cadena\nfun String.tersUst(): String = reversed().uppercase()\n\n// Con las colecciones también funciona\nfun List<Int>.ciftlerinCemi(): Int = filter { it % 2 == 0 }.sum()\n\nfun main() {\n    println(\"aysel@mail.az\".emailDirmi())\n    println(\"Kotlin dilini öyrənirəm\".qisalt(6))\n    println(\"Kotlin\".tersUst().take(5))\n    println(listOf(1, 2, 3, 4).ciftlerinCemi().toString().length + 4)\n}"
         },
         "genislenmeler.h3.826073af": {
-          "text": ""
+          "text": "Propiedades de extensión"
         },
         "genislenmeler.code.1caff14b": {
           "title": "",
-          "code": ""
+          "code": "// Una propiedad de extensión no puede guardar un campo: solo un getter\nval String.ilkHerfBoyukdurmu: Boolean\n    get() = isNotEmpty() && first().isUpperCase()\n\nval <T> List<T>.sonIndeks: Int\n    get() = size - 1\n\nval Int.kb: String\n    get() = \"$this KB\"\n\nfun main() {\n    println(\"kotlin\".ilkHerfBoyukdurmu)\n    println(listOf(\"Java\", \"Kotlin\")[listOf(\"Java\", \"Kotlin\").sonIndeks])\n    println(1024.kb)\n}"
         },
         "genislenmeler.h3.c269533d": {
-          "text": ""
+          "text": "Extensiones sobre tipos anulables"
         },
         "genislenmeler.code.37454cc1": {
           "title": "",
-          "code": ""
+          "code": "// El receptor puede ser anulable: hacemos la comprobación de null dentro\nfun String?.bosVeYaNull(): Boolean = this == null || this.isBlank()\n\nfun String?.veYaDefolt(defolt: String): String =\n    if (this.isNullOrBlank()) defolt else this\n\nfun main() {\n    val a: String? = null\n    println(if (a.bosVeYaNull()) \"Boşdur\" else \"Dolu\")   // ¡no hace falta ?.!\n\n    println(\"Kotlin\".veYaDefolt(\"yoxdur\"))\n    println(null.veYaDefolt(\"Dəyər yoxdur\"))\n}"
         },
         "genislenmeler.h3.c7bc634d": {
-          "text": ""
+          "text": "Importante: las extensiones son estáticas"
         },
         "genislenmeler.callout.70e206dd": {
-          "title": ""
+          "title": "El polimorfismo no se aplica"
         },
         "genislenmeler.p.acdd59fb": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Una función de extensión no se añade realmente a la clase: el compilador la convierte en una llamada a una función estática normal. Por eso, la función que se ejecuta se elige según el "
+            },
+            {
+              "k": "b",
+              "v": "tipo declarado"
+            },
+            {
+              "k": "t",
+              "v": " de la variable, no según su tipo real."
+            }
+          ]
         },
         "genislenmeler.code.49ac3433": {
           "title": "",
-          "code": ""
+          "code": "open class Ana\nclass Ovlad : Ana()\n\n// Las extensiones se resuelven ESTÁTICAMENTE\nfun Ana.tesvir() = \"Ana sinif\"\nfun Ovlad.tesvir() = \"Övlad sinifi\"\n\n// Los métodos miembro se resuelven VIRTUALMENTE\nopen class Ana2 { open fun tesvir() = \"Üzv metod: Ana\" }\nclass Ovlad2 : Ana2() { override fun tesvir() = \"Üzv metod: Övlad sinifi\" }\n\nfun main() {\n    val obyekt: Ana = Ovlad()\n    println(obyekt.tesvir())        // \"Ana sinif\": según el tipo declarado\n\n    val obyekt2: Ana2 = Ovlad2()\n    println(obyekt2.tesvir())       // \"Övlad sinifi\": según el tipo real\n}"
         },
         "genislenmeler.callout.4995b7da": {
-          "title": ""
+          "title": "Otras limitaciones"
         },
         "genislenmeler.p.38f7a2de": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Una función de extensión no puede acceder a los miembros "
+            },
+            {
+              "k": "code",
+              "v": "private"
+            },
+            {
+              "k": "t",
+              "v": " y "
+            },
+            {
+              "k": "code",
+              "v": "protected"
+            },
+            {
+              "k": "t",
+              "v": " de una clase. Además, si la clase tiene un "
+            },
+            {
+              "k": "b",
+              "v": "método miembro"
+            },
+            {
+              "k": "t",
+              "v": " con la misma firma, el miembro siempre gana: la extensión nunca se llama."
+            }
+          ]
         },
         "genislenmeler.h3.bf40edb8": {
-          "text": ""
+          "text": "Una biblioteca práctica de utilidades"
         },
         "genislenmeler.code.ba2b9d29": {
           "title": "",
-          "code": ""
+          "code": "package az.numune.ext\n\n// Texto\nfun String.slugla() = lowercase()\n    .replace(Regex(\"[^a-z0-9]+\"), \"-\")\n    .trim('-')\n\nfun String.ilkHerfBoyuk() = replaceFirstChar { it.uppercase() }\n\n// Números\nfun Double.azn() = \"%.2f ₼\".format(this)\nfun Int.faiz(hissə: Int) = if (this == 0) 0.0 else hissə * 100.0 / this\n\n// Colecciones\nfun <T> List<T>.ikinci(): T? = getOrNull(1)\nfun <T> List<T>.tesadufi(): T? = if (isEmpty()) null else random()\n\n// Ejemplo de Android\n// fun View.gorunsun() { visibility = View.VISIBLE }\n// fun View.gizlensin() { visibility = View.GONE }\n// fun Context.toast(metn: String) =\n//     Toast.makeText(this, metn, Toast.LENGTH_SHORT).show()"
         }
       }
     },
     "null-safety": {
-      "title": "",
-      "heading": "",
-      "kicker": "",
-      "group": "",
+      "title": "Seguridad frente a null",
+      "heading": "Seguridad frente a null",
+      "kicker": "Sección 14",
+      "group": "Seguridad y datos",
       "blocks": {
         "null-safety.p.71e03f26": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Tony Hoare llamó a la referencia nula «mi error del billón de dólares». Kotlin resuelve este problema directamente en el sistema de tipos: un "
+            },
+            {
+              "k": "code",
+              "v": "String"
+            },
+            {
+              "k": "t",
+              "v": " nunca puede ser null, un "
+            },
+            {
+              "k": "code",
+              "v": "String?"
+            },
+            {
+              "k": "t",
+              "v": " sí. El compilador conoce la diferencia y te obliga a tenerla en cuenta."
+            }
+          ]
         },
         "null-safety.h3.44ad617e": {
-          "text": ""
+          "text": "Tipos anulables y no anulables"
         },
         "null-safety.code.a24fd805": {
           "title": "",
-          "code": ""
+          "code": "// Tipo no anulable: no acepta null\nvar ad: String = \"Aysel\"\n// ad = null                 ← ERROR DE COMPILACIÓN\n\n// Tipo anulable: ? al final\nvar soyad: String? = \"Məmmədova\"\nsoyad = null                 // permitido\n\n// Los parámetros de función funcionan igual\nfun cap(metn: String) { }      // no se puede pasar null\nfun capNullable(metn: String?) { }   // sí se puede\n\n// Tipo de retorno\nfun tap(id: Int): Istifadeci? = null   // puede que no se encuentre"
         },
         "null-safety.h3.3515f27c": {
-          "text": ""
+          "text": "6 formas de trabajar con null"
         },
         "null-safety.h4.e583cf1c": {
           "text": ""
         },
         "null-safety.code.4284bb02": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val a: String? = null\n    val b: String? = \"Kotlin\"\n\n    println(a?.length)     // null: la llamada ni siquiera se hace\n    println(b?.length)     // 6\n\n    // En una cadena: si algún eslabón es null, el resultado es null\n    // val seher = istifadeci?.unvan?.seher?.ad\n    val bos: List<String>? = null\n    println(bos?.firstOrNull()?.uppercase())\n}"
         },
         "null-safety.h4.14b8b165": {
-          "text": ""
+          "text": "2 · El operador Elvis: ?:"
         },
         "null-safety.code.c96c19c7": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = null\n\n    // Valor alternativo\n    println(ad ?: \"Qonaq\")\n    println(ad?.length ?: 0)\n\n    // Retorno anticipado: un modismo muy útil\n    fun emalEt(giris: String?): String {\n        val temiz = giris?.trim() ?: return \"Giriş boşdur\"\n        return temiz.uppercase()\n    }\n\n    println(\"Kotlin\")\n\n    // Elvis + throw\n    // val id = param ?: throw IllegalArgumentException(\"id tələb olunur\")\n}"
         },
         "null-safety.h4.b6357838": {
           "text": ""
         },
         "null-safety.code.219048bd": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n\n    // tras la comprobación de null, el compilador ve ad como String\n    if (ad != null) {\n        println(\"Uzunluq: ${ad.length}\")   // no hace falta ?.\n    }\n\n    // junto con is\n    val obyekt: Any = listOf(1, 2, 3)\n    if (obyekt is List<*>) {\n        println(\"Sayı: ${obyekt.size}\")    // automáticamente es una List\n    }\n}"
         },
         "null-safety.callout.e8dea34f": {
-          "title": ""
+          "title": "¿Cuándo no funciona el smart cast?"
         },
         "null-safety.p.de6a159f": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Con propiedades "
+            },
+            {
+              "k": "code",
+              "v": "var"
+            },
+            {
+              "k": "t",
+              "v": " (otro hilo podría cambiarlas), con propiedades que tienen un "
+            },
+            {
+              "k": "code",
+              "v": "get()"
+            },
+            {
+              "k": "t",
+              "v": " personalizado y con propiedades "
+            },
+            {
+              "k": "code",
+              "v": "open val"
+            },
+            {
+              "k": "t",
+              "v": " o declaradas en otro módulo. En esos casos, copia primero el valor en un "
+            },
+            {
+              "k": "code",
+              "v": "val"
+            },
+            {
+              "k": "t",
+              "v": " local: "
+            },
+            {
+              "k": "code",
+              "v": "val yerli = xasse ?: return"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         },
         "null-safety.h4.01746fa3": {
-          "text": ""
+          "text": "4 · El bloque let"
         },
         "null-safety.code.5b2ebd0e": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val ad: String? = \"Kotlin\"\n    ad?.let {\n        println(\"Uzunluq ${it.length}\")   // se ejecuta solo si no es null\n    }\n\n    val bos: String? = null\n    bos?.let {\n        println(\"Bu heç vaxt çap olunmayacaq\")\n    } ?: println(\"İşlənmədi\")\n}"
         },
         "null-safety.h4.707259b2": {
-          "text": ""
+          "text": "5 · Conversión segura: as?"
         },
         "null-safety.code.d39e73a1": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    val obyekt: Any = 42\n\n    // as: lanza ClassCastException si falla\n    // val metn = obyekt as String    ← falla\n\n    // as?: devuelve null si falla\n    val metn: String? = obyekt as? String\n    println(metn)      // null\n\n    val duzgun: Any = \"Kotlin\"\n    println(duzgun as? String)\n}"
         },
         "null-safety.h4.7f3a4e91": {
-          "text": ""
+          "text": "6 · lateinit y by lazy"
         },
         "null-safety.code.43f813ed": {
           "title": "",
-          "code": ""
+          "code": "class Servis {\n    // lateinit: \"se asignará más tarde, pero no será null\"\n    // Solo con var, solo con tipos no primitivos\n    lateinit var baza: Baza\n\n    fun basla() {\n        baza = Baza()\n    }\n\n    fun istifade() {\n        // Si no se asigna: UninitializedPropertyAccessException\n        if (::baza.isInitialized) {\n            baza.sorgu()\n        }\n    }\n\n    // by lazy: se calcula una vez en el primer acceso y luego se guarda en caché\n    val agirObyekt: Konfiq by lazy {\n        println(\"Yalnız bir dəfə yaradılır\")\n        Konfiq.yukle()\n    }\n}"
         },
         "null-safety.h3.0bf47d49": {
-          "text": ""
+          "text": "Colecciones anulables"
         },
         "null-safety.code.22fadaf5": {
           "title": "",
-          "code": ""
+          "code": "fun main() {\n    // Una lista cuyos elementos son anulables\n    val siyahi: List<String?> = listOf(\"Kotlin\", null, \"Java\")\n    println(siyahi.filterNotNull())    // descarta los null\n\n    // La lista EN SÍ es anulable\n    val bosOlaBiler: List<String>? = null\n    println(bosOlaBiler?.size ?: 3)\n\n    // orEmpty(): devuelve una colección vacía si es null\n    val etibarli: List<String> = bosOlaBiler.orEmpty()\n\n    val digeri: List<String>? = listOf(\"a\", \"b\")\n    println(digeri.orEmpty())\n}"
         },
         "null-safety.h3.48e23484": {
-          "text": ""
+          "text": "Interoperabilidad con Java: tipos de plataforma"
         },
         "null-safety.callout.b1486b00": {
-          "title": ""
+          "title": "Valores que vienen de Java"
         },
         "null-safety.p.c1e98c78": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "El código Java no lleva información sobre null. Kotlin muestra esos tipos como "
+            },
+            {
+              "k": "code",
+              "v": "String!"
+            },
+            {
+              "k": "t",
+              "v": ", un «tipo de plataforma». El compilador no los comprueba, así que "
+            },
+            {
+              "k": "b",
+              "v": "sigue siendo posible una NPE"
+            },
+            {
+              "k": "t",
+              "v": ". Trata siempre como anulables los valores que vienen de API de Java: "
+            },
+            {
+              "k": "code",
+              "v": "val ad: String? = javaObyekt.getAd()"
+            },
+            {
+              "k": "t",
+              "v": ". Si el lado de Java tiene anotaciones "
+            },
+            {
+              "k": "code",
+              "v": "@Nullable"
+            },
+            {
+              "k": "t",
+              "v": " / "
+            },
+            {
+              "k": "code",
+              "v": "@NotNull"
+            },
+            {
+              "k": "t",
+              "v": ", Kotlin las respeta."
+            }
+          ]
         },
         "null-safety.h3.0c30ce47": {
-          "text": ""
+          "text": "Funciones útiles para null"
         },
         "null-safety.table.be28499f": {
-          "head": [],
-          "rows": []
+          "head": [
+            [
+              [
+                {
+                  "k": "t",
+                  "v": "Función"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Qué hace"
+                }
+              ]
+            ]
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isNullOrEmpty()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "¿Es null o está vacío?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "isNullOrBlank()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "¿Es null, está vacío o solo tiene espacios?"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "orEmpty()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "\"\" o una colección vacía si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "filterNotNull()"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Descarta los null de una colección"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "requireNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalArgumentException si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "checkNotNull(x)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "IllegalStateException si es null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "mapNotNull { }"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "Transforma y descarta los resultados null"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "k": "code",
+                  "v": "getOrNull(i)"
+                }
+              ],
+              [
+                {
+                  "k": "t",
+                  "v": "null si el índice no existe (sin fallo)"
+                }
+              ]
+            ]
+          ]
         },
         "null-safety.callout.6be44e69": {
-          "title": ""
+          "title": "La regla de oro"
         },
         "null-safety.p.b7acba6d": {
-          "spans": []
+          "spans": [
+            {
+              "k": "t",
+              "v": "Cada sitio donde escribes el operador "
+            },
+            {
+              "k": "code",
+              "v": "!!"
+            },
+            {
+              "k": "t",
+              "v": " es un posible punto de fallo. Cuando veas "
+            },
+            {
+              "k": "code",
+              "v": "!!"
+            },
+            {
+              "k": "t",
+              "v": " en el código, pregúntate: «¿Por qué exactamente no puede ser null este valor?». Si tienes respuesta, haz que el tipo sea no anulable desde el principio. Si no la tienes, usa "
+            },
+            {
+              "k": "code",
+              "v": "?.let"
+            },
+            {
+              "k": "t",
+              "v": " o "
+            },
+            {
+              "k": "code",
+              "v": "?:"
+            },
+            {
+              "k": "t",
+              "v": "."
+            }
+          ]
         }
       }
     },
