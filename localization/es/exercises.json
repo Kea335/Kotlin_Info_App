@@ -3073,516 +3073,716 @@
       }
     },
     "oop": {
-      "title": "",
+      "title": "Clases y objetos",
       "nezeri": {
         "oop-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Necesitas la palabra clave new para crear un objeto en Kotlin?",
+          "opts": [
+            "Sí",
+            "No: basta con escribir Sinif()",
+            "Solo para una data class",
+            "Solo en clases abstractas"
+          ],
+          "exp": "Kotlin no tiene new. El constructor de un objeto se llama como una función normal: val u = Istifadeci(\"Aysel\")."
         },
         "oop-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Dónde se escribe el constructor primario?",
+          "opts": [
+            "En el cuerpo de la clase",
+            "Justo después del nombre de la clase, entre paréntesis",
+            "En el bloque init",
+            "En el companion object"
+          ],
+          "exp": "class Istifadeci(val ad: String): el constructor forma parte de la cabecera de la clase. Es una de las características que hacen a Kotlin mucho más conciso."
         },
         "oop-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace escribir un parámetro del constructor con val?",
+          "opts": [
+            "Nada",
+            "Lo convierte también en una propiedad de la clase",
+            "Lo convierte en una constante",
+            "Lo oculta"
+          ],
+          "exp": "class A(val x: Int): x es a la vez parámetro y propiedad. Sin val es solo un parámetro del constructor y no es accesible en el cuerpo."
         },
         "oop-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo se ejecuta el bloque init?",
+          "opts": [
+            "Al arrancar el programa",
+            "Al crear el objeto",
+            "Al llamar a un método",
+            "Nunca"
+          ],
+          "exp": "El bloque init se ejecuta mientras se construye el objeto, como parte del constructor primario. Puede haber varios bloques init: se ejecutan en el orden en que están escritos."
         },
         "oop-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Hay que escribir a mano los getters/setters de las propiedades en Kotlin?",
+          "opts": [
+            "Sí, siempre",
+            "No: se generan automáticamente",
+            "Solo para var",
+            "Solo cuando son private"
+          ],
+          "exp": "Para val se genera un getter, y para var, un getter y un setter. Solo los escribes a mano cuando necesitas un comportamiento personalizado."
         },
         "oop-n-06": {
-          "q": "",
+          "q": "¿Cuál es el modificador de visibilidad por defecto?",
           "opts": [],
-          "exp": ""
+          "exp": "En Kotlin, todo es public por defecto. Eso difiere de Java, donde por defecto es package-private."
         },
         "oop-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué significa el modificador internal?",
+          "opts": [
+            "Solo dentro de la clase",
+            "Visible dentro del mismo módulo",
+            "Solo en las subclases",
+            "En todas partes"
+          ],
+          "exp": "internal es visible dentro del mismo módulo de compilación (módulo de Gradle). Es útil para ocultar la API interna al escribir una biblioteca."
         },
         "oop-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuántas propiedades crea este código?",
+          "opts": [
+            "2",
+            "1: solo x",
+            "0",
+            "3"
+          ],
+          "exp": "Solo x es una propiedad, porque está marcada con val. y es solo un parámetro del constructor y no es accesible fuera del bloque init."
         },
         "oop-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Si el cuerpo de la clase está vacío, ¿hacen falta llaves?",
+          "opts": [
+            "Sí",
+            "No: basta con class BosSinif",
+            "Solo en una data class",
+            "Solo en una clase abstracta"
+          ],
+          "exp": "Si el cuerpo está vacío, las llaves se pueden omitir por completo. Es práctico para clases marcadoras."
         },
         "oop-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué debe hacer un constructor secundario?",
+          "opts": [
+            "Nada",
+            "Debe delegar en el constructor primario: this(...)",
+            "Debe llamar a init",
+            "Debe ser private"
+          ],
+          "exp": "Si hay un constructor primario, un constructor secundario debe delegar en él. Gracias a los parámetros por defecto, en Kotlin rara vez necesitas un constructor secundario."
         },
         "oop-n-11": {
-          "q": "",
+          "q": "¿Cómo te refieres al campo de respaldo en un setter personalizado?",
           "opts": [],
-          "exp": ""
+          "exp": "field es un identificador especial y solo es accesible dentro de un accesor. Si escribes this.xasse, obtienes una recursión infinita."
         },
         "oop-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Ocupa un campo una propiedad calculada (getter personalizado)?",
+          "opts": [
+            "Sí",
+            "No: se vuelve a calcular en cada acceso",
+            "Solo la primera vez",
+            "Depende"
+          ],
+          "exp": "Solo se crea un campo de respaldo cuando se usa el identificador field. Aquí el valor se recalcula cada vez; si necesitas caché, usa by lazy."
         },
         "oop-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace private set?",
+          "opts": [
+            "Oculta la propiedad",
+            "Permite leerla, pero deja la escritura solo dentro de la clase",
+            "Borra la propiedad",
+            "Quita el setter"
+          ],
+          "exp": "var status: String = \"aktiv\"\n    private set: se puede leer desde fuera pero no cambiar. Ideal para un estado que parece inmutable pero se gestiona internamente."
         },
         "oop-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre una clase anidada (nested) y una interna (inner)?",
+          "opts": [
+            "No hay diferencia",
+            "inner puede acceder a los miembros de la clase exterior; nested no",
+            "nested es más rápida",
+            "inner solo existe en Java"
+          ],
+          "exp": "En Kotlin, una clase dentro de otra es estática por defecto (nested). Si necesitas una referencia al objeto exterior, escribes la palabra clave inner."
         },
         "oop-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "-7",
+            "0",
+            "7",
+            "Error de compilación"
+          ],
+          "exp": "El setter personalizado convierte un valor negativo en 0. field escribe directamente en el campo de respaldo, así que no hay recursión."
         },
         "oop-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué se usa require() en un constructor?",
+          "opts": [
+            "Por rendimiento",
+            "Para impedir directamente que se cree un objeto con un argumento no válido",
+            "Por memoria",
+            "Para registrar"
+          ],
+          "exp": "Escribir require(ad.isNotBlank()) en el bloque init impide de inmediato que se cree un objeto no válido. Es el principio del «estado válido»."
         },
         "oop-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el estado por defecto de los miembros de una clase en Kotlin?",
+          "opts": [
+            "open",
+            "final: no se pueden sobrescribir",
+            "abstract",
+            "private"
+          ],
+          "exp": "Las clases, y también los métodos y propiedades, son final por defecto. Para sobrescribir, tanto la clase como el miembro deben declararse open."
         },
         "oop-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué harías private un constructor?",
+          "opts": [
+            "Por rendimiento",
+            "Para controlar la creación de objetos mediante un método de fábrica",
+            "Para ahorrar memoria",
+            "Por ninguna razón"
+          ],
+          "exp": "private constructor + un método de fábrica en el companion object: así el objeto solo se puede crear de forma controlada (con caché, validación)."
         },
         "oop-n-19": {
-          "q": "",
+          "q": "¿En qué orden se ejecutan init y las inicializaciones de propiedades en este código?",
           "opts": [],
-          "exp": ""
+          "exp": "Los inicializadores de propiedades y los bloques init se ejecutan en el orden en que están ESCRITOS en el cuerpo de la clase. Por eso obtienes el orden birinci, init, sonuncu."
         },
         "oop-n-20": {
-          "q": "",
+          "q": "¿Cómo te refieres al this de la clase exterior desde una clase inner?",
           "opts": [],
-          "exp": ""
+          "exp": "Se usa un this con etiqueta: this@Xarici.deyer. Un this simple se refiere a la propia clase interna."
         },
         "oop-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Puede el valor inicial de una propiedad usar un parámetro del constructor?",
+          "opts": [
+            "No",
+            "Sí: el parámetro es accesible en los inicializadores de propiedades y en el bloque init",
+            "Solo cuando es val",
+            "Error de compilación"
+          ],
+          "exp": "Incluso sin val, el parámetro se puede usar en los inicializadores de propiedades y en los bloques init. Lo que no es accesible es desde los métodos."
         },
         "oop-n-22": {
-          "q": "",
+          "q": "¿Cuál es el padre común de todas las clases en Kotlin?",
           "opts": [],
-          "exp": ""
+          "exp": "Any proporciona los métodos equals(), hashCode() y toString(). La diferencia con el Object de Java: no tiene métodos como wait() y notify()."
         },
         "oop-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué cambia al añadir una anotación o un modificador a un constructor?",
+          "opts": [
+            "Nada",
+            "La palabra clave constructor pasa a ser obligatoria",
+            "La clase pasa a ser abstracta",
+            "Se pierde la propiedad"
+          ],
+          "exp": "Normalmente la palabra clave constructor se omite. Pero si escribes un modificador de visibilidad o una anotación, tienes que indicarla explícitamente."
         },
         "oop-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede declarar directamente un campo en Kotlin?",
+          "opts": [
+            "Sí, de la forma habitual",
+            "No: solo declaras propiedades; el compilador crea un campo por sí mismo cuando hace falta",
+            "Solo cuando es private",
+            "Solo con Java"
+          ],
+          "exp": "Kotlin no tiene el concepto de campo a nivel de lenguaje. Declaras una propiedad, y el compilador le asigna un campo de respaldo cuando hace falta."
         },
         "oop-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se comparan por defecto dos instancias de la misma clase?",
+          "opts": [
+            "true",
+            "false: el equals heredado de Any compara referencias",
+            "Error de compilación",
+            "null"
+          ],
+          "exp": "En una clase normal, equals no está sobrescrito, así que se hace una comparación de referencias. Si necesitas comparar el contenido, usa una data class."
         }
       },
       "praktiki": {
         "oop-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una clase Istifadeci (con una propiedad ad), crea un objeto e imprime el nombre.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val u = Istifadeci(\"Aysel\")\n    println(u.ad)\n}\n\n// escribe la clase"
         },
         "oop-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una clase con dos propiedades e imprime ambas.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val u = Istifadeci(\"Aysel\", 24)\n    println(\"${u.ad} ${u.yas}\")\n}\n\n// escribe la clase"
         },
         "oop-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una clase con una propiedad var, cambia su valor e imprímelo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val u = Sayqac()\n    u.deyer = 7\n    println(u.deyer)\n}\n\n// escribe la clase (la propiedad deyer debe empezar en 0)"
         },
         "oop-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una clase con un método: salamla() debe imprimir \"Salam, Aysel!\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    Istifadeci(\"Aysel\").salamla()\n}\n\n// escribe la clase junto con el método"
         },
         "oop-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un bloque init: debe imprimirse \"Yaradildi\" al crear el objeto.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    Istifadeci(\"Aysel\")\n}\n\n// escribe una clase con un bloque init"
         },
         "oop-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un constructor con un parámetro por defecto: un objeto creado sin argumentos debe recibir el nombre \"Qonaq\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Istifadeci().ad)\n}\n\n// escribe una clase con un parámetro por defecto"
         },
         "oop-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una propiedad calculada: tamAd debe combinar el nombre y el apellido.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(Profil(\"Aysel\", \"Memmedova\").tamAd)\n}\n\n// escribe una clase con una propiedad calculada"
         },
         "oop-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Crea dos objetos y muestra que son DISTINTOS (en una clase normal, == es una comparación de referencias).",
+          "ipucu": "println(A(1) == A(1)): en una clase normal, equals no está sobrescrito.",
+          "starter": "class A(val x: Int)\n\nfun main() {\n    // crea dos objetos e imprime el resultado de ==\n}"
         },
         "oop-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Declara una clase sin cuerpo, crea un objeto e imprime \"yarandi\".",
+          "ipucu": "class Bos: no hacen falta llaves.",
+          "starter": "fun main() {\n    Bos()\n    println(\"yarandi\")\n}\n\n// declara una clase sin cuerpo"
         },
         "oop-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un setter personalizado: un valor negativo debe convertirse en 0. Asigna -7 e imprime el resultado.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Hesab {\n    var balans: Int = 0\n        // escribe un setter personalizado\n}\n\nfun main() {\n    val h = Hesab()\n    h.balans = -7\n    println(h.balans)\n}"
         },
         "oop-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa private set: status debe poder leerse desde fuera pero no cambiarse. Cámbialo mediante un método e imprímelo.",
+          "ipucu": "Basta con añadir la línea private set.",
+          "starter": "class Servis {\n    var status: String = \"dayanib\"\n        // añade private set\n\n    fun basla() {\n        status = \"isleyir\"\n    }\n}\n\nfun main() {\n    val s = Servis()\n    s.basla()\n    println(s.status)\n}"
         },
         "oop-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un constructor secundario: al llamarlo sin argumentos, el nombre debe ser \"Qonaq\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    // escribe un constructor secundario\n}\n\nfun main() {\n    println(Istifadeci().ad)\n}"
         },
         "oop-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa require() en el bloque init: un nombre vacío debe lanzar una excepción; captúrala e imprime el mensaje.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    init {\n        // escribe require\n    }\n}\n\nfun main() {\n    try {\n        Istifadeci(\"\")\n    } catch (e: IllegalArgumentException) {\n        println(e.message)\n    }\n}"
         },
         "oop-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Crea una clase anidada y llámala sin un objeto exterior.",
+          "ipucu": "class Daxili { fun ad() = \"nested\" }: NO escribas inner.",
+          "starter": "class Xarici {\n    // escribe una clase anidada\n}\n\nfun main() {\n    println(Xarici.Daxili().ad())\n}"
         },
         "oop-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una clase inner: debe acceder a la propiedad de la clase exterior.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Xarici {\n    private val deyer = 10\n    // escribe una clase inner\n}\n\nfun main() {\n    println(Xarici().Daxili().al())\n}"
         },
         "oop-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa un parámetro del constructor en el inicializador de una propiedad: guarda el nombre en mayúsculas.",
+          "ipucu": "val boyukAd = ad.uppercase(): incluso sin val, el parámetro es accesible aquí.",
+          "starter": "class Profil(ad: String) {\n    // escribe la propiedad boyukAd\n}\n\nfun main() {\n    println(Profil(\"aysel\").boyukAd)\n}"
         },
         "oop-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un método que cambie el estado: medaxil() debe aumentar el saldo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Hesab(var balans: Int) {\n    // escribe el método medaxil\n}\n\nfun main() {\n    val h = Hesab(100)\n    h.medaxil(50)\n    println(h.balans)\n}"
         },
         "oop-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Sobrescribe toString(): al imprimir el objeto debe aparecer \"Istifadeci: Aysel\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci(val ad: String) {\n    // sobrescribe toString\n}\n\nfun main() {\n    println(Istifadeci(\"Aysel\"))\n}"
         },
         "oop-p-19": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Crea una propiedad private: no debe ser visible desde fuera y solo debe leerse mediante un método.",
+          "ipucu": "private val kod = 42 y fun goster() = kod",
+          "starter": "class Sirr {\n    // escribe una propiedad private y un método que la devuelva\n}\n\nfun main() {\n    println(Sirr().goster())\n}"
         },
         "oop-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra el orden de inicialización: propiedad, init, propiedad; deben imprimirse tres líneas.",
+          "ipucu": "init { println(\"ikinci\") }: los bloques se ejecutan en el orden en que están escritos.",
+          "starter": "class A {\n    val x = \"birinci\".also { println(it) }\n    // escribe un bloque init\n    val y = \"ucuncu\".also { println(it) }\n}\n\nfun main() {\n    A()\n}"
         },
         "oop-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa this@Xarici: desde la clase inner, refiérete explícitamente a la propiedad de la clase exterior.",
+          "ipucu": "println(ad) y println(this@Xarici.ad)",
+          "starter": "class Xarici {\n    val ad = \"xarici\"\n    inner class Daxili {\n        val ad = \"daxili\"\n        fun cap() {\n            // imprime ambos\n        }\n    }\n}\n\nfun main() {\n    Xarici().Daxili().cap()\n}"
         },
         "oop-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un constructor private + un método de fábrica: el objeto solo debe crearse mediante yarat().",
           "ipucu": "",
-          "starter": ""
+          "starter": "class Istifadeci private constructor(val ad: String) {\n    companion object {\n        // escribe el método de fábrica\n    }\n}\n\nfun main() {\n    println(Istifadeci.yarat(\"Aysel\").ad)\n}"
         },
         "oop-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Sobrescribe equals(): dos objetos deben considerarse iguales según su valor x.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class A(val x: Int) {\n    // sobrescribe equals y hashCode\n}\n\nfun main() {\n    println(A(1) == A(1))\n}"
         },
         "oop-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe dos bloques init y muestra que se ejecutan ambos.",
+          "ipucu": "init { println(\"bir\") } e init { println(\"iki\") }: se ejecutan en orden.",
+          "starter": "class A {\n    // escribe dos bloques init\n}\n\nfun main() {\n    A()\n}"
         },
         "oop-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que una propiedad calculada se recalcula cada vez: imprime el contador tras dos accesos.",
+          "ipucu": "get() { say++; return say }: el getter se ejecuta en cada acceso.",
+          "starter": "class A {\n    var say = 0\n    val deyer: Int\n        get() {\n            // incrementa el contador y devuélvelo\n        }\n}\n\nfun main() {\n    val a = A()\n    a.deyer\n    a.deyer\n    println(a.say)\n}"
         }
       }
     },
     "miras": {
-      "title": "",
+      "title": "Herencia e interfaces",
       "nezeri": {
         "miras-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo son por defecto las clases en Kotlin?",
+          "opts": [
+            "open: abiertas a la herencia",
+            "final: cerradas a la herencia",
+            "abstract",
+            "internal"
+          ],
+          "exp": "Todas las clases son final por defecto. Es el principio «diseña para la herencia o prohíbela» incorporado en el lenguaje."
         },
         "miras-n-02": {
-          "q": "",
+          "q": "¿Qué palabra clave escribes para permitir la herencia?",
           "opts": [],
-          "exp": ""
+          "exp": "open class Heyvan: solo entonces se puede heredar de la clase. Los métodos y las propiedades también deben declararse open por separado."
         },
         "miras-n-03": {
-          "q": "",
+          "q": "¿Cuál es la sintaxis de la herencia?",
           "opts": [],
-          "exp": ""
+          "exp": "Se usan dos puntos y se llama al constructor de la clase padre: class It(ad: String) : Heyvan(ad)."
         },
         "miras-n-04": {
-          "q": "",
+          "q": "¿Qué escribes para sobrescribir un método?",
           "opts": [],
-          "exp": ""
+          "exp": "En Kotlin, override es una palabra clave, no una anotación, y es OBLIGATORIA. Así se evita sobrescribir por accidente."
         },
         "miras-n-05": {
-          "q": "",
+          "q": "¿Qué usas para llamar al método de la clase padre?",
           "opts": [],
-          "exp": ""
+          "exp": "super.metod() llama a la implementación de la clase padre. Cuando hay varias interfaces, se usa la forma super<Interfeys>.metod()."
         },
         "miras-n-06": {
-          "q": "",
+          "q": "¿Cómo se declara una interfaz?",
           "opts": [],
-          "exp": ""
+          "exp": "Con la palabra clave interface. Una interfaz puede tener métodos abstractos, métodos con cuerpo por defecto y propiedades abstractas."
         },
         "miras-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿De cuántas interfaces puede heredar una clase?",
+          "opts": [
+            "1",
+            "2",
+            "De todas las que quieras",
+            "De ninguna"
+          ],
+          "exp": "Una clase puede heredar de UNA SOLA clase, pero de cualquier número de interfaces: class Ordek : Heyvan(), Ucan, Uzen."
         },
         "miras-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es un método abstracto?",
+          "opts": [
+            "Un método sin cuerpo: las subclases deben implementarlo",
+            "Un método private",
+            "Un método estático",
+            "Un método rápido"
+          ],
+          "exp": "abstract fun sahe(): Double: no tiene cuerpo. Una clase con miembros abstractos también debe declararse abstract."
         },
         "miras-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede crear un objeto a partir de una clase abstracta?",
+          "opts": [
+            "Sí",
+            "No: solo de sus subclases",
+            "Solo con companion",
+            "Solo en Java"
+          ],
+          "exp": "Una clase abstracta está incompleta: sus miembros abstractos no tienen implementación. Solo se puede crear un objeto a partir de una subclase que la complete."
         },
         "miras-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Puede una interfaz guardar estado?",
+          "opts": [
+            "Sí, campos normales",
+            "No: no puede tener un campo de respaldo, solo propiedades abstractas o calculadas",
+            "Solo val",
+            "Solo private"
+          ],
+          "exp": "Puedes escribir val ad: String en una interfaz, pero no darle un valor: es abstracta. Una propiedad calculada (con get()), en cambio, sí es posible."
         },
         "miras-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hay que hacer si dos interfaces tienen un método por defecto con el mismo nombre?",
+          "opts": [
+            "Nada",
+            "Sobrescribirlo en la clase y resolverlo con super<Interfeys>.metod()",
+            "Borrar una de ellas",
+            "Error de compilación, sin solución"
+          ],
+          "exp": "El compilador exige que resuelvas el conflicto. Con la forma override fun f() { super<A>.f(); super<B>.f() } eliges tú qué implementación se ejecuta."
         },
         "miras-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué necesita la clase padre para que una propiedad se pueda sobrescribir?",
+          "opts": [
+            "Nada",
+            "open val / open var",
+            "private",
+            "const"
+          ],
+          "exp": "Como los métodos, las propiedades son final por defecto. Para sobrescribir una, debe declararse open en la clase padre."
         },
         "miras-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede sobrescribir una propiedad val como var?",
+          "opts": [
+            "No",
+            "Sí: un val se puede sobrescribir como var, pero no al revés",
+            "Solo en una interfaz",
+            "Nunca"
+          ],
+          "exp": "val solo exige un getter; var da un getter y un setter, es decir, amplía el contrato. Lo contrario rompería el contrato, así que está prohibido."
         },
         "miras-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "A",
+            "B",
+            "A y luego B",
+            "B y luego A"
+          ],
+          "exp": "super.f() ejecuta primero la implementación de la clase padre (\"A\") y luego se ejecuta su propio código (\"B\")."
         },
         "miras-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué diferencia SÍ existe entre una clase abstracta y una interfaz?",
+          "opts": [
+            "Una clase abstracta tiene constructor; una interfaz, no",
+            "Ambas son iguales",
+            "Una interfaz es más rápida",
+            "Una clase abstracta no puede tener un método por defecto"
+          ],
+          "exp": "Una clase abstracta puede guardar estado y tener constructor. Una interfaz solo describe un contrato: no tiene constructor ni campo de respaldo."
         },
         "miras-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la palabra clave by a nivel de clase?",
+          "opts": [
+            "Delegación de propiedades",
+            "Delega la implementación de la interfaz en otro objeto",
+            "Convierte el tipo",
+            "Hereda"
+          ],
+          "exp": "class Loglayan(d: Cap) : Cap by d: todos los métodos de Cap se reenvían automáticamente al objeto d. Solo tienes que sobrescribir lo que necesites."
         },
         "miras-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es el polimorfismo?",
+          "opts": [
+            "Crear muchas clases",
+            "Que una variable de un tipo padre contenga un objeto de una subclase y se ejecute el método del tipo real",
+            "Cambiar el tipo",
+            "Crear una interfaz"
+          ],
+          "exp": "val h: Heyvan = It(): cuando llamas a h.sesCixar(), se ejecuta la implementación de la clase It. Es el despacho dinámico (virtual)."
         },
         "miras-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Son polimórficas las funciones de extensión?",
+          "opts": [
+            "Sí",
+            "No: se resuelven estáticamente, se eligen según el tipo declarado",
+            "Solo cuando son open",
+            "Solo en interfaces"
+          ],
+          "exp": "Las extensiones no se añaden a la clase; se convierten en funciones estáticas. Por eso la función que se ejecuta la determina el tipo DECLARADO de la variable."
         },
         "miras-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué es peligroso llamar a un método open en el constructor de la clase padre?",
+          "opts": [
+            "Se ejecuta lento",
+            "Las propiedades de la subclase aún no están inicializadas: el método sobrescrito trabaja con un objeto incompleto",
+            "Provoca un error de compilación",
+            "No es peligroso"
+          ],
+          "exp": "El constructor padre se ejecuta antes que las propiedades de la subclase. Si el método sobrescrito accede a esas propiedades, todavía serán null o 0."
         },
         "miras-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede escribir una propiedad calculada en una interfaz?",
+          "opts": [
+            "No",
+            "Sí: puedes dar un getter, pero no un campo de respaldo",
+            "Solo con var",
+            "Solo con abstract"
+          ],
+          "exp": "Un getter en una interfaz cuenta como implementación por defecto. Un campo de respaldo, en cambio, implica estado y está prohibido en una interfaz."
         },
         "miras-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede heredar de una sealed class en otro módulo?",
+          "opts": [
+            "Sí",
+            "No: las subclases deben estar en el mismo módulo",
+            "Solo con open",
+            "Solo para una interfaz"
+          ],
+          "exp": "Es precisamente esta restricción la que permite al compilador conocer todas las subclases y hace que when sea exhaustivo."
         },
         "miras-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué se considera la composición mejor que la herencia?",
+          "opts": [
+            "Es más rápida",
+            "Es más flexible: no está atada a una jerarquía de clases y el comportamiento se puede cambiar en tiempo de ejecución",
+            "Usa menos memoria",
+            "No hay diferencia"
+          ],
+          "exp": "La herencia crea un acoplamiento fuerte, y un cambio en la clase padre puede romper todas las subclases. La composición (fácil en Kotlin gracias a by) da un diseño menos acoplado y más fácil de probar."
         },
         "miras-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "Ovlad",
+            "Ana",
+            "Error de compilación",
+            "null"
+          ],
+          "exp": "Las extensiones se resuelven estáticamente. La variable está declarada con el tipo Ana, así que se elige Ana.tesvir(): el tipo real no se tiene en cuenta."
         },
         "miras-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué escribes para cerrar un miembro sobrescrito a las subclases siguientes?",
+          "opts": [
+            "final override",
+            "close override",
+            "sealed override",
+            "No es posible"
+          ],
+          "exp": "final override fun f(): después de esta clase, el método ya no se puede sobrescribir. Un miembro sobrescrito sigue siendo open por defecto."
         },
         "miras-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "En la delegación de interfaces, ¿se reenvía al delegado un método sobrescrito?",
+          "opts": [
+            "Sí, se ejecutan ambos",
+            "No: el método sobrescrito sustituye al delegado",
+            "Error de compilación",
+            "Al azar"
+          ],
+          "exp": "Si tienes tu propia implementación, tiene prioridad. El delegado solo atiende los miembros que no están sobrescritos."
         }
       },
       "praktiki": {
         "miras-p-01": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Crea una clase open y haz una clase que herede de ella. Llama al método de la subclase.",
+          "ipucu": "open class Heyvan { open fun sesCixar() = println(\"ses\") } y luego class It : Heyvan()",
+          "starter": "fun main() {\n    It().sesCixar()\n}\n\n// escribe la clase open Heyvan y la subclase It"
         },
         "miras-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Pasa un valor al constructor de la clase padre: la subclase debe pasar el nombre a la clase padre.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan(val ad: String)\n\n// escribe la subclase It\n\nfun main() {\n    println(It(\"Reks\").ad)\n}"
         },
         "miras-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa super: la subclase debe llamar al método de la clase padre y luego imprimir su propio mensaje.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class A {\n    open fun f() = println(\"A\")\n}\n\nclass B : A() {\n    // sobrescribe y llama a super\n}\n\nfun main() { B().f() }"
         },
         "miras-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una interfaz e impleméntala.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan {\n    fun uc()\n}\n\n// escribe la clase Ordek\n\nfun main() {\n    Ordek().uc()\n}"
         },
         "miras-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe un método con cuerpo por defecto en una interfaz y llámalo SIN sobrescribirlo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan {\n    // escribe un método con cuerpo por defecto\n}\n\nclass Ordek : Ucan\n\nfun main() {\n    Ordek().hereket()\n}"
         },
         "miras-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una clase abstracta: sahe() debe ser abstracto, y una subclase debe implementarlo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "abstract class Fiqur {\n    abstract fun sahe(): Int\n}\n\n// escribe la subclase Kvadrat\n\nfun main() {\n    println(Kvadrat(5).sahe())\n}"
         },
         "miras-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Implementa dos interfaces a la vez.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan { fun uc() }\ninterface Uzen { fun uz() }\n\n// escribe la clase Ordek\n\nfun main() {\n    val o = Ordek()\n    o.uc()\n    o.uz()\n}"
         },
         "miras-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Sobrescribe una propiedad: la clase padre debe tener un open val, y la subclase debe cambiarlo.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan {\n    open val ayaqSayi = 4\n}\n\n// escribe la subclase Qus (2 patas)\n\nfun main() {\n    println(Qus().ayaqSayi)\n}"
         },
         "miras-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Demuestra el polimorfismo: guarda un objeto It en una variable de tipo Heyvan y llama a su método.",
+          "ipucu": "val h: Heyvan = It(): se ejecuta el método del tipo real.",
+          "starter": "open class Heyvan {\n    open fun ses() = println(\"ses\")\n}\nclass It : Heyvan() {\n    override fun ses() = println(\"hav\")\n}\n\nfun main() {\n    // guarda un It en una variable de tipo Heyvan y llama a ses()\n}"
         },
         "miras-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Demuestra el polimorfismo con una lista: recorre distintos animales e imprime sus sonidos.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan { open fun ses() = println(\"ses\") }\nclass It : Heyvan() { override fun ses() = println(\"hav\") }\nclass Pisik : Heyvan() { override fun ses() = println(\"miyav\") }\n\nfun main() {\n    // crea una lista y recórrela\n}"
         },
         "miras-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Resuelve el conflicto entre métodos por defecto con el mismo nombre en dos interfaces.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface A { fun f() = println(\"A\") }\ninterface B { fun f() = println(\"B\") }\n\nclass C : A, B {\n    // resuelve el conflicto: llama a ambos\n}\n\nfun main() { C().f() }"
         },
         "miras-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una propiedad abstracta en una interfaz y haz que la clase que la implementa le dé un valor.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Ucan {\n    val maksHundurluk: Int\n}\n\n// escribe la clase Ordek (1000)\n\nfun main() {\n    println(Ordek().maksHundurluk)\n}"
         },
         "miras-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una propiedad calculada (getter por defecto) en una interfaz y úsala sin sobrescribirla.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface A {\n    // escribe una propiedad calculada\n}\n\nclass B : A\n\nfun main() {\n    println(B().ad)\n}"
         },
         "miras-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe en una clase abstracta un método abstracto y uno normal. En la subclase, implementa solo el abstracto.",
           "ipucu": "",
-          "starter": ""
+          "starter": "abstract class Fiqur(val ad: String) {\n    abstract fun sahe(): Int\n    fun cap() = println(\"$ad: ${sahe()}\")\n}\n\n// escribe la subclase Kvadrat\n\nfun main() {\n    Kvadrat(4).cap()\n}"
         },
         "miras-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa la delegación de interfaces (by): todos los métodos deben reenviarse al objeto interno.",
           "ipucu": "",
-          "starter": ""
+          "starter": "interface Cap { fun cap() }\nclass CapImpl : Cap {\n    override fun cap() = println(\"impl\")\n}\n\n// escribe una clase delegadora con by\n\nfun main() {\n    Delegat(CapImpl()).cap()\n}"
         },
         "miras-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Sobrescribe un método en la delegación: debe ejecutarse tu propia implementación.",
+          "ipucu": "override fun cap() = println(\"oz\"): tu propia implementación sustituye al delegado.",
+          "starter": "interface Cap { fun cap() }\nclass CapImpl : Cap { override fun cap() = println(\"impl\") }\n\nclass Delegat(c: Cap) : Cap by c {\n    // sobrescribe el método cap()\n}\n\nfun main() {\n    Delegat(CapImpl()).cap()\n}"
         },
         "miras-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Comprueba el tipo real con el operador is: cuenta solo los objetos It de la lista e imprime la cantidad.",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class Heyvan\nclass It : Heyvan()\nclass Pisik : Heyvan()\n\nfun main() {\n    val s = listOf(It(), Pisik(), It())\n    // cuenta los objetos It\n}"
         },
         "miras-p-18": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Sobrescribe una propiedad val como var.",
+          "ipucu": "override var deyer: Int = 1: un val se puede sobrescribir como var.",
+          "starter": "open class A {\n    open val deyer: Int = 1\n}\n\nclass B : A() {\n    // sobrescríbela como var\n}\n\nfun main() {\n    val b = B()\n    b.deyer = 9\n    println(b.deyer)\n}"
         },
         "miras-p-19": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Construye una cadena de herencia de tres niveles: A → B → C, cada una añadiendo su propio mensaje.",
+          "ipucu": "En cada nivel, llama a super.f() y luego imprime tu propio mensaje.",
+          "starter": "// escribe las clases A, B, C\n\nfun main() { C().f() }"
         },
         "miras-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa final override: cierra el método en B para que C no pueda sobrescribirlo (el código debe compilar).",
           "ipucu": "",
-          "starter": ""
+          "starter": "open class A { open fun f() = println(\"A\") }\n\nopen class B : A() {\n    // escribe final override\n}\n\nclass C : B()\n\nfun main() { C().f() }"
         },
         "miras-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que las extensiones se resuelven estáticamente: guarda un Ovlad en una variable de tipo Ana.",
+          "ipucu": "La extensión se elige según el tipo declarado: el tipo real no se tiene en cuenta.",
+          "starter": "open class Ana\nclass Ovlad : Ana()\n\nfun Ana.tesvir() = \"Ana\"\nfun Ovlad.tesvir() = \"Ovlad\"\n\nfun main() {\n    // guarda un Ovlad en una variable de tipo Ana e imprime el resultado de tesvir()\n}"
         },
         "miras-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que un método miembro es polimórfico: repite el mismo escenario con un método miembro.",
+          "ipucu": "Los métodos miembro se resuelven virtualmente: se ejecuta la implementación del tipo real.",
+          "starter": "open class Ana {\n    // un método open tesvir() debe devolver \"Ana\"\n}\nclass Ovlad : Ana() {\n    // sobrescríbelo y devuelve \"Ovlad\"\n}\n\nfun main() {\n    val o: Ana = Ovlad()\n    println(o.tesvir())\n}"
         },
         "miras-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Delega en MutableList: escribe una lista que registre las adiciones.",
           "ipucu": "",
-          "starter": ""
+          "starter": "class LoglayanSiyahi<T>(\n    private val daxili: MutableList<T> = mutableListOf()\n) : MutableList<T> by daxili {\n    // sobrescribe el método add: debe imprimir \"elave: X\"\n}\n\nfun main() {\n    val s = LoglayanSiyahi<String>()\n    s.add(\"Kotlin\")\n    println(s.size)\n}"
         },
         "miras-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Construye un patrón template method en una clase abstracta: la secuencia de pasos vive en la clase padre, y los detalles, en la subclase.",
           "ipucu": "",
-          "starter": ""
+          "starter": "abstract class Emal {\n    fun isle() {\n        println(\"basladi\")\n        addim()\n        println(\"bitdi\")\n    }\n    protected abstract fun addim()\n}\n\n// escribe la subclase\n\nfun main() { MenimEmal().isle() }"
         },
         "miras-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Sobrescribe el toString heredado de Any y muestra que funciona en una llamada polimórfica.",
+          "ipucu": "override fun toString() = \"It\": toString es un método virtual.",
+          "starter": "open class Heyvan {\n    override fun toString() = \"Heyvan\"\n}\nclass It : Heyvan() {\n    // sobrescribe toString\n}\n\nfun main() {\n    val h: Heyvan = It()\n    println(h)\n}"
         }
       }
     },
