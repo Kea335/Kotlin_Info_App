@@ -2008,762 +2008,1067 @@
       }
     },
     "funksiyalar": {
-      "title": "",
+      "title": "Funciones",
       "nezeri": {
         "funksiyalar-n-01": {
-          "q": "",
+          "q": "¿Qué palabra clave se usa para declarar una función?",
           "opts": [],
-          "exp": ""
+          "exp": "En Kotlin, una función se declara con la palabra clave fun: fun ad(parametrler): QaytarmaTipi { }"
         },
         "funksiyalar-n-02": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Dónde se escribe el tipo de retorno?",
+          "opts": [
+            "Antes del nombre de la función",
+            "Después de los parámetros, tras dos puntos",
+            "Dentro del cuerpo",
+            "No se escribe"
+          ],
+          "exp": "fun topla(a: Int, b: Int): Int { }: el tipo va después de la lista de parámetros. Esto difiere de Java, donde el tipo se escribe antes del nombre."
         },
         "funksiyalar-n-03": {
-          "q": "",
+          "q": "¿Cuál es el tipo de una función que no devuelve nada?",
           "opts": [],
-          "exp": ""
+          "exp": "Unit es el equivalente del void de Java. Escribirlo es opcional: el compilador lo añade por sí solo."
         },
         "funksiyalar-n-04": {
-          "q": "",
+          "q": "¿Cómo se escribe una función de una sola expresión?",
           "opts": [],
-          "exp": ""
+          "exp": "Con un signo igual: fun kvadrat(x: Int) = x * x. No hacen falta llaves ni return, y el tipo de retorno también se infiere."
         },
         "funksiyalar-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué sirve un valor por defecto de un parámetro?",
+          "opts": [
+            "Para el rendimiento",
+            "Un valor que se usa cuando no se pasa argumento: no hace falta escribir sobrecargas",
+            "Para manejar errores",
+            "Para definir el tipo"
+          ],
+          "exp": "fun salamla(ad: String = \"Dunya\"): en una llamada sin argumentos se usa el valor por defecto. Esto sustituye a docenas de variantes sobrecargadas en Java."
         },
         "funksiyalar-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es un argumento con nombre?",
+          "opts": [
+            "El nombre de la función",
+            "Escribir explícitamente el nombre del parámetro en la llamada: salamla(ad = \"Aysel\")",
+            "Un tipo especial",
+            "Un valor constante"
+          ],
+          "exp": "Los argumentos con nombre hacen legible una llamada y permiten saltarse parámetros del medio. Son especialmente importantes para los parámetros Boolean."
         },
         "funksiyalar-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace vararg?",
+          "opts": [
+            "Crea una variable",
+            "Permite pasar cualquier cantidad de argumentos a una función",
+            "Cambia el tipo",
+            "Repite la función"
+          ],
+          "exp": "fun cemle(vararg r: Int): funcionan tanto cemle(1, 2, 3) como cemle(1). Dentro, el parámetro se ve como un array."
         },
         "funksiyalar-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve esta función?",
+          "opts": [
+            "Unit",
+            "String",
+            "Boolean",
+            "Nada en absoluto"
+          ],
+          "exp": "En una función de una sola expresión, el tipo de retorno se infiere de la expresión. Como una plantilla de cadena da un String, el tipo de la función es String."
         },
         "funksiyalar-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Una función tiene que estar dentro de una clase?",
+          "opts": [
+            "Sí",
+            "No: se puede declarar directamente en un archivo (nivel superior)",
+            "Solo para main()",
+            "Solo cuando es private"
+          ],
+          "exp": "Es una diferencia importante entre Kotlin y Java. No hace falta envolver las funciones auxiliares en una clase: en la JVM se convierten en métodos estáticos de una clase FaylAdiKt."
         },
         "funksiyalar-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se pasa un array existente a un parámetro vararg?",
+          "opts": [
+            "Directamente",
+            "Con el operador de propagación: cemle(*massiv)",
+            "Con toList()",
+            "No es posible"
+          ],
+          "exp": "El asterisco (*) es el operador de propagación (spread): desempaqueta el array en argumentos separados. Sin él, el array se pasa como un solo argumento y obtienes un error de tipos."
         },
         "funksiyalar-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es una función local?",
+          "opts": [
+            "Una función private",
+            "Una función declarada dentro de otra función",
+            "Una función de nivel de archivo",
+            "Una función de extensión"
+          ],
+          "exp": "Una función local solo es visible dentro de la función que la contiene y tiene acceso a las variables exteriores. Es práctica para extraer lógica auxiliar repetida."
         },
         "funksiyalar-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál NO es un requisito de una función infix?",
+          "opts": [
+            "Debe ser una función miembro o de extensión",
+            "Debe recibir un solo parámetro",
+            "El parámetro no debe tener valor por defecto",
+            "Debe devolver Int"
+          ],
+          "exp": "No hay ninguna restricción sobre el tipo de retorno. Los otros tres requisitos, en cambio, son obligatorios. Ejemplo: 1 to \"bir\": to es una función infix de la biblioteca estándar."
         },
         "funksiyalar-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace tailrec?",
+          "opts": [
+            "Hace la función más rápida",
+            "Convierte la recursión de cola en un bucle: evita el StackOverflow",
+            "Prohíbe la recursión",
+            "Libera memoria"
+          ],
+          "exp": "Cuando la llamada recursiva es la ÚLTIMA operación de la función, el compilador la convierte en un bucle normal. Así la pila no se desborda ni con un millón de niveles."
         },
         "funksiyalar-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Puede esta función ser tailrec?",
+          "opts": [
+            "Sí",
+            "No: hay una multiplicación después de la llamada recursiva",
+            "Solo con Long",
+            "Solo cuando n < 10"
+          ],
+          "exp": "Para la recursión de cola, la llamada recursiva debe ser la última operación. Aquí el resultado se multiplica por n después de volver, así que tailrec no funciona: hay que añadir un parámetro acumulador."
         },
         "funksiyalar-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se pueden sobrecargar funciones en Kotlin?",
+          "opts": [
+            "No",
+            "Sí: funciones con el mismo nombre y distinta firma de parámetros",
+            "Solo en las clases",
+            "Solo con parámetros por defecto"
+          ],
+          "exp": "La sobrecarga es posible, pero los parámetros por defecto suelen ser mejor solución: dan menos código y una API más clara."
         },
         "funksiyalar-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "Salam, Dunya!",
+            "Salam, Dunya?",
+            "Salam, ?",
+            "Error de compilación"
+          ],
+          "exp": "Gracias al argumento con nombre, puedes saltarte el parámetro del medio y cambiar solo sonluq. ad conserva su valor por defecto."
         },
         "funksiyalar-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Los parámetros de una función son val o var?",
+          "opts": [
+            "var: se pueden cambiar",
+            "val: no se pueden cambiar dentro de la función",
+            "Depende",
+            "Ninguno de los dos"
+          ],
+          "exp": "En Kotlin, los parámetros son siempre de solo lectura. Si necesitas cambiar el valor, tienes que crear una variable local."
         },
         "funksiyalar-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué significa que una función devuelva Nothing?",
+          "opts": [
+            "No devuelve nada (como Unit)",
+            "Nunca retorna con normalidad: lanza una excepción o se ejecuta para siempre",
+            "Devuelve null",
+            "Devuelve una lista vacía"
+          ],
+          "exp": "Unit retorna, pero sin un valor con significado; Nothing no retorna nunca. Las funciones TODO() y error() devuelven Nothing; por eso se pueden usar en el lado derecho de Elvis."
         },
         "funksiyalar-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué necesitas para llamar desde Java a una función Kotlin con parámetros por defecto?",
+          "opts": [
+            "Nada",
+            "La anotación @JvmOverloads",
+            "@JvmStatic",
+            "Hacer la función public"
+          ],
+          "exp": "Java no conoce los parámetros por defecto. @JvmOverloads le dice al compilador que genere una sobrecarga aparte para cada combinación de parámetros."
         },
         "funksiyalar-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué número imprime este código?",
+          "opts": [
+            "0",
+            "1",
+            "2",
+            "Error de compilación"
+          ],
+          "exp": "Una función local tiene acceso a las variables de la función que la contiene y puede modificarlas (closure). Dos llamadas llevan el contador a 2."
         },
         "funksiyalar-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Si una función de extensión y un método miembro tienen la misma firma, ¿cuál se ejecuta?",
+          "opts": [
+            "La extensión",
+            "El método miembro siempre tiene prioridad",
+            "Error de compilación",
+            "Al azar"
+          ],
+          "exp": "El método miembro siempre gana. Así que si escribes una extensión con el mismo nombre para una clase existente, nunca se llamará: una fuente de errores silenciosos."
         },
         "funksiyalar-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Es esta función un tailrec correcto?",
+          "opts": [
+            "No",
+            "Sí: la llamada recursiva es la última operación",
+            "Solo si se pasa akk",
+            "Error de compilación"
+          ],
+          "exp": "Gracias al acumulador, el resultado no se modifica después de la llamada: la llamada recursiva es de verdad la última operación. El compilador la convierte en un bucle."
         },
         "funksiyalar-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se ven en Java las funciones de nivel superior?",
+          "opts": [
+            "No son visibles",
+            "Como métodos estáticos de una clase FaylAdiKt",
+            "Como métodos de interfaz",
+            "Como constructores"
+          ],
+          "exp": "Las funciones del archivo Komekciler.kt se convierten en métodos estáticos de la clase KomekcilerKt en Java. Para cambiar el nombre, usa @file:JvmName."
         },
         "funksiyalar-n-24": {
-          "q": "",
+          "q": "¿Cómo se escribe el tipo para pasar una función como parámetro de función?",
           "opts": [],
-          "exp": ""
+          "exp": "Un tipo de función tiene la forma (parámetros) -> retorno. Para una función sin parámetros ni resultado, se escribe () -> Unit."
         },
         "funksiyalar-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué es útil un parámetro por defecto en una función recursiva?",
+          "opts": [
+            "Aumenta la velocidad",
+            "Oculta el acumulador: quien llama no necesita saber de él",
+            "Ahorra memoria",
+            "No tiene ninguna ventaja"
+          ],
+          "exp": "Basta con escribir cemle(100); el valor inicial del acumulador (0) se fija por defecto. Así se oculta un detalle interno de la API."
         }
       },
       "praktiki": {
         "funksiyalar-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función topla que sume dos números e imprime la suma de 15 y 27.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(topla(15, 27))\n}\n\n// escribe la función"
         },
         "funksiyalar-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función de una sola expresión: kub(x) debe devolver el cubo de un número. Llámala con 3.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(kub(3))\n}\n\n// escribe una función de una sola expresión"
         },
         "funksiyalar-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que no devuelva nada: cap(metn) debe imprimir el texto dado.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    cap(\"Kotlin\")\n}\n\n// escribe la función"
         },
         "funksiyalar-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función con un parámetro por defecto: salamla() sin argumentos debe dar \"Salam, Dunya!\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(salamla())\n}\n\n// escribe la función"
         },
         "funksiyalar-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que devuelva un Boolean: ciftdir(x) debe comprobar si el número es par. Llámala con 8.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(ciftdir(8))\n}\n\n// escribe la función"
         },
         "funksiyalar-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que devuelva el mayor de dos números. Llámala con 19 y 7.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(boyuk(19, 7))\n}\n\n// escribe la función"
         },
         "funksiyalar-p-07": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que devuelva la longitud de una cadena y llámala con \"Proqramlasdirma\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(uzunluq(\"Proqramlasdirma\"))\n}\n\n// escribe la función"
         },
         "funksiyalar-p-08": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Llama a una función de dos parámetros con argumentos con nombre: melumat(yas = 24, ad = \"Aysel\").",
+          "ipucu": "Con argumentos con nombre, el orden no importa.",
+          "starter": "fun melumat(ad: String, yas: Int) {\n    println(\"$ad, $yas\")\n}\n\nfun main() {\n    // cambia el orden y llámala con argumentos con nombre\n}"
         },
         "funksiyalar-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función con un parámetro vararg: cemle() debe sumar cualquier cantidad de números. Llámala con 5, 10, 15.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cemle(5, 10, 15))\n}\n\n// escribe la función vararg"
         },
         "funksiyalar-p-10": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa el operador de propagación: pasa un array existente a una función vararg.",
+          "ipucu": "println(cemle(*m)): el asterisco desempaqueta el array en argumentos.",
+          "starter": "fun cemle(vararg r: Int) = r.sum()\n\nfun main() {\n    val m = intArrayOf(2, 4, 6)\n    // pasa el array\n}"
         },
         "funksiyalar-p-11": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe una función con tres parámetros por defecto y cambia solo el parámetro del MEDIO.",
+          "ipucu": "qur(boy = 9): gracias al argumento con nombre, el resto conserva sus valores por defecto.",
+          "starter": "fun qur(en: Int = 1, boy: Int = 2, hund: Int = 3) = \"$en-$boy-$hund\"\n\nfun main() {\n    // fija solo el parámetro boy en 9\n}"
         },
         "funksiyalar-p-12": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe una función local: declara una función yoxla() dentro de main() y llámala con \"Kotlin\".",
+          "ipucu": "fun yoxla(s: String) = s.isNotEmpty(): escríbela dentro de main().",
+          "starter": "fun main() {\n    // declara una función local\n    println(yoxla(\"Kotlin\"))\n}"
         },
         "funksiyalar-p-13": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra una closure con una función local: incrementa el contador dos veces e imprímelo.",
+          "ipucu": "fun artir() { sayqac++ }: una función local puede modificar una variable exterior.",
+          "starter": "fun main() {\n    var sayqac = 0\n    // escribe una función local artir()\n    artir()\n    artir()\n    println(sayqac)\n}"
         },
         "funksiyalar-p-14": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función infix: debe llamarse en la forma 3 vur 7.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(3 vur 7)\n}\n\n// escribe la función infix"
         },
         "funksiyalar-p-15": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa una función infix estándar: crea un par con to e imprímelo.",
+          "ipucu": "val cut = \"ad\" to \"Aysel\": crea un Pair.",
+          "starter": "fun main() {\n    val cut = // crea un par con to\n    println(cut)\n}"
         },
         "funksiyalar-p-16": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función recursiva: faktorial(5) debe calcular el factorial.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(faktorial(5))\n}\n\n// escribe la función recursiva"
         },
         "funksiyalar-p-17": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Sobrecarga una función: cap() debe aceptar tanto un Int como un String. Llama a ambas.",
+          "ipucu": "fun cap(x: Int) { println(\"Reqem: $x\") } y fun cap(s: String) { println(\"Metn: $s\") }",
+          "starter": "fun main() {\n    cap(42)\n    cap(\"Kotlin\")\n}\n\n// escribe dos sobrecargas"
         },
         "funksiyalar-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que devuelva un valor anulable: tap(id) debe devolver un nombre solo para id == 1, y null para el resto. Llámala con 2.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(tap(2))\n}\n\n// escribe la función"
         },
         "funksiyalar-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Devuelve un Pair desde una función: minMaks() debe dar el elemento menor y el mayor de la lista.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(minMaks(listOf(3, 9, 1)))\n}\n\n// escribe la función"
         },
         "funksiyalar-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función tailrec: debe calcular la suma del 1 al 100 usando recursión.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(cemle(100))\n}\n\n// escribe la función tailrec con un acumulador"
         },
         "funksiyalar-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Recursión profunda con tailrec: calcula la suma hasta 100000 (no debe haber StackOverflow).",
+          "ipucu": "Haz que el acumulador sea Long para que el resultado no supere el rango de Int.",
+          "starter": "fun main() {\n    println(cemle(100000))\n}\n\n// escribe la función tailrec con Long"
         },
         "funksiyalar-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa la desestructuración para separar el resultado de la función en dos variables e imprímelo en la forma \"min=1 maks=9\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun minMaks(s: List<Int>) = s.min() to s.max()\n\nfun main() {\n    // escribe la desestructuración\n}"
         },
         "funksiyalar-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que devuelva Nothing: xetaAt() debe lanzar una excepción. Captúrala e imprime el mensaje.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    try {\n        xetaAt()\n    } catch (e: IllegalStateException) {\n        println(e.message)\n    }\n}\n\n// escribe una función que devuelva Nothing"
         },
         "funksiyalar-p-24": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función de extensión: añade ikiqat() a Int y llámala con 21.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(21.ikiqat())\n}\n\n// escribe la función de extensión"
         },
         "funksiyalar-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que un método miembro tiene prioridad sobre una extensión: la clase tiene un método cap(); escribe también una extensión con el mismo nombre. ¿Cuál se ejecutará?",
+          "ipucu": "El método miembro siempre gana: la extensión nunca se llama.",
+          "starter": "class A {\n    fun cap() = println(\"uzv metod\")\n}\n\n// Escribe una extensión con el mismo nombre y llama a A().cap() en main: ¿cuál se ejecutará?"
         }
       }
     },
     "lambda": {
-      "title": "",
+      "title": "Lambdas y HOF",
       "nezeri": {
         "lambda-n-01": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es una lambda?",
+          "opts": [
+            "Una clase especial",
+            "Una función sin nombre",
+            "Un tipo de variable",
+            "Una biblioteca"
+          ],
+          "exp": "Una lambda es una función anónima: { a, b -> a + b }. Se puede guardar en una variable, pasar como parámetro y devolver."
         },
         "lambda-n-02": {
-          "q": "",
+          "q": "¿Entre qué signos se escribe una lambda?",
           "opts": [],
-          "exp": ""
+          "exp": "Una lambda se escribe entre llaves. Los parámetros van antes de la flecha (->): { x -> x * 2 }."
         },
         "lambda-n-03": {
-          "q": "",
+          "q": "¿Cuál es el nombre por defecto del parámetro en una lambda de un solo parámetro?",
           "opts": [],
-          "exp": ""
+          "exp": "Si no escribes un nombre de parámetro, Kotlin lo llama automáticamente it: list.map { it * 2 }. Es la forma más usada."
         },
         "lambda-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es una función de orden superior (HOF)?",
+          "opts": [
+            "Una función de varias líneas",
+            "Una función que recibe una función o devuelve una función",
+            "Una función rápida",
+            "Una función estática"
+          ],
+          "exp": "map, filter, forEach: todas son HOF, porque reciben una función como parámetro. Las funciones que devuelven funciones también cuentan como HOF."
         },
         "lambda-n-05": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se devuelve el resultado de una lambda?",
+          "opts": [
+            "Con return",
+            "La última línea se convierte automáticamente en el resultado",
+            "Con yield",
+            "No devuelve nada"
+          ],
+          "exp": "Dentro de una lambda no se escribe return: la última expresión es el resultado. Un return explícito solo es posible con una etiqueta: return@map."
         },
         "lambda-n-06": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué significa el tipo (Int) -> String?",
+          "opts": [
+            "Una función que devuelve Int",
+            "Una función que recibe un Int y devuelve un String",
+            "Una función con dos parámetros",
+            "Una clase"
+          ],
+          "exp": "Los tipos de los parámetros se escriben antes de la flecha, y el tipo de retorno después. Una función sin parámetros ni resultado: () -> Unit."
         },
         "lambda-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué imprime este código?",
+          "opts": [
+            "21",
+            "42",
+            "2",
+            "Error de compilación"
+          ],
+          "exp": "La lambda se guarda en una variable y se llama como una función normal: 21 * 2 = 42."
         },
         "lambda-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es una lambda final (trailing lambda)?",
+          "opts": [
+            "Sacar la última lambda fuera de los paréntesis",
+            "Borrar la lambda",
+            "Retrasar la lambda",
+            "Escribir dos lambdas"
+          ],
+          "exp": "Si una lambda es el último parámetro, se puede sacar fuera de los paréntesis: list.filter { it > 1 }. Esta es la base de los DSL de Kotlin."
         },
         "lambda-n-09": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace forEach?",
+          "opts": [
+            "Devuelve una lista nueva",
+            "Realiza una operación sobre cada elemento y no devuelve ningún resultado",
+            "Filtra los elementos",
+            "Ordena la lista"
+          ],
+          "exp": "forEach devuelve Unit: solo sirve para efectos secundarios (imprimir, registrar). Si necesitas una transformación, usa map."
         },
         "lambda-n-10": {
-          "q": "",
+          "q": "¿Cómo se escribe una referencia a función?",
           "opts": [],
-          "exp": ""
+          "exp": "Con dos puntos dobles: list.filter(::ciftdir). Es una abreviatura de { ciftdir(it) }. Una referencia a método: String::uppercase."
         },
         "lambda-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace la palabra clave inline?",
+          "opts": [
+            "Marca la función como más rápida",
+            "Copia el cuerpo de la función en el lugar de la llamada: no se crea ningún objeto lambda",
+            "Oculta la función",
+            "Optimiza la recursión"
+          ],
+          "exp": "Cada lambda es en realidad un objeto. inline le dice al compilador que expanda el cuerpo directamente en el lugar de la llamada, lo que elimina el coste de crear un objeto."
         },
         "lambda-n-12": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "filter elige los mayores que 2 → [3, 4], y después map multiplica cada uno por 10 → [30, 40]."
         },
         "lambda-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es una closure?",
+          "opts": [
+            "Una función cerrada",
+            "La capacidad de una lambda de capturar y usar variables del ámbito exterior",
+            "Un tipo de error",
+            "Un tipo de clase"
+          ],
+          "exp": "A diferencia de Java, las lambdas de Kotlin pueden tanto leer como MODIFICAR una variable capturada: no se exige que sea final."
         },
         "lambda-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿En qué se diferencia una función anónima de una lambda?",
+          "opts": [
+            "No hay diferencia",
+            "En una función anónima se puede escribir explícitamente el tipo de retorno, y return sale de la propia función",
+            "Una función anónima es más rápida",
+            "Una lambda no recibe parámetros"
+          ],
+          "exp": "val bol = fun(a: Int, b: Int): Int { if (b == 0) return 0; return a / b }: aquí return sale solo de la función anónima. Eso no es posible en una lambda."
         },
         "lambda-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué sirve noinline?",
+          "opts": [
+            "Para ralentizar la función",
+            "Para permitir que una lambda concreta de una función inline se conserve como objeto",
+            "Para prohibir la recursión",
+            "Para ocultar un error"
+          ],
+          "exp": "Una lambda insertada en línea no se puede guardar en una variable. Si necesitas pasarla a otro sitio o guardarla, márcala con noinline."
         },
         "lambda-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace crossinline?",
+          "opts": [
+            "Prohíbe retornar de la función exterior dentro de la lambda",
+            "Combina dos funciones",
+            "Convierte el tipo",
+            "Copia la lambda"
+          ],
+          "exp": "Si la lambda se va a llamar en otro contexto (por ejemplo, dentro de un Thread), un retorno no local se vuelve peligroso. crossinline lo prohíbe."
         },
         "lambda-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cómo se escribe una función que devuelve una función?",
+          "opts": [
+            "No es posible",
+            "El tipo de retorno es un tipo de función y se devuelve una lambda",
+            "Solo con inline",
+            "Solo con una interfaz"
+          ],
+          "exp": "Los tipos de función se pueden usar igual que los tipos normales. La llamada vurucu(3) devuelve un (Int) -> Int, al que luego puedes llamar: vurucu(3)(7) → 21."
         },
         "lambda-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "De varios parámetros, ¿qué lambda se puede sacar fuera de los paréntesis?",
+          "opts": [
+            "La primera",
+            "La última",
+            "Cualquiera",
+            "Ninguna"
+          ],
+          "exp": "Solo el ÚLTIMO parámetro puede ser una lambda final. fold(0) { akk, x -> akk + x }: el valor inicial va entre paréntesis y la lambda, fuera."
         },
         "lambda-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué hace falta reified?",
+          "opts": [
+            "Para la velocidad",
+            "Para ver un tipo genérico en tiempo de ejecución en una función inline",
+            "Para la memoria",
+            "Para la recursión"
+          ],
+          "exp": "En la JVM, los tipos genéricos se borran (type erasure). inline + reified permite al compilador escribir el tipo en el lugar de la llamada, lo que hace posible una comprobación x is T."
         },
         "lambda-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "0",
+            "1",
+            "2",
+            "Error de compilación"
+          ],
+          "exp": "La lambda captura la variable say (closure) y puede modificarla. Tras dos llamadas, el valor pasa a ser 2."
         },
         "lambda-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace un return simple dentro de forEach?",
+          "opts": [
+            "Salta el paso actual",
+            "Sale de la función exterior (retorno no local)",
+            "Detiene el bucle",
+            "Lanza un error"
+          ],
+          "exp": "Como forEach es inline, return sale de la función exterior. Para saltar solo un paso, tienes que escribir return@forEach."
         },
         "lambda-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Son inline las funciones map, filter y let de la biblioteca estándar?",
+          "opts": [
+            "No",
+            "Sí: no se crea ningún objeto lambda",
+            "Solo map",
+            "Solo para colecciones grandes"
+          ],
+          "exp": "Todas estas HOF pequeñas están declaradas como inline. Por eso las operaciones encadenadas se ejecutan sin el coste extra de crear objetos."
         },
         "lambda-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuándo NO CONVIENE usar inline?",
+          "opts": [
+            "En funciones pequeñas que reciben una lambda",
+            "En funciones con un cuerpo grande: el bytecode se infla",
+            "En funciones de extensión",
+            "Nunca"
+          ],
+          "exp": "inline copia el cuerpo en cada lugar de llamada. En una función grande, esto infla el bytecode y hace más mal que bien. En una función que no recibe una lambda, directamente no tiene sentido."
         },
         "lambda-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué es la expresión String::uppercase?",
+          "opts": [
+            "Un nombre de clase",
+            "Una referencia a método: lo mismo que { it.uppercase() }",
+            "Una nueva declaración de función",
+            "Un error"
+          ],
+          "exp": "Es una referencia a método no vinculada: el receptor se pasa como parámetro. Se usa en la forma list.map(String::uppercase)."
         },
         "lambda-n-25": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Si la última expresión de una lambda es Unit, ¿cuál es el resultado?",
+          "opts": [
+            "Int",
+            "Unit",
+            "null",
+            "Error de compilación"
+          ],
+          "exp": "Si el tipo de función exige Unit, el valor de la última expresión se descarta y se devuelve Unit. Es normal en funciones como forEach."
         }
       },
       "praktiki": {
         "lambda-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una lambda y guárdala en una variable: imprime el resultado de ikiqat(21).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ikiqat = // escribe una lambda\n    println(ikiqat(21))\n}"
         },
         "lambda-p-02": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa it: calcula el cuadrado de cada elemento con map e imprime el resultado.",
           "ipucu": ""
         },
         "lambda-p-03": {
-          "tapsiriq": "",
+          "tapsiriq": "Imprime cada elemento en una línea aparte con forEach.",
           "ipucu": ""
         },
         "lambda-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una lambda de dos parámetros: imprime el resultado de topla(5, 7).",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val topla = // escribe una lambda\n    println(topla(5, 7))\n}"
         },
         "lambda-p-05": {
-          "tapsiriq": "",
+          "tapsiriq": "Selecciona los elementos mayores que 3 con filter e imprímelos.",
           "ipucu": ""
         },
         "lambda-p-06": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Escribe explícitamente el tipo de función: crea una variable de tipo (Int) -> Int y llámala con 10.",
+          "ipucu": "Si el tipo se escribe explícitamente, la lambda no necesita tipo de parámetro: { it + 1 }",
+          "starter": "fun main() {\n    val artir: (Int) -> Int = // escribe una lambda\n    println(artir(10))\n}"
         },
         "lambda-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa la forma de lambda final: escribe filter sin paréntesis.",
+          "ipucu": "s.filter { it % 2 == 0 }: se quitan los paréntesis vacíos.",
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3, 4)\n    // usa la forma sin paréntesis\n}"
         },
         "lambda-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Crea una lambda sin parámetros y llámala: debe imprimir \"Salam\".",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val salam = // escribe una lambda\n    salam()\n}"
         },
         "lambda-p-09": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que la última línea de una lambda es su resultado: escribe una lambda de dos líneas.",
+          "ipucu": "La última expresión (ikiqat + 1) se devuelve automáticamente: no se escribe return.",
+          "starter": "fun main() {\n    // Lambda de dos líneas: primero calcula x * 2 y luego súmale 1\n    val emal = { x: Int ->\n        \n    }\n    println(emal(5))\n}"
         },
         "lambda-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una referencia a función: filtra con ::ciftdir.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun ciftdir(x: Int) = x % 2 == 0\n\nfun main() {\n    val s = listOf(1, 2, 3, 4)\n    // filtra con una referencia a función\n}"
         },
         "lambda-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una referencia a método: pasa las cadenas a mayúsculas con String::uppercase.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(\"a\", \"b\")\n    // usa una referencia a método\n}"
         },
         "lambda-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función de orden superior: emal(x, funksiya) debe aplicar la función dada a x.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(emal(5) { it * 3 })\n}\n\n// escribe la HOF"
         },
         "lambda-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que DEVUELVA una función: luego vurucu(3) debe llamarse con 7.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(vurucu(3)(7))\n}\n\n// escribe una función que devuelva una función"
         },
         "lambda-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra una closure: la lambda debe incrementar una variable exterior; imprime el valor tras tres llamadas.",
+          "ipucu": "val artir = { say++ }: las lambdas de Kotlin pueden modificar una variable capturada.",
+          "starter": "fun main() {\n    var say = 0\n    val artir = // escribe una lambda\n    artir()\n    artir()\n    artir()\n    println(say)\n}"
         },
         "lambda-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función anónima: bol(10, 0) debe devolver 0 al dividir entre cero.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val bol = // escribe una función anónima\n    println(bol(10, 0))\n}"
         },
         "lambda-p-16": {
-          "tapsiriq": "",
-          "ipucu": ""
+          "tapsiriq": "Usa una lambda final con fold: suma los elementos empezando en 10.",
+          "ipucu": "s.fold(10) { akk, x -> akk + x }: el valor inicial va entre paréntesis y la lambda, fuera."
         },
         "lambda-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una lambda con sortedBy: ordena las cadenas por longitud.",
           "ipucu": ""
         },
         "lambda-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función que reciba un predicado: say(siyahi, predikat) debe dar el número de elementos que cumplen.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(say(listOf(1, 2, 3, 4)) { it > 2 })\n}\n\n// escribe la función"
         },
         "lambda-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa un tipo de función anulable: cuando f es null, debe imprimirse 0.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val f: ((Int) -> Int)? = null\n    // llámala con una llamada segura; si es null, imprime 0\n}"
         },
         "lambda-p-20": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe una función inline: olcuVaxt debe ejecutar el bloque y devolver su resultado.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    println(olcuVaxt { 6 * 7 })\n}\n\n// escribe una HOF inline"
         },
         "lambda-p-21": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa reified: selecciona solo los String de una lista mixta e imprímelos.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val q = listOf(1, \"a\", 2, \"b\")\n    println(q.yalniz<String>())\n}\n\n// escribe una extensión inline + reified"
         },
         "lambda-p-22": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa return@forEach: sáltate el 3 e imprime el resto en una línea.",
+          "ipucu": "if (it == 3) return@forEach: un return simple saldría de toda la función.",
+          "starter": "fun main() {\n    listOf(1, 2, 3, 4).forEach {\n        // sáltate el 3\n    }\n    println()\n}"
         },
         "lambda-p-23": {
-          "tapsiriq": "",
+          "tapsiriq": "Encadena lambdas: escribe birlesdir(), que combina dos funciones.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val artirVeVur = birlesdir({ x: Int -> x + 1 }, { x: Int -> x * 10 })\n    println(artirVeVur(4))\n}\n\n// escribe la función birlesdir"
         },
         "lambda-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa una lambda con receptor: escribe una función de tipo String.() -> Int y llámala con \"Kotlin\".",
+          "ipucu": "Dentro de una lambda con receptor, this es el receptor: { length }",
+          "starter": "fun main() {\n    val uzunluq: String.() -> Int = // escribe una lambda\n    println(\"Kotlin\".uzunluq())\n}"
         },
         "lambda-p-25": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa una lambda con groupBy: divide los números en grupos de pares/impares e imprímelos.",
           "ipucu": ""
         }
       }
     },
     "scope-funksiyalari": {
-      "title": "",
+      "title": "Funciones de alcance",
       "nezeri": {
         "scope-funksiyalari-n-01": {
-          "q": "",
+          "q": "¿Cuántas funciones de alcance principales hay en Kotlin?",
           "opts": [],
-          "exp": ""
+          "exp": "Cinco: let, run, with, apply, also. Se diferencian solo en dos cosas: cómo te refieres al objeto (it/this) y qué se devuelve."
         },
         "scope-funksiyalari-n-02": {
-          "q": "",
+          "q": "¿Cómo te refieres al objeto de contexto dentro de let?",
           "opts": [],
-          "exp": ""
+          "exp": "let y also usan it; run, with y apply usan this. Puedes sustituir it por tu propio nombre: let { istifadeci -> ... }"
         },
         "scope-funksiyalari-n-03": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve apply?",
+          "opts": [
+            "El resultado de la lambda",
+            "El propio objeto",
+            "Unit",
+            "null"
+          ],
+          "exp": "apply y also devuelven el propio objeto receptor. Por eso no rompen la cadena y son ideales para construir objetos."
         },
         "scope-funksiyalari-n-04": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve let?",
+          "opts": [
+            "El propio objeto",
+            "La última expresión de la lambda",
+            "Unit",
+            "Boolean"
+          ],
+          "exp": "let, run y with devuelven el resultado de la lambda. Por eso se usan para transformaciones."
         },
         "scope-funksiyalari-n-05": {
-          "q": "",
+          "q": "¿Qué función de alcance es la mejor para una comprobación de null?",
           "opts": [],
-          "exp": ""
+          "exp": "El bloque ad?.let { } se ejecuta solo cuando el valor no es null, y dentro de él it ya es de un tipo no anulable."
         },
         "scope-funksiyalari-n-06": {
-          "q": "",
+          "q": "¿Qué función se usa para construir un objeto (estilo builder)?",
           "opts": [],
-          "exp": ""
+          "exp": "Dentro de apply usas this, así que puedes asignar propiedades directamente: Istifadeci().apply { ad = \"Aysel\" }. Al final se devuelve el propio objeto."
         },
         "scope-funksiyalari-n-07": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué se usa principalmente also?",
+          "opts": [
+            "Para transformar un objeto",
+            "Para efectos secundarios: registro, validación, depuración",
+            "Para comprobaciones de null",
+            "Para ordenar"
+          ],
+          "exp": "Como also devuelve el propio objeto, no rompe la cadena. Usarlo hace el registro más legible."
         },
         "scope-funksiyalari-n-08": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿En qué se diferencia with de las demás?",
+          "opts": [
+            "No devuelve ningún resultado",
+            "No es una función de extensión: el objeto se pasa como argumento",
+            "Solo funciona con null",
+            "No hay diferencia"
+          ],
+          "exp": "Tiene la forma with(obyekt) { }, no obyekt.with { }. Por eso no se puede usar directamente con un objeto anulable."
         },
         "scope-funksiyalari-n-09": {
-          "q": "",
+          "q": "¿Cuál es el resultado de este código?",
           "opts": [],
-          "exp": ""
+          "exp": "let devuelve el resultado de la lambda. it.length es 6, y eso se asigna a la variable n."
         },
         "scope-funksiyalari-n-10": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia principal entre apply y also?",
+          "opts": [
+            "apply devuelve el objeto, also devuelve el resultado",
+            "Ambas devuelven el objeto: la única diferencia es el contexto this/it",
+            "also es más rápida",
+            "apply solo funciona con clases"
+          ],
+          "exp": "Ambas devuelven el receptor. Dentro de apply tienes this (puedes asignar propiedades directamente), dentro de also tienes it (más claro para efectos secundarios)."
         },
         "scope-funksiyalari-n-11": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la diferencia entre run y let?",
+          "opts": [
+            "run no devuelve ningún resultado",
+            "run usa this, let usa it; ambas devuelven un resultado",
+            "let es más rápida",
+            "No hay diferencia"
+          ],
+          "exp": "Funcionalmente son iguales. La elección es cuestión de estilo: usa run si accedes mucho a los miembros del objeto, y let si quieres dar otro nombre al valor."
         },
         "scope-funksiyalari-n-12": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es el resultado de este código?",
+          "opts": [
+            "0",
+            "5",
+            "null",
+            "Error de compilación"
+          ],
+          "exp": "Dentro de apply, this = el objeto A, así que x = 5 cambia directamente la propiedad del objeto. Al final se devuelve el propio objeto."
         },
         "scope-funksiyalari-n-13": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué devuelve takeIf?",
+          "opts": [
+            "Boolean",
+            "El objeto si se cumple la condición; si no, null",
+            "Siempre el objeto",
+            "El resultado de la lambda"
+          ],
+          "exp": "\"\".takeIf { it.isNotBlank() } → null. Es práctico para producir un null de forma condicional y combinarlo con Elvis."
         },
         "scope-funksiyalari-n-14": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué hace takeUnless?",
+          "opts": [
+            "Es lo mismo que takeIf",
+            "Devuelve el objeto si la condición NO se cumple",
+            "Siempre devuelve null",
+            "Lanza un error"
+          ],
+          "exp": "Es lo contrario de takeIf. x.takeUnless { it.isEmpty() } devuelve el objeto si NO está vacío."
         },
         "scope-funksiyalari-n-15": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede usar with con un objeto anulable?",
+          "opts": [
+            "Sí, sin problema",
+            "No directamente: como with no es una función de extensión, no se puede aplicar ?.",
+            "Solo con apply",
+            "Siempre devuelve null"
+          ],
+          "exp": "En la forma with(obyekt) no hay dónde poner ?.. Para valores anulables se usa obyekt?.let { } u obyekt?.run { }."
         },
         "scope-funksiyalari-n-16": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué imprime este código?",
+          "opts": [
+            "evvel: [1, 2] / sonra: [1, 2, 3]",
+            "evvel: [1, 2, 3] / sonra: [1, 2, 3]",
+            "sonra: [1, 2]",
+            "Error de compilación"
+          ],
+          "exp": "also imprime primero el estado actual ([1, 2]) y luego apply añade un elemento. Como ambas devuelven el propio objeto, la cadena continúa."
         },
         "scope-funksiyalari-n-17": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Se puede renombrar it dentro de un bloque let?",
+          "opts": [
+            "No",
+            "Sí: let { istifadeci -> ... }",
+            "Solo en apply",
+            "Solo en Kotlin 2.0"
+          ],
+          "exp": "Puedes dar tu propio nombre al parámetro de la lambda. En bloques let anidados esto mejora mucho la legibilidad."
         },
         "scope-funksiyalari-n-18": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Para qué caso es más adecuada run?",
+          "opts": [
+            "Solo para registrar",
+            "Para configurar un objeto y calcular un resultado",
+            "Para comprobaciones de null",
+            "Para ordenar una lista"
+          ],
+          "exp": "run te da el contexto this (acceso directo a los miembros) y además devuelve un resultado. Es ideal para combinar configuración + cálculo."
         },
         "scope-funksiyalari-n-19": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Por qué está mal anidar mucho las funciones de alcance?",
+          "opts": [
+            "Se ejecuta lento",
+            "this e it se confunden y el código se vuelve ilegible",
+            "Provoca fugas de memoria",
+            "Provoca un error de compilación"
+          ],
+          "exp": "Con más de dos niveles de bloques anidados, cuesta seguir a qué objeto se refiere cada this. En esos casos son mejores una variable normal e if."
         },
         "scope-funksiyalari-n-20": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué función se eligió mal en este código?",
+          "opts": [
+            "Ninguna",
+            "apply: devuelve el propio objeto, así que no obtienes la longitud; necesitas let o run",
+            "ad debería ser anulable",
+            "length está mal"
+          ],
+          "exp": "apply devuelve el receptor, así que la variable uzunluq pasa a ser un String, no un Int. Si necesitas un resultado, usa run o let."
         },
         "scope-funksiyalari-n-21": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Las funciones de alcance son inline?",
+          "opts": [
+            "No",
+            "Sí: no se crea ningún objeto lambda, así que no hay sobrecarga de rendimiento",
+            "Solo let",
+            "Solo apply"
+          ],
+          "exp": "Todas están declaradas como inline. Por eso usarlas no añade ninguna sobrecarga extra en tiempo de ejecución respecto al código normal."
         },
         "scope-funksiyalari-n-22": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Cuál es la ventaja principal de also en una cadena?",
+          "opts": [
+            "Cambia el resultado",
+            "Permite insertar un efecto secundario (log, comprobación) sin romper la cadena",
+            "Convierte el tipo",
+            "Comprueba si es null"
+          ],
+          "exp": "Como devuelve el propio objeto, puedes añadir una impresión de depuración o una validación en medio de la cadena: las operaciones siguientes no se ven afectadas."
         },
         "scope-funksiyalari-n-23": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "¿Qué obtienes al combinar takeIf y Elvis?",
+          "opts": [
+            "Siempre \"Qonaq\"",
+            "La entrada no vacía, o \"Qonaq\" si está vacía",
+            "Un error",
+            "null"
+          ],
+          "exp": "takeIf da null si la condición no se cumple, y Elvis lo captura y devuelve el valor alternativo. Es una forma muy legible para validar."
         },
         "scope-funksiyalari-n-24": {
-          "q": "",
-          "opts": [],
-          "exp": ""
+          "q": "Dentro de apply, si hay una variable local y una propiedad con el mismo nombre, ¿cuál se usa?",
+          "opts": [
+            "La propiedad",
+            "La variable local: se produce shadowing",
+            "Error de compilación",
+            "Al azar"
+          ],
+          "exp": "Gana el nombre del ámbito más cercano. Para referirte explícitamente a la propiedad tienes que escribir this.ad: es una de las trampas ocultas de apply."
         },
         "scope-funksiyalari-n-25": {
-          "q": "",
+          "q": "¿Qué función de alcance NO es una función de extensión?",
           "opts": [],
-          "exp": ""
+          "exp": "with es una función normal y recibe el objeto como argumento. Las demás son funciones de extensión, así que se llaman con un punto y admiten ?."
         }
       },
       "praktiki": {
         "scope-funksiyalari-p-01": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa let: calcula la longitud del texto \"Kotlin\" e imprímela.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = // usa let\n    println(n)\n}"
         },
         "scope-funksiyalari-p-02": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Construye un objeto con apply: asigna las propiedades ad y yas e imprímelas.",
+          "ipucu": "Dentro de apply usas this: ad = \"Aysel\"",
+          "starter": "class Istifadeci {\n    var ad = \"\"\n    var yas = 0\n}\n\nfun main() {\n    val u = Istifadeci().apply {\n        // asigna las propiedades\n    }\n    println(\"${u.ad} ${u.yas}\")\n}"
         },
         "scope-funksiyalari-p-03": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa run: convierte el texto a mayúsculas e imprímelo. Usa el contexto this.",
+          "ipucu": "Dentro de run, this es el receptor: { uppercase() }",
+          "starter": "fun main() {\n    val n = \"kotlin\".run {\n        // completa esta parte\n    }\n    println(n)\n}"
         },
         "scope-funksiyalari-p-04": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa with: calcula la longitud del texto e imprímela.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = // usa with\n    println(n)\n}"
         },
         "scope-funksiyalari-p-05": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa also: imprime la lista y devuélvela; luego imprime su tamaño.",
+          "ipucu": "also devuelve el propio objeto, así que la variable s es una lista.",
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3) // imprime la lista con also\n    // imprime su tamaño\n}"
         },
         "scope-funksiyalari-p-06": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa ?.let: imprime en mayúsculas el valor no null.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-07": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Comprueba un valor null con ?.let: el bloque no debe ejecutarse, y al final debe imprimirse \"bitdi\".",
+          "ipucu": "Gracias a la llamada segura, el bloque let se omite por completo.",
+          "starter": "fun main() {\n    val ad: String? = null\n    // escribe un bloque con ?.let: no debe ejecutarse porque el valor es null\n    // imprime \"bitdi\" al final\n}"
         },
         "scope-funksiyalari-p-08": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa takeIf: para un texto no vacío, imprime el propio texto.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-09": {
-          "tapsiriq": "",
+          "tapsiriq": "Dale tu propio nombre al parámetro de let: usa el nombre \"dil\" en lugar de it.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    \"Kotlin\".let {\n        // llama al parámetro \"dil\" e imprime la longitud\n    }\n}"
         },
         "scope-funksiyalari-p-10": {
-          "tapsiriq": "",
+          "tapsiriq": "Encadena apply y also: imprime la lista, añade un elemento y vuelve a imprimirla.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    mutableListOf(1, 2)\n        // imprime \"evvel: [1, 2]\" con also\n        // añade 3 con apply\n        // imprime \"sonra: [1, 2, 3]\" con also\n}"
         },
         "scope-funksiyalari-p-11": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina takeIf y Elvis: imprime \"Qonaq\" para una entrada vacía.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val giris = \"\"\n    val ad = // escribe takeIf + Elvis\n    println(ad)\n}"
         },
         "scope-funksiyalari-p-12": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa takeUnless: para un texto que NO esté vacío, imprime el propio texto.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-13": {
-          "tapsiriq": "",
+          "tapsiriq": "Haz una transformación con let: convierte el texto en número e imprime el doble de su valor.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val n = \"21\".let {\n        // completa esta parte\n    }\n    println(n)\n}"
         },
         "scope-funksiyalari-p-14": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Calcula un resultado condicional con run: devuelve 200 si la URL empieza por https y, si no, 400.",
+          "ipucu": "if (startsWith(\"https\")) 200 else 400: this es el receptor.",
+          "starter": "fun main() {\n    val kod = \"https://numune.az\".run {\n        // completa esta parte\n    }\n    println(kod)\n}"
         },
         "scope-funksiyalari-p-15": {
-          "tapsiriq": "",
+          "tapsiriq": "Haz varias operaciones sobre un objeto con with: combina el resultado en mayúsculas y la longitud.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val netice = with(\"Kotlin\") {\n        // devuélvelo en la forma \"KOTLIN-6\"\n    }\n    println(netice)\n}"
         },
         "scope-funksiyalari-p-16": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Muestra que apply devuelve el objeto: imprime directamente el resultado.",
+          "ipucu": "apply devuelve el receptor, así que println recibe directamente el objeto.",
+          "starter": "class Qutu {\n    var deyer = 0\n    override fun toString() = \"Qutu($deyer)\"\n}\n\nfun main() {\n    // asigna deyer = 7 con apply y pasa el resultado directamente a println\n}"
         },
         "scope-funksiyalari-p-17": {
-          "tapsiriq": "",
+          "tapsiriq": "Combina ?.let y Elvis: imprime \"islenmedi\" para un valor null.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-18": {
-          "tapsiriq": "",
+          "tapsiriq": "Usa let en una cadena: imprime en mayúsculas el primer elemento de la lista.",
           "ipucu": ""
         },
         "scope-funksiyalari-p-19": {
-          "tapsiriq": "",
+          "tapsiriq": "Inserta una comprobación en medio de la cadena con also: imprime la cantidad tras filtrar y luego imprime la lista.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val s = listOf(1, 2, 3, 4)\n        .filter { it % 2 == 0 }\n        // imprime la cantidad con also\n    println(s)\n}"
         },
         "scope-funksiyalari-p-20": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Corrige el problema de shadowing en apply: asigna la propiedad usando this.ad.",
+          "ipucu": "this.ad = \"Aysel\": si escribes solo ad, la variable local la oculta.",
+          "starter": "class Profil {\n    var ad = \"\"\n}\n\nfun main() {\n    val ad = \"yerli\"\n    val p = Profil().apply {\n        // refiérete explícitamente a la propiedad\n    }\n    println(p.ad)\n}"
         },
         "scope-funksiyalari-p-21": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Corrige el error: usa la función correcta en lugar de apply para obtener la longitud.",
+          "ipucu": "Si necesitas un resultado, usa run o let.",
+          "starter": "fun main() {\n    val ad = \"Kotlin\"\n    val uzunluq = ad.apply { length }   // mal: devuelve el objeto\n    println(uzunluq)\n}"
         },
         "scope-funksiyalari-p-22": {
-          "tapsiriq": "",
+          "tapsiriq": "Escribe nombres de parámetro claros en let anidados: combina dos valores anulables.",
           "ipucu": "",
-          "starter": ""
+          "starter": "fun main() {\n    val ad: String? = \"Aysel\"\n    val soyad: String? = \"Memmedova\"\n    // imprime \"Aysel Memmedova\" con let anidados\n}"
         },
         "scope-funksiyalari-p-23": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Usa run sin objeto: crea un bloque e imprime su resultado.",
+          "ipucu": "run { val a = 6; val b = 7; a * b }: también funciona sin receptor.",
+          "starter": "fun main() {\n    val netice = run {\n        // escribe un cálculo de dos líneas cuyo resultado sea 42\n    }\n    println(netice)\n}"
         },
         "scope-funksiyalari-p-24": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Construye una MutableList con apply y úsala en una cadena: añade tres elementos e imprime el tamaño.",
+          "ipucu": "Dentro de apply escribe add(1); add(2); add(3): this es la lista.",
+          "starter": "fun main() {\n    val s = mutableListOf<Int>().apply {\n        // añade tres elementos\n    }\n    println(s.size)\n}"
         },
         "scope-funksiyalari-p-25": {
-          "tapsiriq": "",
-          "ipucu": "",
-          "starter": ""
+          "tapsiriq": "Compara los valores que devuelven las cinco funciones de alcance: imprime los resultados de let y apply.",
+          "ipucu": "let devuelve el resultado de la lambda, mientras que apply devuelve el propio objeto.",
+          "starter": "fun main() {\n    val a = \"Kotlin\" // obtén la longitud con let\n    val b = \"Kotlin\" // accede a length con apply\n    println(a)\n    println(b)\n}"
         }
       }
     },
