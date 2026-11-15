@@ -131,9 +131,10 @@ Təfsilat: [`T6.1-T6.10-keyfiyyet-ve-boyume.md`](T6.1-T6.10-keyfiyyet-ve-boyume.
 
 ## Proses
 
-- **Branch `main`-dən açılır, PR `main`-ə gedir.** PR-lar bir-birinin üstünə
-  yığılmır. Asılı iş varsa əvvəlki PR merge olunana qədər gözlənilir, ya da
-  eyni PR-da ayrı commit olur.
+- **Branch `main`-dən açılır, PR `main`-ə gedir.** PR-lar zəncir kimi
+  bir-birinin üstünə yığılmır. Asılı iş varsa əvvəlki PR-ın merge-i gözlənilir;
+  gözləmək işi dayandırırsa yeni branch onun üstündən açıla bilər, amma PR yenə
+  `main`-ə gedir və zəncir **bir halqadan** uzun olmur.
 - **`main` həmişə yaşıldır.** Qırmızı `main` hər şeydən əvvəl düzəldilir —
   onun üstündən açılan hər PR da qırmızı olur.
 - **Tərcümə commit-i:** `build-locale.js <dil>` → `validate-locales.js <dil>`
