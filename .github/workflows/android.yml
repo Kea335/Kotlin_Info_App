@@ -35,6 +35,28 @@ jobs:
       - name: Məzmun yoxlaması
         run: node tools/verify-content.js --assets-only
 
+      # Overlay-lər bazaya uyğundur, texniki sahələr toxunulmayıb, aktivlər
+      # overlay-in cari halından qurulub (T3.2). Faiz aşağı olması xəta deyil.
+      - name: Dil yoxlaması
+        run: node tools/validate-locales.js
+
+      # Kodda yalnız şərh tərcümə olunur — skelet müqayisəsinin testləri (T4.0).
+      - name: Kod şərhləri testləri
+        run: |
+          node tools/test-kod-serhleri.js
+          node tools/test-neytral.js
+
+      # README-dəki dil cədvəli və nişan validatorun çıxışı ilə eynidir (T5.7).
+      # Fərq varsa: node tools/validate-locales.js --readme və commit.
+      - name: README dil cədvəli təzədir
+        run: |
+          node tools/validate-locales.js --readme > /dev/null
+          git diff --exit-code README.md
+
+      # Compose-dakı Text("…") literal-larını Lint tutmur (T3.4).
+      - name: Hardcoded mətn yoxlaması
+        run: node tools/check-i18n.js
+
       - name: Unit testlər
         run: ./gradlew test --stacktrace
 
@@ -43,6 +65,20 @@ jobs:
 
       - name: Debug build
         run: ./gradlew assembleDebug
+
+      # İmzasız (CI-da keystore yoxdur): R8 + resurs sıxılması məhz release-də
+      # işləyir. R8 @Serializable modelin serializatorunu silsə debug və
+      # testlər yaşıl qalır, release APK isə ilk JSON oxunuşunda çökür.
+      - name: Release build (imzasız)
+        run: ./gradlew assembleRelease
+
+      - name: R8 serializator yoxlaması
+        run: node tools/check-r8.js
+
+      # Hissələr üzrə hesabat (Job Summary-də görünür), 8 MB-dan böyük APK
+      # build-i dayandırır; 15 dil proqnozu da yazılır (T3.7).
+      - name: APK ölçüsü
+        run: node tools/apk-budcesi.js
 
       - name: Debug APK
         uses: actions/upload-artifact@v7
@@ -60,3 +96,42 @@ jobs:
             app/build/reports/
             app/build/test-results/
           if-no-files-found: ignore
+
+  # Cihaz testləri (androidTest) — Room DAO-ları real SQLite tələb edir,
+  # JVM unit testində işləmir (T5.1). Emulyator KVM ilə, animasiyasız.
+  cihaz-testleri:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Cihaz testləri (emulyator, API 34)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          disable-animations: true
+          script: ./gradlew connectedDebugAndroidTest --stacktrace
+
+      - name: Cihaz testi hesabatı
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cihaz-testleri
+          path: app/build/reports/androidTests/
+          if-no-files-found: ignore
+

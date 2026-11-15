@@ -1,5 +1,8 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,7 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -119,7 +122,8 @@ fun BlockView(
             modifier = modifier.padding(vertical = 10.dp),
             title = block.title,
             output = block.output,
-            onOpenInPlayground = { meydanaGonder(it) }
+            onOpenInPlayground = { meydanaGonder(it) },
+            blokId = block.id
         )
 
         is Callout -> CalloutView(block, modifier)
@@ -140,17 +144,17 @@ fun BlockView(
 
         QuizBlock -> AksiyaKarti(
             ikon = "🎓",
-            basliq = "Bilik testi",
-            metn = "15 sual — sintaksisdən coroutine-lərə qədər. Suallar hər dəfə qarışıq sırada gəlir.",
-            duyme = "Testi başlat",
+            basliq = stringResource(R.string.blok_quiz_basliq),
+            metn = stringResource(R.string.blok_quiz_metn),
+            duyme = stringResource(R.string.blok_quiz_duyme),
             modifier = modifier
         ) { onQuiz?.invoke() }
 
         PlaygroundBlock -> AksiyaKarti(
             ikon = "▶",
-            basliq = "Kod meydanı",
-            metn = "Real Kotlin kompilyatoru. Bu bölmə internet tələb edir — tətbiqin qalan hissəsi oflayn işləyir.",
-            duyme = "Meydanı aç",
+            basliq = stringResource(R.string.blok_meydan_basliq),
+            metn = stringResource(R.string.blok_meydan_metn),
+            duyme = stringResource(R.string.blok_meydan_duyme),
             modifier = modifier
         ) { onPlayground?.invoke() }
 
@@ -443,9 +447,10 @@ private fun TimelineView(block: Timeline, modifier: Modifier = Modifier) {
 @Composable
 private fun TabsView(block: TabsBlock, modifier: Modifier = Modifier) {
     val c = KAz.colors
-    // `remember(block)` — LazyColumn elementi başqa tab blokuna təkrar
-    // işlədiləndə seçim sıfırlansın deyə.
-    var secili by remember(block) { mutableIntStateOf(0) }
+    // `rememberSaveable(block)` — LazyColumn elementi başqa tab blokuna təkrar
+    // işlədiləndə seçim sıfırlansın deyə; döndərmə və proses ölümündə isə
+    // seçili tab qalır (T2.4).
+    var secili by rememberSaveable(block) { mutableIntStateOf(0) }
 
     Column(modifier.padding(vertical = 8.dp)) {
         Row(
@@ -467,7 +472,7 @@ private fun TabsView(block: TabsBlock, modifier: Modifier = Modifier) {
                             if (aktiv) c.accent.copy(alpha = 0.45f) else c.border,
                             RoundedCornerShape(9.dp)
                         )
-                        .clickable { secili = index }
+                        .clickable(role = Role.Button) { secili = index }
                         .padding(horizontal = 12.dp, vertical = 7.dp),
                     style = MaterialTheme.typography.labelMedium,
                     color = if (aktiv) c.accent else c.textDim,
@@ -587,7 +592,7 @@ private fun AksiyaKarti(
             .clip(RoundedCornerShape(15.dp))
             .background(c.bgElev)
             .border(1.dp, c.border, RoundedCornerShape(15.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

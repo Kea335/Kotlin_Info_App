@@ -3,10 +3,16 @@ package az.kotlinaz.app.data
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -31,6 +37,14 @@ private const val VERSIYALAR_URL = "https://api.kotlinlang.org/versions"
 
 /** Versiya siyahısının keşi bu qədər yaşayır; sonra ilk sorğudan əvvəl yenilənir. */
 private const val KES_MUDDETI_MS = 24L * 60 * 60 * 1000
+
+// encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
+// defolt dəyərli olduqları üçün sorğudan düşür və server sandbox-u çökür.
+private val kompilyatorJson = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+    encodeDefaults = true
+}
 
 @Serializable
 private data class ApiFile(
@@ -80,7 +94,7 @@ sealed interface RunResult {
     data class Ok(val output: String) : RunResult
 
     /** Kompilyasiya xətaları. */
-    data class CompileError(val errors: List<String>) : RunResult
+    data class CompileError(val errors: List<KompilyasiyaXetasi>) : RunResult
 
     /** Çalışma vaxtı çökməsi. */
     data class Crashed(val output: String, val exception: String) : RunResult
@@ -88,9 +102,22 @@ sealed interface RunResult {
     /** İnternet yoxdur. */
     data object Offline : RunResult
 
-    /** Şəbəkə və ya server problemi. */
+    /**
+     * Şəbəkə və ya server problemi. [message] texniki detaldır (`HTTP 503`,
+     * sistem istisnasının mətni) — başlığı UI öz dilində yazır.
+     */
     data class Failed(val message: String) : RunResult
 }
+
+/**
+ * Kompilyatorun bir xətası. Mesaj serverdən gəlir (ingiliscə); «Sətir N»
+ * prefiksini UI tətbiqin dilində qurur — data qatında UI mətni yoxdur (T3.4).
+ */
+data class KompilyasiyaXetasi(
+    /** 1-dən sayılan sətir; server intervalı vermirsə null. */
+    val setir: Int?,
+    val mesaj: String
+)
 
 /**
  * Kompilyatorun aktiv versiyası — Kod meydanında və Tənzimləmələrdə göstərilir.
@@ -112,24 +139,25 @@ data class KompilyatorVeziyyeti(
 }
 
 class KotlinCompiler(
-    private val context: Context,
-    private val prefs: UserPrefs
-) {
-
-    // encodeDefaults MƏCBURIDIR: onsuz `confType`, `name` və `args` sahələri
-    // defolt dəyərli olduqları üçün sorğudan düşür və server sandbox-u çökür.
-    private val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        encodeDefaults = true
-    }
+    private val prefs: UserPrefs,
+    /**
+     * Şəbəkə var-yoxdur. Tətbiqdə [Context.internetVar], testdə sabit lambda —
+     * kompilyatorun özü `Context` görmür.
+     */
+    private val sebekeVar: () -> Boolean,
+    /** Disk və şəbəkə işi bu dispatcher-də gedir; testdə test dispatcher-i ötürülür. */
+    private val io: CoroutineDispatcher = Dispatchers.IO,
+    /** Kompilyator API-sinin kökü; testdə lokal server. */
+    private val apiUrl: String = BASE,
+    private val versiyalarUrl: String = VERSIYALAR_URL
+) : CompilerRepository {
 
     // Siyahı hələ oxunmayıbsa ehtiyat siyahının birincisi göstərilir —
     // tətbiqin öz versiyasıdır, bu gün serverdə də var.
     private val _veziyyet = MutableStateFlow(
         KompilyatorVeziyyeti(KompilyatorVersiyalari.EHTIYAT.first(), serverden = false)
     )
-    val veziyyet: StateFlow<KompilyatorVeziyyeti> = _veziyyet.asStateFlow()
+    override val veziyyet: StateFlow<KompilyatorVeziyyeti> = _veziyyet.asStateFlow()
 
     // Diskdən bir dəfə oxunur, sonra yaddaşda qalır. Mutex: Meydan və çalışma
     // ekranı eyni anda sorğu göndərsə siyahı iki dəfə yüklənməsin.
@@ -142,10 +170,12 @@ class KotlinCompiler(
      * gəlməlidir. Keş köhnə olsa da göstərmək üçün ehtiyat siyahıdan yaxşıdır;
      * təzələnmə onsuz da ilk icradan əvvəl olur.
      */
-    suspend fun hazirla() = withContext(Dispatchers.IO) {
-        kesKilidi.withLock {
-            val diskdeki = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
-            diskdeki?.let { veziyyetiYenile(it.versiyalar) }
+    override suspend fun hazirla() {
+        withContext(io) {
+            kesKilidi.withLock {
+                val diskdeki = kes ?: prefs.kompilyatorKesi()?.also { kes = it }
+                diskdeki?.let { veziyyetiYenile(it.versiyalar) }
+            }
         }
     }
 
@@ -186,10 +216,14 @@ class KotlinCompiler(
     }
 
     /** `GET /versions`. Hər cür uğursuzluqda boş siyahı — çağıran ehtiyata keçir. */
-    private fun versiyalariYukle(): List<KompilyatorVersiyasi> {
-        var conn: HttpURLConnection? = null
+    private suspend fun versiyalariYukle(): List<KompilyatorVersiyasi> {
+        val conn = URL(versiyalarUrl).openConnection() as HttpURLConnection
+        return legvEdilebilen(conn) { versiyalariOxu(conn) }
+    }
+
+    private fun versiyalariOxu(conn: HttpURLConnection): List<KompilyatorVersiyasi> {
         return try {
-            conn = (URL(VERSIYALAR_URL).openConnection() as HttpURLConnection).apply {
+            conn.apply {
                 requestMethod = "GET"
                 // Kiçik JSON-dur — icra sorğusundakı 60 s oxuma vaxtı burada artıqdır.
                 connectTimeout = 15_000
@@ -203,31 +237,43 @@ class KotlinCompiler(
         } catch (_: Exception) {
             emptyList()
         } finally {
-            conn?.disconnect()
+            conn.disconnect()
         }
     }
 
     /**
-     * Şəbəkə var-yoxdur. Yalnız sürətli ilkin yoxlamadır — «şəbəkə var, amma
-     * internet yoxdur» halını tutmur, onu artıq sorğunun özü aşkarlayır.
-     * ACCESS_NETWORK_STATE icazəsi manifestdə məhz bunun üçündür.
+     * [conn] üzərində bloklayan işi görür. `HttpURLConnection`-un oxuması
+     * korutin ləğvinə reaksiya vermir — «Dayandır» basılsa və ya ekran
+     * bağlansa da sorğu `readTimeout`-a (icrada 60 s) qədər asılı qalardı.
+     * Ona görə ləğvi ayrıca korutin gözləyir və bağlantını kəsir: bloklanmış
+     * oxuma dərhal istisna atır, ip və soket boşalır.
      */
-    fun internetVar(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-            ?: return false
-        val setler = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
-        return setler.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    private suspend fun <T> legvEdilebilen(conn: HttpURLConnection, blok: () -> T): T = coroutineScope {
+        val kesici = launch(start = CoroutineStart.UNDISPATCHED) {
+            try {
+                awaitCancellation()
+            } finally {
+                conn.disconnect()
+            }
+        }
+        try {
+            blok()
+        } finally {
+            kesici.cancel()
+            // Kəsilmiş bağlantının istisnası «şəbəkə xətası» kimi qayıtmasın.
+            ensureActive()
+        }
     }
 
     /** Kodu JetBrains kompilyatorunda işlədir. */
-    suspend fun isle(kod: String): RunResult = withContext(Dispatchers.IO) {
-        if (!internetVar()) return@withContext RunResult.Offline
+    override suspend fun isle(kod: String): RunResult = withContext(io) {
+        if (!sebekeVar()) return@withContext RunResult.Offline
 
-        val govde = json.encodeToString(
+        val govde = kompilyatorJson.encodeToString(
             ApiRequest(files = listOf(ApiFile(text = kod)))
         )
 
-        var sonXeta = "Naməlum xəta"
+        var sonXeta = ""
         for (versiya in versiyalar()) {
             when (val n = sorgu(versiya, govde)) {
                 is Cavab.Ugur -> {
@@ -235,7 +281,7 @@ class KotlinCompiler(
                     if (_veziyyet.value.versiya != versiya) {
                         _veziyyet.value = _veziyyet.value.copy(versiya = versiya)
                     }
-                    return@withContext oxu(n.body)
+                    return@withContext kompilyatorCavabiniOxu(n.body)
                 }
 
                 // Bu versiya dəstəklənmir — növbətisini sınamağın mənası var.
@@ -262,11 +308,15 @@ class KotlinCompiler(
         data class Xeta(val mesaj: String) : Cavab
     }
 
-    private fun sorgu(versiya: String, govde: String): Cavab {
-        var conn: HttpURLConnection? = null
+    private suspend fun sorgu(versiya: String, govde: String): Cavab {
+        // openConnection hələ qoşulmur — kəsici hazır olana qədər şəbəkəyə çıxılmır.
+        val conn = URL("$apiUrl/$versiya/compiler/run?filename=File.kt").openConnection() as HttpURLConnection
+        return legvEdilebilen(conn) { sorguIcra(conn, versiya, govde) }
+    }
+
+    private fun sorguIcra(conn: HttpURLConnection, versiya: String, govde: String): Cavab {
         return try {
-            val url = URL("$BASE/$versiya/compiler/run?filename=File.kt")
-            conn = (url.openConnection() as HttpURLConnection).apply {
+            conn.apply {
                 requestMethod = "POST"
                 // Qoşulma qısa, oxuma uzun: kompilyasiya + icra server tərəfdə
                 // bəzən 10-20 saniyə çəkir, ona görə readTimeout böyükdür.
@@ -285,64 +335,65 @@ class KotlinCompiler(
                 Cavab.Ugur(body)
             } else if (kod == 400 || kod == 404 || kod == 410) {
                 // Ünvandakı versiya tanınmadı — siyahıdakı növbətisini sınamağa dəyər.
-                Cavab.Desteklenmir("Server $kod cavabı qaytardı (versiya $versiya)")
+                Cavab.Desteklenmir("HTTP $kod ($versiya)")
             } else {
                 // 5xx və digərləri: problem versiyada deyil.
-                Cavab.Xeta("Server $kod cavabı qaytardı")
+                Cavab.Xeta("HTTP $kod")
             }
         } catch (e: Exception) {
             // Timeout, DNS, TLS, kəsilmiş bağlantı — hamısı buraya düşür.
             Cavab.Xeta(e.message ?: e.javaClass.simpleName)
         } finally {
-            conn?.disconnect()
+            conn.disconnect()
         }
     }
+}
 
-    private fun oxu(body: String): RunResult = try {
-        val cavab = json.decodeFromString<ApiResponse>(body)
+/**
+ * Kompilyator xidmətinin cavab gövdəsini [RunResult]-a çevirir. Şəbəkədən
+ * ayrıdır ki, testdə real cavab nümunələri ilə yoxlanılsın (Mərhələ 3).
+ */
+internal fun kompilyatorCavabiniOxu(body: String): RunResult = try {
+    val cavab = kompilyatorJson.decodeFromString<ApiResponse>(body)
 
-        // Xidmət xəbərdarlıqları da `errors` içində qaytarır — yalnız ERROR
-        // səviyyəsi kompilyasiyanı sındırır, WARNING göstərilmir.
-        val xetalar = cavab.errors.values.flatten()
-            .filter { it.severity.equals("ERROR", ignoreCase = true) }
-            .map { e ->
-                val setir = e.interval?.start?.line?.plus(1)
-                if (setir != null) "Sətir $setir: ${e.message}" else e.message
-            }
+    // Xidmət xəbərdarlıqları da `errors` içində qaytarır — yalnız ERROR
+    // səviyyəsi kompilyasiyanı sındırır, WARNING göstərilmir.
+    val xetalar = cavab.errors.values.flatten()
+        .filter { it.severity.equals("ERROR", ignoreCase = true) }
+        .map { e -> KompilyasiyaXetasi(e.interval?.start?.line?.plus(1), e.message) }
 
-        when {
-            xetalar.isNotEmpty() -> RunResult.CompileError(xetalar)
+    when {
+        xetalar.isNotEmpty() -> RunResult.CompileError(xetalar)
 
-            cavab.exception != null -> {
-                val e = cavab.exception
-                val ad = e.fullName.ifBlank { "Exception" }
-                val mesaj = e.message?.let { ": $it" }.orEmpty()
-                RunResult.Crashed(cixisiAyir(cavab.text), ad + mesaj)
-            }
-
-            else -> RunResult.Ok(cixisiAyir(cavab.text))
+        cavab.exception != null -> {
+            val e = cavab.exception
+            val ad = e.fullName.ifBlank { "Exception" }
+            val mesaj = e.message?.let { ": $it" }.orEmpty()
+            RunResult.Crashed(cixisiAyir(cavab.text), ad + mesaj)
         }
-    } catch (e: Exception) {
-        RunResult.Failed("Cavab oxunmadı: ${e.message}")
-    }
 
-    /**
-     * `<outStream>` və `<errStream>` etiketlərini açır.
-     *
-     * Xidmət etiketlərin içindəki mətni HTML kimi qaçırmır (yoxlanılıb:
-     * `println("a & b <tag>")` cavabda olduğu kimi gəlir), ona görə burada
-     * heç bir entity açılışı EDİLMİR — əks halda çıxışdakı həqiqi `&lt;`
-     * mətni pozulardı.
-     */
-    private fun cixisiAyir(xam: String): String {
-        if (xam.isBlank()) return ""
-        val netice = StringBuilder()
-        listOf("outStream", "errStream").forEach { etiket ->
-            val re = Regex("<$etiket>([\\s\\S]*?)</$etiket>")
-            re.findAll(xam).forEach { netice.append(it.groupValues[1]) }
-        }
-        return if (netice.isEmpty()) xam else netice.toString()
+        else -> RunResult.Ok(cixisiAyir(cavab.text))
     }
+} catch (e: Exception) {
+    RunResult.Failed("JSON: ${e.message}")
+}
+
+/**
+ * `<outStream>` və `<errStream>` etiketlərini açır.
+ *
+ * Xidmət etiketlərin içindəki mətni HTML kimi qaçırmır (yoxlanılıb:
+ * `println("a & b <tag>")` cavabda olduğu kimi gəlir), ona görə burada
+ * heç bir entity açılışı EDİLMİR — əks halda çıxışdakı həqiqi `&lt;`
+ * mətni pozulardı.
+ */
+internal fun cixisiAyir(xam: String): String {
+    if (xam.isBlank()) return ""
+    val netice = StringBuilder()
+    listOf("outStream", "errStream").forEach { etiket ->
+        val re = Regex("<$etiket>([\\s\\S]*?)</$etiket>")
+        re.findAll(xam).forEach { netice.append(it.groupValues[1]) }
+    }
+    return if (netice.isEmpty()) xam else netice.toString()
 }
 
 /**
@@ -357,3 +408,15 @@ fun neticeniNormallasdir(s: String?): String =
         .split("\n")
         .joinToString("\n") { it.trimEnd() }
         .trim('\n')
+
+/**
+ * Şəbəkə var-yoxdur. Yalnız sürətli ilkin yoxlamadır — «şəbəkə var, amma
+ * internet yoxdur» halını tutmur, onu artıq sorğunun özü aşkarlayır.
+ * ACCESS_NETWORK_STATE icazəsi manifestdə məhz bunun üçündür.
+ */
+fun Context.internetVar(): Boolean {
+    val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        ?: return false
+    val setler = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
+    return setler.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+}

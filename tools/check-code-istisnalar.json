@@ -1,0 +1,15 @@
+{
+  "_qeyd": "tools/check-code.js istisnaları (T4.6). rejim: \"atla\" — nümunə kompilyatora göndərilmir (bilərəkdən tam proqram deyil, xarici kitabxana tələb edir, xidmətin limitinə dəyir); \"yalniz-icra\" — xətasız işləməlidir, amma çıxışı qeyri-deterministikdir (vaxt ölçüsü), müqayisə olunmur. Blok id-si mətnlə dəyişir (T3.1) — id artıq yoxdursa `--all` işləməsi xəbərdarlıq verir.",
+  "istisnalar": {
+    "sintaksis.code.d2babc57": { "rejim": "atla", "sebeb": "Bir blokda iki alternativ main — tək proqram deyil, iki variantın müqayisəsidir" },
+    "sintaksis.code.58b05db7": { "rejim": "atla", "sebeb": "Paket və import sintaksisinin nümunəsi — az.numune.model paketi mövcud deyil" },
+    "java-muqayise.code.82c4adb9": { "rejim": "atla", "sebeb": "javaServis Java tərəfdəki xəyali sinifdir — platform tiplərinin izahı" },
+    "delegatlar.code.7189ac9f": { "rejim": "atla", "sebeb": "kotlin-reflect (kotlin.reflect.full) kompilyator xidmətinin classpath-ında yoxdur" },
+    "backend.code.7642f1df": { "rejim": "atla", "sebeb": "Ktor asılılığı tələb edir" },
+    "backend.code.796c71e7": { "rejim": "atla", "sebeb": "Spring Boot asılılığı tələb edir" },
+    "backend.code.64de14f9": { "rejim": "atla", "sebeb": "Exposed asılılığı tələb edir" },
+    "kolleksiyalar.code.76102d7b": { "rejim": "atla", "sebeb": "1 milyon elementlik siyahılar xidmətin yaddaş limitini aşır (OutOfMemoryError) — eager və lazy fərqinin izahıdır" },
+    "lambda.code.aaadc4c8": { "rejim": "yalniz-icra", "sebeb": "Vaxt ölçüsü (… ms) hər işləmədə fərqlidir" },
+    "coroutines.code.c1746589": { "rejim": "yalniz-icra", "sebeb": "Cəmi vaxt (~1000 ms) hər işləmədə fərqlidir" }
+  }
+}

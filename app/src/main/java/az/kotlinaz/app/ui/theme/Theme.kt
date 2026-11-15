@@ -72,39 +72,42 @@ data class KotlinAzColors(
     val synPunc: Color
 )
 
-private val AciqRengler = KotlinAzColors(
+internal val AciqRengler = KotlinAzColors(
     bg = Color(0xFFF7F7FB),
     bgElev = Color(0xFFFFFFFF),
     bgSunken = Color(0xFFEFEFF6),
     bgCode = Color(0xFFF3F1FA),
     text = Color(0xFF16161D),
     textDim = Color(0xFF5A5A6E),
-    textFaint = Color(0xFF8A8A9E),
+    // WCAG AA: bütün işıqlı fonlarda ≥ 4.54:1 (əvvəl #8A8A9E — 2.95–3.38) — T5.6.
+    textFaint = Color(0xFF6B6B80),
     border = Color(0xFFE2E2EC),
     borderStrong = Color(0xFFCFCFDE),
     accent = Color(0xFF6B3FE8),
     accentSoft = Color(0x1A7F52FF),
-    ok = Color(0xFF178A5A),
-    warn = Color(0xFFB26A00),
+    // Batıq fonda da ≥ 4.67 / 4.74 (əvvəl 3.81 / 3.70) — T5.6.
+    ok = Color(0xFF157A50),
+    warn = Color(0xFF9A5B00),
     err = Color(0xFFC7373F),
     synKey = Color(0xFF9C27B0),
     synStr = Color(0xFF1E7A4C),
     synNum = Color(0xFFB45309),
-    synCom = Color(0xFF8A8A9E),
+    synCom = Color(0xFF6B6B80),
     synFn = Color(0xFF2563C9),
     synType = Color(0xFFC2410C),
     synAnn = Color(0xFF857A00),
     synPunc = Color(0xFF55556A)
 )
 
-private val QaranliqRengler = KotlinAzColors(
+internal val QaranliqRengler = KotlinAzColors(
     bg = Color(0xFF0B0B12),
     bgElev = Color(0xFF14141F),
     bgSunken = Color(0xFF101019),
     bgCode = Color(0xFF16161F),
     text = Color(0xFFECECF4),
     textDim = Color(0xFFA2A2B8),
-    textFaint = Color(0xFF6E6E88),
+    // Qaranlıq fonlarda ≥ 5.34:1 (əvvəl #6E6E88 — 3.64–3.97) — T5.6.
+    textFaint = Color(0xFF8A8AA3),
     border = Color(0xFF26263A),
     borderStrong = Color(0xFF35354E),
     accent = Color(0xFFA78BFA),
@@ -115,7 +118,7 @@ private val QaranliqRengler = KotlinAzColors(
     synKey = Color(0xFFC792EA),
     synStr = Color(0xFF7EE787),
     synNum = Color(0xFFF7A76C),
-    synCom = Color(0xFF6E6E88),
+    synCom = Color(0xFF8A8AA3),
     synFn = Color(0xFF79C0FF),
     synType = Color(0xFFFFB86C),
     synAnn = Color(0xFFE3D26F),

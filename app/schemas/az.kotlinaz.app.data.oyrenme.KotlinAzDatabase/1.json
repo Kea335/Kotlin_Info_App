@@ -1,0 +1,175 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "caed418b8c01474c1e6a8ed42bdf4ffc",
+    "entities": [
+      {
+        "tableName": "sehv_cavab",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sualId` TEXT NOT NULL, `say` INTEGER NOT NULL, `ardicilDuzgun` INTEGER NOT NULL, `sonTarix` INTEGER NOT NULL, PRIMARY KEY(`sualId`))",
+        "fields": [
+          {
+            "fieldPath": "sualId",
+            "columnName": "sualId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "say",
+            "columnName": "say",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ardicilDuzgun",
+            "columnName": "ardicilDuzgun",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sonTarix",
+            "columnName": "sonTarix",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sualId"
+          ]
+        }
+      },
+      {
+        "tableName": "bookmark",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hedefId` TEXT NOT NULL, `tip` TEXT NOT NULL, `tarix` INTEGER NOT NULL, PRIMARY KEY(`hedefId`))",
+        "fields": [
+          {
+            "fieldPath": "hedefId",
+            "columnName": "hedefId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tip",
+            "columnName": "tip",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tarix",
+            "columnName": "tarix",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "hedefId"
+          ]
+        }
+      },
+      {
+        "tableName": "qeyd",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hedefId` TEXT NOT NULL, `metn` TEXT NOT NULL, `yenilenib` INTEGER NOT NULL, PRIMARY KEY(`hedefId`))",
+        "fields": [
+          {
+            "fieldPath": "hedefId",
+            "columnName": "hedefId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "metn",
+            "columnName": "metn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yenilenib",
+            "columnName": "yenilenib",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "hedefId"
+          ]
+        }
+      },
+      {
+        "tableName": "quiz_turu",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `rejim` TEXT NOT NULL, `bal` INTEGER NOT NULL, `umumi` INTEGER NOT NULL, `tarix` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rejim",
+            "columnName": "rejim",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bal",
+            "columnName": "bal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "umumi",
+            "columnName": "umumi",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tarix",
+            "columnName": "tarix",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "gunluk_fealiyyet",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tarix` TEXT NOT NULL, `hellSayi` INTEGER NOT NULL, PRIMARY KEY(`tarix`))",
+        "fields": [
+          {
+            "fieldPath": "tarix",
+            "columnName": "tarix",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hellSayi",
+            "columnName": "hellSayi",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tarix"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'caed418b8c01474c1e6a8ed42bdf4ffc')"
+    ]
+  }
+}

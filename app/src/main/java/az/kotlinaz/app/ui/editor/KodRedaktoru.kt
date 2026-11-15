@@ -1,5 +1,10 @@
 package az.kotlinaz.app.ui.editor
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextDirection
+import az.kotlinaz.app.ui.components.SoldanSaga
+import androidx.compose.ui.res.pluralStringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -105,7 +110,7 @@ private fun rememberKeslenmisRengleme(): VisualTransformation {
 fun KodRedaktoru(
     kod: MutableState<TextFieldValue>,
     modifier: Modifier = Modifier,
-    basliq: String = "Main.kt",
+    basliq: String = "Main.kt", // i18n-ignore — fayl adı
     minHundurluk: Dp = 200.dp,
     tamamlamaAcik: Boolean = LocalKodTamamlama.current,
     basliqSagi: (@Composable RowScope.() -> Unit)? = null
@@ -142,7 +147,7 @@ fun KodRedaktoru(
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = "${deyer.text.count { it == '\n' } + 1} sətir",
+                text = (deyer.text.count { it == '\n' } + 1).let { pluralStringResource(R.plurals.redaktor_setir_sayi, it, it) },
                 style = MaterialTheme.typography.labelSmall,
                 color = c.textFaint
             )
@@ -162,6 +167,8 @@ fun KodRedaktoru(
         }
 
         // ---- Kod sahəsi ----
+        // RTL dillərdə də soldan-sağa (T3.6): layout və mətn istiqaməti.
+        SoldanSaga {
         BasicTextField(
             value = deyer,
             onValueChange = { kod.value = it },
@@ -173,7 +180,8 @@ fun KodRedaktoru(
                 fontFamily = FontFamily.Monospace,
                 fontSize = (13 * KAz.codeScale).sp,
                 lineHeight = (21 * KAz.codeScale).sp,
-                color = c.text
+                color = c.text,
+                textDirection = TextDirection.Ltr
             ),
             // Avtomatik düzəliş və böyük hərfə keçid kod yazanda həm səhv
             // nəticə verir (`val` → `Val`), həm də IME-nin hər vuruşda əlavə
@@ -185,6 +193,7 @@ fun KodRedaktoru(
             visualTransformation = rememberKeslenmisRengleme(),
             cursorBrush = SolidColor(c.accent)
         )
+        }
     }
 }
 
@@ -232,7 +241,7 @@ private fun TeklifCipi(teklif: Tamamlama, onClick: () -> Unit) {
             .clip(RoundedCornerShape(7.dp))
             .background(reng.copy(alpha = 0.11f))
             .border(1.dp, reng.copy(alpha = 0.35f), RoundedCornerShape(7.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 9.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -1,5 +1,7 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,6 +47,8 @@ fun spansToAnnotated(
         color = c.textDim,
         background = c.bgSunken
     )
+    // RTL mətndə kod parçası BiDi ilə təcrid olunur — `x = 5` yer dəyişməsin (T3.6).
+    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     val linkStyles = TextLinkStyles(
         style = SpanStyle(color = c.accent, textDecoration = TextDecoration.Underline)
     )
@@ -58,11 +62,11 @@ fun spansToAnnotated(
 
                 Span.ITALIC -> withStyle(SpanStyle(fontStyle = FontStyle.Italic)) { append(s.v) }
 
-                Span.CODE -> withStyle(kodStyle) { append(s.v) }
+                Span.CODE -> withStyle(kodStyle) { append(ltrTecrid(s.v, rtl)) }
 
                 // Klaviatura düyməsi — ətrafına boşluq qoyulur ki, fon
                 // «düymə» kimi görünsün (CSS-dəki padding-in qarşılığı).
-                Span.KBD -> withStyle(kbdStyle) { append(" " + s.v + " ") }
+                Span.KBD -> withStyle(kbdStyle) { append(" " + ltrTecrid(s.v, rtl) + " ") }
 
                 // Saytdakı qradient mətn — mobil oxunaqlığı üçün vurğu rəngi
                 Span.GRAD -> withStyle(

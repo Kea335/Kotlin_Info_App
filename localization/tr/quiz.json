@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "locale": "tr",
+    "base": "az",
+    "updated": "2026-11-13"
+  },
+  "questions": {
+    "quiz-01": {
+      "q": "val ile var arasındaki temel fark nedir?",
+      "opts": [
+        "val değeri sonradan değiştirilemez, var değiştirilebilir",
+        "val yalnızca sayılar içindir, var tüm türler için",
+        "Hiçbir fark yok, ikisi aynıdır",
+        "var derleme zamanında, val çalışma zamanında çalışır"
+      ],
+      "exp": "val (value) salt okunur bir referanstır — bir kez atandıktan sonra yeniden atanamaz. var (variable) ise değiştirilebilir. Not: val nesnenin kendisini değil, yalnızca referansı sabitler — mutableListOf'a val ile de eleman eklenebilir."
+    },
+    "quiz-02": {
+      "q": "Bu kod ne yazdırır?",
+      "opts": [],
+      "exp": "ad?.length safe call nedeniyle null döndürür, ardından elvis operatörü (?:) null'ı görüp sağ taraftaki -1 değerini döndürür."
+    },
+    "quiz-03": {
+      "q": "data class hangi fonksiyonları otomatik olarak oluşturur?",
+      "opts": [
+        "Yalnızca toString()",
+        "equals(), hashCode(), toString(), copy() ve componentN()",
+        "Yalnızca yapıcı (constructor)",
+        "main() fonksiyonunu"
+      ],
+      "exp": "data class, birincil yapıcıdaki özelliklere göre equals()/hashCode(), toString(), copy() ve yapı çözümleme (destructuring) için component1(), component2()… fonksiyonlarını otomatik oluşturur."
+    },
+    "quiz-04": {
+      "q": "Kotlin'de bir sınıftan kalıtım almak için üst sınıf nasıl bildirilmelidir?",
+      "opts": [
+        "public anahtar kelimesiyle",
+        "Hiçbir şey gerekmez, tüm sınıflar kalıtıma açıktır",
+        "open anahtar kelimesiyle",
+        "Yalnızca abstract ile — başka yolu yok"
+      ],
+      "exp": "Kotlin'de sınıflar varsayılan olarak final'dır (kapalıdır). Kalıtıma izin vermek için open yazmak gerekir. abstract sınıflar da kalıtıma açıktır, ancak onlardan doğrudan nesne oluşturulamaz."
+    },
+    "quiz-05": {
+      "q": "Bu kodun sonucu nedir?",
+      "opts": [],
+      "exp": "Önce filter çift sayıları seçer → [2, 4]. Ardından map her birinin karesini alır → [4, 16]."
+    },
+    "quiz-06": {
+      "q": "!! operatörü ne yapar?",
+      "opts": [
+        "Değeri iki katına çıkarır",
+        "Nullable değeri zorla non-null'a çevirir, null ise NPE fırlatır",
+        "Mantıksal değil işlemi yapar",
+        "Değeri String'e çevirir"
+      ],
+      "exp": "!! «not-null assertion» operatörüdür. Değer null ise KotlinNullPointerException fırlatılır. Kotlin'in null güvenliğini tamamen devre dışı bıraktığı için mümkün olduğunca ondan kaçınmak gerekir."
+    },
+    "quiz-07": {
+      "q": "suspend anahtar kelimesi ne anlama gelir?",
+      "opts": [
+        "Fonksiyon hiçbir zaman değer döndürmez",
+        "Fonksiyon askıya alınıp sonra devam ettirilebilir — yalnızca coroutine içinde çağrılır",
+        "Fonksiyon senkron çalışır",
+        "Fonksiyon otomatik olarak yeni bir thread oluşturur"
+      ],
+      "exp": "suspend fonksiyon, thread'i bloklamadan askıya alınabilir (suspend). Yalnızca başka bir suspend fonksiyondan veya coroutine builder'dan (launch, async, runBlocking) çağrılabilir. Kendi kendine thread oluşturmaz."
+    },
+    "quiz-08": {
+      "q": "apply ile also arasındaki temel fark nedir?",
+      "opts": [
+        "apply this, also ise it kullanır — ama ikisi de nesnenin kendisini döndürür",
+        "apply nesneyi, also lambda sonucunu döndürür",
+        "Hiçbir fark yok",
+        "also yalnızca koleksiyonlarla çalışır"
+      ],
+      "exp": "Her ikisi de receiver nesnenin kendisini döndürür. Fark bağlamdadır: apply içinde this kullanılır (özellikler doğrudan yazılabilir), also içinde ise it (yan etkiler için daha okunaklıdır)."
+    },
+    "quiz-09": {
+      "q": "Bu kod derlenir mi?",
+      "opts": [
+        "Evet, Int otomatik olarak Long'a çevrilir",
+        "Hayır — Kotlin'de otomatik sayı dönüşümü yoktur, x.toLong() gerekir",
+        "Evet, ama uyarı verir",
+        "Yalnızca Java ile birlikte çalışırken"
+      ],
+      "exp": "Java'dan farklı olarak Kotlin genişleyen otomatik sayı dönüşümünü desteklemez. Açıkça x.toLong() yazmak gerekir — bu, gizli veri kaybının önüne geçer."
+    },
+    "quiz-10": {
+      "q": "sealed class'ın temel avantajı nedir?",
+      "opts": [
+        "Daha az bellek kullanır",
+        "Tüm alt sınıflar derleme zamanında bilinir — when ifadesinde else gerekmez",
+        "Otomatik olarak JSON'a dönüştürülür",
+        "Çoklu kalıtım (multiple inheritance) sağlar"
+      ],
+      "exp": "sealed class'ın tüm alt sınıfları aynı modülde tanımlandığı için derleyici hepsini tanır. Bu, when ifadesini exhaustive yapar — else dalı gerekmez ve yeni bir alt sınıf eklediğinizde derleyici sizi uyarır."
+    },
+    "quiz-11": {
+      "q": "lateinit hangi türlerle kullanılamaz?",
+      "opts": [
+        "String",
+        "Sınıf türleri",
+        "İlkel türler (Int, Double, Boolean…)",
+        "List"
+      ],
+      "exp": "lateinit ilkel türlerle (Int, Long, Double, Boolean, Char…) çalışmaz, çünkü onların «henüz atanmadı» durumunu belirten bir null değeri yoktur. Bunun için by Delegates.notNull() kullanılır."
+    },
+    "quiz-12": {
+      "q": "Uzantı (extension) fonksiyonları hakkında hangisi doğrudur?",
+      "opts": [
+        "Sınıfın private üyelerine erişim sağlar",
+        "Sınıfı gerçekten değiştirir",
+        "Statik olarak çözümlenir — sanal değildir, override edilemez",
+        "Yalnızca kendi yazdığın sınıflara eklenebilir"
+      ],
+      "exp": "Uzantı fonksiyonları sınıfa hiçbir şey eklemez — derleyici onları sıradan statik fonksiyon çağrısına dönüştürür. Bu yüzden çok biçimli değildirler (değişkenin bildirilen türüne göre seçilirler) ve private üyelere erişimleri yoktur."
+    },
+    "quiz-13": {
+      "q": "Bu kodun sonucu nedir?",
+      "opts": [],
+      "exp": "== yapısal eşitliği (equals) kontrol eder — iki listenin elemanları aynıdır, bu yüzden true. === ise referans eşitliğidir — bunlar ayrı nesnelerdir, bu yüzden false."
+    },
+    "quiz-14": {
+      "q": "Kotlin'de Unit türü neye karşılık gelir?",
+      "opts": [
+        "Java'daki void'e — ama Unit gerçek bir türdür",
+        "null değerine",
+        "Boş listeye",
+        "Any türüne"
+      ],
+      "exp": "Unit, Java'daki void'in karşılığıdır; ancak Kotlin'de gerçek bir türdür ve yalnızca tek bir örneği vardır. Fonksiyon hiçbir şey döndürmüyorsa varsayılan olarak Unit döndürür — yazmaya gerek yoktur."
+    },
+    "quiz-15": {
+      "q": "Coroutine'lerde async/await ne işe yarar?",
+      "opts": [
+        "Yeni thread oluşturmaya",
+        "Paralel iş yapıp sonucu sonra almaya — Deferred döndürür",
+        "Hataları yakalamaya",
+        "Belleği temizlemeye"
+      ],
+      "exp": "async bir Deferred<T> döndürür ve işi hemen başlatır. await() çağrıldığında sonuç hazır olana kadar thread bloklanmadan beklenir. Birkaç async'i aynı anda başlatarak gerçek paralellik elde edilir."
+    }
+  }
+}

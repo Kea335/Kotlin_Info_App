@@ -45,45 +45,63 @@ data class Span(
 @JsonClassDiscriminator("t")
 sealed interface Block
 
+/**
+ * Mətn daşıyan blok — sabit [id]-si var (T3.1).
+ *
+ * Id `build-content.js`-də blokun məzmunundan qurulur
+ * (`<bölmə>.<tip>.<sha1-8>`): mətn dəyişməyincə id dəyişmir, dəyişəndə
+ * tərcümə köhnəlmiş sayılır. Bölmə daxilində unikaldır. Köhnə aktivlər
+ * üçün defolt `""` — UI o halda mövqeyə görə açar qurur.
+ * `QuizBlock`, `PlaygroundBlock`, `Divider`, `DemoBlock`-un mətni yoxdur,
+ * ona görə id-siz qalır.
+ */
+sealed interface IdliBlok : Block {
+    val id: String
+}
+
 @Serializable @SerialName("h2")
-data class HeadingH2(val text: String) : Block
+data class HeadingH2(val text: String, override val id: String = "") : IdliBlok
 
 @Serializable @SerialName("h3")
-data class HeadingH3(val text: String) : Block
+data class HeadingH3(val text: String, override val id: String = "") : IdliBlok
 
 @Serializable @SerialName("h4")
-data class HeadingH4(val text: String) : Block
+data class HeadingH4(val text: String, override val id: String = "") : IdliBlok
 
 @Serializable @SerialName("h5")
-data class HeadingH5(val text: String) : Block
+data class HeadingH5(val text: String, override val id: String = "") : IdliBlok
 
 @Serializable @SerialName("p")
 data class Paragraph(
     val spans: List<Span> = emptyList(),
-    val lead: Boolean = false
-) : Block
+    val lead: Boolean = false,
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable @SerialName("code")
 data class CodeBlock(
     val title: String = "",
     val lang: String = "kotlin",
     val code: String,
-    val output: String? = null
-) : Block
+    val output: String? = null,
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable @SerialName("callout")
 data class Callout(
     val kind: String = "info",
     val ico: String = "",
     val title: String = "",
-    val blocks: List<Block> = emptyList()
-) : Block
+    val blocks: List<Block> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable @SerialName("cards")
 data class CardGrid(
     val cols: Int = 2,
-    val items: List<CardItem> = emptyList()
-) : Block
+    val items: List<CardItem> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable
 data class CardItem(
@@ -95,17 +113,22 @@ data class CardItem(
 @Serializable @SerialName("table")
 data class TableBlock(
     val head: List<List<List<Span>>> = emptyList(),
-    val rows: List<List<List<Span>>> = emptyList()
-) : Block
+    val rows: List<List<List<Span>>> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable @SerialName("list")
 data class ListBlock(
     val ordered: Boolean = false,
-    val items: List<List<Span>> = emptyList()
-) : Block
+    val items: List<List<Span>> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable @SerialName("timeline")
-data class Timeline(val items: List<TimelineItem> = emptyList()) : Block
+data class Timeline(
+    val items: List<TimelineItem> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable
 data class TimelineItem(
@@ -115,7 +138,10 @@ data class TimelineItem(
 )
 
 @Serializable @SerialName("tabs")
-data class TabsBlock(val tabs: List<TabItem> = emptyList()) : Block
+data class TabsBlock(
+    val tabs: List<TabItem> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable
 data class TabItem(
@@ -128,8 +154,9 @@ data class Hero(
     val badge: String = "",
     val title: List<Span> = emptyList(),
     val sub: String = "",
-    val stats: List<HeroStat> = emptyList()
-) : Block
+    val stats: List<HeroStat> = emptyList(),
+    override val id: String = ""
+) : IdliBlok
 
 @Serializable
 data class HeroStat(val num: String = "", val lbl: String = "")
@@ -161,7 +188,12 @@ data class Section(
     val kicker: String = "",
     /** `"playground"` | `"exercises"` | `"quiz"` — xüsusi davranışlı bölmələr. */
     val special: String? = null,
-    val blocks: List<Block> = emptyList()
+    val blocks: List<Block> = emptyList(),
+    /**
+     * Öyrənmə yolu (T5.5): əvvəlcə tamamlanmalı bölmələr — tools/path.json-dan.
+     * Texniki sahədir, tərcümə olunmur; asılılıqsız bölmədə JSON-da yoxdur.
+     */
+    val requires: List<String> = emptyList()
 )
 
 @Serializable
@@ -253,16 +285,17 @@ data class SearchDoc(
     val text: String = ""
 )
 
-@Serializable
-data class SearchIndex(val docs: List<SearchDoc> = emptyList())
 
 /* ---------- Səviyyə ---------- */
 
-/** Çalışma səviyyələri — JSON-dakı `level` sahəsinin qarşılığı. */
-enum class Level(val id: String, val label: String) {
-    JUNIOR("junior", "Junior"),
-    MIDDLE("middle", "Middle"),
-    SENIOR("senior", "Senior");
+/**
+ * Çalışma səviyyələri — JSON-dakı `level` sahəsinin qarşılığı. Ekrandakı
+ * adı `ui/Etiketler.kt`-dədir (`Level.etiket()`) — data qatı resursdan asılı deyil.
+ */
+enum class Level(val id: String) {
+    JUNIOR("junior"),
+    MIDDLE("middle"),
+    SENIOR("senior");
 
     companion object {
         /** Naməlum dəyər gəlsə çökmürük — ən aşağı səviyyə götürülür. */

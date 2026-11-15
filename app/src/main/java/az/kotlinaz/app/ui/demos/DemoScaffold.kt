@@ -1,5 +1,10 @@
 package az.kotlinaz.app.ui.demos
 
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
+import az.kotlinaz.app.ui.components.SoldanSaga
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -56,7 +61,7 @@ fun DemoCard(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = "İnteraktiv",
+                text = stringResource(R.string.demo_interaktiv),
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
                     .background(c.accentSoft)
@@ -89,8 +94,8 @@ fun DemoCard(
 @Composable
 fun DemoChip(
     etiket: String,
-    aktiv: Boolean = false,
     modifier: Modifier = Modifier,
+    aktiv: Boolean = false,
     onClick: () -> Unit
 ) {
     val c = KAz.colors
@@ -104,7 +109,9 @@ fun DemoChip(
                 if (aktiv) c.accent.copy(alpha = 0.55f) else c.border,
                 RoundedCornerShape(8.dp)
             )
-            .clickable(onClick = onClick)
+            // Çip sıx sıralarda (FlowChips) durur — 48 dp layout sıraları
+            // aralayardı; toxunma sahəsini Compose-un hit-test genişlənməsi verir.
+            .selectable(selected = aktiv, role = Role.Button, onClick = onClick)
             .padding(horizontal = 10.dp, vertical = 6.dp),
         style = MaterialTheme.typography.labelSmall,
         color = if (aktiv) c.accent else c.textDim,
@@ -157,15 +164,17 @@ fun DemoScreen(
             Spacer(Modifier.height(5.dp))
         }
         // Konsol çıxışı sətir sonuna görə bölünmür (softWrap = false);
-        // uzun sətir üfüqi sürüşmə ilə oxunur — real terminal kimi.
-        Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
-            Text(
-                text = metn,
-                fontFamily = FontFamily.Monospace,
-                fontSize = (13 * KAz.codeScale).sp,
-                lineHeight = (20 * KAz.codeScale).sp,
-                softWrap = false
-            )
+        // uzun sətir üfüqi sürüşmə ilə oxunur — real terminal kimi. RTL-də də LTR.
+        SoldanSaga {
+            Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+                Text(
+                    text = metn,
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = (13 * KAz.codeScale).sp,
+                    lineHeight = (20 * KAz.codeScale).sp,
+                    softWrap = false
+                )
+            }
         }
     }
 }
@@ -177,7 +186,7 @@ fun DemoScreen(metn: String, modifier: Modifier = Modifier, basliq: String? = nu
 
 /** Rənglənmiş kod paneli — demo daxilində. */
 @Composable
-fun DemoCode(kod: String, modifier: Modifier = Modifier) {
+fun DemoCode(kod: String, modifier: Modifier = Modifier) = SoldanSaga {
     val c = KAz.colors
     val rengli = rememberHighlighted(kod)
     Box(
@@ -207,7 +216,8 @@ fun DemoField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = ""
-) {
+) = SoldanSaga {
+    // Girilən dəyər Kotlin ifadəsidir (`42L`, `listOf(1, 2)`) — RTL-də də LTR.
     val c = KAz.colors
     Box(
         modifier
@@ -264,7 +274,7 @@ fun DemoFact(acar: String, deyer: String, modifier: Modifier = Modifier) {
 
 /** İzah mətni — «Nə baş verdi?» blokları. */
 @Composable
-fun DemoNote(metn: String, basliq: String? = null, modifier: Modifier = Modifier) {
+fun DemoNote(metn: String, modifier: Modifier = Modifier, basliq: String? = null) {
     val c = KAz.colors
     Column(modifier.fillMaxWidth()) {
         if (basliq != null) {
@@ -289,8 +299,8 @@ fun DemoNote(metn: String, basliq: String? = null, modifier: Modifier = Modifier
 fun DemoToggleRow(
     etiket: String,
     checked: Boolean,
-    sagMetn: String? = null,
     modifier: Modifier = Modifier,
+    sagMetn: String? = null,
     onCheckedChange: (Boolean) -> Unit
 ) {
     val c = KAz.colors
@@ -334,7 +344,8 @@ fun ChainStep(
     aktiv: Boolean,
     modifier: Modifier = Modifier,
     sagReng: Color? = null
-) {
+) = SoldanSaga {
+    // Zəncir addımı kod və onun nəticəsidir — RTL-də də soldan-sağa.
     val c = KAz.colors
     Row(
         modifier

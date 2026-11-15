@@ -11,10 +11,15 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const crypto = require('crypto');
 const H = require('./html-parse');
+const { bloklardanMetn } = require('./content-lib');
 
 const SAYT = process.env.KOTLINAZ_WEB || path.resolve('C:/Users/PC-01/Desktop/kotlinweb');
-const HEDEF = path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets');
+// KOTLINAZ_HEDEF — testlərin aktivləri müvəqqəti qovluğa yazması üçün.
+// Baza dil (az) saytdan qurulur — assets/content/az/. Digər dillər overlay-dən
+// tools/build-locale.js ilə yaranır (T3.2).
+const HEDEF = process.env.KOTLINAZ_HEDEF || path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets', 'content', 'az');
 
 if (!fs.existsSync(SAYT)) {
   console.error('XETA: sayt qovlugu tapilmadi: ' + SAYT);
@@ -377,6 +382,48 @@ function bolmeleriQur() {
 }
 
 /* ============================================================
+   3b. Sabit blok id-ləri (T3.1)
+   Hər mətn daşıyan blok (iç bloklar daxil) məzmunundan qurulan
+   sabit id alır: `<bolme>.<tip>.<sha1-8>`. Dəyişməyən blok həmişə
+   eyni id-ni alır; mətn dəyişsə id də dəyişir — tərcümə köhnəlib
+   deməkdir. Eyni bölmədə eyni mətnli bloklar `.2`, `.3` sonluğu alır.
+   ============================================================ */
+
+const IDSIZ = { hr: 1, quiz: 1, playground: 1, demo: 1 };
+
+function blokMetni(b) {
+  const topla = [];
+  bloklardanMetn([b], topla);
+  return topla.filter(Boolean).join(' ').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function blokId(sectionId, tip, metn) {
+  const h = crypto.createHash('sha1').update(metn, 'utf8').digest('hex').slice(0, 8);
+  return sectionId + '.' + tip + '.' + h;
+}
+
+function idleriVer(sectionId, blocks, gorulen) {
+  return (blocks || []).map((b) => {
+    if (!b || IDSIZ[b.t]) return b;
+    const esas = blokId(sectionId, b.t, blokMetni(b));
+    const n = (gorulen[esas] || 0) + 1;
+    gorulen[esas] = n;
+    const id = n === 1 ? esas : esas + '.' + n;
+    // `id` `t`-dən dərhal sonra gəlsin deyə obyekt yenidən qurulur.
+    const yeni = { t: b.t, id: id };
+    Object.keys(b).forEach((k) => { if (k !== 't') yeni[k] = b[k]; });
+    if (b.t === 'callout') yeni.blocks = idleriVer(sectionId, b.blocks, gorulen);
+    if (b.t === 'cards') yeni.items = b.items.map((it) => Object.assign({}, it, { blocks: idleriVer(sectionId, it.blocks, gorulen) }));
+    if (b.t === 'tabs') yeni.tabs = b.tabs.map((tb) => Object.assign({}, tb, { blocks: idleriVer(sectionId, tb.blocks, gorulen) }));
+    return yeni;
+  });
+}
+
+function blokIdleriniVer(sections) {
+  return sections.map((s) => Object.assign({}, s, { blocks: idleriVer(s.id, s.blocks, {}) }));
+}
+
+/* ============================================================
    4. JS mənbələrindən data çıxarışı
    ============================================================ */
 
@@ -525,53 +572,36 @@ function meydanNumuneleri() {
    5. Axtarış indeksi
    ============================================================ */
 
-function spanMetni(spans) {
-  return (spans || []).map((s) => (s.k === 'br' ? ' ' : s.v)).join('');
-}
+// search.json artıq yazılmır (T3.5): tətbiq indeksi yüklənmiş məzmundan özü
+// qurur (AxtarisIndeksi.kt) — qayda content-lib.js-dəki bloklardanMetn-dir.
 
-function bloklardanMetn(blocks, topla) {
-  (blocks || []).forEach((b) => {
-    if (!b) return;
-    switch (b.t) {
-      case 'h2': case 'h3': case 'h4': case 'h5':
-        topla.push(b.text); break;
-      case 'p':
-        topla.push(spanMetni(b.spans)); break;
-      case 'code':
-        topla.push(b.title); topla.push(b.code); break;
-      case 'callout':
-        topla.push(b.title); bloklardanMetn(b.blocks, topla); break;
-      case 'cards':
-        b.items.forEach((it) => { topla.push(it.title); bloklardanMetn(it.blocks, topla); });
-        break;
-      case 'table':
-        (b.head || []).forEach((r) => r.forEach((c) => topla.push(spanMetni(c))));
-        (b.rows || []).forEach((r) => r.forEach((c) => topla.push(spanMetni(c))));
-        break;
-      case 'list':
-        b.items.forEach((it) => topla.push(spanMetni(it))); break;
-      case 'timeline':
-        b.items.forEach((it) => { topla.push(it.year); topla.push(it.title); topla.push(spanMetni(it.desc)); });
-        break;
-      case 'tabs':
-        b.tabs.forEach((tb) => { topla.push(tb.label); bloklardanMetn(tb.blocks, topla); });
-        break;
-      case 'hero':
-        topla.push(b.badge); topla.push(spanMetni(b.title)); topla.push(b.sub);
-        (b.stats || []).forEach((s) => { topla.push(s.num); topla.push(s.lbl); });
-        break;
-      default: break;
-    }
-  });
-}
+/* ============================================================
+   5a. Öyrənmə yolu (T5.5)
+   tools/path.json-dakı asılılıqlar bölmələrə `requires` kimi yazılır.
+   Saytın HTML-ində belə məlumat yoxdur — qraf əl ilə saxlanılır.
+   Naməlum id və ya dövr qurulmanı dayandırır.
+   ============================================================ */
 
-function axtarisIndeksi(sections) {
-  return sections.map((s) => {
-    const parcalar = [s.title, s.heading, s.group, s.kicker];
-    bloklardanMetn(s.blocks, parcalar);
-    const metn = parcalar.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-    return { id: s.id, title: s.title, group: s.group, text: metn.slice(0, 24000) };
+function yolQur(sections) {
+  const yol = JSON.parse(fs.readFileSync(path.join(__dirname, 'path.json'), 'utf8')).requires || {};
+  const idler = new Set(sections.map((s) => s.id));
+  Object.keys(yol).forEach((id) => {
+    [id].concat(yol[id]).forEach((x) => {
+      if (!idler.has(x)) throw new Error('path.json: namelum bolme id-si: ' + x);
+    });
   });
+  // Dövr yoxlaması: DFS, «yolda» olan düyünə qayıtmaq dövrdür.
+  const hal = {};
+  function gez(id, zencir) {
+    if (hal[id] === 2) return;
+    if (hal[id] === 1) throw new Error('path.json: dovr: ' + zencir.concat([id]).join(' -> '));
+    hal[id] = 1;
+    (yol[id] || []).forEach((x) => gez(x, zencir.concat([id])));
+    hal[id] = 2;
+  }
+  Object.keys(yol).forEach((id) => gez(id, []));
+  // Yalnız boş olmayan `requires` yazılır — asılılıqsız bölmədə sahə yoxdur.
+  return sections.map((s) => (yol[s.id] && yol[s.id].length ? Object.assign({}, s, { requires: yol[s.id] }) : s));
 }
 
 /* ============================================================
@@ -590,17 +620,17 @@ console.log('Menbe : ' + SAYT);
 console.log('Hedef : ' + HEDEF);
 console.log('');
 
-const sections = bolmeleriQur();
+const sections = yolQur(blokIdleriniVer(bolmeleriQur()));
 const calismalar = calismalariQur();
 const quiz = quizQur();
 const presets = meydanNumuneleri();
-const indeks = axtarisIndeksi(sections);
 
 yaz('content.json', { version: '1.0.0', sections: sections });
 yaz('exercises.json', { topics: calismalar.topics });
 yaz('quiz.json', { questions: quiz });
 yaz('playground.json', { presets: presets });
-yaz('search.json', { docs: indeks });
+// Köhnə boru xəttindən qalmış indeks APK-ya düşməsin.
+if (fs.existsSync(path.join(HEDEF, 'search.json'))) fs.rmSync(path.join(HEDEF, 'search.json'));
 
 console.log('');
 console.log('Bolme sayi       : ' + sections.length);

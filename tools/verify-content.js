@@ -13,7 +13,8 @@ const path = require('path');
 const H = require('./html-parse');
 
 const SAYT = process.env.KOTLINAZ_WEB || path.resolve('C:/Users/PC-01/Desktop/kotlinweb');
-const AKTIV = path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets');
+// Yoxlanılan aktivlər baza dilindir (az) — sayt onun mənbəyidir (T3.2).
+const AKTIV = path.resolve(__dirname, '..', 'app', 'src', 'main', 'assets', 'content', 'az');
 
 /* Saytda tetbiqde qesden gosterilmeyen elementler (UI idareedicileri) */
 const GOZ_ARDI = [

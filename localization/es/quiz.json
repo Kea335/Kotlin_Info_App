@@ -1,0 +1,159 @@
+{
+  "_meta": {
+    "locale": "es",
+    "base": "az",
+    "updated": "2026-11-15"
+  },
+  "questions": {
+    "quiz-01": {
+      "q": "¿Cuál es la diferencia principal entre val y var?",
+      "opts": [
+        "Un val no se puede reasignar después, un var sí",
+        "val es solo para números, var para todos los tipos",
+        "No hay diferencia, son lo mismo",
+        "var funciona en tiempo de compilación, val en tiempo de ejecución"
+      ],
+      "exp": "val (value) es una referencia de solo lectura: una vez asignada, no se puede reasignar. var (variable) sí se puede cambiar. Ojo: val fija solo la referencia, no el objeto en sí; aún puedes añadir elementos a un mutableListOf guardado en un val."
+    },
+    "quiz-02": {
+      "q": "¿Qué imprimirá este código?",
+      "opts": [
+        "null",
+        "-1",
+        "0",
+        "NullPointerException"
+      ],
+      "exp": "Gracias a la llamada segura, ad?.length devuelve null; después el operador Elvis (?:) ve null y devuelve el -1 de su derecha."
+    },
+    "quiz-03": {
+      "q": "¿Qué funciones genera automáticamente una data class?",
+      "opts": [
+        "Solo toString()",
+        "equals(), hashCode(), toString(), copy() y componentN()",
+        "Solo el constructor",
+        "La función main()"
+      ],
+      "exp": "A partir de las propiedades del constructor primario, una data class genera automáticamente equals()/hashCode(), toString(), copy() y component1(), component2()… para la desestructuración."
+    },
+    "quiz-04": {
+      "q": "En Kotlin, ¿cómo debe declararse una clase padre para que otra clase pueda heredar de ella?",
+      "opts": [
+        "Con la palabra clave public",
+        "No hace falta nada, todas las clases están abiertas a la herencia",
+        "Con la palabra clave open",
+        "Solo con abstract: no hay otra forma"
+      ],
+      "exp": "En Kotlin, las clases son final (cerradas) por defecto. Para permitir la herencia tienes que escribir open. Las clases abstract también están abiertas a la herencia, pero no puedes crear objetos de ellas directamente."
+    },
+    "quiz-05": {
+      "q": "¿Cuál es el resultado de este código?",
+      "opts": [
+        "[1, 9, 25]",
+        "[4, 16]",
+        "[2, 4]",
+        "[1, 4, 9, 16, 25]"
+      ],
+      "exp": "Primero, filter elige los números pares → [2, 4]. Después map eleva al cuadrado cada uno → [4, 16]."
+    },
+    "quiz-06": {
+      "q": "¿Qué hace el operador !!?",
+      "opts": [
+        "Duplica el valor",
+        "Fuerza un valor anulable a no null y lanza una NPE si es null",
+        "Realiza una negación lógica",
+        "Convierte el valor en String"
+      ],
+      "exp": "!! es el operador de «aserción de no null». Si el valor es null, se lanza una KotlinNullPointerException. Como desactiva por completo la seguridad frente a null de Kotlin, conviene evitarlo siempre que sea posible."
+    },
+    "quiz-07": {
+      "q": "¿Qué significa la palabra clave suspend?",
+      "opts": [
+        "La función nunca devuelve un valor",
+        "La función puede pausarse y reanudarse después; solo se llama dentro de una corrutina",
+        "La función se ejecuta de forma síncrona",
+        "La función crea un hilo nuevo automáticamente"
+      ],
+      "exp": "Una función suspend puede pausarse (suspenderse) sin bloquear el hilo. Solo se puede llamar desde otra función suspend o desde un constructor de corrutinas (launch, async, runBlocking). No crea un hilo por sí misma."
+    },
+    "quiz-08": {
+      "q": "¿Cuál es la diferencia principal entre apply y also?",
+      "opts": [
+        "apply usa this, also usa it, pero ambas devuelven el propio objeto",
+        "apply devuelve el objeto, also devuelve el resultado de la lambda",
+        "No hay diferencia",
+        "also solo funciona con colecciones"
+      ],
+      "exp": "Ambas devuelven el propio objeto receptor. La diferencia es el contexto: dentro de apply usas this (así puedes asignar propiedades directamente), dentro de also usas it (más legible para efectos secundarios)."
+    },
+    "quiz-09": {
+      "q": "¿Compilará este código?",
+      "opts": [
+        "Sí, Int se convierte en Long automáticamente",
+        "No: Kotlin no tiene conversión numérica automática, necesitas x.toLong()",
+        "Sí, pero dará una advertencia",
+        "Solo cuando trabaja junto con Java"
+      ],
+      "exp": "A diferencia de Java, Kotlin no admite la conversión numérica automática de ampliación. Tienes que escribir x.toLong() explícitamente; así se evita la pérdida oculta de datos."
+    },
+    "quiz-10": {
+      "q": "¿Cuál es la ventaja principal de una sealed class?",
+      "opts": [
+        "Usa menos memoria",
+        "Todas las subclases se conocen en tiempo de compilación: no hace falta else en una expresión when",
+        "Se convierte en JSON automáticamente",
+        "Ofrece herencia múltiple"
+      ],
+      "exp": "Como todas las subclases de una sealed class se definen en el mismo módulo, el compilador las conoce todas. Esto hace que la expresión when sea exhaustiva: no hace falta la rama else, y el compilador te avisa cuando añades una subclase nueva."
+    },
+    "quiz-11": {
+      "q": "¿Qué tipos no se pueden usar con lateinit?",
+      "opts": [
+        "String",
+        "Tipos de clase",
+        "Tipos primitivos (Int, Double, Boolean…)",
+        "List"
+      ],
+      "exp": "lateinit no funciona con tipos primitivos (Int, Long, Double, Boolean, Char…), porque no tienen un valor null con el que marcar el estado «aún no asignado». Para ellos usa by Delegates.notNull()."
+    },
+    "quiz-12": {
+      "q": "¿Qué afirmación sobre las funciones de extensión es cierta?",
+      "opts": [
+        "Dan acceso a los miembros private de la clase",
+        "Cambian realmente la clase",
+        "Se resuelven estáticamente: no son virtuales, no se pueden sobrescribir",
+        "Solo se pueden añadir a clases que escribiste tú"
+      ],
+      "exp": "Las funciones de extensión no añaden nada a la clase: el compilador las convierte en llamadas a funciones estáticas normales. Por eso no son polimórficas (se eligen por el tipo declarado de la variable) y no tienen acceso a los miembros private."
+    },
+    "quiz-13": {
+      "q": "¿Cuál es el resultado de este código?",
+      "opts": [
+        "true / true",
+        "false / false",
+        "true / false",
+        "false / true"
+      ],
+      "exp": "== comprueba la igualdad estructural (equals): las dos listas tienen los mismos elementos, así que es true. === es igualdad referencial: son objetos distintos, así que es false."
+    },
+    "quiz-14": {
+      "q": "¿A qué corresponde el tipo Unit en Kotlin?",
+      "opts": [
+        "Al void de Java, pero Unit es un tipo real",
+        "Al valor null",
+        "A una lista vacía",
+        "Al tipo Any"
+      ],
+      "exp": "Unit es el equivalente del void de Java, pero en Kotlin es un tipo real con exactamente una instancia. Si una función no devuelve nada, devuelve Unit por defecto; no hace falta escribirlo."
+    },
+    "quiz-15": {
+      "q": "¿Para qué se usa async/await en las corrutinas?",
+      "opts": [
+        "Para crear un hilo nuevo",
+        "Para hacer trabajo en paralelo y obtener el resultado después: devuelve un Deferred",
+        "Para capturar errores",
+        "Para liberar memoria"
+      ],
+      "exp": "async devuelve un Deferred<T> y empieza el trabajo enseguida. Cuando llamas a await(), espera el resultado sin bloquear el hilo. Lanzar varias llamadas async a la vez te da paralelismo real."
+    }
+  }
+}

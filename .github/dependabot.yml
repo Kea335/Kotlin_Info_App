@@ -1,0 +1,29 @@
+# Asılılıq yeniləmələri (Mərhələ 3). Hər yeniləmə ayrıca PR-dır və CI-dan
+# (test, lint, release build, R8 yoxlaması) keçməlidir.
+version: 2
+updates:
+  # gradle/libs.versions.toml və plugin-lər
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # Compose BOM, AndroidX, Kotlin — bir-birindən asılıdır, birlikdə yenilənir.
+      androidx:
+        patterns: ["androidx.*"]
+      kotlin:
+        patterns: ["org.jetbrains.kotlin*", "org.jetbrains.kotlinx*"]
+    commit-message:
+      prefix: "deps"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "ci"

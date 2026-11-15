@@ -16,15 +16,34 @@ import kotlinx.coroutines.flow.map
 
 // Bütün tətbiq üçün TƏK DataStore nüsxəsi. `by preferencesDataStore` genişlənmə
 // xassəsi olduğu üçün fayl səviyyəsində elan olunmalıdır — eyni adla ikinci dəfə
-// yaradılsa çalışma vaxtında istisna atılır.
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "kotlinaz")
+// yaradılsa çalışma vaxtında istisna atılır. Yalnız AppContainer oxuyur.
+internal val Context.kotlinazDataStore: DataStore<Preferences> by preferencesDataStore(name = "kotlinaz")
 
-/** Tərəqqi və tənzimləmələr — hamısı cihazda saxlanılır. */
-class UserPrefs(private val context: Context) {
+/**
+ * Bərpa oluna bilən keşlər (kompilyator versiyaları) — ayrıca faylda, çünki
+ * yedəklənmir: `res/xml/backup_rules.xml` və `data_extraction_rules.xml` bu
+ * faylı (`datastore/kotlinaz_kes.preferences_pb`) çıxarır. Tərəqqi və
+ * tənzimləmələr isə yedəklənir — yeni telefonda itmir.
+ */
+internal val Context.kesDataStore: DataStore<Preferences> by preferencesDataStore(name = "kotlinaz_kes")
+
+/**
+ * Tərəqqi və tənzimləmələr — hamısı cihazda saxlanılır.
+ *
+ * `Context` yox, hazır [DataStore] alır: testdə yaddaşdakı fake store ilə
+ * işləyir, tətbiqdə isə AppContainer [kotlinazDataStore]-u ötürür.
+ */
+class UserPrefs(
+    private val dataStore: DataStore<Preferences>,
+    /** Yedəklənməyən keşlər — tətbiqdə [kesDataStore]; testdə defolt olaraq eyni store. */
+    private val kesStore: DataStore<Preferences> = dataStore
+) {
 
     // Disk açarları. Adlar dəyişsə istifadəçinin tərəqqisi itər — sabit qalmalıdır.
     private object Acar {
         val TEMA = stringPreferencesKey("tema")
+        /** Tətbiq dili — [AppDil.teq]; açar yoxdursa sistem dili (T3.3). */
+        val DIL = stringPreferencesKey("dil")
         /** Oxunmuş bölmə id-ləri. */
         val OXUNAN = stringSetPreferencesKey("oxunan_bolmeler")
         /** Həll edilmiş çalışma id-ləri (nəzəri və praktiki birlikdə). */
@@ -45,61 +64,83 @@ class UserPrefs(private val context: Context) {
         /**
          * Kompilyator versiyalarının keşi — `api.kotlinlang.org/versions`
          * cavabı, [KompilyatorVersiyalari.keseYaz] formatında. Tərəqqi deyil,
-         * ona görə sıfırlamalarda toxunulmur.
+         * ona görə sıfırlamalarda toxunulmur. [kesStore]-dadır (yedəklənmir).
          */
         val KOMPILYATOR_VERSIYALARI = stringPreferencesKey("compiler_versions")
         /** Keşin yazıldığı an, epoch ms — 24 saatdan köhnədirsə yenilənir. */
         val KOMPILYATOR_VERSIYALARI_VAXTI = longPreferencesKey("compiler_versions_ts")
+        /**
+         * Kod meydanındakı son kod — tətbiq bağlanıb açılanda itməsin. Tərəqqi
+         * deyil, sıfırlamalarda toxunulmur.
+         */
+        val MEYDAN_KODU = stringPreferencesKey("meydan_kodu")
+        /** Həmin kodun başladığı nümunə; yoxdursa boş redaktordan. */
+        val MEYDAN_PRESETI = stringPreferencesKey("meydan_preseti")
     }
 
-    val tema: Flow<ThemeMode> = context.dataStore.data.map {
+    val tema: Flow<ThemeMode> = dataStore.data.map {
         ThemeMode.from(it[Acar.TEMA])
     }
 
-    val oxunanBolmeler: Flow<Set<String>> = context.dataStore.data.map {
+    /**
+     * Seçilmiş dil; null = «Sistem dili». Naməlum teq (məsələn dil siyahıdan
+     * çıxarılıbsa) da sistem dili sayılır — tətbiq çökmür.
+     */
+    val dil: Flow<AppDil?> = dataStore.data.map {
+        AppDil.from(it[Acar.DIL])
+    }
+
+    val oxunanBolmeler: Flow<Set<String>> = dataStore.data.map {
         it[Acar.OXUNAN] ?: emptySet()
     }
 
-    val hellEdilmis: Flow<Set<String>> = context.dataStore.data.map {
+    val hellEdilmis: Flow<Set<String>> = dataStore.data.map {
         it[Acar.HELL] ?: emptySet()
     }
 
     /** Rejim id-si → rekord. Açar yoxdursa boş xəritə. */
-    val quizRekordlari: Flow<Map<String, Int>> = context.dataStore.data.map {
+    val quizRekordlari: Flow<Map<String, Int>> = dataStore.data.map {
         xeriteAc(it[Acar.QUIZ_REKORDLARI])
     }
 
-    val sonBolme: Flow<String?> = context.dataStore.data.map {
+    val sonBolme: Flow<String?> = dataStore.data.map {
         it[Acar.SON_BOLME]
     }
 
     /** Yazı ölçüsü — 0 kiçik, 1 normal, 2 böyük. Bütün mətnə təsir edir. */
-    val sriftOlcusu: Flow<Int> = context.dataStore.data.map {
+    val sriftOlcusu: Flow<Int> = dataStore.data.map {
         it[Acar.SRIFT] ?: 1
     }
 
     /** Redaktorda söz tamamlama — defolt açıqdır. */
-    val kodTamamlama: Flow<Boolean> = context.dataStore.data.map {
+    val kodTamamlama: Flow<Boolean> = dataStore.data.map {
         it[Acar.TAMAMLAMA] ?: true
     }
 
     suspend fun temaSec(mode: ThemeMode) {
-        context.dataStore.edit { it[Acar.TEMA] = mode.id }
+        dataStore.edit { it[Acar.TEMA] = mode.id }
+    }
+
+    /** null = sistem dili: açar silinir ki, «sistem» ilə «az» seçimi qarışmasın. */
+    suspend fun dilSec(dil: AppDil?) {
+        dataStore.edit {
+            if (dil == null) it.remove(Acar.DIL) else it[Acar.DIL] = dil.teq
+        }
     }
 
     suspend fun sriftSec(olcu: Int) {
         // coerceIn: diapazondan kənar dəyər yazılsa MainActivity-dəki `when`
         // onu «normal» kimi qəbul edərdi — mənbədə saxlamaq daha təmizdir.
-        context.dataStore.edit { it[Acar.SRIFT] = olcu.coerceIn(0, 2) }
+        dataStore.edit { it[Acar.SRIFT] = olcu.coerceIn(0, 2) }
     }
 
     suspend fun tamamlamaSec(acıq: Boolean) {
-        context.dataStore.edit { it[Acar.TAMAMLAMA] = acıq }
+        dataStore.edit { it[Acar.TAMAMLAMA] = acıq }
     }
 
     suspend fun bolmeniOxunmusIsaretle(id: String) {
         // Tək `edit` blokunda iki açar — atomik yazılır.
-        context.dataStore.edit { p ->
+        dataStore.edit { p ->
             p[Acar.OXUNAN] = (p[Acar.OXUNAN] ?: emptySet()) + id
             p[Acar.SON_BOLME] = id
         }
@@ -107,18 +148,23 @@ class UserPrefs(private val context: Context) {
 
     /** Dərs açılanda çağırılır — bölmə oxunmuş sayılmasa da mövqe yadda qalır. */
     suspend fun sonBolmeniYaz(id: String) {
-        context.dataStore.edit { it[Acar.SON_BOLME] = id }
+        dataStore.edit { it[Acar.SON_BOLME] = id }
     }
 
-    suspend fun calismaniHellIsaretle(id: String) {
-        context.dataStore.edit { p ->
-            p[Acar.HELL] = (p[Acar.HELL] ?: emptySet()) + id
+    /** true — çalışma bu çağırışla İLK DƏFƏ həll sayıldı (günlük fəallıq üçün, T5.4). */
+    suspend fun calismaniHellIsaretle(id: String): Boolean {
+        var yeni = false
+        dataStore.edit { p ->
+            val movcud = p[Acar.HELL] ?: emptySet()
+            yeni = id !in movcud
+            p[Acar.HELL] = movcud + id
         }
+        return yeni
     }
 
     /** Rejimin rekordu yalnız köhnəni ötəndə yenilənir. */
     suspend fun quizNeticesiniYaz(rejim: String, bal: Int) {
-        context.dataStore.edit { p ->
+        dataStore.edit { p ->
             val xerite = xeriteAc(p[Acar.QUIZ_REKORDLARI])
             if (bal > (xerite[rejim] ?: 0)) {
                 p[Acar.QUIZ_REKORDLARI] = xeriteYaz(xerite + (rejim to bal))
@@ -127,11 +173,11 @@ class UserPrefs(private val context: Context) {
     }
 
     suspend fun oxumaTereqqisiniSifirla() {
-        context.dataStore.edit { it.remove(Acar.OXUNAN) }
+        dataStore.edit { it.remove(Acar.OXUNAN) }
     }
 
     suspend fun calismaTereqqisiniSifirla() {
-        context.dataStore.edit { it.remove(Acar.HELL) }
+        dataStore.edit { it.remove(Acar.HELL) }
     }
 
     /**
@@ -141,7 +187,7 @@ class UserPrefs(private val context: Context) {
      * çökməkdən yaxşıdır.
      */
     suspend fun kompilyatorKesi(): KompilyatorKesi? = try {
-        val p = context.dataStore.data.first()
+        val p = kesStore.data.first()
         val versiyalar = KompilyatorVersiyalari.kesdenOxu(p[Acar.KOMPILYATOR_VERSIYALARI])
         val vaxt = p[Acar.KOMPILYATOR_VERSIYALARI_VAXTI]
         if (versiyalar.isEmpty() || vaxt == null) null else KompilyatorKesi(versiyalar, vaxt)
@@ -150,15 +196,38 @@ class UserPrefs(private val context: Context) {
     }
 
     suspend fun kompilyatorKesiniYaz(versiyalar: List<KompilyatorVersiyasi>, vaxt: Long) {
-        context.dataStore.edit { p ->
+        kesStore.edit { p ->
             p[Acar.KOMPILYATOR_VERSIYALARI] = KompilyatorVersiyalari.keseYaz(versiyalar)
             p[Acar.KOMPILYATOR_VERSIYALARI_VAXTI] = vaxt
         }
+        // Köhnə versiyalar keşi əsas faylda saxlayırdı — ilk yeni yazıda
+        // oradan silinir ki, yedəyə düşməsin.
+        if (kesStore !== dataStore) {
+            dataStore.edit { p ->
+                p.remove(Acar.KOMPILYATOR_VERSIYALARI)
+                p.remove(Acar.KOMPILYATOR_VERSIYALARI_VAXTI)
+            }
+        }
     }
 
-    /** Tərəqqinin hamısı silinir; tema və şrift ölçüsü toxunulmadan qalır. */
+    /** Meydanın saxlanmış kodu; yoxdursa və ya disk oxunmasa null. */
+    suspend fun meydanQaralamasi(): MeydanQaralamasi? = try {
+        val p = dataStore.data.first()
+        p[Acar.MEYDAN_KODU]?.let { MeydanQaralamasi(it, p[Acar.MEYDAN_PRESETI]) }
+    } catch (_: Exception) {
+        null
+    }
+
+    suspend fun meydanQaralamasiniYaz(q: MeydanQaralamasi) {
+        dataStore.edit { p ->
+            p[Acar.MEYDAN_KODU] = q.kod
+            if (q.preset == null) p.remove(Acar.MEYDAN_PRESETI) else p[Acar.MEYDAN_PRESETI] = q.preset
+        }
+    }
+
+    /** Tərəqqinin hamısı silinir; tema, dil və şrift ölçüsü toxunulmadan qalır. */
     suspend fun hamisiniSifirla() {
-        context.dataStore.edit { p ->
+        dataStore.edit { p ->
             p.remove(Acar.OXUNAN)
             p.remove(Acar.HELL)
             p.remove(Acar.KOHNE_QUIZ_REKORD)
@@ -167,6 +236,9 @@ class UserPrefs(private val context: Context) {
         }
     }
 }
+
+/** Kod meydanının diskdəki halı: redaktordakı kod və seçili nümunə (null = boş redaktor). */
+data class MeydanQaralamasi(val kod: String, val preset: String?)
 
 /** Diskdəki kompilyator versiyaları və yazıldığı an (epoch ms). */
 data class KompilyatorKesi(val versiyalar: List<KompilyatorVersiyasi>, val vaxt: Long)
@@ -188,10 +260,11 @@ internal fun xeriteAc(xam: String?): Map<String, Int> {
 internal fun xeriteYaz(xerite: Map<String, Int>): String =
     xerite.entries.joinToString(";") { "${it.key}=${it.value}" }
 
-enum class ThemeMode(val id: String, val label: String) {
-    SYSTEM("system", "Sistem"),
-    LIGHT("light", "İşıqlı"),
-    DARK("dark", "Qaranlıq");
+/** Tema rejimi; ekrandakı adı `ui/Etiketler.kt`-dədir. */
+enum class ThemeMode(val id: String) {
+    SYSTEM("system"),
+    LIGHT("light"),
+    DARK("dark");
 
     companion object {
         /** Açar yoxdursa (ilk açılış) və ya naməlumdursa — sistem rejimi. */

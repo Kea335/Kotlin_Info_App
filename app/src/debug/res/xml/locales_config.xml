@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tətbiqin dəstəklədiyi BÜTÜN dillər (T3.3) — debug build-in sistem
+     menyusu üçün. data/AppDil.kt ilə eyni sırada saxlanılır — AppDilTest
+     ikisini tutuşdurur. Release-in siyahısı (yalnız tam tərcümə olunmuş
+     dillər, T4.7) src/main/res/xml/-dadır və build-locale.js onu bu faylın
+     sırası ilə yazır. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="az" />
+    <locale android:name="tr" />
+    <locale android:name="en" />
+    <locale android:name="ru" />
+    <locale android:name="es" />
+    <locale android:name="pt-BR" />
+    <locale android:name="de" />
+    <locale android:name="fr" />
+    <locale android:name="ar" />
+    <locale android:name="fa" />
+    <locale android:name="hi" />
+    <locale android:name="id" />
+    <locale android:name="zh-CN" />
+    <locale android:name="ja" />
+    <locale android:name="ko" />
+</locale-config>

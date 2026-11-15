@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AVTOMATIK YARADILIR — node tools/build-locale.js. Əl ilə dəyişmə.
+     Release-də Android 13+ sistem menyusunda yalnız tam tərcümə olunmuş
+     dillər görünür (T4.7). Bütün dillər: src/debug/res/xml/locales_config.xml. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="az" />
+    <locale android:name="tr" />
+    <locale android:name="en" />
+    <locale android:name="ru" />
+</locale-config>

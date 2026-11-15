@@ -1,8 +1,15 @@
 package az.kotlinaz.app.ui.components
 
+import androidx.compose.ui.semantics.Role
+import az.kotlinaz.app.ui.isareler.IsareDuymesi
+import az.kotlinaz.app.ui.isareler.LocalKodIsaresi
+import androidx.compose.ui.res.stringResource
+import az.kotlinaz.app.R
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -35,7 +42,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,15 +67,18 @@ fun CodeCard(
     modifier: Modifier = Modifier,
     title: String = "",
     output: String? = null,
-    onOpenInPlayground: ((String) -> Unit)? = null
+    onOpenInPlayground: ((String) -> Unit)? = null,
+    /** Blokun sabit id-si (T3.1) — işarə üçün; boşdursa ikon görünmür. */
+    blokId: String = ""
 ) {
     val c = KAz.colors
     val context = LocalContext.current
     val bildir = LocalBildiris.current
-    // Nəticə paneli əvvəlcə bağlıdır. `remember(code)` — kart yeni koda
-    // təkrar işlədiləndə (LazyColumn elementləri təkrar istifadə olunur)
-    // köhnə kartın açıq vəziyyəti yenisinə keçməsin deyə.
-    var neticeGorunur by remember(code) { mutableStateOf(false) }
+    // Nəticə paneli əvvəlcə bağlıdır. `rememberSaveable(code)` — kart yeni
+    // koda təkrar işlədiləndə (LazyColumn elementləri təkrar istifadə olunur)
+    // köhnə kartın açıq vəziyyəti yenisinə keçməsin deyə; açıq panel isə
+    // döndərmə və proses ölümündən sağ çıxır (T2.4).
+    var neticeGorunur by rememberSaveable(code) { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -97,7 +107,7 @@ fun CodeCard(
             Spacer(Modifier.width(10.dp))
 
             Text(
-                text = title.ifBlank { "Kotlin" },
+                text = title.ifBlank { "Kotlin" }, // i18n-ignore — dil adı
                 style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
                 color = c.textDim,
                 fontFamily = FontFamily.Monospace,
@@ -110,7 +120,7 @@ fun CodeCard(
             if (output != null) {
                 KodDuymesi(
                     ikon = Icons.Outlined.PlayArrow,
-                    etiket = if (neticeGorunur) "Gizlət" else "İşlə",
+                    etiket = stringResource(if (neticeGorunur) R.string.kod_gizlet else R.string.kod_isle),
                     vurgulu = true
                 ) { neticeGorunur = !neticeGorunur }
                 Spacer(Modifier.width(6.dp))
@@ -118,18 +128,28 @@ fun CodeCard(
 
             if (onOpenInPlayground != null) {
                 // AutoMirrored variant: sağdan-sola dillərdə ikon da güzgülənir.
-                KodDuymesi(ikon = Icons.AutoMirrored.Outlined.OpenInNew, etiket = "Meydan") {
+                KodDuymesi(ikon = Icons.AutoMirrored.Outlined.OpenInNew, etiket = stringResource(R.string.kod_meydan)) {
                     onOpenInPlayground(code)
                 }
                 Spacer(Modifier.width(6.dp))
             }
 
-            KodDuymesi(ikon = Icons.Outlined.ContentCopy, etiket = "Kopyala") {
+            val kopyalandi = stringResource(R.string.ortaq_kod_kopyalandi)
+            KodDuymesi(ikon = Icons.Outlined.ContentCopy, etiket = stringResource(R.string.ortaq_kopyala)) {
                 kopyala(context, code)
                 // Android 13+ sistemin öz bildirişini göstərir — təkrarlamırıq
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                    bildir("Kod kopyalandı")
+                    bildir(kopyalandi)
                 }
+            }
+
+            // İşarə (T5.3) — yalnız dərsdə və sabit id-li blokda.
+            val isare = LocalKodIsaresi.current
+            if (isare != null && blokId.isNotBlank()) {
+                IsareDuymesi(
+                    isareli = blokId in isare.isareliler,
+                    modifier = Modifier.size(34.dp)
+                ) { isare.deyis(blokId) }
             }
         }
 
@@ -137,20 +157,23 @@ fun CodeCard(
         // Rəngləmə kod və tema dəyişməyincə keşdə qalır; uzun blokda
         // hər yenidən qurulmada təkrar hesablanmasın.
         val rengli = rememberHighlighted(code)
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-        ) {
-            Text(
-                text = rengli,
-                modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
-                fontFamily = FontFamily.Monospace,
-                fontSize = (13 * KAz.codeScale).sp,
-                lineHeight = (21 * KAz.codeScale).sp,
-                color = c.text,
-                softWrap = false
-            )
+        // Kod RTL dillərdə də soldan-sağa (T3.6).
+        SoldanSaga {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = rengli,
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = (13 * KAz.codeScale).sp,
+                    lineHeight = (21 * KAz.codeScale).sp,
+                    color = c.text,
+                    softWrap = false
+                )
+            }
         }
 
         // ---- Nəticə ----
@@ -166,7 +189,7 @@ fun CodeCard(
                     .padding(horizontal = 14.dp, vertical = 10.dp)
             ) {
                 Text(
-                    text = "Nəticə",
+                    text = stringResource(R.string.ortaq_netice),
                     style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
                     color = c.textFaint,
                     fontWeight = FontWeight.SemiBold
@@ -174,15 +197,17 @@ fun CodeCard(
                 // DÜZƏLİŞ: bu Column-un içindədir, ona görə width() heç bir
                 // şaquli boşluq yaratmırdı — «Nəticə» yazısı çıxışa yapışırdı.
                 Spacer(Modifier.height(4.dp))
-                Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
-                    Text(
-                        text = highlightOutput(output.orEmpty(), c.ok, c.err),
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = (12.5f * KAz.codeScale).sp,
-                        lineHeight = (19 * KAz.codeScale).sp,
-                        softWrap = false,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
+                SoldanSaga {
+                    Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+                        Text(
+                            text = highlightOutput(output.orEmpty(), c.ok, c.err),
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = (12.5f * KAz.codeScale).sp,
+                            lineHeight = (19 * KAz.codeScale).sp,
+                            softWrap = false,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
                 }
             }
         }
@@ -201,7 +226,7 @@ private fun KodDuymesi(
         modifier = Modifier
             .border(1.dp, if (vurgulu) c.accent.copy(alpha = 0.5f) else c.border, RoundedCornerShape(8.dp))
             .background(if (vurgulu) c.accentSoft else Color.Transparent, RoundedCornerShape(8.dp))
-            .clickable(onClick = onClick)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 8.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -224,4 +249,21 @@ private fun KodDuymesi(
 internal fun kopyala(context: Context, metn: String) {
     val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
     cm.setPrimaryClip(ClipData.newPlainText("KotlinAZ", metn))
+}
+
+/**
+ * Mətni sistemin paylaşma menyusu ilə göndərir (mesajlaşma, e-poçt, qeyd).
+ * Paylaşa bilən tətbiq yoxdursa false — çağıran istifadəçiyə deyir.
+ */
+internal fun paylas(context: Context, metn: String, basliq: String): Boolean {
+    val gonder = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, metn)
+    }
+    return try {
+        context.startActivity(Intent.createChooser(gonder, basliq))
+        true
+    } catch (_: ActivityNotFoundException) {
+        false
+    }
 }

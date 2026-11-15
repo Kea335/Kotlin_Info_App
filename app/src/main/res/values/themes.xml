@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.KotlinAZ" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- AppCompat ailəsi: per-app dil API-si (T3.3) AppCompatActivity tələb edir.
+         Compose MaterialTheme rəngləri özü verir; bu tema yalnız pəncərə fonu
+         üçündür — ilk kadra qədər KAz.colors.bg ilə eyni rəng görünsün. -->
+    <style name="Theme.KotlinAZ" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">#F7F7FB</item>
+    </style>
 </resources>

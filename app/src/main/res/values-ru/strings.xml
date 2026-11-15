@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    KotlinAZ UI strings — Русский (T4.2). Base: values/strings.xml (az), pivot: values-en.
+    Rules: localization/POLICY.md. Keep %1$d / %1$s placeholders as they are.
+    Plurals: one / few / many / other (1 урок, 2 урока, 5 уроков, 1,5 урока).
+-->
+<resources>
+
+    <!-- ===== Общее: уровень, тема, режим, ошибки запуска ===== -->
+    <string name="seviyye_junior">Junior</string>
+    <string name="seviyye_middle">Middle</string>
+    <string name="seviyye_senior">Senior</string>
+    <string name="tema_sistem">Системная</string>
+    <string name="tema_isiqli">Светлая</string>
+    <string name="tema_qaranliq">Тёмная</string>
+    <string name="calisma_rejim_nezeri">Теория</string>
+    <string name="calisma_rejim_praktiki">Практика</string>
+    <string name="quiz_rejim_qarisiq">Смешанный</string>
+    <string name="quiz_rejim_junior_izah">Синтаксис, переменные, условия, циклы — вопросы для начинающих.</string>
+    <string name="quiz_rejim_middle_izah">Коллекции, лямбды, ООП, null-безопасность.</string>
+    <string name="quiz_rejim_senior_izah">Дженерики, корутины, делегаты, тонкие детали.</string>
+    <string name="quiz_rejim_qarisiq_izah">Случайная подборка со всех уровней — настоящий экзамен.</string>
+    <string name="icra_xeta_kompilyasiya">Ошибка компиляции</string>
+    <string name="icra_xeta_calisma_vaxti">Ошибка выполнения</string>
+    <string name="icra_xeta_baglanti">Проблема с подключением</string>
+    <string name="icra_setir">Строка %1$d: %2$s</string>
+    <string name="ortaq_kopyala">Копировать</string>
+    <string name="ortaq_kod_kopyalandi">Код скопирован</string>
+    <string name="ortaq_novbeti">Далее</string>
+    <string name="ortaq_evvelki">Назад</string>
+    <string name="ortaq_sifirla">Сбросить</string>
+    <string name="ortaq_netice">Вывод</string>
+    <string name="ortaq_internet_yoxdur">Нет интернета</string>
+    <string name="ortaq_faiz">%1$d%%</string>
+    <string name="ortaq_say_bolu">%1$d / %2$d</string>
+    <string name="ortaq_brauzer_yoxdur">Браузер не найден</string>
+
+    <!-- ===== Навигация и заголовки ===== -->
+    <string name="nav_dersler">Уроки</string>
+    <string name="nav_calismalar">Упражнения</string>
+    <string name="nav_test">Тест</string>
+    <string name="nav_meydan">Песочница</string>
+    <string name="nav_geri">Назад</string>
+    <string name="nav_axtaris">Поиск</string>
+    <string name="nav_tenzimlemeler">Настройки</string>
+    <string name="basliq_ders">Урок</string>
+    <string name="basliq_calisma">Упражнение</string>
+    <string name="basliq_bilik_testi">Тест знаний</string>
+    <string name="basliq_kod_meydani">Песочница кода</string>
+    <string name="yukleme_xeta_basliq">Не удалось загрузить контент</string>
+    <string name="yukleme_xeta_izah">Не удалось прочитать встроенные ресурсы приложения.</string>
+
+    <!-- ===== Настройки ===== -->
+    <string name="ayarlar_oxuma_sifirlandi">Подтверждения уроков сброшены</string>
+    <string name="ayarlar_calisma_sifirlandi">Прогресс упражнений сброшен</string>
+    <string name="ayarlar_hamisi_sifirlandi">Весь прогресс сброшен</string>
+    <string name="ayarlar_gorunus">Внешний вид</string>
+    <string name="ayarlar_tema">Тема</string>
+    <string name="ayarlar_srift">Размер шрифта</string>
+    <string name="ayarlar_srift_kicik">Мелкий</string>
+    <string name="ayarlar_srift_normal">Обычный</string>
+    <string name="ayarlar_srift_boyuk">Крупный</string>
+    <string name="ayarlar_srift_izah">Действует на всё приложение — текст уроков, кнопки и блоки кода увеличиваются и уменьшаются вместе.</string>
+    <string name="ayarlar_dil">Язык</string>
+    <string name="ayarlar_sistem_dili">Язык системы</string>
+    <string name="ayarlar_dil_mezmun_yoxdur">Уроки на этом языке ещё не готовы — уроки, упражнения и тест показаны на языке: %1$s. Как только появится перевод, переключение произойдёт автоматически.</string>
+    <string name="ayarlar_dil_izah">При смене языка меняются и тексты приложения, и содержимое уроков; прогресс и рекорды сохраняются.</string>
+    <string name="ayarlar_redaktor">Редактор</string>
+    <string name="ayarlar_tamamlama">Автодополнение кода</string>
+    <string name="ayarlar_tamamlama_izah">Во время набора над словом появляются подсказки: «pri» — print/println, «va» — val/var. Работает в песочнице и в практических упражнениях.</string>
+    <string name="ayarlar_tereqqi">Прогресс</string>
+    <string name="ayarlar_seviyyen">Твой уровень</string>
+    <string name="ayarlar_tereqqi_izah">Урок считается пройденным, только когда все его упражнения решены правильно.</string>
+    <string name="ayarlar_sifirla_oxuma">Сбросить подтверждения уроков</string>
+    <string name="ayarlar_sifirla_calisma">Сбросить прогресс упражнений</string>
+    <string name="ayarlar_sifirla_hamisi">Сбросить всё</string>
+    <string name="ayarlar_rekordlar">Рекорды теста</string>
+    <string name="ayarlar_rekord_yoxdur">Ты ещё не проходил тест. Во вкладке «Тест» есть режимы Junior, Middle, Senior и Смешанный.</string>
+    <string name="ayarlar_oflayn">Работа офлайн</string>
+    <string name="ayarlar_oflayn_izah">Все уроки, 144 примера кода (вместе с выводом), 6 интерактивных демо, 1250 упражнений и тест встроены в приложение — интернет не нужен.\n\nПодключение нужно только песочнице и кнопке «Проверить» в практических упражнениях, потому что код выполняется настоящим компилятором Kotlin.</string>
+    <string name="ayarlar_kompilyator">Компилятор</string>
+    <string name="ortaq_kotlin_versiya">Kotlin %1$s</string>
+    <string name="ayarlar_kompilyator_ferqli">Приложение собрано на Kotlin %1$s; сервер не предлагает эту версию, поэтому код выполняется на %2$s.</string>
+    <string name="ayarlar_kompilyator_yoxlanmayib">Список версий проверяется на сервере при первом запуске.</string>
+    <string name="ayarlar_mexfilik">Конфиденциальность и связь</string>
+    <string name="ayarlar_mexfilik_izah">Когда ты нажимаешь «Запустить» или «Проверить» в песочнице или практическом упражнении, написанный тобой код отправляется на сервер Kotlin компании JetBrains (api.kotlinlang.org) для выполнения. Никакие другие данные не покидают устройство: нет аккаунтов, рекламы, аналитики и отслеживания. Прогресс и настройки хранятся только на этом устройстве (и в резервной копии Android).</string>
+    <string name="ayarlar_senad">Документ</string>
+    <string name="ayarlar_mexfilik_siyaseti">Политика конфиденциальности</string>
+    <string name="ayarlar_xeta_bildir_ust">GitHub issue — устройство и версия добавляются</string>
+    <string name="ayarlar_xeta_bildir">Сообщить об ошибке</string>
+    <string name="ayarlar_xeta_bildir_izah">Форма откроется в браузере — перед отправкой можно всё просмотреть и изменить.</string>
+    <string name="ayarlar_menbe">Источник</string>
+    <string name="ayarlar_menbe_izah">Контент взят с сайта KotlinAZ.</string>
+    <string name="ayarlar_versiya">KotlinAZ · v%1$s</string>
+    <string name="ayarlar_tesdiq_oxuma_basliq">Удалить подтверждения уроков?</string>
+    <string name="ayarlar_tesdiq_oxuma_metn">Подтверждения «Прочитал», которые ты дал в разделах без упражнений, будут удалены. Освоение, полученное за упражнения, не затрагивается.</string>
+    <string name="ayarlar_tesdiq_calisma_basliq">Удалить прогресс упражнений?</string>
+    <string name="ayarlar_tesdiq_calisma_metn">Отметки о решённых упражнениях будут удалены — освоение уроков и твой уровень тоже сбросятся.</string>
+    <string name="ayarlar_tesdiq_hamisi_basliq">Удалить всё?</string>
+    <string name="ayarlar_tesdiq_hamisi_metn">Подтверждения уроков, упражнения и рекорды теста — всё будет сброшено.</string>
+    <string name="ayarlar_imtina">Отмена</string>
+
+    <!-- ===== Песочница ===== -->
+    <string name="meydan_xeberdarliq">Этому разделу нужен интернет — код компилируется на серверах JetBrains. Остальная часть приложения полностью работает офлайн.</string>
+    <string name="meydan_kompilyator">Компилятор: Kotlin %1$s</string>
+    <string name="meydan_baslangic">Заготовки</string>
+    <string name="meydan_bos_redaktor">Песочница</string>
+    <string name="meydan_paylas">Поделиться кодом</string>
+    <string name="meydan_paylas_tetbiq_yoxdur">Нет приложения, чтобы поделиться</string>
+    <string name="meydan_isle">▶  Запустить</string>
+    <string name="meydan_dayandir">■  Стоп</string>
+    <string name="meydan_temizle">Очистить</string>
+    <string name="meydan_isleyir">Код компилируется на сервере…</string>
+    <string name="meydan_cixis_yoxdur">(нет вывода)</string>
+    <string name="meydan_dayandirildi">Остановлено</string>
+    <string name="meydan_dayandirildi_izah">Выполнение остановлено — результата не будет.</string>
+    <string name="meydan_oflayn_izah">Песочница запускает компилятор Kotlin на серверах JetBrains, поэтому без подключения не работает. Учиться можно и офлайн — все уроки, 144 примера кода (вместе с выводом), 1250 упражнений и тест доступны без сети.</string>
+
+    <!-- ===== Карточка кода и редактор ===== -->
+    <string name="kod_isle">Запустить</string>
+    <string name="kod_gizlet">Скрыть</string>
+    <string name="kod_meydan">Песочница</string>
+    <plurals name="redaktor_setir_sayi">
+        <item quantity="one">%d строка</item>
+        <item quantity="few">%d строки</item>
+        <item quantity="many">%d строк</item>
+        <item quantity="other">%d строки</item>
+    </plurals>
+
+    <!-- ===== Упражнения ===== -->
+    <string name="cavab_duzdur">Верно</string>
+    <string name="cavab_duzgun">Правильный ответ: %1$s</string>
+    <string name="calisma_movzu_yoxdur">Тема не найдена</string>
+    <string name="calisma_hamisi">Все</string>
+    <string name="calisma_sayqac">Упражнение %1$d / %2$d</string>
+    <string name="calisma_hell_edilib">Решено</string>
+    <string name="calisma_bu_seviyyede_yoxdur">На этом уровне упражнений нет.</string>
+    <string name="calisma_gozlenilen_netice">Ожидаемый вывод</string>
+    <string name="calisma_yoxla">Проверить</string>
+    <string name="calisma_yoxlanilir">Проверка…</string>
+    <string name="calisma_ipucu">Подсказка</string>
+    <string name="calisma_cavab">Ответ</string>
+    <string name="calisma_kodu_kopyala">Копировать код</string>
+    <string name="calisma_hell_etdim">Я решил</string>
+    <string name="calisma_hell_isarelendi">Упражнение отмечено как решённое</string>
+    <string name="calisma_cavab_yuklendi">Ответ загружен в редактор — прочитай его, затем нажми «Сбросить», чтобы вернуться к заготовке, и попробуй написать сам.</string>
+    <string name="calisma_cavab_tesdiq_basliq">Посмотреть ответ?</string>
+    <string name="calisma_cavab_tesdiq_metn">Чтение готового ответа не заменяет обучение — сначала попробуй ещё раз с «Подсказкой». Если увидишь ответ, потеряешь шанс решить задачу самостоятельно.</string>
+    <string name="calisma_cavab_goster">Всё равно показать</string>
+    <string name="calisma_ozum_sinayim">Попробую сам</string>
+    <string name="calisma_isleyir">Код выполняется на сервере JetBrains — обычно 3–10 секунд.</string>
+    <string name="calisma_duzgun_netice">Верно! Вывод полностью совпадает.</string>
+    <string name="calisma_sehv_netice">Вывод не совпал</string>
+    <string name="calisma_gozlenilen">Ожидалось</string>
+    <string name="calisma_senin_neticen">Твой вывод</string>
+    <string name="calisma_bos_cixis">(пусто)</string>
+    <string name="calisma_oflayn_izah">Для запуска кода нужно подключение — компилятор Kotlin находится на серверах JetBrains. Офлайн тоже можно заниматься: открой правильное решение кнопкой «Ответ», сравни со своим кодом и отметь «Я решил».</string>
+    <string name="calisma_bank">Банк упражнений</string>
+    <string name="calisma_bank_hell">Решено: %1$d / %2$d</string>
+    <plurals name="calisma_nezeri_sayi">
+        <item quantity="one">%d теоретическое</item>
+        <item quantity="few">%d теоретических</item>
+        <item quantity="many">%d теоретических</item>
+        <item quantity="other">%d теоретических</item>
+    </plurals>
+    <plurals name="calisma_praktiki_sayi">
+        <item quantity="one">%d практическое</item>
+        <item quantity="few">%d практических</item>
+        <item quantity="many">%d практических</item>
+        <item quantity="other">%d практических</item>
+    </plurals>
+
+    <!-- ===== Тест ===== -->
+    <string name="quiz_seviyye_sec">Выбери уровень</string>
+    <plurals name="quiz_izah">
+        <item quantity="one">В каждом раунде случайно выбирается %1$d вопрос — сыграй в тот же режим снова, и вопросы будут другими.</item>
+        <item quantity="few">В каждом раунде случайно выбираются %1$d вопроса — сыграй в тот же режим снова, и вопросы будут другими.</item>
+        <item quantity="many">В каждом раунде случайно выбираются %1$d вопросов — сыграй в тот же режим снова, и вопросы будут другими.</item>
+        <item quantity="other">В каждом раунде случайно выбираются %1$d вопроса — сыграй в тот же режим снова, и вопросы будут другими.</item>
+    </plurals>
+    <plurals name="quiz_hovuz_sayi">
+        <item quantity="one">%d вопрос</item>
+        <item quantity="few">%d вопроса</item>
+        <item quantity="many">%d вопросов</item>
+        <item quantity="other">%d вопроса</item>
+    </plurals>
+    <string name="quiz_rekord_nisan">рекорд %1$d/%2$d</string>
+    <string name="quiz_seviyyeni_deyis_geri">‹  Сменить уровень</string>
+    <string name="quiz_sual_sayqac">Вопрос %1$d / %2$d</string>
+    <string name="quiz_bal">Баллы: %1$d</string>
+    <string name="quiz_neticeye_bax">К результатам</string>
+    <string name="quiz_novbeti_sual">Следующий вопрос</string>
+    <string name="quiz_rey_mukemmel">Отлично! Ты хорошо знаешь этот уровень.</string>
+    <string name="quiz_rey_yaxsi">Хороший результат! Достаточно повторить пару тем.</string>
+    <string name="quiz_rey_orta">Неплохо. Вернись к урокам по темам, где ошибся.</string>
+    <string name="quiz_rey_baslangic">Для начала это нормально — перечитай темы и попробуй снова.</string>
+    <plurals name="quiz_dogru_cavab">
+        <item quantity="one">%1$d / %2$d верный ответ</item>
+        <item quantity="few">%1$d / %2$d верных ответа</item>
+        <item quantity="many">%1$d / %2$d верных ответов</item>
+        <item quantity="other">%1$d / %2$d верного ответа</item>
+    </plurals>
+    <string name="quiz_rekordun">Твой рекорд (%1$s): %2$d / %3$d</string>
+    <string name="quiz_yeniden">Начать заново</string>
+    <string name="quiz_seviyyeni_deyis">Сменить уровень</string>
+
+    <!-- ===== Уроки ===== -->
+    <string name="ders_seviyyen">Твой уровень</string>
+    <string name="ders_en_yuksek_seviyye">Ты на самом высоком уровне — весь банк упражнений в твоём распоряжении.</string>
+    <string name="ders_olmaq_ucun">Чтобы стать %1$s</string>
+    <string name="ders_seviyye_calismalari">Упражнения %1$s</string>
+    <string name="ders_tamamlanan">Пройденные уроки</string>
+    <string name="ders_qayda_izah">Урок пройден, только когда все его упражнения решены правильно — быстрая прокрутка не считается.</string>
+    <string name="ders_internet_teleb_edir">Нужен интернет</string>
+    <string name="ders_1250_calisma">1250 упражнений</string>
+    <string name="ders_seviyye_uzre_test">Тест по уровням</string>
+    <string name="ders_menimsenilib">Освоено %1$d%%</string>
+    <string name="ders_tamamlanib">Пройдено</string>
+    <string name="ders_tereqqi">Прогресс обучения</string>
+    <string name="ders_bolme_tamamlanib">Пройдено разделов: %1$d / %2$d</string>
+    <string name="ders_davam_et">Продолжить</string>
+    <string name="ders_bolme_yoxdur">Раздел не найден</string>
+    <string name="ders_calismalara_kec">К упражнениям — 25 тем, 1250 задач</string>
+    <string name="ders_tamamlanib_basliq">Этот урок пройден</string>
+    <string name="ders_menimse_basliq">Как освоить этот урок</string>
+    <string name="ders_oz_tesdiq">Отмечено твоим подтверждением</string>
+    <string name="ders_calismasiz">В этом разделе нет упражнений</string>
+    <plurals name="ders_calisma_hell">
+        <item quantity="one">Решено %1$d / %2$d упражнение</item>
+        <item quantity="few">Решено %1$d / %2$d упражнения</item>
+        <item quantity="many">Решено %1$d / %2$d упражнений</item>
+        <item quantity="other">Решено %1$d / %2$d упражнения</item>
+    </plurals>
+    <string name="ders_calismasiz_izah">В банке упражнений нет темы для этого раздела. Ты можешь сам подтвердить, что дочитал его.</string>
+    <string name="ders_calismali_izah">Прокрутить текст недостаточно — урок считается пройденным, только когда все упражнения решены правильно.</string>
+    <string name="ders_oxudum">Прочитал, готово</string>
+    <string name="ders_calismalara_qayit">Вернуться к упражнениям</string>
+    <string name="ders_calismalarina_kec">К упражнениям этого урока</string>
+
+    <!-- ===== Поиск ===== -->
+    <string name="axtaris_ipucu">Поиск по материалам…</string>
+    <string name="axtaris_temizle">Очистить</string>
+    <string name="axtaris_qisa">Введи хотя бы две буквы.\nПоиск идёт по всем 32 разделам офлайн.</string>
+    <string name="axtaris_tapilmadi">По запросу «%1$s» ничего не найдено.</string>
+    <plurals name="axtaris_netice_sayi">
+        <item quantity="one">Найдено в %d разделе</item>
+        <item quantity="few">Найдено в %d разделах</item>
+        <item quantity="many">Найдено в %d разделах</item>
+        <item quantity="other">Найдено в %d раздела</item>
+    </plurals>
+
+    <!-- ===== Блоки урока ===== -->
+    <string name="blok_quiz_basliq">Тест знаний</string>
+    <string name="blok_quiz_metn">15 вопросов — от синтаксиса до корутин. Каждый раз вопросы идут в новом порядке.</string>
+    <string name="blok_quiz_duyme">Начать тест</string>
+    <string name="blok_meydan_basliq">Песочница кода</string>
+    <string name="blok_meydan_metn">Настоящий компилятор Kotlin. Этому разделу нужен интернет — остальное приложение работает офлайн.</string>
+    <string name="blok_meydan_duyme">Открыть песочницу</string>
+    <string name="demo_interaktiv">Интерактив</string>
+
+    <!-- ===== Интерактивные демо: вывод типов ===== -->
+    <string name="demo_tip_basliq">Лаборатория вывода типов</string>
+    <string name="demo_tip_tesvir">Когда ты пишешь val x = …, Kotlin смотрит на правую часть и сам определяет тип.</string>
+    <string name="demo_tip_kod_serhi">что видит компилятор:</string>
+    <string name="demo_tip_cixarilan">Выведенный тип: </string>
+    <string name="demo_tip_bos">Введите значение выше или выберите один из примеров.</string>
+    <string name="demo_tip_long_l">Суффикс L означает Long (64 бита).</string>
+    <string name="demo_tip_long_boyuk">Значение больше диапазона Int, поэтому автоматически выбран Long.</string>
+    <string name="demo_tip_int">Целые числа по умолчанию имеют тип Int (32 бита).</string>
+    <string name="demo_tip_float">Суффикс f означает Float (32-битное дробное).</string>
+    <string name="demo_tip_double">Дробные числа по умолчанию имеют тип Double (64 бита).</string>
+    <string name="demo_tip_boolean">Логическое значение: только true или false.</string>
+    <string name="demo_tip_char">Одинарные кавычки означают Char, двойные — String.</string>
+    <string name="demo_tip_string">Текст в двойных кавычках — это String.</string>
+    <string name="demo_tip_null">Сам по себе null имеет тип Nothing?. Обычно тип пишут явно: val x: String? = null</string>
+    <string name="demo_tip_bos_siyahi">У пустого списка тип элементов неизвестен — укажите его явно: listOf&lt;Int&gt;()</string>
+    <string name="demo_tip_list">listOf() возвращает список только для чтения (read-only).</string>
+    <string name="demo_tip_mutable_list">mutableListOf() позволяет добавлять и удалять элементы.</string>
+    <string name="demo_tip_map">Запись mapOf(\"a\" to 1) даёт Map&lt;String, Int&gt;.</string>
+    <string name="demo_tip_set">Set не хранит повторяющиеся элементы.</string>
+    <string name="demo_tip_array">Array имеет фиксированный размер; обычно удобнее List.</string>
+    <string name="demo_tip_lambda">Фигурные скобки — это лямбда; без параметров её тип () -&gt; Unit.</string>
+    <string name="demo_tip_taninmayan">Нераспознанное выражение — выберите один из примеров выше.</string>
+
+    <!-- ===== Интерактивные демо: null-safety ===== -->
+    <string name="demo_ns_basliq">Лаборатория null-safety</string>
+    <string name="demo_ns_tesvir">Сделай значение null или непустым, затем выбери оператор — сразу увидишь результат и объяснение.</string>
+    <string name="demo_ns_deyer_var">Есть значение (выключено — null)</string>
+    <string name="demo_ns_kompilyasiya">ОШИБКА КОМПИЛЯЦИИ</string>
+    <string name="demo_ns_cokme">ПАДЕНИЕ ВО ВРЕМЯ ВЫПОЛНЕНИЯ</string>
+    <string name="demo_ns_netice">ВЫВОД</string>
+    <string name="demo_ns_ne_bas_verdi">Что произошло?</string>
+    <string name="demo_ns_hec_ne">(ничего не напечатано)</string>
+    <string name="demo_ns_direct">Kotlin даже не даст запустить этот код. Ошибка ловится на этапе компиляции, а не во время выполнения — пользователь её никогда не увидит.</string>
+    <string name="demo_ns_safe_null">Оператор safe call (?.): если receiver равен null, вызов полностью пропускается и результат — null. Падения нет.</string>
+    <string name="demo_ns_safe_dolu">Receiver не null, поэтому length вычисляется как обычно.</string>
+    <string name="demo_ns_bang_null">Оператор !! означает «я гарантирую, что здесь не null». Ошибёшься — NPE. По возможности избегайте его.</string>
+    <string name="demo_ns_bang_dolu">На этот раз значение было не null, поэтому сработало. Но !! всё равно рискован — в следующий раз может прийти null.</string>
+    <string name="demo_ns_elvis_null">Оператор Elvis (?:) возвращает запасное значение справа, когда левая часть равна null.</string>
+    <string name="demo_ns_elvis_dolu">Левая часть не null, поэтому правая часть Elvis вообще не выполняется.</string>
+    <string name="demo_ns_let_null">Блок let выполняется, только если receiver не null. Если null — весь блок пропускается.</string>
+    <string name="demo_ns_let_dolu">Внутри блока it уже приведён к String через smart cast — дополнительный ? не нужен.</string>
+    <string name="demo_ns_if_null">Условие дало false, блок не выполнился.</string>
+    <string name="demo_ns_if_dolu">SMART CAST: после проверки на null компилятор автоматически считает ad строкой (String) — писать ?. больше не нужно.</string>
+
+    <!-- ===== Интерактивные демо: цепочка, when, scope, coroutine ===== -->
+    <string name="demo_zencir_basliq">Конструктор цепочек</string>
+    <string name="demo_zencir_tesvir">Нажимай на операции, чтобы собрать цепочку, — смотри промежуточный результат каждого шага.</string>
+    <string name="demo_zencir_temizle">Очистить цепочку</string>
+    <string name="demo_zencir_terminal">После терминальной операции цепочку нельзя продолжить</string>
+    <string name="demo_zencir_netice">результат = </string>
+    <string name="demo_when_basliq">Тренажёр выражения when</string>
+    <string name="demo_when_tesvir">Введи значение — и смотри вживую, какая ветка выбрана.</string>
+    <string name="demo_when_bos_giris">(пустой ввод)</string>
+    <string name="demo_scope_basliq">Сравнение функций области видимости</string>
+    <string name="demo_scope_tesvir">Чем отличаются пять функций: что является объектом контекста, что они возвращают, где применяются.</string>
+    <string name="demo_scope_kontekst">Контекст</string>
+    <string name="demo_scope_qaytarir">Возвращает</string>
+    <string name="demo_scope_ne_vaxt">Когда применять?</string>
+    <string name="demo_scope_lambda_neticesi">результат лямбды</string>
+    <string name="demo_scope_obyektin_ozu">сам объект</string>
+    <string name="demo_scope_son_setir">возвращается последняя строка</string>
+    <string name="demo_scope_let">Чтобы поработать с не-null значением и превратить его в другой результат.</string>
+    <string name="demo_scope_run">Чтобы совместить настройку объекта с вычислением результата.</string>
+    <string name="demo_scope_with">Чтобы собрать несколько операций над одним объектом в одном месте.</string>
+    <string name="demo_scope_apply">Чтобы собрать объект (в стиле builder) — самая используемая функция области видимости.</string>
+    <string name="demo_scope_also">Для побочных эффектов — логирования, проверок, отладки. Не ломает цепочку.</string>
+    <string name="demo_coro_basliq">Визуализатор корутин</string>
+    <string name="demo_coro_tesvir">Одни и те же три задачи — сколько они занимают последовательно и параллельно?</string>
+    <string name="demo_coro_ardicil">Последовательно</string>
+    <string name="demo_coro_paralel">Параллельно (async)</string>
+    <string name="demo_coro_serh_ardicil">Последовательно — каждая ждёт предыдущую</string>
+    <string name="demo_coro_serh_paralel">Параллельно — все стартуют одновременно</string>
+    <string name="demo_coro_serh_cemi">всего ~%1$d мс</string>
+    <string name="demo_ms">%1$d мс</string>
+    <string name="demo_coro_basla">Старт</string>
+    <string name="demo_coro_dayandir">Стоп</string>
+    <string name="demo_coro_yeniden">Ещё раз</string>
+    <string name="demo_coro_paralel_bitdi">Параллельно: 1500 мс — заняло ровно столько, сколько самая длинная задача. В 2,2 раза быстрее!</string>
+    <string name="demo_coro_ardicil_bitdi">Последовательно: 3300 мс — каждая задача ждала своей очереди.</string>
+    <string name="demo_coro_gedir">Выполняется…</string>
+    <string name="demo_coro_baslayin">Нажмите «Старт».</string>
+
+    <!-- ===== Мои ошибки (T5.2) ===== -->
+    <string name="sehvlerim_basliq">Мои ошибки</string>
+    <string name="sehvlerim_bos">Ошибок пока нет — пройди тест, и ошибки соберутся здесь.</string>
+    <string name="sehvlerim_izah">Вопрос уходит из списка, когда ты дважды подряд отвечаешь на него правильно.</string>
+    <plurals name="sehvlerim_sayi">
+        <item quantity="one">%d вопрос с ошибкой</item>
+        <item quantity="few">%d вопроса с ошибкой</item>
+        <item quantity="many">%d вопросов с ошибкой</item>
+        <item quantity="other">%d вопроса с ошибкой</item>
+    </plurals>
+    <string name="sehvlerim_test">Тест только по ошибкам</string>
+    <plurals name="sehvlerim_defe">
+        <item quantity="one">%d раз с ошибкой</item>
+        <item quantity="few">%d раза с ошибкой</item>
+        <item quantity="many">%d раз с ошибкой</item>
+        <item quantity="other">%d раза с ошибкой</item>
+    </plurals>
+    <string name="sehvlerim_meta">%1$s · %2$s · %3$s</string>
+    <string name="quiz_rejim_sehvler">Тест по ошибкам</string>
+    <string name="quiz_rejim_sehvler_izah">Только вопросы, на которые ты ответил неверно, — вопрос уходит из списка после двух правильных ответов подряд.</string>
+    <string name="quiz_sehvlere_bax">Посмотреть ошибки</string>
+
+    <!-- ===== Закладки и заметки (T5.3) ===== -->
+    <string name="isareler_basliq">Закладки и заметки</string>
+    <string name="isareler_tab_isareler">Закладки · %1$d</string>
+    <string name="isareler_tab_qeydler">Заметки · %1$d</string>
+    <string name="isareler_bos">Ты ещё ничего не добавил в закладки. Нажми на значок закладки в уроке, упражнении или примере кода.</string>
+    <string name="qeydler_bos">Заметок пока нет. Нажми на значок заметки в уроке или упражнении и напиши своими словами.</string>
+    <string name="isare_tip_bolme">Урок</string>
+    <string name="isare_tip_calisma">Упражнение</string>
+    <string name="isare_tip_kod">Код</string>
+    <string name="isare_elave">В закладки</string>
+    <string name="isare_sil">Убрать из закладок</string>
+    <string name="qeyd_basliq">Моя заметка</string>
+    <string name="qeyd_elave">Написать заметку</string>
+    <string name="qeyd_redakte">Изменить заметку</string>
+    <string name="qeyd_ipucu">Напиши своими словами — что хочешь запомнить?</string>
+    <string name="qeyd_dil_izah">Заметки не переводятся — при смене языка они остаются как есть.</string>
+    <string name="qeyd_saxla">Сохранить</string>
+    <string name="qeyd_sil">Удалить</string>
+    <string name="qeyd_sil_basliq">Удалить заметку?</string>
+    <string name="qeyd_sil_metn">Эта заметка будет удалена навсегда.</string>
+    <string name="qeyd_hamisi">Показать всё</string>
+    <string name="qeyd_qisalt">Свернуть</string>
+    <string name="ayarlar_isareler_izah">Закладки и заметки хранятся на этом устройстве и попадают в резервную копию Android.</string>
+
+    <!-- ===== Статистика (T5.4) ===== -->
+    <string name="stat_basliq">Статистика</string>
+    <string name="stat_sayqaclar">Счётчики</string>
+    <string name="stat_dersler">Пройденные уроки</string>
+    <string name="stat_calismalar">Решённые упражнения</string>
+    <string name="stat_fealiyyet">Последние 30 дней</string>
+    <string name="stat_fealiyyet_xulase">%1$s · %2$s активности</string>
+    <plurals name="stat_calisma_sayi">
+        <item quantity="one">%d упражнение</item>
+        <item quantity="few">%d упражнения</item>
+        <item quantity="many">%d упражнений</item>
+        <item quantity="other">%d упражнения</item>
+    </plurals>
+    <plurals name="stat_gun_sayi">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дня</item>
+    </plurals>
+    <string name="stat_seriya">Текущая серия</string>
+    <string name="stat_en_uzun_seriya">Самая длинная серия</string>
+    <string name="stat_quiz_tarixcesi">Тест — последние раунды</string>
+    <string name="stat_quiz_bos">Ты ещё не проходил тест. Результат появится здесь, когда закончится раунд.</string>
+    <string name="stat_rekord">Рекорд</string>
+    <string name="stat_ac">Вся статистика</string>
+
+    <!-- ===== Путь обучения (T5.5) ===== -->
+    <string name="yol_novbeti">Следующий шаг</string>
+    <string name="yol_tovsiye">%1$s · %2$s</string>
+    <plurals name="yol_qalan_calisma">
+        <item quantity="one">осталось %d упражнение</item>
+        <item quantity="few">осталось %d упражнения</item>
+        <item quantity="many">осталось %d упражнений</item>
+        <item quantity="other">осталось %d упражнения</item>
+    </plurals>
+    <string name="yol_kilidli">Сначала пройди предыдущие темы</string>
+    <string name="yol_kilid_ikon">Впереди рекомендуемого порядка</string>
+    <string name="yol_xeberdarliq">Для этой темы рекомендуется сначала пройти «%1$s» — но, если хочешь, можно читать и сейчас.</string>
+
+    <!-- ===== Доступность (T5.6) ===== -->
+    <string name="a11y_duzgun_cavab">правильный ответ</string>
+    <string name="a11y_sehv_cavab">неправильный ответ — твой выбор</string>
+    <string name="a11y_tereqqi">Прогресс: %1$d%%</string>
+</resources>
